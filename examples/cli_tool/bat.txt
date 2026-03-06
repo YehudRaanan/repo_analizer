@@ -54,21 +54,11 @@ Backend extensions (.proto, .graphql): 0
   pages or app dir: no
   components dir: no
   cmd or bin dir: no
-  src bin: yes
   run train scripts: no
   ipynb files: no
-  model training files: no
-  tf files: no
   k8s manifests: no
-  ansible playbooks: no
   route controller dirs: no
-  db migrations: no
-  openapi spec: no
-  src and tests: yes
-  examples dir: yes
   dockerfile: no
-  ci cd: yes
-  completions or manpages: yes
 
 
 [get_dependencies('')]
@@ -243,147 +233,89 @@ Contents of /src:
 
 ---
 
-[get_file('src/main.rs')]
-(file not found: 'src/main.rs')
+[get_file('src/lib.rs')]
+//! `bat` is a library to print syntax highlighted content.
+//!
+//! The main struct of this crate is `PrettyPrinter` which can be used to
+//! configure and run the syntax highlighting.
+//!
+//! If you need more control, you can also use the structs in the submodules
+//! (start with `controller::Controller`), but note that the API of these
+//! internal modules is much more likely to change. Some or all of these
+//! modules might be removed in the future.
+//!
+//! "Hello world" example:
+//! ```
+//! use bat::PrettyPrinter;
+//!
+//! PrettyPrinter::new()
+//!     .input_from_bytes(b"<span style=\"color: #ff00cc\">Hello world!</span>\n")
+//!     .language("html")
+//!     .print()
+//!     .unwrap();
+//! ```
 
----
-
-[get_directory('src/bin')]
-Contents of /src/bin:
-  [dir] bat
-
----
-
-[get_file('src/bin/bat/main.rs')]
 #![deny(unsafe_code)]
 
-mod app;
-mod assets;
-mod clap_app;
-#[cfg(feature = "application")]
-mod completions;
-mod config;
-mod directories;
-mod input;
+mod macros;
 
-use std::collections::{HashMap, HashSet};
-use std::fmt::Write as _;
-use std::io;
-use std::io::{BufReader, Write};
-use std::path::Path;
-use std::process;
-
-use bat::output::{OutputHandle, OutputType};
-use bat::theme::DetectColorScheme;
-use nu_ansi_term::Color::Green;
-use nu_ansi_term::Style;
-
-use crate::{
-    app::App,
-    config::{config_file, generate_config_file},
-};
-
-#[cfg(feature = "bugreport")]
-use crate::config::system_config_file;
-
-use assets::{assets_from_cache_or_binary, clear_assets};
-use directories::PROJECT_DIRS;
-use globset::GlobMatcher;
-
-use bat::{
-    config::Config,
-    controller::Controller,
-    error::*,
-    input::Input,
-    style::{StyleComponent, StyleComponents},
-    theme::{color_scheme, default_theme, ColorScheme},
-    MappingTarget, PagingMode,
-};
-
-const THEME_PREVIEW_DATA: &[u8] = include_bytes!("../../../assets/theme_preview.rs");
-
-#[cfg(feature = "build-assets")]
-fn build_assets(matches: &clap::ArgMatches, config_dir: &Path, cache_dir: &Path) -> Result<()> {
-    let source_dir = matches
-        .get_one::<String>("source")
-        .map(Path::new)
-        .unwrap_or_else(|| config_dir);
-
-    bat::assets::build(
-        source_dir,
-        !matches.get_flag("blank"),
-        matches.get_flag("acknowledgements"),
-        cache_dir,
-        clap::crate_version!(),
-    )
+pub mod assets;
+pub mod assets_metadata {
+    pub use super::assets::assets_metadata::*;
 }
+pub mod config;
+pub mod controller;
+mod decorations;
+mod diff;
+pub mod error;
+pub mod input;
+mod less;
+#[cfg(feature = "lessopen")]
+mod lessopen;
+pub mod line_range;
+pub(crate) mod nonprintable_notation;
+pub mod output;
+#[cfg(feature = "paging")]
+mod pager;
+#[cfg(feature = "paging")]
+pub(crate) mod paging;
+mod preprocessor;
+mod pretty_printer;
+pub(crate) mod printer;
+pub mod style;
+pub(crate) mod syntax_mapping;
+mod terminal;
+pub mod theme;
+mod vscreen;
+pub(crate) mod wrapping;
 
-fn run_cache_subcommand(
-    matches: &clap::ArgMatches,
-    #[cfg(feature = "build-assets")] config_dir: &Path,
-    default_cache_dir: &Path,
-) -> Result<()> {
-    let cache_dir = matches
-        .get_one::<String>("target")
-        .map(Path::new)
-        .unwrap_or_else(|| default_cache_dir);
+pub use nonprintable_notation::{BinaryBehavior, NonprintableNotation};
+pub use preprocessor::StripAnsiMode;
+pub use pretty_printer::{Input, PrettyPrinter, Syntax};
+pub use syntax_mapping::{MappingTarget, SyntaxMapping};
+pub use wrapping::WrappingMode;
 
-    if matches.get_flag("build") {
-        #[cfg(feature = "build-assets")]
-        build_assets(matches, config_dir, cache_dir)?;
-        #[cfg(not(feature = "build-assets"))]
-        println!("bat has been built without the 'build-assets' feature. The 'cache --build' option is not available.");
-    } else if matches.get_flag("clear") {
-        clear_assets(cache_dir);
-    }
+#[cfg(feature = "paging")]
+pub use paging::PagingMode;
+
+
+---
+
+[get_file('build/main.rs')]
+#[cfg(feature = "application")]
+mod application;
+mod syntax_mapping;
+mod util;
+
+fn main() -> anyhow::Result<()> {
+    // only watch manually-designated files
+    // see: https://doc.rust-lang.org/cargo/reference/build-scripts.html#rerun-if-changed
+    println!("cargo:rerun-if-changed=build/");
+
+    syntax_mapping::build_static_mappings()?;
+
+    #[cfg(feature = "application")]
+    application::gen_man_and_comp()?;
 
     Ok(())
 }
-
-fn get_syntax_mapping_to_paths<'r, 't, I>(mappings: I) -> HashMap<&'t str, Vec<String>>
-where
-    I: IntoIterator<Item = (&'r GlobMatcher, &'r MappingTarget<'t>)>,
-    't: 'r, // target text outlives rule
-{
-    let mut map = HashMap::new();
-    for mapping in mappings {
-        if let (matcher, MappingTarget::MapTo(s)) = mapping {
-            let globs = map.entry(*s).or_insert_with(Vec::new);
-            globs.push(matcher.glob().glob().into());
-        }
-    }
-    map
-}
-
-pub fn get_languages(config: &Config, cache_dir: &Path) -> Result<String> {
-    let mut result: String = String::new();
-
-    let assets = assets_from_cache_or_binary(config.use_custom_assets, cache_dir)?;
-    let mut languages = assets
-        .get_syntaxes()?
-        .iter()
-        .filter(|syntax| !syntax.hidden && !syntax.file_extensions.is_empty())
-        .cloned()
-        .collect::<Vec<_>>();
-
-    // Handling of file-extension conflicts, see issue #1076
-    for lang in &mut languages {
-        let lang_name = lang.name.clone();
-        lang.file_extensions.retain(|extension| {
-            // The 'extension' variable is not certainly a real extension.
-            //
-            // Skip if 'extension' starts with '.', likely a hidden file like '.vimrc'
-            // Also skip if the 'extension' contains another real extension, likely
-            // that is a full match file name like 'CMakeLists.txt' and 'Cargo.lock'
-            if extension.starts_with('.') || Path::new(extension).extension().is_some() {
-                return true;
-            }
-
-            let test_file = Path::new("test").with_extension(extension);
-            let syntax_in_set = assets.get_syntax_for_path(test_file, &config.syntax_mapping);
-            matches!(syntax_in_set, Ok(syntax_in_set) if syntax_in_set.syntax.name == lang_name)
-        });
-    }
-
-    lang
-... [TRUNCATED — showing first 4000 chars]

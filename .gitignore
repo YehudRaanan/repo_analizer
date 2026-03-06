@@ -11,3 +11,6 @@ __pycache__/
 
 # Artifacts
 archive/
+
+# OS generated files
+desktop.ini
