@@ -1,0 +1,175 @@
+=====================================
+REPO CLASSIFICATION SIGNALS
+=====================================
+
+--- METADATA ---
+Name: infisical
+Description: Infisical is the open-source platform for secrets, certificates, and privileged access management.
+Primary language: TypeScript
+Topics: acme, certificate-management, cli, environment-variables, go, golang, node-js, open-source, pki, postgres, private-ca, secret-management, secret-manager, secret-scanning, secrets, secrets-management, security, security-tools, typescript, vault
+
+--- ROOT FILES (signal matches) ---
+Web App:     (none)
+Backend:     (none)
+Library:     (none)
+CLI:         (none)
+Data/ML:     (none)
+Infra:       (none)
+
+--- TOP-LEVEL DIRECTORIES (signal matches) ---
+Web App:     (none)
+Backend:     (none)
+Library:     (none)
+CLI:         (none)
+Data/ML:     (none)
+Infra:       (none)
+
+--- ALL TOP-LEVEL DIRECTORIES ---
+.github, .husky, backend
+
+--- TYPE-SPECIFIC EXTENSION COUNTS ---
+Web App extensions (.tsx, .jsx, .vue, .svelte): 0
+Data/ML extensions (.ipynb): 0
+Infra extensions (.tf, .hcl): 0
+Backend extensions (.proto, .graphql): 0
+
+--- TOP FILE EXTENSIONS (by count) ---
+  .ts: 382
+  .yml: 22
+  .feature: 10
+  .md: 7
+  .json: 6
+  .example: 5
+  .py: 5
+  .png: 4
+  .pem: 4
+  .sh: 3
+  .dockerignore: 2
+  .eslintignore: 2
+  .yaml: 2
+  .gitignore: 2
+  .standalone-infisical: 2
+
+--- BOOLEAN PATTERN CHECKS ---
+  pages or app dir: no
+  components dir: no
+  cmd or bin dir: no
+  run train scripts: no
+  ipynb files: no
+  k8s manifests: no
+  route controller dirs: no
+  dockerfile: yes
+
+
+[get_dependencies('')]
+(no dependency/manifest files found at repo root)
+
+---
+
+[get_directory('backend')]
+Contents of /backend:
+  [dir] bdd
+  [dir] e2e-test
+  [dir] scripts
+  [dir] src
+  [file] .dockerignore
+  [file] .eslintignore
+  [file] .eslintrc.js
+  [file] .gitignore
+  [file] .prettierrc.json
+  [file] Dockerfile
+  [file] Dockerfile.dev
+  [file] Dockerfile.dev.fips
+  [file] babel.config.json
+  [file] dev-entrypoint.sh
+  [file] nodejs.fips.cnf
+  [file] nodemon.json
+  [file] package-lock.json
+  [file] package.json
+  [file] tsconfig.dev.json
+  [file] tsconfig.json
+  [file] tsup.config.js
+  [file] upgrade-path.yaml
+  [file] vitest.e2e.config.mts
+  [file] vitest.unit.config.mts
+
+---
+
+[get_file('backend/package.json')]
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "./dist/main.mjs",
+  "scripts": {
+    "assets:export": "./scripts/export-assets.sh",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "tsx watch --clear-screen=false ./src/main.ts  --config tsconfig.dev.json | pino-pretty --colorize --colorizeObjects --singleLine",
+    "dev:docker": "nodemon",
+    "build": "tsup --sourcemap",
+    "build:frontend": "npm run build --prefix ../frontend",
+    "start": "node --enable-source-maps dist/main.mjs",
+    "type:check": "node --max-old-space-size=8192 ./node_modules/.bin/tsc --noEmit",
+    "lint:fix": "node --max-old-space-size=8192 ./node_modules/.bin/eslint --fix --ext js,ts ./src --max-warnings 0",
+    "lint": "node --max-old-space-size=8192 ./node_modules/.bin/eslint 'src/**/*.ts' --max-warnings 0",
+    "test:unit": "vitest run -c vitest.unit.config.mts",
+    "test:e2e": "vitest run -c vitest.e2e.config.mts --bail=1",
+    "test:e2e-watch": "vitest -c vitest.e2e.config.mts --bail=1",
+    "test:e2e-coverage": "vitest run --coverage -c vitest.e2e.config.mts",
+    "test:bdd": "cd bdd && uv run behave",
+    "generate:component": "tsx ./scripts/create-backend-file.ts",
+    "generate:schema": "tsx ./scripts/generate-schema-types.ts && eslint --fix --ext ts ./src/db/schemas",
+    "auditlog-migration:latest": "node ./dist/db/rename-migrations-to-mjs.mjs && knex --knexfile ./dist/db/auditlog-knexfile.mjs --client pg migrate:latest",
+    "auditlog-migration:up": "knex --knexfile ./dist/db/auditlog-knexfile.mjs --client pg migrate:up",
+    "auditlog-migration:down": "knex --knexfile ./dist/db/auditlog-knexfile.mjs --client pg migrate:down",
+    "auditlog-migration:list": "knex --knexfile ./dist/db/auditlog-knexfile.mjs --client pg migrate:list",
+    "auditlog-migration:status": "knex --knexfile ./dist/db/auditlog-knexfile.mjs --client pg migrate:status",
+    "auditlog-migration:unlock": "knex --knexfile ./dist/db/auditlog-knexfile.mjs migrate:unlock",
+    "auditlog-migration:rollback": "knex --knexfile ./dist/db/auditlog-knexfile.mjs migrate:rollback",
+    "clickhouse-migration:latest": "tsx ./src/db/run-clickhouse-migrations.ts",
+    "migration:new": "tsx ./scripts/create-migration.ts",
+    "migration:up": "npm run auditlog-migration:up && knex --knexfile ./dist/db/knexfile.mjs --client pg migrate:up",
+    "migration:down": "npm run auditlog-migration:down && knex --knexfile ./dist/db/knexfile.mjs --client pg migrate:down",
+    "migration:list": "npm run auditlog-migration:list && knex --knexfile ./dist/db/knexfile.mjs --client pg migrate:list",
+    "migration:latest": "node ./dist/db/rename-migrations-to-mjs.mjs && npm run auditlog-migration:latest && knex --knexfile ./dist/db/knexfile.mjs --client pg migrate:latest",
+    "migration:status": "npm run auditlog-migration:status && knex --knexfile ./dist/db/knexfile.mjs --client pg migrate:status",
+    "migration:rollback": "npm run auditlog-migration:rollback && knex --knexfile ./dist/db/knexfile.mjs migrate:rollback",
+    "migration:unlock": "npm run auditlog-migration:unlock && knex --knexfile ./dist/db/knexfile.mjs migrate:unlock",
+    "migration:up-dev": "knex --knexfile ./src/db/knexfile.ts --client pg migrate:up",
+    "migration:down-dev": "knex --knexfile ./src/db/knexfile.ts --client pg migrate:down",
+    "migration:list-dev": "knex --knexfile ./src/db/knexfile.ts --client pg migrate:list",
+    "migration:latest-dev": "knex --knexfile ./src/db/knexfile.ts --client pg migrate:latest",
+    "migration:status-dev": "knex --knexfile ./src/db/knexfile.ts --client pg migrate:status",
+    "migration:rollback-dev": "knex --knexfile ./src/db/knexfile.ts migrate:rollback",
+    "migration:unlock-dev": "knex --knexfile ./src/db/knexfile.ts migrate:unlock",
+    "migrate:org": "tsx ./scripts/migrate-organization.ts",
+    "seed:new": "tsx ./scripts/create-seed-file.ts",
+    "seed": "knex --knexfile ./dist/db/knexfile.ts --client pg seed:run",
+    "seed-dev": "
+... [TRUNCATED — showing first 4000 chars]
+
+---
+
+[get_directory('backend/src')]
+Contents of /backend/src:
+  [dir] @types
+  [dir] db
+  [dir] ee
+  [dir] keystore
+  [dir] lib
+  [dir] queue
+  [dir] server
+  [dir] services
+  [file] auto-start-migrations.ts
+  [file] main.ts
+
+---
+
+[get_directory('backend/src/server')]
+Contents of /backend/src/server:
+  [dir] config
+  [dir] lib
+  [dir] plugins
+  [dir] routes
+  [file] app.ts
+  [file] boot-strap-check.ts

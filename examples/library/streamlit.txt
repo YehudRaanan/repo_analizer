@@ -1,0 +1,329 @@
+=====================================
+REPO CLASSIFICATION SIGNALS
+=====================================
+
+--- METADATA ---
+Name: streamlit
+Description: Streamlit — A faster way to build and share data apps.
+Primary language: Python
+Topics: data-analysis, data-science, data-visualization, deep-learning, developer-tools, machine-learning, python, streamlit
+
+--- ROOT FILES (signal matches) ---
+Web App:     (none)
+Backend:     (none)
+Library:     (none)
+CLI:         (none)
+Data/ML:     (none)
+Infra:       (none)
+
+--- TOP-LEVEL DIRECTORIES (signal matches) ---
+Web App:     (none)
+Backend:     (none)
+Library:     (none)
+CLI:         (none)
+Data/ML:     (none)
+Infra:       (none)
+
+--- ALL TOP-LEVEL DIRECTORIES ---
+.claude, .codex, .cursor, .devcontainer, .github, .vscode, agent-knowledge, component-lib, e2e_playwright
+
+--- TYPE-SPECIFIC EXTENSION COUNTS ---
+Web App extensions (.tsx, .jsx, .vue, .svelte): 2
+Data/ML extensions (.ipynb): 0
+Infra extensions (.tf, .hcl): 0
+Backend extensions (.proto, .graphql): 0
+
+--- TOP FILE EXTENSIONS (by count) ---
+  .png: 272
+  .yml: 54
+  .md: 50
+  .mdc: 10
+  .json: 9
+  .ts: 9
+  .gitignore: 7
+  .sh: 3
+  .py: 2
+  .yaml: 2
+  .tsx: 2
+  .codex/skills: 1
+  .devcontainer/dockerfile: 1
+  .editorconfig: 1
+  .gitattributes: 1
+
+--- BOOLEAN PATTERN CHECKS ---
+  pages or app dir: no
+  components dir: no
+  cmd or bin dir: no
+  run train scripts: no
+  ipynb files: no
+  k8s manifests: no
+  route controller dirs: no
+  dockerfile: no
+
+
+[get_directory('')]
+Contents of /(root):
+  [dir] .claude
+  [dir] .codex
+  [dir] .cursor
+  [dir] .devcontainer
+  [dir] .github
+  [dir] .vscode
+  [dir] agent-knowledge
+  [dir] component-lib
+  [dir] e2e_playwright
+  [dir] frontend
+  [dir] lib
+  [dir] proto
+  [dir] scripts
+  [dir] specs
+  [dir] wiki
+  [file] .editorconfig
+  [file] .gitattributes
+  [file] .gitignore
+  [file] .nvmrc
+  [file] .pre-commit-config.yaml
+  [file] AGENTS.md
+  [file] CLAUDE.md
+  [file] CODE_OF_CONDUCT.md
+  [file] CONTRIBUTING.md
+  [file] LICENSE
+  [file] Makefile
+  [file] NOTICES
+  [file] README.md
+  [file] SECURITY.md
+  [file] pyproject.toml
+
+---
+
+[get_file('pyproject.toml')]
+# Copyright (c) Streamlit Inc. (2018-2022) Snowflake Inc. (2022-2026)
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+# =============================================================================
+# Root pyproject.toml - Development environment configuration
+# =============================================================================
+# This file defines:
+# - Tool configurations (ruff, mypy, ty)
+# - Development dependency groups
+#
+# The streamlit package itself is defined in lib/pyproject.toml.
+# Test-specific configs are in lib/pyproject.toml and e2e_playwright/pytest.ini.
+# =============================================================================
+
+[project]
+name = "streamlit-dev"
+version = "0.0.0"
+description = "Development environment for Streamlit"
+requires-python = ">=3.10"
+# Empty dependencies - the actual package is installed via [tool.uv.sources]
+dependencies = []
+
+[tool.uv]
+# Minimum uv version required for this project
+required-version = ">=0.9.0"
+
+[tool.uv.sources]
+streamlit = { path = "lib", editable = true }
+
+# =============================================================================
+# Dependency Groups (PEP 735)
+# =============================================================================
+
+[dependency-groups]
+# Development dependencies - includes test group
+dev = [
+  { include-group = "test" },
+  "streamlit",
+  "pre-commit",
+  # We fix ty to a version since its still in beta and likely breaks our CI on updates:
+  "ty==0.0.19",
+  # We fix ruff to a version to be in sync with the pre-commit hook:
+  "ruff==0.15.4",
+  # We are pinning the upper version to not break our CI on updates,
+  # and have dependabot handle the updates instead.
+  "mypy>=1.16.1,<1.20",
+  "mypy-protobuf>=3.2",
+  "semver>=3",
+  "setuptools>=65.5.1",
+  "build",
+  "twine",
+  "wheel",
+  "pytz",
+  # Used for updating emojis via: scripts/update_emojis.py
+  "emoji",
+  # mypy type stubs
+  "types-protobuf",
+  "types-pytz",
+  "types-requests",
+  "types-setuptools",
+  "types-toml",
+  "types-cachetools",
+  "types-Authlib",
+  # pandas-stubs have caused a couple of CI breaks, so we pin to a specific version.
+  # We need to pin 2.3.3.260113 since higher versions require a min Python 3.11 support.
+  "pandas-stubs==2.3.3.260113",
+]
+
+# Test dependencies
+test = [
+  "streamlit",
+  # Testing infrastructure dependencies:
+  "pytest>=8.3.5",
+  "pytest-cov",
+  "hypothesis>=6.17.4",
+  "parameterized",
+  "requests-mock",
+  "testfixtures",
+  # tomli is the backport of tomllib for Python <3.11:
+  "tomli>=2.0.0; python_version < '3.11'",
+  # Packages used to test things users may do with Streamlit:
+  "Authlib>=1.3.2",
+  "graphviz>=0.17",
+  "matplotlib>=3.3.4",
+  "plotly>=5.3.1",
+  "seaborn>=0.11.2",
+  "watchdog>=2.1.5",
+  "streamlit-pdf>=1.0.0",
+  # Optional dependency for better performance:
+  "uvloop>=0.15.2; sys_platform != 'win32'",
+  # Optional dependency used for improved exception formatting:
+  "rich>=10.14.0",
+  # Used by vega-lite / altair e2e tests:
+  "vega_datasets",
+  # Required for Starlette support:
+  "starlette>=0.40.0",
+  "uvicorn>=0.30.0",
+  "python-multipart>=0.0.10",
+  "websockets>=12.0.0",
+  "itsdangerous>=2.1.2",
+  # Only for unit tests:
+  "httpx>=0.24.1",
+  # Playwright and E2E test dependencies:
+  # We pin playwright to a minor version to avoid new browser versions breaking our CI.
+  "playwright==1.58.*",
+  "pytest-playwright>=0.3.3",
+  "pixelmatch>=0.3.0",
+  "pytest-xdist>=3.6.1",
+  # pytest-rerunfailures 16.0 is breaking our CI:
+  # https://github.
+... [TRUNCATED — showing first 4000 chars]
+
+---
+
+[get_file('README.md')]
+<br>
+
+<img src="https://user-images.githubusercontent.com/7164864/217935870-c0bc60a3-6fc0-4047-b011-7b4c59488c91.png" alt="Streamlit logo" style="margin-top:50px"></img>
+
+# Welcome to Streamlit 👋
+
+**A faster way to build and share data apps.**
+
+## What is Streamlit?
+
+Streamlit lets you transform Python scripts into interactive web apps in minutes, instead of weeks. Build dashboards, generate reports, or create chat apps. Once you’ve created an app, you can use our [Community Cloud platform](https://streamlit.io/cloud) to deploy, manage, and share your app.
+
+### Why choose Streamlit?
+
+- **Simple and Pythonic:** Write beautiful, easy-to-read code.
+- **Fast, interactive prototyping:** Let others interact with your data and provide feedback quickly.
+- **Live editing:** See your app update instantly as you edit your script.
+- **Open-source and free:** Join a vibrant community and contribute to Streamlit's future.
+
+## Installation
+
+Open a terminal and run:
+
+```bash
+$ pip install streamlit
+$ streamlit hello
+```
+
+If this opens our sweet _Streamlit Hello_ app in your browser, you're all set! If not, head over to [our docs](https://docs.streamlit.io/get-started) for specific installs.
+
+The app features a bunch of examples of what you can do with Streamlit. Jump to the [quickstart](#quickstart) section to understand how that all works.
+
+<img src="https://user-images.githubusercontent.com/7164864/217936487-1017784e-68ec-4e0d-a7f6-6b97525ddf88.gif" alt="Streamlit Hello" width=500 href="none"></img>
+
+## Quickstart
+
+### A little example
+
+Create a new file named `streamlit_app.py` in your project directory with the following code:
+```python
+import streamlit as st
+x = st.slider("Select a value")
+st.write(x, "squared is", x * x)
+```
+
+Now run it to open the app!
+```
+$ streamlit run streamlit_app.py
+```
+
+<img src="https://user-images.githubusercontent.com/7164864/215172915-cf087c56-e7ae-449a-83a4-b5fa0328d954.gif" width=300 alt="Little example"></img>
+
+### Give me more!
+
+Streamlit comes in with [a ton of additional powerful elements](https://docs.streamlit.io/develop/api-reference) to spice up your data apps and delight your viewers. Some examples:
+
+<table border="0">
+  <tr>
+    <td>
+      <a target="_blank" href="https://docs.streamlit.io/develop/api-reference/widgets">
+        <img src="https://user-images.githubusercontent.com/7164864/217936099-12c16f8c-7fe4-44b1-889a-1ac9ee6a1b44.png" style="max-height:150px; width:auto; display:block;">
+      </a>
+    </td>
+    <td>
+      <a target="_blank" href="https://docs.streamlit.io/develop/api-reference/data/st.dataframe">
+        <img src="https://user-images.githubusercontent.com/7164864/215110064-5eb4e294-8f30-4933-9563-0275230e52b5.gif" style="max-height:150px; width:auto; display:block;">
+      </a>
+    </td>
+    <td>
+      <a target="_blank" href="https://docs.streamlit.io/develop/api-reference/charts">
+        <img src="https://user-images.githubusercontent.com/7164864/215174472-bca8a0d7-cf4b-4268-9c3b-8c03dad50bcd.gif" style="max-height:150px; width:auto; display:block;">
+      </a>
+    </td>
+    <td>
+      <a target="_blank" href="https://docs.streamlit.io/develop/api-reference/layout">
+        <img src="https://user-images.githubusercontent.com/7164864/217936149-a35c35be-0d96-4c63-8c6a-1c4b52aa8f60.png" style="max-height:150px; width:auto; display:block;">
+      </a>
+    </td>
+    <td>
+      <a target="_blank" href="https://docs.streamlit.io/develop/concepts/multipage-apps">
+        <img src="https://user-images.githubusercontent.com/7164864/215173883-eae0de69-7c1d-4d78-97d0-3bc1ab865e5b.gif" style="max-height:150px; width:auto; display:block;">
+      </a>
+    </td>
+    <td>
+      <a target="_blank" href="https://streamlit.io/gallery">
+        <img src="https://user-images.githubusercontent.com/7164864/215109229-6ae9111f-e5c1-4f0b-b3a2-87a79268ccc9.gif" style="max-height:150px; width:auto; display:block;">
+      </a>
+    </td>
+  </tr>
+  <tr>
+    <td>Input widgets</td>
+    <td>Dataframes</td>
+... [TRUNCATED — showing first 4000 chars]
+
+---
+
+[get_directory('lib')]
+Contents of /lib:
+  [dir] streamlit
+  [dir] tests
+  [file] AGENTS.md
+  [file] CLAUDE.md
+  [file] MANIFEST.in
+  [file] pyproject.toml

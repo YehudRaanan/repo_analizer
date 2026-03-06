@@ -1,0 +1,206 @@
+=====================================
+REPO CLASSIFICATION SIGNALS
+=====================================
+
+--- METADATA ---
+Name: freeCodeCamp
+Description: freeCodeCamp.org's open-source codebase and curriculum. Learn math, programming, and computer science for free.
+Primary language: TypeScript
+Topics: careers, certification, community, curriculum, d3, education, freecodecamp, javascript, learn-to-code, math, nodejs, nonprofits, programming, react, teachers
+
+--- ROOT FILES (signal matches) ---
+Web App:     (none)
+Backend:     (none)
+Library:     (none)
+CLI:         (none)
+Data/ML:     (none)
+Infra:       (none)
+
+--- TOP-LEVEL DIRECTORIES (signal matches) ---
+Web App:     (none)
+Backend:     (none)
+Library:     (none)
+CLI:         (none)
+Data/ML:     (none)
+Infra:       (none)
+
+--- ALL TOP-LEVEL DIRECTORIES ---
+.devcontainer, .github, .husky, api, client
+
+--- TYPE-SPECIFIC EXTENSION COUNTS ---
+Web App extensions (.tsx, .jsx, .vue, .svelte): 85
+Data/ML extensions (.ipynb): 0
+Infra extensions (.tf, .hcl): 0
+Backend extensions (.proto, .graphql): 0
+
+--- TOP FILE EXTENSIONS (by count) ---
+  .ts: 195
+  .tsx: 85
+  .json: 63
+  .yml: 28
+  .js: 9
+  .svg: 9
+  .md: 7
+  .png: 5
+  .gitignore: 3
+  .mjs: 3
+  .prisma: 3
+  .css: 2
+  .dockerignore: 1
+  .editorconfig: 1
+  .gitattributes: 1
+
+--- BOOLEAN PATTERN CHECKS ---
+  pages or app dir: no
+  components dir: no
+  cmd or bin dir: no
+  run train scripts: no
+  ipynb files: no
+  k8s manifests: no
+  route controller dirs: yes
+  dockerfile: no
+
+
+[get_dependencies('')]
+(no dependency/manifest files found at repo root)
+
+---
+
+[get_directory('')]
+Contents of /(root):
+  [dir] .devcontainer
+  [dir] .github
+  [dir] .husky
+  [dir] api
+  [dir] client
+  [dir] curriculum
+  [dir] docker
+  [dir] e2e
+  [dir] packages
+  [dir] tools
+  [file] .dockerignore
+  [file] .editorconfig
+  [file] .gitattributes
+  [file] .gitignore
+  [file] .gitmodules
+  [file] .npmrc
+  [file] .nvmrc
+  [file] .prettierignore
+  [file] .prettierrc
+  [file] .stylelintignore
+  [file] .stylelintrc.json
+  [file] LICENSE.md
+  [file] README.md
+  [file] knip.jsonc
+  [file] package.json
+  [file] pnpm-lock.yaml
+  [file] pnpm-workspace.yaml
+  [file] renovate.json
+  [file] sample.env
+  [file] tsconfig-base.json
+  [file] turbo.json
+
+---
+
+[get_file('package.json')]
+{
+  "name": "@freecodecamp/freecodecamp",
+  "version": "0.0.1",
+  "description": "The freeCodeCamp.org open-source codebase and curriculum",
+  "license": "BSD-3-Clause",
+  "private": true,
+  "engines": {
+    "node": ">=24",
+    "pnpm": ">=10"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/freeCodeCamp/freeCodeCamp.git"
+  },
+  "bugs": {
+    "url": "https://github.com/freeCodeCamp/freeCodeCamp/issues"
+  },
+  "homepage": "https://github.com/freeCodeCamp/freeCodeCamp#readme",
+  "author": "freeCodeCamp <team@freecodecamp.org>",
+  "main": "none",
+  "scripts": {
+    "audit-challenges": "cd curriculum && pnpm audit-challenges",
+    "analyze-bundle": "webpack-bundle-analyzer",
+    "build": "turbo build",
+    "build:client": "turbo -F=@freecodecamp/client build",
+    "build:curriculum": "turbo -F=@freecodecamp/curriculum build",
+    "build:api": "turbo -F=@freecodecamp/api build",
+    "challenge-editor": "cd tools/challenge-editor && pnpm dev",
+    "challenge-editor-setup": "git submodule update --init tools/challenge-editor && cd tools/challenge-editor && pnpm install",
+    "clean": "npm-run-all -p clean:client clean:api clean:curriculum --serial clean:packages",
+    "clean-and-develop": "pnpm run clean && pnpm install && pnpm run develop",
+    "clean:api": "cd api && pnpm clean",
+    "clean:client": "cd ./client && pnpm run clean",
+    "clean:curriculum": "rm -rf ./curriculum/generated/curriculum.json",
+    "clean:turbo": "find . -name '.turbo' -type d -prune -exec rm -rf '{}' +",
+    "clean:packages": "find . -name 'node_modules' -type d -prune -exec rm -rf '{}' +",
+    "create-new-project": "cd ./tools/challenge-helper-scripts/ && pnpm run create-project",
+    "create-new-language-block": "cd ./tools/challenge-helper-scripts/ && pnpm run create-language-block",
+    "create-new-quiz": "cd ./tools/challenge-helper-scripts/ && pnpm run create-quiz",
+    "develop": "turbo develop",
+    "develop:client": "cd ./client && turbo develop",
+    "develop:api": "cd ./api && turbo develop",
+    "format": "run-s format:eslint format:prettier",
+    "format:eslint": "turbo lint -- --fix",
+    "format:prettier": "prettier --write .",
+    "i18n-sync": "tsx ./tools/scripts/sync-i18n.ts",
+    "knip": "npx -y knip@5 --include files",
+    "knip:all": "npx -y knip@5 ",
+    "lint-root": "pnpm npm-run-all lint:*",
+    "lint": "turbo type-check && turbo lint && turbo lint-root",
+    "lint:prettier": "prettier --list-different .",
+    "lint:css": "stylelint '**/*.css'",
+    "preseed": "turbo setup",
+    "playwright:install-build-tools": "npx playwright install --with-deps",
+    "rename-challenges": "tsx tools/challenge-helper-scripts/rename-challenge-files.ts",
+    "seed": "pnpm seed:surveys && pnpm seed:exams && DEBUG=fcc:* node ./tools/scripts/seed/seed-demo-user",
+    "seed:certified-user": "pnpm seed:surveys && pnpm seed:exams && pnpm seed:ms-username && DEBUG=fcc:* node ./tools/scripts/seed/seed-demo-user --certified-user",
+    "seed:donating-user": "pnpm seed:surveys && pnpm seed:exams && pnpm seed:ms-username && DEBUG=fcc:* node ./tools/scripts/seed/seed-demo-user --set-true isDonating",
+    "seed:daily-challenges": "cd tools/daily-challenges && pnpm seed-daily-challenges",
+    "seed:exams": "DEBUG=fcc:* node tools/scripts/seed-exams/create-exams",
+    "seed:env-exam": "cd api && pnpm run seed:env-exam",
+    "seed:surveys": "DEBUG=fcc:* node ./tools/scripts/seed/seed-surveys",
+    "seed:ms-username": "DEBUG=fcc:* node ./tools/scripts/seed/seed-ms-username",
+    "serve:client": "cd ./client && pnpm run serve",
+    "serve:client-ci": "cd ./client && pnpm run serve-ci",
+    "start": "turbo setup && npm-run-all -p develop:server serve:client",
+    "test": "turbo test",
+    "test-client": "turbo -F=@freecodecamp/client test",
+    "test-api": "turbo -F=@freecodecamp/api test",
+    "test-curriculum-content": "turbo -F=@freecodecamp/curriculum test-content",
+    "prepare": "husky",
+    "playwright:run": "pnpm -F e2e run playwright
+... [TRUNCATED — showing first 4000 chars]
+
+---
+
+[get_directory('client')]
+Contents of /client:
+  [dir] __mocks__
+  [dir] config
+  [dir] i18n
+  [dir] src
+  [dir] static
+  [dir] tools
+  [dir] utils
+  [file] .babelrc.js
+  [file] .gitignore
+  [file] .lintstagedrc.mjs
+  [file] eslint.config.mjs
+  [file] gatsby-browser.js
+  [file] gatsby-config.js
+  [file] gatsby-node.js
+  [file] gatsby-ssr.js
+  [file] package.json
+  [file] postcss.config.js
+  [file] schema.gql
+  [file] tailwind.config.js
+  [file] tsconfig.json
+  [file] turbo.json
+  [file] vitest-setup.js
+  [file] vitest.config.js

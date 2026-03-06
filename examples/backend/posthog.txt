@@ -1,0 +1,419 @@
+=====================================
+REPO CLASSIFICATION SIGNALS
+=====================================
+
+--- METADATA ---
+Name: posthog
+Description: 🦔 PostHog is an all-in-one developer platform for building successful products. We offer product analytics, web analytics, session replay, error tracking, feature flags, experimentation, surveys, data warehouse, a CDP, and an AI product assistant to help debug your code, ship features faster, and keep all your usage and customer data in one stack.
+Primary language: Python
+Topics: ab-testing, ai-analytics, analytics, cdp, data-warehouse, experiments, feature-flags, javascript, product-analytics, python, react, session-replay, surveys, typescript, web-analytics
+
+--- ROOT FILES (signal matches) ---
+Web App:     (none)
+Backend:     (none)
+Library:     (none)
+CLI:         (none)
+Data/ML:     (none)
+Infra:       (none)
+
+--- TOP-LEVEL DIRECTORIES (signal matches) ---
+Web App:     (none)
+Backend:     (none)
+Library:     (none)
+CLI:         cli
+Data/ML:     (none)
+Infra:       (none)
+
+--- ALL TOP-LEVEL DIRECTORIES ---
+.agents, .claude, .config, .cursor, .dagster_home, .devcontainer, .flox, .github, .husky, .idea, .interface-design, .run, .semgrep, .vscode, .zed, bin, cli, common
+
+--- TYPE-SPECIFIC EXTENSION COUNTS ---
+Web App extensions (.tsx, .jsx, .vue, .svelte): 0
+Data/ML extensions (.ipynb): 0
+Infra extensions (.tf, .hcl): 0
+Backend extensions (.proto, .graphql): 0
+
+--- TOP FILE EXTENSIONS (by count) ---
+  .yml: 70
+  .rs: 59
+  .md: 38
+  .py: 29
+  .go: 27
+  .js: 19
+  .yaml: 16
+  .json: 14
+  .sh: 13
+  .xml: 9
+  .map: 8
+  .mdc: 3
+  .gitignore: 3
+  .tmpl: 3
+  .mjs: 3
+
+--- BOOLEAN PATTERN CHECKS ---
+  pages or app dir: no
+  components dir: no
+  cmd or bin dir: yes
+  run train scripts: no
+  ipynb files: no
+  k8s manifests: no
+  route controller dirs: no
+  dockerfile: yes
+
+
+[get_dependencies('')]
+(no dependency/manifest files found at repo root)
+
+---
+
+[get_directory('')]
+Contents of /(root):
+  [dir] .agents
+  [dir] .claude
+  [dir] .config
+  [dir] .cursor
+  [dir] .dagster_home
+  [dir] .devcontainer
+  [dir] .flox
+  [dir] .github
+  [dir] .husky
+  [dir] .idea
+  [dir] .interface-design
+  [dir] .run
+  [dir] .semgrep
+  [dir] .vscode
+  [dir] .zed
+  [dir] bin
+  [dir] cli
+  [dir] common
+  [dir] devenv
+  [dir] docker
+  [dir] docs
+  [dir] ee
+  [dir] frontend
+  [dir] funnel-udf
+  [dir] hedgebox-dummy
+  [dir] infra-scripts
+  [dir] livestream
+  [dir] nodejs
+  [dir] patches
+  [dir] playwright
+  [dir] posthog
+  [dir] products
+  [dir] proto
+  [dir] rust
+  [dir] services
+  [dir] share
+  [dir] staticfiles
+  [dir] terraform
+  [file] .cursorignore
+  [file] .cursorrules
+  [file] .dockerignore
+  [file] .editorconfig
+  [file] .env.example
+  [file] .envrc
+  [file] .git-blame-ignore-revs
+  [file] .gitattributes
+  [file] .gitignore
+  [file] .kearc
+  [file] .nvmrc
+  [file] .oxfmtrc.json
+  [file] .oxlintrc.json
+  [file] .stylelintignore
+  [file] .stylelintrc.js
+  [file] .test_durations
+  [file] .watchmanconfig
+  [file] AGENTS.md
+  [file] CHANGELOG.md
+  [file] CLAUDE.md
+  [file] CONTRIBUTING.md
+  [file] Dockerfile
+  [file] Dockerfile.ai-evals
+  [file] Dockerfile.llm-analytics
+  [file] Dockerfile.node
+  [file] Dockerfile.playwright
+  [file] LICENSE
+  [file] README.md
+  [file] dagster_cloud.yaml
+  [file] depot.json
+  [file] dist-workspace.toml
+  [file] docker-compose.base.yml
+  [file] docker-compose.dev-coordinator.yml
+  [file] docker-compose.dev-full.yml
+  [file] docker-compose.dev.yml
+  [file] docker-compose.hobby.yml
+  [file] docker-compose.playwright.yml
+  [file] docker-compose.profiles.yml
+  [file] greptile.json
+  [file] manage.py
+  [file] mypy-baseline.txt
+  [file] otel-collector-config.dev.yaml
+  [file] package.json
+  [file] pnpm-lock.yaml
+  [file] pnpm-workspace.yaml
+  [file] postcss.config.js
+  [file] posthog.json
+  [file] pyproject.toml
+  [file] pytest.ini
+  [file] tach.toml
+  [file] test-runner-jest-environment.js
+  [file] test-snapshot-resolver.js
+  [file] tsconfig.dev.json
+  [file] tsconfig.json
+  [file] turbo.json
+  [file] ty-baseline.txt
+  [file] unit.json.tpl
+  [file] uv.lock
+
+---
+
+[get_directory('posthog')]
+Contents of /posthog:
+  [dir] admin
+  [dir] api
+  [dir] approvals
+  [dir] async_migrations
+  [dir] batch_exports
+  [dir] caching
+  [dir] cdp
+  [dir] clickhouse
+  [dir] dags
+  [dir] demo
+  [dir] ducklake
+  [dir] heatmaps
+  [dir] helpers
+  [dir] hogql
+  [dir] hogql_queries
+  [dir] idl
+  [dir] kafka_client
+  [dir] llm
+  [dir] logging
+  [dir] management
+  [dir] migrations
+  [dir] models
+  [dir] personhog_client
+  [dir] plugins
+  [dir] queries
+  [dir] rbac
+  [dir] schema_migrations
+  [dir] security
+  [dir] session_recordings
+  [dir] settings
+  [dir] storage
+  [dir] tasks
+  [dir] taxonomy
+  [dir] templates
+  [dir] templatetags
+  [dir] temporal
+  [dir] test
+  [dir] user_scripts
+  [dir] warehouse
+  [file] __init__.py
+  [file] apps.py
+  [file] asgi.py
+  [file] auth.py
+  [file] cache_utils.py
+  [file] celery.py
+  [file] cloud_utils.py
+  [file] conftest.py
+  [file] constants.py
+  [file] continuous_profiling.py
+  [file] database_healthcheck.py
+  [file] date_util.py
+  [file] dbrouter.py
+  [file] decorators.py
+  [file] domain_connect.py
+  [file] email.py
+  [file] errors.py
+  [file] event_usage.py
+  [file] exceptions.py
+  [file] exceptions_capture.py
+  [file] filters.py
+  [file] geoip.py
+  [file] git.py
+  [file] gzip_middleware.py
+  [file] health.py
+  [file] jwt.py
+  [file] metrics.py
+  [file] middleware.py
+  [file] oauth2_urls.py
+  [file] otel_instrumentation.py
+  [file] passkey.py
+  [file] permissions.py
+  [file] person_db_router.py
+  [file] ph_client.py
+  [file] products.py
+  [file] rate_limit.py
+  [file] redis.py
+  [file] renderers.py
+  [file] sampling.py
+  [file] schema.py
+  [file] schema_helpers.py
+  [file] scopes.py
+  [file] sync.py
+  [file] test_video_segments.yaml
+  [file] types.py
+  [file] udf_versioner.py
+  [file] urls.py
+  [file] user_permissions.py
+  [file] utils.py
+  [file] utils_cors.py
+  [file] version_requirement.py
+  [file] views.py
+  [file] workos_radar.py
+  [file] wsgi.py
+
+---
+
+[get_directory('posthog/api')]
+Contents of /posthog/api:
+  [dir] advanced_activity_logs
+  [dir] dashboards
+  [dir] event_definition_generators
+  [dir] external_web_analytics
+  [dir] file_system
+  [dir] oauth
+  [dir] services
+  [dir] test
+  [dir] wizard
+  [file] __init__.py
+  [file] action.py
+  [file] alert.py
+  [file] annotation.py
+  [file] app_metrics.py
+  [file] app_metrics2.py
+  [file] async_migration.py
+  [file] authentication.py
+  [file] batch_imports.py
+  [file] capture.py
+  [file] cli_auth.py
+  [file] cohort.py
+  [file] column_configuration.py
+  [file] comments.py
+  [file] core_event.py
+  [file] csp.py
+  [file] csp_reporting.py
+  [file] data_color_theme.py
+  [file] data_management.py
+  [file] dead_letter_queue.py
+  [file] debug_ch_queries.py
+  [file] documentation.py
+  [file] element.py
+  [file] email_verification.py
+  [file] embedding_worker.py
+  [file] event.py
+  [file] event_definition.py
+  [file] event_schema.py
+  [file] exports.py
+  [file] feature_flag.py
+  [file] flag_value.py
+  [file] forbid_destroy_model.py
+  [file] github.py
+  [file] health_issue.py
+  [file] hog.py
+  [file] hog_flow.py
+  [file] hog_flow_batch_job.py
+  [file] hog_flow_template.py
+  [file] hog_function.py
+  [file] hog_function_template.py
+  [file] ingestion_warnings.py
+  [file] insight.py
+  [file] insight_serializers.py
+  [file] insight_suggestions.py
+  [file] insight_variable.py
+  [file] instance_settings.py
+  [file] instance_status.py
+  [file] integration.py
+  [file] llm_prompt.py
+  [file] llm_prompt_serializers.py
+  [file] log_entries.py
+  [file] materialized_column_slot.py
+  [file] metalytics.py
+  [file] mixins.py
+  [file] monitoring.py
+  [file] my_notifications.py
+  [file] object_media_preview.py
+  [file] onboarding.py
+  [file] organization.py
+  [file] organization_domain.py
+  [file] organization_feature_flag.py
+  [file] organization_integration.py
+  [file] organization_invite.py
+  [file] organization_member.py
+  [file] person.py
+  [file] personal_api_key.py
+  [file] playwright_setup.py
+  [file] plugin.py
+  [file] plugin_log_entry.py
+  [file] project.py
+  [file] proxy_record.py
+  [file] query.py
+  [file] quick_filters.py
+  [file] remote_config.py
+  [file] report.py
+  [file] resource_transfer.py
+  [file] routing.py
+  [file] scheduled_change.py
+  [file] schema_property_group.py
+  [file] sdk_doctor.py
+  [file] search.py
+  [file] session.py
+  [file] shared.py
+  [file] sharing.py
+  [file] signup.py
+  [file] site_app.py
+  [file] slack.py
+  [file] survey.py
+  [file] tagged_item.py
+  [file] team.py
+  [file] two_factor_qrcode.py
+  [file] two_factor_reset.py
+  [file] unsubscribe.py
+  [file] uploaded_media.py
+  [file] user.py
+  [file] user_home_settings.py
+  [file] utils.py
+  [file] web_analytics_filter_preset.py
+  [file] web_experiment.py
+  [file] web_vitals.py
+  [file] webauthn.py
+  [file] zendesk_orgcheck.py
+
+---
+
+[get_directory('posthog/settings')]
+Contents of /posthog/settings:
+  [file] __init__.py
+  [file] access.py
+  [file] activity_log.py
+  [file] async_migrations.py
+  [file] base_variables.py
+  [file] batch_exports.py
+  [file] celery.py
+  [file] continuous_profiling.py
+  [file] dagster.py
+  [file] data_stores.py
+  [file] data_warehouse.py
+  [file] demo.py
+  [file] dynamic_settings.py
+  [file] ee.py
+  [file] feature_flags.py
+  [file] geoip.py
+  [file] ingestion.py
+  [file] integrations.py
+  [file] logs.py
+  [file] metrics.py
+  [file] object_storage.py
+  [file] overrides.py
+  [file] payments.py
+  [file] personhog.py
+  [file] schedules.py
+  [file] service_requirements.py
+  [file] ses.py
+  [file] session_replay.py
+  [file] session_replay_v2.py
+  [file] shell_plus.py
+  [file] statsd.py
+  [file] temporal.py
+  [file] utils.py
+  [file] web.py

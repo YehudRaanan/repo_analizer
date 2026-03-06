@@ -1,0 +1,433 @@
+=====================================
+REPO CLASSIFICATION SIGNALS
+=====================================
+
+--- METADATA ---
+Name: llama.cpp
+Description: LLM inference in C/C++
+Primary language: C++
+Topics: ggml
+
+--- ROOT FILES (signal matches) ---
+Web App:     (none)
+Backend:     (none)
+Library:     (none)
+CLI:         CMakeLists.txt
+Data/ML:     (none)
+Infra:       (none)
+
+--- TOP-LEVEL DIRECTORIES (signal matches) ---
+Web App:     (none)
+Backend:     (none)
+Library:     (none)
+CLI:         (none)
+Data/ML:     (none)
+Infra:       (none)
+
+--- ALL TOP-LEVEL DIRECTORIES ---
+.devops, .gemini, .github, benches, ci, cmake, common, docs, examples
+
+--- TYPE-SPECIFIC EXTENSION COUNTS ---
+Web App extensions (.tsx, .jsx, .vue, .svelte): 0
+Data/ML extensions (.ipynb): 0
+Infra extensions (.tf, .hcl): 0
+Backend extensions (.proto, .graphql): 0
+
+--- TOP FILE EXTENSIONS (by count) ---
+  .md: 65
+  .cpp: 45
+  .yml: 36
+  .h: 34
+  .py: 21
+  .sh: 18
+  .xml: 18
+  .txt: 17
+  .json: 11
+  .csv: 11
+  .kt: 11
+  .dockerfile: 10
+  .nix: 10
+  .webp: 10
+  .cmake: 9
+
+--- BOOLEAN PATTERN CHECKS ---
+  pages or app dir: no
+  components dir: no
+  cmd or bin dir: no
+  run train scripts: no
+  ipynb files: no
+  k8s manifests: no
+  route controller dirs: no
+  dockerfile: no
+
+
+[get_directory('')]
+Contents of /(root):
+  [dir] .devops
+  [dir] .gemini
+  [dir] .github
+  [dir] benches
+  [dir] ci
+  [dir] cmake
+  [dir] common
+  [dir] docs
+  [dir] examples
+  [dir] ggml
+  [dir] gguf-py
+  [dir] grammars
+  [dir] include
+  [dir] licenses
+  [dir] media
+  [dir] models
+  [dir] pocs
+  [dir] requirements
+  [dir] scripts
+  [dir] src
+  [dir] tests
+  [dir] tools
+  [dir] vendor
+  [file] .clang-format
+  [file] .clang-tidy
+  [file] .dockerignore
+  [file] .ecrc
+  [file] .editorconfig
+  [file] .flake8
+  [file] .gitignore
+  [file] .gitmodules
+  [file] .pre-commit-config.yaml
+  [file] AGENTS.md
+  [file] AUTHORS
+  [file] CLAUDE.md
+  [file] CMakeLists.txt
+  [file] CMakePresets.json
+  [file] CODEOWNERS
+  [file] CONTRIBUTING.md
+  [file] LICENSE
+  [file] Makefile
+  [file] README.md
+  [file] SECURITY.md
+  [file] build-xcframework.sh
+  [file] convert_hf_to_gguf.py
+  [file] convert_hf_to_gguf_update.py
+  [file] convert_llama_ggml_to_gguf.py
+  [file] convert_lora_to_gguf.py
+  [file] flake.lock
+  [file] flake.nix
+  [file] mypy.ini
+  [file] poetry.lock
+  [file] pyproject.toml
+  [file] pyrightconfig.json
+  [file] requirements.txt
+
+---
+
+[get_file('pyproject.toml')]
+[tool.poetry]
+name = "llama-cpp-scripts"
+version = "0.0.0"
+description = "Scripts that ship with llama.cpp"
+authors = ["GGML <ggml@ggml.ai>"]
+readme = "README.md"
+homepage = "https://ggml.ai"
+repository = "https://github.com/ggml-org/llama.cpp"
+keywords = ["ggml", "gguf", "llama.cpp"]
+packages = [{ include = "*.py", from = "." }]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
+
+[tool.poetry.dependencies]
+python = ">=3.9"
+numpy = "^1.25.0"
+sentencepiece = ">=0.1.98,<0.3.0"
+transformers = ">=4.35.2,<5.0.0"
+protobuf = ">=4.21.0,<5.0.0"
+gguf = { path = "./gguf-py" }
+torch = { version = "^2.2.0", source = "pytorch" }
+
+[tool.poetry.dev-dependencies]
+pytest = "^5.2"
+
+
+# Force wheel + cpu
+# For discussion and context see https://github.com/python-poetry/poetry#6409
+[[tool.poetry.source]]
+name = "pytorch"
+url = "https://download.pytorch.org/whl/cpu"
+priority = "explicit"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.poetry.scripts]
+llama-convert-hf-to-gguf = "convert_hf_to_gguf:main"
+llama-convert-lora-to-gguf = "convert_lora_to_gguf:main"
+llama-convert-llama-ggml-to-gguf = "convert_llama_ggml_to_gguf:main"
+llama-ggml-vk-generate-shaders = "ggml_vk_generate_shaders:main"
+
+
+---
+
+[get_file('README.md')]
+# llama.cpp
+
+![llama](https://user-images.githubusercontent.com/1991296/230134379-7181e485-c521-4d23-a0d6-f7b3b61ba524.png)
+
+[![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](https://opensource.org/licenses/MIT)
+[![Release](https://img.shields.io/github/v/release/ggml-org/llama.cpp)](https://github.com/ggml-org/llama.cpp/releases)
+[![Server](https://github.com/ggml-org/llama.cpp/actions/workflows/server.yml/badge.svg)](https://github.com/ggml-org/llama.cpp/actions/workflows/server.yml)
+
+[Manifesto](https://github.com/ggml-org/llama.cpp/discussions/205) / [ggml](https://github.com/ggml-org/ggml) / [ops](https://github.com/ggml-org/llama.cpp/blob/master/docs/ops.md)
+
+LLM inference in C/C++
+
+## Recent API changes
+
+- [Changelog for `libllama` API](https://github.com/ggml-org/llama.cpp/issues/9289)
+- [Changelog for `llama-server` REST API](https://github.com/ggml-org/llama.cpp/issues/9291)
+
+## Hot topics
+
+- **[guide : using the new WebUI of llama.cpp](https://github.com/ggml-org/llama.cpp/discussions/16938)**
+- [guide : running gpt-oss with llama.cpp](https://github.com/ggml-org/llama.cpp/discussions/15396)
+- [[FEEDBACK] Better packaging for llama.cpp to support downstream consumers 🤗](https://github.com/ggml-org/llama.cpp/discussions/15313)
+- Support for the `gpt-oss` model with native MXFP4 format has been added | [PR](https://github.com/ggml-org/llama.cpp/pull/15091) | [Collaboration with NVIDIA](https://blogs.nvidia.com/blog/rtx-ai-garage-openai-oss) | [Comment](https://github.com/ggml-org/llama.cpp/discussions/15095)
+- Multimodal support arrived in `llama-server`: [#12898](https://github.com/ggml-org/llama.cpp/pull/12898) | [documentation](./docs/multimodal.md)
+- VS Code extension for FIM completions: https://github.com/ggml-org/llama.vscode
+- Vim/Neovim plugin for FIM completions: https://github.com/ggml-org/llama.vim
+- Hugging Face Inference Endpoints now support GGUF out of the box! https://github.com/ggml-org/llama.cpp/discussions/9669
+- Hugging Face GGUF editor: [discussion](https://github.com/ggml-org/llama.cpp/discussions/9268) | [tool](https://huggingface.co/spaces/CISCai/gguf-editor)
+
+----
+
+## Quick start
+
+Getting started with llama.cpp is straightforward. Here are several ways to install it on your machine:
+
+- Install `llama.cpp` using [brew, nix or winget](docs/install.md)
+- Run with Docker - see our [Docker documentation](docs/docker.md)
+- Download pre-built binaries from the [releases page](https://github.com/ggml-org/llama.cpp/releases)
+- Build from source by cloning this repository - check out [our build guide](docs/build.md)
+
+Once installed, you'll need a model to work with. Head to the [Obtaining and quantizing models](#obtaining-and-quantizing-models) section to learn more.
+
+Example command:
+
+```sh
+# Use a local model file
+llama-cli -m my_model.gguf
+
+# Or download and run a model directly from Hugging Face
+llama-cli -hf ggml-org/gemma-3-1b-it-GGUF
+
+# Launch OpenAI-compatible API server
+llama-server -hf ggml-org/gemma-3-1b-it-GGUF
+```
+
+## Description
+
+The main goal of `llama.cpp` is to enable LLM inference with minimal setup and state-of-the-art performance on a wide
+range of hardware - locally and in the cloud.
+
+- Plain C/C++ implementation without any dependencies
+- Apple silicon is a first-class citizen - optimized via ARM NEON, Accelerate and Metal frameworks
+- AVX, AVX2, AVX512 and AMX support for x86 architectures
+- RVV, ZVFH, ZFH, ZICBOP and ZIHINTPAUSE support for RISC-V architectures
+- 1.5-bit, 2-bit, 3-bit, 4-bit, 5-bit, 6-bit, and 8-bit integer quantization for faster inference and reduced memory use
+- Custom CUDA kernels for running LLMs on NVIDIA GPUs (support for AMD GPUs via HIP and Moore Threads GPUs via MUSA)
+- Vulkan and SYCL backend support
+- CPU+GPU hybrid inference to partially accelerate models larger than the total VRAM capacity
+
+The `llama.cpp` project is the main playground for developing new features for the [ggml](https://github.com/ggml-org/ggml) library.
+
+<detail
+... [TRUNCATED — showing first 4000 chars]
+
+---
+
+[get_file('CMakeLists.txt')]
+cmake_minimum_required(VERSION 3.14...3.28) # for add_link_options and implicit target directories.
+project("llama.cpp" C CXX)
+include(CheckIncludeFileCXX)
+
+#set(CMAKE_WARN_DEPRECATED YES)
+set(CMAKE_WARN_UNUSED_CLI YES)
+
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
+
+if (NOT XCODE AND NOT MSVC AND NOT CMAKE_BUILD_TYPE)
+    set(CMAKE_BUILD_TYPE Release CACHE STRING "Build type" FORCE)
+    set_property(CACHE CMAKE_BUILD_TYPE PROPERTY STRINGS "Debug" "Release" "MinSizeRel" "RelWithDebInfo")
+endif()
+
+message("CMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE}")
+
+# Add path to modules
+list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake/")
+
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
+set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
+
+if (CMAKE_SOURCE_DIR STREQUAL CMAKE_CURRENT_SOURCE_DIR)
+    set(LLAMA_STANDALONE ON)
+
+    include(git-vars)
+
+    # configure project version
+    # TODO
+else()
+    set(LLAMA_STANDALONE OFF)
+endif()
+
+option(LLAMA_USE_SYSTEM_GGML "Use system libggml" OFF)
+
+option(LLAMA_WASM_MEM64 "llama: use 64-bit memory in WASM builds" ON)
+
+if (EMSCRIPTEN)
+    set(BUILD_SHARED_LIBS_DEFAULT OFF)
+
+    # Use 64-bit memory to support backend_get_memory queries
+    # TODO: analyze performance impact, see https://spidermonkey.dev/blog/2025/01/15/is-memory64-actually-worth-using
+    if (LLAMA_WASM_MEM64)
+      add_compile_options("-sMEMORY64=1")
+      add_link_options("-sMEMORY64=1")
+    endif()
+    add_link_options("-sALLOW_MEMORY_GROWTH=1")
+
+    option(LLAMA_WASM_SINGLE_FILE "llama: embed WASM inside the generated llama.js" OFF)
+    option(LLAMA_BUILD_HTML "llama: build HTML file" ON)
+    if (LLAMA_BUILD_HTML)
+        set(CMAKE_EXECUTABLE_SUFFIX ".html")
+    endif()
+else()
+    if (MINGW)
+        set(BUILD_SHARED_LIBS_DEFAULT OFF)
+    else()
+        set(BUILD_SHARED_LIBS_DEFAULT ON)
+    endif()
+endif()
+
+option(BUILD_SHARED_LIBS "build shared libraries" ${BUILD_SHARED_LIBS_DEFAULT})
+
+if (WIN32)
+    add_compile_definitions(_CRT_SECURE_NO_WARNINGS)
+endif()
+
+if (MSVC)
+    add_compile_options("$<$<COMPILE_LANGUAGE:C>:/utf-8>")
+    add_compile_options("$<$<COMPILE_LANGUAGE:CXX>:/utf-8>")
+    add_compile_options("$<$<COMPILE_LANGUAGE:C>:/bigobj>")
+    add_compile_options("$<$<COMPILE_LANGUAGE:CXX>:/bigobj>")
+endif()
+
+if (LLAMA_STANDALONE)
+    # enable parallel builds for msbuild
+    list(APPEND CMAKE_VS_GLOBALS UseMultiToolTask=true)
+    list(APPEND CMAKE_VS_GLOBALS EnforceProcessCountAcrossBuilds=true)
+endif()
+
+if (CMAKE_SYSTEM_NAME STREQUAL "iOS")
+    set(LLAMA_TOOLS_INSTALL_DEFAULT OFF)
+else()
+    set(LLAMA_TOOLS_INSTALL_DEFAULT ${LLAMA_STANDALONE})
+endif()
+
+#
+# option list
+#
+
+# debug
+option(LLAMA_ALL_WARNINGS           "llama: enable all compiler warnings"                   ON)
+option(LLAMA_ALL_WARNINGS_3RD_PARTY "llama: enable all compiler warnings in 3rd party libs" OFF)
+
+# build
+option(LLAMA_FATAL_WARNINGS "llama: enable -Werror flag" OFF)
+
+# sanitizers
+option(LLAMA_SANITIZE_THREAD    "llama: enable thread sanitizer"    OFF)
+option(LLAMA_SANITIZE_ADDRESS   "llama: enable address sanitizer"   OFF)
+option(LLAMA_SANITIZE_UNDEFINED "llama: enable undefined sanitizer" OFF)
+
+# utils
+option(LLAMA_BUILD_COMMON "llama: build common utils library" ${LLAMA_STANDALONE})
+
+# extra artifacts
+option(LLAMA_BUILD_TESTS    "llama: build tests"          ${LLAMA_STANDALONE})
+option(LLAMA_BUILD_TOOLS    "llama: build tools"          ${LLAMA_STANDALONE})
+option(LLAMA_BUILD_EXAMPLES "llama: build examples"       ${LLAMA_STANDALONE})
+option(LLAMA_BUILD_SERVER   "llama: build server example" ${LLAMA_STANDALONE})
+option(LLAMA_TOOLS_INSTALL  "llama: install tools"        ${LLAMA_TOOLS_INSTALL_DEFAULT})
+option(LLAMA_TESTS_INSTALL  "llama: install tests"        ON)
+
+# 3rd party libs
+option(LLAMA_OPENSSL    "llama: use openssl to support HTTPS" ON)
+option(LLAMA_LLGUIDANCE "llama-common: include LLGuidance library for structured output in common utils" OFF)
+
+
+# Required for relocatable CMake package
+include(${CMAKE_CURRENT_SOURCE_DIR}/cmake/
+... [TRUNCATED — showing first 4000 chars]
+
+---
+
+[get_directory('src')]
+Contents of /src:
+  [dir] models
+  [file] CMakeLists.txt
+  [file] llama-adapter.cpp
+  [file] llama-adapter.h
+  [file] llama-arch.cpp
+  [file] llama-arch.h
+  [file] llama-batch.cpp
+  [file] llama-batch.h
+  [file] llama-chat.cpp
+  [file] llama-chat.h
+  [file] llama-context.cpp
+  [file] llama-context.h
+  [file] llama-cparams.cpp
+  [file] llama-cparams.h
+  [file] llama-grammar.cpp
+  [file] llama-grammar.h
+  [file] llama-graph.cpp
+  [file] llama-graph.h
+  [file] llama-hparams.cpp
+  [file] llama-hparams.h
+  [file] llama-impl.cpp
+  [file] llama-impl.h
+  [file] llama-io.cpp
+  [file] llama-io.h
+  [file] llama-kv-cache-iswa.cpp
+  [file] llama-kv-cache-iswa.h
+  [file] llama-kv-cache.cpp
+  [file] llama-kv-cache.h
+  [file] llama-kv-cells.h
+  [file] llama-memory-hybrid-iswa.cpp
+  [file] llama-memory-hybrid-iswa.h
+  [file] llama-memory-hybrid.cpp
+  [file] llama-memory-hybrid.h
+  [file] llama-memory-recurrent.cpp
+  [file] llama-memory-recurrent.h
+  [file] llama-memory.cpp
+  [file] llama-memory.h
+  [file] llama-mmap.cpp
+  [file] llama-mmap.h
+  [file] llama-model-loader.cpp
+  [file] llama-model-loader.h
+  [file] llama-model-saver.cpp
+  [file] llama-model-saver.h
+  [file] llama-model.cpp
+  [file] llama-model.h
+  [file] llama-quant.cpp
+  [file] llama-quant.h
+  [file] llama-sampler.cpp
+  [file] llama-sampler.h
+  [file] llama-vocab.cpp
+  [file] llama-vocab.h
+  [file] llama.cpp
+  [file] unicode-data.cpp
+  [file] unicode-data.h
+  [file] unicode.cpp
+  [file] unicode.h

@@ -17,6 +17,12 @@ RAW_BASE = "https://raw.githubusercontent.com"
 MAX_FILE_CHARS = 4000
 MAX_TREE_ITEMS = 500  # truncate huge monorepos
 
+# Binary/Generic file types to ignore to save context/API calls
+BINARY_EXTENSIONS = {
+    ".png", ".jpg", ".jpeg", ".gif", ".ico", ".svg", ".pdf", ".zip", ".gz",
+    ".exe", ".dll", ".so", ".bin", ".pyc", ".ipynb_checkpoints", ".DS_Store"
+}
+
 
 # ── Auth ─────────────────────────────────────────────────────────────────────
 
@@ -108,7 +114,12 @@ def get_file(owner: str, repo: str, path: str) -> str | None:
     Fetch the raw content of a single file.
     Returns None if the file doesn't exist.
     Truncates at MAX_FILE_CHARS with a notice.
+    Skips binary files based on extension.
     """
+    ext = os.path.splitext(path)[1].lower()
+    if ext in BINARY_EXTENSIONS:
+        return f"(Skipping binary/unsupported file: {path})"
+
     url = f"{RAW_BASE}/{owner}/{repo}/HEAD/{path}"
     r = requests.get(url, headers=_headers(), timeout=15)
     if r.status_code == 404:

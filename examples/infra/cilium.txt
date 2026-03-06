@@ -1,0 +1,292 @@
+=====================================
+REPO CLASSIFICATION SIGNALS
+=====================================
+
+--- METADATA ---
+Name: cilium
+Description: eBPF-based Networking, Security, and Observability
+Primary language: Go
+Topics: bpf, cncf, cni, containers, ebpf, k8s, kernel, kubernetes, kubernetes-networking, loadbalancing, monitoring, networking, observability, security, troubleshooting, xdp
+
+--- ROOT FILES (signal matches) ---
+Web App:     (none)
+Backend:     (none)
+Library:     (none)
+CLI:         (none)
+Data/ML:     (none)
+Infra:       (none)
+
+--- TOP-LEVEL DIRECTORIES (signal matches) ---
+Web App:     (none)
+Backend:     (none)
+Library:     (none)
+CLI:         (none)
+Data/ML:     (none)
+Infra:       (none)
+
+--- ALL TOP-LEVEL DIRECTORIES ---
+.devcontainer, .github, .nvim, .vscode, Documentation
+
+--- TYPE-SPECIFIC EXTENSION COUNTS ---
+Web App extensions (.tsx, .jsx, .vue, .svelte): 0
+Data/ML extensions (.ipynb): 0
+Infra extensions (.tf, .hcl): 0
+Backend extensions (.proto, .graphql): 0
+
+--- TOP FILE EXTENSIONS (by count) ---
+  .yaml: 202
+  .md: 155
+  .sh: 13
+  .yml: 12
+  .json: 5
+  .css: 5
+  .rst: 4
+  .py: 3
+  .txt: 2
+  .conf: 2
+  .svg: 2
+  .gitignore: 2
+  .js: 2
+  .aux: 1
+  .clang-format: 1
+
+--- BOOLEAN PATTERN CHECKS ---
+  pages or app dir: no
+  components dir: no
+  cmd or bin dir: no
+  run train scripts: no
+  ipynb files: no
+  k8s manifests: yes
+  route controller dirs: no
+  dockerfile: no
+
+
+[get_directory('')]
+Contents of /(root):
+  [dir] .devcontainer
+  [dir] .github
+  [dir] .nvim
+  [dir] .vscode
+  [dir] Documentation
+  [dir] api
+  [dir] bpf
+  [dir] bugtool
+  [dir] cilium-cli
+  [dir] cilium-dbg
+  [dir] cilium-health
+  [dir] clustermesh-apiserver
+  [dir] contrib
+  [dir] daemon
+  [dir] examples
+  [dir] hack
+  [dir] hubble
+  [dir] hubble-relay
+  [dir] images
+  [dir] install
+  [dir] operator
+  [dir] pkg
+  [dir] plugins
+  [dir] standalone-dns-proxy
+  [dir] test
+  [dir] tools
+  [dir] vendor
+  [file] .authors.aux
+  [file] .clang-format
+  [file] .clomonitor.yml
+  [file] .custom-gcl.yaml
+  [file] .gitattributes
+  [file] .gitignore
+  [file] .golangci.yaml
+  [file] .mailmap
+  [file] AUTHORS
+  [file] CODEOWNERS
+  [file] CODE_OF_CONDUCT.md
+  [file] CONTRIBUTING.md
+  [file] LICENSE
+  [file] MAINTAINERS.md
+  [file] Makefile
+  [file] Makefile.defs
+  [file] Makefile.docker
+  [file] Makefile.kind
+  [file] Makefile.quiet
+  [file] README.rst
+  [file] SECURITY-INSIGHTS.yml
+  [file] SECURITY.md
+  [file] USERS.md
+  [file] VERSION
+  [file] go.mod
+  [file] go.sum
+  [file] netlify.toml
+  [file] stable.txt
+
+---
+
+[get_dependencies('')]
+(no dependency/manifest files found at repo root)
+
+---
+
+[get_file('go.mod')]
+module github.com/cilium/cilium
+
+go 1.25.0
+
+require (
+	github.com/AdaLogics/go-fuzz-headers v0.0.0-20240806141605-e8a1dd7889d6
+	github.com/Azure/azure-sdk-for-go/sdk/azcore v1.21.0
+	github.com/Azure/azure-sdk-for-go/sdk/azidentity v1.13.1
+	github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/compute/armcompute/v7 v7.3.0
+	github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/network/armnetwork/v9 v9.0.0
+	github.com/aliyun/alibaba-cloud-sdk-go v1.63.107
+	github.com/aws/aws-sdk-go-v2 v1.41.2
+	github.com/aws/aws-sdk-go-v2/config v1.32.10
+	github.com/aws/aws-sdk-go-v2/feature/ec2/imds v1.18.18
+	github.com/aws/aws-sdk-go-v2/service/ec2 v1.293.0
+	github.com/aws/smithy-go v1.24.2
+	github.com/blang/semver/v4 v4.0.0
+	github.com/cespare/xxhash/v2 v2.3.0
+	github.com/cilium/charts v0.0.0-20260218165736-2086fdfa8914
+	github.com/cilium/coverbee v0.3.3-0.20240723084546-664438750fce
+	github.com/cilium/dns v1.1.51-0.20240603182237-af788769786a
+	github.com/cilium/ebpf v0.20.1-0.20260218191617-ee67e7f43dd9
+	github.com/cilium/endpointslice-controller v0.0.0-20250410163339-ffb33e27879c
+	github.com/cilium/fake v0.7.0
+	github.com/cilium/hive v1.0.0
+	github.com/cilium/lumberjack/v2 v2.4.2
+	github.com/cilium/proxy v0.0.0-20250623105955-2136f59a4ea1
+	github.com/cilium/statedb v0.7.0
+	github.com/cilium/stream v0.0.1
+	github.com/cilium/workerpool v1.3.0
+	github.com/cloudflare/cfssl v1.6.5
+	github.com/containernetworking/cni v1.3.0
+	github.com/coreos/go-iptables v0.8.0
+	github.com/coreos/go-systemd/v22 v22.7.0
+	github.com/davecgh/go-spew v1.1.2-0.20180830191138-d8f796af33cc
+	github.com/docker/docker v28.5.2+incompatible
+	github.com/docker/libnetwork v0.8.0-dev.2.0.20210525090646-64b7a4574d14
+	github.com/envoyproxy/go-control-plane/contrib v1.36.0
+	github.com/envoyproxy/go-control-plane/envoy v1.37.0
+	github.com/evanphx/json-patch v5.9.11+incompatible
+	github.com/fatih/color v1.18.0
+	github.com/fsnotify/fsnotify v1.9.0
+	github.com/go-logr/logr v1.4.3
+	github.com/go-openapi/errors v0.22.6
+	github.com/go-openapi/loads v0.23.2
+	github.com/go-openapi/runtime v0.29.2
+	github.com/go-openapi/spec v0.22.3
+	github.com/go-openapi/strfmt v0.25.0
+	github.com/go-openapi/swag v0.25.4
+	github.com/go-openapi/validate v0.25.1
+	github.com/google/cel-go v0.27.0
+	github.com/google/go-cmp v0.7.0
+	github.com/google/go-github/v84 v84.0.0
+	github.com/google/go-licenses/v2 v2.0.1
+	github.com/google/gops v0.3.28
+	github.com/google/renameio/v2 v2.0.2
+	github.com/google/uuid v1.6.0
+	github.com/gopacket/gopacket v1.5.0
+	github.com/gorilla/mux v1.8.1
+	github.com/grpc-ecosystem/go-grpc-middleware/v2 v2.3.3
+	github.com/grpc-ecosystem/go-grpc-prometheus v1.2.0
+	github.com/hashicorp/go-hclog v1.6.3
+	github.com/hashicorp/go-immutable-radix/v2 v2.1.0
+	github.com/hashicorp/golang-lru/v2 v2.0.7
+	github.com/hmarr/codeowners v1.2.1
+	github.com/jeremywohl/flatten v1.0.1
+	github.com/json-iterator/go v1.1.12
+	github.com/kevinburke/ssh_config v1.6.0
+	github.com/lthibault/jitterbug/v2 v2.2.2
+	github.com/mackerelio/go-osstat v0.2.6
+	github.com/mattn/go-shellwords v1.0.12
+	github.com/mdlayher/arp v0.0.0-20220512170110-6706a2966875
+	github.com/mdlayher/ethernet v0.0.0-20220221185849-529eae5b6118
+	github.com/mdlayher/ndp v1.1.0
+	github.com/mdlayher/packet v1.1.2
+	github.com/mitchellh/go-wordwrap v1.0.1
+	github.com/onsi/ginkgo v1.16.5
+	github.com/onsi/ginkgo/v2 v2.27.2
+	github.com/onsi/gomega v1.38.2
+	github.com/osrg/gobgp/v3 v3.37.0
+	github.com/pkg/browser v0.0.0-20240102092130-5ac0b6a4141c
+	github.com/pmezard/go-difflib v1.0.1-0.20181226105442-5d4384ee4fb2
+	github.com/prometheus-community/pro-bing v0.8.0
+	github.com/prometheus/client_golang v1.23.2
+	github.com/prometheus/client_model v0.6.2
+	github.com/prometheus/common v0.67.5
+	github.com/prometheus/procfs v0.20.1
+	github.com/russross/blackfriday/v2 v2.1.0
+	github.com/sasha-s/go-deadlock v0.3.6
+	github.com/sirupsen/logrus v1.9.4
+	github.com/spf13/afero v1.15.0
+	github.com/spf13/cast v1.10.0
+	github.com/spf13/cobra v1.10.2
+	github.com/spf13/pflag v1.0.1
+... [TRUNCATED — showing first 4000 chars]
+
+---
+
+[get_file('README.rst')]
+.. raw:: html
+
+   <picture>
+      <source media="(prefers-color-scheme: light)" srcset="https://cdn.jsdelivr.net/gh/cilium/cilium@main/Documentation/images/logo.png" width="350" alt="Cilium Logo">
+      <img src="https://cdn.jsdelivr.net/gh/cilium/cilium@main/Documentation/images/logo-dark.png" width="350" alt="Cilium Logo">
+   </picture>
+
+|cii| |go-report| |clomonitor| |artifacthub| |slack| |go-doc| |rtd| |apache| |bsd| |gpl| |fossa| |gateway-api| |codespaces|
+
+Cilium is a networking, observability, and security solution with an eBPF-based
+dataplane. It provides a simple flat Layer 3 network with the ability to span
+multiple clusters in either a native routing or overlay mode. It is L7-protocol
+aware and can enforce network policies on L3-L7 using an identity based security
+model that is decoupled from network addressing.
+
+Cilium implements distributed load balancing for traffic between pods and to
+external services, and is able to fully replace kube-proxy, using efficient
+hash tables in eBPF allowing for almost unlimited scale. It also supports
+advanced functionality like integrated ingress and egress gateway, bandwidth
+management and service mesh, and provides deep network and security visibility and monitoring.
+
+A new Linux kernel technology called eBPF_ is at the foundation of Cilium. It
+supports dynamic insertion of eBPF bytecode into the Linux kernel at various
+integration points such as: network IO, application sockets, and tracepoints to
+implement security, networking and visibility logic. eBPF is highly efficient
+and flexible. To learn more about eBPF, visit `eBPF.io`_.
+
+.. image:: Documentation/images/cilium-overview.png
+   :alt: Overview of Cilium features for networking, observability, service mesh, and runtime security
+
+.. raw:: html
+
+   <a href="https://cncf.io/">
+      <picture>
+         <source media="(prefers-color-scheme: light)" srcset="https://github.com/cncf/artwork/blob/main/other/cncf-member/graduated/color/cncf-graduated-color.svg" />
+         <img src="https://github.com/cncf/artwork/blob/main/other/cncf-member/graduated/white/cncf-graduated-white.svg" alt="CNCF Graduated Project" height="80" />
+      </picture>
+   </a>
+   <a href="https://ebpf.io/">
+      <picture>
+         <source media="(prefers-color-scheme: light)" srcset=".github/assets/ebpf-horizontal.svg" />
+         <img src=".github/assets/ebpf-horizontal-dark-back.svg" alt="eBPF Logo" height="80" align="right" />
+      </picture>
+   </a>
+
+Stable Releases
+===============
+
+The Cilium community maintains minor stable releases for the last three minor
+Cilium versions. Older Cilium stable versions from minor releases prior to that
+are considered EOL.
+
+For upgrades to new minor releases please consult the `Cilium Upgrade Guide`_.
+
+Listed below are the actively maintained release branches along with their latest
+patch release, corresponding image pull tags and their release notes:
+
++---------------------------------------------------------+------------+------------------------------------+----------------------------------------------------------------------------+
+| `v1.19 <https://github.com/cilium/cilium/tree/v1.19>`__ | 2026-02-17 | ``quay.io/cilium/cilium:v1.19.1``  | `Release Notes <https://github.com/cilium/cilium/releases/tag/v1.19.1>`__  |
++---------------------------------------------------------+------------+------------------------------------+----------------------------------------------------------------------------+
+| `v1.18 <https://github.com/cilium/cilium/tree/v1.18>`__ | 2026-02-12 | ``quay.io/cilium/cilium:v1.18.7``  | `Release Notes <https://github.com/cilium/cilium/releases/tag/v1.18.7>`__  |
++---------------------------------------------------------+------------+------------------------------------+----------------------------------------------------------------------------+
+| `v1.17 <https://github.com/cilium/cilium/tree/v1.17>`__ | 2026-02-12 | ``quay.io/cilium/cilium:v1.17.13`` | `Release Notes <https://github.com/cilium
+... [TRUNCATED — showing first 4000 chars]

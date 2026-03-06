@@ -1,0 +1,247 @@
+=====================================
+REPO CLASSIFICATION SIGNALS
+=====================================
+
+--- METADATA ---
+Name: outline
+Description: The fastest knowledge base for growing teams. Beautiful, realtime collaborative, feature packed, and markdown compatible.
+Primary language: TypeScript
+Topics: docker, hacktoberfest, javascript, mobx, nodejs, react, slack, wiki
+
+--- ROOT FILES (signal matches) ---
+Web App:     (none)
+Backend:     Procfile
+Library:     (none)
+CLI:         (none)
+Data/ML:     (none)
+Infra:       (none)
+
+--- TOP-LEVEL DIRECTORIES (signal matches) ---
+Web App:     (none)
+Backend:     (none)
+Library:     (none)
+CLI:         (none)
+Data/ML:     (none)
+Infra:       (none)
+
+--- ALL TOP-LEVEL DIRECTORIES ---
+.github, .husky, .vscode, __mocks__, app
+
+--- TYPE-SPECIFIC EXTENSION COUNTS ---
+Web App extensions (.tsx, .jsx, .vue, .svelte): 316
+Data/ML extensions (.ipynb): 0
+Infra extensions (.tf, .hcl): 0
+Backend extensions (.proto, .graphql): 0
+
+--- TOP FILE EXTENSIONS (by count) ---
+  .tsx: 316
+  .ts: 100
+  .yml: 14
+  .js: 6
+  .json: 5
+  .md: 3
+  .babelrc: 1
+  .dockerignore: 1
+  .development: 1
+  .sample: 1
+  .test: 1
+  .gitignore: 1
+  .husky/pre-commit: 1
+  .nvmrc: 1
+  .prettierrc: 1
+
+--- BOOLEAN PATTERN CHECKS ---
+  pages or app dir: yes
+  components dir: no
+  cmd or bin dir: no
+  run train scripts: no
+  ipynb files: no
+  k8s manifests: no
+  route controller dirs: no
+  dockerfile: yes
+
+
+[get_dependencies('')]
+(no dependency/manifest files found at repo root)
+
+---
+
+[get_directory('app')]
+Contents of /app:
+  [dir] actions
+  [dir] components
+  [dir] editor
+  [dir] hooks
+  [dir] menus
+  [dir] models
+  [dir] routes
+  [dir] scenes
+  [dir] stores
+  [dir] styles
+  [dir] test
+  [dir] typings
+  [dir] utils
+  [file] .oxlintrc.json
+  [file] env.ts
+  [file] index.tsx
+  [file] types.ts
+
+---
+
+[get_file('app/env.ts')]
+declare global {
+  interface Window {
+    env: Record<string, any>;
+  }
+}
+
+if (!window.env) {
+  throw new Error(
+    "Config could not be parsed. \nSee: https://docs.getoutline.com/s/hosting/doc/troubleshooting-HXckrzCqDJ#h-config-could-not-be-parsed"
+  );
+}
+
+const env: Record<string, any> & {
+  isDevelopment: boolean;
+  isTest: boolean;
+  isProduction: boolean;
+} = {
+  ...window.env,
+  isDevelopment: window.env.ENVIRONMENT === "development",
+  isTest: window.env.ENVIRONMENT === "test",
+  isProduction: window.env.ENVIRONMENT === "production",
+};
+
+export default env;
+
+
+---
+
+[get_directory('')]
+Contents of /(root):
+  [dir] .github
+  [dir] .husky
+  [dir] .vscode
+  [dir] __mocks__
+  [dir] app
+  [dir] docs
+  [dir] patches
+  [dir] plugins
+  [dir] public
+  [dir] server
+  [dir] shared
+  [file] .babelrc
+  [file] .dockerignore
+  [file] .env.development
+  [file] .env.sample
+  [file] .env.test
+  [file] .gitignore
+  [file] .jestconfig.json
+  [file] .nvmrc
+  [file] .oxlintrc.json
+  [file] .prettierrc
+  [file] .sequelizerc
+  [file] .yarnrc.yml
+  [file] AGENTS.md
+  [file] CLAUDE.md
+  [file] Dockerfile
+  [file] Dockerfile.base
+  [file] LICENSE
+  [file] Makefile
+  [file] Procfile
+  [file] README.md
+  [file] app.json
+  [file] build.js
+  [file] crowdin.yml
+  [file] docker-compose.yml
+  [file] i18next-parser.config.js
+  [file] lint-staged.config.mjs
+  [file] package.json
+  [file] relativeci.config.js
+  [file] tsconfig.json
+  [file] vite.config.ts
+  [file] yarn.lock
+
+---
+
+[get_file('package.json')]
+{
+  "name": "outline",
+  "private": true,
+  "license": "Business Source License 1.1",
+  "main": "index.js",
+  "scripts": {
+    "clean": "rimraf build",
+    "copy:i18n": "mkdir -p ./build/shared/i18n && cp -R ./shared/i18n/locales ./build/shared/i18n",
+    "build:i18n": "i18next --silent '{shared,app,server,plugins}/**/*.{ts,tsx}' && yarn copy:i18n",
+    "build:server": "node ./build.js",
+    "build": "yarn clean && yarn vite:build && yarn build:i18n && yarn build:server",
+    "start": "node ./build/server/index.js",
+    "dev": "NODE_ENV=development yarn concurrently -n api,collaboration  -c \"blue,magenta\" \"node --inspect=0.0.0.0 build/server/index.js --services=cron,collaboration,websockets,admin,web,worker\"",
+    "dev:backend": "NODE_ENV=development nodemon --quiet --exec \"yarn build:server && yarn dev\" -e js,ts,tsx --watch server --watch shared --watch plugins --watch .env --watch .env.local --watch .env.development --ignore \"shared/components/**/*.tsx?\" --ignore \"plugins/client/**/*.tsx?\" --ignore \"**/*.test.ts\" --ignore data/ --ignore build/ --ignore app/ --ignore shared/editor --ignore server/migrations",
+    "dev:watch": "NODE_ENV=development yarn concurrently -n backend,frontend \"yarn dev:backend\" \"yarn vite:dev\"",
+    "lint": "oxlint --type-aware app server shared plugins",
+    "lint:changed": "git diff --name-only --diff-filter=ACMRTUXB | grep -E '\\.(js|jsx|ts|tsx)$' | xargs -r oxlint",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "prepare": "husky install",
+    "postinstall": "yarn patch-package",
+    "install-local-ssl": "node ./server/scripts/install-local-ssl.js",
+    "release": "node ./server/scripts/release.js",
+    "heroku-postbuild": "yarn build && yarn db:migrate",
+    "db:create-migration": "sequelize migration:create",
+    "db:create": "sequelize db:create",
+    "db:migrate": "sequelize db:migrate",
+    "db:rollback": "sequelize db:migrate:undo",
+    "db:reset": "sequelize db:drop && sequelize db:create && sequelize db:migrate",
+    "upgrade": "git fetch && git pull && yarn install && yarn heroku-postbuild",
+    "test": "TZ=UTC jest --config=.jestconfig.json",
+    "test:app": "TZ=UTC jest --config=.jestconfig.json --selectProjects app",
+    "test:shared": "TZ=UTC jest --config=.jestconfig.json --selectProjects shared-node shared-jsdom",
+    "test:server": "TZ=UTC jest --config=.jestconfig.json --selectProjects server",
+    "vite:dev": "VITE_CJS_IGNORE_WARNING=true vite",
+    "vite:build": "VITE_CJS_IGNORE_WARNING=true vite build",
+    "vite:preview": "VITE_CJS_IGNORE_WARNING=true vite preview"
+  },
+  "funding": {
+    "type": "GitHub Sponsors ❤",
+    "url": "https://github.com/sponsors/outline"
+  },
+  "engines": {
+    "node": ">=20.12 <21 || 22"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/outline/outline.git"
+  },
+  "browserslist": [
+    "> 0.25%, not dead"
+  ],
+  "dependencies": {
+    "@aws-sdk/client-s3": "3.956.0",
+    "@aws-sdk/lib-storage": "3.956.0",
+    "@aws-sdk/s3-presigned-post": "3.956.0",
+    "@aws-sdk/s3-request-presigner": "3.956.0",
+    "@aws-sdk/signature-v4-crt": "^3.956.0",
+    "@benrbray/prosemirror-math": "^0.2.2",
+    "@bull-board/api": "^6.7.10",
+    "@bull-board/koa": "^6.13.0",
+    "@css-inline/css-inline-wasm": "^0.18.0",
+    "@dnd-kit/core": "^6.3.1",
+    "@dnd-kit/modifiers": "^6.0.1",
+    "@dnd-kit/sortable": "^7.0.2",
+    "@dotenvx/dotenvx": "^1.51.2",
+    "@emoji-mart/data": "^1.2.1",
+    "@fast-csv/parse": "^5.0.5",
+    "@fortawesome/fontawesome-svg-core": "^7.1.0",
+    "@fortawesome/free-brands-svg-icons": "^7.1.0",
+    "@fortawesome/free-solid-svg-icons": "^7.1.0",
+    "@fortawesome/react-fontawesome": "^0.2.6",
+    "@getoutline/react-roving-tabindex": "^3.2.4",
+    "@gitbeaker/rest": "^43.8.0",
+    "@hocuspocus/extension-redis": "1.1.2",
+    "@hocuspocus/extension-throttle": "1.1.2",
+    "@hocuspocus/provider": "1.1.2",
+    "@hocuspocus/server": "1.1.2",
+    "@juggle/resize-observer": "^
+... [TRUNCATED — showing first 4000 chars]

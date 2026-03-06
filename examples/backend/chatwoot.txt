@@ -1,0 +1,366 @@
+=====================================
+REPO CLASSIFICATION SIGNALS
+=====================================
+
+--- METADATA ---
+Name: chatwoot
+Description: Open-source live-chat, email support, omni-channel desk. An alternative to Intercom, Zendesk, Salesforce Service Cloud etc. 🔥💬
+Primary language: Ruby
+Topics: actioncable, chat-widget, conversation, customer-support, dashboard, design, docker, docker-image, heroku, intercom, javascript, livechat, opensource, rails, ruby, sass, vuejs, whatsapp, zendesk
+
+--- ROOT FILES (signal matches) ---
+Web App:     (none)
+Backend:     Procfile
+Library:     (none)
+CLI:         (none)
+Data/ML:     (none)
+Infra:       (none)
+
+--- TOP-LEVEL DIRECTORIES (signal matches) ---
+Web App:     (none)
+Backend:     (none)
+Library:     (none)
+CLI:         (none)
+Data/ML:     (none)
+Infra:       (none)
+
+--- ALL TOP-LEVEL DIRECTORIES ---
+.circleci, .dependabot, .devcontainer, .github, .husky, .qlty, .vscode, .windsurf, __mocks__, app
+
+--- TYPE-SPECIFIC EXTENSION COUNTS ---
+Web App extensions (.tsx, .jsx, .vue, .svelte): 1
+Data/ML extensions (.ipynb): 0
+Infra extensions (.tf, .hcl): 0
+Backend extensions (.proto, .graphql): 0
+
+--- TOP FILE EXTENSIONS (by count) ---
+  .rb: 268
+  .yml: 27
+  .scss: 24
+  .js: 15
+  .md: 8
+  .json: 4
+  .png: 4
+  .gitignore: 2
+  .yaml: 2
+  .keep: 2
+  .all-contributorsrc: 1
+  .browserslistrc: 1
+  .sql: 1
+  .devcontainer/dockerfile: 1
+  .base: 1
+
+--- BOOLEAN PATTERN CHECKS ---
+  pages or app dir: yes
+  components dir: no
+  cmd or bin dir: no
+  run train scripts: no
+  ipynb files: no
+  k8s manifests: no
+  route controller dirs: no
+  dockerfile: no
+
+
+[get_dependencies('')]
+[Gemfile]
+source 'https://rubygems.org'
+
+ruby '3.4.4'
+
+##-- base gems for rails --##
+gem 'rack-cors', '2.0.0', require: 'rack/cors'
+gem 'rails', '~> 7.1'
+# Reduces boot times through caching; required in config/boot.rb
+gem 'bootsnap', require: false
+
+##-- rails application helper gems --##
+gem 'acts-as-taggable-on'
+gem 'attr_extras'
+gem 'browser'
+gem 'hashie'
+gem 'jbuilder'
+gem 'kaminari'
+gem 'responders', '>= 3.1.1'
+gem 'rest-client'
+gem 'telephone_number'
+gem 'time_diff'
+gem 'tzinfo-data'
+gem 'valid_email2'
+gem 'email-provider-info'
+# compress javascript config.assets.js_compressor
+gem 'uglifier'
+##-- used for single column multiple binary flags in notification settings/feature flagging --##
+gem 'flag_shih_tzu'
+# Random name generator for user names
+gem 'haikunator'
+# Template parsing safely
+gem 'liquid'
+# Parse Markdown to HTML
+gem 'commonmarker'
+# Validate Data against JSON Schema
+gem 'json_schemer'
+# used in swagger build
+gem 'json_refs'
+# Rack middleware for blocking & throttling abusive requests
+gem 'rack-attack', '>= 6.7.0'
+# a utility tool for streaming, flexible and safe downloading of remote files
+gem 'down'
+# authentication type to fetch and send mail over oauth2.0
+gem 'gmail_xoauth'
+# Lock net-smtp to 0.3.4 to avoid issues with gmail_xoauth2
+gem 'net-smtp',  '~> 0.3.4'
+# Prevent CSV injection
+gem 'csv-safe'
+
+##-- for active storage --##
+gem 'aws-sdk-s3', require: false
+# original gem isn't maintained actively
+# we wanted updated version of faraday which is a dependency for slack-ruby-client
+gem 'azure-storage-blob', git: 'https://github.com/chatwoot/azure-storage-ruby', branch: 'chatwoot', require: false
+gem 'google-cloud-storage', '>= 1.48.0', require: false
+gem 'image_processing'
+
+##-- for actionmailbox --##
+gem 'aws-actionmailbox-ses', '~> 0'
+
+##-- gems for database --#
+gem 'groupdate'
+gem 'pg'
+gem 'redis'
+gem 'redis-namespace'
+# super fast record imports in bulk
+gem 'activerecord-import'
+
+gem 'searchkick'
+gem 'opensearch-ruby'
+gem 'faraday_middleware-aws-sigv4'
+
+##--- gems for server & infra configuration ---##
+gem 'dotenv-rails', '>= 3.0.0'
+gem 'foreman'
+gem 'puma'
+gem 'vite_rails'
+# metrics on heroku
+gem 'barnes'
+
+##--- gems for authentication & authorization ---##
+gem 'devise', '>= 4.9.4'
+gem 'devise-secure_password', git: 'https://github.com/chatwoot/devise-secure_password', branch: 'chatwoot'
+gem 'devise_token_auth', '>= 1.2.3'
+# two-factor authentication
+gem 'devise-two-factor', '>= 5.0.0'
+# authorization
+gem 'jwt'
+gem 'pundit'
+
+# super admin
+gem 'administrate', '>= 0.20.1'
+gem 'administrate-field-active_storage', '>= 1.0.3'
+gem 'administrate-field-belongs_to_search', '>= 0.9.0'
+
+##--- gems for pubsub service ---##
+# https://karolgalanciak.com/blog/2019/11/30/from-activerecord-callbacks-to-publish-slash-subscribe-pattern-and-event-driven-design/
+gem 'wisper', '2.0.0'
+
+##--- gems for channels ---##
+gem 'facebook-messenger'
+gem 'line-bot-api'
+gem 'twilio-ruby'
+# twitty will handle subscription of twitter account events
+# gem 'twitty', git: 'https://github.com/chatwoot/twitty'
+gem 'twitty', '~> 0.1.5'
+# facebook client
+gem 'koala'
+# slack client
+gem 'slack-ruby-client', '~> 2.7.0'
+# for dialogflow integrations
+gem 'google-cloud-dialogflow-v2', '>= 0.24.0'
+gem 'grpc'
+# Translate integrations
+# 'google-cloud-translate' gem depends on faraday 2.0 version
+# this dependency breaks the slack-ruby-client gem
+gem 'google-cloud-translate-v3', '>= 0.7.0'
+
+##-- apm and error monitoring ---#
+# loaded only when environment variables are set.
+# ref application.rb
+gem 'datadog', '~> 2.0', require: false
+gem 'elastic-apm', require: false
+gem 'newrelic_rpm', require: false
+gem 'newrelic-sidekiq-metrics', '>= 1.6.2', require: false
+gem 'scout_apm', require: false
+gem 'sentry-rails', '>= 5.19.0', require: false
+gem 'sentry-ruby', require: false
+gem 'sentry-sidekiq', '>= 5.19.0', require: false
+
+##-- background job processing --##
+gem 'sidekiq', '>= 7.3.1'
+# We want cron jobs
+gem 'sidekiq-cron', '>= 1.12.0'
+# for sidekiq healthcheck
+gem
+... [TRUNCATED — showing first 4000 chars]
+
+---
+
+[get_directory('')]
+Contents of /(root):
+  [dir] .circleci
+  [dir] .dependabot
+  [dir] .devcontainer
+  [dir] .github
+  [dir] .husky
+  [dir] .qlty
+  [dir] .vscode
+  [dir] .windsurf
+  [dir] __mocks__
+  [dir] app
+  [dir] bin
+  [dir] clevercloud
+  [dir] config
+  [dir] db
+  [dir] deployment
+  [dir] docker
+  [dir] enterprise
+  [dir] lib
+  [dir] log
+  [dir] public
+  [dir] rubocop
+  [dir] script
+  [dir] spec
+  [dir] swagger
+  [dir] theme
+  [dir] tmp
+  [dir] vendor
+  [file] .all-contributorsrc
+  [file] .browserslistrc
+  [file] .bundler-audit.yml
+  [file] .dockerignore
+  [file] .editorconfig
+  [file] .env.example
+  [file] .eslintrc.js
+  [file] .gitignore
+  [file] .nvmrc
+  [file] .prettierrc
+  [file] .rspec
+  [file] .rubocop.yml
+  [file] .ruby-version
+  [file] .scss-lint.yml
+  [file] .slugignore
+  [file] AGENTS.md
+  [file] CLAUDE.md
+  [file] CODE_OF_CONDUCT.md
+  [file] CONTRIBUTING.md
+  [file] Capfile
+  [file] Gemfile
+  [file] Gemfile.lock
+  [file] LICENSE
+  [file] Makefile
+  [file] Procfile
+  [file] Procfile.dev
+  [file] Procfile.test
+  [file] Procfile.tunnel
+  [file] README.md
+  [file] Rakefile
+  [file] SECURITY.md
+  [file] VERSION_CW
+  [file] VERSION_CWCTL
+  [file] app.json
+  [file] config.ru
+  [file] crowdin.yml
+  [file] docker-compose.production.yaml
+  [file] docker-compose.test.yaml
+  [file] docker-compose.yaml
+  [file] histoire.config.ts
+  [file] package.json
+  [file] pnpm-lock.yaml
+  [file] postcss.config.js
+  [file] semantic.yml
+  [file] tailwind.config.js
+  [file] vite.config.ts
+  [file] vitest.setup.js
+  [file] workbox-config.js
+
+---
+
+[get_directory('app')]
+Contents of /app:
+  [dir] actions
+  [dir] assets
+  [dir] builders
+  [dir] channels
+  [dir] controllers
+  [dir] dashboards
+  [dir] dispatchers
+  [dir] drops
+  [dir] fields
+  [dir] finders
+  [dir] helpers
+  [dir] javascript
+  [dir] jobs
+  [dir] listeners
+  [dir] mailboxes
+  [dir] mailers
+  [dir] models
+  [dir] policies
+  [dir] presenters
+  [dir] services
+  [dir] views
+
+---
+
+[get_directory('app/models')]
+Contents of /app/models:
+  [dir] channel
+  [dir] concerns
+  [dir] integrations
+  [file] access_token.rb
+  [file] account.rb
+  [file] account_user.rb
+  [file] agent_bot.rb
+  [file] agent_bot_inbox.rb
+  [file] application_record.rb
+  [file] article.rb
+  [file] assignment_policy.rb
+  [file] attachment.rb
+  [file] automation_rule.rb
+  [file] campaign.rb
+  [file] canned_response.rb
+  [file] category.rb
+  [file] contact.rb
+  [file] contact_inbox.rb
+  [file] conversation.rb
+  [file] conversation_participant.rb
+  [file] csat_survey_response.rb
+  [file] custom_attribute_definition.rb
+  [file] custom_filter.rb
+  [file] dashboard_app.rb
+  [file] data_import.rb
+  [file] email_template.rb
+  [file] folder.rb
+  [file] inbox.rb
+  [file] inbox_assignment_policy.rb
+  [file] inbox_member.rb
+  [file] installation_config.rb
+  [file] integrations.rb
+  [file] jsonb_attributes_length_validator.rb
+  [file] kbase.rb
+  [file] label.rb
+  [file] macro.rb
+  [file] mention.rb
+  [file] message.rb
+  [file] note.rb
+  [file] notification.rb
+  [file] notification_setting.rb
+  [file] notification_subscription.rb
+  [file] platform_app.rb
+  [file] platform_app_permissible.rb
+  [file] portal.rb
+  [file] related_category.rb
+  [file] reporting_event.rb
+  [file] super_admin.rb
+  [file] team.rb
+  [file] team_member.rb
+  [file] user.rb
+  [file] webhook.rb
+  [file] working_hour.rb

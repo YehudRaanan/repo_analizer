@@ -1,0 +1,280 @@
+=====================================
+REPO CLASSIFICATION SIGNALS
+=====================================
+
+--- METADATA ---
+Name: superset
+Description: Apache Superset is a Data Visualization and Data Exploration Platform
+Primary language: TypeScript
+Topics: analytics, apache, apache-superset, asf, bi, business-analytics, business-intelligence, data-analysis, data-analytics, data-engineering, data-science, data-visualization, data-viz, flask, python, react, sql-editor, superset
+
+--- ROOT FILES (signal matches) ---
+Web App:     (none)
+Backend:     (none)
+Library:     (none)
+CLI:         (none)
+Data/ML:     (none)
+Infra:       (none)
+
+--- TOP-LEVEL DIRECTORIES (signal matches) ---
+Web App:     (none)
+Backend:     (none)
+Library:     (none)
+CLI:         (none)
+Data/ML:     (none)
+Infra:       (none)
+
+--- ALL TOP-LEVEL DIRECTORIES ---
+.claude, .cursor, .devcontainer, .github, ASF, CHANGELOG, RELEASING, RESOURCES, docker, docs
+
+--- TYPE-SPECIFIC EXTENSION COUNTS ---
+Web App extensions (.tsx, .jsx, .vue, .svelte): 0
+Data/ML extensions (.ipynb): 0
+Infra extensions (.tf, .hcl): 0
+Backend extensions (.proto, .graphql): 0
+
+--- TOP FILE EXTENSIONS (by count) ---
+  .md: 105
+  .mdx: 84
+  .png: 71
+  .yml: 60
+  .sh: 24
+  .json: 11
+  .gif: 10
+  .py: 6
+  .jpg: 6
+  .yaml: 4
+  .example: 3
+  .gitignore: 3
+  .j2: 3
+  .txt: 2
+  .coveragerc: 1
+
+--- BOOLEAN PATTERN CHECKS ---
+  pages or app dir: no
+  components dir: no
+  cmd or bin dir: no
+  run train scripts: no
+  ipynb files: no
+  k8s manifests: no
+  route controller dirs: no
+  dockerfile: yes
+
+
+[get_dependencies('')]
+(no dependency/manifest files found at repo root)
+
+---
+
+[get_directory('')]
+Contents of /(root):
+  [dir] .claude
+  [dir] .cursor
+  [dir] .devcontainer
+  [dir] .github
+  [dir] ASF
+  [dir] CHANGELOG
+  [dir] RELEASING
+  [dir] RESOURCES
+  [dir] docker
+  [dir] docs
+  [dir] helm
+  [dir] requirements
+  [dir] scripts
+  [dir] superset
+  [dir] superset-core
+  [dir] superset-embedded-sdk
+  [dir] superset-extensions-cli
+  [dir] superset-frontend
+  [dir] superset-websocket
+  [dir] tests
+  [file] .asf.yaml
+  [file] .codecov.yml
+  [file] .coveragerc
+  [file] .dockerignore
+  [file] .editorconfig
+  [file] .envrc.example
+  [file] .flaskenv
+  [file] .fossa.yml
+  [file] .gitattributes
+  [file] .gitignore
+  [file] .gitmodules
+  [file] .markdownlint.json
+  [file] .pre-commit-config.yaml
+  [file] .pylintrc
+  [file] .rat-excludes
+  [file] AGENTS.md
+  [file] CHANGELOG.md
+  [file] CLAUDE.md
+  [file] CODE_OF_CONDUCT.md
+  [file] CONTRIBUTING.md
+  [file] Dockerfile
+  [file] GEMINI.md
+  [file] GPT.md
+  [file] INSTALL.md
+  [file] LICENSE.txt
+  [file] MANIFEST.in
+  [file] Makefile
+  [file] NOTICE
+  [file] README.md
+  [file] UPDATING.md
+  [file] docker-compose-image-tag.yml
+  [file] docker-compose-light.yml
+  [file] docker-compose-non-dev.yml
+  [file] docker-compose.yml
+  [file] dockerize.Dockerfile
+  [file] lintconf.yaml
+  [file] pyproject.toml
+  [file] pytest.ini
+  [file] setup.py
+  [file] superset_text.yml
+
+---
+
+[get_file('README.md')]
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+  http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+# Superset
+
+[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/license/apache-2-0)
+[![Latest Release on Github](https://img.shields.io/github/v/release/apache/superset?sort=semver)](https://github.com/apache/superset/releases/latest)
+[![Build Status](https://github.com/apache/superset/actions/workflows/superset-python-unittest.yml/badge.svg)](https://github.com/apache/superset/actions)
+[![PyPI version](https://badge.fury.io/py/apache_superset.svg)](https://badge.fury.io/py/apache_superset)
+[![PyPI](https://img.shields.io/pypi/pyversions/apache_superset.svg?maxAge=2592000)](https://pypi.python.org/pypi/apache_superset)
+[![GitHub Stars](https://img.shields.io/github/stars/apache/superset?style=social)](https://github.com/apache/superset/stargazers)
+[![Contributors](https://img.shields.io/github/contributors/apache/superset)](https://github.com/apache/superset/graphs/contributors)
+[![Last Commit](https://img.shields.io/github/last-commit/apache/superset)](https://github.com/apache/superset/commits/master)
+[![Open Issues](https://img.shields.io/github/issues/apache/superset)](https://github.com/apache/superset/issues)
+[![Open PRs](https://img.shields.io/github/issues-pr/apache/superset)](https://github.com/apache/superset/pulls)
+[![Get on Slack](https://img.shields.io/badge/slack-join-orange.svg)](http://bit.ly/join-superset-slack)
+[![Documentation](https://img.shields.io/badge/docs-apache.org-blue.svg)](https://superset.apache.org)
+
+<picture width="500">
+  <source
+    width="600"
+    media="(prefers-color-scheme: dark)"
+    src="https://superset.apache.org/img/superset-logo-horiz-dark.svg"
+    alt="Superset logo (dark)"
+  />
+  <img
+    width="600"
+    src="https://superset.apache.org/img/superset-logo-horiz-apache.svg"
+    alt="Superset logo (light)"
+  />
+</picture>
+
+A modern, enterprise-ready business intelligence web application.
+
+### Documentation
+
+- **[User Guide](https://superset.apache.org/user-docs/)** — For analysts and business users. Explore data, build charts, create dashboards, and connect databases.
+- **[Administrator Guide](https://superset.apache.org/admin-docs/)** — Install, configure, and operate Superset. Covers security, scaling, and database drivers.
+- **[Developer Guide](https://superset.apache.org/developer-docs/)** — Contribute to Superset or build on its REST API and extension framework.
+
+[**Why Superset?**](#why-superset) |
+[**Supported Databases**](#supported-databases) |
+[**Release Notes**](https://github.com/apache/superset/blob/master/RELEASING/README.md#release-notes-for-recent-releases) |
+[**Get Involved**](#get-involved) |
+[**Resources**](#resources) |
+[**Organizations Using Superset**](https://superset.apache.org/inTheWild)
+
+## Why Superset?
+
+Superset is a modern data exploration and data visualization platform. Superset can replace or augment proprietary business intelligence tools for many teams. Superset integrates well with a variety of data sources.
+
+Superset provides:
+
+- A **no-code interface** for building charts quickly
+- A powerful, web-based **SQL Editor** for advanced querying
+- A **lightweight semantic layer** for quickly defining custom dimensions and metrics
+- Out of the box support for **
+... [TRUNCATED — showing first 4000 chars]
+
+---
+
+[get_directory('superset')]
+Contents of /superset:
+  [dir] advanced_data_type
+  [dir] annotation_layers
+  [dir] async_events
+  [dir] available_domains
+  [dir] cachekeys
+  [dir] charts
+  [dir] cli
+  [dir] columns
+  [dir] commands
+  [dir] common
+  [dir] connectors
+  [dir] core
+  [dir] css_templates
+  [dir] daos
+  [dir] dashboards
+  [dir] databases
+  [dir] datasets
+  [dir] datasource
+  [dir] db_engine_specs
+  [dir] distributed_lock
+  [dir] embedded
+  [dir] embedded_dashboard
+  [dir] examples
+  [dir] explorables
+  [dir] explore
+  [dir] extensions
+  [dir] importexport
+  [dir] initialization
+  [dir] key_value
+  [dir] mcp_service
+  [dir] migrations
+  [dir] models
+  [dir] queries
+  [dir] reports
+  [dir] row_level_security
+  [dir] security
+  [dir] sql
+  [dir] sql_validators
+  [dir] sqllab
+  [dir] static
+  [dir] tables
+  [dir] tags
+  [dir] tasks
+  [dir] templates
+  [dir] temporary_cache
+  [dir] themes
+  [dir] thumbnails
+  [dir] translations
+  [dir] utils
+  [dir] views
+  [file] __init__.py
+  [file] app.py
+  [file] config.py
+  [file] constants.py
+  [file] custom_database_errors.py
+  [file] dataframe.py
+  [file] errors.py
+  [file] exceptions.py
+  [file] forms.py
+  [file] jinja_context.py
+  [file] legacy.py
+  [file] result_set.py
+  [file] schemas.py
+  [file] sql_lab.py
+  [file] stats_logger.py
+  [file] superset_typing.py
+  [file] viz.py

@@ -1,0 +1,339 @@
+=====================================
+REPO CLASSIFICATION SIGNALS
+=====================================
+
+--- METADATA ---
+Name: teable
+Description: ✨ The Next Gen Airtable Alternative: No-Code Postgres
+Primary language: TypeScript
+Topics: airtable, airtable-alternative, app-builder, database, internal-tool, low-code, no-code, nocode, postgres, postgresql, realtime, spreadsheet, sqlite
+
+--- ROOT FILES (signal matches) ---
+Web App:     (none)
+Backend:     (none)
+Library:     (none)
+CLI:         (none)
+Data/ML:     (none)
+Infra:       (none)
+
+--- TOP-LEVEL DIRECTORIES (signal matches) ---
+Web App:     (none)
+Backend:     (none)
+Library:     (none)
+CLI:         (none)
+Data/ML:     (none)
+Infra:       (none)
+
+--- ALL TOP-LEVEL DIRECTORIES ---
+.github, .husky, .idea, .vscode, apps
+
+--- TYPE-SPECIFIC EXTENSION COUNTS ---
+Web App extensions (.tsx, .jsx, .vue, .svelte): 0
+Data/ML extensions (.ipynb): 0
+Infra extensions (.tf, .hcl): 0
+Backend extensions (.proto, .graphql): 0
+
+--- TOP FILE EXTENSIONS (by count) ---
+  .ts: 343
+  .yml: 16
+  .md: 7
+  .json: 5
+  .snap: 3
+  .gitignore: 2
+  .xml: 2
+  .iml: 2
+  .js: 2
+  .dockerignore: 1
+  .gitattributes: 1
+  .yaml: 1
+  .husky/commit-msg: 1
+  .mjs: 1
+  .husky/pre-commit: 1
+
+--- BOOLEAN PATTERN CHECKS ---
+  pages or app dir: no
+  components dir: no
+  cmd or bin dir: no
+  run train scripts: no
+  ipynb files: no
+  k8s manifests: no
+  route controller dirs: no
+  dockerfile: no
+
+
+[get_directory('')]
+Contents of /(root):
+  [dir] .github
+  [dir] .husky
+  [dir] .idea
+  [dir] .vscode
+  [dir] apps
+  [dir] dockers
+  [dir] dottea
+  [dir] packages
+  [dir] plugins
+  [dir] scripts
+  [dir] static
+  [file] .codeclimate.yml
+  [file] .dockerignore
+  [file] .gitattributes
+  [file] .gitignore
+  [file] .gitpod.yml
+  [file] .ncurc.yml
+  [file] .npmrc
+  [file] .prettierignore
+  [file] .prettierrc.js
+  [file] AGPL_LICENSE
+  [file] CODE_OF_CONDUCT.md
+  [file] CONTRIBUTING.md
+  [file] LICENSE
+  [file] Makefile
+  [file] README.md
+  [file] agents.md
+  [file] commitlint.config.js
+  [file] crowdin.yml
+  [file] docker-bake.hcl
+  [file] lint-staged.common.js
+  [file] lint-staged.config.js
+  [file] monorepo.code-workspace
+  [file] package.json
+  [file] pnpm-lock.yaml
+  [file] pnpm-workspace.yaml
+  [file] renovate.json5
+  [file] tsconfig.base.json
+
+---
+
+[get_file('package.json')]
+{
+  "name": "@teable/teable",
+  "version": "1.10.0",
+  "license": "AGPL-3.0",
+  "private": true,
+  "homepage": "https://github.com/teableio/teable",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/teableio/teable"
+  },
+  "author": {
+    "name": "tea artist",
+    "url": "https://github.com/tea-artist"
+  },
+  "keywords": [
+    "teable",
+    "database"
+  ],
+  "workspaces": [
+    "apps/*",
+    "packages/*",
+    "packages/v2/*",
+    "plugins",
+    "!apps/electron"
+  ],
+  "scripts": {
+    "clean:global-cache": "rimraf ./.cache",
+    "deps:check": "pnpm --package=npm-check-updates@latest dlx npm-check-updates --configFileName .ncurc.yml --workspaces --root --mergeConfig",
+    "deps:update": "pnpm --package=npm-check-updates@latest dlx npm-check-updates --configFileName .ncurc.yml -u --workspaces --root --mergeConfig",
+    "dev:playground": "pnpm -C apps/playground dev",
+    "dev:v2": "pnpm -r --parallel --stream -F @teable/formula -F './packages/v2/*' dev",
+    "clean:v2": "pnpm -r --parallel --stream -F @teable/formula -F './packages/v2/*' clean",
+    "build:v2": "pnpm -r --parallel --stream -F @teable/formula -F './packages/v2/*' build",
+    "build:packages": "pnpm -r -F './packages/**' build",
+    "g:build": "pnpm -r run build",
+    "g:build-changed": "pnpm -r -F '...[origin/main]' build",
+    "g:check-dist": "pnpm -r --parallel check-dist",
+    "g:clean": "pnpm clean:global-cache && pnpm -r run clean",
+    "g:fix-all-files": "pnpm -r fix-all-files",
+    "g:lint": "pnpm -r --parallel lint --color",
+    "g:lint-staged-files": "lint-staged --allow-empty",
+    "g:lint-styles": "pnpm -r lint-styles --color",
+    "g:test": "pnpm g:test-e2e && pnpm g:test-unit",
+    "g:test-e2e": "pnpm -r test-e2e",
+    "g:test-e2e-cover": "pnpm -r test-e2e-cover",
+    "g:test-unit": "pnpm -r --parallel test-unit",
+    "g:test-unit-cover": "pnpm -r --parallel test-unit-cover",
+    "g:typecheck": "pnpm -r --parallel typecheck",
+    "generate-openapi-types": "node scripts/generate-openapi-types.mjs",
+    "install:playwright": "playwright install",
+    "install:husky": "node .husky/install.mjs",
+    "nuke:node_modules": "pnpm -r exec -- rm -fr node_modules",
+    "publish:beta:prerelease": "node ./scripts/publish.mjs prerelease beta",
+    "publish:beta:patch": "node ./scripts/publish.mjs prepatch beta",
+    "publish:beta:minor": "node ./scripts/publish.mjs preminor beta",
+    "publish:beta:major": "node ./scripts/publish.mjs premajor beta",
+    "publish:next:patch": "node ./scripts/publish.mjs patch next",
+    "publish:next:minor": "node ./scripts/publish.mjs minor next",
+    "publish:next:major": "node ./scripts/publish.mjs major next",
+    "publish:latest:patch": "node ./scripts/publish.mjs patch latest",
+    "publish:latest:minor": "node ./scripts/publish.mjs minor latest",
+    "publish:latest:major": "node ./scripts/publish.mjs major latest",
+    "prepare": "run-s install:husky",
+    "run:plugin": "pnpm -F '@teable/plugin' dev"
+  },
+  "dependencies": {
+    "cross-env": "7.0.3"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "19.2.1",
+    "@commitlint/config-conventional": "19.1.0",
+    "@teable/eslint-config-bases": "workspace:^",
+    "@types/shell-quote": "1.7.5",
+    "eslint": "8.57.0",
+    "husky": "9.0.11",
+    "lint-staged": "15.2.2",
+    "npm-run-all2": "6.1.2",
+    "openapi-typescript": "6.7.5",
+    "prettier": "3.2.5",
+    "rimraf": "5.0.5",
+    "shell-quote": "1.8.1",
+    "typescript": "5.4.3",
+    "zx": "8.8.5"
+  },
+  "engines": {
+    "node": ">=22.0.0",
+    "pnpm": ">=9.13.0",
+    "npm": "please-use-pnpm"
+  },
+  "packageManager": "pnpm@9.13.0"
+}
+
+
+---
+
+[get_directory('apps')]
+Contents of /apps:
+  [dir] nestjs-backend
+  [dir] nextjs-app
+  [dir] playground
+
+---
+
+[get_directory('apps/nestjs-backend')]
+Contents of /apps/nestjs-backend:
+  [dir] .idea
+  [dir] src
+  [dir] static
+  [dir] test
+  [file] .eslintrc.js
+  [file] .gitignore
+  [file] README.md
+  [file] nest-cli.json
+  [file] package.json
+  [file] tsconfig.build.json
+  [file] tsconfig.eslint.json
+  [file] tsconfig.json
+  [file] vitest-bench.config.ts
+  [file] vitest-e2e.config.ts
+  [file] vitest-e2e.setup.ts
+  [file] vitest.config.ts
+  [file] webpack.config.js
+  [file] webpack.dev.js
+  [file] webpack.swc.js
+
+---
+
+[get_file('apps/nestjs-backend/package.json')]
+{
+  "name": "@teable/backend",
+  "version": "1.10.0",
+  "license": "AGPL-3.0",
+  "private": true,
+  "main": "dist/index.js",
+  "exports": {
+    ".": "./dist"
+  },
+  "homepage": "https://github.com/teableio/teable",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/teableio/teable",
+    "directory": "apps/nestjs-backend"
+  },
+  "author": {
+    "name": "tea artist",
+    "url": "https://github.com/tea-artist"
+  },
+  "browserslist": {
+    "production": [
+      ">0.3%",
+      "not ie 11",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "scripts": {
+    "build": "nest build",
+    "clean": "rimraf ./out ./coverage ./main ./dist ./tsconfig.tsbuildinfo ./node_modules/.cache .webpack-cache",
+    "dev": "nest start --webpackPath ./webpack.dev.js -w",
+    "dev:swc": "nest start --webpackPath ./webpack.swc.js -w",
+    "start": "nest start",
+    "check-dist": "es-check -v",
+    "start-debug": "nest start --webpackPath ./webpack.dev.js --debug -w",
+    "check-size": "size-limit --highlight-less",
+    "test": "run-s test-unit test-e2e",
+    "test-unit:watch": "vitest --watch",
+    "test-unit": "vitest run --silent --bail 1",
+    "test-unit-cover": "pnpm test-unit --coverage ${VITEST_SHARD:+--shard=$VITEST_SHARD}",
+    "pre-test-e2e": "cross-env NODE_ENV=test pnpm -F @teable/db-main-prisma prisma-db-seed -- --e2e",
+    "test-e2e": "pnpm pre-test-e2e && vitest run --config ./vitest-e2e.config.ts --silent",
+    "test-e2e-cover": "pnpm test-e2e --coverage --bail 1 ${VITEST_SHARD:+--shard=$VITEST_SHARD}",
+    "typecheck": "tsc --project ./tsconfig.json --noEmit",
+    "lint": "eslint . --ext .ts,.js,.cjs,.mjs,.mdx --cache --cache-location ../../.cache/eslint/nestjs-backend.eslintcache",
+    "fix-all-files": "eslint . --ext .ts,.tsx,.js,.jsx,.cjs,.mjs,.mdx --fix",
+    "flamegraph-home": "npx 0x --output-dir './.debug/flamegraph/{pid}.0x' --on-port 'autocannon http://localhost:$PORT --duration 20' -- node ../../node_modules/.bin/next start",
+    "merge-cover": "istanbul-merge --out ./coverage/nestjs-backend/coverage-final.json ./coverage/e2e/coverage-final.json ./coverage/unit/coverage-final.json",
+    "generate-cover": "nyc report --report-dir=coverage/nestjs-backend --temp-dir=coverage/nestjs-backend -r text -r html -r clover"
+  },
+  "devDependencies": {
+    "@faker-js/faker": "8.4.1",
+    "@nestjs/cli": "10.3.2",
+    "@nestjs/testing": "10.3.5",
+    "@teable/eslint-config-bases": "workspace:^",
+    "@types/archiver": "6.0.3",
+    "@types/bcrypt": "5.0.2",
+    "@types/cookie": "0.6.0",
+    "@types/cookie-parser": "1.4.7",
+    "@types/cors": "2.8.17",
+    "@types/express": "4.17.21",
+    "@types/express-session": "1.18.0",
+    "@types/fs-extra": "11.0.4",
+    "@types/lodash": "4.17.0",
+    "@types/markdown-it": "13.0.7",
+    "@types/mime-types": "2.1.4",
+    "@types/ms": "0.7.34",
+    "@types/multer": "1.4.11",
+    "@types/node": "22.18.0",
+    "@types/node-fetch": "2.6.11",
+    "@types/nodemailer": "6.4.14",
+    "@types/oauth2orize": "1.11.5",
+    "@types/oauth2orize-pkce": "0.1.2",
+    "@types/papaparse": "5.3.14",
+    "@types/passport": "1.0.16",
+    "@types/passport-github2": "1.2.9",
+    "@types/passport-google-oauth20": "2.0.14",
+    "@types/passport-jwt": "4.0.1",
+    "@types/passport-local": "1.0.38",
+    "@types/passport-oauth2-client-password": "0.1.5",
+    "@types/passport-openidconnect": "0.1.3",
+    "@types/pause": "0.1.3",
+    "@types/pg": "8.16.0",
+    "@types/sharedb": "5.1.0",
+    "@types/sockjs": "0.3.36",
+    "@types/sockjs-client": "1.5.4",
+    "@types/stream-json": "1.7.8",
+    "@types/through2": "2.0.41",
+    "@types/unzipper": "0.10.11",
+    "@types/ws": "8.18.1",
+    "@vitest/coverage-v8": "4.0.17",
+    "copy-webpack-plugin": "12.0.2",
+    "cross-env": "7.0.3",
+    "dotenv-flow": "4.1.0",
+    "dotenv-flow-cli": "1.1.1",
+    "es-check": "7.1.1",
+    "eslint": "8.57.0",
+    "eslint-co
+... [TRUNCATED — showing first 4000 chars]

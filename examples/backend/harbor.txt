@@ -1,0 +1,262 @@
+=====================================
+REPO CLASSIFICATION SIGNALS
+=====================================
+
+--- METADATA ---
+Name: harbor
+Description: An open source trusted cloud native registry project that stores, signs, and scans content.
+Primary language: Go
+Topics: cloud-native, cncf, cncf-project, container, container-management, container-registry, containers, docker, hacktoberfest, helm, kubernetes, registry
+
+--- ROOT FILES (signal matches) ---
+Web App:     (none)
+Backend:     (none)
+Library:     (none)
+CLI:         (none)
+Data/ML:     (none)
+Infra:       (none)
+
+--- TOP-LEVEL DIRECTORIES (signal matches) ---
+Web App:     (none)
+Backend:     (none)
+Library:     (none)
+CLI:         (none)
+Data/ML:     (none)
+Infra:       (none)
+
+--- ALL TOP-LEVEL DIRECTORIES ---
+.github, api, contrib, docs, icons, make, src
+
+--- TYPE-SPECIFIC EXTENSION COUNTS ---
+Web App extensions (.tsx, .jsx, .vue, .svelte): 0
+Data/ML extensions (.ipynb): 0
+Infra extensions (.tf, .hcl): 0
+Backend extensions (.proto, .graphql): 0
+
+--- TOP FILE EXTENSIONS (by count) ---
+  .go: 138
+  .py: 49
+  .sql: 37
+  .jinja: 34
+  .md: 20
+  .sh: 19
+  .yml: 12
+  .png: 12
+  .base: 12
+  .yaml: 6
+  .json: 5
+  .conf: 3
+  .binary: 2
+  .pem: 2
+  .buildbaselog: 1
+
+--- BOOLEAN PATTERN CHECKS ---
+  pages or app dir: no
+  components dir: no
+  cmd or bin dir: no
+  run train scripts: no
+  ipynb files: no
+  k8s manifests: no
+  route controller dirs: yes
+  dockerfile: no
+
+
+[get_dependencies('')]
+(no dependency/manifest files found at repo root)
+
+---
+
+[get_directory('')]
+Contents of /(root):
+  [dir] .github
+  [dir] api
+  [dir] contrib
+  [dir] docs
+  [dir] icons
+  [dir] make
+  [dir] src
+  [dir] tests
+  [dir] tools
+  [file] .buildbaselog
+  [file] .dockerignore
+  [file] .gitignore
+  [file] .gitmessage
+  [file] .spectral.yaml
+  [file] ADOPTERS.md
+  [file] CHANGELOG.md
+  [file] CODEOWNERS
+  [file] CONTRIBUTING.md
+  [file] LICENSE
+  [file] Makefile
+  [file] OWNERS.md
+  [file] README.md
+  [file] RELEASES.md
+  [file] ROADMAP.md
+  [file] SECURITY.md
+  [file] VERSION
+  [file] codecov.yml
+
+---
+
+[get_directory('src')]
+Contents of /src:
+  [dir] cmd
+  [dir] common
+  [dir] controller
+  [dir] core
+  [dir] jobservice
+  [dir] lib
+  [dir] migration
+  [dir] pkg
+  [dir] portal
+  [dir] registryctl
+  [dir] server
+  [dir] testing
+  [file] .golangci.yaml
+  [file] .mockery.yaml
+  [file] copyright.tmpl
+  [file] favicon.ico
+  [file] go.mod
+  [file] go.sum
+
+---
+
+[get_file('src/go.mod')]
+module github.com/goharbor/harbor/src
+
+go 1.25.7
+
+require (
+	github.com/CloudNativeAI/model-spec v0.0.5
+	github.com/FZambia/sentinel v1.1.0
+	github.com/Masterminds/semver/v3 v3.4.0
+	github.com/aliyun/alibaba-cloud-sdk-go v1.63.107
+	github.com/asaskevich/govalidator v0.0.0-20230301143203-a9d515a09cc2
+	github.com/aws/aws-sdk-go v1.55.8
+	github.com/beego/beego/v2 v2.3.8
+	github.com/beego/i18n v0.0.0-20140604031826-e87155e8f0c0
+	github.com/bmatcuk/doublestar v1.3.4
+	github.com/casbin/casbin v1.9.1
+	github.com/cenkalti/backoff/v4 v4.3.0
+	github.com/cloudevents/sdk-go/v2 v2.16.1
+	github.com/coreos/go-oidc/v3 v3.15.0
+	github.com/dghubble/sling v1.4.2
+	github.com/docker/distribution v2.8.3+incompatible
+	github.com/docker/libtrust v0.0.0-20160708172513-aabc10ec26b7
+	github.com/go-asn1-ber/asn1-ber v1.5.8-0.20250403174932-29230038a667
+	github.com/go-ldap/ldap/v3 v3.4.11
+	github.com/go-openapi/errors v0.22.4
+	github.com/go-openapi/loads v0.23.2
+	github.com/go-openapi/runtime v0.29.2
+	github.com/go-openapi/spec v0.22.1
+	github.com/go-openapi/strfmt v0.25.0
+	github.com/go-openapi/swag v0.23.1
+	github.com/go-openapi/validate v0.25.1
+	github.com/gocarina/gocsv v0.0.0-20210516172204-ca9e8a8ddea8
+	github.com/gocraft/work v0.5.1
+	github.com/golang-jwt/jwt/v5 v5.2.2
+	github.com/golang-migrate/migrate/v4 v4.19.0
+	github.com/gomodule/redigo v2.0.0+incompatible
+	github.com/google/go-containerregistry v0.20.2
+	github.com/google/uuid v1.6.0
+	github.com/gorilla/csrf v1.7.2
+	github.com/gorilla/handlers v1.5.2
+	github.com/gorilla/mux v1.8.1
+	github.com/graph-gophers/dataloader v5.0.0+incompatible
+	github.com/jackc/pgconn v1.14.3
+	github.com/jackc/pgx/v4 v4.18.3
+	github.com/jpillora/backoff v1.0.0
+	github.com/ncw/swift v1.0.49 // indirect
+	github.com/nfnt/resize v0.0.0-20180221191011-83c6a9932646
+	github.com/olekukonko/tablewriter v0.0.5
+	github.com/opencontainers/go-digest v1.0.0
+	github.com/opencontainers/image-spec v1.1.1
+	github.com/pkg/errors v0.9.1
+	github.com/prometheus/client_golang v1.22.0
+	github.com/prometheus/client_model v0.6.2
+	github.com/redis/go-redis/v9 v9.17.2
+	github.com/robfig/cron/v3 v3.0.1
+	github.com/spf13/viper v1.19.0
+	github.com/stretchr/testify v1.11.1
+	github.com/tencentcloud/tencentcloud-sdk-go v3.0.233+incompatible
+	github.com/vmihailenco/msgpack/v5 v5.4.1
+	github.com/volcengine/volcengine-go-sdk v1.1.44
+	go.opentelemetry.io/contrib/instrumentation/github.com/gorilla/mux/otelmux v0.63.0
+	go.opentelemetry.io/contrib/instrumentation/net/http/otelhttp v0.60.0
+	go.opentelemetry.io/otel v1.38.0
+	go.opentelemetry.io/otel/exporters/jaeger v1.17.0
+	go.opentelemetry.io/otel/exporters/otlp/otlptrace/otlptracehttp v1.34.0
+	go.opentelemetry.io/otel/sdk v1.38.0
+	go.opentelemetry.io/otel/trace v1.38.0
+	go.pinniped.dev v0.37.0
+	go.uber.org/ratelimit v0.3.1
+	golang.org/x/crypto v0.45.0
+	golang.org/x/net v0.47.0
+	golang.org/x/oauth2 v0.28.0
+	golang.org/x/sync v0.18.0
+	golang.org/x/text v0.31.0
+	golang.org/x/time v0.13.0
+	gopkg.in/h2non/gock.v1 v1.1.2
+	gopkg.in/yaml.v2 v2.4.0
+	helm.sh/helm/v3 v3.18.5
+	k8s.io/api v0.34.1
+	k8s.io/apimachinery v0.34.2
+	k8s.io/client-go v0.34.1
+	sigs.k8s.io/yaml v1.6.0
+)
+
+require (
+	cloud.google.com/go/compute/metadata v0.5.2 // indirect
+	github.com/Azure/azure-sdk-for-go v37.2.0+incompatible // indirect
+	github.com/Azure/go-autorest v14.2.0+incompatible // indirect
+	github.com/Azure/go-autorest/autorest v0.11.27 // indirect
+	github.com/Azure/go-autorest/autorest/adal v0.9.20 // indirect
+	github.com/Azure/go-autorest/autorest/date v0.3.0 // indirect
+	github.com/Azure/go-autorest/autorest/to v0.3.0 // indirect
+	github.com/Azure/go-autorest/logger v0.2.1 // indirect
+	github.com/Azure/go-autorest/tracing v0.6.0 // indirect
+	github.com/Azure/go-ntlmssp v0.0.0-20221128193559-754e69321358 // indirect
+	github.com/Knetic/govaluate v3.0.1-0.20171022003610-9aa49832a739+incompatible // indirect
+	github.com/Unknwon/goconfig v0.0.0-20160216183935-5f601ca6ef4d // indirect
+	github.com/benbjohnson/clock v1.3.0 // indirect
+	githu
+... [TRUNCATED — showing first 4000 chars]
+
+---
+
+[get_file('README.md')]
+# Harbor
+[![CI](https://github.com/goharbor/harbor/actions/workflows/CI.yml/badge.svg)](https://github.com/goharbor/harbor/actions/workflows/CI.yml)
+[![Go Report Card](https://goreportcard.com/badge/github.com/goharbor/harbor)](https://goreportcard.com/report/github.com/goharbor/harbor)
+[![Coverage Status](https://codecov.io/gh/goharbor/harbor/branch/main/graph/badge.svg)](https://codecov.io/gh/goharbor/harbor)
+[![CII Best Practices](https://bestpractices.coreinfrastructure.org/projects/2095/badge)](https://bestpractices.coreinfrastructure.org/projects/2095)
+[![Codacy Badge](https://app.codacy.com/project/badge/Grade/792fe1755edc4d6e91f4c3469f553389)](https://www.codacy.com/gh/goharbor/harbor/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=goharbor/harbor&amp;utm_campaign=Badge_Grade)
+![Code scanning - action](https://github.com/goharbor/harbor/workflows/Code%20scanning%20-%20action/badge.svg)
+![OCI Distribution Conformance Tests](https://github.com/goharbor/harbor/workflows/CONFORMANCE_TEST/badge.svg)
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fgoharbor%2Fharbor.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2Fgoharbor%2Fharbor?ref=badge_shield)
+[![Helm Chart on Artifact Hub](https://img.shields.io/endpoint?url=https://artifacthub.io/badge/repository/harbor)](https://artifacthub.io/packages/helm/harbor/harbor)
+[![OpenSSF Scorecard](https://api.scorecard.dev/projects/github.com/goharbor/harbor/badge)](https://scorecard.dev/viewer/?uri=github.com/goharbor/harbor)
+</br>
+
+|![notification](https://raw.githubusercontent.com/goharbor/website/master/docs/img/readme/bell-outline-badged.svg)Community Meeting|
+|------------------|
+|The Harbor Project holds bi-weekly community calls in two different timezones. To join the community calls or to watch previous meeting notes and recordings, please visit the [meeting schedule](https://github.com/goharbor/community/blob/master/MEETING_SCHEDULE.md).|
+
+</br> </br>
+
+**Note**: The `main` branch may be in an *unstable or even broken state* during development.
+Please use [releases](https://github.com/goharbor/harbor/releases) instead of the `main` branch in order to get a stable set of binaries.
+
+<img alt="Harbor" src="https://raw.githubusercontent.com/goharbor/website/master/docs/img/readme/harbor_logo.png">
+
+Harbor is an open source trusted cloud native registry project that stores, signs, and scans content. Harbor extends the open source Docker Distribution by adding the functionalities usually required by users such as security, identity and management. Having a registry closer to the build and run environment can improve the image transfer efficiency. Harbor supports replication of images between registries, and also offers advanced security features such as user management, access control and activity auditing.
+
+Harbor is hosted by the [Cloud Native Computing Foundation](https://cncf.io) (CNCF). If you are an organization that wants to help shape the evolution of cloud native technologies, consider joining the CNCF. For details about who is involved and how Harbor plays a role, read the CNCF
+[announcement](https://www.cncf.io/blog/2018/07/31/cncf-to-host-harbor-in-the-sandbox/).
+
+## Features
+
+* **Cloud native registry**: With support for both container images and [Helm](https://helm.sh) charts, Harbor serves as registry for cloud native environments like container runtimes and orchestration platforms.
+* **Role based access control**: Users access different repositories through 'projects' and a user can have different permission for images or Helm charts under a project.
+* **Policy based replication**: Images and charts can be replicated (synchronized) between multiple registry instances based on policies with using filters (repository, tag and label). Harbor automatically retries a replication if it encounters any errors. This can be used to assist loadbalancing, achieve high availability, and facilitate multi-datacenter de
+... [TRUNCATED — showing first 4000 chars]

@@ -1,147 +1,67 @@
 =====================================
-Repository Analysis: hoppscotch
-Type: Web Application
+REPO CLASSIFICATION SIGNALS
 =====================================
 
 --- METADATA ---
 Name: hoppscotch
 Description: Open-Source API Development Ecosystem • https://hoppscotch.io • Offline, On-Prem & Cloud • Web, Desktop & CLI • Open-Source Alternative to Postman, Insomnia
-Language: TypeScript
+Primary language: TypeScript
 Topics: api, api-client, api-rest, api-testing, developer-tools, graphql, http, http-client, pwa, rest, rest-api, spa, testing, testing-tools, tools, vue, vuejs, websocket
-Stars: 78168
-License: MIT License
 
---- README ---
-<div align="center">
-  <a href="https://hoppscotch.io">
-    <img
-      src="https://avatars.githubusercontent.com/u/56705483"
-      alt="Hoppscotch"
-      height="64"
-    />
-  </a>
-  <h3>
-    <b>
-      Hoppscotch
-    </b>
-  </h3>
-  <b>
-    Open Source API Development Ecosystem
-  </b>
-  <p>
+--- ROOT FILES (signal matches) ---
+Web App:     package.json
+Backend:     (none)
+Library:     package.json
+CLI:         (none)
+Data/ML:     (none)
+Infra:       (none)
 
-[![contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen?logo=github)](CODE_OF_CONDUCT.md) [![Website](https://img.shields.io/website?url=https%3A%2F%2Fhoppscotch.io&logo=hoppscotch)](https://hoppscotch.io) [![Tests](https://github.com/hoppscotch/hoppscotch/actions/workflows/tests.yml/badge.svg)](https://github.com/hoppscotch/hoppscotch/actions) [![Tweet](https://img.shields.io/twitter/url?url=https%3A%2F%2Fhoppscotch.io%2F)](https://x.com/share?text=%F0%9F%91%BD%20Hoppscotch%20%E2%80%A2%20Open%20source%20API%20development%20ecosystem%20-%20Helps%20you%20create%20requests%20faster,%20saving%20precious%20time%20on%20development.&url=https://hoppscotch.io&hashtags=hoppscotch&via=hoppscotch_io)
+--- TOP-LEVEL DIRECTORIES (signal matches) ---
+Web App:     (none)
+Backend:     (none)
+Library:     (none)
+CLI:         (none)
+Data/ML:     (none)
+Infra:       (none)
 
-  </p>
-  <p>
-    <sub>
-      Built with ❤︎ by
-      <a href="https://github.com/hoppscotch/hoppscotch/graphs/contributors">
-        contributors
-      </a>
-    </sub>
-  </p>
-  <br />
-  <p>
-    <a href="https://hoppscotch.io">
-      <picture>
-        <source media="(prefers-color-scheme: dark)" srcset="./packages/hoppscotch-common/public/images/banner-dark.png">
-        <source media="(prefers-color-scheme: light)" srcset="./packages/hoppscotch-common/public/images/banner-light.png">
-        <img alt="Hoppscotch" src="./packages/hoppscotch-common/public/images/banner-dark.png">
-      </picture>
-    </a>
-  </p>
-</div>
+--- ALL TOP-LEVEL DIRECTORIES ---
+.devcontainer, .github, .husky, packages
 
-_We highly recommend you take a look at the [**Hoppscotch Documentation**](https://docs.hoppscotch.io) to learn more about the app._
+--- TYPE-SPECIFIC EXTENSION COUNTS ---
+Web App extensions (.tsx, .jsx, .vue, .svelte): 3
+Data/ML extensions (.ipynb): 0
+Infra extensions (.tf, .hcl): 0
+Backend extensions (.proto, .graphql): 0
 
-#### **Support**
+--- TOP FILE EXTENSIONS (by count) ---
+  .ts: 211
+  .png: 49
+  .sql: 21
+  .json: 18
+  .rs: 18
+  .yml: 11
+  .md: 11
+  .js: 9
+  .gitignore: 6
+  .toml: 4
+  .yaml: 3
+  .caddyfile: 3
+  .mjs: 3
+  .vue: 3
+  .dockerignore: 2
 
-[![Chat on Discord](https://img.shields.io/badge/chat-Discord-7289DA?logo=discord)](https://hoppscotch.io/discord) [![Chat on Telegram](https://img.shields.io/badge/chat-Telegram-2CA5E0?logo=telegram)](https://hoppscotch.io/telegram) [![Discuss on GitHub](https://img.shields.io/badge/discussions-GitHub-333333?logo=github)](https://github.com/hoppscotch/hoppscotch/discussions)
+--- BOOLEAN PATTERN CHECKS ---
+  pages or app dir: no
+  components dir: no
+  cmd or bin dir: no
+  run train scripts: no
+  ipynb files: no
+  k8s manifests: no
+  route controller dirs: no
+  dockerfile: no
 
-### **Features**
 
-❤️ **Lightweight:** Crafted with minimalistic UI design.
-
-⚡️ **Fast:** Send requests and get responses in real time.
-
-🗄️ **HTTP Methods:** Request methods define the type of action you are requesting to be performed.
-
-- `GET` - Requests retrieve resource information
-- `POST` - The server creates a new entry in a database
-- `PUT` - Updates an existing resource
-- `PATCH` - Very similar to `PUT` but makes a partial update on a resource
-- `DELETE` - Deletes resource or related component
-- `HEAD` - Retrieve response headers identical to those of a GET request, but without the response body.
-- `CONNECT` - Establishes a tunnel to the server identified by the target resource
-- `OPTIONS` - Describe the communication options for the target resource
-- `TRACE` - Performs a message loop-back test along the path to the target resource
-- `<custom>` - Some APIs use custom request methods such as `LIST`. Type in your custom methods.
-
-🌈 **Theming:** Customizable combinations for background, foreground, and accent colors — [customize now](https://hoppscotch.io/settings).
-
-- Choose a theme: System preference, Light, Dark, and Black
-- Choose accent colors: Green, Teal, Blue, Indigo, Purple, Yellow, Orange, Red, and Pink
-- Distraction-free Zen mode
-
-_Customized themes are synced with your cloud/local session._
-
-🔥 **PWA:** Install as a [Progressive Web App](https://web.dev/progressive-web-apps) on your device.
-
-- Instant loading with Service Workers
-- Offline support
-- Low RAM/memory and CPU usage
-- Add to Home Screen
-- Desktop PWA
-
-🚀 **Request:** Retrieve response from endpoint instantly.
-
-1. Choose `method`
-2. Enter `URL`
-3. Send
-
-- Copy/share public "Share URL"
-- Generate/copy request code snippets for 10+ languages and frameworks
-- Import `cURL`
-- Label requests
-
-🔌 **WebSocket:** Establish full-duplex communication channels over a single TCP connection.
-
-📡 **Server-Sent Events:** Receive a stream of updates from a server over an HTTP connection without resorting to polling.
-
-🌩 **Socket.IO:** Send and Receive data with the SocketIO server.
-
-🦟 **MQTT:** Subscribe and Publish to topics of an MQTT Broker.
-
-🔮 **GraphQL:** GraphQL is a query language for APIs and a runtime for fulfilling those queries with your existing data.
-
-- Set endpoint and get schema
-- Multi-column docs
-- Set custom request headers
-- Query schema
-- Get query response
-
-🔐 **Authorization:** Allows to identify the end-user.
-
-- None
-- Basic
-- Bearer Token
-- OAuth 2.0
-- OIDC Access Token/PKCE
-
-📢 **Headers:** Describes the format the body of your request is being sent in.
-
-📫 **Parameters:** Use request parameters to set varying parts in simulated requests.
-
-📃 **Request Body:** Used to send and receive data via the REST API.
-
-- Set `Content Type`
-- FormData, JSON, and many more
-- Toggle between key-value and
-... [TRUNCATED]
-
---- PACKAGE MANIFEST(S) ---
-
+[get_dependencies('')]
 [package.json]
 {
   "name": "hoppscotch-app",
@@ -215,940 +135,168 @@ _Customized themes are synced with your cloud/local session._
 }
 
 
---- WEB FRAMEWORK CONFIG ---
+---
 
-[tailwind.config.ts]
-import preset from "@hoppscotch/ui/ui-preset"
+[get_directory('')]
+Contents of /(root):
+  [dir] .devcontainer
+  [dir] .github
+  [dir] .husky
+  [dir] packages
+  [file] .dockerignore
+  [file] .editorconfig
+  [file] .env.example
+  [file] .envrc
+  [file] .firebaserc
+  [file] .gitattributes
+  [file] .gitignore
+  [file] .npmrc
+  [file] .prettierignore
+  [file] .prettierrc.js
+  [file] CHANGELOG.md
+  [file] CODEOWNERS
+  [file] CODE_OF_CONDUCT.md
+  [file] CONTRIBUTING.md
+  [file] LICENSE
+  [file] README.md
+  [file] SECURITY.md
+  [file] TRANSLATIONS.md
+  [file] aio-multiport-setup.Caddyfile
+  [file] aio-subpath-access.Caddyfile
+  [file] aio_run.mjs
+  [file] commitlint.config.js
+  [file] devenv.lock
+  [file] devenv.nix
+  [file] devenv.yaml
+  [file] docker-compose.deploy.yml
+  [file] docker-compose.yml
+  [file] firebase.json
+  [file] firestore.indexes.json
+  [file] firestore.rules
+  [file] healthcheck.sh
+  [file] jsconfig.json
+  [file] netlify.toml
+  [file] package.json
+  [file] pnpm-lock.yaml
+  [file] pnpm-workspace.yaml
+  [file] prod.Dockerfile
+  [file] tailwind.config.ts
 
-export default {
-  content: [
-    "packages/hoppscotch-common/src/**/*.{vue,html}",
-    "packages/hoppscotch-sh-admin/src/**/*.{vue,html}",
-    "packages/hoppscotch-desktop/src/**/*.{vue,html}",
-  ],
-  presets: [preset],
-}
+---
 
+[get_directory('packages')]
+Contents of /packages:
+  [dir] codemirror-lang-graphql
+  [dir] hoppscotch-agent
+  [dir] hoppscotch-backend
+  [dir] hoppscotch-cli
+  [dir] hoppscotch-common
+  [dir] hoppscotch-data
+  [dir] hoppscotch-desktop
+  [dir] hoppscotch-js-sandbox
+  [dir] hoppscotch-kernel
+  [dir] hoppscotch-relay
+  [dir] hoppscotch-selfhost-web
+  [dir] hoppscotch-sh-admin
 
-[.env.example]
-#-----------------------Backend Config------------------------------#
-# Prisma Config
-DATABASE_URL=postgresql://postgres:testpass@hoppscotch-db:5432/hoppscotch
+---
 
-# Sensitive Data Encryption Key while storing in Database (32 character)
-DATA_ENCRYPTION_KEY=data encryption key with 32 char
-
-# Whitelisted origins for the Hoppscotch App.
-# This list controls which origins can interact with the app through cross-origin comms.
-# - localhost ports (3170, 3000, 3100): app, backend, development servers and services
-# - app://localhost_3200: Bundle server origin identifier
-#   NOTE: `3200` here refers to the bundle server (port 3200) that provides the bundles,
-#   NOT where the app runs. The app itself uses the `app://` protocol with dynamic
-#   bundle names like `app://{bundle-name}/`
-WHITELISTED_ORIGINS=http://localhost:3170,http://localhost:3000,http://localhost:3100,app://localhost_3200,app://hoppscotch
-
-# If true, the client’s IP address is understood as the left-most entry in the X-Forwarded-For header
-TRUST_PROXY=false
-
-#-----------------------Frontend Config------------------------------#
-
-# Base URLs
-VITE_BASE_URL=http://localhost:3000
-VITE_SHORTCODE_BASE_URL=http://localhost:3000
-VITE_ADMIN_URL=http://localhost:3100
-
-# Backend URLs
-VITE_BACKEND_GQL_URL=http://localhost:3170/graphql
-VITE_BACKEND_WS_URL=ws://localhost:3170/graphql
-VITE_BACKEND_API_URL=http://localhost:3170/v1
-
-# Terms Of Service And Privacy Policy Links (Optional)
-VITE_APP_TOS_LINK=https://docs.hoppscotch.io/support/terms
-VITE_APP_PRIVACY_POLICY_LINK=https://docs.hoppscotch.io/support/privacy
-
-# Set default to null as https://proxy.hoppscotch.io/ doesn't require an access token
-VITE_PROXYSCOTCH_ACCESS_TOKEN=
-
-# Set to `true` for subpath based access
-ENABLE_SUBPATH_BASED_ACCESS=false
-
-
-[docker-compose.yml]
-# To make it easier to self-host, we have a preset docker compose config that also
-# has a container with a Postgres instance running.
-# You can tweak around this file to match your instances
-
-# PROFILES EXPLANATION:
-#
-# We use Docker Compose profiles to manage different deployment scenarios and avoid port conflicts.
-#
-# These are all the available profiles:
-# - default: All-in-one service + database + auto-migration (recommended for most users)
-# - default-no-db: All-in-one service without database (for users with external DB)
-# - backend: The backend service only
-# - app: The main Hoppscotch application and the webapp server
-# - admin: The self-host admin dashboard only
-# - database: Just the PostgreSQL database
-# - just-backend: All services except webapp for local development
-# - deprecated: All deprecated services (not recommended)
-
-# USAGE:
-#
-# To run the default setup: docker compose --profile default up
-# To run without database: docker compose --profile default-no-db up
-# To run specific components: docker compose --profile backend up
-# To run all except webapp: docker compose --profile just-backend up
-# To run deprecated services: docker compose --profile deprecated up
-
-# NOTE: The default and default-no-db profiles should not be mixed with individual service
-# profiles as they would conflict on ports.
-
-services:
-  # This service runs the backend app in the port 3170
-  hoppscotch-backend:
-    profiles: ["backend", "just-backend", "app", "admin"]
-    container_name: hoppscotch-backend
-    build:
-      dockerfile: prod.Dockerfile
-      context: .
-      target: backend
-    env_file:
-      - ./.env
-    restart: always
-    environment:
-      # Edit the below line to match your PostgresDB URL if you have an outside DB (make sure to update the .env file as well)
-      - DATABASE_URL=postgresql://postgres:testpass@hoppscotch-db:5432/hoppscotch?connect_timeout=300
-      - PORT=8080
-    volumes:
-      # Uncomment the line below when modifying code. Only applicable when using the "dev" target.
-      # - ./packages/hoppscotch-backend/:/usr/src/app
-      - /usr/src/app/node_modules/
-    depends_on:
-      hoppscotch-db:
-        condition: service_healthy
-    ports:
-      - "3180:80"
-      - "3170:3170"
-
-  # The main hoppscotch app with integrated webapp server. This will be hosted at port 3000
-  # The webapp server will be accessible at port 3200
-  # NOTE: To do TLS or play around with how the app is hosted, you can look into the Caddyfile for
-  #       the SH admin dashboard server at packages/hoppscotch-selfhost-web/Caddyfile
-  hoppscotch-app:
-    profiles: ["app"]
-    container_name: hoppscotch-app
-    build:
-      dockerfile: prod.Dockerfile
-      context: .
-      target: app
-    env_file:
-      - ./.env
-    depends_on:
-      - hoppscotch-backend
-    ports:
-      - "3080:80"
-      - "3000:3000"
-      - "3200:3200"
-
-  # The Self Host dashboard for managing the app. This will be hosted at port 3100
-  # NOTE: To do TLS or play around with how the ap
-... [TRUNCATED]
-
-[netlify.toml]
-[build.environment]
-  NODE_VERSION = "14"
-  NPM_FLAGS = "--prefix=/dev/null"
-
-[build]
-  base = "/"
-  publish = "packages/hoppscotch-web/dist"
-  command = "npx pnpm i --store=node_modules/.pnpm-store && npx pnpm run generate"
-
-[[headers]]
-  for = "/*"
-  [headers.values]
-    X-Frame-Options = "SAMEORIGIN"
-    X-XSS-Protection = "1; mode=block"
-
-[[redirects]]
-  from = "/discord"
-  to = "https://discord.gg/GAMWxmR"
-  status = 301
-  force = true
-
-[[redirects]]
-  from = "/telegram"
-  to = "https://t.me/hoppscotch"
-  status = 301
-  force = true
-
-[[redirects]]
-  from = "/beta"
-  to = "https://forms.gle/XPYDMp8m6JHNWcYp9"
-  status = 301
-  force = true
-
-[[redirects]]
-  from = "/careers"
-  to = "https://company.hoppscotch.io/careers"
-  status = 301
-  force = true
-
-[[redirects]]
-  from = "/newsletter"
-  to = "http://eepurl.com/hy0eWH"
-  status = 301
-  force = true
-
-[[redirects]]
-  from = "/twitter"
-  to = "https://x.com/hoppscotch_io"
-  status = 301
-  force = true
-
-[[redirects]]
-  from = "/github"
-  to = "https://github.com/hoppscotch/hoppscotch"
-  status = 301
-  force = true
-
-[[redirects]]
-  from = "/announcements"
-  to = "https://company.hoppscotch.io/announcements"
-  status = 301
-  force = true
-
-[[redirects]]
-  from = "/robots.txt"
-  to = "/robots.txt"
-  status = 200
-
-[[redirects]]
-  from = "/sitemap.xml"
-  to = "/sitemap.xml"
-  status = 200
-
-[[redirects]]
-  from = "/*"
-  to = "/index.html"
-  status = 200
-
-
---- ENVIRONMENT VARIABLES (.env.example) ---
-#-----------------------Backend Config------------------------------#
-# Prisma Config
-DATABASE_URL=postgresql://postgres:testpass@hoppscotch-db:5432/hoppscotch
-
-# Sensitive Data Encryption Key while storing in Database (32 character)
-DATA_ENCRYPTION_KEY=data encryption key with 32 char
-
-# Whitelisted origins for the Hoppscotch App.
-# This list controls which origins can interact with the app through cross-origin comms.
-# - localhost ports (3170, 3000, 3100): app, backend, development servers and services
-# - app://localhost_3200: Bundle server origin identifier
-#   NOTE: `3200` here refers to the bundle server (port 3200) that provides the bundles,
-#   NOT where the app runs. The app itself uses the `app://` protocol with dynamic
-#   bundle names like `app://{bundle-name}/`
-WHITELISTED_ORIGINS=http://localhost:3170,http://localhost:3000,http://localhost:3100,app://localhost_3200,app://hoppscotch
-
-# If true, the client’s IP address is understood as the left-most entry in the X-Forwarded-For header
-TRUST_PROXY=false
-
-#-----------------------Frontend Config------------------------------#
-
-# Base URLs
-VITE_BASE_URL=http://localhost:3000
-VITE_SHORTCODE_BASE_URL=http://localhost:3000
-VITE_ADMIN_URL=http://localhost:3100
-
-# Backend URLs
-VITE_BACKEND_GQL_URL=http://localhost:3170/graphql
-VITE_BACKEND_WS_URL=ws://localhost:3170/graphql
-VITE_BACKEND_API_URL=http://localhost:3170/v1
-
-# Terms Of Service And Privacy Policy Links (Optional)
-VITE_APP_TOS_LINK=https://docs.hoppscotch.io/support/terms
-VITE_APP_PRIVACY_POLICY_LINK=https://docs.hoppscotch.io/support/privacy
-
-# Set default to null as https://proxy.hoppscotch.io/ doesn't require an access token
-VITE_PROXYSCOTCH_ACCESS_TOKEN=
-
-# Set to `true` for subpath based access
-ENABLE_SUBPATH_BASED_ACCESS=false
-
-
---- ROUTE / PAGE DEFINITIONS ---
-
-[packages/hoppscotch-agent/src/pages/otp.vue]
-<template>
-  <div class="p-5 h-full flex flex-col flex-grow gap-y-2 justify-between">
-    <h1 class="font-bold text-lg text-white">Agent Registration Request</h1>
-    <div v-if="otpCode">
-      <p class="tracking-wide">
-        An app is trying to register against the Hoppscotch Agent. If this was
-        intentional, copy the given code into the app to complete the
-        registration process. Please hide the window if you did not initiate
-        this request. Do not hide this window until the verification code is
-        entered. The window will hide automatically once done.
-      </p>
-      <p class="font-bold text-5xl tracking-wider text-center pt-10 text-white">
-        {{ otpCode }}
-      </p>
-    </div>
-    <div v-else class="text-center pt-10">
-      <p class="tracking-wide">Waiting for registration requests...</p>
-      <p class="text-sm text-gray-400 mt-2">
-        You can hide this window and access it again from the tray icon.
-      </p>
-    </div>
-    <div class="border-t border-divider p-5 flex justify-between">
-      <HoppButtonSecondary
-        v-if="otpCode"
-        label="Copy Code"
-        outline
-        filled
-        :icon="copyIcon"
-        @click="copyCode"
-      />
-      <div class="flex gap-2">
-        <HoppButtonSecondary
-          label="Cancel Registration"
-          outline
-          @click="getCurrentWindow().close()"
-        />
-      </div>
-    </div>
-  </div>
-</template>
-
-<script setup lang="ts">
-import { ref, markRaw, onMounted } from "vue"
-import { HoppButtonSecondary } from "@hoppscotch/ui"
-// @ts-expect-error - Icon import has no types
-import IconCopy from "~icons/lucide/copy"
-// @ts-expect-error - Icon import has no types
-import IconCheck from "~icons/lucide/check"
-import { useClipboard, refAutoReset } from "@vueuse/core"
-import { getCurrentWindow } from "@tauri-apps/api/window"
-import { invoke } from "@tauri-apps/api/core"
-import { listen } from "@tauri-apps/api/event"
-
-const { copy } = useClipboard()
-const otpCode = ref("")
-const copyIcon = refAutoReset(markRaw(IconCopy), 3000)
-
-function copyCode() {
-  copyIcon.value = markRaw(IconCheck)
-  copy(otpCode.value)
-}
-
-function hideWindow() {
-  const currentWindow = getCurrentWindow()
-  currentWindow.hide()
-  otpCode.value = ""
-}
-
-onMounted(async () => {
-  const currentWindow = getCurrentWindow()
-  currentWindow.setAlwaysOnTop(true)
-
-  const initialOtp = await invoke<string>("get_otp", {})
-  if (initialOtp) {
-    otpCode.value = initialOtp
+[get_file('packages/hoppscotch-selfhost-web/package.json')]
+{
+  "name": "@hoppscotch/selfhost-web",
+  "private": true,
+  "version": "2026.2.1",
+  "type": "module",
+  "scripts": {
+    "dev:vite": "vite",
+    "dev:gql-codegen": "graphql-codegen --require dotenv/config --config gql-codegen.yml dotenv_config_path=\"../../.env\" --watch",
+    "dev": "pnpm exec npm-run-all -p -l dev:*",
+    "build": "node --max_old_space_size=8192 ./node_modules/vite/bin/vite.js build",
+    "preview": "vite preview",
+    "lint": "eslint src",
+    "lint:ts": "vue-tsc --noEmit",
+    "lintfix": "eslint --fix src",
+    "prod-lint": "cross-env HOPP_LINT_FOR_PROD=true pnpm run lint",
+    "generate": "pnpm run build",
+    "do-dev": "pnpm run dev",
+    "do-build-prod": "pnpm run build",
+    "do-lint": "pnpm run prod-lint",
+    "do-typecheck": "pnpm run lint",
+    "do-lintfix": "pnpm run lintfix",
+    "gql-codegen": "graphql-codegen --require dotenv/config --config gql-codegen.yml dotenv_config_path=\"../../.env\"",
+    "postinstall": "pnpm run gql-codegen"
+  },
+  "dependencies": {
+    "@fontsource-variable/inter": "5.2.8",
+    "@fontsource-variable/material-symbols-rounded": "5.2.35",
+    "@fontsource-variable/roboto-mono": "5.2.8",
+    "@hoppscotch/common": "workspace:^",
+    "@hoppscotch/data": "workspace:^",
+    "@hoppscotch/kernel": "workspace:^",
+    "@hoppscotch/plugin-appload": "github:CuriousCorrelation/tauri-plugin-appload#168ff9533258a56de184fb69ad32f8a7f61bae0d",
+    "@hoppscotch/ui": "0.2.5",
+    "@import-meta-env/unplugin": "0.6.3",
+    "@tauri-apps/api": "2.1.1",
+    "@tauri-apps/plugin-dialog": "2.0.1",
+    "@tauri-apps/plugin-fs": "2.0.2",
+    "@tauri-apps/plugin-shell": "2.2.1",
+    "@vueuse/core": "14.2.1",
+    "axios": "1.13.5",
+    "buffer": "6.0.3",
+    "dioc": "3.0.2",
+    "fp-ts": "2.16.11",
+    "process": "0.11.10",
+    "rxjs": "7.8.2",
+    "stream-browserify": "3.0.0",
+    "util": "0.12.5",
+    "verzod": "0.4.0",
+    "vue": "3.5.28",
+    "workbox-window": "7.4.0",
+    "zod": "3.25.32"
+  },
+  "devDependencies": {
+    "@eslint/eslintrc": "3.3.3",
+    "@eslint/js": "9.39.2",
+    "@graphql-codegen/add": "6.0.0",
+    "@graphql-codegen/cli": "6.1.1",
+    "@graphql-codegen/typed-document-node": "6.1.6",
+    "@graphql-codegen/typescript": "5.0.8",
+    "@graphql-codegen/typescript-operations": "5.0.8",
+    "@graphql-codegen/typescript-urql-graphcache": "3.1.1",
+    "@graphql-codegen/urql-introspection": "3.0.1",
+    "@graphql-typed-document-node/core": "3.2.0",
+    "@iconify-json/lucide": "1.2.91",
+    "@intlify/unplugin-vue-i18n": "11.0.7",
+    "@rushstack/eslint-patch": "1.15.0",
+    "@typescript-eslint/eslint-plugin": "8.56.0",
+    "@typescript-eslint/parser": "8.56.0",
+    "@vitejs/plugin-legacy": "7.2.1",
+    "@vitejs/plugin-vue": "6.0.4",
+    "@vue/eslint-config-typescript": "14.7.0",
+    "autoprefixer": "10.4.24",
+    "cross-env": "10.1.0",
+    "dotenv": "17.3.1",
+    "eslint": "9.39.2",
+    "eslint-plugin-prettier": "5.5.5",
+    "eslint-plugin-vue": "10.8.0",
+    "globals": "16.5.0",
+    "npm-run-all": "4.1.5",
+    "postcss": "8.5.6",
+    "prettier-plugin-tailwindcss": "0.7.1",
+    "tailwindcss": "3.4.16",
+    "typescript": "5.9.3",
+    "unplugin-fonts": "1.4.0",
+    "unplugin-icons": "22.5.0",
+    "unplugin-vue-components": "30.0.0",
+    "vite": "7.3.1",
+    "vite-plugin-fonts": "0.7.0",
+    "vite-plugin-html-config": "2.0.2",
+    "vite-plugin-inspect": "11.3.3",
+    "vite-plugin-pages": "0.33.2",
+    "vite-plugin-pages-sitemap": "1.7.1",
+    "vite-plugin-pwa": "1.2.0",
+    "vite-plugin-static-copy": "3.2.0",
+    "vite-plugin-vue-layouts": "0.11.0",
+    "vue-tsc": "2.1.6"
   }
-
-  await listen<string>("registration-received", (event) => {
-    otpCode.value = event.payload
-    currentWindow.setFocus()
-  })
-
-  await listen("window-hidden", () => {
-    otpCode.value = ""
-  })
-
-  await listen("authenticated", () => {
-    otpCode.value = ""
-    hideWindow()
-  })
-})
-</script>
-
-
-[packages/hoppscotch-agent/src/pages/registrations.vue]
-<template>
-  <div class="p-5 h-full flex flex-col flex-grow gap-y-2 justify-between">
-    <h1 class="font-bold text-lg text-white">Agent Registrations</h1>
-    <div class="overflow-auto">
-      <HoppSmartTable
-        :headings="[
-          { key: 'auth_key_hash', label: 'ID' },
-          { key: 'registered_at', label: 'Registered At' },
-        ]"
-        :list="registrations"
-      >
-        <template #registered_at="{ item }">{{
-          formatDate(item.registered_at)
-        }}</template>
-      </HoppSmartTable>
-    </div>
-    <div class="border-t border-divider p-5 flex justify-between">
-      <HoppButtonPrimary label="Hide Window" outline @click="hideWindow" />
-    </div>
-  </div>
-</template>
-
-<script setup lang="ts">
-import { ref, onMounted } from "vue"
-import { HoppButtonPrimary, HoppSmartTable } from "@hoppscotch/ui"
-import { getCurrentWindow } from "@tauri-apps/api/window"
-import { invoke } from "@tauri-apps/api/core"
-import { listen } from "@tauri-apps/api/event"
-import { orderBy } from "lodash-es"
-
-interface Registration {
-  auth_key_hash: string
-  registered_at: string
 }
-
-interface ListRegistrationsResult {
-  registrations: Registration[]
-}
-
-const registrations = ref<Registration[]>([])
-
-function formatDate(date: string): string {
-  return new Date(date).toLocaleString()
-}
-
-function hideWindow() {
-  const currentWindow = getCurrentWindow()
-  currentWindow.hide()
-}
-
-async function loadRegistrations() {
-  const result = await invoke<ListRegistrationsResult>("list_registrations", {})
-  registrations.value = orderBy(result.registrations, "registered_at", "desc")
-}
-
-onMounted(async () => {
-  const currentWindow = getCurrentWindow()
-  currentWindow.setAlwaysOnTop(true)
-
-  await loadRegistrations()
-  await listen("authenticated", () => {
-    loadRegistrations()
-  })
-  await listen("show-registrations", () => {
-    loadRegistrations()
-  })
-})
-</script>
-
-
-[packages/hoppscotch-common/src/modules/router.ts]
-import { HoppModule, HOPP_MODULES } from "."
-import {
-  createRouter,
-  createWebHistory,
-  RouteLocationNormalized,
-} from "vue-router"
-import { setupLayouts } from "virtual:generated-layouts"
-import generatedRoutes from "virtual:generated-pages"
-import { readonly, ref } from "vue"
-import { platform } from "~/platform"
-
-const routes = setupLayouts(generatedRoutes)
-
-/**
- * A reactive value signifying whether we are currently navigating
- * into the first route the application is routing into.
- * Useful, if you want to do stuff for the initial page load (for example splash screens!)
- */
-const _isLoadingInitialRoute = ref(false)
-
-/**
- * Says whether a given route looks like an initial route which
- * is loaded as the first route.
- *
- * NOTE: This function assumes Vue Router represents that initial route
- * in the way we expect (fullPath == "/" and name == undefined). If this
- * function breaks later on, most probs vue-router updated its semantics
- * and we have to correct this function.
- */
-function isInitialRoute(route: RouteLocationNormalized) {
-  return route.fullPath === "/" && route.name === undefined
-}
-
-/**
- * A reactive value signifying whether we are currently navigating
- * into the first route the application is routing into.
- * Useful, if you want to do stuff for the initial page load (for example splash screens!)
- *
- * NOTE: This reactive value is READONLY
- */
-export const isLoadingInitialRoute = readonly(_isLoadingInitialRoute)
-
-export default <HoppModule>{
-  onVueAppInit(app) {
-    const router = createRouter({
-      history: createWebHistory(),
-      routes,
-    })
-
-    router.beforeEach(async (to, from) => {
-      _isLoadingInitialRoute.value = isInitialRoute(from)
-
-      const onBeforeRouteChangePromises: Promise<any>[] = []
-
-      HOPP_MODULES.forEach((mod) => {
-        const res = mod.onBeforeRouteChange?.(to, from, router)
-        if (res) onBeforeRouteChangePromises.push(res)
-      })
-      platform.addedHoppModules?.forEach((mod) => {
-        const res = mod.onBeforeRouteChange?.(to, from, router)
-        if (res) onBeforeRouteChangePromises.push(res)
-      })
-
-      await Promise.all(onBeforeRouteChangePromises)
-    })
-
-    // Instead of this a better architecture is for the router
-    // module to expose a stream of router events that can be independently
-    // subbed to
-    router.afterEach((to) => {
-      platform.analytics?.logPageView(to.fullPath)
-
-      _isLoadingInitialRoute.value = false
-
-      HOPP_MODULES.forEach((mod) => {
-        mod.onAfterRouteChange?.(to, router)
-      })
-      platform.addedHoppModules?.forEach((mod) => {
-        mod.onAfterRouteChange?.(to, router)
-      })
-    })
-
-    app.use(router)
-
-    HOPP_MODULES.forEach((mod) => mod.onRouterInit?.(app, router))
-    platform.addedHoppModules?.forEach((mod) => mod.onRouterInit?.(app, router))
-  },
-}
-
-
-[packages/hoppscotch-common/src/pages/_.vue]
-<!-- The Catch-All Page -->
-<!-- Reserved for Critical Errors and 404 ONLY -->
-<template>
-  <div
-    class="flex flex-col items-center justify-center"
-    :class="{ 'min-h-screen': statusCode !== 404 }"
-  >
-    <img
-      :src="`/images/states/${colorMode.value}/youre_lost.svg`"
-      loading="lazy"
-      class="mb-2 inline-flex h-46 w-46 flex-col object-contain object-center"
-      :alt="message"
-    />
-    <h1 class="heading mb-2 text-4xl">
-      {{ statusCode }}
-    </h1>
-    <p class="mb-4 text-secondaryLight">{{ message }}</p>
-    <div class="mt-4 space-x-2">
-      <HoppButtonSecondary
-        to="/"
-        :icon="IconHome"
-        filled
-        :label="t('app.home')"
-      />
-      <HoppButtonSecondary
-        :icon="IconRefreshCW"
-        :label="t('app.reload')"
-        filled
-        @click="reloadApplication"
-      />
-    </div>
-  </div>
-</template>
-
-<script setup lang="ts">
-import IconRefreshCW from "~icons/lucide/refresh-cw"
-import IconHome from "~icons/lucide/home"
-import { PropType, computed } from "vue"
-import { useI18n } from "@composables/i18n"
-import { useColorMode } from "@composables/theming"
-
-export type ErrorPageData = {
-  message: string
-  statusCode: number
-}
-
-const colorMode = useColorMode()
-const t = useI18n()
-
-const props = defineProps({
-  error: {
-    type: Object as PropType<ErrorPageData | null>,
-    default: null,
-  },
-})
-
-const statusCode = computed(() => props.error?.statusCode ?? 404)
-
-const message = computed(
-  () => props.error?.message ?? t("error.page_not_found")
-)
-
-const reloadApplication = () => {
-  window.location.reload()
-}
-</script>
-
-
-[packages/hoppscotch-common/src/pages/e/_id.vue]
-<template>
-  <div class="flex flex-col justify-center h-screen">
-    <div
-      v-if="sharedRequestDetails.loading"
-      class="flex justify-center items-center py-5"
-    >
-      <HoppSmartSpinner />
-    </div>
-
-    <div
-      v-else-if="E.isLeft(sharedRequestDetails.data) || invalidLink"
-      class="flex flex-1 flex-col items-center justify-center p-8"
-    >
-      <icon-lucide-alert-triangle class="svg-icons mb-2 opacity-75" />
-      <h1 class="heading text-center">
-        {{ t("error.invalid_link") }}
-      </h1>
-      <p class="mt-2 text-center">
-        {{ t("error.invalid_embed_link") }}
-      </p>
-    </div>
-
-    <Embeds
-      v-else-if="tab"
-      v-model:model-tab="tab"
-      :properties="properties"
-      :shared-request-i-d="sharedRequestID"
-    />
-  </div>
-</template>
-
-<script setup lang="ts">
-import { ref } from "vue"
-import { watch } from "vue"
-import { useRoute } from "vue-router"
-import { useGQLQuery } from "~/composables/graphql"
-import {
-  ResolveShortcodeDocument,
-  ResolveShortcodeQuery,
-  ResolveShortcodeQueryVariables,
-} from "~/helpers/backend/graphql"
-import * as E from "fp-ts/Either"
-import { onMounted } from "vue"
-import {
-  getDefaultRESTRequest,
-  safelyExtractRESTRequest,
-} from "@hoppscotch/data"
-import { HoppTab } from "~/services/tab"
-import { HoppRequestDocument } from "~/helpers/rest/document"
-import { applySetting } from "~/newstore/settings"
-import { useI18n } from "~/composables/i18n"
-
-const t = useI18n()
-
-const route = useRoute()
-
-const sharedRequestID = ref("")
-const invalidLink = ref(false)
-const properties = ref([])
-
-const sharedRequestDetails = useGQLQuery<
-  ResolveShortcodeQuery,
-  ResolveShortcodeQueryVariables,
-  ""
->({
-  query: ResolveShortcodeDocument,
-  variables: {
-    code: route.params.id.toString(),
-  },
-})
-
-const tab = ref<HoppTab<HoppRequestDocument>>({
-  id: "0",
-  document: {
-    request: getDefaultRESTRequest(),
-    response: null,
-    isDirty: false,
-    type: "request",
-  },
-})
-
-watch(
-  () => sharedRequestDetails.data,
-  () => {
-    if (sharedRequestDetails.loading) return
-
-    const data = sharedRequestDetails.data
-
-    if (E.isRight(data)) {
-      if (!data.right.shortcode?.request) {
-        invalidLink.value = true
-        return
-      }
-
-      const request: unknown = JSON.parse(
-        data.right.shortcode?.request as string
-      )
-
-      tab.value.document.request = safelyExtractRESTRequest(
-        request,
-        getDefaultRESTRequest()
-      )
-
-      if (data.right.shortcode && data.right.shortcode.properties) {
-        const parsedProperties = JSON.parse(data.right.shortcode.properties)
-        if (parsedProperties.theme === "dark") {
-          applySetting("BG_COLOR", "dark")
-        } else if (parsedProperties.theme === "light") {
-          applySetting("BG_COLOR", "light")
-        } else if (parsedProperties.theme === "system") {
-          applySetting("BG_COLOR", "system")
-        }
-        properties.value = parsedProperties.options
-      }
-    }
-  }
-)
-
-onMounted(()
-... [TRUNCATED]
-
---- DIRECTORY STRUCTURE (depth 2) ---
-├── .devcontainer/
-│   └── devcontainer.json
-├── .dockerignore
-├── .editorconfig
-├── .env.example
-├── .envrc
-├── .firebaserc
-├── .gitattributes
-├── .github/
-│   ├── FUNDING.yml
-│   ├── ISSUE_TEMPLATE/
-│   │   ├── --bug-report.yaml
-│   │   ├── --feature-request.yaml
-│   │   └── config.yml
-│   ├── dependabot.yml
-│   ├── pull_request_template.md
-│   ├── semantic.yml
-│   └── workflows/
-│       ├── build-hoppscotch-agent.yml
-│       ├── build-hoppscotch-desktop.yml
-│       ├── codeql-analysis.yml
-│       ├── release-push-docker.yml
-│       └── tests.yml
-├── .gitignore
-├── .husky/
-│   ├── commit-msg
-│   └── pre-commit
-├── .npmrc
-├── .prettierignore
-├── .prettierrc.js
-├── CHANGELOG.md
-├── CODEOWNERS
-├── CODE_OF_CONDUCT.md
-├── CONTRIBUTING.md
-├── LICENSE
-├── README.md
-├── SECURITY.md
-├── TRANSLATIONS.md
-├── aio-multiport-setup.Caddyfile
-├── aio-subpath-access.Caddyfile
-├── aio_run.mjs
-├── commitlint.config.js
-├── devenv.lock
-├── devenv.nix
-├── devenv.yaml
-├── docker-compose.deploy.yml
-├── docker-compose.yml
-├── firebase.json
-├── firestore.indexes.json
-├── firestore.rules
-├── healthcheck.sh
-├── jsconfig.json
-├── netlify.toml
-├── package.json
-├── packages/
-│   ├── codemirror-lang-graphql/
-│   │   ├── .gitignore
-│   │   ├── .npmignore
-│   │   ├── README.md
-│   │   ├── package.json
-│   │   ├── rollup.config.js
-│   │   ├── src/
-│   │   └── tsconfig.json
-│   ├── hoppscotch-agent/
-│   │   ├── .gitignore
-│   │   ├── README.md
-│   │   ├── eslint.config.mjs
-│   │   ├── index.html
-│   │   ├── package.json
-│   │   ├── postcss.config.js
-│   │   ├── public/
-│   │   ├── src-tauri/
-│   │   ├── src/
-│   │   ├── tailwind.config.js
-│   │   ├── tsconfig.json
-│   │   ├── tsconfig.node.json
-│   │   └── vite.config.ts
-│   ├── hoppscotch-backend/
-│   │   ├── .dockerignore
-│   │   ├── .gitignore
-│   │   ├── .prettierrc
-│   │   ├── Dockerfile
-│   │   ├── backend.Caddyfile
-│   │   ├── eslint.config.js
-│   │   ├── global.d.ts
-│   │   ├── jest.setup.js
-│   │   ├── nest-cli.json
-│   │   ├── package.json
-│   │   ├── prisma.config.ts
-│   │   ├── prisma/
-│   │   ├── prod_run.mjs
-│   │   ├── src/
-│   │   ├── test/
-│   │   ├── tsconfig.build.json
-│   │   └── tsconfig.json
-│   ├── hoppscotch-cli/
-│   │   ├── .gitignore
-│   │   ├── .prettierrc
-│   │   ├── CONTRIBUTING.md
-│   │   ├── README.md
-│   │   ├── bin/
-│   │   ├── package.json
-│   │   ├── setupFiles.ts
-│   │   ├── src/
-│   │   ├── tsconfig.json
-│   │   ├── tsup.config.ts
-│   │   └── vitest.config.ts
-│   ├── hoppscotch-common/
-│   │   ├── .gitignore
-│   │   ├── .prettierignore
-│   │   ├── .prettierrc.js
-│   │   ├── assets/
-│   │   ├── eslint.config.mjs
-│   │   ├── gql-codegen.yml
-│   │   ├── languages.json
-│   │   ├── locales/
-│   │   ├── meta.ts
-│   │   ├── package.json
-│   │   ├── public/
-│   │   ├── src/
-│   │   ├── tsconfig.json
-│   │   ├── type-check.mjs
-│   │   └── vitest.config.mts
-│   ├── hoppscotch-data/
-│   │   ├── package.json
-│   │   ├── src/
-│   │   ├── tsconfig.decl.json
-│   │   ├── tsconfig.json
-│   │   └── vite.config.ts
-│   ├── hoppscotch-desktop/
-│   │   ├── .gitignore
-│   │   ├── README.md
-│   │   ├── connection-to-self-hosted-instance.png
-│   │   ├── crates/
-│   │   ├── desktop-app.png
-│   │   ├── eslint.config.mjs
-│   │   ├── index.html
-│   │   ├── package.json
-│   │   ├── plugin-workspace/
-│   │   ├── postcss.config.js
-│   │   ├── public/
-│   │   ├── src-tauri/
-│   │   ├── src/
-│   │   ├── tailwind.config.ts
-│   │   ├── tsconfig.json
-│   │   ├── tsconfig.node.json
-│   │   └── vite.config.ts
-│   ├── hoppscotch-js-sandbox/
-│   │   ├── .gitignore
-│   │   ├── .prettierignore
-│   │   ├── .prettierrc.cjs
-│   │   ├── README.md
-│   │   ├── eslint.config.cjs
-│   │   ├── index.d.ts
-│   │   ├── node.d.ts
-│   │   ├── package.json
-│   │   ├── setupFiles.ts
-│   │   ├── src/
-│   │   ├── tsconfig.json
-│   │   ├── vite.config.ts
-│   │   └── web.d.ts
-│   ├── hoppscotch-kernel/
-│   │   ├── README.md
-│   │   ├── eslint.config.mjs
-│   │   ├── package.json
-│   │   ├── src/
-│   │   ├── tsconfig.base.json
-│   │   ├── tsconfig.decl.json
-│   │   ├── tsconfig.json
-│   │   ├── vite.config.d.ts
-│   │   └── vite.config.ts
-│   ├── hoppscotch-relay/
-│   │   ├── .gitignore
-│   │   ├── Cargo.lock
-│   │   ├── Cargo.toml
-│   │   ├── LICENSE.md
-│   │   ├── README.md
-│   │   └── src/
-│   ├── hoppscotch-selfhost-web/
-│   │   ├── .gitignore
-│   │   ├── Caddyfile
-│   │   ├── Dockerfile
-│   │   ├── eslint.config.mjs
-│   │   ├── gql-codegen.yml
-│   │   ├── index.html
-│   │   ├── meta.ts
-│   │   ├── package.json
-│   │   ├── postcss.config.cjs
-│   │   ├── prod_run.mjs
-│   │   ├── selfhost-web.Caddyfile
-│   │   ├── src/
-│   │   ├── tailwind.config.ts
-│   │   ├── tsconfig.json
-│   │   ├── tsconfig.node.json
-│   │   ├── vite.config.ts
-│   │   └── webapp-server/
-│   └── hoppscotch-sh-admin/
-│       ├── .dockerignore
-│       ├── .gitignore
-│       ├── .prettierignore
-│       ├── .prettierrc.cjs
-│       ├── Caddyfile
-│       ├── Dockerfile
-│       ├── README.md
-│       ├── assets/
-│       ├── gql-codegen.yml
-│       ├── index.html
-│       ├── languages.json
-│       ├── locales/
-│       ├── package.json
-│       ├── postcss.config.cjs
-│       ├── prod_run.mjs
-│       ├── public/
-│       ├── sh-admin-multiport-setup.Caddyfile
-│       ├── sh-admin-subpath-access.Caddyfile
-│       ├── src/
-│       ├── tailwind.config.ts
-│       ├── tsconfig.json
-│       ├── tsconfig.node.json
-│       └── vite.config.ts
-├── pnpm-lock.yaml
-├── pnpm-workspace.yaml
-├── prod.Dockerfile
-└── tailwind.config.ts

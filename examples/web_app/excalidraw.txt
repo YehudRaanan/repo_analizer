@@ -1,132 +1,67 @@
 =====================================
-Repository Analysis: excalidraw
-Type: Web Application
+REPO CLASSIFICATION SIGNALS
 =====================================
 
 --- METADATA ---
 Name: excalidraw
 Description: Virtual whiteboard for sketching hand-drawn like diagrams
-Language: TypeScript
+Primary language: TypeScript
 Topics: canvas, collaboration, diagrams, drawing, hacktoberfest, productivity, whiteboard
-Stars: 118111
-License: MIT License
 
---- README ---
-<a href="https://excalidraw.com/" target="_blank" rel="noopener">
-  <picture>
-    <source media="(prefers-color-scheme: dark)" alt="Excalidraw" srcset="https://excalidraw.nyc3.cdn.digitaloceanspaces.com/github/excalidraw_github_cover_2_dark.png" />
-    <img alt="Excalidraw" src="https://excalidraw.nyc3.cdn.digitaloceanspaces.com/github/excalidraw_github_cover_2.png" />
-  </picture>
-</a>
+--- ROOT FILES (signal matches) ---
+Web App:     package.json
+Backend:     (none)
+Library:     package.json
+CLI:         (none)
+Data/ML:     (none)
+Infra:       (none)
 
-<h4 align="center">
-  <a href="https://excalidraw.com">Excalidraw Editor</a> |
-  <a href="https://plus.excalidraw.com/blog">Blog</a> |
-  <a href="https://docs.excalidraw.com">Documentation</a> |
-  <a href="https://plus.excalidraw.com">Excalidraw+</a>
-</h4>
+--- TOP-LEVEL DIRECTORIES (signal matches) ---
+Web App:     (none)
+Backend:     (none)
+Library:     (none)
+CLI:         (none)
+Data/ML:     (none)
+Infra:       (none)
 
-<div align="center">
-  <h2>
-    An open source virtual hand-drawn style whiteboard. </br>
-    Collaborative and end-to-end encrypted. </br>
-  <br />
-  </h2>
-</div>
+--- ALL TOP-LEVEL DIRECTORIES ---
+.codesandbox, .github, .husky, dev-docs, examples, excalidraw-app, firebase-project, packages
 
-<br />
-<p align="center">
-  <a href="https://github.com/excalidraw/excalidraw/blob/master/LICENSE">
-    <img alt="Excalidraw is released under the MIT license." src="https://img.shields.io/badge/license-MIT-blue.svg"  /></a>
-  <a href="https://www.npmjs.com/package/@excalidraw/excalidraw">
-    <img alt="npm downloads/month" src="https://img.shields.io/npm/dm/@excalidraw/excalidraw"  /></a>
-  <a href="https://docs.excalidraw.com/docs/introduction/contributing">
-    <img alt="PRs welcome!" src="https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat"  /></a>
-  <a href="https://discord.gg/UexuTaE">
-    <img alt="Chat on Discord" src="https://img.shields.io/discord/723672430744174682?color=738ad6&label=Chat%20on%20Discord&logo=discord&logoColor=ffffff&widge=false"/></a>
-  <a href="https://deepwiki.com/excalidraw/excalidraw">
-    <img alt="Ask DeepWiki" src="https://deepwiki.com/badge.svg" /></a>
-  <a href="https://twitter.com/excalidraw">
-    <img alt="Follow Excalidraw on Twitter" src="https://img.shields.io/twitter/follow/excalidraw.svg?label=follow+@excalidraw&style=social&logo=twitter"/></a>
-</p>
+--- TYPE-SPECIFIC EXTENSION COUNTS ---
+Web App extensions (.tsx, .jsx, .vue, .svelte): 116
+Data/ML extensions (.ipynb): 0
+Infra extensions (.tf, .hcl): 0
+Backend extensions (.proto, .graphql): 0
 
-<div align="center">
-  <figure>
-    <a href="https://excalidraw.com" target="_blank" rel="noopener">
-      <img src="https://excalidraw.nyc3.cdn.digitaloceanspaces.com/github%2Fproduct_showcase.png" alt="Product showcase" />
-    </a>
-    <figcaption>
-      <p align="center">
-        Create beautiful hand-drawn like diagrams, wireframes, or whatever you like.
-      </p>
-    </figcaption>
-  </figure>
-</div>
+--- TOP FILE EXTENSIONS (by count) ---
+  .ts: 133
+  .tsx: 116
+  .mdx: 33
+  .json: 24
+  .scss: 24
+  .yml: 14
+  .png: 14
+  .md: 12
+  .js: 11
+  .svg: 7
+  .gitignore: 6
+  .jpeg: 5
+  .snap: 4
+  .codesandbox/dockerfile: 2
+  .css: 2
 
-## Features
+--- BOOLEAN PATTERN CHECKS ---
+  pages or app dir: no
+  components dir: no
+  cmd or bin dir: no
+  run train scripts: no
+  ipynb files: no
+  k8s manifests: no
+  route controller dirs: no
+  dockerfile: yes
 
-The Excalidraw editor (npm package) supports:
 
-- 💯&nbsp;Free & open-source.
-- 🎨&nbsp;Infinite, canvas-based whiteboard.
-- ✍️&nbsp;Hand-drawn like style.
-- 🌓&nbsp;Dark mode.
-- 🏗️&nbsp;Customizable.
-- 📷&nbsp;Image support.
-- 😀&nbsp;Shape libraries support.
-- 🌐&nbsp;Localization (i18n) support.
-- 🖼️&nbsp;Export to PNG, SVG & clipboard.
-- 💾&nbsp;Open format - export drawings as an `.excalidraw` json file.
-- ⚒️&nbsp;Wide range of tools - rectangle, circle, diamond, arrow, line, free-draw, eraser...
-- ➡️&nbsp;Arrow-binding & labeled arrows.
-- 🔙&nbsp;Undo / Redo.
-- 🔍&nbsp;Zoom and panning support.
-
-## Excalidraw.com
-
-The app hosted at [excalidraw.com](https://excalidraw.com) is a minimal showcase of what you can build with Excalidraw. Its [source code](https://github.com/excalidraw/excalidraw/tree/master/excalidraw-app) is part of this repository as well, and the app features:
-
-- 📡&nbsp;PWA support (works offline).
-- 🤼&nbsp;Real-time collaboration.
-- 🔒&nbsp;End-to-end encryption.
-- 💾&nbsp;Local-first support (autosaves to the browser).
-- 🔗&nbsp;Shareable links (export to a readonly link you can share with others).
-
-We'll be adding these features as drop-in plugins for the npm package in the future.
-
-## Quick start
-
-**Note:** following instructions are for installing the Excalidraw [npm package](https://www.npmjs.com/package/@excalidraw/excalidraw) when integrating Excalidraw into your own app. To run the repository locally for development, please refer to our [Development Guide](https://docs.excalidraw.com/docs/introduction/development).
-
-Use `npm` or `yarn` to install the package.
-
-```bash
-npm install react react-dom @excalidraw/excalidraw
-# or
-yarn add react react-dom @excalidraw/excalidraw
-```
-
-Check out our [documentation](https://docs.excalidraw.com/docs/@excalidraw/excalidraw/installation) for more details!
-
-## Contributing
-
-- Missing something or found a bug? [Report here](https://github.com/excalidraw/excalidraw/issues).
-- Want to contribute? Check out our [contribution guide](https://docs.excalidraw.com/docs/introduction/contributing) or let us know on [Discord](https://discord.gg/UexuTaE).
-- Want to help with translations? See the [translation guide](https://docs.excalidraw.com/docs/introduction/contributing#translating).
-
-## Integrations
-
-- [VScode extension](https://marketplace.visualstudio.com/items?itemName=pomdtr.excalidraw-editor)
-- [npm package](https://www.npmjs.com/package/@excalidraw/excalidraw)
-
-## Who's integrating Excalidraw
-
-[Google Cloud](https://googlecloudcheatsheet.withgoogle.com/architecture) • [Meta](https://meta.com/) • [CodeSandbox](https://codesandbox.io/) • [Obsi
-... [TRUNCATED]
-
---- PACKAGE MANIFEST(S) ---
-
-[package.json]
+[get_file('package.json')]
 {
   "private": true,
   "name": "excalidraw-monorepo",
@@ -205,574 +140,147 @@ Check out our [documentation](https://docs.excalidraw.com/docs/@excalidraw/excal
     "fix:code": "yarn test:code --fix",
     "fix:other": "yarn prettier --write",
     "fix": "yarn fix:other && yarn fix:code",
-    "locales-coverage": "
-... [TRUNCATED]
-
---- WEB FRAMEWORK CONFIG ---
-
-[tsconfig.json]
-{
-  "compilerOptions": {
-    "rootDir": "./",
-    "target": "ESNext",
-    "lib": ["dom", "dom.iterable", "esnext"],
-    "types": ["vitest/globals", "@testing-library/jest-dom"],
-    "allowJs": true,
-    "skipLibCheck": true,
-    "esModuleInterop": true,
-    "allowSyntheticDefaultImports": true,
-    "strict": true,
-    "forceConsistentCasingInFileNames": true,
-    "noFallthroughCasesInSwitch": true,
-    "module": "ESNext",
-    "moduleResolution": "node",
-    "resolveJsonModule": true,
-    "isolatedModules": true,
-    "noEmit": true,
-    "jsx": "react-jsx",
-    "baseUrl": ".",
-    "paths": {
-      "@excalidraw/common": ["./packages/common/src/index.ts"],
-      "@excalidraw/common/*": ["./packages/common/src/*"],
-      "@excalidraw/excalidraw": ["./packages/excalidraw/index.tsx"],
-      "@excalidraw/excalidraw/*": ["./packages/excalidraw/*"],
-      "@excalidraw/element": ["./packages/element/src/index.ts"],
-      "@excalidraw/element/*": ["./packages/element/src/*"],
-      "@excalidraw/math": ["./packages/math/src/index.ts"],
-      "@excalidraw/math/*": ["./packages/math/src/*"],
-      "@excalidraw/utils": ["./packages/utils/src/index.ts"],
-      "@excalidraw/utils/*": ["./packages/utils/src/*"]
-    }
+    "locales-coverage": "node scripts/build-locales-coverage.js",
+    "locales-coverage:description": "node scripts/locales-coverage-description.js",
+    "prepare": "husky install",
+    "prettier": "prettier \"**/*.{css,scss,json,md,html,yml}\" --ignore-path=.eslintignore",
+    "release": "node scripts/release.js",
+    "release:test": "node scripts/release.js --tag=test",
+    "release:next": "node scripts/release.js --tag=next",
+    "release:latest": "node scripts/release.js --tag=latest",
+    "rm:build": "rimraf --glob excalidraw-app/build excalidraw-app/dist excalidraw-app/dev-dist packages/*/dist packages/*/build examples/*/build examples/*/dist",
+    "rm:node_modules": "rimraf --glob node_modules excalidraw-app/node_modules packages/*/node_modules",
+    "clean-install": "yarn rm:node_modules && yarn install"
   },
-  "include": ["packages", "excalidraw-app"],
-  "exclude": ["examples", "dist", "types", "tests"]
-}
-
-
-[docker-compose.yml]
-services:
-  excalidraw:
-    build:
-      context: .
-      args:
-        - NODE_ENV=development
-    container_name: excalidraw
-    ports:
-      - "3000:80"
-    restart: on-failure
-    stdin_open: true
-    healthcheck:
-      disable: true
-    environment:
-      - NODE_ENV=development
-    volumes:
-      - ./:/opt/node_app/app:delegated
-      - ./package.json:/opt/node_app/package.json
-      - ./yarn.lock:/opt/node_app/yarn.lock
-      - notused:/opt/node_app/app/node_modules
-
-volumes:
-  notused:
-
-
-[Dockerfile]
-FROM --platform=${BUILDPLATFORM} node:18 AS build
-
-WORKDIR /opt/node_app
-
-COPY . .
-
-# do not ignore optional dependencies:
-# Error: Cannot find module @rollup/rollup-linux-x64-gnu
-RUN --mount=type=cache,target=/root/.cache/yarn \
-    npm_config_target_arch=${TARGETARCH} yarn --network-timeout 600000
-
-ARG NODE_ENV=production
-
-RUN npm_config_target_arch=${TARGETARCH} yarn build:app:docker
-
-FROM --platform=${TARGETPLATFORM} nginx:1.27-alpine
-
-COPY --from=build /opt/node_app/excalidraw-app/build /usr/share/nginx/html
-
-HEALTHCHECK CMD wget -q -O /dev/null http://localhost || exit 1
-
-
-[vercel.json]
-{
-  "public": true,
-  "headers": [
-    {
-      "source": "/(.*)",
-      "headers": [
-        {
-          "key": "Access-Control-Allow-Origin",
-          "value": "https://excalidraw.com"
-        },
-        {
-          "key": "X-Content-Type-Options",
-          "value": "nosniff"
-        },
-        {
-          "key": "Feature-Policy",
-          "value": "*"
-        },
-        {
-          "key": "Referrer-Policy",
-          "value": "origin"
-        }
-      ]
-    },
-    {
-      "source": "/:file*.woff2",
-      "headers": [
-        {
-          "key": "Cache-Control",
-          "value": "public, max-age=31536000"
-        },
-        {
-          "key": "Access-Control-Allow-Origin",
-          "value": "https://excalidraw.com"
-        }
-      ]
-    },
-    {
-      "source": "/(Virgil|Cascadia|Assistant-Regular).woff2",
-      "headers": [
-        {
-          "key": "Cache-Control",
-          "value": "public, max-age=31536000"
-        },
-        {
-          "key": "Access-Control-Allow-Origin",
-          "value": "*"
-        }
-      ]
-    }
-  ],
-  "redirects": [
-    {
-      "source": "/webex/:match*",
-      "destination": "https://for-webex.excalidraw.com"
-    },
-    {
-      "source": "/:path*",
-      "has": [
-        {
-          "type": "host",
-          "value": "vscode.excalidraw.com"
-        }
-      ],
-      "destination": "https://marketplace.visualstudio.com/items?itemName=pomdtr.excalidraw-editor"
-    }
-  ],
-  "outputDirectory": "excalidraw-app/build",
-  "installCommand": "yarn install"
-}
-
-
---- ROUTE / PAGE DEFINITIONS ---
-
-[dev-docs/src/pages/index.module.css]
-/**
- * CSS files with the .module.css suffix will be treated as CSS modules
- * and scoped locally.
- */
-
-.heroBanner {
-  padding: 4rem 0;
-  text-align: center;
-  position: relative;
-  overflow: hidden;
-}
-
-[data-theme="dark"] .heroBanner {
-  color: #fff;
-}
-
-@media screen and (max-width: 996px) {
-  .heroBanner {
-    padding: 2rem;
+  "resolutions": {
+    "strip-ansi": "6.0.1"
   }
 }
 
-.buttons {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
 
-
-[dev-docs/src/pages/index.tsx]
-import Link from "@docusaurus/Link";
-import useDocusaurusContext from "@docusaurus/useDocusaurusContext";
-import HomepageFeatures from "@site/src/components/Homepage";
-import Layout from "@theme/Layout";
-import clsx from "clsx";
-import React from "react";
-
-import styles from "./index.module.css";
-
-function HomepageHeader() {
-  const { siteConfig } = useDocusaurusContext();
-  return (
-    <header className={clsx("hero hero--primary", styles.heroBanner)}>
-      <div className="container">
-        <h1 className="hero__title">{siteConfig.title}</h1>
-        <p className="hero__subtitle">{siteConfig.tagline}</p>
-        <div className={styles.buttons}>
-          <Link className="button button--secondary button--lg" to="/docs">
-            Get started
-          </Link>
-        </div>
-      </div>
-    </header>
-  );
-}
-
-export default function Home() {
-  return (
-    <Layout description="For Excalidraw contributors or those integrating the Excalidraw editor">
-      <HomepageHeader />
-      <main>
-        <HomepageFeatures />
-      </main>
-    </Layout>
-  );
-}
-
-
-[dev-docs/src/pages/markdown-page.md]
----
-title: Markdown page example
 ---
 
-# Markdown page example
+[get_directory('')]
+Contents of /(root):
+  [dir] .codesandbox
+  [dir] .github
+  [dir] .husky
+  [dir] dev-docs
+  [dir] examples
+  [dir] excalidraw-app
+  [dir] firebase-project
+  [dir] packages
+  [dir] public
+  [dir] scripts
+  [file] .dockerignore
+  [file] .editorconfig
+  [file] .env.development
+  [file] .env.production
+  [file] .eslintignore
+  [file] .eslintrc.json
+  [file] .gitattributes
+  [file] .gitignore
+  [file] .lintstagedrc.js
+  [file] .npmrc
+  [file] .prettierignore
+  [file] .watchmanconfig
+  [file] CLAUDE.md
+  [file] CONTRIBUTING.md
+  [file] Dockerfile
+  [file] LICENSE
+  [file] README.md
+  [file] crowdin.yml
+  [file] docker-compose.yml
+  [file] package.json
+  [file] setupTests.ts
+  [file] tsconfig.json
+  [file] vercel.json
+  [file] vitest.config.mts
+  [file] yarn.lock
 
-You don't need React to write simple standalone pages.
+---
 
+[get_directory('excalidraw-app')]
+Contents of /excalidraw-app:
+  [dir] app-language
+  [dir] collab
+  [dir] components
+  [dir] data
+  [dir] share
+  [dir] tests
+  [file] App.tsx
+  [file] CustomStats.tsx
+  [file] ExcalidrawPlusIframeExport.tsx
+  [file] app-jotai.ts
+  [file] app_constants.ts
+  [file] bug-issue-template.js
+  [file] global.d.ts
+  [file] index.html
+  [file] index.scss
+  [file] index.tsx
+  [file] package.json
+  [file] sentry.ts
+  [file] useHandleAppTheme.ts
+  [file] vite-env.d.ts
+  [file] vite.config.mts
 
-[examples/with-nextjs/src/pages/excalidraw-in-pages.tsx]
-import dynamic from "next/dynamic";
+---
 
-import "../common.scss";
-
-// Since client components get prerenderd on server as well hence importing the excalidraw stuff dynamically
-// with ssr false
-const Excalidraw = dynamic(
-  async () => (await import("../excalidrawWrapper")).default,
-  {
-    ssr: false,
+[get_file('excalidraw-app/package.json')]
+{
+  "name": "excalidraw-app",
+  "version": "1.0.0",
+  "private": true,
+  "homepage": ".",
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not ie <= 11",
+      "not op_mini all",
+      "not safari < 12",
+      "not kaios <= 2.5",
+      "not edge < 79",
+      "not chrome < 70",
+      "not and_uc < 13",
+      "not samsung < 10"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
   },
-);
-
-export default function Page() {
-  return (
-    <>
-      <a href="/">Switch to App router</a>
-      <h1 className="page-title">Pages Router</h1>
-      {/* @ts-expect-error - https://github.com/vercel/next.js/issues/42292 */}
-      <Excalidraw />
-    </>
-  );
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "dependencies": {
+    "@excalidraw/random-username": "1.0.0",
+    "@sentry/browser": "9.0.1",
+    "callsites": "4.2.0",
+    "firebase": "11.3.1",
+    "i18next-browser-languagedetector": "6.1.4",
+    "idb-keyval": "6.0.3",
+    "jotai": "2.11.0",
+    "react": "19.0.0",
+    "react-dom": "19.0.0",
+    "socket.io-client": "4.7.2",
+    "uqr": "0.1.2",
+    "vite-plugin-html": "3.2.2"
+  },
+  "prettier": "@excalidraw/prettier-config",
+  "scripts": {
+    "build-node": "node ./scripts/build-node.js",
+    "build:app:docker": "cross-env VITE_APP_DISABLE_SENTRY=true vite build",
+    "build:app": "cross-env VITE_APP_GIT_SHA=$VERCEL_GIT_COMMIT_SHA cross-env VITE_APP_ENABLE_TRACKING=true vite build",
+    "build:version": "node ../scripts/build-version.js",
+    "build": "yarn build:app && yarn build:version",
+    "start": "yarn && vite",
+    "start:production": "yarn build && yarn serve",
+    "serve": "npx http-server build -a localhost -p 5001 -o",
+    "build:preview": "yarn build && vite preview --port 5000"
+  },
+  "devDependencies": {
+    "vite-plugin-sitemap": "0.7.1"
+  }
 }
-
-
---- DIRECTORY STRUCTURE (depth 2) ---
-├── .codesandbox/
-│   ├── Dockerfile
-│   └── tasks.json
-├── .dockerignore
-├── .editorconfig
-├── .env.development
-├── .env.production
-├── .eslintignore
-├── .eslintrc.json
-├── .gitattributes
-├── .github/
-│   ├── FUNDING.yml
-│   ├── assets/
-│   │   ├── crowdin.svg
-│   │   ├── sentry.svg
-│   │   └── vercel.svg
-│   ├── copilot-instructions.md
-│   └── workflows/
-│       ├── autorelease-excalidraw.yml
-│       ├── build-docker.yml
-│       ├── cancel.yml
-│       ├── lint.yml
-│       ├── locales-coverage.yml
-│       ├── publish-docker.yml
-│       ├── semantic-pr-title.yml
-│       ├── sentry-production.yml
-│       ├── size-limit.yml
-│       ├── test-coverage-pr.yml
-│       └── test.yml
-├── .gitignore
-├── .husky/
-│   └── pre-commit
-├── .lintstagedrc.js
-├── .npmrc
-├── .prettierignore
-├── .watchmanconfig
-├── CLAUDE.md
-├── CONTRIBUTING.md
-├── Dockerfile
-├── LICENSE
-├── README.md
-├── crowdin.yml
-├── dev-docs/
-│   ├── .gitignore
-│   ├── README.md
-│   ├── babel.config.js
-│   ├── docs/
-│   │   ├── @excalidraw/
-│   │   ├── assets/
-│   │   ├── codebase/
-│   │   └── introduction/
-│   ├── docusaurus.config.js
-│   ├── package.json
-│   ├── sidebars.js
-│   ├── src/
-│   │   ├── components/
-│   │   ├── css/
-│   │   ├── initialData.js
-│   │   ├── pages/
-│   │   └── theme/
-│   ├── static/
-│   │   ├── .nojekyll
-│   │   └── img/
-│   ├── tsconfig.json
-│   ├── vercel.json
-│   └── yarn.lock
-├── docker-compose.yml
-├── examples/
-│   ├── with-nextjs/
-│   │   ├── .gitignore
-│   │   ├── README.md
-│   │   ├── next.config.js
-│   │   ├── package.json
-│   │   ├── public/
-│   │   ├── src/
-│   │   ├── tsconfig.json
-│   │   ├── vercel.json
-│   │   └── yarn.lock
-│   └── with-script-in-browser/
-│       ├── .codesandbox/
-│       ├── .gitignore
-│       ├── components/
-│       ├── index.html
-│       ├── index.tsx
-│       ├── initialData.tsx
-│       ├── package.json
-│       ├── public/
-│       ├── tsconfig.json
-│       ├── utils.ts
-│       ├── vercel.json
-│       └── vite.config.mts
-├── excalidraw-app/
-│   ├── App.tsx
-│   ├── CustomStats.tsx
-│   ├── ExcalidrawPlusIframeExport.tsx
-│   ├── app-jotai.ts
-│   ├── app-language/
-│   │   ├── LanguageList.tsx
-│   │   ├── language-detector.ts
-│   │   └── language-state.ts
-│   ├── app_constants.ts
-│   ├── bug-issue-template.js
-│   ├── collab/
-│   │   ├── Collab.tsx
-│   │   ├── CollabError.scss
-│   │   ├── CollabError.tsx
-│   │   └── Portal.tsx
-│   ├── components/
-│   │   ├── AI.tsx
-│   │   ├── AppFooter.tsx
-│   │   ├── AppMainMenu.tsx
-│   │   ├── AppSidebar.scss
-│   │   ├── AppSidebar.tsx
-│   │   ├── AppWelcomeScreen.tsx
-│   │   ├── DebugCanvas.tsx
-│   │   ├── EncryptedIcon.tsx
-│   │   ├── ExcalidrawPlusPromoBanner.tsx
-│   │   ├── ExportToExcalidrawPlus.tsx
-│   │   └── TopErrorBoundary.tsx
-│   ├── data/
-│   │   ├── FileManager.ts
-│   │   ├── LocalData.ts
-│   │   ├── Locker.ts
-│   │   ├── TTDStorage.ts
-│   │   ├── firebase.ts
-│   │   ├── index.ts
-│   │   ├── localStorage.ts
-│   │   └── tabSync.ts
-│   ├── global.d.ts
-│   ├── index.html
-│   ├── index.scss
-│   ├── index.tsx
-│   ├── package.json
-│   ├── sentry.ts
-│   ├── share/
-│   │   ├── QRCode.tsx
-│   │   ├── ShareDialog.scss
-│   │   ├── ShareDialog.tsx
-│   │   └── qrcode.chunk.ts
-│   ├── tests/
-│   │   ├── LanguageList.test.tsx
-│   │   ├── MobileMenu.test.tsx
-│   │   ├── __snapshots__/
-│   │   └── collab.test.tsx
-│   ├── useHandleAppTheme.ts
-│   ├── vite-env.d.ts
-│   └── vite.config.mts
-├── firebase-project/
-│   ├── .firebaserc
-│   ├── .gitignore
-│   ├── firebase.json
-│   ├── firestore.indexes.json
-│   ├── firestore.rules
-│   └── storage.rules
-├── package.json
-├── packages/
-│   ├── common/
-│   │   ├── .eslintrc.json
-│   │   ├── README.md
-│   │   ├── debug.ts
-│   │   ├── global.d.ts
-│   │   ├── package.json
-│   │   ├── src/
-│   │   ├── tests/
-│   │   └── tsconfig.json
-│   ├── element/
-│   │   ├── .eslintrc.json
-│   │   ├── README.md
-│   │   ├── global.d.ts
-│   │   ├── package.json
-│   │   ├── src/
-│   │   ├── tests/
-│   │   └── tsconfig.json
-│   ├── eslintrc.base.json
-│   ├── excalidraw/
-│   │   ├── .gitignore
-│   │   ├── .size-limit.json
-│   │   ├── CHANGELOG.md
-│   │   ├── README.md
-│   │   ├── actions/
-│   │   ├── analytics.ts
-│   │   ├── animated-trail.ts
-│   │   ├── animation-frame-handler.ts
-│   │   ├── appState.ts
-│   │   ├── charts.test.ts
-│   │   ├── charts/
-│   │   ├── clients.ts
-│   │   ├── clipboard.test.ts
-│   │   ├── clipboard.ts
-│   │   ├── components/
-│   │   ├── context/
-│   │   ├── css.d.ts
-│   │   ├── css/
-│   │   ├── cursor.ts
-│   │   ├── data/
-│   │   ├── deburr.ts
-│   │   ├── editor-jotai.ts
-│   │   ├── env.cjs
-│   │   ├── eraser/
-│   │   ├── errors.ts
-│   │   ├── fonts/
-│   │   ├── gesture.ts
-│   │   ├── global.d.ts
-│   │   ├── history.ts
-│   │   ├── hooks/
-│   │   ├── i18n.ts
-│   │   ├── index-node.ts
-│   │   ├── index.tsx
-│   │   ├── laser-trails.ts
-│   │   ├── lasso/
-│   │   ├── locales/
-│   │   ├── mermaid.test.ts
-│   │   ├── mermaid.ts
-│   │   ├── package.json
-│   │   ├── polyfill.ts
-│   │   ├── pwacompat.d.ts
-│   │   ├── react-app-env.d.ts
-│   │   ├── reactUtils.ts
-│   │   ├── renderer/
-│   │   ├── scene/
-│   │   ├── shortcut.ts
-│   │   ├── snapping.ts
-│   │   ├── subset/
-│   │   ├── tests/
-│   │   ├── tsconfig.json
-│   │   ├── types.ts
-│   │   ├── vite-env.d.ts
-│   │   ├── workers.ts
-│   │   └── wysiwyg/
-│   ├── math/
-│   │   ├── README.md
-│   │   ├── global.d.ts
-│   │   ├── package.json
-│   │   ├── src/
-│   │   ├── tests/
-│   │   └── tsconfig.json
-│   ├── tsconfig.base.json
-│   └── utils/
-│       ├── CHANGELOG.md
-│       ├── README.md
-│       ├── global.d.ts
-│       ├── package.json
-│       ├── src/
-│       ├── tests/
-│       └── tsconfig.json
-├── public/
-│   ├── Assistant-Regular.woff2
-│   ├── Cascadia.woff2
-│   ├── Virgil.woff2
-│   ├── _headers
-│   ├── android-chrome-192x192.png
-│   ├── android-chrome-512x512.png
-│   ├── apple-touch-icon.png
-│   ├── favicon-16x16.png
-│   ├── favicon-32x32.png
-│   ├── favicon.ico
-│   ├── favicon.svg
-│   ├── maskable_icon_x192.png
-│   ├── maskable_icon_x512.png
-│   ├── og-image-3.png
-│   ├── oss_promo_comments_dark.jpg
-│   ├── oss_promo_comments_light.jpg
-│   ├── oss_promo_presentations_dark.svg
-│   ├── oss_promo_presentations_light.svg
-│   ├── robots.txt
-│   ├── screenshots/
-│   │   ├── collaboration.png
-│   │   ├── export.png
-│   │   ├── illustration.png
-│   │   ├── shapes.png
-│   │   ├── virtual-whiteboard.png
-│   │   └── wireframe.png
-│   └── service-worker.js
-├── scripts/
-│   ├── build-locales-coverage.js
-│   ├── build-node.js
-│   ├── build-version.js
-│   ├── buildBase.js
-│   ├── buildDocs.js
-│   ├── buildPackage.js
-│   ├── buildUtils.js
-│   ├── buildWasm.js
-│   ├── locales-coverage-description.js
-│   ├── release.js
-│   ├── updateChangelog.js
-│   ├── wasm/
-│   │   ├── hb-subset.wasm
-│   │   └── woff2.wasm
-│   └── woff2/
-│       ├── assets/
-│       ├── woff2-esbuild-plugins.js
-│       └── woff2-vite-plugins.js
-├── setupTests.ts
-├── tsconfig.json
-├── vercel.json
-├── vitest.config.mts
-└── yarn.lock

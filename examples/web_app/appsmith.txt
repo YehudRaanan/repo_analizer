@@ -1,0 +1,210 @@
+=====================================
+REPO CLASSIFICATION SIGNALS
+=====================================
+
+--- METADATA ---
+Name: appsmith
+Description: Platform to build admin panels, internal tools, and dashboards. Integrates with 25+ databases and any API.
+Primary language: TypeScript
+Topics: admin-dashboard, admin-panels, app-builder, automation, crud, custom-internal, developer-tools, gui, gui-application, hacktoberfest, internal-tools, java, javascript, low-code, low-code-framework, react, self-hosted, typescript, webdevelopment, workflows
+
+--- ROOT FILES (signal matches) ---
+Web App:     (none)
+Backend:     (none)
+Library:     (none)
+CLI:         (none)
+Data/ML:     (none)
+Infra:       (none)
+
+--- TOP-LEVEL DIRECTORIES (signal matches) ---
+Web App:     (none)
+Backend:     (none)
+Library:     (none)
+CLI:         (none)
+Data/ML:     (none)
+Infra:       (none)
+
+--- ALL TOP-LEVEL DIRECTORIES ---
+.cursor, .github, app
+
+--- TYPE-SPECIFIC EXTENSION COUNTS ---
+Web App extensions (.tsx, .jsx, .vue, .svelte): 0
+Data/ML extensions (.ipynb): 0
+Infra extensions (.tf, .hcl): 0
+Backend extensions (.proto, .graphql): 0
+
+--- TOP FILE EXTENSIONS (by count) ---
+  .ts: 198
+  .js: 104
+  .yml: 50
+  .md: 25
+  .mdc: 13
+  .json: 10
+  .yaml: 7
+  .cjs: 4
+  .sh: 3
+  .editorconfig: 2
+  .gitignore: 2
+  .toml: 1
+  .example: 1
+  .imgbotconfig: 1
+  .nojekyll: 1
+
+--- BOOLEAN PATTERN CHECKS ---
+  pages or app dir: yes
+  components dir: no
+  cmd or bin dir: no
+  run train scripts: no
+  ipynb files: no
+  k8s manifests: no
+  route controller dirs: no
+  dockerfile: yes
+
+
+[get_dependencies('')]
+(no dependency/manifest files found at repo root)
+
+---
+
+[get_directory('')]
+Contents of /(root):
+  [dir] .cursor
+  [dir] .github
+  [dir] app
+  [dir] contributions
+  [dir] deploy
+  [dir] scripts
+  [dir] static
+  [file] .coderabbit.yaml
+  [file] .deepsource.toml
+  [file] .editorconfig
+  [file] .env.example
+  [file] .gitignore
+  [file] .imgbotconfig
+  [file] .nojekyll
+  [file] CODEOWNERS
+  [file] CODE_OF_CONDUCT.md
+  [file] CONTRIBUTING.md
+  [file] Dockerfile
+  [file] IssuesReport.md
+  [file] LICENSE
+  [file] README.md
+  [file] SECURITY.md
+  [file] app.json
+  [file] appsmith_events.md
+  [file] appsmith_templates.md
+  [file] ci-debug.sh
+  [file] depot.json
+  [file] heroku.yml
+
+---
+
+[get_directory('app')]
+Contents of /app:
+  [dir] client
+  [dir] server
+  [dir] util
+
+---
+
+[get_directory('app/client')]
+Contents of /app/client:
+  [dir] .husky
+  [dir] .yarn
+  [dir] config
+  [dir] cypress
+  [dir] docker
+  [dir] generators
+  [dir] packages
+  [dir] public
+  [dir] scripts
+  [dir] src
+  [dir] test
+  [dir] typings
+  [file] .babelrc
+  [file] .dockerignore
+  [file] .editorconfig
+  [file] .eslintrc.base.json
+  [file] .eslintrc.js
+  [file] .fork-ts-checkerrc
+  [file] .gitignore
+  [file] .lintstagedrc.json
+  [file] .nvmrc
+  [file] .prettierignore
+  [file] .prettierrc
+  [file] .sentryclirc
+  [file] .yarnrc.yml
+  [file] README.md
+  [file] README.old.md
+  [file] build.sh
+  [file] cypress-add-tags.js
+  [file] cypress.config.ts
+  [file] cypress_ci.config.ts
+  [file] cypress_ci_custom.config.ts
+  [file] cypress_ci_hosted.config.ts
+  [file] download-assets.js
+  [file] jest.config.js
+  [file] knip.json
+  [file] package.json
+  [file] start-caddy.sh
+  [file] start-https.sh
+  [file] tailwind.config.js
+  [file] tsconfig.json
+  [file] tsconfig.path.json
+  [file] vercel.json
+  [file] yarn.lock
+
+---
+
+[get_directory('app/client/src')]
+Contents of /app/client/src:
+  [dir] Datasource
+  [dir] IDE
+  [dir] PluginActionEditor
+  [dir] WidgetProvider
+  [dir] WidgetQueryGenerators
+  [dir] actions
+  [dir] api
+  [dir] assets
+  [dir] ce
+  [dir] components
+  [dir] constants
+  [dir] ee
+  [dir] enterprise
+  [dir] entities
+  [dir] git
+  [dir] git-artifact-helpers
+  [dir] globalStyles
+  [dir] hooks
+  [dir] icons
+  [dir] instrumentation
+  [dir] layoutSystems
+  [dir] mockResponses
+  [dir] mocks
+  [dir] navigation
+  [dir] pages
+  [dir] plugins
+  [dir] polyfills
+  [dir] reducers
+  [dir] reflow
+  [dir] sagas
+  [dir] selectors
+  [dir] templates
+  [dir] theme
+  [dir] usagePulse
+  [dir] utils
+  [dir] widgets
+  [dir] workers
+  [file] App.css
+  [file] AppErrorBoundry.tsx
+  [file] Globals.d.ts
+  [file] LandingScreen.tsx
+  [file] RouteChangeListener.tsx
+  [file] config.d.ts
+  [file] index.css
+  [file] index.tsx
+  [file] preload-route-chunks.ts
+  [file] react-app-env.d.ts
+  [file] serviceWorker.ts
+  [file] store.ts
+  [file] wdyr.ts

@@ -1,0 +1,348 @@
+=====================================
+REPO CLASSIFICATION SIGNALS
+=====================================
+
+--- METADATA ---
+Name: harness
+Description: Harness Open Source is an end-to-end developer platform with Source Control Management, CI/CD Pipelines, Hosted Developer Environments, and Artifact Registries.
+Primary language: Go
+Topics: build-automation, build-pipelines, ci, ci-cd, code-repository, continuous-delivery, continuous-integration, docker, git, go, hacktoberfest, scm
+
+--- ROOT FILES (signal matches) ---
+Web App:     (none)
+Backend:     (none)
+Library:     (none)
+CLI:         (none)
+Data/ML:     (none)
+Infra:       (none)
+
+--- TOP-LEVEL DIRECTORIES (signal matches) ---
+Web App:     (none)
+Backend:     (none)
+Library:     (none)
+CLI:         (none)
+Data/ML:     (none)
+Infra:       (none)
+
+--- ALL TOP-LEVEL DIRECTORIES ---
+.devcontainer, .engops, .githooks, .github, .testapi, .vscode, app
+
+--- TYPE-SPECIFIC EXTENSION COUNTS ---
+Web App extensions (.tsx, .jsx, .vue, .svelte): 0
+Data/ML extensions (.ipynb): 0
+Infra extensions (.tf, .hcl): 0
+Backend extensions (.proto, .graphql): 0
+
+--- TOP FILE EXTENSIONS (by count) ---
+  .go: 423
+  .json: 3
+  .sh: 3
+  .http: 3
+  .yml: 2
+  .env: 2
+  .md: 2
+  .devcontainer/dockerfile: 1
+  .dockerignore: 1
+  .githooks/pre-commit: 1
+  .gitignore: 1
+  .uiv2: 1
+
+--- BOOLEAN PATTERN CHECKS ---
+  pages or app dir: yes
+  components dir: no
+  cmd or bin dir: no
+  run train scripts: no
+  ipynb files: no
+  k8s manifests: no
+  route controller dirs: no
+  dockerfile: yes
+
+
+[get_dependencies('')]
+(no dependency/manifest files found at repo root)
+
+---
+
+[get_directory('')]
+Contents of /(root):
+  [dir] .devcontainer
+  [dir] .engops
+  [dir] .githooks
+  [dir] .github
+  [dir] .testapi
+  [dir] .vscode
+  [dir] app
+  [dir] audit
+  [dir] blob
+  [dir] cache
+  [dir] charts
+  [dir] cli
+  [dir] client
+  [dir] cmd
+  [dir] contextutil
+  [dir] crypto
+  [dir] encrypt
+  [dir] errors
+  [dir] events
+  [dir] git
+  [dir] http
+  [dir] infraprovider
+  [dir] job
+  [dir] langstats
+  [dir] livelog
+  [dir] lock
+  [dir] logging
+  [dir] profiler
+  [dir] pubsub
+  [dir] registry
+  [dir] resources
+  [dir] scripts
+  [dir] secret
+  [dir] ssh
+  [dir] store
+  [dir] stream
+  [dir] tests
+  [dir] types
+  [dir] version
+  [dir] web
+  [file] .dockerignore
+  [file] .gitignore
+  [file] .golangci.yml
+  [file] .local.env
+  [file] .test.env
+  [file] CONTRIBUTING.md
+  [file] Dockerfile
+  [file] Dockerfile.uiv2
+  [file] LICENSE
+  [file] Makefile
+  [file] NOTICE
+  [file] README.md
+  [file] go.mod
+  [file] go.sum
+  [file] go.tool.mod
+  [file] go.tool.sum
+
+---
+
+[get_file('README.md')]
+# Harness
+Harness Open Source is an open source development platform packed with the power of code hosting, automated DevOps pipelines, hosted development environments (Gitspaces), and artifact registries.
+
+## Overview
+Harness Open source is an open source development platform packed with the power of code hosting, automated DevOps pipelines, Gitspaces, and artifact registries.
+
+
+## Running Harness locally
+> The latest publicly released docker image can be found on [harness/harness](https://hub.docker.com/r/harness/harness).
+
+To install Harness yourself, simply run the command below. Once the container is up, you can visit http://localhost:3000 in your browser.
+
+```bash
+docker run -d \
+  -p 3000:3000 \
+  -p 3022:3022 \
+  -v /var/run/docker.sock:/var/run/docker.sock \
+  -v /tmp/harness:/data \
+  --name harness \
+  --restart always \
+  harness/harness
+```
+> The Harness image uses a volume to store the database and repositories. It is highly recommended to use a bind mount or named volume as otherwise all data will be lost once the container is stopped.
+
+See [developer.harness.io](https://developer.harness.io/docs/open-source) to learn how to get the most out of Harness.
+
+## Where is Drone?
+
+Harness Open Source represents a massive investment in the next generation of Drone. Where Drone focused solely on continuous integration, Harness adds source code hosting, developer environments (gitspaces), and artifact registries; providing teams with an end-to-end, open source DevOps platform.
+
+The goal is for Harness to eventually be at full parity with Drone in terms of pipeline capabilities, allowing users to seamlessly migrate from Drone to Harness.
+
+But, we expect this to take some time, which is why we took a snapshot of Drone as a feature branch [drone](https://github.com/harness/harness/tree/drone) ([README](https://github.com/harness/harness/blob/drone/.github/readme.md)) so it can continue development.
+
+As for Harness, the development is taking place on the [main](https://github.com/harness/harness/tree/main) branch.
+
+For more information on Harness, please visit [developer.harness.io](https://developer.harness.io/).
+
+For more information on Drone, please visit [drone.io](https://www.drone.io/).
+
+## Harness Open Source Development
+### Pre-Requisites
+
+Install the latest stable version of Node and Go version 1.20 or higher, and then install the below Go programs. Ensure the GOPATH [bin directory](https://go.dev/doc/gopath_code#GOPATH) is added to your PATH.
+
+Install protobuf
+- Check if you've already installed protobuf ```protoc --version```
+- If your version is different than v3.21.11, run ```brew unlink protobuf```
+- Get v3.21.11 ```curl -s https://raw.githubusercontent.com/Homebrew/homebrew-core/9de8de7a533609ebfded833480c1f7c05a3448cb/Formula/protobuf.rb > /tmp/protobuf.rb```
+- Install it ```brew install /tmp/protobuf.rb```
+- Check out your version ```protoc --version```
+
+Install protoc-gen-go and protoc-gen-go-rpc:
+
+- Install protoc-gen-go v1.28.1 ```go install google.golang.org/protobuf/cmd/protoc-gen-go@v1.28.1```
+(Note that this will install a binary in $GOBIN so make sure $GOBIN is in your $PATH)
+
+- Install protoc-gen-go-grpc v1.2.0 ```go install google.golang.org/grpc/cmd/protoc-gen-go-grpc@v1.2.0```
+
+```bash
+$ make dep
+$ make tools
+```
+
+### Build
+
+First step is to build the user interface artifacts:
+
+```bash
+$ pushd web
+$ yarn install
+$ yarn build
+$ popd
+```
+
+After that, you can build the Harness binary:
+
+```bash
+$ make build
+```
+
+### Run
+
+This project supports all operating systems and architectures supported by Go.  This means you can build and run the system on your machine; docker containers are not required for local development and testing.
+
+To start the server at `localhost:3000`, simply run the following command:
+
+```bash
+./gitness server .local.env
+```
+
+### Docker Configuration for Pipelines
+
+Harness pipelines run inside Docker containers. The application automatically negotiates the Docker API version with you
+... [TRUNCATED — showing first 4000 chars]
+
+---
+
+[get_file('go.mod')]
+module github.com/harness/gitness
+
+go 1.24.3
+
+require (
+	cloud.google.com/go/storage v1.43.0
+	github.com/Masterminds/semver/v3 v3.3.1
+	github.com/Masterminds/squirrel v1.5.4
+	github.com/ProtonMail/go-crypto v1.3.0
+	github.com/adrg/xdg v0.5.0
+	github.com/aws/aws-sdk-go v1.55.2
+	github.com/bmatcuk/doublestar/v4 v4.6.1
+	github.com/coreos/go-semver v0.3.1
+	github.com/dchest/uniuri v1.2.0
+	github.com/distribution/distribution/v3 v3.0.0-alpha.1
+	github.com/distribution/reference v0.6.0
+	github.com/docker/distribution v2.8.2+incompatible
+	github.com/docker/docker v27.1.1+incompatible
+	github.com/docker/go-connections v0.5.0
+	github.com/docker/go-units v0.5.0
+	github.com/drone-runners/drone-runner-docker v1.8.4-0.20240815103043-c6c3a3e33ce3
+	github.com/drone/drone-go v1.7.1
+	github.com/drone/drone-yaml v1.2.3
+	github.com/drone/funcmap v0.0.0-20190918184546-d4ef6e88376d
+	github.com/drone/go-convert v0.0.0-20240821195621-c6d7be7727ec
+	github.com/drone/go-generate v0.0.0-20230920014042-6085ee5c9522
+	github.com/drone/go-scm v1.38.9
+	github.com/drone/runner-go v1.12.0
+	github.com/drone/spec v0.0.0-20230920145636-3827abdce961
+	github.com/dustin/go-humanize v1.0.1
+	github.com/fatih/color v1.17.0
+	github.com/gabriel-vasile/mimetype v1.4.4
+	github.com/getkin/kin-openapi v0.131.0
+	github.com/gliderlabs/ssh v0.3.7
+	github.com/go-chi/chi/v5 v5.2.2
+	github.com/go-chi/cors v1.2.1
+	github.com/go-redis/redis/v8 v8.11.5
+	github.com/go-redsync/redsync/v4 v4.13.0
+	github.com/golang-jwt/jwt/v5 v5.2.2
+	github.com/golang-migrate/migrate/v4 v4.17.1
+	github.com/google/go-cmp v0.7.0
+	github.com/google/go-jsonnet v0.20.0
+	github.com/google/uuid v1.6.0
+	github.com/google/wire v0.6.0
+	github.com/gorhill/cronexpr v0.0.0-20180427100037-88b0669f7d75
+	github.com/gorilla/mux v1.8.1
+	github.com/gotidy/ptr v1.4.0
+	github.com/guregu/null v4.0.0+incompatible
+	github.com/harness/harness-migrate v0.44.0
+	github.com/hashicorp/go-multierror v1.1.1
+	github.com/hashicorp/golang-lru/v2 v2.0.7
+	github.com/inhies/go-bytesize v0.0.0-20220417184213-4913239db9cf
+	github.com/jackc/pgerrcode v0.0.0-20240316143900-6e2875d9b438
+	github.com/jackc/pgx/v5 v5.5.5
+	github.com/jmoiron/sqlx v1.4.0
+	github.com/joho/godotenv v1.5.1
+	github.com/kelseyhightower/envconfig v1.4.0
+	github.com/klauspost/compress v1.17.8
+	github.com/lib/pq v1.10.9
+	github.com/lucasb-eyer/go-colorful v1.2.0
+	github.com/maragudk/migrate v0.4.3
+	github.com/matoous/go-nanoid v1.5.1
+	github.com/matoous/go-nanoid/v2 v2.1.0
+	github.com/mattn/go-isatty v0.0.20
+	github.com/mattn/go-sqlite3 v1.14.22
+	github.com/oapi-codegen/runtime v1.1.1
+	github.com/onsi/ginkgo/v2 v2.11.0
+	github.com/onsi/gomega v1.27.10
+	github.com/opencontainers/go-digest v1.0.1-0.20250813155314-89707e38ad1a
+	github.com/opencontainers/image-spec v1.1.0
+	github.com/pelletier/go-toml/v2 v2.2.2
+	github.com/pkg/errors v0.9.1
+	github.com/posthog/posthog-go v1.3.3
+	github.com/rs/xid v1.5.0
+	github.com/rs/zerolog v1.33.0
+	github.com/sassoftware/go-rpmutils v0.4.0
+	github.com/sercand/kuberesolver/v5 v5.1.1
+	github.com/sirupsen/logrus v1.9.3
+	github.com/stretchr/testify v1.10.0
+	github.com/swaggest/openapi-go v0.2.23
+	github.com/swaggest/swgui v1.8.1
+	github.com/swaggo/http-swagger v1.3.4
+	github.com/swaggo/swag v1.16.2
+	github.com/tidwall/jsonc v0.3.2
+	github.com/tsenart/vegeta/v12 v12.13.0
+	github.com/ulikunitz/xz v0.5.12
+	github.com/unrolled/secure v1.15.0
+	github.com/zricethezav/gitleaks/v8 v8.18.5-0.20240912004812-e93a7c0d2604
+	go.starlark.net v0.0.0-20231121155337-90ade8b19d09
+	go.uber.org/multierr v1.11.0
+	golang.org/x/crypto v0.40.0
+	golang.org/x/exp v0.0.0-20250531010427-b6e5de432a8b
+	golang.org/x/oauth2 v0.30.0
+	golang.org/x/sync v0.16.0
+	golang.org/x/term v0.33.0
+	golang.org/x/text v0.27.0
+	google.golang.org/api v0.189.0
+	gopkg.in/alecthomas/kingpin.v2 v2.2.6
+	gopkg.in/mail.v2 v2.3.1
+	oras.land/oras-go/v2 v2.5.0
+)
+
+require (
+	cloud.google.com/go v0.115.0 // indirect
+	cloud.google.com/go/auth v0.7.2 // indirect
+	cloud.google.com/go/auth/oauth2adapt v0.2.3 //
+... [TRUNCATED — showing first 4000 chars]
+
+---
+
+[get_directory('charts')]
+Contents of /charts:
+  [dir] gitness
+
+---
+
+[get_directory('charts/gitness')]
+Contents of /charts/gitness:
+  [dir] templates
+  [file] .helmignore
+  [file] Chart.yaml
+  [file] values.yaml

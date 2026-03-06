@@ -16,6 +16,20 @@ This project abandons static cloning in favor of an active **ReAct Loop**:
 
 ---
 
+## 🧠 Design Decisions
+
+### Model Selection
+I chose **Llama-3.3-70B-Instruct** via the Nebius Token Factory. It provides the high reasoning capability required for a multi-step ReAct agent (handling code exploration and logic branching) while remaining significantly more cost-effective and faster than equivalent closed-source models for this specific utility.
+
+### Repository Processing Strategy
+To handle large repositories within the LLM context window, this project uses a **dynamic exploration strategy**:
+- **Filtering**: Files like binaries (`.png`, `.exe`), lock files, and massive directory deeper than 500 items are automatically skipped or truncated.
+- **Signal-First Analysis**: We first fetch a non-recursive root tree and metadata to classify the repo type.
+- **Autonomous Tooling**: Instead of guessing which files to send, the LLM uses a `get_file` and `get_directory` toolset to "walk" the repo. It only reads what it needs to understand the architecture (e.g., if it sees a `src/`, it explores it; if it sees `package.json`, it reads it).
+- **Truncation**: Every file read is capped at 4,000 characters to prevent a single file from consuming the entire context.
+
+---
+
 ## 🚀 Setup & Installation
 
 ### 1. Requirements

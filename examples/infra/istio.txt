@@ -1,0 +1,179 @@
+=====================================
+REPO CLASSIFICATION SIGNALS
+=====================================
+
+--- METADATA ---
+Name: istio
+Description: Connect, secure, control, and observe services.
+Primary language: Go
+Topics: api-management, circuit-breaker, consul, enforce-policies, envoy, fault-injection, kubernetes, lyft-envoy, microservice, microservices, nomad, polyglot-microservices, proxies, request-routing, resiliency, service-mesh
+
+--- ROOT FILES (signal matches) ---
+Web App:     (none)
+Backend:     (none)
+Library:     go.mod
+CLI:         (none)
+Data/ML:     (none)
+Infra:       (none)
+
+--- TOP-LEVEL DIRECTORIES (signal matches) ---
+Web App:     (none)
+Backend:     (none)
+Library:     (none)
+CLI:         (none)
+Data/ML:     (none)
+Infra:       (none)
+
+--- ALL TOP-LEVEL DIRECTORIES ---
+.devcontainer, .github, architecture, bin, cni, common, docker, istioctl
+
+--- TYPE-SPECIFIC EXTENSION COUNTS ---
+Web App extensions (.tsx, .jsx, .vue, .svelte): 0
+Data/ML extensions (.ipynb): 0
+Infra extensions (.tf, .hcl): 0
+Backend extensions (.proto, .graphql): 0
+
+--- TOP FILE EXTENSIONS (by count) ---
+  .go: 205
+  .golden: 42
+  .md: 26
+  .sh: 20
+  .yaml: 18
+  .conflist: 9
+  .yml: 8
+  .conf: 7
+  .json: 5
+  .mk: 3
+  .svg: 3
+  .txt: 3
+  .injected: 3
+  .dot: 2
+  .crt: 2
+
+--- BOOLEAN PATTERN CHECKS ---
+  pages or app dir: no
+  components dir: no
+  cmd or bin dir: yes
+  run train scripts: no
+  ipynb files: no
+  k8s manifests: no
+  route controller dirs: no
+  dockerfile: no
+
+
+[get_directory('')]
+Contents of /(root):
+  [dir] .devcontainer
+  [dir] .github
+  [dir] architecture
+  [dir] bin
+  [dir] cni
+  [dir] common
+  [dir] docker
+  [dir] istioctl
+  [dir] licenses
+  [dir] logo
+  [dir] manifests
+  [dir] operator
+  [dir] pilot
+  [dir] pkg
+  [dir] prow
+  [dir] release
+  [dir] releasenotes
+  [dir] samples
+  [dir] security
+  [dir] tests
+  [dir] tools
+  [file] .gitattributes
+  [file] .gitignore
+  [file] BUGS-AND-FEATURE-REQUESTS.md
+  [file] CODEOWNERS
+  [file] CONTRIBUTING.md
+  [file] LICENSE
+  [file] Makefile
+  [file] Makefile.core.mk
+  [file] Makefile.overrides.mk
+  [file] README.md
+  [file] RELEASE_BRANCHES.md
+  [file] SUPPORT.md
+  [file] VERSION
+  [file] go.mod
+  [file] go.sum
+  [file] istio.deps
+
+---
+
+[get_directory('manifests')]
+Contents of /manifests:
+  [dir] addons
+  [dir] charts
+  [dir] helm-profiles
+  [dir] profiles
+  [dir] sample-charts
+  [file] .gitattributes
+  [file] manifest.go
+  [file] zzz_profile.yaml
+
+---
+
+[get_directory('manifests/charts')]
+Contents of /manifests/charts:
+  [dir] base
+  [dir] default
+  [dir] gateway
+  [dir] gateways
+  [dir] istio-cni
+  [dir] istio-control
+  [dir] ztunnel
+  [file] README.md
+  [file] UPDATING-CHARTS.md
+  [file] install-OpenShift.md
+
+---
+
+[get_file('manifests/charts/base/values.yaml')]
+# "_internal_defaults_do_not_set" is a workaround for Helm limitations. Users should NOT set "._internal_defaults_do_not_set" explicitly, but rather directly set the fields internally.
+# For instance, instead of `--set _internal_defaults_do_not_set.foo=bar``, just set `--set foo=bar`.
+_internal_defaults_do_not_set:
+  global:
+
+    # ImagePullSecrets for control plane ServiceAccount, list of secrets in the same namespace
+    # to use for pulling any images in pods that reference this ServiceAccount.
+    # Must be set for any cluster configured with private docker registry.
+    imagePullSecrets: []
+
+    # Used to locate istiod.
+    istioNamespace: istio-system
+
+    # resourceScope controls what resources will be processed by helm.
+    # This is useful when installing Istio on a cluster where some resources need to be owned by a cluster administrator and some can be owned by the mesh administrator.
+    # It can be one of:
+    # - all: all resources are processed
+    # - cluster: only cluster-scoped resources are processed
+    # - namespace: only namespace-scoped resources are processed
+    resourceScope: all
+  base:
+    # A list of CRDs to exclude. Requires `enableCRDTemplates` to be true.
+    # Example: `excludedCRDs: ["envoyfilters.networking.istio.io"]`.
+    # Note: when installing with `istioctl`, `enableIstioConfigCRDs=false` must also be set.
+    excludedCRDs: []
+    # Helm (as of V3) does not support upgrading CRDs, because it is not universally
+    # safe for them to support this.
+    # Istio as a project enforces certain backwards-compat guarantees that allow us
+    # to safely upgrade CRDs in spite of this, so we default to self-managing CRDs
+    # as standard K8S resources in Helm, and disable Helm's CRD management. See also:
+    # https://helm.sh/docs/chart_best_practices/custom_resource_definitions/#method-2-separate-charts
+    enableCRDTemplates: true
+
+    # Validation webhook configuration url
+    # For example: https://$remotePilotAddress:15017/validate
+    validationURL: ""
+    # Validation webhook caBundle value. Useful when running pilot with a well known cert
+    validationCABundle: ""
+
+    # For istioctl usage to disable istio config crds in base
+    enableIstioConfigCRDs: true
+
+  defaultRevision: "default"
+  experimental:
+    stableValidationPolicy: false

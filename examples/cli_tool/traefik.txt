@@ -1,0 +1,297 @@
+=====================================
+REPO CLASSIFICATION SIGNALS
+=====================================
+
+--- METADATA ---
+Name: traefik
+Description: The Cloud Native Application Proxy
+Primary language: Go
+Topics: consul, docker, etcd, go, golang, kubernetes, letsencrypt, load-balancer, marathon, mesos, microservice, reverse-proxy, traefik, zookeeper
+
+--- ROOT FILES (signal matches) ---
+Web App:     (none)
+Backend:     (none)
+Library:     go.mod
+CLI:         (none)
+Data/ML:     (none)
+Infra:       (none)
+
+--- TOP-LEVEL DIRECTORIES (signal matches) ---
+Web App:     (none)
+Backend:     (none)
+Library:     (none)
+CLI:         cmd
+Data/ML:     (none)
+Infra:       (none)
+
+--- ALL TOP-LEVEL DIRECTORIES ---
+.github, cmd, contrib, docs, integration
+
+--- TYPE-SPECIFIC EXTENSION COUNTS ---
+Web App extensions (.tsx, .jsx, .vue, .svelte): 0
+Data/ML extensions (.ipynb): 0
+Infra extensions (.tf, .hcl): 0
+Backend extensions (.proto, .graphql): 0
+
+--- TOP FILE EXTENSIONS (by count) ---
+  .md: 274
+  .png: 31
+  .yaml: 26
+  .yml: 23
+  .go: 12
+  .json: 8
+  .toml: 4
+  .css: 3
+  .sh: 3
+  .dockerignore: 2
+  .dockerfile: 2
+  .svg: 2
+  .js: 2
+  .txt: 2
+  .gitattributes: 1
+
+--- BOOLEAN PATTERN CHECKS ---
+  pages or app dir: no
+  components dir: no
+  cmd or bin dir: yes
+  run train scripts: no
+  ipynb files: no
+  k8s manifests: no
+  route controller dirs: no
+  dockerfile: yes
+
+
+[get_dependencies('')]
+[go.mod]
+module github.com/traefik/traefik/v3
+
+go 1.25.0
+
+require (
+	github.com/BurntSushi/toml v1.6.0
+	github.com/Masterminds/sprig/v3 v3.2.3
+	github.com/abbot/go-http-auth v0.0.0-00010101000000-000000000000 // No tag on the repo.
+	github.com/andybalholm/brotli v1.1.1
+	github.com/armon/go-socks5 v0.0.0-20160902184237-e75332964ef5
+	github.com/aws/aws-sdk-go-v2 v1.41.1
+	github.com/aws/aws-sdk-go-v2/config v1.32.8
+	github.com/aws/aws-sdk-go-v2/credentials v1.19.8
+	github.com/aws/aws-sdk-go-v2/service/ec2 v1.203.1
+	github.com/aws/aws-sdk-go-v2/service/ecs v1.53.15
+	github.com/aws/aws-sdk-go-v2/service/ssm v1.56.13
+	github.com/aws/smithy-go v1.24.0
+	github.com/cenkalti/backoff/v4 v4.3.0
+	github.com/containous/alice v0.0.0-20181107144136-d83ebdd94cbd // No tag on the repo.
+	github.com/coreos/go-systemd/v22 v22.5.0
+	github.com/docker/cli v28.3.3+incompatible
+	github.com/docker/docker v28.3.3+incompatible
+	github.com/docker/go-connections v0.5.0
+	github.com/fatih/structs v1.1.0
+	github.com/fsnotify/fsnotify v1.9.0
+	github.com/go-acme/lego/v4 v4.32.0
+	github.com/go-kit/kit v0.13.0
+	github.com/go-kit/log v0.2.1
+	github.com/golang/protobuf v1.5.4
+	github.com/google/go-github/v28 v28.1.1
+	github.com/gorilla/mux v1.8.1
+	github.com/gorilla/websocket v1.5.4-0.20250319132907-e064f32e3674
+	github.com/hashicorp/consul/api v1.26.1
+	github.com/hashicorp/go-hclog v1.6.3
+	github.com/hashicorp/go-multierror v1.1.1
+	github.com/hashicorp/go-retryablehttp v0.7.8
+	github.com/hashicorp/go-version v1.8.0
+	github.com/hashicorp/nomad/api v0.0.0-20231213195942-64e3dca9274b // No tag on the repo.
+	github.com/http-wasm/http-wasm-host-go v0.7.0
+	github.com/huandu/xstrings v1.5.0
+	github.com/influxdata/influxdb-client-go/v2 v2.7.0
+	github.com/influxdata/influxdb1-client v0.0.0-20200827194710-b269163b24ab // No tag on the repo.
+	github.com/klauspost/compress v1.18.0
+	github.com/kvtools/consul v1.0.2
+	github.com/kvtools/etcdv3 v1.0.3
+	github.com/kvtools/redis v1.2.0
+	github.com/kvtools/valkeyrie v1.0.0
+	github.com/kvtools/zookeeper v1.0.2
+	github.com/mailgun/ttlmap v0.0.0-20170619185759-c1c17f74874f // No tag on the repo.
+	github.com/miekg/dns v1.1.72
+	github.com/mitchellh/copystructure v1.2.0
+	github.com/mitchellh/hashstructure v1.0.0
+	github.com/mitchellh/mapstructure v1.5.1-0.20231216201459-8508981c8b6c // No tag on the repo.
+	github.com/patrickmn/go-cache v2.1.0+incompatible
+	github.com/pires/go-proxyproto v0.8.1
+	github.com/pmezard/go-difflib v1.0.1-0.20181226105442-5d4384ee4fb2 // No tag on the repo.
+	github.com/prometheus/client_golang v1.23.0
+	github.com/prometheus/client_model v0.6.2
+	github.com/quic-go/quic-go v0.59.0
+	github.com/redis/go-redis/v9 v9.8.0
+	github.com/rs/zerolog v1.33.0
+	github.com/sirupsen/logrus v1.9.3
+	github.com/spiffe/go-spiffe/v2 v2.6.0
+	github.com/stealthrocket/wasi-go v0.8.0
+	github.com/stealthrocket/wazergo v0.19.1
+	github.com/stretchr/testify v1.11.1
+	github.com/stvp/go-udp-testing v0.0.0-20201019212854-469649b16807 // No tag on the repo.
+	github.com/tailscale/tscert v0.0.0-20230806124524-28a91b69a046 // No tag on the repo.
+	github.com/testcontainers/testcontainers-go v0.32.0
+	github.com/testcontainers/testcontainers-go/modules/k3s v0.32.0
+	github.com/tetratelabs/wazero v1.8.0
+	github.com/tidwall/gjson v1.17.0
+	github.com/traefik/grpc-web v0.16.0
+	github.com/traefik/paerser v0.2.2
+	github.com/traefik/traefik/dynamic/ext v0.0.0-00010101000000-000000000000
+	github.com/traefik/yaegi v0.16.1
+	github.com/tufanbarisyildirim/gonginx v0.0.0-20250620092546-c3e307e36701 // latest tag is too old.
+	github.com/unrolled/render v1.0.2
+	github.com/unrolled/secure v1.0.9
+	github.com/valyala/fasthttp v1.58.0
+	github.com/vulcand/oxy/v2 v2.0.3
+	github.com/vulcand/predicate v1.3.0
+	github.com/yuin/gopher-lua v1.1.1
+	go.opentelemetry.io/collector/pdata v1.41.0
+	go.opentelemetry.io/contrib/bridges/otellogrus v0.13.0
+	go.opentelemetry.io/contrib/propagators/autoprop v0.63.0
+	go.opentelemetry.io/otel v1.39.0
+	go.opentelemetry.io/otel/exporters/otlp/otlplog/otlpl
+... [TRUNCATED — showing first 4000 chars]
+
+---
+
+[get_directory('cmd')]
+Contents of /cmd:
+  [dir] healthcheck
+  [dir] internal
+  [dir] traefik
+  [dir] version
+  [file] configuration.go
+
+---
+
+[get_directory('cmd/traefik')]
+Contents of /cmd/traefik:
+  [file] logger.go
+  [file] plugins.go
+  [file] traefik.go
+  [file] traefik_test.go
+
+---
+
+[get_file('cmd/traefik/traefik.go')]
+package main
+
+import (
+	"context"
+	"crypto/x509"
+	"fmt"
+	"io"
+	stdlog "log"
+	"maps"
+	"net/http"
+	"os"
+	"os/signal"
+	"slices"
+	"strings"
+	"syscall"
+	"time"
+
+	"github.com/coreos/go-systemd/v22/daemon"
+	"github.com/go-acme/lego/v4/challenge"
+	gokitmetrics "github.com/go-kit/kit/metrics"
+	"github.com/rs/zerolog/log"
+	"github.com/sirupsen/logrus"
+	"github.com/spiffe/go-spiffe/v2/workloadapi"
+	"github.com/traefik/paerser/cli"
+	"github.com/traefik/traefik/v3/cmd"
+	"github.com/traefik/traefik/v3/cmd/healthcheck"
+	cmdVersion "github.com/traefik/traefik/v3/cmd/version"
+	tcli "github.com/traefik/traefik/v3/pkg/cli"
+	"github.com/traefik/traefik/v3/pkg/collector"
+	"github.com/traefik/traefik/v3/pkg/config/dynamic"
+	"github.com/traefik/traefik/v3/pkg/config/runtime"
+	"github.com/traefik/traefik/v3/pkg/config/static"
+	"github.com/traefik/traefik/v3/pkg/middlewares/accesslog"
+	"github.com/traefik/traefik/v3/pkg/observability/logs"
+	"github.com/traefik/traefik/v3/pkg/observability/metrics"
+	"github.com/traefik/traefik/v3/pkg/observability/tracing"
+	otypes "github.com/traefik/traefik/v3/pkg/observability/types"
+	"github.com/traefik/traefik/v3/pkg/provider/acme"
+	"github.com/traefik/traefik/v3/pkg/provider/aggregator"
+	"github.com/traefik/traefik/v3/pkg/provider/tailscale"
+	"github.com/traefik/traefik/v3/pkg/provider/traefik"
+	"github.com/traefik/traefik/v3/pkg/proxy"
+	"github.com/traefik/traefik/v3/pkg/proxy/httputil"
+	"github.com/traefik/traefik/v3/pkg/redactor"
+	"github.com/traefik/traefik/v3/pkg/safe"
+	"github.com/traefik/traefik/v3/pkg/server"
+	"github.com/traefik/traefik/v3/pkg/server/middleware"
+	"github.com/traefik/traefik/v3/pkg/server/service"
+	"github.com/traefik/traefik/v3/pkg/tcp"
+	traefiktls "github.com/traefik/traefik/v3/pkg/tls"
+	"github.com/traefik/traefik/v3/pkg/version"
+)
+
+func main() {
+	// traefik config inits
+	tConfig := cmd.NewTraefikConfiguration()
+
+	loaders := []cli.ResourceLoader{&tcli.DeprecationLoader{}, &tcli.FileLoader{}, &tcli.FlagLoader{}, &tcli.EnvLoader{}}
+
+	cmdTraefik := &cli.Command{
+		Name: "traefik",
+		Description: `Traefik is a modern HTTP reverse proxy and load balancer made to deploy microservices with ease.
+Complete documentation is available at https://traefik.io`,
+		Configuration: tConfig,
+		Resources:     loaders,
+		Run: func(_ []string) error {
+			return runCmd(&tConfig.Configuration)
+		},
+	}
+
+	err := cmdTraefik.AddCommand(healthcheck.NewCmd(&tConfig.Configuration, loaders))
+	if err != nil {
+		stdlog.Println(err)
+		os.Exit(1)
+	}
+
+	err = cmdTraefik.AddCommand(cmdVersion.NewCmd())
+	if err != nil {
+		stdlog.Println(err)
+		os.Exit(1)
+	}
+
+	err = cli.Execute(cmdTraefik)
+	if err != nil {
+		log.Error().Err(err).Msg("Command error")
+		logrus.Exit(1)
+	}
+
+	logrus.Exit(0)
+}
+
+func runCmd(staticConfiguration *static.Configuration) error {
+	ctx, cancel := signal.NotifyContext(context.Background(), syscall.SIGINT, syscall.SIGTERM)
+	defer cancel()
+
+	if err := setupLogger(ctx, staticConfiguration); err != nil {
+		return fmt.Errorf("setting up logger: %w", err)
+	}
+
+	log.Warn().Msg("Traefik can reject some encoded characters in the request path." +
+		"When your backend is not fully compliant with [RFC 3986](https://datatracker.ietf.org/doc/html/rfc3986)," +
+		"it is recommended to set these options to `false` to avoid split-view situation." +
+		"Refer to the documentation for more details: https://doc.traefik.io/traefik/v3.6/migrate/v3/#encoded-characters-configuration-default-values")
+
+	http.DefaultTransport.(*http.Transport).Proxy = http.ProxyFromEnvironment
+
+	staticConfiguration.SetEffectiveConfiguration()
+	if err := staticConfiguration.ValidateConfiguration(); err != nil {
+		return err
+	}
+
+	log.Info().Str("version", version.Version).
+		Msgf("Traefik version %s built on %s", version.Version, version.BuildDate)
+
+	redactedStaticConfiguration, err := redactor.RemoveCredentials(staticConfiguration)
+	if err != nil {
+		log.Error().Err(err).Msg("Could not redact static configuration")
+	} else {
+		log.Debug().RawJSON("staticC
+... [TRUNCATED — showing first 4000 chars]

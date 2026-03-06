@@ -1,99 +1,63 @@
 =====================================
-Repository Analysis: lsd
-Type: CLI Tool
+REPO CLASSIFICATION SIGNALS
 =====================================
 
 --- METADATA ---
 Name: lsd
 Description: The next gen ls command
-Language: Rust
+Primary language: Rust
 Topics: color, hacktoberfest, icons, ls, nerd-fonts, rust
-Stars: 15517
-License: Apache License 2.0
 
---- README ---
-<div align="center">
-   <sup>Special thanks to:</sup>
-   <br>
-   <br>
-   <a href="https://go.warp.dev/lsd">
-      <img alt="Warp sponsorship" width="400" src="https://raw.githubusercontent.com/warpdotdev/brand-assets/refs/heads/main/Github/Sponsor/Warp-Github-LG-02.png">
-   </a>
+--- ROOT FILES (signal matches) ---
+Web App:     (none)
+Backend:     (none)
+Library:     Cargo.toml
+CLI:         (none)
+Data/ML:     (none)
+Infra:       (none)
 
-### [Warp, built for coding with multiple AI agents](https://go.warp.dev/lsd)
-[Available for MacOS, Linux, & Windows](https://go.warp.dev/lsd)<br>
+--- TOP-LEVEL DIRECTORIES (signal matches) ---
+Web App:     (none)
+Backend:     (none)
+Library:     (none)
+CLI:         (none)
+Data/ML:     (none)
+Infra:       (none)
 
-&nbsp;&nbsp;&nbsp;&nbsp;
+--- ALL TOP-LEVEL DIRECTORIES ---
+.github, ci, doc, src, tests
 
-   <sup>Maintained with ❤️ + 🤖 by Pochi</sup>
-   <br>
-   <br>
-   <a href="https://app.getpochi.com">
-      <img alt="Pochi AI Coding Assistant" width="160" src="https://github.com/TabbyML/pochi/blob/main/packages/vscode/assets/icons/logo128.png?raw=true">
-   </a>
+--- TYPE-SPECIFIC EXTENSION COUNTS ---
+Web App extensions (.tsx, .jsx, .vue, .svelte): 0
+Data/ML extensions (.ipynb): 0
+Infra extensions (.tf, .hcl): 0
+Backend extensions (.proto, .graphql): 0
 
-### [Pochi is an AI agent designed for software development.](https://app.getpochi.com)
-[It operates within your IDE, using a toolkit of commands to write and refactor code autonomously across your entire project.](https://app.getpochi.com)<br>
+--- TOP FILE EXTENSIONS (by count) ---
+  .rs: 54
+  .svg: 15
+  .md: 4
+  .yml: 3
+  .toml: 3
+  .bash: 3
+  .yaml: 3
+  .github/pull_request_template: 1
+  .gitignore: 1
+  .lock: 1
+  .spec: 1
 
-</div>
+--- BOOLEAN PATTERN CHECKS ---
+  pages or app dir: no
+  components dir: no
+  cmd or bin dir: no
+  run train scripts: no
+  ipynb files: no
+  k8s manifests: no
+  route controller dirs: no
+  dockerfile: no
 
----
 
-> [!IMPORTANT]
-> This is the documentation for the development version of lsd.
-> Please consult the documentation on [the Tags page](https://github.com/lsd-rs/lsd/tags) if you are looking for the documentation of individual releases.
->
-> The current newest release is: [v1.2.0](https://github.com/lsd-rs/lsd/tree/v1.2.0)
-
-# LSD (LSDeluxe)
-[![license](http://img.shields.io/badge/license-Apache%20v2-blue.svg)](https://raw.githubusercontent.com/lsd-rs/lsd/master/LICENSE)
-[![Latest version](https://img.shields.io/crates/v/lsd.svg)](https://crates.io/crates/lsd)
-[![build](https://github.com/lsd-rs/lsd/workflows/CICD/badge.svg)](https://github.com/lsd-rs/lsd/actions)
-[![codecov](https://codecov.io/gh/lsd-rs/lsd/branch/master/graph/badge.svg)](https://codecov.io/gh/lsd-rs/lsd)
-[![versions](https://img.shields.io/repology/repositories/lsd)](https://repology.org/project/lsd/versions)
-
-![lsd sample output](https://raw.githubusercontent.com/lsd-rs/lsd/assets/screen_lsd.png)
-
-This project is a rewrite of GNU `ls` with lots of added features like colors, icons, tree-view, more formatting options etc.
-The project is heavily inspired by the super [colorls](https://github.com/athityakumar/colorls) project.
-
-## Installation
-### Prerequisites
->[!TIP]
-> Have a look at the [Nerd Font README](https://github.com/ryanoasis/nerd-fonts/blob/master/readme.md) for help with installing Nerd Fonts
-
-1. In order for icons to work you need to have a patched font like [nerd-font](https://www.nerdfonts.com) or [font-awesome](https://fontawesome.com) installed on your machine and your terminal needs to be configured to use the patched font of your choosing.
-2. If you intend to install `lsd` from source you need to have a working Rust toolchain (obviously) on your machine.
-
-### Installing with a package manager
-<details>
-<summary>Packaging status</summary>
-<a href="https://repology.org/project/lsd/versions">
-    <img src="https://repology.org/badge/vertical-allrepos/lsd.svg?columns=3" alt="Packaging status">
-</a>
-</details>
-
-Please consult the table below for the installation command associated with your package manager.
-
-| OS/Distro                       | Command                                                                                       |
-| ------------------------------- | ----------------------------------------------------------------------------------------------|
-| Archlinux                       | `pacman -S lsd`                                                                               |
-| Fedora                          | `dnf install lsd`                                                                             |
-| Gentoo                          | `sudo emerge sys-apps/lsd`                                                                    |
-| macOS                           | `brew install lsd` or `sudo port install lsd`                                                 |
-| NixOS                           | `nix-env -iA nixos.lsd`                                                                       |
-| FreeBSD                         | `pkg install lsd`                                                                             |
-| NetBSD or any `pkgsrc` platform | `pkgin install lsd` or `cd /usr/pkgsrc/sysutils/lsd && make install`                          |
-| OpenBSD                         | `pkg_add lsd`                                                                                 |
-| Windows                         | `scoop install lsd` or `winget install --id lsd-rs.lsd` or `choco install lsd`                |
-| Android (via Termux)            | `pkg install lsd`                                                                             |
-| Debian sid and bookworm         | `apt install lsd`                                                                             |
-| Ubuntu 23.04 (Lunar Lobster)    | `apt install lsd`                                                                             |
-| Earlier Ubuntu/Debian versions  | **snap disconti
-... [TRUNCATED]
-
---- PACKAGE MANIFEST(S) ---
-
+[get_dependencies('')]
 [Cargo.toml]
 [package]
 authors = ["Peltoche <dev@halium.fr>"]
@@ -180,103 +144,50 @@ strip = true
 debug = false
 
 
---- CLI ENTRY POINTS / COMMAND DEFINITIONS ---
+---
 
-[src/app.rs]
-use std::path::PathBuf;
+[get_directory('')]
+Contents of /(root):
+  [dir] .github
+  [dir] ci
+  [dir] doc
+  [dir] src
+  [dir] tests
+  [file] .gitignore
+  [file] .release.toml
+  [file] CODEOWNERS
+  [file] Cargo.lock
+  [file] Cargo.toml
+  [file] LICENSE
+  [file] OWNERS
+  [file] README.md
+  [file] build.rs
+  [file] lsd.spec
+  [file] rustfmt.toml
 
-use clap::{ArgAction, Parser, ValueHint};
+---
 
-#[derive(Debug, Parser)]
-#[command(about, version, args_override_self = true, disable_help_flag = true)]
-pub struct Cli {
-    #[arg(value_name = "FILE", default_value = ".", value_hint = ValueHint::AnyPath)]
-    pub inputs: Vec<PathBuf>,
+[get_directory('src')]
+Contents of /src:
+  [dir] flags
+  [dir] meta
+  [dir] theme
+  [file] app.rs
+  [file] color.rs
+  [file] config_file.rs
+  [file] core.rs
+  [file] display.rs
+  [file] flags.rs
+  [file] git.rs
+  [file] git_theme.rs
+  [file] icon.rs
+  [file] main.rs
+  [file] sort.rs
+  [file] theme.rs
 
-    /// Do not ignore entries starting with . .
-    #[arg(short, long, overrides_with = "almost_all")]
-    pub all: bool,
+---
 
-    /// Do not list implied . and ..
-    #[arg(short = 'A', long)]
-    pub almost_all: bool,
-
-    /// When to use terminal colours [default: auto]
-    #[arg(long, value_name = "MODE", value_parser = ["always", "auto", "never"])]
-    pub color: Option<String>,
-
-    /// When to print the icons [default: auto]
-    #[arg(long, value_name = "MODE", value_parser = ["always", "auto", "never"])]
-    pub icon: Option<String>,
-
-    /// Whether to use fancy or unicode icons [default: fancy]
-    #[arg(long, value_name = "THEME", value_parser = ["fancy", "unicode"])]
-    pub icon_theme: Option<String>,
-
-    /// Append indicator (one of */=>@|) at the end of the file names
-    #[arg(short = 'F', long = "classify")]
-    pub indicators: bool,
-
-    /// Display extended file metadata as a table
-    #[arg(short, long)]
-    pub long: bool,
-
-    /// Ignore the configuration file
-    #[arg(long)]
-    pub ignore_config: bool,
-
-    /// Provide a custom lsd configuration file
-    #[arg(long, value_name = "PATH")]
-    pub config_file: Option<PathBuf>,
-
-    /// Generate default configuration file and print to stdout
-    #[arg(long)]
-    pub generate_config: bool,
-
-    /// Display one entry per line
-    #[arg(short = '1', long)]
-    pub oneline: bool,
-
-    /// Recurse into directories
-    #[arg(short = 'R', long, conflicts_with = "tree")]
-    pub recursive: bool,
-
-    /// For ls compatibility purposes ONLY, currently set by default
-    #[arg(short, long)]
-    human_readable: bool,
-
-    /// Recurse into directories and present the result as a tree
-    #[arg(long)]
-    pub tree: bool,
-
-    /// Stop recursing into directories after reaching specified depth
-    #[arg(long, value_name = "NUM")]
-    pub depth: Option<usize>,
-
-    /// Display directories themselves, and not their contents (recursively when used with --tree)
-    #[arg(short, long, conflicts_with = "recursive")]
-    pub directory_only: bool,
-
-    /// How to display permissions [default: rwx for linux, attributes for windows]
-    #[arg(long, value_name = "MODE", value_parser = ["rwx", "octal", "attributes", "disable"])]
-    pub permission: Option<String>,
-
-    /// How to display size [default: default]
-    #[arg(long, value_name = "MODE", value_parser = ["default", "short", "bytes"])]
-    pub size: Option<String>,
-
-    /// Display the total size of directories
-    #[arg(long)]
-    pub total_size: bool,
-
-    /// How to display date [default: date] [possible values: date, locale, relative, +date-time-format]
-    #[arg(long, value_parser = validate_date_argument)]
-    pub date: Option<String>,
-
-   
-... [TRUNCATED]
-
-[src/main.rs]
+[get_file('src/main.rs')]
 #![allow(
     clippy::cast_precision_loss,
     clippy::cast_sign_loss,
@@ -403,116 +314,16 @@ fn main() {
         Config::default()
     };
     let flags = Flags::configure_from(&cli, &config).unwrap_or_else(|err| err.exit());
-    le
-... [TRUNCATED]
+    let core = Core::new(flags);
 
---- SHELL COMPLETIONS & MAN PAGES ---
-  ci/before_deploy.bash
-  ci/before_install.bash
-  ci/script.bash
+    let exit_code = core.run(cli.inputs);
+    std::process::exit(exit_code as i32);
+}
 
---- DIRECTORY STRUCTURE (depth 2) ---
-├── .github/
-│   ├── FUNDING.yml
-│   ├── ISSUE_TEMPLATE/
-│   │   ├── bug.yml
-│   │   └── bug_report.md
-│   ├── PULL_REQUEST_TEMPLATE
-│   └── workflows/
-│       └── CICD.yml
-├── .gitignore
-├── .release.toml
-├── CODEOWNERS
-├── Cargo.lock
-├── Cargo.toml
-├── LICENSE
-├── OWNERS
-├── README.md
-├── build.rs
-├── ci/
-│   ├── before_deploy.bash
-│   ├── before_install.bash
-│   └── script.bash
-├── doc/
-│   ├── colors.md
-│   ├── img/
-│   │   ├── 0087ff.svg
-│   │   ├── 00af87.svg
-│   │   ├── 00d700.svg
-│   │   ├── 00d787.svg
-│   │   ├── 00d7d7.svg
-│   │   ├── af0000.svg
-│   │   ├── d75f87.svg
-│   │   ├── d78700.svg
-│   │   ├── d7d7af.svg
-│   │   ├── d7ff87.svg
-│   │   ├── ff00ff.svg
-│   │   ├── ffaf87.svg
-│   │   ├── ffffaf.svg
-│   │   ├── ffffd7.svg
-│   │   └── ffffff.svg
-│   ├── lsd.md
-│   └── samples/
-│       ├── colors-sample.yaml
-│       ├── config-sample.yaml
-│       └── icons-sample.yaml
-├── lsd.spec
-├── rustfmt.toml
-├── src/
-│   ├── app.rs
-│   ├── color.rs
-│   ├── config_file.rs
-│   ├── core.rs
-│   ├── display.rs
-│   ├── flags.rs
-│   ├── flags/
-│   │   ├── blocks.rs
-│   │   ├── color.rs
-│   │   ├── date.rs
-│   │   ├── dereference.rs
-│   │   ├── display.rs
-│   │   ├── header.rs
-│   │   ├── hyperlink.rs
-│   │   ├── icons.rs
-│   │   ├── ignore_globs.rs
-│   │   ├── indicators.rs
-│   │   ├── layout.rs
-│   │   ├── literal.rs
-│   │   ├── permission.rs
-│   │   ├── recursion.rs
-│   │   ├── size.rs
-│   │   ├── sorting.rs
-│   │   ├── symlink_arrow.rs
-│   │   ├── symlinks.rs
-│   │   ├── total_size.rs
-│   │   └── truncate_owner.rs
-│   ├── git.rs
-│   ├── git_theme.rs
-│   ├── icon.rs
-│   ├── main.rs
-│   ├── meta/
-│   │   ├── access_control.rs
-│   │   ├── date.rs
-│   │   ├── filetype.rs
-│   │   ├── git_file_status.rs
-│   │   ├── indicator.rs
-│   │   ├── inode.rs
-│   │   ├── links.rs
-│   │   ├── locale.rs
-│   │   ├── mod.rs
-│   │   ├── name.rs
-│   │   ├── owner.rs
-│   │   ├── permissions.rs
-│   │   ├── permissions_or_attributes.rs
-│   │   ├── size.rs
-│   │   ├── symlink.rs
-│   │   ├── windows_attributes.rs
-│   │   └── windows_utils.rs
-│   ├── sort.rs
-│   ├── theme.rs
-│   └── theme/
-│       ├── color.rs
-│       ├── git.rs
-│       └── icon.rs
-└── tests/
-    └── integration.rs
+fn generate_default_config() {
+    use crate::config_file;
+
+    // Print the default config to stdout without the leading '---'
+    let config = config_file::DEFAULT_CONFIG.trim_start_matches("---\n");
+    println!("{}", config);
+}

@@ -1,0 +1,197 @@
+=====================================
+REPO CLASSIFICATION SIGNALS
+=====================================
+
+--- METADATA ---
+Name: stable-diffusion
+Description: A latent text-to-image diffusion model
+Primary language: Jupyter Notebook
+Topics: N/A
+
+--- ROOT FILES (signal matches) ---
+Web App:     (none)
+Backend:     (none)
+Library:     setup.py
+CLI:         (none)
+Data/ML:     (none)
+Infra:       (none)
+
+--- TOP-LEVEL DIRECTORIES (signal matches) ---
+Web App:     (none)
+Backend:     (none)
+Library:     (none)
+CLI:         (none)
+Data/ML:     models
+Infra:       (none)
+
+--- ALL TOP-LEVEL DIRECTORIES ---
+assets, configs, data, ldm, models, scripts
+
+--- TYPE-SPECIFIC EXTENSION COUNTS ---
+Web App extensions (.tsx, .jsx, .vue, .svelte): 0
+Data/ML extensions (.ipynb): 1
+Infra extensions (.tf, .hcl): 0
+Backend extensions (.proto, .graphql): 0
+
+--- TOP FILE EXTENSIONS (by count) ---
+  .py: 43
+  .png: 41
+  .yaml: 35
+  .jpg: 4
+  .md: 2
+  .txt: 2
+  .p: 2
+  .sh: 2
+  .gif: 1
+  .jpeg: 1
+  .ttf: 1
+  .ipynb: 1
+
+--- BOOLEAN PATTERN CHECKS ---
+  pages or app dir: no
+  components dir: no
+  cmd or bin dir: no
+  run train scripts: yes
+  ipynb files: yes
+  k8s manifests: no
+  route controller dirs: no
+  dockerfile: no
+
+
+[get_directory('')]
+Contents of /(root):
+  [dir] assets
+  [dir] configs
+  [dir] data
+  [dir] ldm
+  [dir] models
+  [dir] scripts
+  [file] LICENSE
+  [file] README.md
+  [file] Stable_Diffusion_v1_Model_Card.md
+  [file] environment.yaml
+  [file] main.py
+  [file] notebook_helpers.py
+  [file] setup.py
+
+---
+
+[get_dependencies('')]
+(no dependency/manifest files found at repo root)
+
+---
+
+[get_file('environment.yaml')]
+name: ldm
+channels:
+  - pytorch
+  - defaults
+dependencies:
+  - python=3.8.5
+  - pip=20.3
+  - cudatoolkit=11.3
+  - pytorch=1.11.0
+  - torchvision=0.12.0
+  - numpy=1.19.2
+  - pip:
+    - albumentations==0.4.3
+    - diffusers
+    - opencv-python==4.1.2.30
+    - pudb==2019.2
+    - invisible-watermark
+    - imageio==2.9.0
+    - imageio-ffmpeg==0.4.2
+    - pytorch-lightning==1.4.2
+    - omegaconf==2.1.1
+    - test-tube>=0.7.5
+    - streamlit>=0.73.1
+    - einops==0.3.0
+    - torch-fidelity==0.3.0
+    - transformers==4.19.2
+    - torchmetrics==0.6.0
+    - kornia==0.6
+    - -e git+https://github.com/CompVis/taming-transformers.git@master#egg=taming-transformers
+    - -e git+https://github.com/openai/CLIP.git@main#egg=clip
+    - -e .
+
+
+---
+
+[get_directory('models')]
+Contents of /models:
+  [dir] first_stage_models
+  [dir] ldm
+
+---
+
+[get_file('README.md')]
+# Stable Diffusion
+*Stable Diffusion was made possible thanks to a collaboration with [Stability AI](https://stability.ai/) and [Runway](https://runwayml.com/) and builds upon our previous work:*
+
+[**High-Resolution Image Synthesis with Latent Diffusion Models**](https://ommer-lab.com/research/latent-diffusion-models/)<br/>
+[Robin Rombach](https://github.com/rromb)\*,
+[Andreas Blattmann](https://github.com/ablattmann)\*,
+[Dominik Lorenz](https://github.com/qp-qp)\,
+[Patrick Esser](https://github.com/pesser),
+[Björn Ommer](https://hci.iwr.uni-heidelberg.de/Staff/bommer)<br/>
+_[CVPR '22 Oral](https://openaccess.thecvf.com/content/CVPR2022/html/Rombach_High-Resolution_Image_Synthesis_With_Latent_Diffusion_Models_CVPR_2022_paper.html) |
+[GitHub](https://github.com/CompVis/latent-diffusion) | [arXiv](https://arxiv.org/abs/2112.10752) | [Project page](https://ommer-lab.com/research/latent-diffusion-models/)_
+
+![txt2img-stable2](assets/stable-samples/txt2img/merged-0006.png)
+[Stable Diffusion](#stable-diffusion-v1) is a latent text-to-image diffusion
+model.
+Thanks to a generous compute donation from [Stability AI](https://stability.ai/) and support from [LAION](https://laion.ai/), we were able to train a Latent Diffusion Model on 512x512 images from a subset of the [LAION-5B](https://laion.ai/blog/laion-5b/) database. 
+Similar to Google's [Imagen](https://arxiv.org/abs/2205.11487), 
+this model uses a frozen CLIP ViT-L/14 text encoder to condition the model on text prompts.
+With its 860M UNet and 123M text encoder, the model is relatively lightweight and runs on a GPU with at least 10GB VRAM.
+See [this section](#stable-diffusion-v1) below and the [model card](https://huggingface.co/CompVis/stable-diffusion).
+
+  
+## Requirements
+A suitable [conda](https://conda.io/) environment named `ldm` can be created
+and activated with:
+
+```
+conda env create -f environment.yaml
+conda activate ldm
+```
+
+You can also update an existing [latent diffusion](https://github.com/CompVis/latent-diffusion) environment by running
+
+```
+conda install pytorch torchvision -c pytorch
+pip install transformers==4.19.2 diffusers invisible-watermark
+pip install -e .
+``` 
+
+
+## Stable Diffusion v1
+
+Stable Diffusion v1 refers to a specific configuration of the model
+architecture that uses a downsampling-factor 8 autoencoder with an 860M UNet
+and CLIP ViT-L/14 text encoder for the diffusion model. The model was pretrained on 256x256 images and 
+then finetuned on 512x512 images.
+
+*Note: Stable Diffusion v1 is a general text-to-image diffusion model and therefore mirrors biases and (mis-)conceptions that are present
+in its training data. 
+Details on the training procedure and data, as well as the intended use of the model can be found in the corresponding [model card](Stable_Diffusion_v1_Model_Card.md).*
+
+The weights are available via [the CompVis organization at Hugging Face](https://huggingface.co/CompVis) under [a license which contains specific use-based restrictions to prevent misuse and harm as informed by the model card, but otherwise remains permissive](LICENSE). While commercial use is permitted under the terms of the license, **we do not recommend using the provided weights for services or products without additional safety mechanisms and considerations**, since there are [known limitations and biases](Stable_Diffusion_v1_Model_Card.md#limitations-and-bias) of the weights, and research on safe and ethical deployment of general text-to-image models is an ongoing effort. **The weights are research artifacts and should be treated as such.**
+
+[The CreativeML OpenRAIL M license](LICENSE) is an [Open RAIL M license](https://www.licenses.ai/blog/2022/8/18/naming-convention-of-responsible-ai-licenses), adapted from the work that [BigScience](https://bigscience.huggingface.co/) and [the RAIL Initiative](https://www.licenses.ai/) are jointly carrying in the area of responsible AI licensing. See also [the article about the BLOOM Open RAIL license](https://bigscience.huggingfa
+... [TRUNCATED — showing first 4000 chars]
+
+---
+
+[get_directory('scripts')]
+Contents of /scripts:
+  [dir] tests
+  [file] download_first_stages.sh
+  [file] download_models.sh
+  [file] img2img.py
+  [file] inpaint.py
+  [file] knn2img.py
+  [file] latent_imagenet_diffusion.ipynb
+  [file] sample_diffusion.py
+  [file] train_searcher.py
+  [file] txt2img.py

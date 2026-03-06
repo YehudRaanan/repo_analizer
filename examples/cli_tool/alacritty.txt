@@ -1,135 +1,67 @@
 =====================================
-Repository Analysis: alacritty
-Type: CLI Tool
+REPO CLASSIFICATION SIGNALS
 =====================================
 
 --- METADATA ---
 Name: alacritty
 Description: A cross-platform, OpenGL terminal emulator.
-Language: Rust
+Primary language: Rust
 Topics: bsd, gpu, linux, macos, opengl, rust, terminal, terminal-emulators, vte, windows
-Stars: 62806
-License: Apache License 2.0
 
---- README ---
-<p align="center">
-    <img width="200" alt="Alacritty Logo" src="https://raw.githubusercontent.com/alacritty/alacritty/master/extra/logo/compat/alacritty-term%2Bscanlines.png">
-</p>
+--- ROOT FILES (signal matches) ---
+Web App:     (none)
+Backend:     (none)
+Library:     Cargo.toml
+CLI:         (none)
+Data/ML:     (none)
+Infra:       (none)
 
-<h1 align="center">Alacritty - A fast, cross-platform, OpenGL terminal emulator</h1>
+--- TOP-LEVEL DIRECTORIES (signal matches) ---
+Web App:     (none)
+Backend:     (none)
+Library:     (none)
+CLI:         (none)
+Data/ML:     (none)
+Infra:       (none)
 
-<p align="center">
-  <img alt="Alacritty - A fast, cross-platform, OpenGL terminal emulator"
-       src="https://raw.githubusercontent.com/alacritty/alacritty/master/extra/promo/alacritty-readme.png">
-</p>
+--- ALL TOP-LEVEL DIRECTORIES ---
+.builds, .github, alacritty, alacritty_config, alacritty_config_derive, alacritty_terminal, docs, extra, scripts
 
-## About
+--- TYPE-SPECIFIC EXTENSION COUNTS ---
+Web App extensions (.tsx, .jsx, .vue, .svelte): 0
+Data/ML extensions (.ipynb): 0
+Infra extensions (.tf, .hcl): 0
+Backend extensions (.proto, .graphql): 0
 
-Alacritty is a modern terminal emulator that comes with sensible defaults, but
-allows for extensive [configuration](#configuration). By integrating with other
-applications, rather than reimplementing their functionality, it manages to
-provide a flexible set of [features](./docs/features.md) with high performance.
-The supported platforms currently consist of BSD, Linux, macOS and Windows.
+--- TOP FILE EXTENSIONS (by count) ---
+  .json: 135
+  .rs: 88
+  .recording: 45
+  .md: 10
+  .toml: 6
+  .glsl: 6
+  .svg: 6
+  .sh: 5
+  .scd: 5
+  .yml: 4
+  .png: 3
+  .editorconfig: 1
+  .gitignore: 1
+  .lock: 1
+  .ico: 1
 
-The software is considered to be at a **beta** level of readiness; there are
-a few missing features and bugs to be fixed, but it is already used by many as
-a daily driver.
-
-Precompiled binaries are available from the [GitHub releases page](https://github.com/alacritty/alacritty/releases).
-
-Join [`#alacritty`] on libera.chat if you have questions or looking for a quick help.
-
-[`#alacritty`]: https://web.libera.chat/gamja/?channels=#alacritty
-
-## Features
-
-You can find an overview over the features available in Alacritty [here](./docs/features.md).
-
-## Further information
-
-- [Announcing Alacritty, a GPU-Accelerated Terminal Emulator](https://jwilm.io/blog/announcing-alacritty/) January 6, 2017
-- [A talk about Alacritty at the Rust Meetup January 2017](https://www.youtube.com/watch?v=qHOdYO3WUTk) January 19, 2017
-- [Alacritty Lands Scrollback, Publishes Benchmarks](https://jwilm.io/blog/alacritty-lands-scrollback/) September 17, 2018
-
-## Installation
-
-Alacritty can be installed by using various package managers on Linux, BSD,
-macOS and Windows.
-
-Prebuilt binaries for macOS and Windows can also be downloaded from the
-[GitHub releases page](https://github.com/alacritty/alacritty/releases).
-
-For everyone else, the detailed instructions to install Alacritty can be found
-[here](INSTALL.md).
-
-### Requirements
-
-- At least OpenGL ES 2.0
-- [Windows] ConPTY support (Windows 10 version 1809 or higher)
-
-## Configuration
-
-You can find the documentation for Alacritty's configuration in `man 5
-alacritty`, or by looking at [the website] if you do not have the manpages
-installed.
-
-[the website]: https://alacritty.org/config-alacritty.html
-
-Alacritty doesn't create the config file for you, but it looks for one in the
-following locations:
-
-1. `$XDG_CONFIG_HOME/alacritty/alacritty.toml`
-2. `$XDG_CONFIG_HOME/alacritty.toml`
-3. `$HOME/.config/alacritty/alacritty.toml`
-4. `$HOME/.alacritty.toml`
-5. `/etc/alacritty/alacritty.toml`
-
-On Windows, the config file will be looked for in:
-
-* `%APPDATA%\alacritty\alacritty.toml`
-
-## Contributing
-
-A guideline about contributing to Alacritty can be found in the
-[`CONTRIBUTING.md`](CONTRIBUTING.md) file.
-
-## FAQ
-
-**_Is it really the fastest terminal emulator?_**
-
-Benchmarking terminal emulators is complicated. Alacritty uses
-[vtebench](https://github.com/alacritty/vtebench) to quantify terminal emulator
-throughput and manages to consistently score better than the competition using
-it. If you have found an example where this is not the case, please report a
-bug.
-
-Other aspects like latency or framerate and frame consistency are more difficult
-to quantify. Some terminal emulators also intentionally slow down to save
-resources, which might be preferred by some users.
-
-If you have doubts about Alacritty's performance or usability, the best way to
-quantify terminal emulators is always to test them with **your** specific
-usecases.
-
-**_Why isn't feature X implemented?_**
-
-Alacritty has many great features, but not every feature from every other
-terminal. This could be for a number of reasons, but sometimes it's just not a
-good fit for Alacritty. This means you won't find things like tabs or splits
-(which are best left to a window manager or [terminal multiplexer][tmux]) nor
-niceties like a GUI config editor.
-
-[tmux]: https://github.com/tmux/tmux
-
-## License
-
-Alacritty is released under the [Apache License, Version 2.0].
-
-[Apache License, Version 2.0]: https://github.com/alacritty/alacritty/blob/master/LICENSE-APACHE
+--- BOOLEAN PATTERN CHECKS ---
+  pages or app dir: no
+  components dir: no
+  cmd or bin dir: no
+  run train scripts: no
+  ipynb files: no
+  k8s manifests: no
+  route controller dirs: no
+  dockerfile: no
 
 
---- PACKAGE MANIFEST(S) ---
-
+[get_dependencies('')]
 [Cargo.toml]
 [workspace]
 members = [
@@ -154,223 +86,157 @@ toml = "0.9.11"
 toml_edit = "0.24.0"
 
 
-[Makefile]
-TARGET = alacritty
+---
 
-ASSETS_DIR = extra
-RELEASE_DIR = target/release
-MANPAGE = $(ASSETS_DIR)/man/alacritty.1.scd
-MANPAGE-MSG = $(ASSETS_DIR)/man/alacritty-msg.1.scd
-MANPAGE-CONFIG = $(ASSETS_DIR)/man/alacritty.5.scd
-MANPAGE-CONFIG-BINDINGS = $(ASSETS_DIR)/man/alacritty-bindings.5.scd
-TERMINFO = $(ASSETS_DIR)/alacritty.info
-COMPLETIONS_DIR = $(ASSETS_DIR)/completions
-COMPLETIONS = $(COMPLETIONS_DIR)/_alacritty \
-	$(COMPLETIONS_DIR)/alacritty.bash \
-	$(COMPLETIONS_DIR)/alacritty.fish
+[get_directory('alacritty')]
+Contents of /alacritty:
+  [dir] res
+  [dir] src
+  [dir] windows
+  [file] CHANGELOG.md
+  [file] Cargo.toml
+  [file] LICENSE-APACHE
+  [file] README.md
+  [file] build.rs
+  [file] extra
 
-APP_NAME = Alacritty.app
-APP_TEMPLATE = $(ASSETS_DIR)/osx/$(APP_NAME)
-APP_DIR = $(RELEASE_DIR)/osx
-APP_BINARY = $(RELEASE_DIR)/$(TARGET)
-APP_BINARY_DIR = $(APP_DIR)/$(APP_NAME)/Contents/MacOS
-APP_EXTRAS_DIR = $(APP_DIR)/$(APP_NAME)/Contents/Resources
-APP_COMPLETIONS_DIR = $(APP_EXTRAS_DIR)/completions
+---
 
-DMG_NAME = Alacritty.dmg
-DMG_DIR = $(RELEASE_DIR)/osx
+[get_file('alacritty/src/main.rs')]
+//! Alacritty - The GPU Enhanced Terminal.
 
-vpath $(TARGET) $(RELEASE_DIR)
-vpath $(APP_NAME) $(APP_DIR)
-vpath $(DMG_NAME) $(APP_DIR)
+#![warn(rust_2018_idioms, future_incompatible)]
+#![deny(clippy::all, clippy::if_not_else, clippy::enum_glob_use)]
+#![cfg_attr(clippy, deny(warnings))]
+// With the default subsystem, 'console', windows creates an additional console
+// window for the program.
+// This is silently ignored on non-windows systems.
+// See https://msdn.microsoft.com/en-us/library/4cc7ya5b.aspx for more details.
+#![windows_subsystem = "windows"]
 
-all: help
+#[cfg(not(any(feature = "x11", feature = "wayland", target_os = "macos", windows)))]
+compile_error!(r#"at least one of the "x11"/"wayland" features must be enabled"#);
 
-help: ## Print this help message
-	@grep -E '^[a-zA-Z._-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'
+use std::error::Error;
+use std::fmt::Write as _;
+use std::io::{self, Write};
+use std::path::PathBuf;
+use std::{env, fs};
 
-binary: $(TARGET)-native ## Build a release binary
-binary-universal: $(TARGET)-universal ## Build a universal release binary
-$(TARGET)-native:
-	MACOSX_DEPLOYMENT_TARGET="10.12" cargo build --release
-$(TARGET)-universal:
-	MACOSX_DEPLOYMENT_TARGET="10.12" cargo build --release --target=x86_64-apple-darwin
-	MACOSX_DEPLOYMENT_TARGET="10.12" cargo build --release --target=aarch64-apple-darwin
-	@lipo target/{x86_64,aarch64}-apple-darwin/release/$(TARGET) -create -output $(APP_BINARY)
+use log::info;
+#[cfg(windows)]
+use windows_sys::Win32::System::Console::{ATTACH_PARENT_PROCESS, AttachConsole, FreeConsole};
+use winit::event_loop::EventLoop;
+#[cfg(all(feature = "x11", not(any(target_os = "macos", windows))))]
+use winit::raw_window_handle::{HasDisplayHandle, RawDisplayHandle};
 
-app: $(APP_NAME)-native ## Create an Alacritty.app
-app-universal: $(APP_NAME)-universal ## Create a universal Alacritty.app
-$(APP_NAME)-%: $(TARGET)-%
-	@mkdir -p $(APP_BINARY_DIR)
-	@mkdir -p $(APP_EXTRAS_DIR)
-	@mkdir -p $(APP_COMPLETIONS_DIR)
-	@scdoc < $(MANPAGE) | gzip -c > $(APP_EXTRAS_DIR)/alacritty.1.gz
-	@scdoc < $(MANPAGE-MSG) | gzip -c > $(APP_EXTRAS_DIR)/alacritty-msg.1.gz
-	@scdoc < $(MANPAGE-CONFIG) | gzip -c > $(APP_EXTRAS_DIR)/alacritty.5.gz
-	@scdoc < $(MANPAGE-CONFIG-BINDINGS) | gzip -c > $(APP_EXTRAS_DIR)/alacritty-bindings.5.gz
-	@tic -xe alacritty,alacritty-direct -o $(APP_EXTRAS_DIR) $(TERMINFO)
-	@cp -fRp $(APP_TEMPLATE) $(APP_DIR)
-	@cp -fp $(APP_BINARY) $(APP_BINARY_DIR)
-	@cp -fp $(COMPLETIONS) $(APP_COMPLETIONS_DIR)
-	@touch -r "$(APP_BINARY)" "$(APP_DIR)/$(APP_NAME)"
-	@codesign --remove-signature "$(APP_DIR)/$(APP_NAME)"
-	@codesign --force --deep --sign - "$(APP_DIR)/$(APP_NAME)"
-	@echo "Created '$(APP_NAME)' in '$(APP_DIR)'"
+use alacritty_terminal::tty;
 
-dmg: $(DMG_NAME)-native ## Create an Alacritty.dmg
-dmg-universal: $(DMG_NAME)-universal ## Create a universal Alacritty.dmg
-$(DMG_NAME)-%: $(APP_NAME)-%
-	@echo "Packing disk image..."
-	@ln -sf /Applications $(DMG_DIR)/Applications
-	@hdiutil create $(DMG_DIR)/$(DMG_NAME) \
-		-volname "Alacritty" \
-		-fs HFS+ \
-		-srcfolder $(APP_DIR) \
-		-ov -format UDZO
-	@echo "Packed '$(APP_NAME)' in '$(APP_DIR)'"
+mod cli;
+mod clipboard;
+mod config;
+mod daemon;
+mod display;
+mod event;
+mod input;
+mod logging;
+#[cfg(target_os = "macos")]
+mod macos;
+mod message_bar;
+mod migrate;
+#[cfg(windows)]
+mod panic;
+#[cfg(unix)]
+mod polling;
+mod renderer;
+mod scheduler;
+mod string;
+mod window_context;
 
-install: $(INSTALL)-native ## Mount
-... [TRUNCATED]
+mod gl {
+    #![allow(clippy::all, unsafe_op_in_unsafe_fn)]
+    include!(concat!(env!("OUT_DIR"), "/gl_bindings.rs"));
+}
 
---- CLI ENTRY POINTS / COMMAND DEFINITIONS ---
-(No CLI entry points found)
+#[cfg(unix)]
+use crate::cli::MessageOptions;
+#[cfg(not(any(target_os = "macos", windows)))]
+use crate::cli::SocketMessage;
+use crate::cli::{Options, Subcommands};
+use crate::config::UiConfig;
+use crate::config::monitor::ConfigMonitor;
+use crate::event::{Event, Processor};
+#[cfg(target_os = "macos")]
+use crate::macos::locale;
+#[cfg(unix)]
+use crate::polling::{IoListener, ipc};
 
---- SHELL COMPLETIONS & MAN PAGES ---
-  alacritty_terminal/tests/ref/zsh_tab_completion/alacritty.recording
-  alacritty_terminal/tests/ref/zsh_tab_completion/config.json
-  alacritty_terminal/tests/ref/zsh_tab_completion/grid.json
-  alacritty_terminal/tests/ref/zsh_tab_completion/size.json
-  extra/completions/_alacritty
-  extra/completions/alacritty.bash
-  extra/completions/alacritty.fish
-  extra/man/alacritty-bindings.5.scd
-  extra/man/alacritty-escapes.7.scd
-  extra/man/alacritty-msg.1.scd
-  extra/man/alacritty.1.scd
-  extra/man/alacritty.5.scd
+fn main() -> Result<(), Box<dyn Error>> {
+    #[cfg(windows)]
+    panic::attach_handler();
 
---- DIRECTORY STRUCTURE (depth 2) ---
-├── .builds/
-│   ├── freebsd.yml
-│   └── linux.yml
-├── .editorconfig
-├── .github/
-│   ├── ISSUE_TEMPLATE.md
-│   └── workflows/
-│       ├── ci.yml
-│       ├── release.yml
-│       └── upload_asset.sh
-├── .gitignore
-├── CHANGELOG.md
-├── CONTRIBUTING.md
-├── Cargo.lock
-├── Cargo.toml
-├── INSTALL.md
-├── LICENSE-APACHE
-├── LICENSE-MIT
-├── Makefile
-├── README.md
-├── alacritty/
-│   ├── CHANGELOG.md
-│   ├── Cargo.toml
-│   ├── LICENSE-APACHE
-│   ├── README.md
-│   ├── build.rs
-│   ├── extra
-│   ├── res/
-│   │   ├── gles2/
-│   │   ├── glsl3/
-│   │   ├── rect.f.glsl
-│   │   └── rect.v.glsl
-│   ├── src/
-│   │   ├── cli.rs
-│   │   ├── clipboard.rs
-│   │   ├── config/
-│   │   ├── daemon.rs
-│   │   ├── display/
-│   │   ├── event.rs
-│   │   ├── input/
-│   │   ├── logging.rs
-│   │   ├── macos/
-│   │   ├── main.rs
-│   │   ├── message_bar.rs
-│   │   ├── migrate/
-│   │   ├── panic.rs
-│   │   ├── polling/
-│   │   ├── renderer/
-│   │   ├── scheduler.rs
-│   │   ├── string.rs
-│   │   └── window_context.rs
-│   └── windows/
-│       ├── alacritty.ico
-│       ├── alacritty.manifest
-│       ├── alacritty.rc
-│       └── wix/
-├── alacritty_config/
-│   ├── Cargo.toml
-│   ├── LICENSE-APACHE
-│   ├── LICENSE-MIT
-│   └── src/
-│       └── lib.rs
-├── alacritty_config_derive/
-│   ├── Cargo.toml
-│   ├── LICENSE-APACHE
-│   ├── LICENSE-MIT
-│   ├── src/
-│   │   ├── config_deserialize/
-│   │   ├── lib.rs
-│   │   └── serde_replace.rs
-│   └── tests/
-│       └── config.rs
-├── alacritty_terminal/
-│   ├── CHANGELOG.md
-│   ├── Cargo.toml
-│   ├── LICENSE-APACHE
-│   ├── src/
-│   │   ├── event.rs
-│   │   ├── event_loop.rs
-│   │   ├── grid/
-│   │   ├── index.rs
-│   │   ├── lib.rs
-│   │   ├── selection.rs
-│   │   ├── sync.rs
-│   │   ├── term/
-│   │   ├── thread.rs
-│   │   ├── tty/
-│   │   └── vi_mode.rs
-│   └── tests/
-│       ├── ref.rs
-│       └── ref/
-├── docs/
-│   └── features.md
-├── extra/
-│   ├── alacritty.info
-│   ├── completions/
-│   │   ├── _alacritty
-│   │   ├── alacritty.bash
-│   │   └── alacritty.fish
-│   ├── linux/
-│   │   ├── Alacritty.desktop
-│   │   └── org.alacritty.Alacritty.appdata.xml
-│   ├── logo/
-│   │   ├── alacritty-simple.svg
-│   │   ├── alacritty-term+scanlines.svg
-│   │   ├── alacritty-term.svg
-│   │   └── compat/
-│   ├── man/
-│   │   ├── alacritty-bindings.5.scd
-│   │   ├── alacritty-escapes.7.scd
-│   │   ├── alacritty-msg.1.scd
-│   │   ├── alacritty.1.scd
-│   │   └── alacritty.5.scd
-│   ├── osx/
-│   │   └── Alacritty.app/
-│   └── promo/
-│       └── alacritty-readme.png
-├── rustfmt.toml
-└── scripts/
-    ├── 24-bit-color.sh
-    ├── README.md
-    ├── colors.sh
-    ├── create-flamegraph.sh
-    └── fg-bg.sh
+    // When linked with the windows subsystem windows won't automatically attach
+    // to the console of the parent process, so we do it explicitly. This fails
+    // silently if the parent has no console.
+    #[cfg(windows)]
+    unsafe {
+        AttachConsole(ATTACH_PARENT_PROCESS);
+    }
+
+    // Load command line options.
+    let options = Options::new();
+
+    match options.subcommands {
+        #[cfg(unix)]
+        Some(Subcommands::Msg(options)) => msg(options)?,
+        Some(Subcommands::Migrate(options)) => migrate::migrate(options),
+        None => alacritty(options)?,
+    }
+
+    Ok(())
+}
+
+/// `msg` subcommand entrypoint.
+#[cfg(unix)]
+#[allow(unused_mut)]
+fn msg(mut options: MessageOptions) -> Result<(), Box<dyn Error>> {
+    #[cfg(not(any(target_os = "macos", windows)))]
+    if let SocketMessage::CreateWindow(window_options) = &mut options.message {
+        window_options.activation_token =
+            env::var("XDG_ACTIVATION_TOKEN").or_else(|_| env::var("DESKTOP_STARTUP_ID")).ok();
+    }
+    ipc::send_message(options.socket, options.message).map_err(|err| err.into())
+}
+
+/// Temporary files stored for Alacritty.
+///
+/// This stores temporary files to automate their destruction through its `Drop` implementation.
+struct TemporaryFiles {
+    #[cfg(unix)]
+    socket_path: Option<PathBuf>,
+    log_file: Option<PathBuf>,
+}
+
+impl Drop for TemporaryFiles {
+    fn drop(&mut self) {
+        // Clean up the IPC socket file.
+        #[cfg(unix)]
+        if let Some(socket_path) = self.socket_path.as_deref() {
+            let _ = fs::remove_file(socket_path);
+        }
+
+        // Clean up logfile.
+        if let Some(log_file) = &self.log_file {
+            if fs::remove_file(log_file).is_ok() {
+                let _ = writeln!(io::stdout(), "Deleted log file at \"{}\"", log_file.display());
+            }
+        }
+    }
+}
+
+/// Run main Alacritty entrypoint.
+///
+/// Creates a window, the terminal state, PTY, I/O event loop, input processor,
+/// config change monitor, and runs the main display loop.
+fn alac
+... [TRUNCATED — showing first 4000 chars]

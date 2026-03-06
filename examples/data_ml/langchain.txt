@@ -1,17 +1,89 @@
 =====================================
-Repository Analysis: langchain
-Type: Data / ML / AI Project
+REPO CLASSIFICATION SIGNALS
 =====================================
 
 --- METADATA ---
 Name: langchain
 Description: The agent engineering platform
-Language: Python
+Primary language: Python
 Topics: agents, ai, ai-agents, anthropic, chatgpt, deepagents, enterprise, framework, gemini, generative-ai, langchain, langgraph, llm, multiagent, open-source, openai, pydantic, python, rag
-Stars: 128392
-License: MIT License
 
---- README ---
+--- ROOT FILES (signal matches) ---
+Web App:     (none)
+Backend:     (none)
+Library:     (none)
+CLI:         (none)
+Data/ML:     (none)
+Infra:       (none)
+
+--- TOP-LEVEL DIRECTORIES (signal matches) ---
+Web App:     (none)
+Backend:     (none)
+Library:     (none)
+CLI:         (none)
+Data/ML:     (none)
+Infra:       (none)
+
+--- ALL TOP-LEVEL DIRECTORIES ---
+.devcontainer, .github, .vscode, libs
+
+--- TYPE-SPECIFIC EXTENSION COUNTS ---
+Web App extensions (.tsx, .jsx, .vue, .svelte): 0
+Data/ML extensions (.ipynb): 0
+Infra extensions (.tf, .hcl): 0
+Backend extensions (.proto, .graphql): 0
+
+--- TOP FILE EXTENSIONS (by count) ---
+  .py: 338
+  .yml: 24
+  .json: 20
+  .md: 8
+  .yaml: 7
+  .txt: 6
+  .ambr: 5
+  .dockerignore: 2
+  .svg: 2
+  .csv: 2
+  .editorconfig: 1
+  .gitattributes: 1
+  .github/codeowners: 1
+  .github/tools/git-restore-mtime: 1
+  .gitignore: 1
+
+--- BOOLEAN PATTERN CHECKS ---
+  pages or app dir: no
+  components dir: no
+  cmd or bin dir: no
+  run train scripts: yes
+  ipynb files: no
+  k8s manifests: no
+  route controller dirs: no
+  dockerfile: no
+
+
+[get_directory('')]
+Contents of /(root):
+  [dir] .devcontainer
+  [dir] .github
+  [dir] .vscode
+  [dir] libs
+  [file] .dockerignore
+  [file] .editorconfig
+  [file] .gitattributes
+  [file] .gitignore
+  [file] .markdownlint.json
+  [file] .mcp.json
+  [file] .pre-commit-config.yaml
+  [file] AGENTS.md
+  [file] CITATION.cff
+  [file] CLAUDE.md
+  [file] CONTRIBUTING.md
+  [file] LICENSE
+  [file] README.md
+
+---
+
+[get_file('README.md')]
 <div align="center">
   <a href="https://www.langchain.com/">
     <picture>
@@ -66,177 +138,166 @@ Use LangChain for:
 - **Real-time data augmentation**. Easily connect LLMs to diverse data sources and external/internal systems, drawing from LangChain's vast library of integrations with model providers, tools, vector stores, retrievers, and more.
 - **Model interoperability**. Swap models in and out as your engineering team experiments to find the best choice for your application's needs. As the industry frontier evolves, adapt quickly – LangChain's abstractions keep you moving without losing momentum.
 - **Rapid prototyping**. Quickly build and iterate on LLM applications with LangChain's modular, component-based architecture. Test different approaches and workflows without rebuilding from scratch, accelerating your development cycle.
-- **Production-ready features**. Deploy reliable applications with built-in support for monitoring, evaluation, and debugging through integrations like LangSmith. Scale with confidence using battle-tested patterns and best practices.
-- **Vibrant community and ecosystem**. Leverage a rich ecosystem of integrations, templates, and community-contributed components. Benefit from continuous improvements and stay up-to-date with the latest AI developments through an active open-source community.
-- **Flexible abstraction layers**. Work at the level of abstraction that suits your needs - from high-level chains for quick starts to low-level components for fine-grained control. LangChain grows with your application's complexity.
+- **Production-ready features**. Deploy reliable applic
+... [TRUNCATED — showing first 4000 chars]
 
-## LangChain ecosystem
+---
 
-While the LangChain framework can be used standalone, it also integrates seamlessly with any LangChain product, giving developers a full suite of tools when building LLM applications.
+[get_dependencies('')]
+(no dependency/manifest files found at repo root)
 
-To improve your LLM application development, pair LangChain with:
+---
 
-- [Deep Agents](https://github.com/langchain-ai/d
-... [TRUNCATED]
+[get_directory('libs')]
+Contents of /libs:
+  [dir] core
+  [dir] langchain
+  [dir] langchain_v1
+  [dir] model-profiles
+  [dir] partners
+  [dir] standard-tests
+  [dir] text-splitters
+  [file] Makefile
+  [file] README.md
 
---- PACKAGE MANIFEST(S) ---
-(No package manifest found)
+---
 
---- REQUIREMENTS FILES ---
-(No requirements files found)
+[get_directory('libs/core')]
+Contents of /libs/core:
+  [dir] langchain_core
+  [dir] scripts
+  [dir] tests
+  [file] Makefile
+  [file] README.md
+  [file] extended_testing_deps.txt
+  [file] pyproject.toml
+  [file] uv.lock
 
---- ML CONFIG FILES ---
-(No ML config files found)
+---
 
---- JUPYTER NOTEBOOKS ---
-(No notebooks found)
+[get_file('libs/core/pyproject.toml')]
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
 
---- MODEL / TRAINING FILES ---
-  libs/core/langchain_core/language_models/chat_models.py
-  libs/core/langchain_core/language_models/fake_chat_models.py
-  libs/core/langchain_core/language_models/model_profile.py
-  libs/core/langchain_core/outputs/run_info.py
-  libs/core/langchain_core/tracers/run_collector.py
-  libs/langchain/langchain_classic/callbacks/tracers/run_collector.py
-  libs/langchain/langchain_classic/chains/constitutional_ai/models.py
-  libs/langchain/langchain_classic/chains/qa_with_sources/retrieval.py
-  libs/langchain/langchain_classic/chains/retrieval.py
-  libs/langchain/langchain_classic/chains/router/multi_retrieval_prompt.py
+[project]
+name = "langchain-core"
+description = "Building applications with LLMs through composability"
+license = {text = "MIT"}
+readme = "README.md"
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: 3.14",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+]
 
---- DIRECTORY STRUCTURE (depth 2) ---
-├── .devcontainer/
-│   ├── README.md
-│   ├── devcontainer.json
-│   └── docker-compose.yaml
-├── .dockerignore
-├── .editorconfig
-├── .gitattributes
-├── .github/
-│   ├── CODEOWNERS
-│   ├── ISSUE_TEMPLATE/
-│   │   ├── bug-report.yml
-│   │   ├── config.yml
-│   │   ├── feature-request.yml
-│   │   ├── privileged.yml
-│   │   └── task.yml
-│   ├── PULL_REQUEST_TEMPLATE.md
-│   ├── actions/
-│   │   └── uv_setup/
-│   ├── dependabot.yml
-│   ├── images/
-│   │   ├── logo-dark.svg
-│   │   └── logo-light.svg
-│   ├── pr-file-labeler.yml
-│   ├── scripts/
-│   │   ├── check_diff.py
-│   │   ├── check_prerelease_dependencies.py
-│   │   └── get_min_versions.py
-│   ├── tools/
-│   │   └── git-restore-mtime
-│   └── workflows/
-│       ├── _compile_integration_test.yml
-│       ├── _lint.yml
-│       ├── _release.yml
-│       ├── _test.yml
-│       ├── _test_pydantic.yml
-│       ├── auto-label-by-package.yml
-│       ├── check_agents_sync.yml
-│       ├── check_core_versions.yml
-│       ├── check_diffs.yml
-│       ├── integration_tests.yml
-│       ├── pr_labeler_file.yml
-│       ├── pr_labeler_title.yml
-│       ├── pr_lint.yml
-│       ├── refresh_model_profiles.yml
-│       ├── tag-external-contributions.yml
-│       └── v03_api_doc_build.yml
-├── .gitignore
-├── .markdownlint.json
-├── .mcp.json
-├── .pre-commit-config.yaml
-├── .vscode/
-│   ├── extensions.json
-│   └── settings.json
-├── AGENTS.md
-├── CITATION.cff
-├── CLAUDE.md
-├── CONTRIBUTING.md
-├── LICENSE
-├── README.md
-└── libs/
-    ├── Makefile
-    ├── README.md
-    ├── core/
-    │   ├── Makefile
-    │   ├── README.md
-    │   ├── extended_testing_deps.txt
-    │   ├── langchain_core/
-    │   ├── pyproject.toml
-    │   ├── scripts/
-    │   ├── tests/
-    │   └── uv.lock
-    ├── langchain/
-    │   ├── .dockerignore
-    │   ├── .flake8
-    │   ├── LICENSE
-    │   ├── Makefile
-    │   ├── README.md
-    │   ├── dev.Dockerfile
-    │   ├── extended_testing_deps.txt
-    │   ├── langchain_classic/
-    │   ├── pyproject.toml
-    │   ├── scripts/
-    │   ├── tests/
-    │   └── uv.lock
-    ├── langchain_v1/
-    │   ├── LICENSE
-    │   ├── Makefile
-    │   ├── README.md
-    │   ├── extended_testing_deps.txt
-    │   ├── langchain/
-    │   ├── pyproject.toml
-    │   ├── scripts/
-    │   ├── tests/
-    │   └── uv.lock
-    ├── model-profiles/
-    │   ├── Makefile
-    │   ├── README.md
-    │   ├── extended_testing_deps.txt
-    │   ├── langchain_model_profiles/
-    │   ├── pyproject.toml
-    │   ├── tests/
-    │   └── uv.lock
-    ├── partners/
-    │   ├── README.md
-    │   ├── anthropic/
-    │   ├── chroma/
-    │   ├── deepseek/
-    │   ├── exa/
-    │   ├── fireworks/
-    │   ├── groq/
-    │   ├── huggingface/
-    │   ├── mistralai/
-    │   ├── nomic/
-    │   ├── ollama/
-    │   ├── openai/
-    │   ├── openrouter/
-    │   ├── perplexity/
-    │   ├── qdrant/
-    │   └── xai/
-    ├── standard-tests/
-    │   ├── Makefile
-    │   ├── README.md
-    │   ├── langchain_tests/
-    │   ├── pyproject.toml
-    │   ├── scripts/
-    │   ├── tests/
-    │   └── uv.lock
-    └── text-splitters/
-        ├── Makefile
-        ├── README.md
-        ├── extended_testing_deps.txt
-        ├── langchain_text_splitters/
-        ├── pyproject.toml
-        ├── scripts/
-        ├── tests/
-        └── uv.lock
+version = "1.2.17"
+requires-python = ">=3.10.0,<4.0.0"
+dependencies = [
+    "langsmith>=0.3.45,<1.0.0",
+    "tenacity!=8.4.0,>=8.1.0,<10.0.0",
+    "jsonpatch>=1.33.0,<2.0.0",
+    "PyYAML>=5.3.0,<7.0.0",
+    "typing-extensions>=4.7.0,<5.0.0",
+    "packaging>=23.2.0",
+    "pydantic>=2.7.4,<3.0.0",
+    "uuid-utils>=0.12.0,<1.0",
+]
+
+[project.urls]
+Homepage = "https://docs.langchain.com/"
+Documentation = "https://reference.langchain.com/python/langchain_core/"
+Repository = "https://github.com/langchain-ai/langchain"
+Issues = "https://github.com/langchain-ai/langchain/issues"
+Changelog = "https://github.com/langchain-ai/langchain/releases?q=%22langchain-core%3D%3D1%22"
+Twitter = "https://x.com/LangChain"
+Slack = "https://www.langchain.com/join-community"
+Reddit = "https://www.reddit.com/r/LangChain/"
+
+[dependency-groups]
+lint = ["ruff>=0.15.0,<0.16.0"]
+typing = [
+    "mypy>=1.19.1,<1.20.0",
+    "types-pyyaml>=6.0.12.2,<7.0.0.0",
+    "types-requests>=2.28.11.5,<3.0.0.0",
+    "langchain-text-splitters",
+]
+dev = [
+    "jupyter>=1.0.0,<2.0.0",
+    "setuptools>=67.6.1,<83.0.0",
+    "grandalf>=0.8.0,<1.0.0",
+]
+test = [
+    "pytest>=8.0.0,<10.0.0",
+    "freezegun>=1.2.2,<2.0.0",
+    "pytest-mock>=3.10.0,<4.0.0",
+    "syrupy>=4.0.2,<6.0.0",
+    "pytest-watcher>=0.3.4,<1.0.0",
+    "pytest-asyncio>=0.21.1,<2.0.0",
+    "grandalf>=0.8.0,<1.0.0",
+    "responses>=0.25.0,<1.0.0",
+    "pytest-socket>=0.7.0,<1.0.0",
+    "pytest-xdist<4.0.0,>=3.6.1",
+    "blockbuster>=1.5.18,<1.6.0",
+    "numpy>=1.26.4; python_version<'3.13'",
+    "numpy>=2.1.0; python_version>='3.13'",
+    "langchain-tests",
+    "pytest-benchmark",
+    "pytest-codspeed",
+]
+test_integration = []
+
+[tool.uv.sources]
+langchain-tests = { path = "../standard-tests" }
+langchain-text-splitters = { path = "../text-splitters" }
+
+
+[tool.mypy]
+plugins = ["pydantic.mypy"]
+strict = true
+enable_error_code = "deprecated"
+
+# TODO: activate for 'strict' checking
+disallow_any_generics = false
+
+
+[tool.ruff.format]
+docstring-code-format = true
+
+[tool.ruff.lint]
+select = [ "ALL",]
+ignore = [
+    "C90",     # McCabe complexity
+    "COM812",  # Messes with the formatter
+    "CPY",     # No copyright
+    "FIX002",  # Line contains TODO
+    "PERF203", # Rarely useful
+    "PLR09",   # Too many something (arg, statements, etc)
+    "TD002",   # Missing author in TODO
+    "TD003",   # Missing issue link in TODO
+
+    # TODO rules
+    "ANN401",  # No Any types
+    "BLE",     # Blind exceptions
+    "ERA",     # No commented-out code
+]
+unfixable = [
+    "B028",    # People should intentionally tune the stacklevel
+]
+
+flake8-annotations.allow-star-arg-any = true
+flake8-annotations.mypy-init-return = true
+flake8-builtins.ignorelist = ["id", "input", "type"]
+flake8-type-checking.runtime-evaluated-base-classes = [ "pydantic.BaseModel", "langchain_core.load.serializable.Serializable", "langchain_core.runnables.base.RunnableSerializable", "langchain_core.language_models.base.BaseLanguageModel", "langchain_core.outputs.generation.Generation", "langchain_core.tools.base.BaseTool",]
+pep8-naming.classmethod-decorators = [ "classmethod", "langchain_core.utils.pydantic.pre_init", "pydantic.field_validator", "pydantic.v1.root_validator",]
+
+[tool.ruff.lint.fl
+... [TRUNCATED — showing first 4000 chars]

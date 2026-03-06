@@ -1,141 +1,64 @@
 =====================================
-Repository Analysis: exa
-Type: CLI Tool
+REPO CLASSIFICATION SIGNALS
 =====================================
 
 --- METADATA ---
 Name: exa
 Description: A modern replacement for ‘ls’.
-Language: Rust
+Primary language: Rust
 Topics: command-line, files, ls, rust
-Stars: 24430
-License: MIT License
 
---- README ---
-# exa is unmaintained, use the [fork eza](https://github.com/eza-community/eza) instead.
+--- ROOT FILES (signal matches) ---
+Web App:     (none)
+Backend:     (none)
+Library:     Cargo.toml
+CLI:         Justfile
+Data/ML:     (none)
+Infra:       (none)
 
-(This repository isn’t archived because the only person with the rights to do so is unreachable).
+--- TOP-LEVEL DIRECTORIES (signal matches) ---
+Web App:     (none)
+Backend:     (none)
+Library:     (none)
+CLI:         (none)
+Data/ML:     (none)
+Infra:       (none)
 
----
+--- ALL TOP-LEVEL DIRECTORIES ---
+.github, completions, devtools, man, snap, src, xtests
 
-<div align="center">
+--- TYPE-SPECIFIC EXTENSION COUNTS ---
+Web App extensions (.tsx, .jsx, .vue, .svelte): 0
+Data/ML extensions (.ipynb): 0
+Infra extensions (.tf, .hcl): 0
+Backend extensions (.proto, .graphql): 0
 
-# exa
+--- TOP FILE EXTENSIONS (by count) ---
+  .ansitxt: 140
+  .rs: 55
+  .toml: 26
+  .sh: 11
+  .md: 6
+  .yml: 2
+  .gitignore: 2
+  .lock: 1
+  .fish: 1
+  .png: 1
+  .yaml: 1
+  .txt: 1
 
-[exa](https://the.exa.website/) is a modern replacement for _ls_.
-
-**README Sections:** [Options](#options) — [Installation](#installation) — [Development](#development)
-
-[![Unit tests](https://github.com/ogham/exa/actions/workflows/unit-tests.yml/badge.svg)](https://github.com/ogham/exa/actions/workflows/unit-tests.yml)
-</div>
-
-![Screenshots of exa](screenshots.png)
-
----
-
-**exa** is a modern replacement for the venerable file-listing command-line program `ls` that ships with Unix and Linux operating systems, giving it more features and better defaults.
-It uses colours to distinguish file types and metadata.
-It knows about symlinks, extended attributes, and Git.
-And it’s **small**, **fast**, and just **one single binary**.
-
-By deliberately making some decisions differently, exa attempts to be a more featureful, more user-friendly version of `ls`.
-For more information, see [exa’s website](https://the.exa.website/).
-
-
----
-
-<a id="options">
-<h1>Command-line options</h1>
-</a>
-
-exa’s options are almost, but not quite, entirely unlike `ls`’s.
-
-### Display options
-
-- **-1**, **--oneline**: display one entry per line
-- **-G**, **--grid**: display entries as a grid (default)
-- **-l**, **--long**: display extended details and attributes
-- **-R**, **--recurse**: recurse into directories
-- **-T**, **--tree**: recurse into directories as a tree
-- **-x**, **--across**: sort the grid across, rather than downwards
-- **-F**, **--classify**: display type indicator by file names
-- **--colo[u]r**: when to use terminal colours
-- **--colo[u]r-scale**: highlight levels of file sizes distinctly
-- **--icons**: display icons
-- **--no-icons**: don't display icons (always overrides --icons)
-
-### Filtering options
-
-- **-a**, **--all**: show hidden and 'dot' files
-- **-d**, **--list-dirs**: list directories like regular files
-- **-L**, **--level=(depth)**: limit the depth of recursion
-- **-r**, **--reverse**: reverse the sort order
-- **-s**, **--sort=(field)**: which field to sort by
-- **--group-directories-first**: list directories before other files
-- **-D**, **--only-dirs**: list only directories
-- **--git-ignore**: ignore files mentioned in `.gitignore`
-- **-I**, **--ignore-glob=(globs)**: glob patterns (pipe-separated) of files to ignore
-
-Pass the `--all` option twice to also show the `.` and `..` directories.
-
-### Long view options
-
-These options are available when running with `--long` (`-l`):
-
-- **-b**, **--binary**: list file sizes with binary prefixes
-- **-B**, **--bytes**: list file sizes in bytes, without any prefixes
-- **-g**, **--group**: list each file’s group
-- **-h**, **--header**: add a header row to each column
-- **-H**, **--links**: list each file’s number of hard links
-- **-i**, **--inode**: list each file’s inode number
-- **-m**, **--modified**: use the modified timestamp field
-- **-S**, **--blocks**: list each file’s number of file system blocks
-- **-t**, **--time=(field)**: which timestamp field to use
-- **-u**, **--accessed**: use the accessed timestamp field
-- **-U**, **--created**: use the created timestamp field
-- **-@**, **--extended**: list each file’s extended attributes and sizes
-- **--changed**: use the changed timestamp field
-- **--git**: list each file’s Git status, if tracked or ignored
-- **--time-style**: how to format timestamps
-- **--no-permissions**: suppress the permissions field
-- **--octal-permissions**: list each file's permission in octal format
-- **--no-filesize**: suppress the filesize field
-- **--no-user**: suppress the user field
-- **--no-time**: suppress the time field
-
-Some of the options accept parameters:
-
-- Valid **--color** options are **always**, **automatic**, and **never**.
-- Valid sort fields are **accessed**, **changed**, **created**, **extension**, **Extension**, **inode**, **modified**, **name**, **Name**, **size**, **type**, and **none**. Fields starting with a capital letter sort uppercase before lowercase. The modified field has the aliases **date**, **time**, and **newest**, while its reverse has the aliases **age** and **oldest**.
-- Valid time fields are **modified**, **changed**, **accessed**, and **created**.
-- Valid time styles are **default**, **iso**, **long-iso**, and **full-iso**.
+--- BOOLEAN PATTERN CHECKS ---
+  pages or app dir: no
+  components dir: no
+  cmd or bin dir: no
+  run train scripts: no
+  ipynb files: no
+  k8s manifests: no
+  route controller dirs: no
+  dockerfile: no
 
 
----
-
-<a id="installation">
-<h1>Installation</h1>
-</a>
-
-exa is available for macOS and Linux.
-More information on how to install exa is available on [the Installation page](https://the.exa.website/install).
-
-### Alpine Linux
-
-On Alpine Linux, [enable community repository](https://wiki.alpinelinux.org/wiki/Enable_Community_Repository) and install the [`exa`](https://pkgs.alpinelinux.org/package/edge/community/x86_64/exa) package.
-
-    apk add exa
-
-### Arch Linux
-
-On Arch, install the [`exa`](https://www.archlinux.org/packages/community/x86_64/exa/) package.
-
-    pacman
-... [TRUNCATED]
-
---- PACKAGE MANIFEST(S) ---
-
-[Cargo.toml]
+[get_file('Cargo.toml')]
 [package]
 name = "exa"
 description = "A modern replacement for ls"
@@ -221,9 +144,21 @@ assets = [
 ]
 
 
---- CLI ENTRY POINTS / COMMAND DEFINITIONS ---
+---
 
-[src/main.rs]
+[get_directory('src')]
+Contents of /src:
+  [dir] fs
+  [dir] info
+  [dir] options
+  [dir] output
+  [dir] theme
+  [file] logger.rs
+  [file] main.rs
+
+---
+
+[get_file('src/main.rs')]
 #![warn(deprecated_in_future)]
 #![warn(future_incompatible)]
 #![warn(nonstandard_style)]
@@ -326,272 +261,41 @@ fn main() {
         }
 
         OptionsResult::Version(version_str) => {
-            print!("
-... [TRUNCATED]
+            print!("{}", version_str);
+        }
 
---- SHELL COMPLETIONS & MAN PAGES ---
-  completions/bash/exa
-  completions/fish/exa.fish
-  completions/zsh/_exa
-  man/exa.1.md
-  man/exa_colors.5.md
+        OptionsResult::InvalidOptions(error) => {
+            eprintln!("exa: {}", error);
 
---- DIRECTORY STRUCTURE (depth 2) ---
-├── .github/
-│   ├── FUNDING.yml
-│   ├── ISSUE_TEMPLATE/
-│   │   └── bug_report.md
-│   └── workflows/
-│       └── unit-tests.yml
-├── .gitignore
-├── .rustfmt.toml
-├── Cargo.lock
-├── Cargo.toml
-├── Justfile
-├── LICENCE
-├── README.md
-├── Vagrantfile
-├── build.rs
-├── completions/
-│   ├── bash/
-│   │   └── exa
-│   ├── fish/
-│   │   └── exa.fish
-│   └── zsh/
-│       └── _exa
-├── devtools/
-│   ├── README.md
-│   ├── dev-bash.sh
-│   ├── dev-create-test-filesystem.sh
-│   ├── dev-fixtures.sh
-│   ├── dev-help.sh
-│   ├── dev-package-for-linux.sh
-│   ├── dev-run-debug.sh
-│   ├── dev-run-release.sh
-│   ├── dev-set-up-environment.sh
-│   ├── dev-versions.sh
-│   └── local-package-for-macos.sh
-├── man/
-│   ├── exa.1.md
-│   └── exa_colors.5.md
-├── rust-toolchain.toml
-├── screenshots.png
-├── snap/
-│   ├── .gitignore
-│   └── snapcraft.yaml
-├── src/
-│   ├── fs/
-│   │   ├── dir.rs
-│   │   ├── dir_action.rs
-│   │   ├── feature/
-│   │   ├── fields.rs
-│   │   ├── file.rs
-│   │   ├── filter.rs
-│   │   └── mod.rs
-│   ├── info/
-│   │   ├── filetype.rs
-│   │   ├── mod.rs
-│   │   └── sources.rs
-│   ├── logger.rs
-│   ├── main.rs
-│   ├── options/
-│   │   ├── dir_action.rs
-│   │   ├── error.rs
-│   │   ├── file_name.rs
-│   │   ├── filter.rs
-│   │   ├── flags.rs
-│   │   ├── help.rs
-│   │   ├── mod.rs
-│   │   ├── parser.rs
-│   │   ├── theme.rs
-│   │   ├── vars.rs
-│   │   ├── version.rs
-│   │   └── view.rs
-│   ├── output/
-│   │   ├── cell.rs
-│   │   ├── details.rs
-│   │   ├── escape.rs
-│   │   ├── file_name.rs
-│   │   ├── grid.rs
-│   │   ├── grid_details.rs
-│   │   ├── icons.rs
-│   │   ├── lines.rs
-│   │   ├── mod.rs
-│   │   ├── render/
-│   │   ├── table.rs
-│   │   ├── time.rs
-│   │   └── tree.rs
-│   └── theme/
-│       ├── default_theme.rs
-│       ├── lsc.rs
-│       ├── mod.rs
-│       └── ui_styles.rs
-└── xtests/
-    ├── README.md
-    ├── attributes.toml
-    ├── colour-term.toml
-    ├── debug-logging.toml
-    ├── details-view-dates.toml
-    ├── details-view-filesizes.toml
-    ├── details-view-passwd.toml
-    ├── details-view-permissions.toml
-    ├── details-view.toml
-    ├── dotfiles.toml
-    ├── errors.toml
-    ├── features/
-    │   ├── none.toml
-    │   └── outputs/
-    ├── git-ignore.toml
-    ├── git.toml
-    ├── grid-details-view.toml
-    ├── grid-view.toml
-    ├── help.toml
-    ├── icons.toml
-    ├── ignore-glob.toml
-    ├── input-options.toml
-    ├── lines-view.toml
-    ├── outputs/
-    │   ├── attributes_files_xattrs_tree.ansitxt
-    │   ├── attributes_xattrs_long_tree.ansitxt
-    │   ├── attributes_xattrs_tree.ansitxt
-    │   ├── dates_long_currentyear_localefr.ansitxt
-    │   ├── dates_long_localefr.ansitxt
-    │   ├── dates_long_localejp.ansitxt
-    │   ├── dates_long_time_accessed.ansitxt
-    │   ├── dates_long_time_created.ansitxt
-    │   ├── dates_long_time_modified.ansitxt
-    │   ├── dates_long_timestyle_fulliso.ansitxt
-    │   ├── dates_long_timestyle_iso.ansitxt
-    │   ├── dates_long_timestyle_longiso.ansitxt
-    │   ├── dev_long.ansitxt
-    │   ├── dirs_grid.ansitxt
-    │   ├── dirs_oneline.ansitxt
-    │   ├── error_columns_invalid.ansitxt
-    │   ├── error_columns_nines.ansitxt
-    │   ├── error_grid_rows_invalid.ansitxt
-    │   ├── error_grid_rows_nines.ansitxt
-    │   ├── error_icon_spacing_invalid.ansitxt
-    │   ├── error_icon_spacing_nines.ansitxt
-    │   ├── error_invalid_option.ansitxt
-    │   ├── error_level_invalid.ansitxt
-    │   ├── error_level_nines.ansitxt
-    │   ├── error_tree_all_all.ansitxt
-    │   ├── exts_compressed_paths_themed.ansitxt
-    │   ├── exts_compressed_paths_themed_reset.ansitxt
-    │   ├── exts_grid_monochrome.ansitxt
-    │   ├── exts_grid_sort_name_reverse.ansitxt
-    │   ├── exts_oneline_icons.ansitxt
-    │   ├── exts_oneline_sort_ext.ansitxt
-    │   ├── exts_oneline_sort_extcase.ansitxt
-    │   ├── exts_oneline_sort_name.ansitxt
-    │   ├── exts_oneline_sort_name_reverse.ansitxt
-    │   ├── exts_oneline_sort_namecase.ansitxt
-    │   ├── exts_themed_reset.ansitxt
-    │   ├── far_dates_long.ansitxt
-    │   ├── files_grid_13col.ansitxt
-    │   ├── files_grid_20col.ansitxt
-    │   ├── files_grid_4col.ansitxt
-    │   ├── files_grid_8col.ansitxt
-    │   ├── files_grid_icons.ansitxt
-    │   ├── files_grid_monochrome.ansitxt
-    │   ├── files_long.ansitxt
-    │   ├── files_long_binary.ansitxt
-    │   ├── files_long_bytes.ansitxt
-    │   ├── files_long_colourscale.ansitxt
-    │   ├── files_long_colourscale_binary.ansitxt
-    │   ├── files_long_colourscale_bytes.ansitxt
-    │   ├── files_long_grid_1col.ansitxt
-    │   ├── files_long_grid_2col.ansitxt
-    │   ├── files_long_grid_3col.ansitxt
-    │   ├── files_long_grid_4col.ansitxt
-    │   ├── files_long_grid_exa_grid_rows_2_3files.ansitxt
-    │   ├── files_long_grid_exa_grid_rows_5_15files.ansitxt
-    │   ├── files_long_grid_exa_grid_rows_6_15files.ansitxt
-    │   ├── files_long_grid_header_1file.ansitxt
-    │   ├── files_long_grid_header_2files.ansitxt
-    │   ├── files_long_grid_icons.ansitxt
-    │   ├── files_long_header.ansitxt
-    │   ├── files_long_header_binary.ansitxt
-    │   ├── files_long_header_bytes.ansitxt
-    │   ├── files_long_icons.ansitxt
-    │   ├── files_long_monochrome.ansitxt
-    │   ├── files_long_tree_icons.ansitxt
-    │   ├── files_oneline_icons.ansitxt
-    │   ├── files_paths_grid_3col.ansitxt
-    │   ├── files_paths_grid_5col.ansitxt
-    │   ├── files_paths_grid_7col.ansitxt
-    │   ├── files_paths_long_grid_1col.ansitxt
-    │   ├── files_paths_long_grid_2col.ansitxt
-    │   ├── files_paths_long_grid_3col.ansitxt
-    │   ├── files_tree_icons.ansitxt
-    │   ├── git1+2_long.ansitxt
-    │   ├── git1+2_long_directories.ansitxt
-    │   ├── git1+2_long_nested.ansitxt
-    │   ├── git1_long.ansitxt
-    │   ├── git1_long_additions.ansitxt
-    │   ├── git1_long_edits.ansitxt
-    │   ├── git1_long_moves.ansitxt
-    │   ├── git1_long_multiple.ansitxt
-    │   ├── git1_long_recurse.ansitxt
-    │   ├── git1_long_tree.ansitxt
-    │   ├── git1_paths_long_grid.ansitxt
-    │   ├── git2_ignoreds_grid_gitignore.ansitxt
-    │   ├── git2_ignoreds_lines_gitignore.ansitxt
-    │   ├── git2_ignoreds_long_gitignore.ansitxt
-    │   ├── git2_ignoreds_long_grid_gitignore.ansitxt
-    │   ├── git2_ignoreds_long_recurse_gitignore.ansitxt
-    │   ├── git2_ignoreds_long_tree_gitignore.ansitxt
-    │   ├── git2_ignoreds_tree_gitignore.ansitxt
-    │   ├── git2_long.ansitxt
-    │   ├── git2_long_ignoredcontent.ansitxt
-    │   ├── git2_long_ignoreddir.ansitxt
-    │   ├── git2_long_ignorednested.ansitxt
-    │   ├── git2_long_multiple.ansitxt
-    │   ├── git2_long_nested.ansitxt
-    │   ├── git2_long_recurse.ansitxt
-    │   ├── git2_long_recurse_gitignore.ansitxt
-    │   ├── git2_long_tree.ansitxt
-    │   ├── git2_long_tree_gitignore.ansitxt
-    │   ├── git2_tree_gitignore.ansitxt
-    │   ├── git3_long.ansitxt
-    │   ├── git4_long.ansitxt
-    │   ├── help.ansitxt
-    │   ├── hiddens_grid.ansitxt
-    │   ├── hiddens_grid_all.ansitxt
-    │   ├── hiddens_grid_all_all.ansitxt
-    │   ├── hiddens_long.ansitxt
-    │   ├── hiddens_long_all.ansitxt
-    │   ├── hiddens_long_all_all.ansitxt
-    │   ├── links_grid.ansitxt
-    │   ├── links_grid_monochrome.ansitxt
-    │   ├── links_lines.ansitxt
-    │   ├── links_long_classify.ansitxt
-    │   ├── links_oneline_icons.ansitxt
-    │   ├── links_oneline_icons_width0.ansitxt
-    │   ├── links_oneline_icons_width2.ansitxt
-    │   ├── links_oneline_icons_width3.ansitxt
-    │   ├── links_oneline_sort_type.ansitxt
-    │   ├── links_oneline_themed.ansitxt
-    │   ├── links_paths_lines.ansitxt
-    │   ├── links_tree.ansitxt
-    │   ├── links_xattrs_tree.ansitxt
-    │   ├── names_grid.ansitxt
-    │   ├── names_grid_across.ansitxt
-    │   ├── names_grid_recurse.ansitxt
-    │   ├── names_lines.ansitxt
-    │   ├── names_tree.ansitxt
-    │   ├── passwd_long_group_header.ansitxt
-    │   ├── permissions_long_group_header.ansitxt
-    │   ├── permissions_long_group_header_sudo.ansitxt
-    │   ├── permissions_long_themed.ansitxt
-    │   ├── permissions_oneline_icons.ansitxt
-    │   ├── proc_1_root.ansitxt
-    │   ├── proc_1_root_xattrs.ansitxt
-    │   ├── specials_long.ansitxt
-    │   ├── specials_long_classify.ansitxt
-    │   ├── specials_oneline_sort_type.ansitxt
-    │   └── specials_oneline_themed.ansitxt
-    ├── run.sh
-    ├── sorting.toml
-    ├── themes.toml
-    └── tree-view.toml
+            if let Some(s) = error.suggestion() {
+                eprintln!("{}", s);
+            }
+
+            exit(exits::OPTIONS_ERROR);
+        }
+    }
+}
+
+
+/// The main program wrapper.
+pub struct Exa<'args> {
+
+    /// List of command-line options, having been successfully parsed.
+    pub options: Options,
+
+    /// The output handle that we write to.
+    pub writer: io::Stdout,
+
+    /// List of the free command-line arguments that should correspond to file
+    /// names (anything that isn’t an option).
+    pub input_paths: Vec<&'args OsStr>,
+
+    /// The theme that has been configured from the command-line options and
+    /// environment variables. If colours are disabled, this is a theme with
+    /// every style set to the default.
+    pub theme: Theme,
+
+    /// The detected width of the console. This is used to determine which
+    /// view to use.
+    pub con
+... [TRUNCATED — showing first 4000 chars]

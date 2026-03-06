@@ -1,0 +1,261 @@
+=====================================
+REPO CLASSIFICATION SIGNALS
+=====================================
+
+--- METADATA ---
+Name: autogen
+Description: A programming framework for agentic AI
+Primary language: Python
+Topics: agentic, agentic-agi, agents, ai, autogen, autogen-ecosystem, chatgpt, framework, llm-agent, llm-framework
+
+--- ROOT FILES (signal matches) ---
+Web App:     (none)
+Backend:     (none)
+Library:     (none)
+CLI:         (none)
+Data/ML:     (none)
+Infra:       (none)
+
+--- TOP-LEVEL DIRECTORIES (signal matches) ---
+Web App:     (none)
+Backend:     (none)
+Library:     (none)
+CLI:         (none)
+Data/ML:     (none)
+Infra:       (none)
+
+--- ALL TOP-LEVEL DIRECTORIES ---
+.azure, .devcontainer, .github, docs, dotnet
+
+--- TYPE-SPECIFIC EXTENSION COUNTS ---
+Web App extensions (.tsx, .jsx, .vue, .svelte): 0
+Data/ML extensions (.ipynb): 0
+Infra extensions (.tf, .hcl): 0
+Backend extensions (.proto, .graphql): 4
+
+--- TOP FILE EXTENSIONS (by count) ---
+  .cs: 235
+  .md: 34
+  .csproj: 29
+  .json: 20
+  .yml: 20
+  .png: 7
+  .props: 6
+  .yaml: 4
+  .proto: 4
+  .gitignore: 3
+  .sh: 2
+  .gitattributes: 2
+  .ps1: 2
+  .config: 2
+  .devcontainer/dockerfile: 1
+
+--- BOOLEAN PATTERN CHECKS ---
+  pages or app dir: no
+  components dir: no
+  cmd or bin dir: no
+  run train scripts: no
+  ipynb files: no
+  k8s manifests: no
+  route controller dirs: no
+  dockerfile: no
+
+
+[get_dependencies('')]
+(no dependency/manifest files found at repo root)
+
+---
+
+[get_directory('')]
+Contents of /(root):
+  [dir] .azure
+  [dir] .devcontainer
+  [dir] .github
+  [dir] docs
+  [dir] dotnet
+  [dir] protos
+  [dir] python
+  [file] .gitattributes
+  [file] .gitignore
+  [file] CODE_OF_CONDUCT.md
+  [file] CONTRIBUTING.md
+  [file] FAQ.md
+  [file] LICENSE
+  [file] LICENSE-CODE
+  [file] README.md
+  [file] SECURITY.md
+  [file] SUPPORT.md
+  [file] TRANSPARENCY_FAQS.md
+  [file] autogen-landing.jpg
+  [file] codecov.yml
+
+---
+
+[get_file('README.md')]
+<a name="readme-top"></a>
+
+<div align="center">
+<img src="https://microsoft.github.io/autogen/0.2/img/ag.svg" alt="AutoGen Logo" width="100">
+
+[![Twitter](https://img.shields.io/twitter/url/https/twitter.com/cloudposse.svg?style=social&label=Follow%20%40pyautogen)](https://twitter.com/pyautogen)
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-Company?style=flat&logo=linkedin&logoColor=white)](https://www.linkedin.com/company/105812540)
+[![Discord](https://img.shields.io/badge/discord-chat-green?logo=discord)](https://aka.ms/autogen-discord)
+[![Documentation](https://img.shields.io/badge/Documentation-AutoGen-blue?logo=read-the-docs)](https://microsoft.github.io/autogen/)
+[![Blog](https://img.shields.io/badge/Blog-AutoGen-blue?logo=blogger)](https://devblogs.microsoft.com/autogen/)
+
+</div>
+
+# AutoGen
+
+**AutoGen** is a framework for creating multi-agent AI applications that can act autonomously or work alongside humans.
+
+> **Important:** if you are new to AutoGen, please checkout [Microsoft Agent Framework](https://github.com/microsoft/agent-framework).
+> AutoGen will still be maintained and continue to receive bug fixes and critical security patches.
+> Read our [announcement](https://github.com/microsoft/autogen/discussions/7066).
+
+## Installation
+
+AutoGen requires **Python 3.10 or later**.
+
+```bash
+# Install AgentChat and OpenAI client from Extensions
+pip install -U "autogen-agentchat" "autogen-ext[openai]"
+```
+
+The current stable version can be found in the [releases](https://github.com/microsoft/autogen/releases). If you are upgrading from AutoGen v0.2, please refer to the [Migration Guide](https://microsoft.github.io/autogen/stable/user-guide/agentchat-user-guide/migration-guide.html) for detailed instructions on how to update your code and configurations.
+
+```bash
+# Install AutoGen Studio for no-code GUI
+pip install -U "autogenstudio"
+```
+
+## Quickstart
+
+The following samples call OpenAI API, so you first need to create an account and export your key as `export OPENAI_API_KEY="sk-..."`.
+
+### Hello World
+
+Create an assistant agent using OpenAI's GPT-4o model. See [other supported models](https://microsoft.github.io/autogen/stable/user-guide/agentchat-user-guide/tutorial/models.html).
+
+```python
+import asyncio
+from autogen_agentchat.agents import AssistantAgent
+from autogen_ext.models.openai import OpenAIChatCompletionClient
+
+async def main() -> None:
+    model_client = OpenAIChatCompletionClient(model="gpt-4.1")
+    agent = AssistantAgent("assistant", model_client=model_client)
+    print(await agent.run(task="Say 'Hello World!'"))
+    await model_client.close()
+
+asyncio.run(main())
+```
+
+### MCP Server
+
+Create a web browsing assistant agent that uses the Playwright MCP server.
+
+```python
+# First run `npm install -g @playwright/mcp@latest` to install the MCP server.
+import asyncio
+from autogen_agentchat.agents import AssistantAgent
+from autogen_agentchat.ui import Console
+from autogen_ext.models.openai import OpenAIChatCompletionClient
+from autogen_ext.tools.mcp import McpWorkbench, StdioServerParams
+
+
+async def main() -> None:
+    model_client = OpenAIChatCompletionClient(model="gpt-4.1")
+    server_params = StdioServerParams(
+        command="npx",
+        args=[
+            "@playwright/mcp@latest",
+            "--headless",
+        ],
+    )
+    async with McpWorkbench(server_params) as mcp:
+        agent = AssistantAgent(
+            "web_browsing_assistant",
+            model_client=model_client,
+            workbench=mcp, # For multiple MCP servers, put them in a list.
+            model_client_stream=True,
+            max_tool_iterations=10,
+        )
+        await Console(agent.run_stream(task="Find out how many contributors for the microsoft/autogen repository"))
+
+
+asyncio.run(main())
+```
+
+> **Warning**: Only connect to trusted MCP servers as they may execute commands
+> in your local environment or expose sensitive information.
+
+### Multi-Agent Orchestration
+
+You can use `AgentTool` to create a basic multi-agent or
+... [TRUNCATED — showing first 4000 chars]
+
+---
+
+[get_directory('dotnet')]
+Contents of /dotnet:
+  [dir] .config
+  [dir] .tools
+  [dir] eng
+  [dir] nuget
+  [dir] resource
+  [dir] samples
+  [dir] src
+  [dir] test
+  [dir] website
+  [file] .editorconfig
+  [file] .gitattributes
+  [file] .gitignore
+  [file] AutoGen.sln
+  [file] AutoGen.v3.ncrunchsolution
+  [file] Directory.Build.props
+  [file] Directory.Build.targets
+  [file] Directory.Packages.props
+  [file] NuGet.config
+  [file] PACKAGING.md
+  [file] README.md
+  [file] dotnet-install.sh
+  [file] global.json
+  [file] spelling.dic
+
+---
+
+[get_directory('dotnet/src')]
+Contents of /dotnet/src:
+  [dir] AutoGen
+  [dir] AutoGen.Anthropic
+  [dir] AutoGen.AzureAIInference
+  [dir] AutoGen.Core
+  [dir] AutoGen.DotnetInteractive
+  [dir] AutoGen.Gemini
+  [dir] AutoGen.LMStudio
+  [dir] AutoGen.Mistral
+  [dir] AutoGen.Ollama
+  [dir] AutoGen.OpenAI
+  [dir] AutoGen.OpenAI.V1
+  [dir] AutoGen.SemanticKernel
+  [dir] AutoGen.SourceGenerator
+  [dir] AutoGen.WebAPI
+  [dir] Microsoft.AutoGen
+
+---
+
+[get_directory('python')]
+Contents of /python:
+  [dir] docs
+  [dir] packages
+  [dir] samples
+  [dir] templates
+  [file] .gitignore
+  [file] README.md
+  [file] check_md_code_blocks.py
+  [file] fixup_generated_files.py
+  [file] pyproject.toml
+  [file] run_task_in_pkgs_if_exist.py
+  [file] shared_tasks.toml
+  [file] uv.lock

@@ -1,0 +1,364 @@
+=====================================
+REPO CLASSIFICATION SIGNALS
+=====================================
+
+--- METADATA ---
+Name: sentry
+Description: Developer-first error tracking and performance monitoring
+Primary language: Python
+Topics: apm, crash-reporting, crash-reports, csp-report, devops, django, error-logging, error-monitoring, fair-source, hacktoberfest, monitor, monitoring, python, sentry, tag-production
+
+--- ROOT FILES (signal matches) ---
+Web App:     (none)
+Backend:     (none)
+Library:     (none)
+CLI:         (none)
+Data/ML:     (none)
+Infra:       (none)
+
+--- TOP-LEVEL DIRECTORIES (signal matches) ---
+Web App:     (none)
+Backend:     (none)
+Library:     (none)
+CLI:         (none)
+Data/ML:     (none)
+Infra:       (none)
+
+--- ALL TOP-LEVEL DIRECTORIES ---
+.agents, .artifacts, .claude, .cursor, .github, .tx, .vscode, api-docs, bin, build-utils, config, devenv, devservices, fixtures
+
+--- TYPE-SPECIFIC EXTENSION COUNTS ---
+Web App extensions (.tsx, .jsx, .vue, .svelte): 0
+Data/ML extensions (.ipynb): 0
+Infra extensions (.tf, .hcl): 0
+Backend extensions (.proto, .graphql): 0
+
+--- TOP FILE EXTENSIONS (by count) ---
+  .json: 166
+  .md: 59
+  .yml: 45
+  .txt: 26
+  .py: 17
+  .js: 14
+  .ts: 9
+  .png: 8
+  .mdc: 5
+  .map: 5
+  .yaml: 3
+  .sh: 2
+  .node-version: 2
+  .npmrc: 2
+  .artifacts/readme: 1
+
+--- BOOLEAN PATTERN CHECKS ---
+  pages or app dir: no
+  components dir: no
+  cmd or bin dir: yes
+  run train scripts: no
+  ipynb files: no
+  k8s manifests: no
+  route controller dirs: no
+  dockerfile: no
+
+
+[get_dependencies('')]
+(no dependency/manifest files found at repo root)
+
+---
+
+[get_directory('')]
+Contents of /(root):
+  [dir] .agents
+  [dir] .artifacts
+  [dir] .claude
+  [dir] .cursor
+  [dir] .github
+  [dir] .tx
+  [dir] .vscode
+  [dir] api-docs
+  [dir] bin
+  [dir] build-utils
+  [dir] config
+  [dir] devenv
+  [dir] devservices
+  [dir] fixtures
+  [dir] scripts
+  [dir] self-hosted
+  [dir] src
+  [dir] static
+  [dir] tests
+  [dir] tools
+  [file] .craft.yml
+  [file] .dockerignore
+  [file] .envrc
+  [file] .fossa.yml
+  [file] .git-blame-ignore-revs
+  [file] .gitattributes
+  [file] .gitignore
+  [file] .mcp.json
+  [file] .node-version
+  [file] .npmrc
+  [file] .pre-commit-config.yaml
+  [file] .prettierignore
+  [file] .python-version
+  [file] .vercelignore
+  [file] AGENTS.md
+  [file] AUTHORS
+  [file] Brewfile
+  [file] CHANGES
+  [file] CLAUDE.md
+  [file] LICENSE.md
+  [file] Makefile
+  [file] README.md
+  [file] SSH
+  [file] agents.toml
+  [file] eslint.config.ts
+  [file] figma.config.json
+  [file] jest.config.ts
+  [file] knip.config.ts
+  [file] migrations_lockfile.txt
+  [file] package.json
+  [file] pnpm-lock.yaml
+  [file] prettier.config.js
+  [file] pyproject.toml
+  [file] rspack.config.ts
+  [file] setup.cfg
+  [file] stylelint.config.js
+  [file] tsconfig.json
+  [file] uv.lock
+  [file] vercel.json
+  [file] warden.toml
+
+---
+
+[get_file('README.md')]
+<p align="center">
+  <p align="center">
+    <a href="https://sentry.io/?utm_source=github&utm_medium=logo" target="_blank">
+      <img src="https://sentry-brand.storage.googleapis.com/sentry-wordmark-dark-280x84.png" alt="Sentry" width="280" height="84" />
+    </a>
+  </p>
+  <p align="center">
+    Users and logs provide clues. Sentry provides answers.
+  </p>
+</p>
+
+# What's Sentry?
+
+Sentry is the debugging platform that helps every developer detect, trace, and fix issues. Code breaks, fix it faster.
+
+<p align="center">
+  <img src="https://github.com/getsentry/sentry/raw/master/.github/screenshots/issue-details.png" width="270" />
+  <img src="https://github.com/getsentry/sentry/raw/master/.github/screenshots/seer.png" width="270" />
+  <img src="https://github.com/getsentry/sentry/raw/master/.github/screenshots/insights.png" width="270" />
+  <img src="https://github.com/getsentry/sentry/raw/master/.github/screenshots/traces.png" width="270" />
+  <img src="https://github.com/getsentry/sentry/raw/master/.github/screenshots/trace-explorer.png" width="270" />
+  <img src="https://github.com/getsentry/sentry/raw/master/.github/screenshots/replays.png" width="270" />
+  <img src="https://github.com/getsentry/sentry/raw/master/.github/screenshots/insights.png" width="270" />
+  <img src="https://github.com/getsentry/sentry/raw/master/.github/screenshots/logs.png" width="270" />
+  <img src="https://github.com/getsentry/sentry/raw/master/.github/screenshots/uptime.png" width="270" />
+</p>
+
+## Official Sentry SDKs
+
+- [JavaScript](https://github.com/getsentry/sentry-javascript)
+- [Electron](https://github.com/getsentry/sentry-electron/)
+- [React-Native](https://github.com/getsentry/sentry-react-native)
+- [Python](https://github.com/getsentry/sentry-python)
+- [Ruby](https://github.com/getsentry/sentry-ruby)
+- [PHP](https://github.com/getsentry/sentry-php)
+- [Laravel](https://github.com/getsentry/sentry-laravel)
+- [Go](https://github.com/getsentry/sentry-go)
+- [Rust](https://github.com/getsentry/sentry-rust)
+- [Java/Kotlin](https://github.com/getsentry/sentry-java)
+- [Objective-C/Swift](https://github.com/getsentry/sentry-cocoa)
+- [C\#/F\#](https://github.com/getsentry/sentry-dotnet)
+- [C/C++](https://github.com/getsentry/sentry-native)
+- [Dart/Flutter](https://github.com/getsentry/sentry-dart)
+- [Perl](https://github.com/getsentry/perl-raven)
+- [Clojure](https://github.com/getsentry/sentry-clj/)
+- [Elixir](https://github.com/getsentry/sentry-elixir)
+- [Unity](https://github.com/getsentry/sentry-unity)
+- [Unreal Engine](https://github.com/getsentry/sentry-unreal)
+- [Godot Engine](https://github.com/getsentry/sentry-godot)
+- [PowerShell](https://github.com/getsentry/sentry-powershell)
+
+# Resources
+
+- [Documentation](https://docs.sentry.io/)
+- [Discussions](https://github.com/getsentry/sentry/discussions) (Bugs, feature requests,
+  general questions)
+- [Discord](https://discord.gg/PXa5Apfe7K)
+- [Contributing](https://docs.sentry.io/internal/contributing/)
+- [Bug Tracker](https://github.com/getsentry/sentry/issues)
+- [Code](https://github.com/getsentry/sentry)
+- [Transifex](https://explore.transifex.com/getsentry/sentry/) (Translate
+  Sentry\!)
+
+
+---
+
+[get_directory('src')]
+Contents of /src:
+  [dir] bitfield
+  [dir] django_picklefield
+  [dir] flagpole
+  [dir] sentry
+  [dir] sentry_plugins
+  [dir] social_auth
+  [dir] sudo
+  [file] AGENTS.md
+  [file] CLAUDE.md
+
+---
+
+[get_directory('src/sentry')]
+Contents of /src/sentry:
+  [dir] adoption
+  [dir] analytics
+  [dir] api
+  [dir] apidocs
+  [dir] assistant
+  [dir] attachments
+  [dir] audit_log
+  [dir] auth
+  [dir] auth_v2
+  [dir] autopilot
+  [dir] backup
+  [dir] bgtasks
+  [dir] billing
+  [dir] buffer
+  [dir] build
+  [dir] cache
+  [dir] charts
+  [dir] codecov
+  [dir] conduit
+  [dir] conf
+  [dir] consumers
+  [dir] core
+  [dir] dashboards
+  [dir] data
+  [dir] data_export
+  [dir] data_secrecy
+  [dir] db
+  [dir] debug
+  [dir] debug_files
+  [dir] deletions
+  [dir] demo_mode
+  [dir] digests
+  [dir] discover
+  [dir] dynamic_sampling
+  [dir] eventstore
+  [dir] eventstream
+  [dir] eventtypes
+  [dir] explore
+  [dir] features
+  [dir] feedback
+  [dir] filestore
+  [dir] flags
+  [dir] grouping
+  [dir] hybridcloud
+  [dir] identity
+  [dir] incidents
+  [dir] ingest
+  [dir] insights
+  [dir] integrations
+  [dir] interfaces
+  [dir] issue_detection
+  [dir] issues
+  [dir] lang
+  [dir] loader
+  [dir] locale
+  [dir] logging
+  [dir] mail
+  [dir] management
+  [dir] metrics
+  [dir] middleware
+  [dir] migrations
+  [dir] models
+  [dir] monitors
+  [dir] monkey
+  [dir] net
+  [dir] new_migrations
+  [dir] newsletter
+  [dir] nodestore
+  [dir] notifications
+  [dir] objectstore
+  [dir] onboarding_tasks
+  [dir] options
+  [dir] organizations
+  [dir] ownership
+  [dir] partnerships
+  [dir] pipeline
+  [dir] plugins
+  [dir] post_process_forwarder
+  [dir] preprod
+  [dir] prevent
+  [dir] processing
+  [dir] processing_errors
+  [dir] profiles
+  [dir] projectoptions
+  [dir] projects
+  [dir] quotas
+  [dir] ratelimits
+  [dir] receivers
+  [dir] relay
+  [dir] release_health
+  [dir] releases
+  [dir] relocation
+  [dir] remote_subscriptions
+  [dir] replays
+  [dir] roles
+  [dir] rules
+  [dir] runner
+  [dir] scim
+  [dir] scripts
+  [dir] search
+  [dir] security
+  [dir] seer
+  [dir] sentry_apps
+  [dir] sentry_metrics
+  [dir] services
+  [dir] shared_integrations
+  [dir] silo
+  [dir] similarity
+  [dir] snuba
+  [dir] spans
+  [dir] stacktraces
+  [dir] static
+  [dir] statistical_detectors
+  [dir] status_checks
+  [dir] synapse
+  [dir] tagstore
+  [dir] tasks
+  [dir] taskworker
+  [dir] tempest
+  [dir] templates
+  [dir] templatetags
+  [dir] testutils
+  [dir] toolbar
+  [dir] tsdb
+  [dir] types
+  [dir] uptime
+  [dir] usage_accountant
+  [dir] users
+  [dir] utils
+  [dir] web
+  [dir] web_vitals
+  [dir] workflow_engine
+  [file] __init__.py
+  [file] __main__.py
+  [file] app.py
+  [file] constants.py
+  [file] culprit.py
+  [file] event_manager.py
+  [file] exceptions.py
+  [file] http.py
+  [file] killswitches.py
+  [file] locks.py
+  [file] py.typed
+  [file] reprocessing2.py
+  [file] sdk_updates.py
+  [file] signals.py
+  [file] unmerge.py
+  [file] wsgi.py

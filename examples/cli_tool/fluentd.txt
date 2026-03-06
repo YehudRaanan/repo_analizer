@@ -1,0 +1,126 @@
+=====================================
+REPO CLASSIFICATION SIGNALS
+=====================================
+
+--- METADATA ---
+Name: fluentd
+Description: Fluentd: Unified Logging Layer (project under CNCF)
+Primary language: Ruby
+Topics: cncf, data-collector, fluentd, logging, ruby
+
+--- ROOT FILES (signal matches) ---
+Web App:     (none)
+Backend:     (none)
+Library:     (none)
+CLI:         (none)
+Data/ML:     (none)
+Infra:       (none)
+
+--- TOP-LEVEL DIRECTORIES (signal matches) ---
+Web App:     (none)
+Backend:     (none)
+Library:     (none)
+CLI:         (none)
+Data/ML:     (none)
+Infra:       (none)
+
+--- ALL TOP-LEVEL DIRECTORIES ---
+.github, bin, docs, example, lib, tasks, templates, test
+
+--- TYPE-SPECIFIC EXTENSION COUNTS ---
+Web App extensions (.tsx, .jsx, .vue, .svelte): 0
+Data/ML extensions (.ipynb): 0
+Infra extensions (.tf, .hcl): 0
+Backend extensions (.proto, .graphql): 0
+
+--- TOP FILE EXTENSIONS (by count) ---
+  .rb: 328
+  .conf: 38
+  .erb: 19
+  .yml: 16
+  .md: 11
+  .log: 9
+  .yaml: 2
+  .toml: 1
+  .gitignore: 1
+  .pdf: 1
+  .gemspec: 1
+  .json: 1
+
+--- BOOLEAN PATTERN CHECKS ---
+  pages or app dir: no
+  components dir: no
+  cmd or bin dir: yes
+  run train scripts: no
+  ipynb files: no
+  k8s manifests: no
+  route controller dirs: no
+  dockerfile: no
+
+
+[get_dependencies('')]
+[Gemfile]
+source 'https://rubygems.org/'
+
+gemspec
+
+gem 'benchmark'
+
+local_gemfile = File.join(File.dirname(__FILE__), "Gemfile.local")
+if File.exist?(local_gemfile)
+  puts "Loading Gemfile.local ..." if $DEBUG # `ruby -d` or `bundle -v`
+  instance_eval File.read(local_gemfile)
+end
+
+
+---
+
+[get_directory('')]
+Contents of /(root):
+  [dir] .github
+  [dir] bin
+  [dir] docs
+  [dir] example
+  [dir] lib
+  [dir] tasks
+  [dir] templates
+  [dir] test
+  [file] .deepsource.toml
+  [file] .gitignore
+  [file] .rubocop.yml
+  [file] ADOPTERS.md
+  [file] AUTHORS
+  [file] CHANGELOG.md
+  [file] CONTRIBUTING.md
+  [file] GOVERNANCE.md
+  [file] Gemfile
+  [file] GithubWorkflow.md
+  [file] LICENSE
+  [file] MAINTAINERS.md
+  [file] README.md
+  [file] Rakefile
+  [file] SECURITY.md
+  [file] code-of-conduct.md
+  [file] fluent.conf
+  [file] fluentd.gemspec
+
+---
+
+[get_directory('bin')]
+Contents of /bin:
+  [file] fluent-binlog-reader
+  [file] fluent-ca-generate
+  [file] fluent-cap-ctl
+  [file] fluent-cat
+  [file] fluent-ctl
+  [file] fluent-debug
+  [file] fluent-gem
+  [file] fluent-plugin-config-format
+  [file] fluent-plugin-generate
+  [file] fluentd
+
+---
+
+[get_directory('lib')]
+Contents of /lib:
+  [dir] fluent

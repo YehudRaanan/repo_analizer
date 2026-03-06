@@ -1,0 +1,328 @@
+=====================================
+REPO CLASSIFICATION SIGNALS
+=====================================
+
+--- METADATA ---
+Name: cargo
+Description: The Rust package manager
+Primary language: Rust
+Topics: cargo, package-manager, rust
+
+--- ROOT FILES (signal matches) ---
+Web App:     (none)
+Backend:     (none)
+Library:     Cargo.toml
+CLI:         (none)
+Data/ML:     (none)
+Infra:       (none)
+
+--- TOP-LEVEL DIRECTORIES (signal matches) ---
+Web App:     (none)
+Backend:     (none)
+Library:     (none)
+CLI:         (none)
+Data/ML:     (none)
+Infra:       (none)
+
+--- ALL TOP-LEVEL DIRECTORIES ---
+.cargo, .github, benches, ci, crates, credential, src
+
+--- TYPE-SPECIFIC EXTENSION COUNTS ---
+Web App extensions (.tsx, .jsx, .vue, .svelte): 0
+Data/ML extensions (.ipynb): 0
+Infra extensions (.tf, .hcl): 0
+Backend extensions (.proto, .graphql): 0
+
+--- TOP FILE EXTENSIONS (by count) ---
+  .rs: 226
+  .md: 42
+  .toml: 32
+  .json: 17
+  .tgz: 10
+  .yml: 9
+  .txt: 7
+  .sh: 5
+  .1: 5
+  .gitignore: 2
+  .py: 2
+  .git-blame-ignore-revs: 1
+  .json5: 1
+  .ignore: 1
+  .lock: 1
+
+--- BOOLEAN PATTERN CHECKS ---
+  pages or app dir: no
+  components dir: no
+  cmd or bin dir: no
+  run train scripts: no
+  ipynb files: no
+  k8s manifests: no
+  route controller dirs: no
+  dockerfile: no
+
+
+[get_dependencies('')]
+[Cargo.toml]
+[workspace]
+resolver = "2"
+members = [
+  "crates/*",
+  "credential/*",
+  "benches/benchsuite",
+  "benches/capture",
+]
+exclude = [
+  "target/", # exclude bench testing
+]
+
+[workspace.package]
+rust-version = "1.91"  # MSRV:3
+edition = "2024"
+license = "MIT OR Apache-2.0"
+repository = "https://github.com/rust-lang/cargo"
+
+[workspace.dependencies]
+annotate-snippets = { version = "0.12.12", features = ["simd"] }
+anstream = "1.0.0"
+anstyle = "1.0.13"
+anyhow = "1.0.102"
+base64 = "0.22.1"
+blake3 = "1.8.3"
+build-rs = { version = "0.3.4", path = "crates/build-rs" }
+cargo = { path = "" }
+cargo-credential = { version = "0.4.10", path = "credential/cargo-credential" }
+cargo-credential-libsecret = { version = "0.5.6", path = "credential/cargo-credential-libsecret" }
+cargo-credential-macos-keychain = { version = "0.4.21", path = "credential/cargo-credential-macos-keychain" }
+cargo-credential-wincred = { version = "0.4.21", path = "credential/cargo-credential-wincred" }
+cargo-platform = { path = "crates/cargo-platform", version = "0.3.3" }
+cargo-test-macro = { version = "0.4.10", path = "crates/cargo-test-macro" }
+cargo-test-support = { version = "0.11.0", path = "crates/cargo-test-support" }
+cargo-util = { version = "0.2.28", path = "crates/cargo-util" }
+cargo-util-schemas = { version = "0.13.0", path = "crates/cargo-util-schemas" }
+cargo_metadata = "0.23.1"
+clap = "4.5.60"
+clap_complete = { version = "4.5.66", features = ["unstable-dynamic"] }
+color-print = "0.3.7"
+core-foundation = { version = "0.10.1", features = ["mac_os_10_7_support"] }
+crates-io = { version = "0.40.18", path = "crates/crates-io" }
+criterion = { version = "0.8.2", features = ["html_reports"] }
+curl = "0.4.49"
+# Do not upgrade curl-sys past 0.4.83
+# https://github.com/rust-lang/cargo/issues/16357
+curl-sys = "=0.4.83"
+filetime = "0.2.27"
+flate2 = { version = "1.1.9", default-features = false, features = ["zlib-rs"] }
+git2 = "0.20.4"
+git2-curl = "0.21.0"
+# When updating this, also see if `gix-transport` further down needs updating or some auth-related tests will fail.
+gix = { version = "0.80.0", default-features = false, features = ["progress-tree", "parallel", "dirwalk", "status"] }
+gix-transport = "0.55.0"
+glob = "0.3.3"
+handlebars = { version = "6.4.0", features = ["dir_source"] }
+heck = "0.5.0"
+hex = "0.4.3"
+hmac = "0.12.1"
+home = "0.5.12"
+http-auth = { version = "0.1.10", default-features = false }
+ignore = "0.4.25"
+im-rc = "15.1.0"
+indexmap = "2.13.0"
+itertools = "0.14.0"
+jiff = { version = "0.2.22", default-features = false, features = [ "std" ] }
+jobserver = "0.1.34"
+libc = "0.2.180"
+libgit2-sys = "0.18.3"
+libloading = "0.9.0"
+memchr = "2.8.0"
+memfd = "0.6.5"
+miow = "0.6.1"
+opener = "0.8.4"
+openssl = "0.10.75"
+# Pinned due to ppc64 ELFv1/v2 ABI issue in 3.5.5
+# https://github.com/openssl/openssl/issues/29815
+openssl-src = "=300.5.4"
+os_info = { version = "3.14.0", default-features = false }
+pasetors = { version = "0.7.8", features = ["v3", "paserk", "std", "serde"] }
+pathdiff = "0.2.3"
+percent-encoding = "2.3.2"
+proptest = "1.10.0"
+pulldown-cmark = { version = "0.13.1", default-features = false, features = ["html"] }
+rand = "0.10.0"
+regex = "1.12.3"
+rusqlite = { version = "0.38.0", features = ["bundled"] }
+rustc-hash = "2.1.1"
+rustc-stable-hash = "0.1.2"
+rustfix = { version = "0.9.5", path = "crates/rustfix" }
+same-file = "1.0.6"
+schemars = "1.2.1"
+security-framework = "3.7.0"
+semver = { version = "1.0.27", features = ["serde"] }
+serde = "1.0.228"
+serde_core = "1.0.228"
+serde-untagged = "0.1.9"
+serde-value = "0.7.0"
+serde_ignored = "0.1.14"
+serde_json = "1.0.149"
+sha1 = "0.10.6"
+sha2 = "0.10.9"
+shell-escape = "0.1.5"
+similar = "2.7.0"
+supports-hyperlinks = "3.2.0"
+supports-unicode = "3.0.0"
+snapbox = { version = "1.0.0", features = ["diff", "dir", "term-svg", "regex", "json"] }
+tar = { version = "0.4.44", default-features = false }
+tempfile = "3.25.0"
+thiserror = "2.0.18"
+time = { version = "0.3.47", features = ["parsing", "formatting", "serde"] }
+toml = { version =
+... [TRUNCATED — showing first 4000 chars]
+
+---
+
+[get_directory('src')]
+Contents of /src:
+  [dir] bin
+  [dir] cargo
+  [dir] doc
+  [dir] etc
+
+---
+
+[get_directory('src/bin')]
+Contents of /src/bin:
+  [dir] cargo
+
+---
+
+[get_file('src/bin/cargo/main.rs')]
+use cargo::core::features;
+use cargo::core::shell::Shell;
+use cargo::util::network::http::http_handle;
+use cargo::util::network::http::needs_custom_http_transport;
+use cargo::util::{self, CargoResult, closest_msg, command_prelude};
+use cargo_util::{ProcessBuilder, ProcessError};
+use cargo_util_schemas::manifest::StringOrVec;
+use std::collections::BTreeMap;
+use std::env;
+use std::ffi::OsStr;
+use std::fs;
+use std::path::{Path, PathBuf};
+
+mod cli;
+mod commands;
+
+use crate::command_prelude::*;
+
+fn main() {
+    let _guard = setup_logger();
+
+    let mut gctx = match GlobalContext::default() {
+        Ok(gctx) => gctx,
+        Err(e) => {
+            let mut shell = Shell::new();
+            cargo::exit_with_error(e.into(), &mut shell)
+        }
+    };
+
+    let nightly_features_allowed = matches!(&*features::channel(), "nightly" | "dev");
+    if nightly_features_allowed {
+        let _span = tracing::span!(tracing::Level::TRACE, "completions").entered();
+        let args = std::env::args_os();
+        let current_dir = std::env::current_dir().ok();
+        let completer = clap_complete::CompleteEnv::with_factory(|| {
+            let mut gctx = GlobalContext::default().expect("already loaded without errors");
+            cli::cli(&mut gctx)
+        })
+        .var("CARGO_COMPLETE");
+        if completer
+            .try_complete(args, current_dir.as_deref())
+            .unwrap_or_else(|e| {
+                let mut shell = Shell::new();
+                cargo::exit_with_error(e.into(), &mut shell)
+            })
+        {
+            return;
+        }
+    }
+
+    let result = if let Some(lock_addr) = cargo::ops::fix_get_proxy_lock_addr() {
+        cargo::ops::fix_exec_rustc(&gctx, &lock_addr).map_err(|e| CliError::from(e))
+    } else {
+        let _token = cargo::util::job::setup();
+        cli::main(&mut gctx)
+    };
+
+    match result {
+        Err(e) => cargo::exit_with_error(e, &mut *gctx.shell()),
+        Ok(()) => {}
+    }
+}
+
+fn setup_logger() -> Option<ChromeFlushGuard> {
+    use tracing_subscriber::prelude::*;
+
+    let env = tracing_subscriber::EnvFilter::from_env("CARGO_LOG");
+    let fmt_layer = tracing_subscriber::fmt::layer()
+        .with_timer(tracing_subscriber::fmt::time::Uptime::default())
+        .with_ansi(std::io::IsTerminal::is_terminal(&std::io::stderr()))
+        .with_writer(std::io::stderr)
+        .with_filter(env);
+
+    let (profile_layer, profile_guard) = chrome_layer();
+
+    let registry = tracing_subscriber::registry()
+        .with(fmt_layer)
+        .with(profile_layer);
+    registry.init();
+    tracing::trace!(start = jiff::Timestamp::now().to_string());
+    profile_guard
+}
+
+#[cfg(target_has_atomic = "64")]
+type ChromeFlushGuard = tracing_chrome::FlushGuard;
+#[cfg(target_has_atomic = "64")]
+fn chrome_layer<S>() -> (
+    Option<tracing_chrome::ChromeLayer<S>>,
+    Option<ChromeFlushGuard>,
+)
+where
+    S: tracing::Subscriber
+        + for<'span> tracing_subscriber::registry::LookupSpan<'span>
+        + Send
+        + Sync,
+{
+    #![expect(clippy::disallowed_methods, reason = "runs before config is loaded")]
+
+    if env_to_bool(std::env::var_os("CARGO_LOG_PROFILE").as_deref()) {
+        let capture_args =
+            env_to_bool(std::env::var_os("CARGO_LOG_PROFILE_CAPTURE_ARGS").as_deref());
+        let (layer, guard) = tracing_chrome::ChromeLayerBuilder::new()
+            .include_args(capture_args)
+            .build();
+        (Some(layer), Some(guard))
+    } else {
+        (None, None)
+    }
+}
+
+#[cfg(not(target_has_atomic = "64"))]
+type ChromeFlushGuard = ();
+#[cfg(not(target_has_atomic = "64"))]
+fn chrome_layer() -> (
+    Option<tracing_subscriber::layer::Identity>,
+    Option<ChromeFlushGuard>,
+) {
+    (None, None)
+}
+
+#[cfg(target_has_atomic = "64")]
+fn env_to_bool(os: Option<&OsStr>) -> bool {
+    match os.and_then(|os| os.to_str()) {
+        Some("1") | Some("true") => true,
+        _ => false,
+    }
+}
+
+/// Table for defining the aliases which come builtin in `Cargo`.
+/// The contents are structured 
+... [TRUNCATED — showing first 4000 chars]
