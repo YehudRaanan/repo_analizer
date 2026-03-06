@@ -1,0 +1,1417 @@
+=====================================
+Repository Analysis: pocketbase
+Type: Backend / API Service
+=====================================
+
+--- METADATA ---
+Name: pocketbase
+Description: Open Source realtime backend in 1 file
+Language: Go
+Topics: authentication, backend, golang, realtime
+Stars: 56570
+License: MIT License
+
+--- README ---
+<p align="center">
+    <a href="https://pocketbase.io" target="_blank" rel="noopener">
+        <img src="https://i.imgur.com/5qimnm5.png" alt="PocketBase - open source backend in 1 file" />
+    </a>
+</p>
+
+<p align="center">
+    <a href="https://github.com/pocketbase/pocketbase/actions/workflows/release.yaml" target="_blank" rel="noopener"><img src="https://github.com/pocketbase/pocketbase/actions/workflows/release.yaml/badge.svg" alt="build" /></a>
+    <a href="https://github.com/pocketbase/pocketbase/releases" target="_blank" rel="noopener"><img src="https://img.shields.io/github/release/pocketbase/pocketbase.svg" alt="Latest releases" /></a>
+    <a href="https://pkg.go.dev/github.com/pocketbase/pocketbase" target="_blank" rel="noopener"><img src="https://godoc.org/github.com/pocketbase/pocketbase?status.svg" alt="Go package documentation" /></a>
+</p>
+
+[PocketBase](https://pocketbase.io) is an open source Go backend that includes:
+
+- embedded database (_SQLite_) with **realtime subscriptions**
+- built-in **files and users management**
+- convenient **Admin dashboard UI**
+- and simple **REST-ish API**
+
+**For documentation and examples, please visit https://pocketbase.io/docs.**
+
+> [!WARNING]
+> Please keep in mind that PocketBase is still under active development
+> and therefore full backward compatibility is not guaranteed before reaching v1.0.0.
+
+## API SDK clients
+
+The easiest way to interact with the PocketBase Web APIs is to use one of the official SDK clients:
+
+- **JavaScript - [pocketbase/js-sdk](https://github.com/pocketbase/js-sdk)** (_Browser, Node.js, React Native_)
+- **Dart - [pocketbase/dart-sdk](https://github.com/pocketbase/dart-sdk)** (_Web, Mobile, Desktop, CLI_)
+
+You could also check the recommendations in https://pocketbase.io/docs/how-to-use/.
+
+
+## Overview
+
+### Use as standalone app
+
+You could download the prebuilt executable for your platform from the [Releases page](https://github.com/pocketbase/pocketbase/releases).
+Once downloaded, extract the archive and run `./pocketbase serve` in the extracted directory.
+
+The prebuilt executables are based on the [`examples/base/main.go` file](https://github.com/pocketbase/pocketbase/blob/master/examples/base/main.go) and comes with the JS VM plugin enabled by default which allows to extend PocketBase with JavaScript (_for more details please refer to [Extend with JavaScript](https://pocketbase.io/docs/js-overview/)_).
+
+### Use as a Go framework/toolkit
+
+PocketBase is distributed as a regular Go library package which allows you to build
+your own custom app specific business logic and still have a single portable executable at the end.
+
+Here is a minimal example:
+
+0. [Install Go 1.23+](https://go.dev/doc/install) (_if you haven't already_)
+
+1. Create a new project directory with the following `main.go` file inside it:
+    ```go
+    package main
+
+    import (
+        "log"
+
+        "github.com/pocketbase/pocketbase"
+        "github.com/pocketbase/pocketbase/core"
+    )
+
+    func main() {
+        app := pocketbase.New()
+
+        app.OnServe().BindFunc(func(se *core.ServeEvent) error {
+            // registers new "GET /hello" route
+            se.Router.GET("/hello", func(re *core.RequestEvent) error {
+                return re.String(200, "Hello world!")
+            })
+
+            return se.Next()
+        })
+
+        if err := app.Start(); err != nil {
+            log.Fatal(err)
+        }
+    }
+    ```
+
+2. To init the dependencies, run `go mod init myapp && go mod tidy`.
+
+3. To start the application, run `go run main.go serve`.
+
+4. To build a statically linked executable, you can run `CGO_ENABLED=0 go build` and then start the created executable with `./myapp serve`.
+
+_For more details please refer to [Extend with Go](https://pocketbase.io/docs/go-overview/)._
+
+### Building and running the repo main.go example
+
+To build the minimal standalone executable, like the prebuilt ones in the releases page, you can simply run `go build` inside the `examples/base` directory:
+
+0. [Install Go 1.24+](https://go.dev/doc/install) (_if you haven't already_)
+1. Clone/download the repo
+2. Navigate to `examples/base`
+3. Run `GOOS=linux GOARCH=amd64 CGO_ENABLED=0 go build`
+   (_https://go.dev/doc/install/source#environment_)
+4. Start the created executable by running `./base serve`.
+
+Note that the supported build targets by the pure Go SQLite driver at the moment are:
+
+```
+darwin  amd64
+darwin  arm64
+freebsd amd64
+freebsd arm64
+linux   386
+linux   amd64
+linux   arm
+linux   arm64
+linux   loong64
+linux   ppc64le
+linux   riscv64
+linux   s390x
+windows 386
+windows amd64
+windows arm64
+```
+
+### Testing
+
+PocketBase comes with mixed bag of unit and integration tests.
+To run them, use the standard `go test` command:
+
+```sh
+go test ./...
+```
+
+Check also the [Testing guide](http://pocketbase.io/docs/testing) to learn how to write your own custom application tests.
+
+## Security
+
+If you discover a security vulnerability within PocketBase, please send an e-mail to **support at pocket
+... [TRUNCATED]
+
+--- PACKAGE MANIFEST(S) ---
+
+[go.mod]
+module github.com/pocketbase/pocketbase
+
+go 1.24.0
+
+require (
+	github.com/disintegration/imaging v1.6.2
+	github.com/domodwyer/mailyak/v3 v3.6.2
+	github.com/dop251/goja v0.0.0-20260106131823-651366fbe6e3
+	github.com/dop251/goja_nodejs v0.0.0-20260212111938-1f56ff5bcf14
+	github.com/fatih/color v1.18.0
+	github.com/fsnotify/fsnotify v1.7.0
+	github.com/gabriel-vasile/mimetype v1.4.13
+	github.com/ganigeorgiev/fexpr v0.5.0
+	github.com/go-ozzo/ozzo-validation/v4 v4.3.0
+	github.com/golang-jwt/jwt/v5 v5.3.1
+	github.com/pocketbase/dbx v1.12.0
+	github.com/pocketbase/tygoja v0.0.0-20250812183945-97ffe055281f
+	github.com/spf13/cast v1.10.0
+	github.com/spf13/cobra v1.10.2
+	golang.org/x/crypto v0.48.0
+	golang.org/x/image v0.36.0
+	golang.org/x/net v0.50.0
+	golang.org/x/oauth2 v0.35.0
+	golang.org/x/sync v0.19.0
+	modernc.org/sqlite v1.46.1
+)
+
+require (
+	github.com/asaskevich/govalidator v0.0.0-20230301143203-a9d515a09cc2 // indirect
+	github.com/dlclark/regexp2 v1.11.5 // indirect
+	github.com/dop251/base64dec v0.0.0-20231022112746-c6c9f9a96217 // indirect
+	github.com/dustin/go-humanize v1.0.1 // indirect
+	github.com/go-sourcemap/sourcemap v2.1.4+incompatible // indirect
+	github.com/google/pprof v0.0.0-20260115054156-294ebfa9ad83 // indirect
+	github.com/google/uuid v1.6.0 // indirect
+	github.com/inconshreveable/mousetrap v1.1.0 // indirect
+	github.com/mattn/go-colorable v0.1.14 // indirect
+	github.com/mattn/go-isatty v0.0.20 // indirect
+	github.com/ncruces/go-strftime v1.0.0 // indirect
+	github.com/remyoudompheng/bigfft v0.0.0-20230129092748-24d4a6f8daec // indirect
+	github.com/spf13/pflag v1.0.10 // indirect
+	golang.org/x/exp v0.0.0-20260112195511-716be5621a96 // indirect
+	golang.org/x/mod v0.32.0 // indirect
+	golang.org/x/sys v0.41.0 // indirect
+	golang.org/x/text v0.34.0 // indirect
+	golang.org/x/tools v0.41.0 // indirect
+	modernc.org/libc v1.67.6 // indirect
+	modernc.org/mathutil v1.7.1 // indirect
+	modernc.org/memory v1.11.0 // indirect
+)
+
+
+--- BACKEND CONFIG FILES ---
+(No backend config files found)
+
+--- API ROUTE / ENDPOINT DEFINITIONS ---
+
+[core/view.go]
+package core
+
+import (
+	"errors"
+	"fmt"
+	"io"
+	"regexp"
+	"strings"
+
+	"github.com/pocketbase/dbx"
+	"github.com/pocketbase/pocketbase/tools/dbutils"
+	"github.com/pocketbase/pocketbase/tools/inflector"
+	"github.com/pocketbase/pocketbase/tools/security"
+	"github.com/pocketbase/pocketbase/tools/tokenizer"
+)
+
+// DeleteView drops the specified view name.
+//
+// This method is a no-op if a view with the provided name doesn't exist.
+//
+// NB! Be aware that this method is vulnerable to SQL injection and the
+// "dangerousViewName" argument must come only from trusted input!
+func (app *BaseApp) DeleteView(dangerousViewName string) error {
+	_, err := app.DB().NewQuery(fmt.Sprintf(
+		"DROP VIEW IF EXISTS {{%s}}",
+		dangerousViewName,
+	)).Execute()
+
+	return err
+}
+
+// SaveView creates (or updates already existing) persistent SQL view.
+//
+// NB! Be aware that this method is vulnerable to SQL injection and
+// its arguments must come only from trusted input!
+func (app *BaseApp) SaveView(dangerousViewName string, dangerousSelectQuery string) error {
+	return app.RunInTransaction(func(txApp App) error {
+		// delete old view (if exists)
+		if err := txApp.DeleteView(dangerousViewName); err != nil {
+			return err
+		}
+
+		dangerousSelectQuery = strings.Trim(strings.TrimSpace(dangerousSelectQuery), ";")
+
+		// try to loosely detect multiple inline statements
+		tk := tokenizer.NewFromString(dangerousSelectQuery)
+		tk.Separators(';')
+		if queryParts, _ := tk.ScanAll(); len(queryParts) > 1 {
+			return errors.New("multiple statements are not supported")
+		}
+
+		// (re)create the view
+		//
+		// note: the query is wrapped in a secondary SELECT as a rudimentary
+		// measure to discourage multiple inline sql statements execution
+		viewQuery := fmt.Sprintf("CREATE VIEW {{%s}} AS SELECT * FROM (%s)", dangerousViewName, dangerousSelectQuery)
+		if _, err := txApp.DB().NewQuery(viewQuery).Execute(); err != nil {
+			return err
+		}
+
+		// fetch the view table info to ensure that the view was created
+		// because missing tables or columns won't return an error
+		if _, err := txApp.TableInfo(dangerousViewName); err != nil {
+			// manually cleanup previously created view in case the func
+			// is called in a nested transaction and the error is discarded
+			txApp.DeleteView(dangerousViewName)
+
+			return err
+		}
+
+		return nil
+	})
+}
+
+// CreateViewFields creates a new FieldsList from the provided select query.
+//
+// There are some caveats:
+// - The select query must have an "id" column.
+// - Wildcard ("*") columns are not supported to avoid accidentally leaking sensitive data.
+//
+// NB! Be aware that this method is vulnerable to SQL injection and the
+// "dangerousSelectQuery" argument must come only from trusted input!
+func (app *BaseApp) CreateViewFields(dangerousSelectQuery string) (FieldsList, error) {
+	result := NewFieldsList()
+
+	suggestedFields, err := parseQueryToFields(app, dangerousSelectQuery)
+	if err != nil {
+		return result, err
+	}
+
+	// note wrap in a transaction in case the dangerousSele
+... [TRUNCATED]
+
+[tools/router/event.go]
+package router
+
+import (
+	"encoding/json"
+	"encoding/xml"
+	"errors"
+	"io"
+	"io/fs"
+	"net"
+	"net/http"
+	"net/netip"
+	"path/filepath"
+	"strings"
+
+	"github.com/pocketbase/pocketbase/tools/filesystem"
+	"github.com/pocketbase/pocketbase/tools/hook"
+	"github.com/pocketbase/pocketbase/tools/picker"
+	"github.com/pocketbase/pocketbase/tools/store"
+)
+
+var ErrUnsupportedContentType = NewBadRequestError("Unsupported Content-Type", nil)
+var ErrInvalidRedirectStatusCode = NewInternalServerError("Invalid redirect status code", nil)
+var ErrFileNotFound = NewNotFoundError("File not found", nil)
+
+const IndexPage = "index.html"
+
+// Event specifies based Route handler event that is usually intended
+// to be embedded as part of a custom event struct.
+//
+// NB! It is expected that the Response and Request fields are always set.
+type Event struct {
+	Response http.ResponseWriter
+	Request  *http.Request
+
+	hook.Event
+
+	data store.Store[string, any]
+}
+
+// RWUnwrapper specifies that an http.ResponseWriter could be "unwrapped"
+// (usually used with [http.ResponseController]).
+type RWUnwrapper interface {
+	Unwrap() http.ResponseWriter
+}
+
+// Written reports whether the current response has already been written.
+//
+// This method always returns false if e.ResponseWritter doesn't implement the WriteTracker interface
+// (all router package handlers receives a ResponseWritter that implements it unless explicitly replaced with a custom one).
+func (e *Event) Written() bool {
+	written, _ := getWritten(e.Response)
+	return written
+}
+
+// Status reports the status code of the current response.
+//
+// This method always returns 0 if e.Response doesn't implement the StatusTracker interface
+// (all router package handlers receives a ResponseWritter that implements it unless explicitly replaced with a custom one).
+func (e *Event) Status() int {
+	status, _ := getStatus(e.Response)
+	return status
+}
+
+// Flush flushes buffered data to the current response.
+//
+// Returns [http.ErrNotSupported] if e.Response doesn't implement the [http.Flusher] interface
+// (all router package handlers receives a ResponseWritter that implements it unless explicitly replaced with a custom one).
+func (e *Event) Flush() error {
+	return http.NewResponseController(e.Response).Flush()
+}
+
+// IsTLS reports whether the connection on which the request was received is TLS.
+func (e *Event) IsTLS() bool {
+	return e.Request.TLS != nil
+}
+
+// SetCookie is an alias for [http.SetCookie].
+//
+// SetCookie adds a Set-Cookie header to the current response's headers.
+// The provided cookie must have a valid Name.
+// Invalid cookies may be silently dropped.
+func (e *Event) SetCookie(cookie *http.Cookie) {
+	http.SetCookie(e.Response, cookie)
+}
+
+// RemoteIP returns the IP address of the client that sent the request.
+//
+// IPv6 addresses are returned expanded.
+// For example, "2001:db8::1" becomes "2001:0db8:0000:0000:0000:0000:0000:0001".
+//
+// Note that if you are behind reverse proxy(ies), this method returns
+// the IP of the last connect
+... [TRUNCATED]
+
+[tools/router/group.go]
+package router
+
+import (
+	"net/http"
+	"regexp"
+	"strings"
+
+	"github.com/pocketbase/pocketbase/tools/hook"
+)
+
+// (note: the struct is named RouterGroup instead of Group so that it can
+// be embedded in the Router without conflicting with the Group method)
+
+// RouterGroup represents a collection of routes and other sub groups
+// that share common pattern prefix and middlewares.
+type RouterGroup[T hook.Resolver] struct {
+	excludedMiddlewares map[string]struct{}
+	children            []any // Route or RouterGroup
+
+	Prefix      string
+	Middlewares []*hook.Handler[T]
+}
+
+// Group creates and register a new child Group into the current one
+// with the specified prefix.
+//
+// The prefix follows the standard Go net/http ServeMux pattern format ("[HOST]/[PATH]")
+// and will be concatenated recursively into the final route path, meaning that
+// only the root level group could have HOST as part of the prefix.
+//
+// Returns the newly created group to allow chaining and registering
+// sub-routes and group specific middlewares.
+func (group *RouterGroup[T]) Group(prefix string) *RouterGroup[T] {
+	newGroup := &RouterGroup[T]{}
+	newGroup.Prefix = prefix
+
+	group.children = append(group.children, newGroup)
+
+	return newGroup
+}
+
+// BindFunc registers one or multiple middleware functions to the current group.
+//
+// The registered middleware functions are "anonymous" and with default priority,
+// aka. executes in the order they were registered.
+//
+// If you need to specify a named middleware (ex. so that it can be removed)
+// or middleware with custom exec prirority, use [RouterGroup.Bind] method.
+func (group *RouterGroup[T]) BindFunc(middlewareFuncs ...func(e T) error) *RouterGroup[T] {
+	for _, m := range middlewareFuncs {
+		group.Middlewares = append(group.Middlewares, &hook.Handler[T]{Func: m})
+	}
+
+	return group
+}
+
+// Bind registers one or multiple middleware handlers to the current group.
+func (group *RouterGroup[T]) Bind(middlewares ...*hook.Handler[T]) *RouterGroup[T] {
+	group.Middlewares = append(group.Middlewares, middlewares...)
+
+	// unmark the newly added middlewares in case they were previously "excluded"
+	if group.excludedMiddlewares != nil {
+		for _, m := range middlewares {
+			if m.Id != "" {
+				delete(group.excludedMiddlewares, m.Id)
+			}
+		}
+	}
+
+	return group
+}
+
+// Unbind removes one or more middlewares with the specified id(s)
+// from the current group and its children (if any).
+//
+// Anonymous middlewares are not removable, aka. this method does nothing
+// if the middleware id is an empty string.
+func (group *RouterGroup[T]) Unbind(middlewareIds ...string) *RouterGroup[T] {
+	for _, middlewareId := range middlewareIds {
+		if middlewareId == "" {
+			continue
+		}
+
+		// remove from the group middlwares
+		for i := len(group.Middlewares) - 1; i >= 0; i-- {
+			if group.Middlewares[i].Id == middlewareId {
+				group.Middlewares = append(group.Middlewares[:i], group.Middlewares[i+1:]...)
+			}
+		}
+
+		// remove from the group children
+		for i := len(group.children)
+... [TRUNCATED]
+
+[tools/router/rereadable_read_closer.go]
+package router
+
+import (
+	"bytes"
+	"io"
+)
+
+var (
+	_ io.ReadCloser = (*RereadableReadCloser)(nil)
+	_ Rereader      = (*RereadableReadCloser)(nil)
+)
+
+// Rereader defines an interface for rewindable readers.
+type Rereader interface {
+	Reread()
+}
+
+// RereadableReadCloser defines a wrapper around a io.ReadCloser reader
+// allowing to read the original reader multiple times.
+type RereadableReadCloser struct {
+	io.ReadCloser
+
+	copy   *bytes.Buffer
+	active io.Reader
+}
+
+// Read implements the standard io.Reader interface.
+//
+// It reads up to len(b) bytes into b and at at the same time writes
+// the read data into an internal bytes buffer.
+//
+// On EOF the r is "rewinded" to allow reading from r multiple times.
+func (r *RereadableReadCloser) Read(b []byte) (int, error) {
+	if r.active == nil {
+		if r.copy == nil {
+			r.copy = &bytes.Buffer{}
+		}
+		r.active = io.TeeReader(r.ReadCloser, r.copy)
+	}
+
+	n, err := r.active.Read(b)
+	if err == io.EOF {
+		r.Reread()
+	}
+
+	return n, err
+}
+
+// Reread satisfies the [Rereader] interface and resets the r internal state to allow rereads.
+//
+// note: not named Reset to avoid conflicts with other reader interfaces.
+func (r *RereadableReadCloser) Reread() {
+	if r.copy == nil || r.copy.Len() == 0 {
+		return // nothing to reset or it has been already reset
+	}
+
+	oldCopy := r.copy
+	r.copy = &bytes.Buffer{}
+	r.active = io.TeeReader(oldCopy, r.copy)
+}
+
+
+[tools/router/route.go]
+package router
+
+import "github.com/pocketbase/pocketbase/tools/hook"
+
+type Route[T hook.Resolver] struct {
+	excludedMiddlewares map[string]struct{}
+
+	Action      func(e T) error
+	Method      string
+	Path        string
+	Middlewares []*hook.Handler[T]
+}
+
+// BindFunc registers one or multiple middleware functions to the current route.
+//
+// The registered middleware functions are "anonymous" and with default priority,
+// aka. executes in the order they were registered.
+//
+// If you need to specify a named middleware (ex. so that it can be removed)
+// or middleware with custom exec prirority, use the [Route.Bind] method.
+func (route *Route[T]) BindFunc(middlewareFuncs ...func(e T) error) *Route[T] {
+	for _, m := range middlewareFuncs {
+		route.Middlewares = append(route.Middlewares, &hook.Handler[T]{Func: m})
+	}
+
+	return route
+}
+
+// Bind registers one or multiple middleware handlers to the current route.
+func (route *Route[T]) Bind(middlewares ...*hook.Handler[T]) *Route[T] {
+	route.Middlewares = append(route.Middlewares, middlewares...)
+
+	// unmark the newly added middlewares in case they were previously "excluded"
+	if route.excludedMiddlewares != nil {
+		for _, m := range middlewares {
+			if m.Id != "" {
+				delete(route.excludedMiddlewares, m.Id)
+			}
+		}
+	}
+
+	return route
+}
+
+// Unbind removes one or more middlewares with the specified id(s) from the current route.
+//
+// It also adds the removed middleware ids to an exclude list so that they could be skipped from
+// the execution chain in case the middleware is registered in a parent group.
+//
+// Anonymous middlewares are considered non-removable, aka. this method
+// does nothing if the middleware id is an empty string.
+func (route *Route[T]) Unbind(middlewareIds ...string) *Route[T] {
+	for _, middlewareId := range middlewareIds {
+		if middlewareId == "" {
+			continue
+		}
+
+		// remove from the route's middlewares
+		for i := len(route.Middlewares) - 1; i >= 0; i-- {
+			if route.Middlewares[i].Id == middlewareId {
+				route.Middlewares = append(route.Middlewares[:i], route.Middlewares[i+1:]...)
+			}
+		}
+
+		// add to the exclude list
+		if route.excludedMiddlewares == nil {
+			route.excludedMiddlewares = map[string]struct{}{}
+		}
+		route.excludedMiddlewares[middlewareId] = struct{}{}
+	}
+
+	return route
+}
+
+
+[tools/router/router.go]
+package router
+
+import (
+	"bufio"
+	"encoding/json"
+	"errors"
+	"io"
+	"log"
+	"net"
+	"net/http"
+
+	"github.com/pocketbase/pocketbase/tools/hook"
+)
+
+type EventCleanupFunc func()
+
+// EventFactoryFunc defines the function responsible for creating a Route specific event
+// based on the provided request handler ServeHTTP data.
+//
+// Optionally return a clean up function that will be invoked right after the route execution.
+type EventFactoryFunc[T hook.Resolver] func(w http.ResponseWriter, r *http.Request) (T, EventCleanupFunc)
+
+// Router defines a thin wrapper around the standard Go [http.ServeMux] by
+// adding support for routing sub-groups, middlewares and other common utils.
+//
+// Example:
+//
+//	r := NewRouter[*MyEvent](eventFactory)
+//
+//	// middlewares
+//	r.BindFunc(m1, m2)
+//
+//	// routes
+//	r.GET("/test", handler1)
+//
+//	// sub-routers/groups
+//	api := r.Group("/api")
+//	api.GET("/admins", handler2)
+//
+//	// generate a http.ServeMux instance based on the router configurations
+//	mux, _ := r.BuildMux()
+//
+//	http.ListenAndServe("localhost:8090", mux)
+type Router[T hook.Resolver] struct {
+	// @todo consider renaming the type to just Group and replace the embed type
+	// with an alias after Go 1.24 adds support for generic type aliases
+	*RouterGroup[T]
+
+	eventFactory EventFactoryFunc[T]
+}
+
+// NewRouter creates a new Router instance with the provided event factory function.
+func NewRouter[T hook.Resolver](eventFactory EventFactoryFunc[T]) *Router[T] {
+	return &Router[T]{
+		RouterGroup:  &RouterGroup[T]{},
+		eventFactory: eventFactory,
+	}
+}
+
+// BuildMux constructs a new mux [http.Handler] instance from the current router configurations.
+func (r *Router[T]) BuildMux() (http.Handler, error) {
+	// Note that some of the default std Go handlers like the [http.NotFoundHandler]
+	// cannot be currently extended and requires defining a custom "catch-all" route
+	// so that the group middlewares could be executed.
+	//
+	// https://github.com/golang/go/issues/65648
+	if !r.HasRoute("", "/") {
+		r.Route("", "/", func(e T) error {
+			return NewNotFoundError("", nil)
+		})
+	}
+
+	mux := http.NewServeMux()
+
+	if err := r.loadMux(mux, r.RouterGroup, nil); err != nil {
+		return nil, err
+	}
+
+	return mux, nil
+}
+
+func (r *Router[T]) loadMux(mux *http.ServeMux, group *RouterGroup[T], parents []*RouterGroup[T]) error {
+	for _, child := range group.children {
+		switch v := child.(type) {
+		case *RouterGroup[T]:
+			if err := r.loadMux(mux, v, append(parents, group)); err != nil {
+				return err
+			}
+		case *Route[T]:
+			routeHook := &hook.Hook[T]{}
+
+			var pattern string
+
+			if v.Method != "" {
+				pattern = v.Method + " "
+			}
+
+			// add parent groups middlewares
+			for _, p := range parents {
+				pattern += p.Prefix
+				for _, h := range p.Middlewares {
+					if _, ok := p.excludedMiddlewares[h.Id]; !ok {
+						if _, ok = group.excludedMiddlewares[h.Id]; !ok {
+							if _, ok = v.excludedMiddlewares[h.Id]; !ok {
+								routeHook.Bind(h)
+							}
+						}
+					}
+				}
+			}
+
+			// add 
+... [TRUNCATED]
+
+[tools/router/unmarshal_request_data.go]
+package router
+
+import (
+	"encoding"
+	"encoding/json"
+	"errors"
+	"reflect"
+	"regexp"
+	"strconv"
+)
+
+var textUnmarshalerType = reflect.TypeOf((*encoding.TextUnmarshaler)(nil)).Elem()
+
+// JSONPayloadKey is the key for the special UnmarshalRequestData case
+// used for reading serialized json payload without normalization.
+const JSONPayloadKey string = "@jsonPayload"
+
+// UnmarshalRequestData unmarshals url.Values type of data (query, multipart/form-data, etc.) into dst.
+//
+// dst must be a pointer to a map[string]any or struct.
+//
+// If dst is a map[string]any, each data value will be inferred and
+// converted to its bool, numeric, or string equivalent value
+// (refer to inferValue() for the exact rules).
+//
+// If dst is a struct, the following field types are supported:
+//   - bool
+//   - string
+//   - int, int8, int16, int32, int64
+//   - uint, uint8, uint16, uint32, uint64
+//   - float32, float64
+//   - serialized json string if submitted under the special "@jsonPayload" key
+//   - encoding.TextUnmarshaler
+//   - pointer and slice variations of the above primitives (ex. *string, []string, *[]string []*string, etc.)
+//   - named/anonymous struct fields
+//     Dot-notation is used to target nested fields, ex. "nestedStructField.title".
+//   - embedded struct fields
+//     The embedded struct fields are treated by default as if they were defined in their parent struct.
+//     If the embedded struct has a tag matching structTagKey then to set its fields the data keys must be prefixed with that tag
+//     similar to the regular nested struct fields.
+//
+// structTagKey and structPrefix are used only when dst is a struct.
+//
+// structTagKey represents the tag to use to match a data entry with a struct field (defaults to "form").
+// If the struct field doesn't have the structTagKey tag, then the exported struct field name will be used as it is.
+//
+// structPrefix could be provided if all of the data keys are prefixed with a common string
+// and you want the struct field to match only the value without the structPrefix
+// (ex. for "user.name", "user.email" data keys and structPrefix "user", it will match "name" and "email" struct fields).
+//
+// Note that while the method was inspired by binders from echo, gorrila/schema, ozzo-routing
+// and other similar common routing packages, it is not intended to be a drop-in replacement.
+//
+// @todo Consider adding support for dot-notation keys, in addition to the prefix, (ex. parent.child.title) to express nested object keys.
+func UnmarshalRequestData(data map[string][]string, dst any, structTagKey string, structPrefix string) error {
+	if len(data) == 0 {
+		return nil // nothing to unmarshal
+	}
+
+	dstValue := reflect.ValueOf(dst)
+	if dstValue.Kind() != reflect.Pointer {
+		return errors.New("dst must be a pointer")
+	}
+
+	dstValue = dereference(dstValue)
+
+	dstType := dstValue.Type()
+
+	switch dstType.Kind() {
+	case reflect.Map: // map[string]any
+		if dstType.Elem().Kind() != reflect.Interface {
+			return errors.New("dst ma
+... [TRUNCATED]
+
+[ui/src/routes.js]
+import PageIndex from "@/components/PageIndex.svelte";
+import PageLogs from "@/components/logs/PageLogs.svelte";
+import PageRecords from "@/components/records/PageRecords.svelte";
+import PageApplication from "@/components/settings/PageApplication.svelte";
+import PageBackups from "@/components/settings/PageBackups.svelte";
+import PageCrons from "@/components/settings/PageCrons.svelte";
+import PageExportCollections from "@/components/settings/PageExportCollections.svelte";
+import PageImportCollections from "@/components/settings/PageImportCollections.svelte";
+import PageMail from "@/components/settings/PageMail.svelte";
+import PageStorage from "@/components/settings/PageStorage.svelte";
+import PageSuperuserLogin from "@/components/superusers/PageSuperuserLogin.svelte";
+import ApiClient from "@/utils/ApiClient";
+import { isTokenExpired } from "pocketbase";
+import { wrap } from "svelte-spa-router/wrap";
+
+const routes = {
+    "/pbinstal/:token": wrap({
+        asyncComponent: () => import("@/components/base/PageInstaller.svelte"),
+        conditions: [(details) => {
+            return details.params.token && !isTokenExpired(details.params.token)
+        }],
+        userData: { showAppSidebar: false },
+    }),
+
+    "/login": wrap({
+        component: PageSuperuserLogin,
+        conditions: [(_) => !ApiClient.authStore.isValid],
+        userData: { showAppSidebar: false },
+    }),
+
+    "/request-password-reset": wrap({
+        asyncComponent: () => import("@/components/superusers/PageSuperuserRequestPasswordReset.svelte"),
+        conditions: [(_) => !ApiClient.authStore.isValid],
+        userData: { showAppSidebar: false },
+    }),
+
+    "/confirm-password-reset/:token": wrap({
+        asyncComponent: () => import("@/components/superusers/PageSuperuserConfirmPasswordReset.svelte"),
+        conditions: [(_) => !ApiClient.authStore.isValid],
+        userData: { showAppSidebar: false },
+    }),
+
+    "/collections": wrap({
+        component: PageRecords,
+        conditions: [(_) => ApiClient.authStore.isValid],
+        userData: { showAppSidebar: true },
+    }),
+
+    "/logs": wrap({
+        component: PageLogs,
+        conditions: [(_) => ApiClient.authStore.isValid],
+        userData: { showAppSidebar: true },
+    }),
+
+    "/settings": wrap({
+        component: PageApplication,
+        conditions: [(_) => ApiClient.authStore.isValid],
+        userData: { showAppSidebar: true },
+    }),
+
+    "/settings/mail": wrap({
+        component: PageMail,
+        conditions: [(_) => ApiClient.authStore.isValid],
+        userData: { showAppSidebar: true },
+    }),
+
+    "/settings/storage": wrap({
+        component: PageStorage,
+        conditions: [(_) => ApiClient.authStore.isValid],
+        userData: { showAppSidebar: true },
+    }),
+
+    "/settings/export-collections": wrap({
+        component: PageExportCollections,
+        conditions: [(_) => ApiClient.authStore.isValid],
+        userData: { showAppSidebar: true },
+    }),
+
+    "/settings/import-collections": wrap
+... [TRUNCATED]
+
+--- DATABASE SCHEMA / MODEL FILES ---
+  core/auth_origin_model.go
+  core/collection_model.go
+  core/db_model.go
+  core/external_auth_model.go
+  core/log_model.go
+
+--- DIRECTORY STRUCTURE (depth 2) ---
+├── .github/
+│   ├── SECURITY.md
+│   └── workflows/
+│       └── release.yaml
+├── .gitignore
+├── .goreleaser.yaml
+├── CHANGELOG.md
+├── CHANGELOG_16_22.md
+├── CHANGELOG_8_15.md
+├── CONTRIBUTING.md
+├── LICENSE.md
+├── Makefile
+├── README.md
+├── apis/
+│   ├── api_error_aliases.go
+│   ├── backup.go
+│   ├── backup_create.go
+│   ├── backup_test.go
+│   ├── backup_upload.go
+│   ├── base.go
+│   ├── base_test.go
+│   ├── batch.go
+│   ├── batch_test.go
+│   ├── collection.go
+│   ├── collection_import.go
+│   ├── collection_import_test.go
+│   ├── collection_test.go
+│   ├── cron.go
+│   ├── cron_test.go
+│   ├── file.go
+│   ├── file_test.go
+│   ├── health.go
+│   ├── health_test.go
+│   ├── installer.go
+│   ├── logs.go
+│   ├── logs_test.go
+│   ├── middlewares.go
+│   ├── middlewares_body_limit.go
+│   ├── middlewares_body_limit_test.go
+│   ├── middlewares_cors.go
+│   ├── middlewares_gzip.go
+│   ├── middlewares_rate_limit.go
+│   ├── middlewares_rate_limit_test.go
+│   ├── middlewares_test.go
+│   ├── realtime.go
+│   ├── realtime_test.go
+│   ├── record_auth.go
+│   ├── record_auth_email_change_confirm.go
+│   ├── record_auth_email_change_confirm_test.go
+│   ├── record_auth_email_change_request.go
+│   ├── record_auth_email_change_request_test.go
+│   ├── record_auth_impersonate.go
+│   ├── record_auth_impersonate_test.go
+│   ├── record_auth_methods.go
+│   ├── record_auth_methods_test.go
+│   ├── record_auth_otp_request.go
+│   ├── record_auth_otp_request_test.go
+│   ├── record_auth_password_reset_confirm.go
+│   ├── record_auth_password_reset_confirm_test.go
+│   ├── record_auth_password_reset_request.go
+│   ├── record_auth_password_reset_request_test.go
+│   ├── record_auth_refresh.go
+│   ├── record_auth_refresh_test.go
+│   ├── record_auth_verification_confirm.go
+│   ├── record_auth_verification_confirm_test.go
+│   ├── record_auth_verification_request.go
+│   ├── record_auth_verification_request_test.go
+│   ├── record_auth_with_oauth2.go
+│   ├── record_auth_with_oauth2_redirect.go
+│   ├── record_auth_with_oauth2_redirect_test.go
+│   ├── record_auth_with_oauth2_test.go
+│   ├── record_auth_with_otp.go
+│   ├── record_auth_with_otp_test.go
+│   ├── record_auth_with_password.go
+│   ├── record_auth_with_password_test.go
+│   ├── record_crud.go
+│   ├── record_crud_auth_origin_test.go
+│   ├── record_crud_external_auth_test.go
+│   ├── record_crud_mfa_test.go
+│   ├── record_crud_otp_test.go
+│   ├── record_crud_superuser_test.go
+│   ├── record_crud_test.go
+│   ├── record_helpers.go
+│   ├── record_helpers_test.go
+│   ├── serve.go
+│   ├── settings.go
+│   └── settings_test.go
+├── cmd/
+│   ├── serve.go
+│   ├── superuser.go
+│   └── superuser_test.go
+├── core/
+│   ├── app.go
+│   ├── auth_origin_model.go
+│   ├── auth_origin_model_test.go
+│   ├── auth_origin_query.go
+│   ├── auth_origin_query_test.go
+│   ├── base.go
+│   ├── base_backup.go
+│   ├── base_backup_test.go
+│   ├── base_test.go
+│   ├── collection_import.go
+│   ├── collection_import_test.go
+│   ├── collection_model.go
+│   ├── collection_model_auth_options.go
+│   ├── collection_model_auth_options_test.go
+│   ├── collection_model_auth_templates.go
+│   ├── collection_model_base_options.go
+│   ├── collection_model_test.go
+│   ├── collection_model_view_options.go
+│   ├── collection_model_view_options_test.go
+│   ├── collection_query.go
+│   ├── collection_query_test.go
+│   ├── collection_record_table_sync.go
+│   ├── collection_record_table_sync_test.go
+│   ├── collection_validate.go
+│   ├── collection_validate_test.go
+│   ├── db.go
+│   ├── db_builder.go
+│   ├── db_connect.go
+│   ├── db_connect_nodefaultdriver.go
+│   ├── db_model.go
+│   ├── db_model_test.go
+│   ├── db_retry.go
+│   ├── db_retry_test.go
+│   ├── db_table.go
+│   ├── db_table_test.go
+│   ├── db_test.go
+│   ├── db_tx.go
+│   ├── db_tx_test.go
+│   ├── event_request.go
+│   ├── event_request_batch.go
+│   ├── event_request_batch_test.go
+│   ├── event_request_test.go
+│   ├── events.go
+│   ├── external_auth_model.go
+│   ├── external_auth_model_test.go
+│   ├── external_auth_query.go
+│   ├── external_auth_query_test.go
+│   ├── field.go
+│   ├── field_autodate.go
+│   ├── field_autodate_test.go
+│   ├── field_bool.go
+│   ├── field_bool_test.go
+│   ├── field_date.go
+│   ├── field_date_test.go
+│   ├── field_editor.go
+│   ├── field_editor_test.go
+│   ├── field_email.go
+│   ├── field_email_test.go
+│   ├── field_file.go
+│   ├── field_file_test.go
+│   ├── field_geo_point.go
+│   ├── field_geo_point_test.go
+│   ├── field_json.go
+│   ├── field_json_test.go
+│   ├── field_number.go
+│   ├── field_number_test.go
+│   ├── field_password.go
+│   ├── field_password_test.go
+│   ├── field_relation.go
+│   ├── field_relation_test.go
+│   ├── field_select.go
+│   ├── field_select_test.go
+│   ├── field_test.go
+│   ├── field_text.go
+│   ├── field_text_test.go
+│   ├── field_url.go
+│   ├── field_url_test.go
+│   ├── fields_list.go
+│   ├── fields_list_test.go
+│   ├── log_model.go
+│   ├── log_printer.go
+│   ├── log_printer_test.go
+│   ├── log_query.go
+│   ├── log_query_test.go
+│   ├── mfa_model.go
+│   ├── mfa_model_test.go
+│   ├── mfa_query.go
+│   ├── mfa_query_test.go
+│   ├── migrations_list.go
+│   ├── migrations_list_test.go
+│   ├── migrations_runner.go
+│   ├── migrations_runner_test.go
+│   ├── otp_model.go
+│   ├── otp_model_test.go
+│   ├── otp_query.go
+│   ├── otp_query_test.go
+│   ├── record_field_resolver.go
+│   ├── record_field_resolver_replace_expr.go
+│   ├── record_field_resolver_runner.go
+│   ├── record_field_resolver_test.go
+│   ├── record_model.go
+│   ├── record_model_auth.go
+│   ├── record_model_auth_test.go
+│   ├── record_model_superusers.go
+│   ├── record_model_superusers_test.go
+│   ├── record_model_test.go
+│   ├── record_proxy.go
+│   ├── record_proxy_test.go
+│   ├── record_query.go
+│   ├── record_query_expand.go
+│   ├── record_query_expand_test.go
+│   ├── record_query_test.go
+│   ├── record_tokens.go
+│   ├── record_tokens_test.go
+│   ├── settings_model.go
+│   ├── settings_model_test.go
+│   ├── settings_query.go
+│   ├── settings_query_test.go
+│   ├── syscall.go
+│   ├── syscall_wasm.go
+│   ├── validators/
+│   │   ├── db.go
+│   │   ├── db_test.go
+│   │   ├── equal.go
+│   │   ├── equal_test.go
+│   │   ├── file.go
+│   │   ├── file_test.go
+│   │   ├── string.go
+│   │   ├── string_test.go
+│   │   ├── validators.go
+│   │   └── validators_test.go
+│   ├── view.go
+│   └── view_test.go
+├── examples/
+│   └── base/
+│       ├── .gitignore
+│       └── main.go
+├── forms/
+│   ├── apple_client_secret_create.go
+│   ├── apple_client_secret_create_test.go
+│   ├── record_upsert.go
+│   ├── record_upsert_test.go
+│   ├── test_email_send.go
+│   ├── test_email_send_test.go
+│   ├── test_s3_filesystem.go
+│   └── test_s3_filesystem_test.go
+├── go.mod
+├── go.sum
+├── golangci.yml
+├── mails/
+│   ├── base.go
+│   ├── record.go
+│   ├── record_test.go
+│   └── templates/
+│       ├── html_content.go
+│       └── layout.go
+├── migrations/
+│   ├── 1640988000_aux_init.go
+│   ├── 1640988000_init.go
+│   ├── 1717233556_v0.23_migrate.go
+│   ├── 1717233557_v0.23_migrate2.go
+│   ├── 1717233558_v0.23_migrate3.go
+│   ├── 1717233559_v0.23_migrate4.go
+│   └── 1763020353_update_default_auth_alert_templates.go
+├── modernc_versions_check.go
+├── plugins/
+│   ├── ghupdate/
+│   │   ├── ghupdate.go
+│   │   ├── ghupdate_test.go
+│   │   ├── release.go
+│   │   └── release_test.go
+│   ├── jsvm/
+│   │   ├── binds.go
+│   │   ├── binds_test.go
+│   │   ├── form_data.go
+│   │   ├── form_data_test.go
+│   │   ├── internal/
+│   │   ├── jsvm.go
+│   │   ├── mapper.go
+│   │   ├── mapper_test.go
+│   │   └── pool.go
+│   └── migratecmd/
+│       ├── automigrate.go
+│       ├── migratecmd.go
+│       ├── migratecmd_test.go
+│       └── templates.go
+├── pocketbase.go
+├── pocketbase_test.go
+├── tests/
+│   ├── api.go
+│   ├── app.go
+│   ├── data/
+│   │   ├── .gitignore
+│   │   ├── auxiliary.db
+│   │   ├── data.db
+│   │   ├── lost+found/
+│   │   └── storage/
+│   ├── dynamic_stubs.go
+│   ├── mailer.go
+│   ├── request.go
+│   └── validation_errors.go
+├── tools/
+│   ├── archive/
+│   │   ├── create.go
+│   │   ├── create_test.go
+│   │   ├── extract.go
+│   │   └── extract_test.go
+│   ├── auth/
+│   │   ├── apple.go
+│   │   ├── auth.go
+│   │   ├── auth_test.go
+│   │   ├── base_provider.go
+│   │   ├── base_provider_test.go
+│   │   ├── bitbucket.go
+│   │   ├── box.go
+│   │   ├── discord.go
+│   │   ├── facebook.go
+│   │   ├── gitea.go
+│   │   ├── gitee.go
+│   │   ├── github.go
+│   │   ├── gitlab.go
+│   │   ├── google.go
+│   │   ├── instagram.go
+│   │   ├── internal/
+│   │   ├── kakao.go
+│   │   ├── lark.go
+│   │   ├── linear.go
+│   │   ├── livechat.go
+│   │   ├── mailcow.go
+│   │   ├── microsoft.go
+│   │   ├── monday.go
+│   │   ├── notion.go
+│   │   ├── oidc.go
+│   │   ├── patreon.go
+│   │   ├── planningcenter.go
+│   │   ├── spotify.go
+│   │   ├── strava.go
+│   │   ├── trakt.go
+│   │   ├── twitch.go
+│   │   ├── twitter.go
+│   │   ├── vk.go
+│   │   ├── wakatime.go
+│   │   └── yandex.go
+│   ├── cron/
+│   │   ├── cron.go
+│   │   ├── cron_test.go
+│   │   ├── job.go
+│   │   ├── job_test.go
+│   │   ├── schedule.go
+│   │   └── schedule_test.go
+│   ├── dbutils/
+│   │   ├── index.go
+│   │   ├── index_test.go
+│   │   ├── json.go
+│   │   ├── json_test.go
+│   │   ├── select.go
+│   │   └── select_test.go
+│   ├── filesystem/
+│   │   ├── blob/
+│   │   ├── file.go
+│   │   ├── file_test.go
+│   │   ├── filesystem.go
+│   │   ├── filesystem_test.go
+│   │   └── internal/
+│   ├── hook/
+│   │   ├── event.go
+│   │   ├── event_test.go
+│   │   ├── hook.go
+│   │   ├── hook_test.go
+│   │   ├── tagged.go
+│   │   └── tagged_test.go
+│   ├── inflector/
+│   │   ├── inflector.go
+│   │   ├── inflector_test.go
+│   │   ├── singularize.go
+│   │   └── singularize_test.go
+│   ├── list/
+│   │   ├── list.go
+│   │   └── list_test.go
+│   ├── logger/
+│   │   ├── batch_handler.go
+│   │   ├── batch_handler_test.go
+│   │   └── log.go
+│   ├── mailer/
+│   │   ├── html2text.go
+│   │   ├── html2text_test.go
+│   │   ├── mailer.go
+│   │   ├── mailer_test.go
+│   │   ├── sendmail.go
+│   │   ├── smtp.go
+│   │   └── smtp_test.go
+│   ├── osutils/
+│   │   ├── cmd.go
+│   │   ├── cmd_test.go
+│   │   ├── dir.go
+│   │   ├── dir_test.go
+│   │   ├── run.go
+│   │   └── run_test.go
+│   ├── picker/
+│   │   ├── excerpt_modifier.go
+│   │   ├── excerpt_modifier_test.go
+│   │   ├── modifiers.go
+│   │   ├── pick.go
+│   │   └── pick_test.go
+│   ├── router/
+│   │   ├── error.go
+│   │   ├── error_test.go
+│   │   ├── event.go
+│   │   ├── event_test.go
+│   │   ├── group.go
+│   │   ├── group_test.go
+│   │   ├── rereadable_read_closer.go
+│   │   ├── rereadable_read_closer_test.go
+│   │   ├── route.go
+│   │   ├── route_test.go
+│   │   ├── router.go
+│   │   ├── router_test.go
+│   │   ├── unmarshal_request_data.go
+│   │   └── unmarshal_request_data_test.go
+│   ├── routine/
+│   │   ├── routine.go
+│   │   └── routine_test.go
+│   ├── search/
+│   │   ├── filter.go
+│   │   ├── filter_test.go
+│   │   ├── identifier_macros.go
+│   │   ├── identifier_macros_test.go
+│   │   ├── multi_match_subquery.go
+│   │   ├── multi_match_subquery_test.go
+│   │   ├── provider.go
+│   │   ├── provider_test.go
+│   │   ├── simple_field_resolver.go
+│   │   ├── simple_field_resolver_test.go
+│   │   ├── sort.go
+│   │   ├── sort_test.go
+│   │   ├── token_functions.go
+│   │   └── token_functions_test.go
+│   ├── security/
+│   │   ├── crypto.go
+│   │   ├── crypto_test.go
+│   │   ├── encrypt.go
+│   │   ├── encrypt_test.go
+│   │   ├── jwt.go
+│   │   ├── jwt_test.go
+│   │   ├── random.go
+│   │   ├── random_by_regex.go
+│   │   ├── random_by_regex_test.go
+│   │   └── random_test.go
+│   ├── store/
+│   │   ├── store.go
+│   │   └── store_test.go
+│   ├── subscriptions/
+│   │   ├── broker.go
+│   │   ├── broker_test.go
+│   │   ├── client.go
+│   │   ├── client_test.go
+│   │   ├── message.go
+│   │   └── message_test.go
+│   ├── template/
+│   │   ├── registry.go
+│   │   ├── registry_test.go
+│   │   ├── renderer.go
+│   │   └── renderer_test.go
+│   ├── tokenizer/
+│   │   ├── tokenizer.go
+│   │   └── tokenizer_test.go
+│   └── types/
+│       ├── datetime.go
+│       ├── datetime_test.go
+│       ├── geo_point.go
+│       ├── geo_point_test.go
+│       ├── json_array.go
+│       ├── json_array_test.go
+│       ├── json_map.go
+│       ├── json_map_test.go
+│       ├── json_raw.go
+│       ├── json_raw_test.go
+│       ├── types.go
+│       └── types_test.go
+└── ui/
+    ├── .env
+    ├── .env.development
+    ├── .gitignore
+    ├── README.md
+    ├── dist/
+    │   ├── assets/
+    │   ├── fonts/
+    │   ├── images/
+    │   ├── index.html
+    │   └── libs/
+    ├── embed.go
+    ├── index.html
+    ├── package-lock.json
+    ├── package.json
+    ├── public/
+    │   ├── fonts/
+    │   ├── images/
+    │   └── libs/
+    ├── src/
+    │   ├── App.svelte
+    │   ├── actions/
+    │   ├── autocomplete.worker.js
+    │   ├── components/
+    │   ├── main.js
+    │   ├── mimes.js
+    │   ├── providers.js
+    │   ├── routes.js
+    │   ├── scss/
+    │   ├── stores/
+    │   └── utils/
+    └── vite.config.js

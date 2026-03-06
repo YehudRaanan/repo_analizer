@@ -1,0 +1,1821 @@
+=====================================
+Repository Analysis: wandb
+Type: Data / ML / AI Project
+=====================================
+
+--- METADATA ---
+Name: wandb
+Description: The AI developer platform. Use Weights & Biases to train and fine-tune models, and manage models from experimentation to production.
+Language: Python
+Topics: ai, collaboration, data-science, data-versioning, deep-learning, experiment-track, hyperparameter-optimization, hyperparameter-search, hyperparameter-tuning, jax, keras, machine-learning, ml-platform, mlops, model-versioning, pytorch, reinforcement-learning, reproducibility, tensorflow
+Stars: 10884
+License: MIT License
+
+--- README ---
+<p align="center">
+  <img src="./assets/logo.svg" width="600" alt="Weights & Biases" />
+</p>
+
+<p align="center">
+<a href="https://pypi.python.org/pypi/wandb"><img src="https://img.shields.io/pypi/v/wandb" /></a>
+<a href="https://anaconda.org/conda-forge/wandb"><img src="https://img.shields.io/conda/vn/conda-forge/wandb" /></a>
+<a href="https://pypi.python.org/pypi/wandb"><img src="https://img.shields.io/pypi/pyversions/wandb" /></a>
+<a href="https://circleci.com/gh/wandb/wandb"><img src="https://img.shields.io/circleci/build/github/wandb/wandb/main" /></a>
+<a href="https://codecov.io/gh/wandb/wandb"><img src="https://img.shields.io/codecov/c/gh/wandb/wandb" /></a>
+</p>
+<p align='center'>
+<a href="https://colab.research.google.com/github/wandb/examples/blob/master/colabs/intro/Intro_to_Weights_%26_Biases.ipynb"><img src="https://colab.research.google.com/assets/colab-badge.svg" /></a>
+</p>
+
+Use W&B to build better models faster. Track and visualize all the pieces of your machine learning pipeline, from datasets to production machine learning models. Get started with W&B today, [sign up for a W&B account](https://wandb.com?utm_source=github&utm_medium=code&utm_campaign=wandb&utm_content=readme)!
+
+<br>
+
+Building an LLM app? Track, debug, evaluate, and monitor LLM apps with [Weave](https://wandb.github.io/weave?utm_source=github&utm_medium=code&utm_campaign=wandb&utm_content=readme), our new suite of tools for GenAI.
+
+&nbsp;
+
+# Documentation
+
+See the [W&B Developer Guide](https://docs.wandb.ai/?utm_source=github&utm_medium=code&utm_campaign=wandb&utm_content=documentation) and [API Reference Guide](https://docs.wandb.ai/training/api-reference#api-overview?utm_source=github&utm_medium=code&utm_campaign=wandb&utm_content=documentation) for a full technical description of the W&B platform.
+
+&nbsp;
+
+# Quickstart
+
+Install W&B to track, visualize, and manage machine learning experiments of any size.
+
+## Install the wandb library
+
+```shell
+pip install wandb
+```
+
+## Sign up and create an API key
+
+Sign up for a [W&B account](https://wandb.ai/login?utm_source=github&utm_medium=code&utm_campaign=wandb&utm_content=quickstart). Create a new API key at [wandb.ai/settings](https://wandb.ai/settings) and store it securely. Optionally, use the `wandb login` CLI to configure your API key on your machine. You can skip this step -- W&B will prompt you to create an API key the first time you use it.
+
+**Note:** API keys can only be viewed once when created. Store your API key in a secure location like a password manager or environment variable.
+
+## Create a machine learning training experiment
+
+In your Python script or notebook, initialize a W&B run with `wandb.init()`.
+Specify hyperparameters and log metrics and other information to W&B.
+
+```python
+import wandb
+
+# Project that the run is recorded to
+project = "my-awesome-project"
+
+# Dictionary with hyperparameters
+config = {"epochs": 1337, "lr": 3e-4}
+
+# The `with` syntax marks the run as finished upon exiting the `with` block,
+# and it marks the run "failed" if there's an exception.
+#
+# In a notebook, it may be more convenient to write `run = wandb.init()`
+# and manually call `run.finish()` instead of using a `with` block.
+with wandb.init(project=project, config=config) as run:
+    # Training code here
+
+    # Log values to W&B with run.log()
+    run.log({"accuracy": 0.9, "loss": 0.1})
+```
+
+Visit [wandb.ai/home](https://wandb.ai/home) to view recorded metrics such as accuracy and loss and how they changed during each training step. Each run object appears in the Runs column with generated names.
+
+&nbsp;
+
+# Integrations
+
+W&B [integrates](https://docs.wandb.ai/models/integrations) with popular ML frameworks and libraries making it fast and easy to set up experiment tracking and data versioning inside existing projects.
+
+For developers adding W&B to a new framework, follow the [W&B Developer Guide](https://docs.wandb.ai/models/integrations/add-wandb-to-any-library).
+
+&nbsp;
+
+# W&B Hosting Options
+
+Weights & Biases is available in the cloud or installed on your private infrastructure. Set up a W&B Server in a production environment in one of three ways:
+
+1. [Multi-tenant Cloud](https://docs.wandb.ai/platform/hosting/hosting-options/multi_tenant_cloud?utm_source=github&utm_medium=code&utm_campaign=wandb&utm_content=hosting): Fully managed platform deployed in W&B’s Google Cloud Platform (GCP) account in GCP’s North America regions.
+2. [Dedicated Cloud](https://docs.wandb.ai/platform/hosting/hosting-options/dedicated_cloud?utm_source=github&utm_medium=code&utm_campaign=wandb&utm_content=hosting): Single-tenant, fully managed platform deployed in W&B’s AWS, GCP, or Azure cloud accounts. Each Dedicated Cloud instance has its own isolated network, compute and storage from other W&B Dedicated Cloud instances.
+3. [Self-Managed](https://docs.wandb.ai/platform/hosting/hosting-options/self-managed?utm_source=github&utm_medium=code&utm_campaign=wandb&utm_content=hosting): Deploy W&B Server on you
+... [TRUNCATED]
+
+--- PACKAGE MANIFEST(S) ---
+
+[pyproject.toml]
+[build-system]
+requires = ["hatchling", "typing_extensions"]
+build-backend = "hatchling.build"
+
+[project]
+name = "wandb"
+dynamic = ["version"]
+description = "A CLI and library for interacting with the Weights & Biases API."
+authors = [{ name = "Weights & Biases", email = "support@wandb.com" }]
+readme = "package_readme.md"
+license = { file = "LICENSE" }
+requires-python = ">=3.9"
+dependencies = [
+    "Click>=8.0.1",
+    "GitPython>=1.0.0,!=3.1.29",
+    "requests>=2.0.0,<3",
+    "sentry-sdk>=2.0.0",
+    "protobuf>4.21.0,!=5.28.0,!=5.29.0,<7",
+    "PyYAML",
+    "platformdirs",
+    "typing_extensions>=4.8,<5",
+    "pydantic<3",
+    "eval_type_backport; python_version < '3.10'",
+    "packaging",
+]
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "Intended Audience :: Developers",
+    "Intended Audience :: Science/Research",
+    "License :: OSI Approved :: MIT License",
+    "Natural Language :: English",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: 3.14",
+    "Programming Language :: Python :: 3 :: Only",
+    "Programming Language :: Go",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+    "Topic :: System :: Logging",
+    "Topic :: System :: Monitoring",
+]
+
+
+[project.scripts]
+wandb = "wandb.cli.cli:cli"
+wb = "wandb.cli.cli:cli"
+
+[project.urls]
+"Source" = "https://github.com/wandb/wandb"
+"Bug Reports" = "https://github.com/wandb/wandb/issues"
+"Documentation" = "https://docs.wandb.ai/"
+
+[project.optional-dependencies]
+kubeflow = ["kubernetes", "minio", "google-cloud-storage", "sh"]
+gcp = ["google-cloud-storage"]
+aws = [
+    "boto3",
+    "botocore>=1.5.76",
+    # https://github.com/boto/botocore/pull/1107
+    # https://github.com/boto/botocore/pull/1230
+]
+azure = ["azure-identity", "azure-storage-blob"]
+media = [
+    "numpy",
+    "moviepy>=1.0.0",
+    # imageio is a dependency of moviepy but incase that changes we also pin it here
+    # imageio versions before 2.28.1 do not work properly when encoding videos.
+    "imageio>=2.28.1",
+    "pillow",
+    "bokeh",
+    "soundfile",
+    "plotly>=5.18.0",
+    "rdkit",
+]
+sweeps = ["sweeps>=0.2.0"]
+launch = [
+    "wandb[aws]",
+    "awscli",
+    "azure-identity",
+    "azure-containerregistry",
+    "azure-storage-blob",
+    "chardet",
+    "google-auth",
+    "google-cloud-aiplatform",
+    "google-cloud-artifact-registry",
+    "google-cloud-compute",
+    "google-cloud-storage",
+    "iso8601",
+    "jsonschema",
+    "kubernetes",
+    "kubernetes_asyncio",
+    "optuna",
+    "nbconvert",
+    "nbformat",
+    "pydantic",
+    "typing_extensions",
+    "tomli",
+    "PyYAML>=6.0.0",
+    "tornado>=6.5.0;python_version>='3.9'",
+]
+models = ["cloudpickle"]
+perf = ["o
+... [TRUNCATED]
+
+--- REQUIREMENTS FILES ---
+
+[core/vendor/go.opentelemetry.io/otel/requirements.txt]
+codespell==2.4.1
+
+
+[requirements/requirements_dev.3.13.darwin.txt]
+# This file was autogenerated by uv via the following command:
+#    uv pip compile --python-version 3.13 --python-platform macos requirements/requirements_dev.txt -o requirements/requirements_dev.3.13.darwin.txt
+aiohappyeyeballs==2.6.1
+    # via aiohttp
+aiohttp==3.13.3
+    # via
+    #   aiohttp-cors
+    #   fsspec
+    #   kubernetes-asyncio
+    #   litellm
+    #   ray
+aiohttp-cors==0.8.1
+    # via ray
+aiosignal==1.4.0
+    # via aiohttp
+alembic==1.18.4
+    # via
+    #   mlflow
+    #   optuna
+annotated-doc==0.0.4
+    # via typer
+annotated-types==0.7.0
+    # via pydantic
+anyio==4.12.1
+    # via
+    #   asyncer
+    #   dspy
+    #   httpx
+    #   jupyter-server
+    #   openai
+    #   starlette
+    #   watchfiles
+appnope==0.1.4
+    # via ipykernel
+argon2-cffi==25.1.0
+    # via jupyter-server
+argon2-cffi-bindings==25.1.0
+    # via argon2-cffi
+ariadne-codegen==0.16.0
+    # via -r requirements/requirements_dev.txt
+arrow==1.4.0
+    # via isoduration
+asttokens==3.0.1
+    # via stack-data
+async-lru==2.1.0
+    # via jupyterlab
+asyncer==0.0.8
+    # via dspy
+attrs==25.4.0
+    # via
+    #   aiohttp
+    #   jsonschema
+    #   referencing
+autoflake==2.3.2
+    # via ariadne-codegen
+awscli==1.44.43
+    # via wandb
+azure-containerregistry==1.2.0
+    # via wandb
+azure-core==1.38.2
+    # via
+    #   azure-containerregistry
+    #   azure-identity
+    #   azure-storage-blob
+azure-identity==1.25.2
+    # via wandb
+azure-storage-blob==12.28.0
+    # via wandb
+babel==2.18.0
+    # via jupyterlab-server
+beautifulsoup4==4.14.3
+    # via nbconvert
+black==26.1.0
+    # via ariadne-codegen
+bleach==6.3.0
+    # via nbconvert
+blinker==1.9.0
+    # via flask
+bokeh==3.8.2
+    # via -r requirements/requirements_dev.txt
+boto3==1.42.53
+    # via
+    #   -r requirements/requirements_dev.txt
+    #   metaflow
+    #   wandb
+botocore==1.42.53
+    # via
+    #   -r requirements/requirements_dev.txt
+    #   awscli
+    #   boto3
+    #   s3transfer
+    #   wandb
+cachetools==6.2.6
+    # via
+    #   dspy
+    #   mlflow-skinny
+    #   mlflow-tracing
+catboost==1.2.10
+    # via -r requirements/requirements_dev.txt
+certifi==2026.1.4
+    # via
+    #   httpcore
+    #   httpx
+    #   kubernetes
+    #   kubernetes-asyncio
+    #   requests
+    #   sentry-sdk
+cffi==2.0.0
+    # via
+    #   argon2-cffi-bindings
+    #   cryptography
+    #   soundfile
+chardet==5.2.0
+    # via wandb
+charset-normalizer==3.4.4
+    # via requests
+click==8.3.1
+    # via
+    #   -r requirements/requirements_dev.txt
+    #   ariadne-codegen
+    #   black
+    #   flask
+    #   litellm
+    #   mlflow-skinny
+    #   ray
+    #   typer
+    #   uvicorn
+    #   wandb
+cloudpickle==3.1.2
+    # via
+    #   -r requirements/requirements_dev.txt
+    #   dspy
+    #   gymnasium
+    #   mlflow-skinny
+    #   stable-baselines3
+colorama==0.4.6
+    # via awscli
+colorful==0.5.8
+    # via ray
+colorlog==6.10.1
+    # via optuna
+comm==0.2.3
+    # via
+    #   ipykernel
+    #   ipywidgets
+contourpy==1.3.3
+    # via
+    #   bokeh
+    #   matplotlib
+coverage==7.13.4
+  
+... [TRUNCATED]
+
+[requirements/requirements_dev.3.13.linux.txt]
+# This file was autogenerated by uv via the following command:
+#    uv pip compile --python-version 3.13 --python-platform linux requirements/requirements_dev.txt -o requirements/requirements_dev.3.13.linux.txt
+absl-py==2.4.0
+    # via
+    #   keras
+    #   tensorboard
+    #   tensorflow
+aiohappyeyeballs==2.6.1
+    # via aiohttp
+aiohttp==3.13.3
+    # via
+    #   aiohttp-cors
+    #   fsspec
+    #   kubernetes-asyncio
+    #   litellm
+    #   ray
+aiohttp-cors==0.8.1
+    # via ray
+aiosignal==1.4.0
+    # via aiohttp
+alembic==1.18.4
+    # via
+    #   mlflow
+    #   optuna
+annotated-doc==0.0.4
+    # via typer
+annotated-types==0.7.0
+    # via pydantic
+anyio==4.12.1
+    # via
+    #   asyncer
+    #   dspy
+    #   httpx
+    #   jupyter-server
+    #   openai
+    #   starlette
+    #   watchfiles
+argon2-cffi==25.1.0
+    # via jupyter-server
+argon2-cffi-bindings==25.1.0
+    # via argon2-cffi
+ariadne-codegen==0.16.0
+    # via -r requirements/requirements_dev.txt
+arrow==1.4.0
+    # via isoduration
+asttokens==3.0.1
+    # via stack-data
+astunparse==1.6.3
+    # via tensorflow
+async-lru==2.1.0
+    # via jupyterlab
+asyncer==0.0.8
+    # via dspy
+attrs==25.4.0
+    # via
+    #   aiohttp
+    #   jsonschema
+    #   referencing
+autoflake==2.3.2
+    # via ariadne-codegen
+awscli==1.44.43
+    # via wandb
+azure-containerregistry==1.2.0
+    # via wandb
+azure-core==1.38.2
+    # via
+    #   azure-containerregistry
+    #   azure-identity
+    #   azure-storage-blob
+azure-identity==1.25.2
+    # via wandb
+azure-storage-blob==12.28.0
+    # via wandb
+babel==2.18.0
+    # via jupyterlab-server
+beautifulsoup4==4.14.3
+    # via nbconvert
+black==26.1.0
+    # via ariadne-codegen
+bleach==6.3.0
+    # via nbconvert
+blinker==1.9.0
+    # via flask
+bokeh==3.8.2
+    # via -r requirements/requirements_dev.txt
+boto3==1.42.53
+    # via
+    #   -r requirements/requirements_dev.txt
+    #   metaflow
+    #   wandb
+botocore==1.42.53
+    # via
+    #   -r requirements/requirements_dev.txt
+    #   awscli
+    #   boto3
+    #   s3transfer
+    #   wandb
+cachetools==6.2.6
+    # via
+    #   dspy
+    #   mlflow-skinny
+    #   mlflow-tracing
+catboost==1.2.10
+    # via -r requirements/requirements_dev.txt
+certifi==2026.1.4
+    # via
+    #   httpcore
+    #   httpx
+    #   kubernetes
+    #   kubernetes-asyncio
+    #   requests
+    #   sentry-sdk
+cffi==2.0.0
+    # via
+    #   argon2-cffi-bindings
+    #   cryptography
+    #   soundfile
+chardet==5.2.0
+    # via wandb
+charset-normalizer==3.4.4
+    # via requests
+click==8.3.1
+    # via
+    #   -r requirements/requirements_dev.txt
+    #   ariadne-codegen
+    #   black
+    #   flask
+    #   litellm
+    #   mlflow-skinny
+    #   ray
+    #   typer
+    #   uvicorn
+    #   wandb
+cloudpickle==3.1.2
+    # via
+    #   -r requirements/requirements_dev.txt
+    #   dspy
+    #   gymnasium
+    #   mlflow-skinny
+    #   stable-baselines3
+colorama==0.4.6
+    # via awscli
+colorful==0.5.8
+    # via ray
+colorlog==6.10.1
+    # via optuna
+comm==0.2.3
+    # via
+    #   ipykernel
+    #   ipywidget
+... [TRUNCATED]
+
+[requirements/requirements_dev.3.13.windows.txt]
+# This file was autogenerated by uv via the following command:
+#    uv pip compile --python-version 3.13 --python-platform windows requirements/requirements_dev.txt -o requirements/requirements_dev.3.13.windows.txt
+absl-py==2.4.0
+    # via
+    #   keras
+    #   tensorboard
+    #   tensorflow
+aiohappyeyeballs==2.6.1
+    # via aiohttp
+aiohttp==3.13.3
+    # via
+    #   fsspec
+    #   kubernetes-asyncio
+    #   litellm
+aiosignal==1.4.0
+    # via aiohttp
+alembic==1.18.4
+    # via
+    #   mlflow
+    #   optuna
+annotated-doc==0.0.4
+    # via typer
+annotated-types==0.7.0
+    # via pydantic
+anyio==4.12.1
+    # via
+    #   asyncer
+    #   dspy
+    #   httpx
+    #   jupyter-server
+    #   openai
+    #   starlette
+argon2-cffi==25.1.0
+    # via jupyter-server
+argon2-cffi-bindings==25.1.0
+    # via argon2-cffi
+ariadne-codegen==0.16.0
+    # via -r requirements/requirements_dev.txt
+arrow==1.4.0
+    # via isoduration
+asttokens==3.0.1
+    # via stack-data
+astunparse==1.6.3
+    # via tensorflow
+async-lru==2.1.0
+    # via jupyterlab
+asyncer==0.0.8
+    # via dspy
+attrs==25.4.0
+    # via
+    #   aiohttp
+    #   jsonschema
+    #   referencing
+autoflake==2.3.2
+    # via ariadne-codegen
+awscli==1.44.43
+    # via
+    #   -r requirements/requirements_dev.txt
+    #   wandb
+azure-containerregistry==1.2.0
+    # via wandb
+azure-core==1.38.2
+    # via
+    #   azure-containerregistry
+    #   azure-identity
+    #   azure-storage-blob
+azure-identity==1.25.2
+    # via wandb
+azure-storage-blob==12.28.0
+    # via wandb
+babel==2.18.0
+    # via jupyterlab-server
+beautifulsoup4==4.14.3
+    # via nbconvert
+black==26.1.0
+    # via ariadne-codegen
+bleach==6.3.0
+    # via nbconvert
+blinker==1.9.0
+    # via flask
+bokeh==3.8.2
+    # via -r requirements/requirements_dev.txt
+boto3==1.42.53
+    # via
+    #   -r requirements/requirements_dev.txt
+    #   metaflow
+    #   wandb
+botocore==1.42.53
+    # via
+    #   -r requirements/requirements_dev.txt
+    #   awscli
+    #   boto3
+    #   s3transfer
+    #   wandb
+cachetools==6.2.6
+    # via
+    #   dspy
+    #   mlflow-skinny
+    #   mlflow-tracing
+catboost==1.2.10
+    # via -r requirements/requirements_dev.txt
+certifi==2026.1.4
+    # via
+    #   httpcore
+    #   httpx
+    #   kubernetes
+    #   kubernetes-asyncio
+    #   requests
+    #   sentry-sdk
+cffi==2.0.0
+    # via
+    #   argon2-cffi-bindings
+    #   cryptography
+    #   soundfile
+chardet==5.2.0
+    # via wandb
+charset-normalizer==3.4.4
+    # via requests
+click==8.3.1
+    # via
+    #   -r requirements/requirements_dev.txt
+    #   ariadne-codegen
+    #   black
+    #   flask
+    #   litellm
+    #   mlflow-skinny
+    #   typer
+    #   uvicorn
+    #   wandb
+cloudpickle==3.1.2
+    # via
+    #   -r requirements/requirements_dev.txt
+    #   dspy
+    #   gymnasium
+    #   mlflow-skinny
+    #   stable-baselines3
+colorama==0.4.6
+    # via
+    #   awscli
+    #   click
+    #   colorlog
+    #   ipython
+    #   pytest
+    #   tqdm
+colorlog==6.10.1
+    # via optuna
+comm==0.2.3
+    # via
+    #   ipykernel
+    #
+... [TRUNCATED]
+
+[requirements/requirements_dev.3.9.darwin.txt]
+# This file was autogenerated by uv via the following command:
+#    uv pip compile --python-version 3.9 --python-platform macos requirements/requirements_dev.txt -o requirements/requirements_dev.3.9.darwin.txt
+aiohappyeyeballs==2.6.1
+    # via aiohttp
+aiohttp==3.13.3
+    # via
+    #   aiohttp-cors
+    #   datasets
+    #   fsspec
+    #   kubernetes-asyncio
+    #   litellm
+    #   ray
+aiohttp-cors==0.8.1
+    # via ray
+aiosignal==1.4.0
+    # via aiohttp
+alembic==1.16.5
+    # via
+    #   mlflow
+    #   optuna
+annotated-types==0.7.0
+    # via pydantic
+anyio==4.12.1
+    # via
+    #   asyncer
+    #   dspy
+    #   httpx
+    #   jupyter-server
+    #   openai
+    #   starlette
+    #   watchfiles
+appnope==0.1.4
+    # via ipykernel
+argon2-cffi==25.1.0
+    # via jupyter-server
+argon2-cffi-bindings==25.1.0
+    # via argon2-cffi
+ariadne-codegen==0.16.0
+    # via -r requirements/requirements_dev.txt
+arrow==1.4.0
+    # via isoduration
+asttokens==3.0.1
+    # via stack-data
+async-lru==2.0.5
+    # via jupyterlab
+async-timeout==5.0.1
+    # via aiohttp
+asyncer==0.0.8
+    # via dspy
+attrs==25.4.0
+    # via
+    #   aiohttp
+    #   hypothesis
+    #   jsonschema
+    #   referencing
+autoflake==2.3.1
+    # via ariadne-codegen
+awscli==1.44.43
+    # via wandb
+azure-containerregistry==1.2.0
+    # via wandb
+azure-core==1.38.2
+    # via
+    #   azure-containerregistry
+    #   azure-identity
+    #   azure-storage-blob
+azure-identity==1.25.2
+    # via wandb
+azure-storage-blob==12.28.0
+    # via wandb
+babel==2.18.0
+    # via jupyterlab-server
+backoff==2.2.1
+    # via dspy
+backports-asyncio-runner==1.2.0
+    # via pytest-asyncio
+beautifulsoup4==4.14.3
+    # via nbconvert
+black==25.11.0
+    # via ariadne-codegen
+bleach==6.2.0
+    # via nbconvert
+blinker==1.9.0
+    # via flask
+bokeh==3.4.3
+    # via -r requirements/requirements_dev.txt
+boto3==1.42.53
+    # via
+    #   -r requirements/requirements_dev.txt
+    #   metaflow
+    #   wandb
+botocore==1.42.53
+    # via
+    #   -r requirements/requirements_dev.txt
+    #   awscli
+    #   boto3
+    #   s3transfer
+    #   wandb
+cachetools==6.2.6
+    # via
+    #   dspy
+    #   mlflow-skinny
+catboost==1.2.10
+    # via -r requirements/requirements_dev.txt
+certifi==2026.1.4
+    # via
+    #   httpcore
+    #   httpx
+    #   kubernetes
+    #   kubernetes-asyncio
+    #   requests
+    #   sentry-sdk
+cffi==2.0.0
+    # via
+    #   argon2-cffi-bindings
+    #   cryptography
+    #   soundfile
+chardet==5.2.0
+    # via wandb
+charset-normalizer==3.4.4
+    # via requests
+click==8.1.8
+    # via
+    #   -r requirements/requirements_dev.txt
+    #   ariadne-codegen
+    #   black
+    #   flask
+    #   litellm
+    #   mlflow-skinny
+    #   ray
+    #   uvicorn
+    #   wandb
+cloudpickle==3.1.2
+    # via
+    #   -r requirements/requirements_dev.txt
+    #   gymnasium
+    #   mlflow-skinny
+    #   stable-baselines3
+colorama==0.4.6
+    # via awscli
+colorful==0.5.8
+    # via ray
+colorlog==6.10.1
+    # via optuna
+comm==0.2.3
+    # via
+    #   ipykernel
+    #   ipywidgets
+conto
+... [TRUNCATED]
+
+[requirements/requirements_dev.3.9.linux.txt]
+# This file was autogenerated by uv via the following command:
+#    uv pip compile --python-version 3.9 --python-platform linux requirements/requirements_dev.txt -o requirements/requirements_dev.3.9.linux.txt
+absl-py==2.3.1
+    # via
+    #   keras
+    #   tensorboard
+    #   tensorflow
+aiohappyeyeballs==2.6.1
+    # via aiohttp
+aiohttp==3.13.3
+    # via
+    #   aiohttp-cors
+    #   datasets
+    #   fsspec
+    #   kubernetes-asyncio
+    #   litellm
+    #   ray
+aiohttp-cors==0.8.1
+    # via ray
+aiosignal==1.4.0
+    # via aiohttp
+alembic==1.16.5
+    # via
+    #   mlflow
+    #   optuna
+annotated-types==0.7.0
+    # via pydantic
+anyio==4.12.1
+    # via
+    #   asyncer
+    #   dspy
+    #   httpx
+    #   jupyter-server
+    #   openai
+    #   starlette
+    #   watchfiles
+argon2-cffi==25.1.0
+    # via jupyter-server
+argon2-cffi-bindings==25.1.0
+    # via argon2-cffi
+ariadne-codegen==0.16.0
+    # via -r requirements/requirements_dev.txt
+arrow==1.4.0
+    # via isoduration
+asttokens==3.0.1
+    # via stack-data
+astunparse==1.6.3
+    # via tensorflow
+async-lru==2.0.5
+    # via jupyterlab
+async-timeout==5.0.1
+    # via aiohttp
+asyncer==0.0.8
+    # via dspy
+attrs==25.4.0
+    # via
+    #   aiohttp
+    #   hypothesis
+    #   jsonschema
+    #   referencing
+autoflake==2.3.1
+    # via ariadne-codegen
+awscli==1.44.43
+    # via wandb
+azure-containerregistry==1.2.0
+    # via wandb
+azure-core==1.38.2
+    # via
+    #   azure-containerregistry
+    #   azure-identity
+    #   azure-storage-blob
+azure-identity==1.25.2
+    # via wandb
+azure-storage-blob==12.28.0
+    # via wandb
+babel==2.18.0
+    # via jupyterlab-server
+backoff==2.2.1
+    # via dspy
+backports-asyncio-runner==1.2.0
+    # via pytest-asyncio
+beautifulsoup4==4.14.3
+    # via nbconvert
+black==25.11.0
+    # via ariadne-codegen
+bleach==6.2.0
+    # via nbconvert
+blinker==1.9.0
+    # via flask
+bokeh==3.4.3
+    # via -r requirements/requirements_dev.txt
+boto3==1.42.53
+    # via
+    #   -r requirements/requirements_dev.txt
+    #   metaflow
+    #   wandb
+botocore==1.42.53
+    # via
+    #   -r requirements/requirements_dev.txt
+    #   awscli
+    #   boto3
+    #   s3transfer
+    #   wandb
+cachetools==6.2.6
+    # via
+    #   dspy
+    #   mlflow-skinny
+catboost==1.2.10
+    # via -r requirements/requirements_dev.txt
+certifi==2026.1.4
+    # via
+    #   httpcore
+    #   httpx
+    #   kubernetes
+    #   kubernetes-asyncio
+    #   requests
+    #   sentry-sdk
+cffi==2.0.0
+    # via
+    #   argon2-cffi-bindings
+    #   cryptography
+    #   soundfile
+chardet==5.2.0
+    # via wandb
+charset-normalizer==3.4.4
+    # via requests
+click==8.1.8
+    # via
+    #   -r requirements/requirements_dev.txt
+    #   ariadne-codegen
+    #   black
+    #   flask
+    #   litellm
+    #   mlflow-skinny
+    #   ray
+    #   uvicorn
+    #   wandb
+cloudpickle==3.1.2
+    # via
+    #   -r requirements/requirements_dev.txt
+    #   gymnasium
+    #   mlflow-skinny
+    #   stable-baselines3
+colorama==0.4.6
+    # via awscli
+colorful==0.5.8
+    # via ray
+colorlog==6.10.1
+
+... [TRUNCATED]
+
+[requirements/requirements_dev.3.9.windows.txt]
+# This file was autogenerated by uv via the following command:
+#    uv pip compile --python-version 3.9 --python-platform windows requirements/requirements_dev.txt -o requirements/requirements_dev.3.9.windows.txt
+absl-py==2.3.1
+    # via
+    #   keras
+    #   tensorboard
+    #   tensorflow
+aiohappyeyeballs==2.6.1
+    # via aiohttp
+aiohttp==3.13.3
+    # via
+    #   datasets
+    #   fsspec
+    #   kubernetes-asyncio
+    #   litellm
+aiosignal==1.4.0
+    # via aiohttp
+alembic==1.16.5
+    # via
+    #   mlflow
+    #   optuna
+annotated-types==0.7.0
+    # via pydantic
+anyio==4.12.1
+    # via
+    #   asyncer
+    #   dspy
+    #   httpx
+    #   jupyter-server
+    #   openai
+    #   starlette
+argon2-cffi==25.1.0
+    # via jupyter-server
+argon2-cffi-bindings==25.1.0
+    # via argon2-cffi
+ariadne-codegen==0.16.0
+    # via -r requirements/requirements_dev.txt
+arrow==1.4.0
+    # via isoduration
+asttokens==3.0.1
+    # via stack-data
+astunparse==1.6.3
+    # via tensorflow
+async-lru==2.0.5
+    # via jupyterlab
+async-timeout==5.0.1
+    # via aiohttp
+asyncer==0.0.8
+    # via dspy
+attrs==25.4.0
+    # via
+    #   aiohttp
+    #   hypothesis
+    #   jsonschema
+    #   referencing
+autoflake==2.3.1
+    # via ariadne-codegen
+awscli==1.44.43
+    # via
+    #   -r requirements/requirements_dev.txt
+    #   wandb
+azure-containerregistry==1.2.0
+    # via wandb
+azure-core==1.38.2
+    # via
+    #   azure-containerregistry
+    #   azure-identity
+    #   azure-storage-blob
+azure-identity==1.25.2
+    # via wandb
+azure-storage-blob==12.28.0
+    # via wandb
+babel==2.18.0
+    # via jupyterlab-server
+backoff==2.2.1
+    # via dspy
+backports-asyncio-runner==1.2.0
+    # via pytest-asyncio
+beautifulsoup4==4.14.3
+    # via nbconvert
+black==25.11.0
+    # via ariadne-codegen
+bleach==6.2.0
+    # via nbconvert
+blinker==1.9.0
+    # via flask
+bokeh==3.4.3
+    # via -r requirements/requirements_dev.txt
+boto3==1.42.53
+    # via
+    #   -r requirements/requirements_dev.txt
+    #   metaflow
+    #   wandb
+botocore==1.42.53
+    # via
+    #   -r requirements/requirements_dev.txt
+    #   awscli
+    #   boto3
+    #   s3transfer
+    #   wandb
+cachetools==6.2.6
+    # via
+    #   dspy
+    #   mlflow-skinny
+catboost==1.2.10
+    # via -r requirements/requirements_dev.txt
+certifi==2026.1.4
+    # via
+    #   httpcore
+    #   httpx
+    #   kubernetes
+    #   kubernetes-asyncio
+    #   requests
+    #   sentry-sdk
+cffi==2.0.0
+    # via
+    #   argon2-cffi-bindings
+    #   cryptography
+    #   soundfile
+chardet==5.2.0
+    # via wandb
+charset-normalizer==3.4.4
+    # via requests
+click==8.1.8
+    # via
+    #   -r requirements/requirements_dev.txt
+    #   ariadne-codegen
+    #   black
+    #   flask
+    #   litellm
+    #   mlflow-skinny
+    #   uvicorn
+    #   wandb
+cloudpickle==3.1.2
+    # via
+    #   -r requirements/requirements_dev.txt
+    #   gymnasium
+    #   mlflow-skinny
+    #   stable-baselines3
+colorama==0.4.6
+    # via
+    #   awscli
+    #   click
+    #   colorlog
+    #   ipython
+    #   pytest
+    #   tqdm
+color
+... [TRUNCATED]
+
+[requirements/requirements_dev.txt]
+-r requirements_test.txt
+
+cloudpickle
+click
+filelock
+pydantic
+
+# For Pydantic to work with modern type annotations in older Pythons:
+eval-type-backport; python_version < '3.10'
+
+Pillow
+polars
+# Version 2.0.0 removes moviepy.editor, used by TensorBoard in some tests
+# to log videos.
+moviepy~=1.0
+imageio[ffmpeg]
+matplotlib
+soundfile
+rdkit
+plotly
+bokeh
+
+tqdm
+tenacity
+
+ipython
+jupyter
+ipykernel
+nbclient
+
+tensorflow~=2.20; sys_platform != 'darwin'
+numpy<2.4.0  # tensorflow==2.20.0 uses deprecated args removed in numpy==2.4.0
+
+scikit-learn
+torch
+torchvision
+jax[cpu]
+lightning
+# As of 2025/10/08, ray wheels for python>=3.13 are not available for Windows.
+ray[air,tune]; sys_platform != 'win32'
+
+pyarrow
+metaflow
+xgboost
+lightgbm
+mlflow
+urllib3
+docker
+catboost
+openai
+gymnasium
+stable_baselines3
+dspy
+
+requests
+responses
+prometheus_client
+google-cloud-aiplatform
+
+# See:
+# - https://github.com/boto/botocore/pull/1107
+# - https://github.com/boto/botocore/pull/1230
+boto3
+botocore>=1.5.76
+
+# `ariadne-codegen` is a dev-only dependency used for GraphQL codegen.
+ariadne-codegen
+
+.[perf]
+awscli; sys_platform == 'win32'
+.[launch]
+.[sweeps] ; sys_platform != 'darwin' or (sys_platform == 'darwin' and platform.machine != 'arm64')
+.[azure]
+
+
+[requirements/requirements_test.txt]
+pytest~=8.4
+pytest-asyncio~=1.2.0
+pytest-cov~=7.0
+pytest-xdist~=3.8
+pytest-split~=0.10.0
+pytest-mock~=3.15
+pytest-timeout~=2.4
+pytest-flakefinder~=1.1
+pyfakefs~=5.9
+parameterized~=0.9.0
+
+flask~=2.2
+fastapi~=0.115.3
+httpx~=0.27.0
+responses~=0.23.3
+uvicorn~=0.32.0
+
+pandas~=2.3; python_version >= '3.11'
+numpy~=2.3; python_version >= '3.11'
+pandas~=1.3; python_version < '3.11'
+numpy~=1.24; python_version < '3.11'
+
+coverage[toml]~=7.10
+
+pyte~=0.8.1  # Terminal emulator for testing interactions with the terminal.
+
+# Avoids:
+# - perf issues introduced in v6.131.1 but fixed in follow-up patches
+# - unlikely but possible race condition, fixed in v6.131.3 (https://github.com/HypothesisWorks/hypothesis/pull/4363)
+hypothesis>=6.131.7
+
+hypothesis-fspaths
+
+
+[wandb/vendor/gql-0.2.0/dev_requirements.txt]
+pytest>=3,<4
+pytest-cov>=2.8,<3
+coveralls>=1.8,<2
+flake8>=3.7,<4
+mock>=3,<4
+vcrpy>=2.1,<3
+
+
+--- ML CONFIG FILES ---
+(No ML config files found)
+
+--- JUPYTER NOTEBOOKS ---
+  tests/assets/notebooks/api_run_display.ipynb
+  tests/assets/notebooks/code_saving.ipynb
+  tests/assets/notebooks/init_finishes_previous.ipynb
+  tests/assets/notebooks/login_timeout.ipynb
+  tests/assets/notebooks/magic.ipynb
+  tests/assets/notebooks/one_cell.ipynb
+  tests/assets/notebooks/one_cell_disable_git.ipynb
+  tests/assets/notebooks/one_cell_set_git.ipynb
+
+--- MODEL / TRAINING FILES ---
+  tests/assets/scripts/eval.py
+  tests/assets/scripts/train.py
+  tools/perf/scripts/bench_run_log.py
+  wandb/automations/_filters/run_metrics.py
+  wandb/automations/_filters/run_states.py
+  wandb/data_types.py
+  wandb/integration/keras/callbacks/model_checkpoint.py
+  wandb/integration/metaflow/data_pandas.py
+  wandb/integration/metaflow/data_pytorch.py
+  wandb/integration/metaflow/data_sklearn.py
+
+--- DIRECTORY STRUCTURE (depth 2) ---
+├── .bumpversion.cfg
+├── .circleci/
+│   └── config.yml
+├── .clang-format
+├── .codecov.yml
+├── .git-blame-ignore-revs
+├── .gitattributes
+├── .github/
+│   ├── CODEOWNERS
+│   ├── ISSUE_TEMPLATE/
+│   │   ├── app-bug.yml
+│   │   ├── feature-request.yml
+│   │   ├── question.yml
+│   │   └── sdk-bug.yml
+│   ├── dependabot.yml
+│   ├── pull_request_template.md
+│   ├── scripts/
+│   │   └── validate-docs-coverage.js
+│   └── workflows/
+│       ├── build-launch-agent.yml
+│       ├── check-pr-title.yml
+│       ├── codeql-analysis.yml
+│       ├── generate-analytics-pr.yml
+│       ├── generate-docodile-documentation.yml
+│       ├── pre-commit.yml
+│       ├── regenerate-requirements.yml
+│       ├── release-launch-agent.yml
+│       ├── release-sdk.yml
+│       ├── rust.yml
+│       └── validate-docs-pr.yml
+├── .gitignore
+├── .pre-commit-config.yaml
+├── .vscode/
+│   └── settings.json
+├── BREAKING.md
+├── CHANGELOG.md
+├── CHANGELOG.unreleased.md
+├── CODE_OF_CONDUCT.md
+├── CONTRIBUTING.md
+├── LICENSE
+├── README.md
+├── SECURITY.md
+├── assets/
+│   └── logo.svg
+├── core/
+│   ├── .gitignore
+│   ├── .golangci.yml
+│   ├── LICENSE
+│   ├── api/
+│   │   ├── graphql/
+│   │   └── proto/
+│   ├── cmd/
+│   │   ├── generate_gql/
+│   │   └── wandb-core/
+│   ├── core.go
+│   ├── go.mod
+│   ├── go.sum
+│   ├── hatch.py
+│   ├── internal/
+│   │   ├── api/
+│   │   ├── apitest/
+│   │   ├── clients/
+│   │   ├── corelib/
+│   │   ├── data_types/
+│   │   ├── featurechecker/
+│   │   ├── filestream/
+│   │   ├── filestreamtest/
+│   │   ├── filetransfer/
+│   │   ├── filetransfertest/
+│   │   ├── fileutil/
+│   │   ├── gitops/
+│   │   ├── gql/
+│   │   ├── gqlmock/
+│   │   ├── hashencode/
+│   │   ├── httplayers/
+│   │   ├── httplayerstest/
+│   │   ├── leet/
+│   │   ├── mailbox/
+│   │   ├── monitor/
+│   │   ├── namedgoroutines/
+│   │   ├── nullify/
+│   │   ├── observability/
+│   │   ├── observabilitytest/
+│   │   ├── paths/
+│   │   ├── pathtree/
+│   │   ├── pfxout/
+│   │   ├── pprof/
+│   │   ├── processlib/
+│   │   ├── randomid/
+│   │   ├── runbranch/
+│   │   ├── runconfig/
+│   │   ├── runconsolelogs/
+│   │   ├── runenvironment/
+│   │   ├── runfiles/
+│   │   ├── runfilestest/
+│   │   ├── runhandle/
+│   │   ├── runhistory/
+│   │   ├── runhistoryreader/
+│   │   ├── runmetric/
+│   │   ├── runsummary/
+│   │   ├── runsync/
+│   │   ├── runupserter/
+│   │   ├── runupsertertest/
+│   │   ├── runwork/
+│   │   ├── runworktest/
+│   │   ├── sampler/
+│   │   ├── settings/
+│   │   ├── sharedmode/
+│   │   ├── sparselist/
+│   │   ├── stream/
+│   │   ├── streamtest/
+│   │   ├── tensorboard/
+│   │   ├── terminalemulator/
+│   │   ├── timer/
+│   │   ├── transactionlog/
+│   │   ├── transactionlogtest/
+│   │   ├── version/
+│   │   ├── watcher/
+│   │   ├── watchertest/
+│   │   ├── wbapi/
+│   │   ├── wboperation/
+│   │   └── wbvalue/
+│   ├── pkg/
+│   │   ├── artifacts/
+│   │   ├── launch/
+│   │   ├── leveldb/
+│   │   ├── server/
+│   │   └── service_go_proto/
+│   ├── scripts/
+│   │   └── pre-commit-hooks/
+│   ├── tests/
+│   │   └── files/
+│   ├── tools.go
+│   └── vendor/
+│       ├── cel.dev/
+│       ├── cloud.google.com/
+│       ├── dario.cat/
+│       ├── github.com/
+│       ├── go.opentelemetry.io/
+│       ├── go.uber.org/
+│       ├── go.yaml.in/
+│       ├── gocloud.dev/
+│       ├── golang.org/
+│       ├── google.golang.org/
+│       ├── gopkg.in/
+│       └── modules.txt
+├── experimental/
+│   ├── client-csharp/
+│   │   ├── .gitignore
+│   │   ├── README.md
+│   │   ├── build.sh
+│   │   ├── examples/
+│   │   ├── src/
+│   │   └── tests/
+│   ├── go-sdk/
+│   │   ├── bindings/
+│   │   ├── cmd/
+│   │   ├── go.mod
+│   │   ├── go.sum
+│   │   ├── gowandb.go
+│   │   ├── internal/
+│   │   ├── pkg/
+│   │   └── scripts/
+│   └── rust-sdk/
+│       ├── .gitignore
+│       ├── Cargo.lock
+│       ├── Cargo.toml
+│       ├── README.md
+│       ├── build.rs
+│       ├── examples/
+│       └── src/
+├── gpu_stats/
+│   ├── Cargo.lock
+│   ├── Cargo.toml
+│   ├── hatch.py
+│   ├── src/
+│   │   ├── analytics.rs
+│   │   ├── gpu_amd.rs
+│   │   ├── gpu_apple.rs
+│   │   ├── gpu_apple_sources.rs
+│   │   ├── gpu_nvidia.rs
+│   │   ├── gpu_nvidia_dcgm.rs
+│   │   ├── main.rs
+│   │   ├── metrics.rs
+│   │   ├── monitors.rs
+│   │   └── wandb_internal.rs
+│   └── tools/
+│       ├── build_proto.rs
+│       └── generate-proto.sh
+├── hatch.toml
+├── hatch_build.py
+├── noxfile.py
+├── package_readme.md
+├── pyproject.toml
+├── requirements/
+│   ├── README.md
+│   ├── generate.sh
+│   ├── requirements_dev.3.13.darwin.txt
+│   ├── requirements_dev.3.13.linux.txt
+│   ├── requirements_dev.3.13.windows.txt
+│   ├── requirements_dev.3.9.darwin.txt
+│   ├── requirements_dev.3.9.linux.txt
+│   ├── requirements_dev.3.9.windows.txt
+│   ├── requirements_dev.txt
+│   └── requirements_test.txt
+├── tests/
+│   ├── __init__.py
+│   ├── assets/
+│   │   ├── 2x2.png
+│   │   ├── Box.gltf
+│   │   ├── cube.obj
+│   │   ├── events.out.tfevents.1585769947.cvp
+│   │   ├── events.out.tfevents.1611911647.big-histos
+│   │   ├── launch_k8s_config.yaml
+│   │   ├── notebooks/
+│   │   ├── point_cloud.pts.json
+│   │   ├── scripts/
+│   │   ├── ssl_certs/
+│   │   ├── test.png
+│   │   ├── test2.png
+│   │   ├── test_mod.py
+│   │   ├── wandb/
+│   │   └── wandb_tensorflow_summary.pb
+│   ├── conftest.py
+│   ├── fixtures/
+│   │   ├── emulated_terminal.py
+│   │   ├── mock_wandb_log.py
+│   │   └── wandb_backend_spy/
+│   ├── ruff.toml
+│   ├── system_tests/
+│   │   ├── __init__.py
+│   │   ├── backend_fixtures.py
+│   │   ├── conftest.py
+│   │   ├── test_api/
+│   │   ├── test_artifacts/
+│   │   ├── test_automations/
+│   │   ├── test_core/
+│   │   ├── test_experimental/
+│   │   ├── test_functional/
+│   │   ├── test_importers/
+│   │   ├── test_launch/
+│   │   ├── test_notebooks/
+│   │   ├── test_plot.py
+│   │   ├── test_registries/
+│   │   ├── test_sweep/
+│   │   └── test_system_metrics/
+│   └── unit_tests/
+│       ├── __init__.py
+│       ├── conftest.py
+│       ├── test_analytics/
+│       ├── test_api_utils.py
+│       ├── test_artifacts/
+│       ├── test_asyncio_compat.py
+│       ├── test_asyncio_manager.py
+│       ├── test_autolog_patch_integration.py
+│       ├── test_automations/
+│       ├── test_cli.py
+│       ├── test_data_types.py
+│       ├── test_data_types_box3d.py
+│       ├── test_datastore.py
+│       ├── test_dir_watcher.py
+│       ├── test_docker.py
+│       ├── test_dtypes.py
+│       ├── test_error_util.py
+│       ├── test_file/
+│       ├── test_file_stats.py
+│       ├── test_file_stream.py
+│       ├── test_handler.py
+│       ├── test_import_wandb.py
+│       ├── test_importers/
+│       ├── test_internal_api.py
+│       ├── test_iterutils.py
+│       ├── test_job_builder.py
+│       ├── test_launch/
+│       ├── test_lib/
+│       ├── test_library_public.py
+│       ├── test_mailbox.py
+│       ├── test_media/
+│       ├── test_metaflow.py
+│       ├── test_mode_disabled.py
+│       ├── test_monkeypatch_keras.py
+│       ├── test_normalize.py
+│       ├── test_plot.py
+│       ├── test_profiler.py
+│       ├── test_public_api/
+│       ├── test_pydantic_v1_compat.py
+│       ├── test_registries/
+│       ├── test_reports.py
+│       ├── test_require_helpers.py
+│       ├── test_require_user.py
+│       ├── test_retry.py
+│       ├── test_run_moment.py
+│       ├── test_sagemaker_config_parse.py
+│       ├── test_sample.py
+│       ├── test_sender.py
+│       ├── test_sender_config.py
+│       ├── test_ssl.py
+│       ├── test_step_prepare.py
+│       ├── test_step_upload.py
+│       ├── test_tables.py
+│       ├── test_term.py
+│       ├── test_torch.py
+│       ├── test_trace_tree.py
+│       ├── test_util.py
+│       ├── test_wait_with_progress.py
+│       ├── test_wandb_agent_signals.py
+│       ├── test_wandb_config.py
+│       ├── test_wandb_define_metric.py
+│       ├── test_wandb_init.py
+│       ├── test_wandb_log.py
+│       ├── test_wandb_login.py
+│       ├── test_wandb_run.py
+│       ├── test_wandb_save.py
+│       ├── test_wandb_settings.py
+│       ├── test_wandb_summary.py
+│       ├── test_wandb_verify.py
+│       ├── test_wb_logging.py
+│       ├── test_weave.py
+│       └── test_weave_integration.py
+├── tools/
+│   ├── bench/
+│   │   ├── _load_profiles.py
+│   │   ├── _timing.py
+│   │   ├── bench.md
+│   │   └── bench.py
+│   ├── changelog.py
+│   ├── cloud_tool.py
+│   ├── generate-tool.py
+│   ├── generate_stubs.py
+│   ├── graphql_codegen/
+│   │   ├── README.md
+│   │   ├── __init__.py
+│   │   ├── api/
+│   │   ├── artifacts/
+│   │   ├── automations/
+│   │   ├── generate-graphql.sh
+│   │   ├── plugin.py
+│   │   ├── plugin_utils.py
+│   │   ├── ruff.toml
+│   │   └── utils/
+│   ├── inspect_tool.py
+│   ├── launch_release/
+│   │   ├── build/
+│   │   └── release/
+│   ├── local_wandb_server.py
+│   ├── perf/
+│   │   ├── Dockerfile
+│   │   ├── README.md
+│   │   └── scripts/
+│   ├── ruff.toml
+│   ├── telemetry-tool.py
+│   └── wandb_export_history.py
+└── wandb/
+    ├── .gitignore
+    ├── __init__.py
+    ├── __init__.pyi
+    ├── __init__.template.pyi
+    ├── __main__.py
+    ├── _analytics.py
+    ├── _iterutils.py
+    ├── _pydantic/
+    │   ├── __init__.py
+    │   ├── base.py
+    │   ├── field_types.py
+    │   ├── pagination.py
+    │   ├── utils.py
+    │   └── v1_compat.py
+    ├── _strutils.py
+    ├── agents/
+    │   ├── __init__.py
+    │   └── pyagent.py
+    ├── analytics/
+    │   ├── __init__.py
+    │   └── sentry.py
+    ├── apis/
+    │   ├── __init__.py
+    │   ├── _generated/
+    │   ├── attrs.py
+    │   ├── importers/
+    │   ├── internal.py
+    │   ├── normalize.py
+    │   ├── paginator.py
+    │   ├── public/
+    │   ├── reports/
+    │   └── workspaces/
+    ├── automations/
+    │   ├── __init__.py
+    │   ├── _filters/
+    │   ├── _generated/
+    │   ├── _utils.py
+    │   ├── _validators.py
+    │   ├── actions.py
+    │   ├── automations.py
+    │   ├── events.py
+    │   ├── integrations.py
+    │   └── scopes.py
+    ├── cli/
+    │   ├── __init__.py
+    │   ├── beta.py
+    │   ├── beta_leet.py
+    │   ├── beta_sync.py
+    │   └── cli.py
+    ├── data_types.py
+    ├── docker/
+    │   ├── __init__.py
+    │   ├── names.py
+    │   └── wandb-entrypoint.sh
+    ├── env.py
+    ├── errors/
+    │   ├── __init__.py
+    │   ├── errors.py
+    │   ├── links.py
+    │   ├── term.py
+    │   ├── util.py
+    │   └── warnings.py
+    ├── filesync/
+    │   ├── __init__.py
+    │   ├── dir_watcher.py
+    │   ├── stats.py
+    │   ├── step_checksum.py
+    │   ├── step_prepare.py
+    │   ├── step_upload.py
+    │   └── upload_job.py
+    ├── integration/
+    │   ├── __init__.py
+    │   ├── catboost/
+    │   ├── cohere/
+    │   ├── diffusers/
+    │   ├── dspy/
+    │   ├── fastai/
+    │   ├── gym/
+    │   ├── huggingface/
+    │   ├── keras/
+    │   ├── kfp/
+    │   ├── langchain/
+    │   ├── lightgbm/
+    │   ├── lightning/
+    │   ├── metaflow/
+    │   ├── openai/
+    │   ├── prodigy/
+    │   ├── sacred/
+    │   ├── sagemaker/
+    │   ├── sb3/
+    │   ├── sklearn/
+    │   ├── tensorboard/
+    │   ├── tensorflow/
+    │   ├── torch/
+    │   ├── ultralytics/
+    │   ├── weave/
+    │   ├── xgboost/
+    │   └── yolov8/
+    ├── jupyter.py
+    ├── mpmain/
+    │   ├── __init__.py
+    │   └── __main__.py
+    ├── old/
+    │   ├── README.md
+    │   ├── __init__.py
+    │   ├── core.py
+    │   └── summary.py
+    ├── plot/
+    │   ├── __init__.py
+    │   ├── bar.py
+    │   ├── confusion_matrix.py
+    │   ├── custom_chart.py
+    │   ├── histogram.py
+    │   ├── line.py
+    │   ├── line_series.py
+    │   ├── pr_curve.py
+    │   ├── roc_curve.py
+    │   ├── scatter.py
+    │   ├── utils.py
+    │   └── viz.py
+    ├── proto/
+    │   ├── __init__.py
+    │   ├── v4/
+    │   ├── v5/
+    │   ├── v6/
+    │   ├── wandb_api.proto
+    │   ├── wandb_api_pb2.py
+    │   ├── wandb_base.proto
+    │   ├── wandb_base_pb2.py
+    │   ├── wandb_generate_proto.py
+    │   ├── wandb_internal.proto
+    │   ├── wandb_internal_pb2.py
+    │   ├── wandb_server.proto
+    │   ├── wandb_server_pb2.py
+    │   ├── wandb_settings.proto
+    │   ├── wandb_settings_pb2.py
+    │   ├── wandb_sync.proto
+    │   ├── wandb_sync_pb2.py
+    │   ├── wandb_system_monitor.proto
+    │   ├── wandb_telemetry.proto
+    │   └── wandb_telemetry_pb2.py
+    ├── py.typed
+    ├── sdk/
+    │   ├── __init__.py
+    │   ├── artifacts/
+    │   ├── backend/
+    │   ├── data_types/
+    │   ├── integration_utils/
+    │   ├── interface/
+    │   ├── internal/
+    │   ├── launch/
+    │   ├── lib/
+    │   ├── mailbox/
+    │   ├── verify/
+    │   ├── wandb_alerts.py
+    │   ├── wandb_config.py
+    │   ├── wandb_helper.py
+    │   ├── wandb_init.py
+    │   ├── wandb_login.py
+    │   ├── wandb_metric.py
+    │   ├── wandb_require.py
+    │   ├── wandb_require_helpers.py
+    │   ├── wandb_run.py
+    │   ├── wandb_settings.py
+    │   ├── wandb_setup.py
+    │   ├── wandb_summary.py
+    │   ├── wandb_sweep.py
+    │   └── wandb_watch.py
+    ├── sklearn.py
+    ├── sync/
+    │   ├── __init__.py
+    │   └── sync.py
+    ├── trigger.py
+    ├── util.py
+    ├── vendor/
+    │   ├── __init__.py
+    │   ├── gql-0.2.0/
+    │   ├── graphql-core-1.1/
+    │   ├── promise-2.3.0/
+    │   ├── pygments/
+    │   └── watchdog_0_9_0/
+    ├── wandb_agent.py
+    ├── wandb_controller.py
+    └── wandb_run.py

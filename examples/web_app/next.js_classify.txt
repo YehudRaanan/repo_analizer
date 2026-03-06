@@ -1,0 +1,70 @@
+=====================================
+REPO CLASSIFICATION SIGNALS
+=====================================
+
+--- METADATA ---
+Name: next.js
+Description: The React Framework
+Primary language: JavaScript
+Topics: blog, browser, compiler, components, hybrid, nextjs, node, react, server-rendering, ssg, static, static-site-generator, universal, vercel
+
+--- ROOT FILES (signal matches) ---
+Web App:     (none)
+Backend:     (none)
+Library:     Cargo.toml, package.json
+CLI:         (none)
+Data/ML:     (none)
+Infra:       (none)
+
+--- TOP-LEVEL DIRECTORIES (signal matches) ---
+Web App:     (none)
+Backend:     (none)
+Library:     docs, examples, test
+CLI:         (none)
+Data/ML:     (none)
+Infra:       (none)
+
+--- ALL TOP-LEVEL DIRECTORIES ---
+.agents, .cargo, .claude, .claude-plugin, .conductor, .config, .cursor, .devcontainer, .github, .husky, .vscode, apps, bench, contributing, crates, docs, errors, examples, packages, patches, rspack, scripts, test, test-config-errors, turbo, turbopack
+
+--- TYPE-SPECIFIC EXTENSION COUNTS ---
+Web App extensions (.tsx, .jsx, .vue, .svelte): 5416
+Data/ML extensions (.ipynb): 0
+Infra extensions (.tf, .hcl): 0
+Backend extensions (.proto, .graphql): 5
+
+--- TOP FILE EXTENSIONS (by count) ---
+  .js: 9982
+  .tsx: 5176
+  .ts: 4553
+  .json: 1423
+  .rs: 963
+  .css: 657
+  .mdx: 640
+  .md: 449
+  .gitignore: 341
+  .snapshot: 285
+  .png: 275
+  .map: 270
+  .jsx: 240
+  .mjs: 228
+  .txt: 224
+
+--- BOOLEAN PATTERN CHECKS ---
+  pages or app dir: no
+  components dir: no
+  cmd or bin dir: no
+  src bin: no
+  run train scripts: no
+  ipynb files: no
+  model training files: no
+  tf files: no
+  k8s manifests: no
+  ansible playbooks: no
+  route controller dirs: no
+  db migrations: yes
+  openapi spec: no
+  src and tests: no
+  examples dir: yes
+  dockerfile: no
+  ci cd: yes

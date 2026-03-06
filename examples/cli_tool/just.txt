@@ -1,0 +1,606 @@
+=====================================
+Repository Analysis: just
+Type: CLI Tool
+=====================================
+
+--- METADATA ---
+Name: just
+Description: 🤖 Just a command runner
+Language: Rust
+Topics: N/A
+Stars: 31856
+License: Creative Commons Zero v1.0 Universal
+
+--- README ---
+<div align=right>Table of Contents↗️</div>
+
+<h1 align=center><code>just</code></h1>
+
+<div align=center>
+  <a href=https://crates.io/crates/just>
+    <img src=https://img.shields.io/crates/v/just.svg alt="crates.io version">
+  </a>
+  <a href=https://github.com/casey/just/actions/workflows/ci.yaml>
+    <img src=https://github.com/casey/just/actions/workflows/ci.yaml/badge.svg alt="build status">
+  </a>
+  <a href=https://github.com/casey/just/releases>
+    <img src=https://img.shields.io/github/downloads/casey/just/total.svg alt=downloads>
+  </a>
+  <a href=https://discord.gg/ezYScXR>
+    <img src=https://img.shields.io/discord/695580069837406228?logo=discord alt="chat on discord">
+  </a>
+  <a href=mailto:casey@rodarmor.com?subject=Thanks%20for%20Just!>
+    <img src=https://img.shields.io/badge/Say%20Thanks-!-1EAEDB.svg alt="say thanks">
+  </a>
+</div>
+<br>
+
+`just` is a handy way to save and run project-specific commands.
+
+This readme is also available as a [book](https://just.systems/man/en/). The
+book reflects the latest release, whereas the
+[readme on GitHub](https://github.com/casey/just/blob/master/README.md)
+reflects latest master.
+
+(中文文档在 [这里](https://github.com/casey/just/blob/master/README.中文.md),
+快看过来!)
+
+Commands, called recipes, are stored in a file called `justfile` with syntax
+inspired by `make`:
+
+![screenshot](https://raw.githubusercontent.com/casey/just/master/screenshot.png)
+
+You can then run them with `just RECIPE`:
+
+```console
+$ just test-all
+cc *.c -o main
+./test --all
+Yay, all your tests passed!
+```
+
+`just` has a ton of useful features, and many improvements over `make`:
+
+- `just` is a command runner, not a build system, so it avoids much of
+  [`make`'s complexity and idiosyncrasies](#what-are-the-idiosyncrasies-of-make-that-just-avoids).
+  No need for `.PHONY` recipes!
+
+- Linux, MacOS, Windows, and other reasonable unices are supported with no
+  additional dependencies. (Although if your system doesn't have an `sh`,
+  you'll need to [choose a different shell](#shell).)
+
+- Errors are specific and informative, and syntax errors are reported along
+  with their source context.
+
+- Recipes can accept [command line arguments](#recipe-parameters).
+
+- Wherever possible, errors are resolved statically. Unknown recipes and
+  circular dependencies are reported before anything runs.
+
+- `just` [loads `.env` files](#dotenv-settings), making it easy to populate
+  environment variables.
+
+- Recipes can be [listed from the command line](#listing-available-recipes).
+
+- Command line completion scripts are
+  [available for most popular shells](#shell-completion-scripts).
+
+- Recipes can be written in
+  [arbitrary languages](#shebang-recipes), like Python or NodeJS.
+
+- `just` can be invoked from any subdirectory, not just the directory that
+  contains the `justfile`.
+
+- And [much more](https://just.systems/man/en/)!
+
+If you need help with `just` please feel free to open an issue or ping me on
+[Discord](https://discord.gg/ezYScXR). Feature requests and bug reports are
+always welcome!
+
+Installation
+------------
+
+### Prerequisites
+
+`just` should run on any system with a reasonable `sh`, including Linux, MacOS,
+and the BSDs.
+
+#### Windows
+
+On Windows, `just` works with the `sh` provided by
+[Git for Windows](https://git-scm.com),
+[GitHub Desktop](https://desktop.github.com), or
+[Cygwin](http://www.cygwin.com). After installation, `sh` must be available in
+the `PATH` of the shell you want to invoke `just` from.
+
+If you'd rather not install `sh`, you can use the `shell` setting to use the
+shell of your choice.
+
+Like PowerShell:
+
+```just
+# use PowerShell instead of sh:
+set shell := ["powershell.exe", "-c"]
+
+hello:
+  Write-Host "Hello, world!"
+```
+
+…or `cmd.exe`:
+
+```just
+# use cmd.exe instead of sh:
+set shell := ["cmd.exe", "/c"]
+
+list:
+  dir
+```
+
+You can also set the shell using command-line arguments. For example, to use
+PowerShell, launch `just` with `--shell powershell.exe --shell-arg -c`.
+
+(PowerShell is installed by default on Windows 7 SP1 and Windows Server 2008 R2
+S1 and later, and `cmd.exe` is quite fiddly, so PowerShell is recommended for
+most Windows users.)
+
+### Packages
+
+#### Cross-platform
+
+<table>
+  <thead>
+    <tr>
+      <th>Package Manager</th>
+      <th>Package</th>
+      <th>Command</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><a href=https://github.com/alexellis/arkade>arkade</a></td>
+      <td>just</td>
+      <td><code>arkade get just</code></td>
+    </tr>
+    <tr>
+      <td><a href=https://asdf-vm.com>asdf</a></td>
+      <td><a href=https://github.com/olofvndrhr/asdf-just>just</a></td>
+      <td>
+        <code>asdf plugin add just</code><br>
+        <code>asdf install just &lt;version&gt;</code>
+      </td>
+    </tr>
+    <tr>
+      <td><a href=https://www.rust-lang.org>Cargo</a></td>
+      <td><a href=https://crates.io/crates/just>just</a></td>
+      <td><code>cargo install just</code></td>
+    </tr>
+    <tr>
+      <td><a href=https://docs.conda.io/projects/conda/en/latest/index.html>Conda<
+... [TRUNCATED]
+
+--- PACKAGE MANIFEST(S) ---
+
+[Cargo.toml]
+[package]
+name = "just"
+version = "1.46.0"
+authors = ["Casey Rodarmor <casey@rodarmor.com>"]
+autotests = false
+categories = ["command-line-utilities", "development-tools"]
+description = "🤖 Just a command runner"
+edition = "2021"
+exclude = ["/book", "/icon.png", "/screenshot.png", "/www"]
+homepage = "https://github.com/casey/just"
+keywords = ["command-line", "task", "runner", "development", "utility"]
+license = "CC0-1.0"
+readme = "crates-io-readme.md"
+repository = "https://github.com/casey/just"
+rust-version = "1.82.0"
+
+[workspace]
+members = [".", "crates/*"]
+
+[dependencies]
+ansi_term = "0.12.0"
+blake3 = { version = "1.5.0", features = ["rayon", "mmap"] }
+camino = "1.0.4"
+chrono = "0.4.38"
+clap = { version = "4.0.0", features = ["derive", "env", "wrap_help"] }
+clap_mangen = "0.2.20"
+derive-where = "1.2.7"
+dirs = "6.0.0"
+dotenvy = "0.15"
+edit-distance = "2.0.0"
+heck = "0.5.0"
+is_executable = "1.0.4"
+lexiclean = "0.0.1"
+libc = "0.2.0"
+num_cpus = "1.15.0"
+percent-encoding = "2.3.1"
+rand = "0.9.0"
+regex = "1.10.4"
+rustversion = "1.0.18"
+semver = "1.0.20"
+serde = { version = "1.0.130", features = ["derive", "rc"] }
+serde_json = "1.0.68"
+sha2 = "0.10"
+shellexpand = "3.1.0"
+similar = { version = "2.1.0", features = ["unicode"] }
+snafu = "0.8.0"
+strum = { version = "0.27.1", features = ["derive"] }
+target = "2.0.0"
+tempfile = "3.0.0"
+typed-arena = "2.0.1"
+unicode-width = "0.2.0"
+uuid = { version = "1.0.0", features = ["v4"] }
+
+[target.'cfg(unix)'.dependencies]
+nix = { version = "0.30.1", features = ["signal", "user", "fs"] }
+
+[target.'cfg(windows)'.dependencies]
+ctrlc = { version = "3.1.1", features = ["termination"] }
+
+[dev-dependencies]
+clap_complete = "=4.5.48"
+pretty_assertions = "1.0.0"
+temptree = "0.2.0"
+which = "8.0.0"
+
+[lints.rust]
+mismatched_lifetime_syntaxes = "allow"
+unexpected_cfgs = { level = "warn", check-cfg = ['cfg(fuzzing)'] }
+unreachable_pub = "deny"
+
+[lints.clippy]
+all = { level = "deny", priority = -1 }
+arbitrary_source_item_ordering = "deny"
+enum_glob_use = "allow"
+ignore_without_reason = "allow"
+needless_pass_by_value = "allow"
+pedantic = { level = "deny", priority = -1 }
+similar_names = "allow"
+struct_excessive_bools = "allow"
+struct_field_names = "allow"
+too_many_arguments = "allow"
+too_many_lines = "allow"
+type_complexity = "allow"
+undocumented_unsafe_blocks = "deny"
+unnecessary_wraps = "allow"
+wildcard_imports = "allow"
+
+[lib]
+doctest = false
+
+[[bin]]
+path = "src/main.rs"
+name = "just"
+test = false
+
+# The public documentation is minimal and doesn't change between
+# platforms, so we only build them for linux on docs.rs to save
+# their build machines some cycles.
+[package.metadata.docs.rs]
+targets = ["x86_64-unknown-linux-gnu"]
+
+[profile.release]
+lto = true
+codegen-units = 1
+
+[[test]]
+name = "integration"
+path = "tests/lib.rs"
+
+
+--- CLI ENTRY POINTS / COMMAND DEFINITIONS ---
+
+[src/main.rs]
+fn main() {
+  if let Err(code) = just::run(std::env::args_os()) {
+    std::process::exit(code);
+  }
+}
+
+
+--- SHELL COMPLETIONS & MAN PAGES ---
+  completions/just.bash
+  completions/just.elvish
+  completions/just.fish
+  completions/just.nu
+  completions/just.powershell
+  completions/just.zsh
+  tests/completions/just.bash
+  tests/completions/justfile
+  tests/completions/subdir/justfile
+  www/man/en
+  www/man/zh
+
+--- DIRECTORY STRUCTURE (depth 2) ---
+├── .editorconfig
+├── .gitattributes
+├── .github/
+│   └── workflows/
+│       ├── ci.yaml
+│       └── release.yaml
+├── .gitignore
+├── CHANGELOG.md
+├── CONTRIBUTING.md
+├── Cargo.lock
+├── Cargo.toml
+├── GRAMMAR.md
+├── LICENSE
+├── README.md
+├── README.中文.md
+├── Vagrantfile
+├── bin/
+│   ├── forbid
+│   └── package
+├── book/
+│   ├── en/
+│   │   └── book.toml
+│   └── zh/
+│       └── book.toml
+├── build.rs
+├── clippy.toml
+├── completions/
+│   ├── just.bash
+│   ├── just.elvish
+│   ├── just.fish
+│   ├── just.nu
+│   ├── just.powershell
+│   └── just.zsh
+├── contrib/
+│   └── just.sh
+├── crates-io-readme.md
+├── crates/
+│   ├── generate-book/
+│   │   ├── Cargo.toml
+│   │   └── src/
+│   └── update-contributors/
+│       ├── Cargo.toml
+│       └── src/
+├── examples/
+│   ├── cross-platform.just
+│   ├── keybase.just
+│   ├── kitchen-sink.just
+│   ├── powershell.just
+│   ├── pre-commit.just
+│   └── screenshot.just
+├── fuzz/
+│   ├── Cargo.lock
+│   ├── Cargo.toml
+│   └── fuzz_targets/
+│       └── compile.rs
+├── icon.png
+├── justfile
+├── rustfmt.toml
+├── screenshot.png
+├── src/
+│   ├── alias.rs
+│   ├── alias_style.rs
+│   ├── analyzer.rs
+│   ├── arg_attribute.rs
+│   ├── assignment.rs
+│   ├── assignment_resolver.rs
+│   ├── ast.rs
+│   ├── attribute.rs
+│   ├── attribute_set.rs
+│   ├── binding.rs
+│   ├── color.rs
+│   ├── color_display.rs
+│   ├── command_color.rs
+│   ├── command_ext.rs
+│   ├── compilation.rs
+│   ├── compile_error.rs
+│   ├── compile_error_kind.rs
+│   ├── compiler.rs
+│   ├── completions.rs
+│   ├── condition.rs
+│   ├── conditional_operator.rs
+│   ├── config.rs
+│   ├── config_error.rs
+│   ├── const_error.rs
+│   ├── constants.rs
+│   ├── count.rs
+│   ├── delimiter.rs
+│   ├── dependency.rs
+│   ├── dump_format.rs
+│   ├── enclosure.rs
+│   ├── error.rs
+│   ├── evaluator.rs
+│   ├── execution_context.rs
+│   ├── executor.rs
+│   ├── expression.rs
+│   ├── filesystem.rs
+│   ├── format_string_part.rs
+│   ├── fragment.rs
+│   ├── function.rs
+│   ├── fuzzing.rs
+│   ├── interpreter.rs
+│   ├── invocation.rs
+│   ├── invocation_parser.rs
+│   ├── item.rs
+│   ├── justfile.rs
+│   ├── keyed.rs
+│   ├── keyword.rs
+│   ├── lexer.rs
+│   ├── lib.rs
+│   ├── line.rs
+│   ├── list.rs
+│   ├── load_dotenv.rs
+│   ├── loader.rs
+│   ├── main.rs
+│   ├── module_path.rs
+│   ├── name.rs
+│   ├── namepath.rs
+│   ├── node.rs
+│   ├── ordinal.rs
+│   ├── output_error.rs
+│   ├── parameter.rs
+│   ├── parameter_kind.rs
+│   ├── parser.rs
+│   ├── pattern.rs
+│   ├── platform.rs
+│   ├── platform/
+│   │   ├── unix.rs
+│   │   └── windows.rs
+│   ├── platform_interface.rs
+│   ├── position.rs
+│   ├── positional.rs
+│   ├── ran.rs
+│   ├── range_ext.rs
+│   ├── recipe.rs
+│   ├── recipe_resolver.rs
+│   ├── recipe_signature.rs
+│   ├── request.rs
+│   ├── run.rs
+│   ├── scope.rs
+│   ├── search.rs
+│   ├── search_config.rs
+│   ├── search_error.rs
+│   ├── set.rs
+│   ├── setting.rs
+│   ├── settings.rs
+│   ├── shebang.rs
+│   ├── show_whitespace.rs
+│   ├── signal.rs
+│   ├── signal_handler.rs
+│   ├── signals.rs
+│   ├── source.rs
+│   ├── string_delimiter.rs
+│   ├── string_kind.rs
+│   ├── string_literal.rs
+│   ├── string_state.rs
+│   ├── subcommand.rs
+│   ├── suggestion.rs
+│   ├── summary.rs
+│   ├── switch.rs
+│   ├── table.rs
+│   ├── testing.rs
+│   ├── thunk.rs
+│   ├── token.rs
+│   ├── token_kind.rs
+│   ├── tree.rs
+│   ├── unindent.rs
+│   ├── unresolved_dependency.rs
+│   ├── unresolved_recipe.rs
+│   ├── unstable_feature.rs
+│   ├── usage.rs
+│   ├── use_color.rs
+│   ├── variables.rs
+│   ├── verbosity.rs
+│   ├── warning.rs
+│   └── which.rs
+├── tests/
+│   ├── alias.rs
+│   ├── alias_style.rs
+│   ├── allow_duplicate_recipes.rs
+│   ├── allow_duplicate_variables.rs
+│   ├── allow_missing.rs
+│   ├── arg_attribute.rs
+│   ├── assert_stdout.rs
+│   ├── assert_success.rs
+│   ├── assertions.rs
+│   ├── assignment.rs
+│   ├── attributes.rs
+│   ├── backticks.rs
+│   ├── byte_order_mark.rs
+│   ├── ceiling.rs
+│   ├── changelog.rs
+│   ├── choose.rs
+│   ├── command.rs
+│   ├── completions.rs
+│   ├── completions/
+│   │   ├── just.bash
+│   │   ├── justfile
+│   │   └── subdir/
+│   ├── conditional.rs
+│   ├── confirm.rs
+│   ├── constants.rs
+│   ├── datetime.rs
+│   ├── default.rs
+│   ├── delimiters.rs
+│   ├── dependencies.rs
+│   ├── directories.rs
+│   ├── dotenv.rs
+│   ├── edit.rs
+│   ├── equals.rs
+│   ├── error_messages.rs
+│   ├── evaluate.rs
+│   ├── examples.rs
+│   ├── explain.rs
+│   ├── export.rs
+│   ├── fallback.rs
+│   ├── format.rs
+│   ├── format_string.rs
+│   ├── functions.rs
+│   ├── global.rs
+│   ├── groups.rs
+│   ├── ignore_comments.rs
+│   ├── imports.rs
+│   ├── init.rs
+│   ├── interpolation.rs
+│   ├── invocation_directory.rs
+│   ├── json.rs
+│   ├── lib.rs
+│   ├── line_prefixes.rs
+│   ├── list.rs
+│   ├── logical_operators.rs
+│   ├── man.rs
+│   ├── misc.rs
+│   ├── modules.rs
+│   ├── multibyte_char.rs
+│   ├── newline_escape.rs
+│   ├── no_aliases.rs
+│   ├── no_cd.rs
+│   ├── no_dependencies.rs
+│   ├── no_exit_message.rs
+│   ├── options.rs
+│   ├── os_attributes.rs
+│   ├── parallel.rs
+│   ├── parameters.rs
+│   ├── parser.rs
+│   ├── positional_arguments.rs
+│   ├── private.rs
+│   ├── quiet.rs
+│   ├── quote.rs
+│   ├── readme.rs
+│   ├── recursion_limit.rs
+│   ├── regexes.rs
+│   ├── request.rs
+│   ├── run.rs
+│   ├── scope.rs
+│   ├── script.rs
+│   ├── search.rs
+│   ├── search_arguments.rs
+│   ├── settings.rs
+│   ├── shadowing_parameters.rs
+│   ├── shebang.rs
+│   ├── shell.rs
+│   ├── shell_expansion.rs
+│   ├── show.rs
+│   ├── signals.rs
+│   ├── slash_operator.rs
+│   ├── string.rs
+│   ├── subsequents.rs
+│   ├── summary.rs
+│   ├── tempdir.rs
+│   ├── test.rs
+│   ├── timestamps.rs
+│   ├── undefined_variables.rs
+│   ├── unexport.rs
+│   ├── unstable.rs
+│   ├── usage.rs
+│   ├── which_function.rs
+│   ├── windows.rs
+│   ├── windows_shell.rs
+│   └── working_directory.rs
+└── www/
+    ├── .nojekyll
+    ├── CNAME
+    ├── favicon.ico
+    ├── index.css
+    ├── index.html
+    ├── install.sh
+    └── man/
+        ├── en
+        └── zh

@@ -1,0 +1,1009 @@
+=====================================
+Repository Analysis: twenty
+Type: Web Application
+=====================================
+
+--- METADATA ---
+Name: twenty
+Description: Building a modern alternative to Salesforce, powered by the community.
+Language: TypeScript
+Topics: crm, crm-system, customer, good-first-issue, graphql, hacktoberfest, javascript, marketing, monorepo, nestjs, open-source, postgresql, react, reactjs, sales, typescript, web
+Stars: 40251
+License: Other
+
+--- README ---
+<p align="center">
+  <a href="https://www.twenty.com">
+    <img src="./packages/twenty-website/public/images/core/logo.svg" width="100px" alt="Twenty logo" />
+  </a>
+</p>
+
+<h2 align="center" >The #1 Open-Source CRM </h2>
+
+<p align="center"><a href="https://twenty.com">🌐 Website</a> · <a href="https://docs.twenty.com">📚 Documentation</a> · <a href="https://github.com/orgs/twentyhq/projects/1"><img src="./packages/twenty-website/public/images/readme/planner-icon.svg" width="12" height="12"/> Roadmap </a> · <a href="https://discord.gg/cx5n4Jzs57"><img src="./packages/twenty-website/public/images/readme/discord-icon.svg" width="12" height="12"/> Discord</a> · <a href="https://www.figma.com/file/xt8O9mFeLl46C5InWwoMrN/Twenty"><img src="./packages/twenty-website/public/images/readme/figma-icon.png"  width="12" height="12"/>  Figma</a></p>
+<br />
+
+
+<p align="center">
+  <a href="https://www.twenty.com">
+    <picture>
+      <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/twentyhq/twenty/refs/heads/main/packages/twenty-website/public/images/readme/github-cover-dark.png" />
+      <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/twentyhq/twenty/refs/heads/main/packages/twenty-website/public/images/readme/github-cover-light.png" />
+      <img src="./packages/twenty-website/public/images/readme/github-cover-light.png" alt="Cover" />
+    </picture>
+  </a>
+</p>
+
+<br />
+
+# Installation
+
+See:
+🚀 [Self-hosting](https://docs.twenty.com/developers/self-hosting/docker-compose)
+🖥️ [Local Setup](https://docs.twenty.com/developers/local-setup)
+
+# Why Twenty
+
+We built Twenty for three reasons:
+
+**CRMs are too expensive, and users are trapped.** Companies use locked-in customer data to hike prices. It shouldn't be that way.
+
+**A fresh start is required to build a better experience.** We can learn from past mistakes and craft a cohesive experience inspired by new UX patterns from tools like Notion, Airtable or Linear.
+
+**We believe in Open-source and community.** Hundreds of developers are already building Twenty together. Once we have plugin capabilities, a whole ecosystem will grow around it.
+
+<br />
+
+# What You Can Do With Twenty
+
+Please feel free to flag any specific needs you have by creating an issue.
+
+Below are a few features we have implemented to date:
+
++ [Personalize layouts with filters, sort, group by, kanban and table views](#personalize-layouts-with-filters-sort-group-by-kanban-and-table-views)
++ [Customize your objects and fields](#customize-your-objects-and-fields)
++ [Create and manage permissions with custom roles](#create-and-manage-permissions-with-custom-roles)
++ [Automate workflow with triggers and actions](#automate-workflow-with-triggers-and-actions)
++ [Emails, calendar events, files, and more](#emails-calendar-events-files-and-more)
+
+
+## Personalize layouts with filters, sort, group by, kanban and table views
+
+<p align="center">
+    <picture>
+      <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/twentyhq/twenty/refs/heads/main/packages/twenty-website/public/images/readme/views-dark.png" />
+      <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/twentyhq/twenty/refs/heads/main/packages/twenty-website/public/images/readme/views-light.png" />
+      <img src="./packages/twenty-website/public/images/readme/views-light.png" alt="Companies Kanban Views" />
+    </picture>
+</p>
+
+## Customize your objects and fields
+
+<p align="center">
+    <picture>
+      <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/twentyhq/twenty/refs/heads/main/packages/twenty-website/public/images/readme/data-model-dark.png" />
+      <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/twentyhq/twenty/refs/heads/main/packages/twenty-website/public/images/readme/data-model-light.png" />
+      <img src="./packages/twenty-website/public/images/readme/data-model-light.png" alt="Setting Custom Objects" />
+    </picture>
+</p>
+
+## Create and manage permissions with custom roles
+
+<p align="center">
+    <picture>
+      <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/twentyhq/twenty/refs/heads/main/packages/twenty-website/public/images/readme/permissions-dark.png" />
+      <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/twentyhq/twenty/refs/heads/main/packages/twenty-website/public/images/readme/permissions-light.png" />
+      <img src="./packages/twenty-website/public/images/readme/permissions-light.png" alt="Permissions" />
+    </picture>
+</p>
+
+## Automate workflow with triggers and actions
+
+<p align="center">
+    <picture>
+      <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/twentyhq/twenty/refs/heads/main/packages/twenty-website/public/images/readme/workflows-dark.png" />
+      <source media="(prefers-color-schem
+... [TRUNCATED]
+
+--- PACKAGE MANIFEST(S) ---
+
+[package.json]
+{
+  "private": true,
+  "dependencies": {
+    "@apollo/client": "^3.7.17",
+    "@floating-ui/react": "^0.24.3",
+    "@linaria/core": "^6.2.0",
+    "@linaria/react": "^6.2.1",
+    "@radix-ui/colors": "^3.0.0",
+    "@sniptt/guards": "^0.2.0",
+    "@tabler/icons-react": "^3.31.0",
+    "@wyw-in-js/babel-preset": "^1.0.6",
+    "@wyw-in-js/vite": "^0.7.0",
+    "archiver": "^7.0.1",
+    "danger-plugin-todos": "^1.3.1",
+    "date-fns": "^2.30.0",
+    "date-fns-tz": "^2.0.0",
+    "deep-equal": "^2.2.2",
+    "file-type": "16.5.4",
+    "framer-motion": "^11.18.0",
+    "fuse.js": "^7.1.0",
+    "googleapis": "105",
+    "hex-rgb": "^5.0.0",
+    "immer": "^10.1.1",
+    "jotai": "^2.17.1",
+    "libphonenumber-js": "^1.10.26",
+    "lodash.camelcase": "^4.3.0",
+    "lodash.chunk": "^4.2.0",
+    "lodash.compact": "^3.0.1",
+    "lodash.escaperegexp": "^4.1.2",
+    "lodash.groupby": "^4.6.0",
+    "lodash.identity": "^3.0.0",
+    "lodash.isempty": "^4.4.0",
+    "lodash.isequal": "^4.5.0",
+    "lodash.isobject": "^3.0.2",
+    "lodash.kebabcase": "^4.1.1",
+    "lodash.mapvalues": "^4.6.0",
+    "lodash.merge": "^4.6.2",
+    "lodash.omit": "^4.5.0",
+    "lodash.pickby": "^4.6.0",
+    "lodash.snakecase": "^4.1.1",
+    "lodash.upperfirst": "^4.3.1",
+    "microdiff": "^1.3.2",
+    "next-with-linaria": "^1.3.0",
+    "planer": "^1.2.0",
+    "pluralize": "^8.0.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-responsive": "^9.0.2",
+    "react-router-dom": "^6.30.3",
+    "react-tooltip": "^5.13.1",
+    "remark-gfm": "^4.0.1",
+    "rxjs": "^7.2.0",
+    "semver": "^7.5.4",
+    "slash": "^5.1.0",
+    "temporal-polyfill": "^0.3.0",
+    "ts-key-enum": "^2.0.12",
+    "tslib": "^2.8.1",
+    "type-fest": "4.10.1",
+    "typescript": "5.9.2",
+    "uuid": "^9.0.0",
+    "vite-tsconfig-paths": "^4.2.1",
+    "xlsx-ugnis": "^0.19.3",
+    "zod": "^4.1.11"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.14.5",
+    "@babel/preset-react": "^7.14.5",
+    "@babel/preset-typescript": "^7.24.6",
+    "@chromatic-com/storybook": "^4.1.3",
+    "@graphql-codegen/cli": "^3.3.1",
+    "@graphql-codegen/client-preset": "^4.1.0",
+    "@graphql-codegen/typescript": "^3.0.4",
+    "@graphql-codegen/typescript-operations": "^3.0.4",
+    "@graphql-codegen/typescript-react-apollo": "^3.3.7",
+    "@nx/jest": "22.5.4",
+    "@nx/js": "22.5.4",
+    "@nx/react": "22.5.4",
+    "@nx/storybook": "22.5.4",
+    "@nx/vite": "22.5.4",
+    "@nx/web": "22.5.4",
+    "@oxlint/plugins": "^1.51.0",
+    "@sentry/types": "^8",
+    "@storybook-community/storybook-addon-cookie": "^5.0.0",
+    "@storybook/addon-coverage": "^3.0.0",
+    "@storybook/addon-docs": "^10.2.13",
+    "@storybook/addon-links": "^10.2.13",
+    "@storybook/addon-vitest": "^10.2.13",
+    "@storybook/icons": "^2.0.1",
+    "@storybook/react-vite": "^10.2.13",
+    "@storybook/test-runner": "^0.24.2",
+    "@swc-node/register": "^1.11.1",
+    "@swc/cli": "^0.7.10",
+    "@swc/core": "^1.15.11",
+    "@swc/helpers": "~0.5.19",
+    "@swc/jest": "^0.2.39",
+ 
+... [TRUNCATED]
+
+--- WEB FRAMEWORK CONFIG ---
+(No web config files found)
+
+--- ROUTE / PAGE DEFINITIONS ---
+
+[packages/twenty-companion/src/pages/note-editor/index.html]
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Twenty - Note Editor</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.css">
+    <script src="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.js"></script>
+  </head>
+  <body>
+    <div class="app-container">
+      <header class="header" id="drag-region">
+        <div class="header-left">
+          <button class="btn back-btn" id="backButton">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M20 11H7.83L13.42 5.41L12 4L4 12L12 20L13.41 18.59L7.83 13H20V11Z" fill="currentColor"/>
+            </svg>
+          </button>
+          <div class="app-logo">
+            <svg width="28" height="28" viewBox="0 0 96 96" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect width="96" height="96" rx="11.293" fill="#000000"/>
+              <path d="M19.25 35.746C19.25 30.5 23.508 26.246 28.75 26.246H47.039C47.309 26.246 47.555 26.406 47.668 26.652C47.781 26.902 47.73 27.191 47.547 27.395L43.539 31.75C42.84 32.508 41.859 32.945 40.828 32.945H28.801C27.227 32.945 25.949 34.223 25.949 35.797V42.98C25.949 43.906 25.199 44.652 24.273 44.652H20.93C20.004 44.652 19.258 43.906 19.258 42.98V35.746Z" fill="white"/>
+              <path d="M76.152 60.254C76.152 65.5 71.895 69.754 66.648 69.754H58.879C53.633 69.754 49.375 65.5 49.375 60.254V46.652C49.375 45.727 49.723 44.836 50.352 44.152L54.883 39.234C55.074 39.027 55.371 38.957 55.637 39.055C55.898 39.164 56.074 39.41 56.074 39.691V60.211C56.074 61.785 57.352 63.063 58.926 63.063H66.605C68.18 63.063 69.457 61.785 69.457 60.211V35.797C69.457 34.223 68.18 32.945 66.605 32.945H57.676C56.652 32.945 55.68 33.375 54.98 34.121L28.348 63.063H44.352C45.273 63.063 46.023 63.813 46.023 64.738V68.082C46.023 69.008 45.273 69.754 44.352 69.754H22.785C20.832 69.754 19.242 68.168 19.242 66.211V64.441C19.242 63.551 19.574 62.695 20.18 62.039L50.039 29.605C52.016 27.457 54.789 26.246 57.707 26.246H66.641C71.887 26.246 76.145 30.5 76.145 35.746V60.254Z" fill="white"/>
+            </svg>
+          </div>
+        </div>
+        <div class="header-center">
+          <div class="search-container">
+            <span class="search-icon">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M15.5 14H14.71L14.43 13.73C15.41 12.59 16 11.11 16 9.5C16 5.91 13.09 3 9.5 3C5.91 3 3 5.91 3 9.5C3 13.09 5.91 16 9.5 16C11.11 16 12.59 15.41 13.73 14.43L14 14.71V15.5L19 20.49L20.49 19L15.5 14ZM9.5 14C7.01 14 5 11.99 5 9.5C5 7.01 7.01 5 9.5 5C11.99 5 14 7.01 14 9.5C14 11.99 11.99 14 9.5 14Z" fill="#666666"/>
+              </svg>
+            </span>
+            <input type="text" class="search-input" placeholder="Search">
+          </div>
+        </div>
+        <div class="header-right">
+          <button id="toggleSidebar" class="btn toggle-sidebar-btn">
+        
+... [TRUNCATED]
+
+[packages/twenty-companion/src/pages/note-editor/renderer.js]
+// Import styles
+import './styles.css';
+
+// Initialize the markdown editor when the DOM is loaded
+document.addEventListener('DOMContentLoaded', () => {
+  // Initialize SimpleMDE Markdown Editor
+  const editor = new SimpleMDE({
+    element: document.getElementById('editor'),
+    spellChecker: false,
+    autofocus: true,
+    status: false,
+    toolbar: [
+      'bold', 'italic', 'heading', '|', 
+      'quote', 'unordered-list', 'ordered-list', '|',
+      'link', 'image', '|',
+      'preview', 'side-by-side', 'fullscreen',
+    ],
+    placeholder: 'Write your notes here...',
+    initialValue: document.getElementById('editor').textContent.trim(),
+  });
+
+  // Handle sidebar toggle
+  const toggleSidebarBtn = document.getElementById('toggleSidebar');
+  const sidebar = document.getElementById('sidebar');
+  const editorContent = document.querySelector('.editor-content');
+  
+  toggleSidebarBtn.addEventListener('click', () => {
+    sidebar.classList.toggle('hidden');
+    editorContent.classList.toggle('full-width');
+  });
+
+  // Handle back button
+  const backButton = document.getElementById('backButton');
+  backButton.addEventListener('click', () => {
+    window.electronAPI.navigate('home');
+  });
+
+  // Chat input handling
+  const chatInput = document.getElementById('chatInput');
+  const sendButton = document.getElementById('sendButton');
+  
+  // When send button is clicked
+  sendButton.addEventListener('click', () => {
+    const message = chatInput.value.trim();
+    if (message) {
+      console.log('Sending message:', message);
+      // Here you would handle the AI chat functionality
+      // For now, just clear the input
+      chatInput.value = '';
+    }
+  });
+  
+  // Send message on Enter key
+  chatInput.addEventListener('keypress', (e) => {
+    if (e.key === 'Enter') {
+      sendButton.click();
+    }
+  });
+
+  // Handle share buttons
+  const shareButtons = document.querySelectorAll('.share-btn');
+  shareButtons.forEach(button => {
+    button.addEventListener('click', () => {
+      const action = button.textContent.trim();
+      console.log(`Share action: ${action}`);
+      // Implement actual sharing functionality here
+    });
+  });
+
+  // Handle AI option buttons
+  const aiButtons = document.querySelectorAll('.ai-btn');
+  aiButtons.forEach(button => {
+    button.addEventListener('click', () => {
+      const action = button.textContent.trim();
+      console.log(`AI action: ${action}`);
+      // Implement actual AI functionality here
+    });
+  });
+});
+
+[packages/twenty-companion/src/pages/note-editor/styles.css]
+:root {
+  --primary-bg: #f9f9f9;
+  --card-bg: #fff;
+  --light-purple: #f3e9ff;
+  --light-green: #e8f5e9;
+  --border-color: #e0e0e0;
+  --text-primary: #000;
+  --text-secondary: #666;
+  --sidebar-width: 320px;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  background-color: var(--primary-bg);
+  margin: 0;
+  overflow-x: hidden;
+  color: var(--text-primary);
+}
+
+.app-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* Header Styles */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  background-color: var(--card-bg);
+  border-bottom: 1px solid var(--border-color);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+#drag-region {
+  -webkit-app-region: drag;
+}
+
+.header-left, .header-right {
+  display: flex;
+  align-items: center;
+}
+
+.header-left {
+  margin-left: 60px;
+  gap: 8px;
+}
+
+.app-logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 6px;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.header-center {
+  flex-grow: 1;
+  max-width: 400px;
+  margin: 0 20px;
+}
+
+.search-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.search-icon {
+  position: absolute;
+  left: 10px;
+  color: var(--text-secondary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.search-input {
+  width: 100%;
+  padding: 8px 8px 8px 35px;
+  border-radius: 5px;
+  border: 1px solid var(--border-color);
+  background-color: #f2f2f2;
+  font-size: 14px;
+  -webkit-app-region: no-drag;
+}
+
+.btn {
+  padding: 8px 16px;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+  font-weight: 500;
+  -webkit-app-region: no-drag;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.back-btn {
+  background-color: transparent;
+  color: var(--text-secondary);
+  padding: 8px;
+}
+
+.toggle-sidebar-btn {
+  background-color: transparent;
+  color: var(--text-secondary);
+  padding: 8px;
+  margin-right: 10px;
+  display: none;
+}
+
+.user-avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  overflow: hidden;
+  background-color: #ddd;
+  -webkit-app-region: no-drag;
+}
+
+/* Note Editor Layout */
+.note-container {
+  display: flex;
+  flex: 1;
+  position: relative;
+}
+
+.editor-content {
+  flex: 1;
+  padding: 40px;
+  background-color: var(--card-bg);
+  max-width: calc(100% - var(--sidebar-width));
+  transition: max-width 0.3s ease;
+}
+
+.editor-content.full-width {
+  max-width: 100%;
+}
+
+.note-header {
+  margin-bottom: 30px;
+}
+
+.note-title {
+  font-size: 28px;
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+
+.note-meta {
+  display: flex;
+  gap: 15px;
+  color: var(--text-secondary);
+  font-size: 14px;
+  margin-top: 10px;
+}
+
+.note-date, .note-author {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+/* Editor */
+.CodeMirror, .editor-preview {
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+.CodeMirror {
+  border: none
+... [TRUNCATED]
+
+[packages/twenty-front/scripts/mock-data/generate-views.ts]
+/* oxlint-disable no-console, lingui/no-unlocalized-strings */
+import { graphqlRequest, writeGeneratedFile } from './utils.js';
+
+const FIND_ALL_CORE_VIEWS_QUERY = `
+  query FindAllCoreViews {
+    getCoreViews {
+      id
+      name
+      objectMetadataId
+      type
+      key
+      icon
+      position
+      isCompact
+      openRecordIn
+      kanbanAggregateOperation
+      kanbanAggregateOperationFieldMetadataId
+      mainGroupByFieldMetadataId
+      shouldHideEmptyGroups
+      anyFieldFilterValue
+      calendarFieldMetadataId
+      calendarLayout
+      visibility
+      createdByUserWorkspaceId
+      viewFields {
+        id
+        fieldMetadataId
+        viewId
+        isVisible
+        position
+        size
+        aggregateOperation
+        createdAt
+        updatedAt
+        deletedAt
+      }
+      viewFieldGroups {
+        id
+        name
+        position
+        isVisible
+        viewId
+        createdAt
+        updatedAt
+        deletedAt
+        viewFields {
+          id
+          fieldMetadataId
+          viewId
+          isVisible
+          position
+          size
+          aggregateOperation
+          createdAt
+          updatedAt
+          deletedAt
+        }
+      }
+      viewFilters {
+        id
+        fieldMetadataId
+        operand
+        value
+        viewFilterGroupId
+        positionInViewFilterGroup
+        subFieldName
+        viewId
+        createdAt
+        updatedAt
+        deletedAt
+      }
+      viewFilterGroups {
+        id
+        parentViewFilterGroupId
+        logicalOperator
+        positionInViewFilterGroup
+        viewId
+      }
+      viewSorts {
+        id
+        fieldMetadataId
+        direction
+        viewId
+      }
+      viewGroups {
+        id
+        isVisible
+        fieldValue
+        position
+        viewId
+        createdAt
+        updatedAt
+        deletedAt
+      }
+    }
+  }
+`;
+
+export const generateViews = async (token: string) => {
+  console.log('Fetching views from /metadata ...');
+
+  const data = (await graphqlRequest(
+    '/metadata',
+    FIND_ALL_CORE_VIEWS_QUERY,
+    token,
+  )) as {
+    getCoreViews: Record<string, unknown>[];
+  };
+
+  console.log(`  Got ${data.getCoreViews.length} views.`);
+
+  writeGeneratedFile(
+    'metadata/views/mock-views-data.ts',
+    'mockedCoreViews',
+    'CoreViewWithRelations[]',
+    "import { type CoreViewWithRelations } from '@/views/types/CoreViewWithRelations';",
+    data.getCoreViews,
+  );
+};
+
+
+[packages/twenty-front/src/modules/activities/utils/compareUrls.ts]
+import { getAttachmentPath } from '@/activities/utils/getAttachmentPath';
+import { isDefined } from 'twenty-shared/utils';
+
+export const compareUrls = (
+  firstAttachmentUrl: string | undefined,
+  secondAttachmentUrl: string | undefined,
+): boolean => {
+  if (!isDefined(firstAttachmentUrl) || !isDefined(secondAttachmentUrl)) {
+    return false;
+  }
+
+  try {
+    const urlA = new URL(firstAttachmentUrl);
+    const urlB = new URL(secondAttachmentUrl);
+    if (urlA.hostname !== urlB.hostname) return false;
+    return (
+      getAttachmentPath(firstAttachmentUrl) ===
+      getAttachmentPath(secondAttachmentUrl)
+    );
+  } catch {
+    return firstAttachmentUrl === secondAttachmentUrl;
+  }
+};
+
+
+--- DIRECTORY STRUCTURE (depth 2) ---
+├── .cursor/
+│   ├── Dockerfile
+│   ├── environment.docker-compose.json
+│   ├── environment.json
+│   ├── rules/
+│   │   ├── README.mdc
+│   │   ├── architecture.mdc
+│   │   ├── changelog-process.mdc
+│   │   ├── code-style.mdc
+│   │   ├── creating-syncable-entity.mdc
+│   │   ├── feedback-incorporation.mdc
+│   │   ├── file-structure.mdc
+│   │   ├── nx-rules.mdc
+│   │   ├── react-general-guidelines.mdc
+│   │   ├── react-state-management.mdc
+│   │   ├── sdk-esm-dependencies.mdc
+│   │   ├── server-migrations.mdc
+│   │   ├── testing-guidelines.mdc
+│   │   ├── translations.mdc
+│   │   └── typescript-guidelines.mdc
+│   ├── skills/
+│   │   ├── syncable-entity-builder-and-validation/
+│   │   ├── syncable-entity-cache-and-transform/
+│   │   ├── syncable-entity-integration/
+│   │   ├── syncable-entity-runner-and-actions/
+│   │   ├── syncable-entity-testing/
+│   │   └── syncable-entity-types-and-constants/
+│   └── worktrees.json
+├── .dockerignore
+├── .gitattributes
+├── .github/
+│   ├── CLA.md
+│   ├── CODE_OF_CONDUCT.md
+│   ├── CONTRIBUTING.md
+│   ├── ISSUE_TEMPLATE/
+│   │   ├── add-new-feature---behavior.md
+│   │   ├── report-bug.md
+│   │   └── request-technical-work.md
+│   ├── SECURITY.md
+│   ├── actions/
+│   │   ├── nx-affected/
+│   │   ├── restore-cache/
+│   │   ├── save-cache/
+│   │   ├── spawn-twenty-docker-image/
+│   │   └── yarn-install/
+│   ├── crowdin-app.yml
+│   ├── crowdin-docs.yml
+│   ├── dependabot.yml
+│   ├── release-drafter.yml
+│   ├── vale-styles/
+│   │   ├── docs/
+│   │   ├── vocabularies/
+│   │   └── write-good/
+│   ├── vale.ini
+│   └── workflows/
+│       ├── cd-deploy-main.yaml
+│       ├── cd-deploy-tag.yaml
+│       ├── changed-files.yaml
+│       ├── ci-breaking-changes.yaml
+│       ├── ci-create-app.yaml
+│       ├── ci-docs.yaml
+│       ├── ci-emails.yaml
+│       ├── ci-front.yaml
+│       ├── ci-release-create.yaml
+│       ├── ci-release-merge.yaml
+│       ├── ci-sdk.yaml
+│       ├── ci-server.yaml
+│       ├── ci-shared.yaml
+│       ├── ci-test-docker-compose.yaml
+│       ├── ci-utils.yaml
+│       ├── ci-website.yaml
+│       ├── ci-zapier.yaml
+│       ├── claude.yml
+│       ├── docs-i18n-pull.yaml
+│       ├── docs-i18n-push.yaml
+│       ├── i18n-pull.yaml
+│       ├── i18n-push.yaml
+│       ├── post-ci-comments.yaml
+│       ├── preview-env-dispatch.yaml
+│       └── preview-env-keepalive.yaml
+├── .gitignore
+├── .mcp.json
+├── .nvmrc
+├── .vscode/
+│   ├── extensions.json
+│   ├── launch.json
+│   ├── settings.json
+│   ├── tasks.json
+│   └── twenty.code-workspace
+├── .yarn/
+│   ├── patches/
+│   │   ├── @wyw-in-js-transform-npm-0.7.0-ba641dc99f.patch
+│   │   └── react-phone-number-input-npm-3.4.5-dc2895c306.patch
+│   └── releases/
+│       └── yarn-4.9.2.cjs
+├── .yarnrc.yml
+├── CLAUDE.md
+├── LICENSE
+├── README.md
+├── jest.preset.js
+├── nx.json
+├── package.json
+├── packages/
+│   ├── create-twenty-app/
+│   │   ├── .oxlintrc.json
+│   │   ├── README.md
+│   │   ├── jest.config.mjs
+│   │   ├── package.json
+│   │   ├── project.json
+│   │   ├── src/
+│   │   ├── tsconfig.json
+│   │   ├── tsconfig.lib.json
+│   │   └── vite.config.ts
+│   ├── twenty-apps/
+│   │   ├── .gitignore
+│   │   ├── community/
+│   │   ├── hello-world/
+│   │   ├── internal/
+│   │   └── project.json
+│   ├── twenty-cli/
+│   │   ├── README.md
+│   │   ├── deprecate.js
+│   │   └── package.json
+│   ├── twenty-companion/
+│   │   ├── .env.example
+│   │   ├── .gitattributes
+│   │   ├── .gitignore
+│   │   ├── Entitlements.plist
+│   │   ├── LICENSE
+│   │   ├── README.md
+│   │   ├── forge.config.js
+│   │   ├── package-lock.json
+│   │   ├── package.json
+│   │   ├── run-built.sh
+│   │   ├── run.sh
+│   │   ├── src/
+│   │   ├── test.json
+│   │   ├── twenty.icns
+│   │   ├── webpack.main.config.js
+│   │   ├── webpack.renderer.config.js
+│   │   └── webpack.rules.js
+│   ├── twenty-docker/
+│   │   ├── .env.example
+│   │   ├── Makefile
+│   │   ├── docker-compose.yml
+│   │   ├── grafana/
+│   │   ├── helm/
+│   │   ├── k8s/
+│   │   ├── otel-collector/
+│   │   ├── podman/
+│   │   ├── scripts/
+│   │   ├── twenty-postgres-spilo/
+│   │   ├── twenty-website/
+│   │   └── twenty/
+│   ├── twenty-docs/
+│   │   ├── .oxlintrc.json
+│   │   ├── MIGRATION.md
+│   │   ├── README.md
+│   │   ├── developers/
+│   │   ├── docs.json
+│   │   ├── favicon.png
+│   │   ├── images/
+│   │   ├── l/
+│   │   ├── logo.svg
+│   │   ├── navigation/
+│   │   ├── package.json
+│   │   ├── project.json
+│   │   ├── scripts/
+│   │   ├── snippets/
+│   │   ├── twenty-ui/
+│   │   └── user-guide/
+│   ├── twenty-e2e-testing/
+│   │   ├── .env.example
+│   │   ├── .gitignore
+│   │   ├── README.md
+│   │   ├── lib/
+│   │   ├── package.json
+│   │   ├── playwright.config.ts
+│   │   ├── project.json
+│   │   ├── reporters/
+│   │   └── tests/
+│   ├── twenty-emails/
+│   │   ├── .gitignore
+│   │   ├── .oxlintrc.json
+│   │   ├── .swcrc
+│   │   ├── README.md
+│   │   ├── lingui.config.ts
+│   │   ├── package.json
+│   │   ├── project.json
+│   │   ├── src/
+│   │   ├── tsconfig.json
+│   │   ├── tsconfig.lib.json
+│   │   └── vite.config.ts
+│   ├── twenty-front/
+│   │   ├── .env.example
+│   │   ├── .gitignore
+│   │   ├── .oxlintrc.json
+│   │   ├── .prettierignore
+│   │   ├── .storybook/
+│   │   ├── .swcrc
+│   │   ├── README.md
+│   │   ├── __mocks__/
+│   │   ├── codegen-metadata.cjs
+│   │   ├── codegen.cjs
+│   │   ├── folderStructure.json
+│   │   ├── index.html
+│   │   ├── jest.config.mjs
+│   │   ├── lingui.config.ts
+│   │   ├── nyc.config.cjs
+│   │   ├── package.json
+│   │   ├── project.json
+│   │   ├── public/
+│   │   ├── scripts/
+│   │   ├── setupTests.ts
+│   │   ├── src/
+│   │   ├── tsconfig.build.json
+│   │   ├── tsconfig.json
+│   │   ├── vite.config.ts
+│   │   └── vitest.config.ts
+│   ├── twenty-oxlint-rules/
+│   │   ├── .oxlintrc.json
+│   │   ├── OXLINT_MIGRATION_TODO.md
+│   │   ├── oxlint-plugin.ts
+│   │   ├── project.json
+│   │   ├── rules/
+│   │   ├── tsconfig.json
+│   │   ├── utils/
+│   │   └── vitest.config.mts
+│   ├── twenty-sdk/
+│   │   ├── .gitignore
+│   │   ├── .oxlintrc.json
+│   │   ├── .storybook/
+│   │   ├── README.md
+│   │   ├── package.json
+│   │   ├── project.json
+│   │   ├── scripts/
+│   │   ├── src/
+│   │   ├── tsconfig.json
+│   │   ├── tsconfig.lib.json
+│   │   ├── vite.config.browser.ts
+│   │   ├── vite.config.node.ts
+│   │   ├── vite.config.sdk.ts
+│   │   ├── vitest.config.ts
+│   │   ├── vitest.e2e.config.ts
+│   │   ├── vitest.integration.config.ts
+│   │   ├── vitest.storybook.config.ts
+│   │   └── vitest.unit.config.ts
+│   ├── twenty-server/
+│   │   ├── .env.e2e-testing-server
+│   │   ├── .env.example
+│   │   ├── .env.test
+│   │   ├── .gitignore
+│   │   ├── .oxlintrc.json
+│   │   ├── .prettierignore
+│   │   ├── .swcrc
+│   │   ├── @types/
+│   │   ├── jest-integration.config.ts
+│   │   ├── jest.config.mjs
+│   │   ├── lingui.config.ts
+│   │   ├── nest-cli.json
+│   │   ├── package.json
+│   │   ├── patches/
+│   │   ├── project.json
+│   │   ├── scripts/
+│   │   ├── setupTests.ts
+│   │   ├── src/
+│   │   ├── test/
+│   │   ├── tsconfig.build.json
+│   │   ├── tsconfig.json
+│   │   └── tsconfig.scripts.json
+│   ├── twenty-shared/
+│   │   ├── .babelrc
+│   │   ├── .gitignore
+│   │   ├── .oxlintrc.json
+│   │   ├── __mocks__/
+│   │   ├── jest.config.mjs
+│   │   ├── package.json
+│   │   ├── project.json
+│   │   ├── scripts/
+│   │   ├── src/
+│   │   ├── tsconfig.json
+│   │   ├── tsconfig.lib.json
+│   │   ├── vite.config.individual.ts
+│   │   └── vite.config.ts
+│   ├── twenty-ui/
+│   │   ├── .oxlintrc.json
+│   │   ├── .storybook/
+│   │   ├── README.md
+│   │   ├── __mocks__/
+│   │   ├── dist/
+│   │   ├── jest.config.mjs
+│   │   ├── package.json
+│   │   ├── project.json
+│   │   ├── scripts/
+│   │   ├── setupTests.ts
+│   │   ├── src/
+│   │   ├── tsconfig.json
+│   │   ├── tsconfig.lib.json
+│   │   ├── vite.config.individual.ts
+│   │   ├── vite.config.ts
+│   │   └── vitest.config.ts
+│   ├── twenty-utils/
+│   │   ├── congratulate-dangerfile.ts
+│   │   ├── dangerfile.ts
+│   │   ├── fix-crowdin-translations.ts
+│   │   ├── fix-docs-tags.ts
+│   │   ├── fix-qa-issues.ts
+│   │   ├── graphql-introspection-query.graphql
+│   │   ├── npm-packages-release/
+│   │   ├── package.json
+│   │   ├── setup-dev-env.sh
+│   │   └── translation-qa-report.ts
+│   ├── twenty-website/
+│   │   ├── .env.example
+│   │   ├── .gitignore
+│   │   ├── .oxlintrc.json
+│   │   ├── README.md
+│   │   ├── keystatic.config.ts
+│   │   ├── next.config.js
+│   │   ├── package.json
+│   │   ├── public/
+│   │   ├── src/
+│   │   └── tsconfig.json
+│   └── twenty-zapier/
+│       ├── .gitignore
+│       ├── .oxlintrc.json
+│       ├── .zapierapprc
+│       ├── CHANGELOG.md
+│       ├── index.js
+│       ├── jest.config.mjs
+│       ├── package.json
+│       ├── project.json
+│       ├── src/
+│       ├── tsconfig.json
+│       └── vite.config.ts
+├── tsconfig.base.json
+├── yarn.config.cjs
+└── yarn.lock

@@ -1,0 +1,1482 @@
+=====================================
+Repository Analysis: minio
+Type: Backend / API Service
+=====================================
+
+--- METADATA ---
+Name: minio
+Description: MinIO is a high-performance, S3 compatible object store, open sourced under GNU AGPLv3 license.
+Language: Go
+Topics: amazon-s3, cloud, cloudnative, cloudstorage, go, k8s, kubernetes, multi-cloud, multi-cloud-kubernetes, objectstorage, s3, storage
+Stars: 60433
+License: GNU Affero General Public License v3.0
+
+--- README ---
+> [!NOTE]
+> **THIS REPOSITORY IS NO LONGER MAINTAINED.**
+>
+> **Alternatives:**
+> - **[AIStor Free](https://min.io/download)** — Full-featured, standalone edition for community use (free license)
+> - **[AIStor Enterprise](https://min.io/pricing)** — Distributed edition with commercial support
+
+---
+
+# MinIO Quickstart Guide
+
+[![Slack](https://slack.min.io/slack?type=svg)](https://slack.min.io) [![Docker Pulls](https://img.shields.io/docker/pulls/minio/minio.svg?maxAge=604800)](https://hub.docker.com/r/minio/minio/) [![license](https://img.shields.io/badge/license-AGPL%20V3-blue)](https://github.com/minio/minio/blob/master/LICENSE)
+
+[![MinIO](https://raw.githubusercontent.com/minio/minio/master/.github/logo.svg?sanitize=true)](https://min.io)
+
+MinIO is a high-performance, S3-compatible object storage solution released under the GNU AGPL v3.0 license.
+Designed for speed and scalability, it powers AI/ML, analytics, and data-intensive workloads with industry-leading performance.
+
+- S3 API Compatible – Seamless integration with existing S3 tools
+- Built for AI & Analytics – Optimized for large-scale data pipelines
+- High Performance – Ideal for demanding storage workloads.
+
+This README provides instructions for building MinIO from source and deploying onto baremetal hardware.
+Use the [MinIO Documentation](https://github.com/minio/docs) project to build and host a local copy of the documentation.
+
+## MinIO is Open Source Software
+
+We designed MinIO as Open Source software for the Open Source software community. We encourage the community to remix, redesign, and reshare MinIO under the terms of the AGPLv3 license.
+
+All usage of MinIO in your application stack requires validation against AGPLv3 obligations, which include but are not limited to the release of modified code to the community from which you have benefited. Any commercial/proprietary usage of the AGPLv3 software, including repackaging or reselling services/features, is done at your own risk.
+
+The AGPLv3 provides no obligation by any party to support, maintain, or warranty the original or any modified work.
+All support is provided on a best-effort basis through Github and our [Slack](https://slack.min.io) channel, and any member of the community is welcome to contribute and assist others in their usage of the software.
+
+MinIO [AIStor](https://www.min.io/product/aistor) includes enterprise-grade support and licensing for workloads which require commercial or proprietary usage and production-level SLA/SLO-backed support. For more information, [reach out for a quote](https://min.io/pricing).
+
+## Source-Only Distribution
+
+**Important:** The MinIO community edition is now distributed as source code only. We will no longer provide pre-compiled binary releases for the community version.
+
+### Installing Latest MinIO Community Edition
+
+To use MinIO community edition, you have two options:
+
+1. **Install from source** using `go install github.com/minio/minio@latest` (recommended)
+2. **Build a Docker image** from the provided Dockerfile
+
+See the sections below for detailed instructions on each method.
+
+### Legacy Binary Releases
+
+Historical pre-compiled binary releases remain available for reference but are no longer maintained:
+
+- GitHub Releases: https://github.com/minio/minio/releases
+- Direct downloads: https://dl.min.io/server/minio/release/
+
+**These legacy binaries will not receive updates.** We strongly recommend using source builds for access to the latest features, bug fixes, and security updates.
+
+## Install from Source
+
+Use the following commands to compile and run a standalone MinIO server from source.
+If you do not have a working Golang environment, please follow [How to install Golang](https://golang.org/doc/install). Minimum version required is [go1.24](https://golang.org/dl/#stable)
+
+```sh
+go install github.com/minio/minio@latest
+```
+
+You can alternatively run `go build` and use the `GOOS` and `GOARCH` environment variables to control the OS and architecture target.
+For example:
+
+```
+env GOOS=linux GOARCH=arm64 go build
+```
+
+Start MinIO by running `minio server PATH` where `PATH` is any empty folder on your local filesystem.
+
+The MinIO deployment starts using default root credentials `minioadmin:minioadmin`.
+You can test the deployment using the MinIO Console, an embedded web-based object browser built into MinIO Server.
+Point a web browser running on the host machine to <http://127.0.0.1:9000> and log in with the root credentials.
+You can use the Browser to create buckets, upload objects, and browse the contents of the MinIO server.
+
+You can also connect using any S3-compatible tool, such as the MinIO Client `mc` commandline tool:
+
+```sh
+mc alias set local http://localhost:9000 minioadmin minioadmin
+mc admin info local
+```
+
+See [Test using MinIO Client `mc`](#test-using-minio-client-mc) for more information on using the `mc` commandline tool.
+For application developers, see <https://docs.min.io/enterprise/aistor-object-store/developers/sdk/> to view M
+... [TRUNCATED]
+
+--- PACKAGE MANIFEST(S) ---
+
+[go.mod]
+module github.com/minio/minio
+
+go 1.24.0
+
+toolchain go1.24.8
+
+// Install tools using 'go install tool'.
+tool (
+	github.com/tinylib/msgp
+	golang.org/x/tools/cmd/stringer
+)
+
+require (
+	aead.dev/mtls v0.2.1
+	cloud.google.com/go/storage v1.52.0
+	github.com/Azure/azure-sdk-for-go/sdk/azcore v1.18.0
+	github.com/Azure/azure-sdk-for-go/sdk/azidentity v1.9.0
+	github.com/Azure/azure-sdk-for-go/sdk/storage/azblob v1.6.1
+	github.com/IBM/sarama v1.45.1
+	github.com/alecthomas/participle v0.7.1
+	github.com/beevik/ntp v1.4.3
+	github.com/buger/jsonparser v1.1.1
+	github.com/cespare/xxhash/v2 v2.3.0
+	github.com/cheggaaa/pb v1.0.29
+	github.com/coreos/go-oidc/v3 v3.14.1
+	github.com/coreos/go-systemd/v22 v22.5.0
+	github.com/cosnicolaou/pbzip2 v1.0.5
+	github.com/dchest/siphash v1.2.3
+	github.com/dustin/go-humanize v1.0.1
+	github.com/eclipse/paho.mqtt.golang v1.5.0
+	github.com/elastic/go-elasticsearch/v7 v7.17.10
+	github.com/fatih/color v1.18.0
+	github.com/felixge/fgprof v0.9.5
+	github.com/fraugster/parquet-go v0.12.0
+	github.com/go-ldap/ldap/v3 v3.4.11
+	github.com/go-openapi/loads v0.22.0
+	github.com/go-sql-driver/mysql v1.9.2
+	github.com/gobwas/ws v1.4.0
+	github.com/golang-jwt/jwt/v4 v4.5.2
+	github.com/gomodule/redigo v1.9.2
+	github.com/google/uuid v1.6.0
+	github.com/inconshreveable/mousetrap v1.1.0
+	github.com/json-iterator/go v1.1.12
+	github.com/klauspost/compress v1.18.0
+	github.com/klauspost/cpuid/v2 v2.2.10
+	github.com/klauspost/filepathx v1.1.1
+	github.com/klauspost/pgzip v1.2.6
+	github.com/klauspost/readahead v1.4.0
+	github.com/klauspost/reedsolomon v1.12.4
+	github.com/lib/pq v1.10.9
+	github.com/lithammer/shortuuid/v4 v4.2.0
+	github.com/miekg/dns v1.1.65
+	github.com/minio/cli v1.24.2
+	github.com/minio/console v1.7.7-0.20250905210349-2017f33b26e1
+	github.com/minio/csvparser v1.0.0
+	github.com/minio/dnscache v0.1.1
+	github.com/minio/dperf v0.6.3
+	github.com/minio/highwayhash v1.0.3
+	github.com/minio/kms-go/kes v0.3.1
+	github.com/minio/kms-go/kms v0.5.1-0.20250225090116-4e64ce8d0f35
+	github.com/minio/madmin-go/v3 v3.0.109
+	github.com/minio/minio-go/v7 v7.0.91
+	github.com/minio/mux v1.9.2
+	github.com/minio/pkg/v3 v3.1.3
+	github.com/minio/selfupdate v0.6.0
+	github.com/minio/simdjson-go v0.4.5
+	github.com/minio/sio v0.4.1
+	github.com/minio/xxml v0.0.3
+	github.com/minio/zipindex v0.4.0
+	github.com/mitchellh/go-homedir v1.1.0
+	github.com/nats-io/nats-server/v2 v2.11.1
+	github.com/nats-io/nats.go v1.41.2
+	github.com/nats-io/stan.go v0.10.4
+	github.com/ncw/directio v1.0.5
+	github.com/nsqio/go-nsq v1.1.0
+	github.com/philhofer/fwd v1.2.0
+	github.com/pierrec/lz4/v4 v4.1.22
+	github.com/pkg/errors v0.9.1
+	github.com/pkg/sftp v1.13.9
+	github.com/pkg/xattr v0.4.10
+	github.com/prometheus/client_golang v1.22.0
+	github.com/prometheus/client_model v0.6.2
+	github.com/prometheus/common v0.63.0
+	github.com/prometheus/procfs v0.16.1
+	github.com/puzpuzpuz/xsync/v3 v3.5.1
+	github.com/rabbitmq/amqp091-go v1.10.0
+	github.com/rcrowley/go-metrics v0.0.0-20250401214520-65e299d6c5c9
+	github.co
+... [TRUNCATED]
+
+--- BACKEND CONFIG FILES ---
+
+[Dockerfile]
+FROM minio/minio:latest
+
+ARG TARGETARCH
+ARG RELEASE
+
+RUN chmod -R 777 /usr/bin
+
+COPY ./minio-${TARGETARCH}.${RELEASE} /usr/bin/minio
+COPY ./minio-${TARGETARCH}.${RELEASE}.minisig /usr/bin/minio.minisig
+COPY ./minio-${TARGETARCH}.${RELEASE}.sha256sum /usr/bin/minio.sha256sum
+
+COPY dockerscripts/docker-entrypoint.sh /usr/bin/docker-entrypoint.sh
+
+ENTRYPOINT ["/usr/bin/docker-entrypoint.sh"]
+
+VOLUME ["/data"]
+
+CMD ["minio"]
+
+
+--- API ROUTE / ENDPOINT DEFINITIONS ---
+
+[cmd/endpoint.go]
+// Copyright (c) 2015-2021 MinIO, Inc.
+//
+// This file is part of MinIO Object Storage stack
+//
+// This program is free software: you can redistribute it and/or modify
+// it under the terms of the GNU Affero General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+//
+// This program is distributed in the hope that it will be useful
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU Affero General Public License for more details.
+//
+// You should have received a copy of the GNU Affero General Public License
+// along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+package cmd
+
+import (
+	"fmt"
+	"net"
+	"net/http"
+	"net/url"
+	"path"
+	"path/filepath"
+	"reflect"
+	"runtime"
+	"slices"
+	"sort"
+	"strconv"
+	"strings"
+	"time"
+
+	"github.com/dustin/go-humanize"
+	"github.com/minio/minio-go/v7/pkg/set"
+	"github.com/minio/minio/internal/config"
+	"github.com/minio/minio/internal/logger"
+	"github.com/minio/minio/internal/mountinfo"
+	"github.com/minio/pkg/v3/env"
+	xnet "github.com/minio/pkg/v3/net"
+)
+
+// EndpointType - enum for endpoint type.
+type EndpointType int
+
+const (
+	// PathEndpointType - path style endpoint type enum.
+	PathEndpointType EndpointType = iota + 1
+
+	// URLEndpointType - URL style endpoint type enum.
+	URLEndpointType
+)
+
+// ProxyEndpoint - endpoint used for proxy redirects
+// See proxyRequest() for details.
+type ProxyEndpoint struct {
+	Endpoint
+	Transport http.RoundTripper
+}
+
+// Node holds information about a node in this cluster
+type Node struct {
+	*url.URL
+	Pools    []int
+	IsLocal  bool
+	GridHost string
+}
+
+// Endpoint - any type of endpoint.
+type Endpoint struct {
+	*url.URL
+	IsLocal bool
+
+	PoolIdx, SetIdx, DiskIdx int
+}
+
+// Equal returns true if endpoint == ep
+func (endpoint Endpoint) Equal(ep Endpoint) bool {
+	if endpoint.IsLocal == ep.IsLocal && endpoint.PoolIdx == ep.PoolIdx && endpoint.SetIdx == ep.SetIdx && endpoint.DiskIdx == ep.DiskIdx {
+		if endpoint.Path == ep.Path && endpoint.Host == ep.Host {
+			return true
+		}
+	}
+	return false
+}
+
+func (endpoint Endpoint) String() string {
+	if endpoint.Host == "" {
+		return endpoint.Path
+	}
+
+	return endpoint.URL.String()
+}
+
+// Type - returns type of endpoint.
+func (endpoint Endpoint) Type() EndpointType {
+	if endpoint.Host == "" {
+		return PathEndpointType
+	}
+
+	return URLEndpointType
+}
+
+// HTTPS - returns true if secure for URLEndpointType.
+func (endpoint Endpoint) HTTPS() bool {
+	return endpoint.Scheme == "https"
+}
+
+// GridHost returns the host to be used for grid connections.
+func (endpoint Endpoint) GridHost() string {
+	return fmt.Sprintf("%s://%s", endpoint.Scheme, endpoint.Host)
+}
+
+// UpdateIsLocal - resolves the host and updates if it is local or not.
+func (endpoint *Endpoint) UpdateIsLocal() (err error) {
+	if endpoint.Host != "" {
+		endpoint.IsLocal, err = isLocalHost(endpoint.Hostname(), endpoint.Port(), 
+... [TRUNCATED]
+
+--- DATABASE SCHEMA / MODEL FILES ---
+(None found)
+
+--- DIRECTORY STRUCTURE (depth 2) ---
+├── .dockerignore
+├── .github/
+│   ├── ISSUE_TEMPLATE.md
+│   ├── ISSUE_TEMPLATE/
+│   │   ├── bug_report.md
+│   │   └── config.yml
+│   ├── PULL_REQUEST_TEMPLATE.md
+│   ├── logo.svg
+│   ├── stale.yml
+│   └── workflows/
+│       ├── depsreview.yaml
+│       ├── go-cross.yml
+│       ├── go-healing.yml
+│       ├── go-lint.yml
+│       ├── go-resiliency.yml
+│       ├── go.yml
+│       ├── helm-lint.yml
+│       ├── iam-integrations.yaml
+│       ├── issues.yaml
+│       ├── lock.yml
+│       ├── mint.yml
+│       ├── mint/
+│       ├── multipart/
+│       ├── replication.yaml
+│       ├── root-disable.yml
+│       ├── root.cert
+│       ├── root.key
+│       ├── run-mint.sh
+│       ├── shfmt.yml
+│       ├── typos.yml
+│       ├── upgrade-ci-cd.yaml
+│       └── vulncheck.yml
+├── .gitignore
+├── .golangci.yml
+├── .mailmap
+├── .typos.toml
+├── CNAME
+├── COMPLIANCE.md
+├── CONTRIBUTING.md
+├── CREDITS
+├── Dockerfile
+├── Dockerfile.cicd
+├── Dockerfile.hotfix
+├── Dockerfile.release
+├── Dockerfile.release.old_cpu
+├── Dockerfile.scratch
+├── LICENSE
+├── Makefile
+├── NOTICE
+├── PULL_REQUESTS_ETIQUETTE.md
+├── README.md
+├── SECURITY.md
+├── VULNERABILITY_REPORT.md
+├── _config.yml
+├── buildscripts/
+│   ├── checkdeps.sh
+│   ├── cicd-corpus/
+│   │   ├── disk1/
+│   │   ├── disk2/
+│   │   ├── disk3/
+│   │   ├── disk4/
+│   │   └── disk5/
+│   ├── cross-compile.sh
+│   ├── disable-root.sh
+│   ├── gen-ldflags.go
+│   ├── heal-inconsistent-versions.sh
+│   ├── heal-manual.go
+│   ├── minio-iam-ldap-upgrade-import-test.sh
+│   ├── minio-upgrade.sh
+│   ├── multipart-quorum-test.sh
+│   ├── race.sh
+│   ├── resolve-right-versions.sh
+│   ├── rewrite-old-new.sh
+│   ├── test-timeout.sh
+│   ├── upgrade-tests/
+│   │   ├── compose.yml
+│   │   ├── minio.env
+│   │   └── nginx.conf
+│   ├── verify-build.sh
+│   ├── verify-healing-empty-erasure-set.sh
+│   ├── verify-healing-with-root-disks.sh
+│   └── verify-healing.sh
+├── cmd/
+│   ├── acl-handlers.go
+│   ├── admin-bucket-handlers.go
+│   ├── admin-handler-utils.go
+│   ├── admin-handlers-config-kv.go
+│   ├── admin-handlers-idp-config.go
+│   ├── admin-handlers-idp-ldap.go
+│   ├── admin-handlers-idp-openid.go
+│   ├── admin-handlers-pools.go
+│   ├── admin-handlers-site-replication.go
+│   ├── admin-handlers-users-race_test.go
+│   ├── admin-handlers-users.go
+│   ├── admin-handlers-users_test.go
+│   ├── admin-handlers.go
+│   ├── admin-handlers_test.go
+│   ├── admin-heal-ops.go
+│   ├── admin-router.go
+│   ├── admin-server-info.go
+│   ├── api-datatypes.go
+│   ├── api-errors.go
+│   ├── api-errors_test.go
+│   ├── api-headers.go
+│   ├── api-headers_test.go
+│   ├── api-resources.go
+│   ├── api-resources_test.go
+│   ├── api-response.go
+│   ├── api-response_test.go
+│   ├── api-router.go
+│   ├── api-utils.go
+│   ├── api-utils_test.go
+│   ├── apierrorcode_string.go
+│   ├── auth-handler.go
+│   ├── auth-handler_test.go
+│   ├── authtype_string.go
+│   ├── background-heal-ops.go
+│   ├── background-newdisks-heal-ops.go
+│   ├── background-newdisks-heal-ops_gen.go
+│   ├── background-newdisks-heal-ops_gen_test.go
+│   ├── batch-expire.go
+│   ├── batch-expire_gen.go
+│   ├── batch-expire_gen_test.go
+│   ├── batch-expire_test.go
+│   ├── batch-handlers.go
+│   ├── batch-handlers_gen.go
+│   ├── batch-handlers_gen_test.go
+│   ├── batch-handlers_test.go
+│   ├── batch-job-common-types.go
+│   ├── batch-job-common-types_gen.go
+│   ├── batch-job-common-types_gen_test.go
+│   ├── batch-job-common-types_test.go
+│   ├── batch-replicate.go
+│   ├── batch-replicate_gen.go
+│   ├── batch-replicate_gen_test.go
+│   ├── batch-replicate_test.go
+│   ├── batch-rotate.go
+│   ├── batch-rotate_gen.go
+│   ├── batch-rotate_gen_test.go
+│   ├── batchjobmetric_string.go
+│   ├── benchmark-utils_test.go
+│   ├── bitrot-streaming.go
+│   ├── bitrot-whole.go
+│   ├── bitrot.go
+│   ├── bitrot_test.go
+│   ├── bootstrap-messages.go
+│   ├── bootstrap-peer-server.go
+│   ├── bootstrap-peer-server_gen.go
+│   ├── bootstrap-peer-server_gen_test.go
+│   ├── bucket-encryption-handlers.go
+│   ├── bucket-encryption.go
+│   ├── bucket-encryption_test.go
+│   ├── bucket-handlers.go
+│   ├── bucket-handlers_test.go
+│   ├── bucket-lifecycle-audit.go
+│   ├── bucket-lifecycle-handlers.go
+│   ├── bucket-lifecycle-handlers_test.go
+│   ├── bucket-lifecycle.go
+│   ├── bucket-lifecycle_test.go
+│   ├── bucket-listobjects-handlers.go
+│   ├── bucket-metadata-sys.go
+│   ├── bucket-metadata.go
+│   ├── bucket-metadata_gen.go
+│   ├── bucket-metadata_gen_test.go
+│   ├── bucket-notification-handlers.go
+│   ├── bucket-object-lock.go
+│   ├── bucket-policy-handlers.go
+│   ├── bucket-policy-handlers_test.go
+│   ├── bucket-policy.go
+│   ├── bucket-quota.go
+│   ├── bucket-replication-handlers.go
+│   ├── bucket-replication-metrics.go
+│   ├── bucket-replication-metrics_gen.go
+│   ├── bucket-replication-metrics_gen_test.go
+│   ├── bucket-replication-stats.go
+│   ├── bucket-replication-utils.go
+│   ├── bucket-replication-utils_gen.go
+│   ├── bucket-replication-utils_gen_test.go
+│   ├── bucket-replication-utils_test.go
+│   ├── bucket-replication.go
+│   ├── bucket-replication_test.go
+│   ├── bucket-stats.go
+│   ├── bucket-stats_gen.go
+│   ├── bucket-stats_gen_test.go
+│   ├── bucket-targets.go
+│   ├── bucket-versioning-handler.go
+│   ├── bucket-versioning.go
+│   ├── build-constants.go
+│   ├── callhome.go
+│   ├── common-main.go
+│   ├── common-main_test.go
+│   ├── config-common.go
+│   ├── config-current.go
+│   ├── config-current_test.go
+│   ├── config-dir.go
+│   ├── config-encrypted_test.go
+│   ├── config-migrate.go
+│   ├── config-versions.go
+│   ├── config.go
+│   ├── consolelogger.go
+│   ├── copy-part-range.go
+│   ├── copy-part-range_test.go
+│   ├── crossdomain-xml-handler.go
+│   ├── crossdomain-xml-handler_test.go
+│   ├── data-scanner-metric.go
+│   ├── data-scanner.go
+│   ├── data-scanner_test.go
+│   ├── data-usage-cache.go
+│   ├── data-usage-cache_gen.go
+│   ├── data-usage-cache_gen_test.go
+│   ├── data-usage-cache_test.go
+│   ├── data-usage-utils.go
+│   ├── data-usage.go
+│   ├── data-usage_test.go
+│   ├── decommetric_string.go
+│   ├── dummy-data-generator_test.go
+│   ├── dummy-handlers.go
+│   ├── dynamic-timeouts.go
+│   ├── dynamic-timeouts_test.go
+│   ├── encryption-v1.go
+│   ├── encryption-v1_test.go
+│   ├── endpoint-ellipses.go
+│   ├── endpoint-ellipses_test.go
+│   ├── endpoint.go
+│   ├── endpoint_contrib_test.go
+│   ├── endpoint_test.go
+│   ├── erasure-coding.go
+│   ├── erasure-common.go
+│   ├── erasure-decode.go
+│   ├── erasure-decode_test.go
+│   ├── erasure-encode.go
+│   ├── erasure-encode_test.go
+│   ├── erasure-errors.go
+│   ├── erasure-heal_test.go
+│   ├── erasure-healing-common.go
+│   ├── erasure-healing-common_test.go
+│   ├── erasure-healing.go
+│   ├── erasure-healing_test.go
+│   ├── erasure-metadata-utils.go
+│   ├── erasure-metadata-utils_test.go
+│   ├── erasure-metadata.go
+│   ├── erasure-metadata_test.go
+│   ├── erasure-multipart-conditional_test.go
+│   ├── erasure-multipart.go
+│   ├── erasure-object-conditional_test.go
+│   ├── erasure-object.go
+│   ├── erasure-object_test.go
+│   ├── erasure-server-pool-decom.go
+│   ├── erasure-server-pool-decom_gen.go
+│   ├── erasure-server-pool-decom_gen_test.go
+│   ├── erasure-server-pool-decom_test.go
+│   ├── erasure-server-pool-rebalance.go
+│   ├── erasure-server-pool-rebalance_gen.go
+│   ├── erasure-server-pool-rebalance_gen_test.go
+│   ├── erasure-server-pool.go
+│   ├── erasure-sets.go
+│   ├── erasure-sets_test.go
+│   ├── erasure-utils.go
+│   ├── erasure.go
+│   ├── erasure_test.go
+│   ├── etcd.go
+│   ├── event-notification.go
+│   ├── fmt-gen.go
+│   ├── format-erasure.go
+│   ├── format-erasure_test.go
+│   ├── format-meta.go
+│   ├── format_string.go
+│   ├── ftp-server-driver.go
+│   ├── ftp-server.go
+│   ├── generic-handlers.go
+│   ├── generic-handlers_contrib.go
+│   ├── generic-handlers_test.go
+│   ├── global-heal.go
+│   ├── globals.go
+│   ├── grid.go
+│   ├── handler-api.go
+│   ├── handler-utils.go
+│   ├── handler-utils_test.go
+│   ├── hasher.go
+│   ├── healingmetric_string.go
+│   ├── healthcheck-handler.go
+│   ├── healthcheck-router.go
+│   ├── http-stats.go
+│   ├── http-tracer.go
+│   ├── http-tracer_test.go
+│   ├── httprange.go
+│   ├── httprange_test.go
+│   ├── iam-etcd-store.go
+│   ├── iam-etcd-store_test.go
+│   ├── iam-object-store.go
+│   ├── iam-object-store_test.go
+│   ├── iam-store.go
+│   ├── iam.go
+│   ├── ilm-config.go
+│   ├── is-dir-empty_linux.go
+│   ├── is-dir-empty_other.go
+│   ├── jwt.go
+│   ├── jwt_test.go
+│   ├── kms-handlers.go
+│   ├── kms-handlers_test.go
+│   ├── kms-router.go
+│   ├── last-minute.go
+│   ├── last-minute_gen.go
+│   ├── last-minute_gen_test.go
+│   ├── lceventsrc_string.go
+│   ├── leak-detect_test.go
+│   ├── listen-notification-handlers.go
+│   ├── local-locker.go
+│   ├── local-locker_gen.go
+│   ├── local-locker_gen_test.go
+│   ├── local-locker_test.go
+│   ├── lock-rest-client.go
+│   ├── lock-rest-client_test.go
+│   ├── lock-rest-server-common.go
+│   ├── lock-rest-server-common_test.go
+│   ├── lock-rest-server.go
+│   ├── logging.go
+│   ├── main.go
+│   ├── metacache-bucket.go
+│   ├── metacache-bucket_test.go
+│   ├── metacache-entries.go
+│   ├── metacache-entries_test.go
+│   ├── metacache-manager.go
+│   ├── metacache-marker.go
+│   ├── metacache-server-pool.go
+│   ├── metacache-set.go
+│   ├── metacache-set_gen.go
+│   ├── metacache-set_gen_test.go
+│   ├── metacache-stream.go
+│   ├── metacache-stream_test.go
+│   ├── metacache-walk.go
+│   ├── metacache-walk_gen.go
+│   ├── metacache-walk_gen_test.go
+│   ├── metacache.go
+│   ├── metacache_gen.go
+│   ├── metacache_gen_test.go
+│   ├── metacache_test.go
+│   ├── metrics-realtime.go
+│   ├── metrics-resource.go
+│   ├── metrics-router.go
+│   ├── metrics-v2.go
+│   ├── metrics-v2_gen.go
+│   ├── metrics-v2_gen_test.go
+│   ├── metrics-v2_test.go
+│   ├── metrics-v3-api.go
+│   ├── metrics-v3-audit.go
+│   ├── metrics-v3-bucket-replication.go
+│   ├── metrics-v3-cache.go
+│   ├── metrics-v3-cluster-config.go
+│   ├── metrics-v3-cluster-erasure-set.go
+│   ├── metrics-v3-cluster-health.go
+│   ├── metrics-v3-cluster-iam.go
+│   ├── metrics-v3-cluster-notification.go
+│   ├── metrics-v3-cluster-usage.go
+│   ├── metrics-v3-handler.go
+│   ├── metrics-v3-ilm.go
+│   ├── metrics-v3-logger-webhook.go
+│   ├── metrics-v3-replication.go
+│   ├── metrics-v3-scanner.go
+│   ├── metrics-v3-system-cpu.go
+│   ├── metrics-v3-system-drive.go
+│   ├── metrics-v3-system-memory.go
+│   ├── metrics-v3-system-network.go
+│   ├── metrics-v3-system-process.go
+│   ├── metrics-v3-types.go
+│   ├── metrics-v3.go
+│   ├── metrics.go
+│   ├── mrf.go
+│   ├── mrf_gen.go
+│   ├── mrf_gen_test.go
+│   ├── namespace-lock.go
+│   ├── namespace-lock_test.go
+│   ├── naughty-disk_test.go
+│   ├── net.go
+│   ├── net_test.go
+│   ├── notification-summary.go
+│   ├── notification.go
+│   ├── object-api-common.go
+│   ├── object-api-datatypes.go
+│   ├── object-api-datatypes_gen.go
+│   ├── object-api-deleteobject_test.go
+│   ├── object-api-errors.go
+│   ├── object-api-getobjectinfo_test.go
+│   ├── object-api-input-checks.go
+│   ├── object-api-interface.go
+│   ├── object-api-interface_gen.go
+│   ├── object-api-listobjects_test.go
+│   ├── object-api-multipart_test.go
+│   ├── object-api-options.go
+│   ├── object-api-options_test.go
+│   ├── object-api-putobject_test.go
+│   ├── object-api-utils.go
+│   ├── object-api-utils_test.go
+│   ├── object-handlers-common.go
+│   ├── object-handlers-common_test.go
+│   ├── object-handlers.go
+│   ├── object-handlers_test.go
+│   ├── object-lambda-handlers.go
+│   ├── object-lambda-handlers_test.go
+│   ├── object-multipart-handlers.go
+│   ├── object_api_suite_test.go
+│   ├── os-dirent_fileino.go
+│   ├── os-dirent_ino.go
+│   ├── os-dirent_namelen_bsd.go
+│   ├── os-dirent_namelen_linux.go
+│   ├── os-instrumented.go
+│   ├── os-readdir-common.go
+│   ├── os-readdir_test.go
+│   ├── os-reliable.go
+│   ├── os-reliable_test.go
+│   ├── os-rename_linux.go
+│   ├── os-rename_nolinux.go
+│   ├── os_other.go
+│   ├── os_unix.go
+│   ├── os_windows.go
+│   ├── osmetric_string.go
+│   ├── peer-rest-client.go
+│   ├── peer-rest-common.go
+│   ├── peer-rest-server.go
+│   ├── peer-s3-client.go
+│   ├── peer-s3-server.go
+│   ├── perf-tests.go
+│   ├── policy_test.go
+│   ├── post-policy-fan-out.go
+│   ├── post-policy_test.go
+│   ├── postpolicyform.go
+│   ├── postpolicyform_test.go
+│   ├── prepare-storage.go
+│   ├── rebalance-admin.go
+│   ├── rebalancemetric_string.go
+│   ├── rebalstatus_string.go
+│   ├── routers.go
+│   ├── s3-zip-handlers.go
+│   ├── scannermetric_string.go
+│   ├── server-main.go
+│   ├── server-main_test.go
+│   ├── server-rlimit.go
+│   ├── server-startup-msg.go
+│   ├── server-startup-msg_test.go
+│   ├── server_test.go
+│   ├── service.go
+│   ├── setup-type.go
+│   ├── sftp-server-driver.go
+│   ├── sftp-server.go
+│   ├── sftp-server_test.go
+│   ├── shared-lock.go
+│   ├── signals.go
+│   ├── signature-v2.go
+│   ├── signature-v2_test.go
+│   ├── signature-v4-parser.go
+│   ├── signature-v4-parser_test.go
+│   ├── signature-v4-utils.go
+│   ├── signature-v4-utils_test.go
+│   ├── signature-v4.go
+│   ├── signature-v4_test.go
+│   ├── site-replication-metrics.go
+│   ├── site-replication-metrics_gen.go
+│   ├── site-replication-metrics_gen_test.go
+│   ├── site-replication-utils.go
+│   ├── site-replication-utils_gen.go
+│   ├── site-replication-utils_gen_test.go
+│   ├── site-replication.go
+│   ├── site-replication_test.go
+│   ├── speedtest.go
+│   ├── storage-datatypes.go
+│   ├── storage-datatypes_gen.go
+│   ├── storage-datatypes_gen_test.go
+│   ├── storage-datatypes_test.go
+│   ├── storage-errors.go
+│   ├── storage-interface.go
+│   ├── storage-rest-client.go
+│   ├── storage-rest-common.go
+│   ├── storage-rest-common_gen.go
+│   ├── storage-rest-common_gen_test.go
+│   ├── storage-rest-server.go
+│   ├── storage-rest_test.go
+│   ├── storagemetric_string.go
+│   ├── streaming-signature-v4.go
+│   ├── streaming-signature-v4_test.go
+│   ├── streaming-v4-unsigned.go
+│   ├── sts-datatypes.go
+│   ├── sts-errors.go
+│   ├── sts-handlers.go
+│   ├── sts-handlers_test.go
+│   ├── stserrorcode_string.go
+│   ├── test-utils_test.go
+│   ├── testdata/
+│   │   ├── config/
+│   │   ├── decryptObjectInfo.json.zst
+│   │   ├── dillon_test_key.pub
+│   │   ├── invalid_test_key.pub
+│   │   ├── metacache.s2
+│   │   ├── undeleteable-object.tgz
+│   │   ├── xl-many-parts.meta
+│   │   ├── xl-meta-consist.zip
+│   │   ├── xl-meta-inline-notinline.zip
+│   │   ├── xl-meta-merge.zip
+│   │   ├── xl.meta
+│   │   ├── xl.meta-corrupt.gz
+│   │   └── xl.meta-v1.2.zst
+│   ├── tier-handlers.go
+│   ├── tier-last-day-stats.go
+│   ├── tier-last-day-stats_gen.go
+│   ├── tier-last-day-stats_gen_test.go
+│   ├── tier-sweeper.go
+│   ├── tier.go
+│   ├── tier_gen.go
+│   ├── tier_gen_test.go
+│   ├── tier_test.go
+│   ├── typed-errors.go
+│   ├── untar.go
+│   ├── update-notifier.go
+│   ├── update-notifier_test.go
+│   ├── update.go
+│   ├── update_test.go
+│   ├── url_test.go
+│   ├── user-provider-utils.go
+│   ├── utils.go
+│   ├── utils_test.go
+│   ├── veeam-sos-api.go
+│   ├── version_test.go
+│   ├── warm-backend-azure.go
+│   ├── warm-backend-gcs.go
+│   ├── warm-backend-minio.go
+│   ├── warm-backend-s3.go
+│   ├── warm-backend.go
+│   ├── xl-storage-disk-id-check.go
+│   ├── xl-storage-errors.go
+│   ├── xl-storage-errors_test.go
+│   ├── xl-storage-format-utils.go
+│   ├── xl-storage-format-utils_test.go
+│   ├── xl-storage-format-v1.go
+│   ├── xl-storage-format-v1_gen.go
+│   ├── xl-storage-format-v1_gen_test.go
+│   ├── xl-storage-format-v2-legacy.go
+│   ├── xl-storage-format-v2.go
+│   ├── xl-storage-format-v2_gen.go
+│   ├── xl-storage-format-v2_gen_test.go
+│   ├── xl-storage-format-v2_string.go
+│   ├── xl-storage-format-v2_test.go
+│   ├── xl-storage-format_test.go
+│   ├── xl-storage-free-version.go
+│   ├── xl-storage-free-version_test.go
+│   ├── xl-storage-meta-inline.go
+│   ├── xl-storage.go
+│   ├── xl-storage_noatime_notsupported.go
+│   ├── xl-storage_noatime_supported.go
+│   ├── xl-storage_test.go
+│   ├── xl-storage_unix_test.go
+│   └── xl-storage_windows_test.go
+├── code_of_conduct.md
+├── docker-buildx.sh
+├── dockerscripts/
+│   ├── docker-entrypoint.sh
+│   └── download-static-curl.sh
+├── docs/
+│   ├── LICENSE
+│   ├── auditlog/
+│   │   ├── auditlog-echo.go
+│   │   └── auditlog-echo.md
+│   ├── batch-jobs/
+│   │   └── README.md
+│   ├── bigdata/
+│   │   ├── README.md
+│   │   └── images/
+│   ├── bucket/
+│   │   ├── lifecycle/
+│   │   ├── notifications/
+│   │   ├── quota/
+│   │   ├── replication/
+│   │   ├── retention/
+│   │   └── versioning/
+│   ├── chroot/
+│   │   └── README.md
+│   ├── compression/
+│   │   └── README.md
+│   ├── config/
+│   │   └── README.md
+│   ├── debugging/
+│   │   ├── README.md
+│   │   ├── build.sh
+│   │   ├── hash-set/
+│   │   ├── healing-bin/
+│   │   ├── inspect/
+│   │   ├── pprofgoparser/
+│   │   ├── reorder-disks/
+│   │   ├── s3-check-md5/
+│   │   ├── s3-verify/
+│   │   ├── xattr/
+│   │   └── xl-meta/
+│   ├── distributed/
+│   │   ├── CONFIG.md
+│   │   ├── DECOMMISSION.md
+│   │   ├── DESIGN.md
+│   │   ├── README.md
+│   │   ├── SIZING.md
+│   │   ├── decom-compressed-sse-s3.sh
+│   │   ├── decom-encrypted-kes.sh
+│   │   ├── decom-encrypted-sse-s3.sh
+│   │   ├── decom-encrypted.sh
+│   │   ├── decom.sh
+│   │   ├── distributed-from-config-file.sh
+│   │   ├── iam-import-with-missing-entities.sh
+│   │   ├── iam-import-with-openid.sh
+│   │   ├── rw.json
+│   │   └── samples/
+│   ├── docker/
+│   │   └── README.md
+│   ├── erasure/
+│   │   ├── README.md
+│   │   └── storage-class/
+│   ├── extensions/
+│   │   ├── fan-out/
+│   │   └── s3zip/
+│   ├── federation/
+│   │   └── lookup/
+│   ├── ftp/
+│   │   └── README.md
+│   ├── iam/
+│   │   ├── access-management-plugin.md
+│   │   ├── access-manager-plugin.go
+│   │   ├── identity-management-plugin.md
+│   │   ├── identity-manager-plugin.go
+│   │   ├── opa.md
+│   │   └── policies/
+│   ├── integrations/
+│   │   └── veeam/
+│   ├── kms/
+│   │   ├── IAM.md
+│   │   └── README.md
+│   ├── lambda/
+│   │   └── README.md
+│   ├── logging/
+│   │   └── README.md
+│   ├── metrics/
+│   │   ├── README.md
+│   │   ├── healthcheck/
+│   │   └── prometheus/
+│   ├── minio-limits.md
+│   ├── multi-tenancy/
+│   │   └── README.md
+│   ├── multi-user/
+│   │   ├── README.md
+│   │   └── admin/
+│   ├── orchestration/
+│   │   ├── README.md
+│   │   ├── docker-compose/
+│   │   └── kubernetes/
+│   ├── resiliency/
+│   │   ├── docker-compose.yaml
+│   │   ├── nginx.conf
+│   │   ├── resiliency-initial-script.sh
+│   │   ├── resiliency-tests.sh
+│   │   ├── resiliency-verify-failure-script.sh
+│   │   ├── resiliency-verify-healing-script.sh
+│   │   └── resiliency-verify-script.sh
+│   ├── screenshots/
+│   │   ├── Architecture-diagram_distributed_16.jpg
+│   │   ├── Architecture-diagram_distributed_16.png
+│   │   ├── Architecture-diagram_distributed_16.svg
+│   │   ├── Architecture-diagram_distributed_8.jpg
+│   │   ├── Architecture-diagram_distributed_8.png
+│   │   ├── Architecture-diagram_distributed_8.svg
+│   │   ├── Architecture-diagram_distributed_nm.png
+│   │   ├── Example-1.jpg
+│   │   ├── Example-1.png
+│   │   ├── Example-2.jpg
+│   │   ├── Example-2.png
+│   │   ├── Example-3.jpg
+│   │   ├── Example-3.png
+│   │   ├── Minio_Cloud_Native_Arch.jpg
+│   │   ├── Minio_Cloud_Native_Arch.png
+│   │   ├── Minio_Cloud_Native_Arch.svg
+│   │   ├── erasure-code.jpg
+│   │   ├── erasure-code.png
+│   │   ├── erasure-code.svg
+│   │   ├── pic1.png
+│   │   └── pic2.png
+│   ├── security/
+│   │   └── README.md
+│   ├── select/
+│   │   ├── README.md
+│   │   └── select.py
+│   ├── site-replication/
+│   │   ├── README.md
+│   │   ├── gen-oidc-sts-cred.go
+│   │   ├── ldap.yaml
+│   │   ├── run-multi-site-ldap.sh
+│   │   ├── run-multi-site-minio-idp.sh
+│   │   ├── run-multi-site-oidc.sh
+│   │   ├── run-replication-with-checksum-header.sh
+│   │   ├── run-sse-kms-object-replication.sh
+│   │   ├── run-ssec-object-replication-with-compression.sh
+│   │   ├── run-ssec-object-replication.sh
+│   │   └── rw.json
+│   ├── sts/
+│   │   ├── .gitignore
+│   │   ├── README.md
+│   │   ├── assume-role.go
+│   │   ├── assume-role.md
+│   │   ├── casdoor.md
+│   │   ├── client-grants.go
+│   │   ├── client-grants.md
+│   │   ├── client-grants.py
+│   │   ├── client_grants/
+│   │   ├── custom-token-identity.go
+│   │   ├── custom-token-identity.md
+│   │   ├── dex.md
+│   │   ├── dex.yaml
+│   │   ├── etcd.md
+│   │   ├── keycloak.md
+│   │   ├── ldap.go
+│   │   ├── ldap.md
+│   │   ├── rw-ldap-username.json
+│   │   ├── tls.md
+│   │   ├── web-identity.go
+│   │   ├── web-identity.md
+│   │   ├── web-identity.py
+│   │   └── wso2.md
+│   ├── throttle/
+│   │   └── README.md
+│   ├── tls/
+│   │   ├── README.md
+│   │   └── kubernetes/
+│   └── tuning/
+│       ├── README.md
+│       └── tuned.conf
+├── go.mod
+├── go.sum
+├── helm-reindex.sh
+├── helm-releases/
+│   ├── minio-1.0.0.tgz
+│   ├── minio-1.0.1.tgz
+│   ├── minio-1.0.2.tgz
+│   ├── minio-1.0.3.tgz
+│   ├── minio-1.0.4.tgz
+│   ├── minio-1.0.5.tgz
+│   ├── minio-2.0.0.tgz
+│   ├── minio-2.0.1.tgz
+│   ├── minio-3.0.0.tgz
+│   ├── minio-3.0.1.tgz
+│   ├── minio-3.0.2.tgz
+│   ├── minio-3.1.0.tgz
+│   ├── minio-3.1.1.tgz
+│   ├── minio-3.1.2.tgz
+│   ├── minio-3.1.3.tgz
+│   ├── minio-3.1.4.tgz
+│   ├── minio-3.1.5.tgz
+│   ├── minio-3.1.6.tgz
+│   ├── minio-3.1.7.tgz
+│   ├── minio-3.1.8.tgz
+│   ├── minio-3.1.9.tgz
+│   ├── minio-3.2.0.tgz
+│   ├── minio-3.3.0.tgz
+│   ├── minio-3.3.1.tgz
+│   ├── minio-3.3.2.tgz
+│   ├── minio-3.3.3.tgz
+│   ├── minio-3.3.4.tgz
+│   ├── minio-3.4.0.tgz
+│   ├── minio-3.4.1.tgz
+│   ├── minio-3.4.2.tgz
+│   ├── minio-3.4.3.tgz
+│   ├── minio-3.4.4.tgz
+│   ├── minio-3.4.5.tgz
+│   ├── minio-3.4.6.tgz
+│   ├── minio-3.4.7.tgz
+│   ├── minio-3.4.8.tgz
+│   ├── minio-3.5.0.tgz
+│   ├── minio-3.5.1.tgz
+│   ├── minio-3.5.2.tgz
+│   ├── minio-3.5.3.tgz
+│   ├── minio-3.5.4.tgz
+│   ├── minio-3.5.5.tgz
+│   ├── minio-3.5.6.tgz
+│   ├── minio-3.5.7.tgz
+│   ├── minio-3.5.8.tgz
+│   ├── minio-3.5.9.tgz
+│   ├── minio-3.6.0.tgz
+│   ├── minio-3.6.1.tgz
+│   ├── minio-3.6.2.tgz
+│   ├── minio-3.6.3.tgz
+│   ├── minio-3.6.4.tgz
+│   ├── minio-3.6.5.tgz
+│   ├── minio-3.6.6.tgz
+│   ├── minio-4.0.0.tgz
+│   ├── minio-4.0.1.tgz
+│   ├── minio-4.0.10.tgz
+│   ├── minio-4.0.11.tgz
+│   ├── minio-4.0.12.tgz
+│   ├── minio-4.0.13.tgz
+│   ├── minio-4.0.14.tgz
+│   ├── minio-4.0.15.tgz
+│   ├── minio-4.0.2.tgz
+│   ├── minio-4.0.3.tgz
+│   ├── minio-4.0.4.tgz
+│   ├── minio-4.0.5.tgz
+│   ├── minio-4.0.6.tgz
+│   ├── minio-4.0.7.tgz
+│   ├── minio-4.0.8.tgz
+│   ├── minio-4.0.9.tgz
+│   ├── minio-4.1.0.tgz
+│   ├── minio-5.0.0.tgz
+│   ├── minio-5.0.1.tgz
+│   ├── minio-5.0.10.tgz
+│   ├── minio-5.0.11.tgz
+│   ├── minio-5.0.12.tgz
+│   ├── minio-5.0.13.tgz
+│   ├── minio-5.0.14.tgz
+│   ├── minio-5.0.15.tgz
+│   ├── minio-5.0.2.tgz
+│   ├── minio-5.0.3.tgz
+│   ├── minio-5.0.4.tgz
+│   ├── minio-5.0.5.tgz
+│   ├── minio-5.0.6.tgz
+│   ├── minio-5.0.7.tgz
+│   ├── minio-5.0.8.tgz
+│   ├── minio-5.0.9.tgz
+│   ├── minio-5.1.0.tgz
+│   ├── minio-5.2.0.tgz
+│   ├── minio-5.3.0.tgz
+│   └── minio-5.4.0.tgz
+├── helm/
+│   └── minio/
+│       ├── .helmignore
+│       ├── Chart.yaml
+│       ├── README.md
+│       ├── templates/
+│       └── values.yaml
+├── index.yaml
+├── internal/
+│   ├── amztime/
+│   │   ├── iso8601_time.go
+│   │   ├── iso8601_time_test.go
+│   │   ├── parse.go
+│   │   └── parse_test.go
+│   ├── arn/
+│   │   ├── arn.go
+│   │   └── arn_test.go
+│   ├── auth/
+│   │   ├── credentials.go
+│   │   └── credentials_test.go
+│   ├── bpool/
+│   │   ├── bpool.go
+│   │   ├── bpool_test.go
+│   │   └── pool.go
+│   ├── bucket/
+│   │   ├── bandwidth/
+│   │   ├── encryption/
+│   │   ├── lifecycle/
+│   │   ├── object/
+│   │   ├── replication/
+│   │   └── versioning/
+│   ├── cachevalue/
+│   │   ├── cache.go
+│   │   └── cache_test.go
+│   ├── color/
+│   │   └── color.go
+│   ├── config/
+│   │   ├── api/
+│   │   ├── batch/
+│   │   ├── bool-flag.go
+│   │   ├── bool-flag_test.go
+│   │   ├── browser/
+│   │   ├── callhome/
+│   │   ├── certs.go
+│   │   ├── certs_test.go
+│   │   ├── certsinfo.go
+│   │   ├── compress/
+│   │   ├── config.go
+│   │   ├── config_test.go
+│   │   ├── constants.go
+│   │   ├── crypto.go
+│   │   ├── crypto_test.go
+│   │   ├── dns/
+│   │   ├── drive/
+│   │   ├── errors-utils.go
+│   │   ├── errors.go
+│   │   ├── etcd/
+│   │   ├── heal/
+│   │   ├── help.go
+│   │   ├── identity/
+│   │   ├── ilm/
+│   │   ├── lambda/
+│   │   ├── legacy.go
+│   │   ├── notify/
+│   │   ├── policy/
+│   │   ├── scanner/
+│   │   ├── server.go
+│   │   ├── storageclass/
+│   │   └── subnet/
+│   ├── crypto/
+│   │   ├── auto-encryption.go
+│   │   ├── crypto.go
+│   │   ├── doc.go
+│   │   ├── error.go
+│   │   ├── header.go
+│   │   ├── header_test.go
+│   │   ├── key.go
+│   │   ├── key_test.go
+│   │   ├── metadata.go
+│   │   ├── metadata_test.go
+│   │   ├── sse-c.go
+│   │   ├── sse-kms.go
+│   │   ├── sse-s3.go
+│   │   ├── sse.go
+│   │   └── sse_test.go
+│   ├── deadlineconn/
+│   │   ├── deadlineconn.go
+│   │   └── deadlineconn_test.go
+│   ├── disk/
+│   │   ├── directio_darwin.go
+│   │   ├── directio_unix.go
+│   │   ├── directio_unsupported.go
+│   │   ├── disk.go
+│   │   ├── disk_test.go
+│   │   ├── disk_unix.go
+│   │   ├── disk_windows.go
+│   │   ├── fdatasync_linux.go
+│   │   ├── fdatasync_unix.go
+│   │   ├── fdatasync_unsupported.go
+│   │   ├── root_disk.go
+│   │   ├── stat_bsd.go
+│   │   ├── stat_freebsd.go
+│   │   ├── stat_linux.go
+│   │   ├── stat_linux_32bit.go
+│   │   ├── stat_linux_s390x.go
+│   │   ├── stat_netbsd.go
+│   │   ├── stat_openbsd.go
+│   │   ├── stat_solaris.go
+│   │   ├── stat_test.go
+│   │   ├── stat_windows.go
+│   │   ├── type_bsd.go
+│   │   ├── type_linux.go
+│   │   └── type_windows.go
+│   ├── dsync/
+│   │   ├── .gitignore
+│   │   ├── drwmutex.go
+│   │   ├── drwmutex_test.go
+│   │   ├── dsync-client_test.go
+│   │   ├── dsync-server_test.go
+│   │   ├── dsync.go
+│   │   ├── dsync_test.go
+│   │   ├── lock-args.go
+│   │   ├── lock-args_gen.go
+│   │   ├── lock-args_gen_test.go
+│   │   ├── locked_rand.go
+│   │   ├── locker.go
+│   │   └── utils.go
+│   ├── etag/
+│   │   ├── etag.go
+│   │   ├── etag_test.go
+│   │   └── reader.go
+│   ├── event/
+│   │   ├── arn.go
+│   │   ├── arn_test.go
+│   │   ├── config.go
+│   │   ├── config_test.go
+│   │   ├── errors.go
+│   │   ├── event.go
+│   │   ├── name.go
+│   │   ├── name_test.go
+│   │   ├── rules.go
+│   │   ├── rules_test.go
+│   │   ├── rulesmap.go
+│   │   ├── rulesmap_test.go
+│   │   ├── target/
+│   │   ├── targetid.go
+│   │   ├── targetid_test.go
+│   │   ├── targetidset.go
+│   │   ├── targetidset_test.go
+│   │   ├── targetlist.go
+│   │   └── targetlist_test.go
+│   ├── grid/
+│   │   ├── README.md
+│   │   ├── benchmark_test.go
+│   │   ├── connection.go
+│   │   ├── connection_test.go
+│   │   ├── debug.go
+│   │   ├── debugmsg_string.go
+│   │   ├── errors.go
+│   │   ├── grid.go
+│   │   ├── grid_test.go
+│   │   ├── grid_types_msgp_test.go
+│   │   ├── grid_types_test.go
+│   │   ├── handlers.go
+│   │   ├── handlers_string.go
+│   │   ├── manager.go
+│   │   ├── msg.go
+│   │   ├── msg_gen.go
+│   │   ├── msg_gen_test.go
+│   │   ├── msg_string.go
+│   │   ├── muxclient.go
+│   │   ├── muxserver.go
+│   │   ├── stream.go
+│   │   ├── trace.go
+│   │   ├── types.go
+│   │   └── types_test.go
+│   ├── handlers/
+│   │   ├── forwarder.go
+│   │   ├── proxy.go
+│   │   └── proxy_test.go
+│   ├── hash/
+│   │   ├── checker.go
+│   │   ├── checksum.go
+│   │   ├── checksum_test.go
+│   │   ├── crc.go
+│   │   ├── errors.go
+│   │   ├── reader.go
+│   │   ├── reader_test.go
+│   │   └── sha256/
+│   ├── http/
+│   │   ├── check_port_linux.go
+│   │   ├── check_port_others.go
+│   │   ├── check_port_test.go
+│   │   ├── close.go
+│   │   ├── dial_dnscache.go
+│   │   ├── dial_linux.go
+│   │   ├── dial_others.go
+│   │   ├── flush.go
+│   │   ├── headers.go
+│   │   ├── lambda-headers.go
+│   │   ├── listener.go
+│   │   ├── listener_test.go
+│   │   ├── request-recorder.go
+│   │   ├── response-recorder.go
+│   │   ├── server.go
+│   │   ├── server_test.go
+│   │   └── transports.go
+│   ├── init/
+│   │   ├── init.go
+│   │   └── init_darwin_amd64.go
+│   ├── ioutil/
+│   │   ├── append-file_nix.go
+│   │   ├── append-file_windows.go
+│   │   ├── discard.go
+│   │   ├── hardlimitreader.go
+│   │   ├── ioutil.go
+│   │   ├── ioutil_test.go
+│   │   ├── read_file.go
+│   │   ├── read_file_noatime_notsupported.go
+│   │   ├── read_file_noatime_supported.go
+│   │   └── wait_pipe.go
+│   ├── jwt/
+│   │   ├── parser.go
+│   │   └── parser_test.go
+│   ├── kms/
+│   │   ├── config.go
+│   │   ├── config_test.go
+│   │   ├── conn.go
+│   │   ├── context.go
+│   │   ├── dek_test.go
+│   │   ├── errors.go
+│   │   ├── kes.go
+│   │   ├── kms.go
+│   │   ├── secret-key.go
+│   │   ├── secret-key_test.go
+│   │   └── stub.go
+│   ├── lock/
+│   │   ├── lock.go
+│   │   ├── lock_nix.go
+│   │   ├── lock_solaris.go
+│   │   ├── lock_test.go
+│   │   ├── lock_windows.go
+│   │   └── lock_windows_test.go
+│   ├── logger/
+│   │   ├── audit.go
+│   │   ├── config.go
+│   │   ├── console.go
+│   │   ├── help.go
+│   │   ├── legacy.go
+│   │   ├── logger.go
+│   │   ├── logonce.go
+│   │   ├── logrotate.go
+│   │   ├── message/
+│   │   ├── reqinfo.go
+│   │   ├── target/
+│   │   ├── targets.go
+│   │   └── utils.go
+│   ├── lsync/
+│   │   ├── lrwmutex.go
+│   │   └── lrwmutex_test.go
+│   ├── mcontext/
+│   │   └── ctxt.go
+│   ├── mountinfo/
+│   │   ├── mountinfo.go
+│   │   ├── mountinfo_linux.go
+│   │   ├── mountinfo_linux_test.go
+│   │   ├── mountinfo_others.go
+│   │   └── mountinfo_windows.go
+│   ├── net/
+│   │   └── net.go
+│   ├── once/
+│   │   ├── init.go
+│   │   └── singleton.go
+│   ├── pubsub/
+│   │   ├── mask.go
+│   │   ├── pubsub.go
+│   │   └── pubsub_test.go
+│   ├── rest/
+│   │   ├── client.go
+│   │   ├── client_test.go
+│   │   └── rpc-stats.go
+│   ├── ringbuffer/
+│   │   ├── LICENSE
+│   │   ├── README.md
+│   │   ├── ring_buffer.go
+│   │   ├── ring_buffer_benchmark_test.go
+│   │   └── ring_buffer_test.go
+│   ├── s3select/
+│   │   ├── csv/
+│   │   ├── errors.go
+│   │   ├── genmessage.go
+│   │   ├── json/
+│   │   ├── jstream/
+│   │   ├── message.go
+│   │   ├── parquet/
+│   │   ├── progress.go
+│   │   ├── select.go
+│   │   ├── select_benchmark_test.go
+│   │   ├── select_test.go
+│   │   ├── simdj/
+│   │   ├── sql/
+│   │   ├── testdata/
+│   │   └── unused-errors.go
+│   └── store/
+│       ├── batch.go
+│       ├── batch_test.go
+│       ├── queuestore.go
+│       ├── queuestore_test.go
+│       ├── store.go
+│       └── store_test.go
+├── main.go
+└── update-credits.sh

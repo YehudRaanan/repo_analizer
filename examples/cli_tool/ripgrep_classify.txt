@@ -1,0 +1,70 @@
+=====================================
+REPO CLASSIFICATION SIGNALS
+=====================================
+
+--- METADATA ---
+Name: ripgrep
+Description: ripgrep recursively searches directories for a regex pattern while respecting your gitignore
+Primary language: Rust
+Topics: cli, command-line, command-line-tool, gitignore, grep, recursively-search, regex, ripgrep, rust, search
+
+--- ROOT FILES (signal matches) ---
+Web App:     (none)
+Backend:     (none)
+Library:     Cargo.toml
+CLI:         (none)
+Data/ML:     (none)
+Infra:       (none)
+
+--- TOP-LEVEL DIRECTORIES (signal matches) ---
+Web App:     (none)
+Backend:     (none)
+Library:     tests
+CLI:         (none)
+Data/ML:     (none)
+Infra:       (none)
+
+--- ALL TOP-LEVEL DIRECTORIES ---
+.cargo, .github, benchsuite, ci, crates, fuzz, pkg, scripts, tests
+
+--- TYPE-SPECIFIC EXTENSION COUNTS ---
+Web App extensions (.tsx, .jsx, .vue, .svelte): 0
+Data/ML extensions (.ipynb): 0
+Infra extensions (.tf, .hcl): 0
+Backend extensions (.proto, .graphql): 0
+
+--- TOP FILE EXTENSIONS (by count) ---
+  .rs: 100
+  .md: 20
+  .toml: 13
+  .csv: 12
+  .yml: 5
+  .gitignore: 4
+  .lock: 2
+  .setup: 2
+  .sh: 2
+  .help: 2
+  .ignore: 1
+  .fish: 1
+  .zsh: 1
+  .1: 1
+  .rb: 1
+
+--- BOOLEAN PATTERN CHECKS ---
+  pages or app dir: no
+  components dir: no
+  cmd or bin dir: no
+  src bin: no
+  run train scripts: no
+  ipynb files: no
+  model training files: no
+  tf files: no
+  k8s manifests: no
+  ansible playbooks: no
+  route controller dirs: no
+  db migrations: no
+  openapi spec: no
+  src and tests: no
+  examples dir: no
+  dockerfile: no
+  ci cd: yes

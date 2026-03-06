@@ -1,0 +1,13 @@
+# Environment Variables
+.env
+
+# Python caching
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Testing
+.pytest_cache/
+
+# Artifacts
+archive/

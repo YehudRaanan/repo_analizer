@@ -1,0 +1,433 @@
+=====================================
+Repository Analysis: flask
+Type: Library / Package / SDK
+=====================================
+
+--- METADATA ---
+Name: flask
+Description: The Python micro framework for building web applications.
+Language: Python
+Topics: flask, jinja, pallets, python, web-framework, werkzeug, wsgi
+Stars: 71324
+License: BSD 3-Clause "New" or "Revised" License
+
+--- README ---
+<div align="center"><img src="https://raw.githubusercontent.com/pallets/flask/refs/heads/stable/docs/_static/flask-name.svg" alt="" height="150"></div>
+
+# Flask
+
+Flask is a lightweight [WSGI] web application framework. It is designed
+to make getting started quick and easy, with the ability to scale up to
+complex applications. It began as a simple wrapper around [Werkzeug]
+and [Jinja], and has become one of the most popular Python web
+application frameworks.
+
+Flask offers suggestions, but doesn't enforce any dependencies or
+project layout. It is up to the developer to choose the tools and
+libraries they want to use. There are many extensions provided by the
+community that make adding new functionality easy.
+
+[WSGI]: https://wsgi.readthedocs.io/
+[Werkzeug]: https://werkzeug.palletsprojects.com/
+[Jinja]: https://jinja.palletsprojects.com/
+
+## A Simple Example
+
+```python
+# save this as app.py
+from flask import Flask
+
+app = Flask(__name__)
+
+@app.route("/")
+def hello():
+    return "Hello, World!"
+```
+
+```
+$ flask run
+  * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
+```
+
+## Donate
+
+The Pallets organization develops and supports Flask and the libraries
+it uses. In order to grow the community of contributors and users, and
+allow the maintainers to devote more time to the projects, [please
+donate today].
+
+[please donate today]: https://palletsprojects.com/donate
+
+## Contributing
+
+See our [detailed contributing documentation][contrib] for many ways to
+contribute, including reporting issues, requesting features, asking or answering
+questions, and making PRs.
+
+[contrib]: https://palletsprojects.com/contributing/
+
+
+--- PACKAGE MANIFEST(S) ---
+
+[pyproject.toml]
+[project]
+name = "Flask"
+version = "3.2.0.dev"
+description = "A simple framework for building complex web applications."
+readme = "README.md"
+license = "BSD-3-Clause"
+license-files = ["LICENSE.txt"]
+maintainers = [{name = "Pallets", email = "contact@palletsprojects.com"}]
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "Environment :: Web Environment",
+    "Framework :: Flask",
+    "Intended Audience :: Developers",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python",
+    "Topic :: Internet :: WWW/HTTP :: Dynamic Content",
+    "Topic :: Internet :: WWW/HTTP :: WSGI",
+    "Topic :: Internet :: WWW/HTTP :: WSGI :: Application",
+    "Topic :: Software Development :: Libraries :: Application Frameworks",
+    "Typing :: Typed",
+]
+requires-python = ">=3.10"
+dependencies = [
+    "blinker>=1.9.0",
+    "click>=8.1.3",
+    "itsdangerous>=2.2.0",
+    "jinja2>=3.1.2",
+    "markupsafe>=2.1.1",
+    "werkzeug>=3.1.0",
+]
+
+[project.optional-dependencies]
+async = ["asgiref>=3.2"]
+dotenv = ["python-dotenv"]
+
+[dependency-groups]
+dev = [
+    "ruff",
+    "tox",
+    "tox-uv",
+]
+docs = [
+    "pallets-sphinx-themes",
+    "sphinx<9",
+    "sphinx-tabs",
+    "sphinxcontrib-log-cabinet",
+]
+docs-auto = [
+    "sphinx-autobuild",
+]
+gha-update = [
+    "gha-update ; python_full_version >= '3.12'",
+]
+pre-commit = [
+    "pre-commit",
+    "pre-commit-uv",
+]
+tests = [
+    "asgiref",
+    "greenlet",
+    "pytest",
+    "python-dotenv",
+]
+typing = [
+    "asgiref",
+    "cryptography",
+    "mypy",
+    "pyright",
+    "pytest",
+    "python-dotenv",
+    "types-contextvars",
+    "types-dataclasses",
+]
+
+[project.urls]
+Donate = "https://palletsprojects.com/donate"
+Documentation = "https://flask.palletsprojects.com/"
+Changes = "https://flask.palletsprojects.com/page/changes/"
+Source = "https://github.com/pallets/flask/"
+Chat = "https://discord.gg/pallets"
+
+[project.scripts]
+flask = "flask.cli:main"
+
+[build-system]
+requires = ["flit_core>=3.11,<4"]
+build-backend = "flit_core.buildapi"
+
+[tool.flit.module]
+name = "flask"
+
+[tool.flit.sdist]
+include = [
+    "docs/",
+    "examples/",
+    "tests/",
+    "CHANGES.rst",
+    "uv.lock"
+]
+exclude = [
+    "docs/_build/",
+]
+
+[tool.uv]
+default-groups = ["dev", "pre-commit", "tests", "typing"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+filterwarnings = [
+    "error",
+]
+
+[tool.coverage.run]
+branch = true
+source = ["flask", "tests"]
+
+[tool.coverage.paths]
+source = ["src", "*/site-packages"]
+
+[tool.coverage.report]
+exclude_also = [
+    "if t.TYPE_CHECKING",
+    "raise NotImplementedError",
+    ": \\.{3}",
+]
+
+[tool.mypy]
+python_version = "3.10"
+files = ["src", "tests/type_check"]
+show_error_codes = true
+pretty = true
+strict = true
+
+[[tool.mypy.overrides]]
+module = [
+    "asgiref.*",
+    "dotenv.*",
+    "cryptography.*",
+    "importlib_metadata",
+]
+ignore_missing_imports = true
+
+[tool.pyright]
+pythonVersion = "3.10"
+include = ["src", "tests/type_check"]
+typeCheckingMode = "basic"
+
+[tool.ruff]
+src = ["src"]
+fix = 
+... [TRUNCATED]
+
+--- DIRECTORY STRUCTURE (depth 2) ---
+├── .devcontainer/
+│   ├── devcontainer.json
+│   └── on-create-command.sh
+├── .editorconfig
+├── .github/
+│   ├── ISSUE_TEMPLATE/
+│   │   ├── bug-report.md
+│   │   ├── config.yml
+│   │   └── feature-request.md
+│   ├── pull_request_template.md
+│   └── workflows/
+│       ├── lock.yaml
+│       ├── pre-commit.yaml
+│       ├── publish.yaml
+│       └── tests.yaml
+├── .gitignore
+├── .pre-commit-config.yaml
+├── .readthedocs.yaml
+├── CHANGES.rst
+├── LICENSE.txt
+├── README.md
+├── docs/
+│   ├── Makefile
+│   ├── _static/
+│   │   ├── debugger.png
+│   │   ├── flask-icon.svg
+│   │   ├── flask-logo.svg
+│   │   ├── flask-name.svg
+│   │   └── pycharm-run-config.png
+│   ├── api.rst
+│   ├── appcontext.rst
+│   ├── async-await.rst
+│   ├── blueprints.rst
+│   ├── changes.rst
+│   ├── cli.rst
+│   ├── conf.py
+│   ├── config.rst
+│   ├── contributing.rst
+│   ├── debugging.rst
+│   ├── deploying/
+│   │   ├── apache-httpd.rst
+│   │   ├── asgi.rst
+│   │   ├── eventlet.rst
+│   │   ├── gevent.rst
+│   │   ├── gunicorn.rst
+│   │   ├── index.rst
+│   │   ├── mod_wsgi.rst
+│   │   ├── nginx.rst
+│   │   ├── proxy_fix.rst
+│   │   ├── uwsgi.rst
+│   │   └── waitress.rst
+│   ├── design.rst
+│   ├── errorhandling.rst
+│   ├── extensiondev.rst
+│   ├── extensions.rst
+│   ├── gevent.rst
+│   ├── index.rst
+│   ├── installation.rst
+│   ├── license.rst
+│   ├── lifecycle.rst
+│   ├── logging.rst
+│   ├── make.bat
+│   ├── patterns/
+│   │   ├── appdispatch.rst
+│   │   ├── appfactories.rst
+│   │   ├── caching.rst
+│   │   ├── celery.rst
+│   │   ├── deferredcallbacks.rst
+│   │   ├── favicon.rst
+│   │   ├── fileuploads.rst
+│   │   ├── flashing.rst
+│   │   ├── index.rst
+│   │   ├── javascript.rst
+│   │   ├── jquery.rst
+│   │   ├── lazyloading.rst
+│   │   ├── methodoverrides.rst
+│   │   ├── mongoengine.rst
+│   │   ├── packages.rst
+│   │   ├── requestchecksum.rst
+│   │   ├── singlepageapplications.rst
+│   │   ├── sqlalchemy.rst
+│   │   ├── sqlite3.rst
+│   │   ├── streaming.rst
+│   │   ├── subclassing.rst
+│   │   ├── templateinheritance.rst
+│   │   ├── urlprocessors.rst
+│   │   ├── viewdecorators.rst
+│   │   └── wtforms.rst
+│   ├── quickstart.rst
+│   ├── reqcontext.rst
+│   ├── server.rst
+│   ├── shell.rst
+│   ├── signals.rst
+│   ├── templating.rst
+│   ├── testing.rst
+│   ├── tutorial/
+│   │   ├── blog.rst
+│   │   ├── database.rst
+│   │   ├── deploy.rst
+│   │   ├── factory.rst
+│   │   ├── flaskr_edit.png
+│   │   ├── flaskr_index.png
+│   │   ├── flaskr_login.png
+│   │   ├── index.rst
+│   │   ├── install.rst
+│   │   ├── layout.rst
+│   │   ├── next.rst
+│   │   ├── static.rst
+│   │   ├── templates.rst
+│   │   ├── tests.rst
+│   │   └── views.rst
+│   ├── views.rst
+│   └── web-security.rst
+├── examples/
+│   ├── celery/
+│   │   ├── README.md
+│   │   ├── make_celery.py
+│   │   ├── pyproject.toml
+│   │   ├── requirements.txt
+│   │   └── src/
+│   ├── javascript/
+│   │   ├── .gitignore
+│   │   ├── LICENSE.txt
+│   │   ├── README.rst
+│   │   ├── js_example/
+│   │   ├── pyproject.toml
+│   │   └── tests/
+│   └── tutorial/
+│       ├── .gitignore
+│       ├── LICENSE.txt
+│       ├── README.rst
+│       ├── flaskr/
+│       ├── pyproject.toml
+│       └── tests/
+├── pyproject.toml
+├── src/
+│   └── flask/
+│       ├── __init__.py
+│       ├── __main__.py
+│       ├── app.py
+│       ├── blueprints.py
+│       ├── cli.py
+│       ├── config.py
+│       ├── ctx.py
+│       ├── debughelpers.py
+│       ├── globals.py
+│       ├── helpers.py
+│       ├── json/
+│       ├── logging.py
+│       ├── py.typed
+│       ├── sansio/
+│       ├── sessions.py
+│       ├── signals.py
+│       ├── templating.py
+│       ├── testing.py
+│       ├── typing.py
+│       ├── views.py
+│       └── wrappers.py
+├── tests/
+│   ├── conftest.py
+│   ├── static/
+│   │   ├── config.json
+│   │   ├── config.toml
+│   │   └── index.html
+│   ├── templates/
+│   │   ├── _macro.html
+│   │   ├── context_template.html
+│   │   ├── escaping_template.html
+│   │   ├── mail.txt
+│   │   ├── nested/
+│   │   ├── non_escaping_template.txt
+│   │   ├── simple_template.html
+│   │   ├── template_filter.html
+│   │   └── template_test.html
+│   ├── test_appctx.py
+│   ├── test_apps/
+│   │   ├── .env
+│   │   ├── .flaskenv
+│   │   ├── blueprintapp/
+│   │   ├── cliapp/
+│   │   ├── helloworld/
+│   │   └── subdomaintestmodule/
+│   ├── test_async.py
+│   ├── test_basic.py
+│   ├── test_blueprints.py
+│   ├── test_cli.py
+│   ├── test_config.py
+│   ├── test_converters.py
+│   ├── test_helpers.py
+│   ├── test_instance_config.py
+│   ├── test_json.py
+│   ├── test_json_tag.py
+│   ├── test_logging.py
+│   ├── test_regression.py
+│   ├── test_reqctx.py
+│   ├── test_request.py
+│   ├── test_session_interface.py
+│   ├── test_signals.py
+│   ├── test_subclassing.py
+│   ├── test_templating.py
+│   ├── test_testing.py
+│   ├── test_user_error_handler.py
+│   ├── test_views.py
+│   └── type_check/
+│       ├── typing_app_decorators.py
+│       ├── typing_error_handler.py
+│       └── typing_route.py
+└── uv.lock

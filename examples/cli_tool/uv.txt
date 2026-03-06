@@ -1,0 +1,1071 @@
+=====================================
+Repository Analysis: uv
+Type: CLI Tool
+=====================================
+
+--- METADATA ---
+Name: uv
+Description: An extremely fast Python package and project manager, written in Rust.
+Language: Rust
+Topics: packaging, python, resolver, uv
+Stars: 80335
+License: Apache License 2.0
+
+--- README ---
+# uv
+
+[![uv](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/uv/main/assets/badge/v0.json)](https://github.com/astral-sh/uv)
+[![image](https://img.shields.io/pypi/v/uv.svg)](https://pypi.python.org/pypi/uv)
+[![image](https://img.shields.io/pypi/l/uv.svg)](https://pypi.python.org/pypi/uv)
+[![image](https://img.shields.io/pypi/pyversions/uv.svg)](https://pypi.python.org/pypi/uv)
+[![Actions status](https://github.com/astral-sh/uv/actions/workflows/ci.yml/badge.svg)](https://github.com/astral-sh/uv/actions)
+[![Discord](https://img.shields.io/badge/Discord-%235865F2.svg?logo=discord&logoColor=white)](https://discord.gg/astral-sh)
+
+An extremely fast Python package and project manager, written in Rust.
+
+<p align="center">
+  <picture align="center">
+    <source media="(prefers-color-scheme: dark)" srcset="https://github.com/astral-sh/uv/assets/1309177/03aa9163-1c79-4a87-a31d-7a9311ed9310">
+    <source media="(prefers-color-scheme: light)" srcset="https://github.com/astral-sh/uv/assets/1309177/629e59c0-9c6e-4013-9ad4-adb2bcf5080d">
+    <img alt="Shows a bar chart with benchmark results." src="https://github.com/astral-sh/uv/assets/1309177/629e59c0-9c6e-4013-9ad4-adb2bcf5080d">
+  </picture>
+</p>
+
+<p align="center">
+  <i>Installing <a href="https://trio.readthedocs.io/">Trio</a>'s dependencies with a warm cache.</i>
+</p>
+
+## Highlights
+
+- A single tool to replace `pip`, `pip-tools`, `pipx`, `poetry`, `pyenv`, `twine`, `virtualenv`, and
+  more.
+- [10-100x faster](https://github.com/astral-sh/uv/blob/main/BENCHMARKS.md) than `pip`.
+- Provides [comprehensive project management](#projects), with a
+  [universal lockfile](https://docs.astral.sh/uv/concepts/projects/layout#the-lockfile).
+- [Runs scripts](#scripts), with support for
+  [inline dependency metadata](https://docs.astral.sh/uv/guides/scripts#declaring-script-dependencies).
+- [Installs and manages](#python-versions) Python versions.
+- [Runs and installs](#tools) tools published as Python packages.
+- Includes a [pip-compatible interface](#the-pip-interface) for a performance boost with a familiar
+  CLI.
+- Supports Cargo-style [workspaces](https://docs.astral.sh/uv/concepts/projects/workspaces) for
+  scalable projects.
+- Disk-space efficient, with a [global cache](https://docs.astral.sh/uv/concepts/cache) for
+  dependency deduplication.
+- Installable without Rust or Python via `curl` or `pip`.
+- Supports macOS, Linux, and Windows.
+
+uv is backed by [Astral](https://astral.sh), the creators of
+[Ruff](https://github.com/astral-sh/ruff) and [ty](https://github.com/astral-sh/ty).
+
+## Installation
+
+Install uv with our standalone installers:
+
+```bash
+# On macOS and Linux.
+curl -LsSf https://astral.sh/uv/install.sh | sh
+```
+
+```bash
+# On Windows.
+powershell -ExecutionPolicy ByPass -c "irm https://astral.sh/uv/install.ps1 | iex"
+```
+
+Or, from [PyPI](https://pypi.org/project/uv/):
+
+```bash
+# With pip.
+pip install uv
+```
+
+```bash
+# Or pipx.
+pipx install uv
+```
+
+If installed via the standalone installer, uv can update itself to the latest version:
+
+```bash
+uv self update
+```
+
+See the [installation documentation](https://docs.astral.sh/uv/getting-started/installation/) for
+details and alternative installation methods.
+
+## Documentation
+
+uv's documentation is available at [docs.astral.sh/uv](https://docs.astral.sh/uv).
+
+Additionally, the command line reference documentation can be viewed with `uv help`.
+
+## Features
+
+### Projects
+
+uv manages project dependencies and environments, with support for lockfiles, workspaces, and more,
+similar to `rye` or `poetry`:
+
+```console
+$ uv init example
+Initialized project `example` at `/home/user/example`
+
+$ cd example
+
+$ uv add ruff
+Creating virtual environment at: .venv
+Resolved 2 packages in 170ms
+   Built example @ file:///home/user/example
+Prepared 2 packages in 627ms
+Installed 2 packages in 1ms
+ + example==0.1.0 (from file:///home/user/example)
+ + ruff==0.5.0
+
+$ uv run ruff check
+All checks passed!
+
+$ uv lock
+Resolved 2 packages in 0.33ms
+
+$ uv sync
+Resolved 2 packages in 0.70ms
+Audited 1 package in 0.02ms
+```
+
+See the [project documentation](https://docs.astral.sh/uv/guides/projects/) to get started.
+
+uv also supports building and publishing projects, even if they're not managed with uv. See the
+[publish guide](https://docs.astral.sh/uv/guides/publish/) to learn more.
+
+### Scripts
+
+uv manages dependencies and environments for single-file scripts.
+
+Create a new script and add inline metadata declaring its dependencies:
+
+```console
+$ echo 'import requests; print(requests.get("https://astral.sh"))' > example.py
+
+$ uv add --script example.py requests
+Updated `example.py`
+```
+
+Then, run the script in an isolated virtual environment:
+
+```console
+$ uv run example.py
+Reading inline script metadata from: example.py
+Installed 5 packages in 12ms
+<Response [200]>
+```
+
+See the [scripts documentation](https://docs.astral.sh/uv/guides/scripts/) to get started.
+
+### Tools
+
+uv executes and installs command-line tools provid
+... [TRUNCATED]
+
+--- PACKAGE MANIFEST(S) ---
+
+[pyproject.toml]
+[build-system]
+requires = ["maturin>=1.0,<2.0"]
+build-backend = "maturin"
+
+[project]
+name = "uv"
+version = "0.10.8"
+description = "An extremely fast Python package and project manager, written in Rust."
+authors = [{ name = "Astral Software Inc.", email = "hey@astral.sh" }]
+requires-python = ">=3.8"
+keywords = [
+  "uv", "requirements", "packaging"
+]
+classifiers = [
+  "Development Status :: 5 - Production/Stable",
+  "Environment :: Console",
+  "Intended Audience :: Developers",
+  "Operating System :: OS Independent",
+  "License :: OSI Approved :: MIT License",
+  "License :: OSI Approved :: Apache Software License",
+  "Programming Language :: Python",
+  "Programming Language :: Python :: 3.8",
+  "Programming Language :: Python :: 3.9",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: 3.13",
+  "Programming Language :: Python :: 3.14",
+  "Programming Language :: Python :: 3.15",
+  "Programming Language :: Python :: 3 :: Only",
+  "Programming Language :: Rust",
+  "Topic :: Software Development :: Quality Assurance",
+  "Topic :: Software Development :: Testing",
+  "Topic :: Software Development :: Libraries",
+]
+readme = "README.md"
+
+[project.urls]
+Repository = "https://github.com/astral-sh/uv"
+Documentation = "https://docs.astral.sh/uv"
+Changelog = "https://github.com/astral-sh/uv/blob/main/CHANGELOG.md"
+Releases = "https://github.com/astral-sh/uv/releases"
+Discord = "https://discord.gg/astral-sh"
+
+[tool.maturin]
+bindings = "bin"
+manifest-path = "crates/uv/Cargo.toml"
+module-name = "uv"
+python-source = "python"
+strip = true
+include = [
+    { path = "rust-toolchain.toml", format = "sdist" },
+    # this one isn't discovered by maturin because it's behind a feature flag
+    { path = "crates/uv-performance-memory-allocator/**/*", format = "sdist" },
+    { path = "crates/uv-trampoline-builder/trampolines/*", format = "sdist" },
+    # https://github.com/rust-lang/cargo/issues/5933
+    { path = "LICENSE-APACHE", format = "sdist" },
+    { path = "LICENSE-MIT", format = "sdist" },
+]
+
+[tool.rooster]
+changelog-contributors = false  # We exclude contributors from the CHANGELOG file
+major-labels = []  # We do not use the major version number yet
+minor-labels = ["breaking"]
+ignore-labels = ["internal", "ci", "testing"]
+version_files = [
+  "README.md",
+  "pyproject.toml",
+  "crates/uv/Cargo.toml",
+  "crates/uv-version/Cargo.toml",
+  "crates/uv-build/Cargo.toml",
+  "crates/uv-build/pyproject.toml",
+  { target = "crates/uv-static/src/env_vars.rs", replace = "next release" },
+  "docs/getting-started/installation.md",
+  "docs/guides/integration/docker.md",
+  "docs/guides/integration/pre-commit.md",
+  "docs/guides/integration/github.md",
+  "docs/guides/integration/gitlab.md",
+  "docs/guides/integration/aws-lambda.md",
+  "docs/concepts/build-backend.md",
+  "docs/concepts/projects/init.md",
+  "docs/concepts/projects/workspaces.md",
+  { target = "docs/refere
+... [TRUNCATED]
+
+[Cargo.toml]
+[workspace]
+members = ["crates/*"]
+exclude = [
+  "scripts",
+  # Needs nightly
+  "crates/uv-trampoline",
+]
+resolver = "2"
+
+[workspace.package]
+edition = "2024"
+rust-version = "1.91"
+homepage = "https://pypi.org/project/uv/"
+repository = "https://github.com/astral-sh/uv"
+authors = ["uv"]
+license = "MIT OR Apache-2.0"
+
+[workspace.dependencies]
+uv-audit = { version = "0.0.28", path = "crates/uv-audit" }
+uv-auth = { version = "0.0.28", path = "crates/uv-auth" }
+uv-bin-install = { version = "0.0.28", path = "crates/uv-bin-install" }
+uv-build-backend = { version = "0.0.28", path = "crates/uv-build-backend" }
+uv-build-frontend = { version = "0.0.28", path = "crates/uv-build-frontend" }
+uv-cache = { version = "0.0.28", path = "crates/uv-cache" }
+uv-cache-info = { version = "0.0.28", path = "crates/uv-cache-info" }
+uv-cache-key = { version = "0.0.28", path = "crates/uv-cache-key" }
+uv-cli = { version = "0.0.28", path = "crates/uv-cli" }
+uv-client = { version = "0.0.28", path = "crates/uv-client" }
+uv-configuration = { version = "0.0.28", path = "crates/uv-configuration" }
+uv-console = { version = "0.0.28", path = "crates/uv-console" }
+uv-dirs = { version = "0.0.28", path = "crates/uv-dirs" }
+uv-dispatch = { version = "0.0.28", path = "crates/uv-dispatch" }
+uv-distribution = { version = "0.0.28", path = "crates/uv-distribution" }
+uv-distribution-filename = { version = "0.0.28", path = "crates/uv-distribution-filename" }
+uv-distribution-types = { version = "0.0.28", path = "crates/uv-distribution-types" }
+uv-extract = { version = "0.0.28", path = "crates/uv-extract" }
+uv-flags = { version = "0.0.28", path = "crates/uv-flags" }
+uv-fs = { version = "0.0.28", path = "crates/uv-fs", features = [
+  "serde",
+  "tokio",
+] }
+uv-git = { version = "0.0.28", path = "crates/uv-git" }
+uv-git-types = { version = "0.0.28", path = "crates/uv-git-types" }
+uv-globfilter = { version = "0.0.28", path = "crates/uv-globfilter" }
+uv-install-wheel = { version = "0.0.28", path = "crates/uv-install-wheel", default-features = false }
+uv-installer = { version = "0.0.28", path = "crates/uv-installer" }
+uv-keyring = { version = "0.0.28", path = "crates/uv-keyring" }
+uv-logging = { version = "0.0.28", path = "crates/uv-logging" }
+uv-macros = { version = "0.0.28", path = "crates/uv-macros" }
+uv-metadata = { version = "0.0.28", path = "crates/uv-metadata" }
+uv-normalize = { version = "0.0.28", path = "crates/uv-normalize" }
+uv-once-map = { version = "0.0.28", path = "crates/uv-once-map" }
+uv-options-metadata = { version = "0.0.28", path = "crates/uv-options-metadata" }
+uv-performance-memory-allocator = { version = "0.0.28", path = "crates/uv-performance-memory-allocator" }
+uv-pep440 = { version = "0.0.28", path = "crates/uv-pep440", features = [
+  "tracing",
+  "rkyv",
+  "version-ranges",
+] }
+uv-pep508 = { version = "0.0.28", path = "crates/uv-pep508", features = [
+  "non-pep508-extensions",
+] }
+uv-platform = { version = "0.0.28", path = "crates/uv-platform" }
+uv-platform-tags = { version = 
+... [TRUNCATED]
+
+--- CLI ENTRY POINTS / COMMAND DEFINITIONS ---
+
+[crates/uv-build/python/uv_build/__main__.py]
+def main():
+    import sys
+
+    # This works both as redirect to use the proper uv package and as smoke test.
+    print(
+        "uv_build contains only the PEP 517 build backend for uv and can't be used on the CLI. "
+        "Use `uv build` or another build frontend instead.",
+        file=sys.stderr,
+    )
+    if "--help" in sys.argv or "-h" in sys.argv:
+        sys.exit(0)
+    else:
+        sys.exit(1)
+
+
+if __name__ == "__main__":
+    main()
+
+
+[python/uv/__main__.py]
+import os
+import sys
+
+from uv import find_uv_bin
+
+
+def _detect_virtualenv() -> str:
+    """
+    Find the virtual environment path for the current Python executable.
+    """
+
+    # If it's already set, then just use it
+    value = os.getenv("VIRTUAL_ENV")
+    if value:
+        return value
+
+    # Otherwise, check if we're in a venv
+    venv_marker = os.path.join(sys.prefix, "pyvenv.cfg")
+
+    if os.path.exists(venv_marker):
+        return sys.prefix
+
+    return ""
+
+
+def _run() -> None:
+    uv = find_uv_bin()
+
+    env = os.environ.copy()
+    venv = _detect_virtualenv()
+    if venv:
+        env.setdefault("VIRTUAL_ENV", venv)
+
+    # Let `uv` know that it was spawned by this Python interpreter
+    env["UV_INTERNAL__PARENT_INTERPRETER"] = sys.executable
+
+    if sys.platform == "win32":
+        import subprocess
+
+        # Avoid emitting a traceback on interrupt
+        try:
+            completed_process = subprocess.run([uv, *sys.argv[1:]], env=env)
+        except KeyboardInterrupt:
+            sys.exit(2)
+
+        sys.exit(completed_process.returncode)
+    else:
+        os.execvpe(uv, [uv, *sys.argv[1:]], env=env)
+
+
+if __name__ == "__main__":
+    _run()
+
+
+[scripts/smoke-test/__main__.py]
+import os
+import pathlib
+import shlex
+import subprocess
+import sys
+
+SELF_FILE = pathlib.Path(__file__)
+COMMANDS_FILE = SELF_FILE.parent / "commands.sh"
+
+
+def read_commands() -> list[list[str]]:
+    return [
+        shlex.split(line)
+        for line in COMMANDS_FILE.read_text().splitlines()
+        # Skip empty lines and comments
+        if line.strip() and not line.strip().startswith("#")
+    ]
+
+
+def run_command(command: list[str]) -> subprocess.CompletedProcess:
+    env = os.environ.copy()
+    # Prepend either the parent uv path to the PATH or the current directory
+    env = {
+        **env,
+        "PATH": str(
+            pathlib.Path(env.get("UV")).parent if "UV" in env else pathlib.Path.cwd()
+        )
+        + os.pathsep
+        + env.get("PATH"),
+    }
+    return subprocess.run(command, capture_output=True, text=True, env=env)
+
+
+def report_result(result: subprocess.CompletedProcess):
+    print("=============================================")
+    print(f"command: {' '.join(result.args)}")
+    print(f"exit code: {result.returncode}")
+    print()
+    print("------- stdout -------")
+    print(result.stdout)
+    print()
+    print("------- stderr -------")
+    print(result.stderr)
+
+
+def main():
+    results = [run_command(command) for command in read_commands()]
+    failed = sum(result.returncode != 0 for result in results)
+    for result in results:
+        report_result(result)
+
+    print("=============================================")
+    if failed:
+        print(f"FAILURE - {failed}/{len(results)} commands failed")
+        sys.exit(1)
+    else:
+        print(f"SUCCESS - {len(results)}/{len(results)} commands succeeded")
+
+
+main()
+
+
+--- SHELL COMPLETIONS & MAN PAGES ---
+  crates/uv-virtualenv/src/activator/activate.fish
+
+--- DIRECTORY STRUCTURE (depth 2) ---
+├── .cargo/
+│   └── config.toml
+├── .claude/
+│   ├── hooks/
+│   │   ├── post-edit-format.py
+│   │   ├── session-start-web.sh
+│   │   └── session-start.sh
+│   └── settings.json
+├── .config/
+│   └── nextest.toml
+├── .editorconfig
+├── .gitattributes
+├── .github/
+│   ├── ISSUE_TEMPLATE/
+│   │   ├── 1_bug_report.yaml
+│   │   ├── 2_feature_request.yaml
+│   │   ├── 3_question.yaml
+│   │   └── config.yml
+│   ├── PULL_REQUEST_TEMPLATE.md
+│   ├── renovate.json5
+│   └── workflows/
+│       ├── bench.yml
+│       ├── build-dev-binaries.yml
+│       ├── build-docker.yml
+│       ├── build-release-binaries.yml
+│       ├── check-docs.yml
+│       ├── check-fmt.yml
+│       ├── check-generated-files.yml
+│       ├── check-lint.yml
+│       ├── check-publish.yml
+│       ├── check-release.yml
+│       ├── check-zizmor.yml
+│       ├── ci.yml
+│       ├── publish-crates.yml
+│       ├── publish-docs.yml
+│       ├── publish-mirror.yml
+│       ├── publish-pypi.yml
+│       ├── publish-versions.yml
+│       ├── release.yml
+│       ├── setup-dev-drive.ps1
+│       ├── sync-python-releases.yml
+│       ├── test-ecosystem.yml
+│       ├── test-integration.yml
+│       ├── test-smoke.yml
+│       ├── test-system.yml
+│       ├── test-windows-trampolines.yml
+│       └── test.yml
+├── .gitignore
+├── .ignore
+├── .pre-commit-config.yaml
+├── .prettierignore
+├── .prettierrc
+├── .python-versions
+├── BENCHMARKS.md
+├── CHANGELOG.md
+├── CLAUDE.md
+├── CODE_OF_CONDUCT.md
+├── CONTRIBUTING.md
+├── Cargo.lock
+├── Cargo.toml
+├── Dockerfile
+├── LICENSE-APACHE
+├── LICENSE-MIT
+├── PIP_COMPATIBILITY.md
+├── README.md
+├── SECURITY.md
+├── STYLE.md
+├── _typos.toml
+├── assets/
+│   ├── badge/
+│   │   └── v0.json
+│   ├── png/
+│   │   ├── Astral.png
+│   │   ├── install-cold.png
+│   │   ├── install-warm.png
+│   │   ├── resolve-cold.png
+│   │   └── resolve-warm.png
+│   └── svg/
+│       ├── Astral.svg
+│       ├── Benchmark-Dark.svg
+│       └── Benchmark-Light.svg
+├── changelogs/
+│   ├── 0.1.x.md
+│   ├── 0.2.x.md
+│   ├── 0.3.x.md
+│   ├── 0.4.x.md
+│   ├── 0.5.x.md
+│   ├── 0.6.x.md
+│   ├── 0.7.x.md
+│   ├── 0.8.x.md
+│   └── 0.9.x.md
+├── clippy.toml
+├── crates/
+│   ├── README.md
+│   ├── uv-audit/
+│   │   ├── Cargo.toml
+│   │   ├── README.md
+│   │   └── src/
+│   ├── uv-auth/
+│   │   ├── Cargo.toml
+│   │   ├── README.md
+│   │   └── src/
+│   ├── uv-bench/
+│   │   ├── Cargo.toml
+│   │   ├── README.md
+│   │   ├── benches/
+│   │   ├── inputs/
+│   │   └── src/
+│   ├── uv-bin-install/
+│   │   ├── Cargo.toml
+│   │   ├── README.md
+│   │   └── src/
+│   ├── uv-build-backend/
+│   │   ├── Cargo.toml
+│   │   ├── README.md
+│   │   └── src/
+│   ├── uv-build-frontend/
+│   │   ├── .gitignore
+│   │   ├── Cargo.toml
+│   │   ├── README.md
+│   │   └── src/
+│   ├── uv-build/
+│   │   ├── Cargo.toml
+│   │   ├── LICENSE-APACHE
+│   │   ├── LICENSE-MIT
+│   │   ├── README.md
+│   │   ├── deny.toml
+│   │   ├── pyproject.toml
+│   │   ├── python/
+│   │   ├── ruff.toml
+│   │   └── src/
+│   ├── uv-cache-info/
+│   │   ├── Cargo.toml
+│   │   ├── README.md
+│   │   └── src/
+│   ├── uv-cache-key/
+│   │   ├── Cargo.toml
+│   │   ├── README.md
+│   │   └── src/
+│   ├── uv-cache/
+│   │   ├── Cargo.toml
+│   │   ├── README.md
+│   │   └── src/
+│   ├── uv-cli/
+│   │   ├── Cargo.toml
+│   │   ├── README.md
+│   │   ├── build.rs
+│   │   └── src/
+│   ├── uv-client/
+│   │   ├── Cargo.toml
+│   │   ├── README.md
+│   │   ├── src/
+│   │   └── tests/
+│   ├── uv-configuration/
+│   │   ├── Cargo.toml
+│   │   ├── README.md
+│   │   └── src/
+│   ├── uv-console/
+│   │   ├── Cargo.toml
+│   │   ├── README.md
+│   │   └── src/
+│   ├── uv-dev/
+│   │   ├── .gitignore
+│   │   ├── Cargo.toml
+│   │   ├── README.md
+│   │   ├── builder.dockerfile
+│   │   ├── src/
+│   │   ├── sync_sysconfig_targets.sh
+│   │   └── test_sdist_building.sh
+│   ├── uv-dirs/
+│   │   ├── Cargo.toml
+│   │   ├── README.md
+│   │   └── src/
+│   ├── uv-dispatch/
+│   │   ├── Cargo.toml
+│   │   ├── README.md
+│   │   └── src/
+│   ├── uv-distribution-filename/
+│   │   ├── Cargo.toml
+│   │   ├── README.md
+│   │   └── src/
+│   ├── uv-distribution-types/
+│   │   ├── Cargo.toml
+│   │   ├── README.md
+│   │   └── src/
+│   ├── uv-distribution/
+│   │   ├── Cargo.toml
+│   │   ├── README.md
+│   │   └── src/
+│   ├── uv-extract/
+│   │   ├── Cargo.toml
+│   │   ├── README.md
+│   │   └── src/
+│   ├── uv-flags/
+│   │   ├── Cargo.toml
+│   │   ├── README.md
+│   │   └── src/
+│   ├── uv-fs/
+│   │   ├── Cargo.toml
+│   │   ├── README.md
+│   │   └── src/
+│   ├── uv-git-types/
+│   │   ├── Cargo.toml
+│   │   ├── README.md
+│   │   └── src/
+│   ├── uv-git/
+│   │   ├── Cargo.toml
+│   │   ├── README.md
+│   │   └── src/
+│   ├── uv-globfilter/
+│   │   ├── Cargo.toml
+│   │   ├── README.md
+│   │   └── src/
+│   ├── uv-install-wheel/
+│   │   ├── Cargo.toml
+│   │   ├── README.md
+│   │   └── src/
+│   ├── uv-installer/
+│   │   ├── Cargo.toml
+│   │   ├── README.md
+│   │   └── src/
+│   ├── uv-keyring/
+│   │   ├── Cargo.toml
+│   │   ├── README.md
+│   │   ├── src/
+│   │   └── tests/
+│   ├── uv-logging/
+│   │   ├── Cargo.toml
+│   │   ├── README.md
+│   │   └── src/
+│   ├── uv-macros/
+│   │   ├── Cargo.toml
+│   │   ├── README.md
+│   │   └── src/
+│   ├── uv-metadata/
+│   │   ├── Cargo.toml
+│   │   ├── README.md
+│   │   └── src/
+│   ├── uv-normalize/
+│   │   ├── Cargo.toml
+│   │   ├── README.md
+│   │   └── src/
+│   ├── uv-once-map/
+│   │   ├── Cargo.toml
+│   │   ├── README.md
+│   │   └── src/
+│   ├── uv-options-metadata/
+│   │   ├── Cargo.toml
+│   │   ├── README.md
+│   │   └── src/
+│   ├── uv-pep440/
+│   │   ├── CHANGELOG.md
+│   │   ├── Cargo.toml
+│   │   ├── License-Apache
+│   │   ├── License-BSD
+│   │   ├── README.md
+│   │   └── src/
+│   ├── uv-pep508/
+│   │   ├── Cargo.toml
+│   │   ├── Changelog.md
+│   │   ├── License-Apache
+│   │   ├── License-BSD
+│   │   ├── README.md
+│   │   └── src/
+│   ├── uv-performance-memory-allocator/
+│   │   ├── Cargo.toml
+│   │   ├── README.md
+│   │   └── src/
+│   ├── uv-platform-tags/
+│   │   ├── Cargo.toml
+│   │   ├── README.md
+│   │   └── src/
+│   ├── uv-platform/
+│   │   ├── Cargo.toml
+│   │   ├── README.md
+│   │   └── src/
+│   ├── uv-preview/
+│   │   ├── Cargo.toml
+│   │   ├── README.md
+│   │   └── src/
+│   ├── uv-publish/
+│   │   ├── Cargo.toml
+│   │   ├── README.md
+│   │   └── src/
+│   ├── uv-pypi-types/
+│   │   ├── Cargo.toml
+│   │   ├── README.md
+│   │   └── src/
+│   ├── uv-python/
+│   │   ├── .gitignore
+│   │   ├── Cargo.toml
+│   │   ├── README.md
+│   │   ├── build.rs
+│   │   ├── download-metadata.json
+│   │   ├── fetch-download-metadata.py
+│   │   ├── python/
+│   │   └── src/
+│   ├── uv-redacted/
+│   │   ├── Cargo.toml
+│   │   ├── README.md
+│   │   └── src/
+│   ├── uv-requirements-txt/
+│   │   ├── Cargo.toml
+│   │   ├── README.md
+│   │   ├── src/
+│   │   └── test-data/
+│   ├── uv-requirements/
+│   │   ├── Cargo.toml
+│   │   ├── README.md
+│   │   └── src/
+│   ├── uv-resolver/
+│   │   ├── Cargo.toml
+│   │   ├── README.md
+│   │   └── src/
+│   ├── uv-scripts/
+│   │   ├── Cargo.toml
+│   │   ├── README.md
+│   │   └── src/
+│   ├── uv-settings/
+│   │   ├── Cargo.toml
+│   │   ├── README.md
+│   │   └── src/
+│   ├── uv-shell/
+│   │   ├── Cargo.toml
+│   │   ├── README.md
+│   │   └── src/
+│   ├── uv-small-str/
+│   │   ├── Cargo.toml
+│   │   ├── README.md
+│   │   └── src/
+│   ├── uv-state/
+│   │   ├── Cargo.toml
+│   │   ├── README.md
+│   │   └── src/
+│   ├── uv-static/
+│   │   ├── Cargo.toml
+│   │   ├── README.md
+│   │   └── src/
+│   ├── uv-test/
+│   │   ├── Cargo.toml
+│   │   ├── README.md
+│   │   └── src/
+│   ├── uv-tool/
+│   │   ├── Cargo.toml
+│   │   ├── README.md
+│   │   └── src/
+│   ├── uv-torch/
+│   │   ├── Cargo.toml
+│   │   ├── README.md
+│   │   └── src/
+│   ├── uv-trampoline-builder/
+│   │   ├── Cargo.toml
+│   │   ├── README.md
+│   │   ├── src/
+│   │   └── trampolines/
+│   ├── uv-trampoline/
+│   │   ├── .cargo/
+│   │   ├── Cargo.lock
+│   │   ├── Cargo.toml
+│   │   ├── README.md
+│   │   ├── build.rs
+│   │   ├── rust-toolchain.toml
+│   │   └── src/
+│   ├── uv-types/
+│   │   ├── Cargo.toml
+│   │   ├── README.md
+│   │   └── src/
+│   ├── uv-unix/
+│   │   ├── Cargo.toml
+│   │   ├── README.md
+│   │   └── src/
+│   ├── uv-version/
+│   │   ├── Cargo.toml
+│   │   ├── README.md
+│   │   └── src/
+│   ├── uv-virtualenv/
+│   │   ├── Cargo.toml
+│   │   ├── README.md
+│   │   └── src/
+│   ├── uv-warnings/
+│   │   ├── Cargo.toml
+│   │   ├── README.md
+│   │   └── src/
+│   ├── uv-windows/
+│   │   ├── Cargo.toml
+│   │   ├── README.md
+│   │   └── src/
+│   ├── uv-workspace/
+│   │   ├── Cargo.toml
+│   │   ├── README.md
+│   │   └── src/
+│   └── uv/
+│       ├── Cargo.toml
+│       ├── README.md
+│       ├── build.rs
+│       ├── src/
+│       └── tests/
+├── dist-workspace.toml
+├── docs/
+│   ├── .gitignore
+│   ├── .overrides/
+│   │   ├── main.html
+│   │   └── partials/
+│   ├── assets/
+│   │   ├── favicon.ico
+│   │   ├── github-add-environment.png
+│   │   ├── logo-letter.svg
+│   │   ├── pypi-add-trusted-publisher.png
+│   │   ├── pypi-with-trusted-publisher.png
+│   │   ├── uv_gui_script_hello_world.png
+│   │   └── uv_gui_script_hello_world_pyqt.png
+│   ├── concepts/
+│   │   ├── authentication/
+│   │   ├── build-backend.md
+│   │   ├── cache.md
+│   │   ├── configuration-files.md
+│   │   ├── index.md
+│   │   ├── indexes.md
+│   │   ├── preview.md
+│   │   ├── projects/
+│   │   ├── python-versions.md
+│   │   ├── resolution.md
+│   │   └── tools.md
+│   ├── getting-started/
+│   │   ├── features.md
+│   │   ├── first-steps.md
+│   │   ├── help.md
+│   │   ├── index.md
+│   │   └── installation.md
+│   ├── guides/
+│   │   ├── index.md
+│   │   ├── install-python.md
+│   │   ├── integration/
+│   │   ├── migration/
+│   │   ├── package.md
+│   │   ├── projects.md
+│   │   ├── scripts.md
+│   │   └── tools.md
+│   ├── index.md
+│   ├── js/
+│   │   └── extra.js
+│   ├── pip/
+│   │   ├── compatibility.md
+│   │   ├── compile.md
+│   │   ├── dependencies.md
+│   │   ├── environments.md
+│   │   ├── index.md
+│   │   ├── inspection.md
+│   │   └── packages.md
+│   ├── reference/
+│   │   ├── benchmarks.md
+│   │   ├── index.md
+│   │   ├── installer.md
+│   │   ├── internals/
+│   │   ├── policies/
+│   │   ├── storage.md
+│   │   └── troubleshooting/
+│   └── stylesheets/
+│       └── extra.css
+├── mkdocs.yml
+├── pyproject.toml
+├── python/
+│   ├── ruff.toml
+│   └── uv/
+│       ├── __init__.py
+│       ├── __main__.py
+│       ├── _find_uv.py
+│       └── py.typed
+├── ruff.toml
+├── rust-toolchain.toml
+├── rustfmt.toml
+├── scripts/
+│   ├── benchmark/
+│   │   ├── .python-version
+│   │   ├── README.md
+│   │   ├── pyproject.toml
+│   │   ├── src/
+│   │   └── uv.lock
+│   ├── bump-workspace-crate-versions.py
+│   ├── check-trampoline-version-consistency.py
+│   ├── check_cache_compat.py
+│   ├── check_embedded_python.py
+│   ├── check_registry.py
+│   ├── check_system_python.py
+│   ├── check_uv_wheel_contents.py
+│   ├── codesign-macos.sh
+│   ├── create-python-mirror.py
+│   ├── generate-crate-readmes.py
+│   ├── install-mold.sh
+│   ├── manual-github-release.sh
+│   ├── nextest-setup-hook-unix.sh
+│   ├── popular_packages/
+│   │   ├── .gitignore
+│   │   ├── download.sh
+│   │   └── pypi_10k_most_dependents.ipynb
+│   ├── publish/
+│   │   ├── .gitignore
+│   │   ├── test_publish.py
+│   │   └── test_publish.py.lock
+│   ├── registries-test.py
+│   ├── release.sh
+│   ├── reverse-changelog.py
+│   ├── scenarios/
+│   │   ├── .gitignore
+│   │   ├── generate.py
+│   │   ├── pylock.toml
+│   │   ├── pyproject.toml
+│   │   └── templates/
+│   ├── smoke-test/
+│   │   ├── __main__.py
+│   │   └── commands.sh
+│   ├── sync-python-version-constants.py
+│   ├── sync_scenarios.sh
+│   ├── transform_readme.py
+│   ├── update_schemastore.py
+│   └── uv-run-remote-script-test.py
+├── test/
+│   ├── ecosystem/
+│   │   ├── .gitignore
+│   │   ├── airflow/
+│   │   ├── black/
+│   │   ├── github-wikidata-bot/
+│   │   ├── home-assistant-core/
+│   │   ├── packse/
+│   │   ├── saleor/
+│   │   ├── transformers/
+│   │   └── warehouse/
+│   ├── links/
+│   │   ├── abi3_package-1.0.0-cp37-abi3-manylinux_2_17_x86_64.whl
+│   │   ├── basic_app-0.1.0-py3-none-any.whl
+│   │   ├── basic_package-0.1.0-py3-none-any.whl
+│   │   ├── basic_package-0.1.0-py3-none-any.whl.tar.zst
+│   │   ├── basic_package-0.1.0.tar.gz
+│   │   ├── build_tag-1.0.0-1-py2.py3-none-any.whl
+│   │   ├── build_tag-1.0.0-3-py2.py3-none-any.whl
+│   │   ├── build_tag-1.0.0-5-py2.py3-none-any.whl
+│   │   ├── bz2-1.0.0.tar.bz2
+│   │   ├── cpython_package-1.0.0-cp314-cp314-manylinux_2_17_x86_64.whl
+│   │   ├── extras-0.0.1.tar.gz
+│   │   ├── extras-0.0.2.tar.gz
+│   │   ├── maturin-1.4.0-py3-none-any.whl
+│   │   ├── maturin-2.0.0-py3-none-linux_x86_64.whl
+│   │   ├── multi_abi_package-1.0.0-cp314-cp314t.abi3-manylinux_2_17_x86_64.whl
+│   │   ├── ok-1.0.0-py3-none-any.whl
+│   │   ├── ok-2.0.0-py3-none-any.whl
+│   │   ├── simple_launcher-0.1.0-py3-none-any.whl
+│   │   ├── tqdm-1000.0.0-py3-none-any.whl
+│   │   ├── tqdm-4.66.1-py3-none-manylinux_2_12_x86_64.manylinux2010_x86_64.musllinux_1_1_x86_64.whl
+│   │   ├── tqdm-999.0.0.tar.gz
+│   │   ├── validation-1.0.0-py3-none-any.whl
+│   │   ├── validation-2.0.0-py3-none-any.whl
+│   │   ├── validation-3.0.0-py3-none-any.whl
+│   │   └── wheel_tag_test-0.1.0-py3-none-win_amd64.whl
+│   ├── packages/
+│   │   ├── README.md
+│   │   ├── anyio_local/
+│   │   ├── black_editable/
+│   │   ├── built-by-uv/
+│   │   ├── dependent_locals/
+│   │   ├── deptry_reproducer/
+│   │   ├── executable_file/
+│   │   ├── fake-uv/
+│   │   ├── flit_editable/
+│   │   ├── hatchling_dynamic/
+│   │   ├── hatchling_editable/
+│   │   ├── keyring_test_plugin/
+│   │   ├── package.name.with.dots/
+│   │   ├── poetry_editable/
+│   │   ├── root_editable/
+│   │   ├── setup_cfg_editable/
+│   │   ├── setup_py_editable/
+│   │   └── setuptools_editable/
+│   ├── requirements/
+│   │   ├── .gitignore
+│   │   ├── airflow.in
+│   │   ├── airflow2-constraints.txt
+│   │   ├── airflow2-req.in
+│   │   ├── all-kinds.in
+│   │   ├── backtracking/
+│   │   ├── bio_embeddings.in
+│   │   ├── black.in
+│   │   ├── boto3.in
+│   │   ├── compiled/
+│   │   ├── dtlssocket.in
+│   │   ├── flyte.in
+│   │   ├── home-assistant.in
+│   │   ├── jupyter.in
+│   │   ├── meine_stadt_transparent.in
+│   │   ├── pdm_2193.in
+│   │   ├── pydantic.in
+│   │   ├── scispacy.in
+│   │   ├── slow.in
+│   │   ├── transformers-extras.in
+│   │   ├── transformers/
+│   │   └── trio.in
+│   └── workspaces/
+│       ├── .gitignore
+│       ├── albatross-in-example/
+│       ├── albatross-just-project/
+│       ├── albatross-project-in-excluded/
+│       ├── albatross-root-workspace/
+│       └── albatross-virtual-workspace/
+├── uv.lock
+└── uv.schema.json

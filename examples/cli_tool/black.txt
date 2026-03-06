@@ -1,0 +1,410 @@
+=====================================
+Repository Analysis: black
+Type: Library / Package / SDK
+=====================================
+
+--- METADATA ---
+Name: black
+Description: The uncompromising Python code formatter
+Language: Python
+Topics: autopep8, code, codeformatter, formatter, gofmt, hacktoberfest, pre-commit-hook, python, yapf
+Stars: 41418
+License: MIT License
+
+--- README ---
+[![Black Logo](https://raw.githubusercontent.com/psf/black/main/docs/_static/logo2-readme.png)](https://black.readthedocs.io/en/stable/)
+
+<h2 align="center">The Uncompromising Code Formatter</h2>
+
+<p align="center">
+<a href="https://github.com/psf/black/actions"><img alt="Actions Status" src="https://github.com/psf/black/workflows/Test/badge.svg"></a>
+<a href="https://black.readthedocs.io/en/stable/?badge=stable"><img alt="Documentation Status" src="https://readthedocs.org/projects/black/badge/?version=stable"></a>
+<a href="https://coveralls.io/github/psf/black?branch=main"><img alt="Coverage Status" src="https://coveralls.io/repos/github/psf/black/badge.svg?branch=main"></a>
+<a href="https://github.com/psf/black/blob/main/LICENSE"><img alt="License: MIT" src="https://black.readthedocs.io/en/stable/_static/license.svg"></a>
+<a href="https://pypi.org/project/black/"><img alt="PyPI" src="https://img.shields.io/pypi/v/black"></a>
+<a href="https://pypi.org/project/black"><img alt="Supported Python Versions" src="https://img.shields.io/pypi/pyversions/black?color=brightgreen"></a>
+<a href="https://pepy.tech/project/black"><img alt="Downloads" src="https://static.pepy.tech/badge/black"></a>
+<a href="https://anaconda.org/conda-forge/black/"><img alt="conda-forge" src="https://img.shields.io/conda/dn/conda-forge/black.svg?label=conda-forge"></a>
+<a href="https://github.com/psf/black"><img alt="Code style: black" src="https://img.shields.io/badge/code%20style-black-000000.svg"></a>
+</p>
+
+> “Any color you like.”
+
+_Black_ is the uncompromising Python code formatter. By using it, you agree to cede
+control over minutiae of hand-formatting. In return, _Black_ gives you speed,
+determinism, and freedom from `pycodestyle` nagging about formatting. You will save time
+and mental energy for more important matters.
+
+Blackened code looks the same regardless of the project you're reading. Formatting
+becomes transparent after a while and you can focus on the content instead.
+
+_Black_ makes code review faster by producing the smallest diffs possible.
+
+Try it out now using the [Black Playground](https://black.vercel.app). Watch the
+[PyCon 2019 talk](https://youtu.be/esZLCuWs_2Y) to learn more.
+
+---
+
+**[Read the documentation on ReadTheDocs!](https://black.readthedocs.io/en/stable)**
+
+---
+
+## Installation and usage
+
+### Installation
+
+_Black_ can be installed by running `pip install black`. It requires Python 3.10+ to
+run. If you want to format Jupyter Notebooks, install with
+`pip install "black[jupyter]"`.
+
+### Usage
+
+To get started right away with sensible defaults:
+
+```sh
+black {source_file_or_directory}
+```
+
+You can run _Black_ as a package if running it as a script doesn't work:
+
+```sh
+python -m black {source_file_or_directory}
+```
+
+Further information can be found in our docs:
+
+- [Usage and Configuration](https://black.readthedocs.io/en/stable/usage_and_configuration/index.html)
+
+_Black_ is already [successfully used](https://github.com/psf/black#used-by) by many
+projects, small and big. _Black_ has a comprehensive test suite, with efficient parallel
+tests, and our own auto formatting and parallel Continuous Integration runner. Now that
+we have become stable, you should not expect large formatting changes in the future.
+Stylistic changes will mostly be responses to bug reports and support for new Python
+syntax. For more information please refer to
+[The Black Code Style](https://black.readthedocs.io/en/stable/the_black_code_style/index.html).
+
+Also, as a safety measure which slows down processing, _Black_ will check that the
+reformatted code still produces a valid AST that is effectively equivalent to the
+original (see the
+[Pragmatism](https://black.readthedocs.io/en/stable/the_black_code_style/current_style.html#ast-before-and-after-formatting)
+section for details). If you're feeling confident, use `--fast`.
+
+## The _Black_ code style
+
+_Black_ is a PEP 8 compliant opinionated formatter. _Black_ reformats entire files in
+place. Style configuration options are deliberately limited and rarely added. It doesn't
+take previous formatting into account (see
+[Pragmatism](https://black.readthedocs.io/en/stable/the_black_code_style/current_style.html#pragmatism)
+for exceptions).
+
+Our documentation covers the current _Black_ code style, but planned changes to it are
+also documented. They're both worth taking a look at:
+
+- [The _Black_ Code Style: Current style](https://black.readthedocs.io/en/stable/the_black_code_style/current_style.html)
+- [The _Black_ Code Style: Future style](https://black.readthedocs.io/en/stable/the_black_code_style/future_style.html)
+
+Changes to the _Black_ code style are bound by the Stability Policy:
+
+- [The _Black_ Code Style: Stability Policy](https://black.readthedocs.io/en/stable/the_black_code_style/index.html#stability-policy)
+
+Please refer to this document before submitting an issue. What seems like a bug might be
+intended behaviour.
+
+### Pragmatism
+
+Early versions of _Black_ used to be absolutist in some re
+... [TRUNCATED]
+
+--- PACKAGE MANIFEST(S) ---
+
+[pyproject.toml]
+# Example configuration for Black.
+
+# NOTE: you have to use single-quoted strings in TOML for regular expressions.
+# It's the equivalent of r-strings in Python.
+# Multiline strings are treated as verbose regular expressions by Black.
+# Use [ ] to denote a significant space character.
+
+[tool.black]
+line-length = 88
+target-version = ["py310"]
+include = '\.pyi?$'
+extend-exclude = '''
+/(
+    # The following are specific to Black, you probably don't want those.
+    tests/data/
+    | profiling/
+)
+'''
+# We use the unstable style for formatting Black itself. If you
+# want bug-free formatting, you should keep this off. If you want
+# stable formatting across releases, you should also keep `preview = true`
+# (which is implied by this flag) off.
+unstable = true
+
+# Build system information and other project-specific configuration below.
+# NOTE: You don't need this in your own Black configuration.
+
+[build-system]
+requires = ["hatch-fancy-pypi-readme", "hatch-vcs>=0.3.0", "hatchling>=1.27.0"]
+build-backend = "hatchling.build"
+
+[project]
+name = "black"
+description = "The uncompromising code formatter."
+license = "MIT"
+license-files = ["LICENSE"]
+requires-python = ">=3.10"
+authors = [{ name = "Łukasz Langa", email = "lukasz@langa.pl" }]
+keywords = ["automation", "autopep8", "formatter", "gofmt", "pyfmt", "rustfmt", "yapf"]
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "Environment :: Console",
+    "Intended Audience :: Developers",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3 :: Only",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: 3.14",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+    "Topic :: Software Development :: Quality Assurance",
+]
+dependencies = [
+    "click>=8.0.0",
+    "mypy-extensions>=0.4.3",
+    "packaging>=22.0",
+    "pathspec>=1.0.0",
+    "platformdirs>=2",
+    "pytokens~=0.4.0",
+    "tomli>=1.1.0; python_version<'3.11'",
+    "typing-extensions>=4.0.1; python_version<'3.11'",
+]
+dynamic = ["readme", "version"]
+
+[project.optional-dependencies]
+colorama = ["colorama>=0.4.3"]
+uvloop = [
+    "uvloop>=0.15.2; sys_platform != 'win32'",
+    "winloop>=0.5.0; sys_platform == 'win32'"
+]
+d = ["aiohttp>=3.10"]
+jupyter = ["ipython>=7.8.0", "tokenize-rt>=3.2.0"]
+
+[dependency-groups]
+build = ["hatch==1.16.4", "hatch-fancy-pypi-readme", "hatch-vcs>=0.3.0", "virtualenv<21.0.0"]
+wheels = ["cibuildwheel==3.3.1", "pypyp"]
+binary = ["pyinstaller", "wheel>=0.45.1"]
+
+dev = [{ include-group = "cov-tests" }, { include-group = "tox" }, "pre-commit"]
+cov-tests = [
+    { include-group = "coverage" },
+    { include-group = "tests" },
+    "pytest-cov>=4.1.0",
+]
+docs = [
+    "docutils==0.21.2",
+    "furo==2025.12.19",
+    "myst-parser==4.0.1",
+    "sphinx-copybutton==0.5.2",
+    "sp
+... [TRUNCATED]
+
+--- DIRECTORY STRUCTURE (depth 2) ---
+├── .flake8
+├── .git_archival.txt
+├── .gitattributes
+├── .github/
+│   ├── CODE_OF_CONDUCT.md
+│   ├── ISSUE_TEMPLATE/
+│   │   ├── bug_report.md
+│   │   ├── config.yml
+│   │   ├── docs-issue.md
+│   │   ├── feature_request.md
+│   │   └── style_issue.md
+│   ├── PULL_REQUEST_TEMPLATE.md
+│   ├── dependabot.yml
+│   └── workflows/
+│       ├── changelog.yml
+│       ├── diff_shades.yml
+│       ├── diff_shades_comment.yml
+│       ├── docker.yml
+│       ├── docs.yml
+│       ├── fuzz.yml
+│       ├── lint.yml
+│       ├── post_release.yml
+│       ├── publish_binaries.yml
+│       ├── pypi_upload.yml
+│       ├── release_tests.yml
+│       ├── test.yml
+│       └── zizmor.yml
+├── .gitignore
+├── .pre-commit-config.yaml
+├── .pre-commit-hooks.yaml
+├── .prettierrc.yaml
+├── .readthedocs.yaml
+├── AUTHORS.md
+├── CHANGES.md
+├── CITATION.cff
+├── CONTRIBUTING.md
+├── Dockerfile
+├── LICENSE
+├── README.md
+├── SECURITY.md
+├── action.yml
+├── action/
+│   └── main.py
+├── autoload/
+│   └── black.vim
+├── docs/
+│   ├── Makefile
+│   ├── _static/
+│   │   ├── license.svg
+│   │   ├── logo2-readme.png
+│   │   ├── logo2.png
+│   │   └── pypi_template.svg
+│   ├── authors.md
+│   ├── change_log.md
+│   ├── compatible_configs/
+│   │   ├── flake8/
+│   │   ├── isort/
+│   │   ├── pycodestyle/
+│   │   └── pylint/
+│   ├── conf.py
+│   ├── contributing/
+│   │   ├── gauging_changes.md
+│   │   ├── index.md
+│   │   ├── issue_triage.md
+│   │   ├── release_process.md
+│   │   └── the_basics.md
+│   ├── faq.md
+│   ├── getting_started.md
+│   ├── guides/
+│   │   ├── index.md
+│   │   ├── introducing_black_to_your_project.md
+│   │   ├── using_black_with_jupyter_notebooks.md
+│   │   └── using_black_with_other_tools.md
+│   ├── index.md
+│   ├── integrations/
+│   │   ├── editors.md
+│   │   ├── github_actions.md
+│   │   ├── index.md
+│   │   └── source_version_control.md
+│   ├── license.md
+│   ├── make.bat
+│   ├── the_black_code_style/
+│   │   ├── current_style.md
+│   │   ├── future_style.md
+│   │   └── index.md
+│   └── usage_and_configuration/
+│       ├── black_as_a_server.md
+│       ├── black_docker_image.md
+│       ├── file_collection_and_discovery.md
+│       ├── index.md
+│       └── the_basics.md
+├── gallery/
+│   ├── Dockerfile
+│   ├── README.md
+│   └── gallery.py
+├── plugin/
+│   └── black.vim
+├── profiling/
+│   ├── dict_big.py
+│   ├── dict_huge.py
+│   ├── list_big.py
+│   ├── list_huge.py
+│   ├── mix_big.py
+│   ├── mix_huge.py
+│   └── mix_small.py
+├── pyproject.toml
+├── scripts/
+│   ├── __init__.py
+│   ├── check_pre_commit_rev_in_example.py
+│   ├── check_version_in_basics_example.py
+│   ├── diff_shades_gha_helper.py
+│   ├── fuzz.py
+│   ├── generate_schema.py
+│   ├── make_width_table.py
+│   ├── migrate-black.py
+│   ├── release.py
+│   └── release_tests.py
+├── src/
+│   ├── _black_version.pyi
+│   ├── black/
+│   │   ├── __init__.py
+│   │   ├── __main__.py
+│   │   ├── _width_table.py
+│   │   ├── brackets.py
+│   │   ├── cache.py
+│   │   ├── comments.py
+│   │   ├── concurrency.py
+│   │   ├── const.py
+│   │   ├── debug.py
+│   │   ├── files.py
+│   │   ├── handle_ipynb_magics.py
+│   │   ├── linegen.py
+│   │   ├── lines.py
+│   │   ├── mode.py
+│   │   ├── nodes.py
+│   │   ├── numerics.py
+│   │   ├── output.py
+│   │   ├── parsing.py
+│   │   ├── py.typed
+│   │   ├── ranges.py
+│   │   ├── report.py
+│   │   ├── resources/
+│   │   ├── rusty.py
+│   │   ├── schema.py
+│   │   ├── strings.py
+│   │   └── trans.py
+│   ├── blackd/
+│   │   ├── __init__.py
+│   │   ├── __main__.py
+│   │   ├── client.py
+│   │   └── middlewares.py
+│   └── blib2to3/
+│       ├── Grammar.txt
+│       ├── LICENSE
+│       ├── PatternGrammar.txt
+│       ├── README
+│       ├── __init__.py
+│       ├── pgen2/
+│       ├── pygram.py
+│       └── pytree.py
+├── tests/
+│   ├── __init__.py
+│   ├── conftest.py
+│   ├── data/
+│   │   ├── cases/
+│   │   ├── empty_pyproject.toml
+│   │   ├── gitignore_used_on_multiple_sources/
+│   │   ├── ignore_directory_gitignore_tests/
+│   │   ├── ignore_subfolders_gitignore_tests/
+│   │   ├── include_exclude_tests/
+│   │   ├── incorrect_spelling.toml
+│   │   ├── invalid_gitignore_tests/
+│   │   ├── invalid_line_ranges.toml
+│   │   ├── invalid_nested_gitignore_tests/
+│   │   ├── jupyter/
+│   │   ├── line_ranges_formatted/
+│   │   ├── miscellaneous/
+│   │   ├── nested_gitignore_tests/
+│   │   └── project_metadata/
+│   ├── empty.toml
+│   ├── optional.py
+│   ├── test.toml
+│   ├── test_black.py
+│   ├── test_blackd.py
+│   ├── test_concurrency_manager_shutdown.py
+│   ├── test_docs.py
+│   ├── test_format.py
+│   ├── test_ipynb.py
+│   ├── test_no_ipynb.py
+│   ├── test_ranges.py
+│   ├── test_schema.py
+│   ├── test_tokenize.py
+│   ├── test_trans.py
+│   └── util.py
+└── tox.ini

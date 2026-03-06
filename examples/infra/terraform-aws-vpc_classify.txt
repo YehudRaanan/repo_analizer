@@ -1,0 +1,62 @@
+=====================================
+REPO CLASSIFICATION SIGNALS
+=====================================
+
+--- METADATA ---
+Name: terraform-aws-vpc
+Description: Terraform module to create AWS VPC resources 🇺🇦
+Primary language: HCL
+Topics: aws, aws-vpc, terraform-module, vpc
+
+--- ROOT FILES (signal matches) ---
+Web App:     (none)
+Backend:     (none)
+Library:     (none)
+CLI:         (none)
+Data/ML:     (none)
+Infra:       main.tf, outputs.tf, variables.tf, versions.tf
+
+--- TOP-LEVEL DIRECTORIES (signal matches) ---
+Web App:     (none)
+Backend:     (none)
+Library:     docs, examples
+CLI:         (none)
+Data/ML:     (none)
+Infra:       modules
+
+--- ALL TOP-LEVEL DIRECTORIES ---
+.github, docs, examples, modules, wrappers
+
+--- TYPE-SPECIFIC EXTENSION COUNTS ---
+Web App extensions (.tsx, .jsx, .vue, .svelte): 0
+Data/ML extensions (.ipynb): 0
+Infra extensions (.tf, .hcl): 77
+Backend extensions (.proto, .graphql): 0
+
+--- TOP FILE EXTENSIONS (by count) ---
+  .tf: 77
+  .md: 24
+  .yml: 4
+  .yaml: 2
+  .editorconfig: 1
+  .gitignore: 1
+  .json: 1
+
+--- BOOLEAN PATTERN CHECKS ---
+  pages or app dir: no
+  components dir: no
+  cmd or bin dir: no
+  src bin: no
+  run train scripts: no
+  ipynb files: no
+  model training files: no
+  tf files: yes
+  k8s manifests: no
+  ansible playbooks: no
+  route controller dirs: no
+  db migrations: no
+  openapi spec: no
+  src and tests: no
+  examples dir: yes
+  dockerfile: no
+  ci cd: yes

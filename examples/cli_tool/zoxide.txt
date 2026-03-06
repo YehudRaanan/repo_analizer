@@ -1,0 +1,901 @@
+=====================================
+Repository Analysis: zoxide
+Type: CLI Tool
+=====================================
+
+--- METADATA ---
+Name: zoxide
+Description: A smarter cd command. Supports all major shells.
+Language: Rust
+Topics: autojump, bash, cli, command-line, command-line-tool, elvish, fasd, fish, fish-shell, fzf, hacktoberfest, jump, nushell, powershell, rust, shell, xonsh, xontrib, z, zsh
+Stars: 34027
+License: MIT License
+
+--- README ---
+<!-- markdownlint-configure-file {
+  "MD013": {
+    "code_blocks": false,
+    "tables": false
+  },
+  "MD033": false,
+  "MD041": false
+} -->
+
+<div align="center">
+
+<sup>Special thanks to:</sup>
+
+<table>
+  <tr>
+    <td align="center">
+      <!-- markdownlint-disable-next-line MD013 -->
+      <a href="https://go.warp.dev/zoxide"><img alt="Sponsored by Warp" width="230" src="https://raw.githubusercontent.com/warpdotdev/brand-assets/refs/heads/main/Github/Sponsor/Warp-Github-LG-03.png" /></a>
+      <div><sup><b>Warp, built for coding with multiple AI agents.</b></sup></div>
+      <div><sup>Available for macOS, Linux, and Windows.</sup></div>
+      <div><sup>
+        Visit
+        <a href="https://go.warp.dev/zoxide"><u>warp.dev</u></a>
+        to learn more.
+      </sup></div>
+    </td>
+    <td align="center">
+      <!-- markdownlint-disable-next-line MD013 -->
+      <a href="https://www.recall.ai/careers?ashby_jid=7b02811e-bc91-4ef2-925d-f56a5acac13b&utm_source=github&utm_medium=sponsorship&utm_campaign=zoxide"><img alt="Sponsored by Recall.ai" width="230" src="https://github.com/user-attachments/assets/0c5cb177-561c-4637-bef6-cf584939c829" /></a>
+      <div><sup>Processing over 3TB/s of video at peak load,</sup></div>
+      <!-- markdownlint-disable-next-line MD013 -->
+      <div><sup>now <a href="https://www.recall.ai/careers?ashby_jid=7b02811e-bc91-4ef2-925d-f56a5acac13b&utm_source=github&utm_medium=sponsorship&utm_campaign=zoxide">hiring in SF.</a></sup></div>
+    </td>
+  </tr>
+</table>
+
+<hr />
+
+# zoxide
+
+[![crates.io][crates.io-badge]][crates.io]
+[![Downloads][downloads-badge]][releases]
+[![Built with Nix][builtwithnix-badge]][builtwithnix]
+
+zoxide is a **smarter cd command**, inspired by z and autojump.
+
+It remembers which directories you use most frequently, so you can "jump" to
+them in just a few keystrokes.<br />
+zoxide works on all major shells.
+
+[Getting started](#getting-started) •
+[Installation](#installation) •
+[Configuration](#configuration) •
+[Integrations](#third-party-integrations)
+
+</div>
+
+## Getting started
+
+![Tutorial][tutorial]
+
+```sh
+z foo              # cd into highest ranked directory matching foo
+z foo bar          # cd into highest ranked directory matching foo and bar
+z foo /            # cd into a subdirectory starting with foo
+
+z ~/foo            # z also works like a regular cd command
+z foo/             # cd into relative path
+z ..               # cd one level up
+z -                # cd into previous directory
+
+zi foo             # cd with interactive selection (using fzf)
+
+z foo<SPACE><TAB>  # show interactive completions (bash 4.4+/fish/zsh only)
+```
+
+Read more about the matching algorithm [here][algorithm-matching].
+
+## Installation
+
+zoxide can be installed in 4 easy steps:
+
+1. **Install binary**
+
+   zoxide runs on most major platforms. If your platform isn't listed below,
+   please [open an issue][issues].
+
+   <details>
+   <summary>Linux / WSL</summary>
+
+   > The recommended way to install zoxide is via the install script:
+   >
+   > ```sh
+   > curl -sSfL https://raw.githubusercontent.com/ajeetdsouza/zoxide/main/install.sh | sh
+   > ```
+   >
+   > Or, you can use a package manager:
+   >
+   > | Distribution        | Repository                  | Instructions                                                                                          |
+   > | ------------------- | --------------------------- | ----------------------------------------------------------------------------------------------------- |
+   > | **_Any_**           | **[crates.io]**             | `cargo install zoxide --locked`                                                                       |
+   > | _Any_               | [asdf]                      | `asdf plugin add zoxide https://github.com/nyrst/asdf-zoxide.git` <br /> `asdf install zoxide latest` |
+   > | _Any_               | [conda-forge]               | `conda install -c conda-forge zoxide`                                                                 |
+   > | _Any_               | [guix]                      | `guix install zoxide`                                                                                 |
+   > | _Any_               | [Linuxbrew]                 | `brew install zoxide`                                                                                 |
+   > | _Any_               | [nixpkgs]                   | `nix-env -iA nixpkgs.zoxide`                                                                          |
+   > | Alpine Linux 3.13+  | [Alpine Linux Packages]     | `apk add zoxide`                                                                                      |
+   > | Arch Linux          | [Arch Linux Extra]          | `pacman -S zoxide`                                                                                    |
+   > | ~Debian~[^1]    | ~[Debian Packages]~         | ~`apt install zoxide`~                                                                                    |
+   > | Devuan 4.0+         | [Dev
+... [TRUNCATED]
+
+--- PACKAGE MANIFEST(S) ---
+
+[Cargo.toml]
+[package]
+authors = ["Ajeet D'Souza <98ajeet@gmail.com>"]
+categories = ["command-line-utilities", "filesystem"]
+description = "A smarter cd command for your terminal"
+edition = "2024"
+homepage = "https://github.com/ajeetdsouza/zoxide"
+keywords = ["cli", "filesystem", "shell", "tool", "utility"]
+license = "MIT"
+name = "zoxide"
+readme = "README.md"
+repository = "https://github.com/ajeetdsouza/zoxide"
+rust-version = "1.85.0"
+version = "0.9.9"
+
+[badges]
+maintenance = { status = "actively-developed" }
+
+[dependencies]
+anyhow = "1.0.32"
+askama = { version = "0.14.0", default-features = false, features = [
+    "derive",
+    "std",
+] }
+bincode = "1.3.1"
+clap = { version = "4.3.0", features = ["derive"] }
+color-print = "0.3.4"
+dirs = "6.0.0"
+dunce = "1.0.1"
+fastrand = "2.0.0"
+glob = "0.3.0"
+ouroboros = "0.18.3"
+serde = { version = "1.0.116", features = ["derive"] }
+
+[target.'cfg(unix)'.dependencies]
+nix = { version = "0.30.1", default-features = false, features = [
+    "fs",
+    "user",
+] }
+
+[target.'cfg(windows)'.dependencies]
+which = "7.0.3"
+
+[build-dependencies]
+clap = { version = "4.3.0", features = ["derive"] }
+clap_complete = "4.5.50"
+clap_complete_fig = "4.5.2"
+clap_complete_nushell = "4.5.5"
+color-print = "0.3.4"
+
+[dev-dependencies]
+assert_cmd = "2.0.0"
+rstest = { version = "0.26.0", default-features = false }
+rstest_reuse = "0.7.0"
+tempfile = "3.15.0"
+
+[features]
+default = []
+nix-dev = []
+
+[profile.release]
+codegen-units = 1
+debug = 0
+lto = true
+strip = true
+
+[package.metadata.deb]
+assets = [
+    [
+        "target/release/zoxide",
+        "usr/bin/",
+        "755",
+    ],
+    [
+        "contrib/completions/zoxide.bash",
+        "usr/share/bash-completion/completions/zoxide",
+        "644",
+    ],
+    [
+        "contrib/completions/zoxide.fish",
+        "usr/share/fish/vendor_completions.d/",
+        "664",
+    ],
+    [
+        "contrib/completions/_zoxide",
+        "usr/share/zsh/vendor-completions/",
+        "644",
+    ],
+    [
+        "man/man1/*",
+        "usr/share/man/man1/",
+        "644",
+    ],
+    [
+        "README.md",
+        "usr/share/doc/zoxide/",
+        "644",
+    ],
+    [
+        "CHANGELOG.md",
+        "usr/share/doc/zoxide/",
+        "644",
+    ],
+    [
+        "LICENSE",
+        "usr/share/doc/zoxide/",
+        "644",
+    ],
+]
+extended-description = """\
+zoxide is a smarter cd command, inspired by z and autojump. It remembers which \
+directories you use most frequently, so you can "jump" to them in just a few \
+keystrokes."""
+priority = "optional"
+section = "utils"
+
+
+--- CLI ENTRY POINTS / COMMAND DEFINITIONS ---
+
+[src/cmd/add.rs]
+use std::path::Path;
+
+use anyhow::{Result, bail};
+
+use crate::cmd::{Add, Run};
+use crate::db::Database;
+use crate::{config, util};
+
+impl Run for Add {
+    fn run(&self) -> Result<()> {
+        // These characters can't be printed cleanly to a single line, so they can cause
+        // confusion when writing to stdout.
+        const EXCLUDE_CHARS: &[char] = &['\n', '\r'];
+
+        let exclude_dirs = config::exclude_dirs()?;
+        let max_age = config::maxage()?;
+        let now = util::current_time()?;
+
+        let mut db = Database::open()?;
+
+        for path in &self.paths {
+            let path =
+                if config::resolve_symlinks() { util::canonicalize } else { util::resolve_path }(
+                    path,
+                )?;
+            let path = util::path_to_str(&path)?;
+
+            // Ignore path if it contains unsupported characters, or if it's in the exclude
+            // list.
+            if path.contains(EXCLUDE_CHARS) || exclude_dirs.iter().any(|glob| glob.matches(path)) {
+                continue;
+            }
+            if !Path::new(path).is_dir() {
+                bail!("not a directory: {path}");
+            }
+
+            let by = self.score.unwrap_or(1.0);
+            db.add_update(path, by, now);
+        }
+
+        if db.dirty() {
+            db.age(max_age);
+        }
+        db.save()
+    }
+}
+
+
+[src/cmd/cmd.rs]
+#![allow(clippy::module_inception)]
+
+use std::path::PathBuf;
+
+use clap::builder::{IntoResettable, Resettable, StyledStr};
+use clap::{Parser, Subcommand, ValueEnum, ValueHint};
+
+struct HelpTemplate;
+
+impl IntoResettable<StyledStr> for HelpTemplate {
+    fn into_resettable(self) -> Resettable<StyledStr> {
+        color_print::cstr!("\
+{before-help}<bold><underline>{name} {version}</underline></bold>
+{author}
+https://github.com/ajeetdsouza/zoxide
+
+{about}
+
+{usage-heading}
+{tab}{usage}
+
+{all-args}{after-help}
+
+<bold><underline>Environment variables:</underline></bold>
+{tab}<bold>_ZO_DATA_DIR</bold>        {tab}Path for zoxide data files
+{tab}<bold>_ZO_ECHO</bold>            {tab}Print the matched directory before navigating to it when set to 1
+{tab}<bold>_ZO_EXCLUDE_DIRS</bold>    {tab}List of directory globs to be excluded
+{tab}<bold>_ZO_FZF_OPTS</bold>        {tab}Custom flags to pass to fzf
+{tab}<bold>_ZO_MAXAGE</bold>          {tab}Maximum total age after which entries start getting deleted
+{tab}<bold>_ZO_RESOLVE_SYMLINKS</bold>{tab}Resolve symlinks when storing paths").into_resettable()
+    }
+}
+
+#[derive(Debug, Parser)]
+#[clap(
+    about,
+    author,
+    help_template = HelpTemplate,
+    disable_help_subcommand = true,
+    propagate_version = true,
+    version,
+)]
+pub enum Cmd {
+    Add(Add),
+    Edit(Edit),
+    Import(Import),
+    Init(Init),
+    Query(Query),
+    Remove(Remove),
+}
+
+/// Add a new directory or increment its rank
+#[derive(Debug, Parser)]
+#[clap(
+    author,
+    help_template = HelpTemplate,
+)]
+pub struct Add {
+    #[clap(num_args = 1.., required = true, value_hint = ValueHint::DirPath)]
+    pub paths: Vec<PathBuf>,
+
+    /// The rank to increment the entry if it exists or initialize it with if it
+    /// doesn't
+    #[clap(short, long)]
+    pub score: Option<f64>,
+}
+
+/// Edit the database
+#[derive(Debug, Parser)]
+#[clap(
+    author,
+    help_template = HelpTemplate,
+)]
+pub struct Edit {
+    #[clap(subcommand)]
+    pub cmd: Option<EditCommand>,
+}
+
+#[derive(Clone, Debug, Subcommand)]
+pub enum EditCommand {
+    #[clap(hide = true)]
+    Decrement { path: String },
+    #[clap(hide = true)]
+    Delete { path: String },
+    #[clap(hide = true)]
+    Increment { path: String },
+    #[clap(hide = true)]
+    Reload,
+}
+
+/// Import entries from another application
+#[derive(Debug, Parser)]
+#[clap(
+    author,
+    help_template = HelpTemplate,
+)]
+pub struct Import {
+    #[clap(value_hint = ValueHint::FilePath)]
+    pub path: PathBuf,
+
+    /// Application to import from
+    #[clap(value_enum, long)]
+    pub from: ImportFrom,
+
+    /// Merge into existing database
+    #[clap(long)]
+    pub merge: bool,
+}
+
+#[derive(ValueEnum, Clone, Debug)]
+pub enum ImportFrom {
+    Autojump,
+    #[clap(alias = "fasd")]
+    Z,
+}
+
+/// Generate shell configuration
+#[derive(Debug, Parser)]
+#[clap(
+    author,
+    help_template = HelpTemplate,
+)]
+pub struct Init {
+    #[clap(value_enum)]
+    pub shell: InitShell,
+
+    /// Prevents zoxide from defining the `z` and `zi` c
+... [TRUNCATED]
+
+[src/cmd/edit.rs]
+use std::io::{self, Write};
+
+use anyhow::Result;
+
+use crate::cmd::{Edit, EditCommand, Run};
+use crate::db::Database;
+use crate::error::BrokenPipeHandler;
+use crate::util::{self, Fzf, FzfChild};
+
+impl Run for Edit {
+    fn run(&self) -> Result<()> {
+        let now = util::current_time()?;
+        let db = &mut Database::open()?;
+
+        match &self.cmd {
+            Some(cmd) => {
+                match cmd {
+                    EditCommand::Decrement { path } => db.add(path, -1.0, now),
+                    EditCommand::Delete { path } => {
+                        db.remove(path);
+                    }
+                    EditCommand::Increment { path } => db.add(path, 1.0, now),
+                    EditCommand::Reload => {}
+                }
+                db.save()?;
+
+                let stdout = &mut io::stdout().lock();
+                for dir in db.dirs().iter().rev() {
+                    write!(stdout, "{}\0", dir.display().with_score(now).with_separator('\t'))
+                        .pipe_exit("fzf")?;
+                }
+                Ok(())
+            }
+            None => {
+                db.sort_by_score(now);
+                db.save()?;
+                Self::get_fzf()?.wait()?;
+                Ok(())
+            }
+        }
+    }
+}
+
+impl Edit {
+    fn get_fzf() -> Result<FzfChild> {
+        Fzf::new()?
+            .args([
+                // Search mode
+                "--exact",
+                // Search result
+                "--no-sort",
+                // Interface
+                "--bind=\
+btab:up,\
+ctrl-r:reload(zoxide edit reload),\
+ctrl-d:reload(zoxide edit delete {2..}),\
+ctrl-w:reload(zoxide edit increment {2..}),\
+ctrl-s:reload(zoxide edit decrement {2..}),\
+ctrl-z:ignore,\
+double-click:ignore,\
+enter:abort,\
+start:reload(zoxide edit reload),\
+tab:down",
+                "--cycle",
+                "--keep-right",
+                // Layout
+                "--border=sharp",
+                "--border-label=  zoxide-edit  ",
+                "--header=\
+ctrl-r:reload   \tctrl-d:delete
+ctrl-w:increment\tctrl-s:decrement
+
+ SCORE\tPATH",
+                "--info=inline",
+                "--layout=reverse",
+                "--padding=1,0,0,0",
+                // Display
+                "--color=label:bold",
+                "--tabstop=1",
+            ])
+            .enable_preview()
+            .spawn()
+    }
+}
+
+
+[src/cmd/import.rs]
+use std::fs;
+
+use anyhow::{Context, Result, bail};
+
+use crate::cmd::{Import, ImportFrom, Run};
+use crate::db::Database;
+
+impl Run for Import {
+    fn run(&self) -> Result<()> {
+        let buffer = fs::read_to_string(&self.path).with_context(|| {
+            format!("could not open database for importing: {}", &self.path.display())
+        })?;
+
+        let mut db = Database::open()?;
+        if !self.merge && !db.dirs().is_empty() {
+            bail!("current database is not empty, specify --merge to continue anyway");
+        }
+
+        match self.from {
+            ImportFrom::Autojump => import_autojump(&mut db, &buffer),
+            ImportFrom::Z => import_z(&mut db, &buffer),
+        }
+        .context("import error")?;
+
+        db.save()
+    }
+}
+
+fn import_autojump(db: &mut Database, buffer: &str) -> Result<()> {
+    for line in buffer.lines() {
+        if line.is_empty() {
+            continue;
+        }
+        let (rank, path) =
+            line.split_once('\t').with_context(|| format!("invalid entry: {line}"))?;
+
+        let mut rank = rank.parse::<f64>().with_context(|| format!("invalid rank: {rank}"))?;
+        // Normalize the rank using a sigmoid function. Don't import actual ranks from
+        // autojump, since its scoring algorithm is very different and might
+        // take a while to normalize.
+        rank = sigmoid(rank);
+
+        db.add_unchecked(path, rank, 0);
+    }
+
+    if db.dirty() {
+        db.dedup();
+    }
+    Ok(())
+}
+
+fn import_z(db: &mut Database, buffer: &str) -> Result<()> {
+    for line in buffer.lines() {
+        if line.is_empty() {
+            continue;
+        }
+        let mut split = line.rsplitn(3, '|');
+
+        let last_accessed = split.next().with_context(|| format!("invalid entry: {line}"))?;
+        let last_accessed =
+            last_accessed.parse().with_context(|| format!("invalid epoch: {last_accessed}"))?;
+
+        let rank = split.next().with_context(|| format!("invalid entry: {line}"))?;
+        let rank = rank.parse().with_context(|| format!("invalid rank: {rank}"))?;
+
+        let path = split.next().with_context(|| format!("invalid entry: {line}"))?;
+
+        db.add_unchecked(path, rank, last_accessed);
+    }
+
+    if db.dirty() {
+        db.dedup();
+    }
+    Ok(())
+}
+
+fn sigmoid(x: f64) -> f64 {
+    1.0 / (1.0 + (-x).exp())
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use crate::db::Dir;
+
+    #[test]
+    fn from_autojump() {
+        let data_dir = tempfile::tempdir().unwrap();
+        let mut db = Database::open_dir(data_dir.path()).unwrap();
+        for (path, rank, last_accessed) in [
+            ("/quux/quuz", 1.0, 100),
+            ("/corge/grault/garply", 6.0, 600),
+            ("/waldo/fred/plugh", 3.0, 300),
+            ("/xyzzy/thud", 8.0, 800),
+            ("/foo/bar", 9.0, 900),
+        ] {
+            db.add_unchecked(path, rank, last_accessed);
+        }
+
+        let buffer = "\
+7.0	/baz
+2.0	/foo/bar
+5.0	/quux/quuz";
+        import_autojump(&mut db, buffer).unwrap();
+
+  
+... [TRUNCATED]
+
+[src/cmd/init.rs]
+use std::io::{self, Write};
+
+use anyhow::{Context, Result};
+use askama::Template;
+
+use crate::cmd::{Init, InitShell, Run};
+use crate::config;
+use crate::error::BrokenPipeHandler;
+use crate::shell::{Bash, Elvish, Fish, Nushell, Opts, Posix, Powershell, Tcsh, Xonsh, Zsh};
+
+impl Run for Init {
+    fn run(&self) -> Result<()> {
+        let cmd = if self.no_cmd { None } else { Some(self.cmd.as_str()) };
+        let echo = config::echo();
+        let resolve_symlinks = config::resolve_symlinks();
+        let opts = &Opts { cmd, hook: self.hook, echo, resolve_symlinks };
+
+        let source = match self.shell {
+            InitShell::Bash => Bash(opts).render(),
+            InitShell::Elvish => Elvish(opts).render(),
+            InitShell::Fish => Fish(opts).render(),
+            InitShell::Nushell => Nushell(opts).render(),
+            InitShell::Posix => Posix(opts).render(),
+            InitShell::Powershell => Powershell(opts).render(),
+            InitShell::Tcsh => Tcsh(opts).render(),
+            InitShell::Xonsh => Xonsh(opts).render(),
+            InitShell::Zsh => Zsh(opts).render(),
+        }
+        .context("could not render template")?;
+        writeln!(io::stdout(), "{source}").pipe_exit("stdout")
+    }
+}
+
+
+[src/cmd/mod.rs]
+mod add;
+mod cmd;
+mod edit;
+mod import;
+mod init;
+mod query;
+mod remove;
+
+use anyhow::Result;
+
+pub use crate::cmd::cmd::*;
+
+pub trait Run {
+    fn run(&self) -> Result<()>;
+}
+
+impl Run for Cmd {
+    fn run(&self) -> Result<()> {
+        match self {
+            Cmd::Add(cmd) => cmd.run(),
+            Cmd::Edit(cmd) => cmd.run(),
+            Cmd::Import(cmd) => cmd.run(),
+            Cmd::Init(cmd) => cmd.run(),
+            Cmd::Query(cmd) => cmd.run(),
+            Cmd::Remove(cmd) => cmd.run(),
+        }
+    }
+}
+
+
+[src/cmd/query.rs]
+use std::io::{self, Write};
+
+use anyhow::{Context, Result};
+
+use crate::cmd::{Query, Run};
+use crate::config;
+use crate::db::{Database, Epoch, Stream, StreamOptions};
+use crate::error::BrokenPipeHandler;
+use crate::util::{self, Fzf, FzfChild};
+
+impl Run for Query {
+    fn run(&self) -> Result<()> {
+        let mut db = crate::db::Database::open()?;
+        self.query(&mut db).and(db.save())
+    }
+}
+
+impl Query {
+    fn query(&self, db: &mut Database) -> Result<()> {
+        let now = util::current_time()?;
+        let mut stream = self.get_stream(db, now)?;
+
+        if self.interactive {
+            self.query_interactive(&mut stream, now)
+        } else if self.list {
+            self.query_list(&mut stream, now)
+        } else {
+            self.query_first(&mut stream, now)
+        }
+    }
+
+    fn query_interactive(&self, stream: &mut Stream, now: Epoch) -> Result<()> {
+        let mut fzf = Self::get_fzf()?;
+        let selection = loop {
+            match stream.next() {
+                Some(dir) if Some(dir.path.as_ref()) == self.exclude.as_deref() => continue,
+                Some(dir) => {
+                    if let Some(selection) = fzf.write(dir, now)? {
+                        break selection;
+                    }
+                }
+                None => break fzf.wait()?,
+            }
+        };
+
+        if self.score {
+            print!("{selection}");
+        } else {
+            let path = selection.get(7..).context("could not read selection from fzf")?;
+            print!("{path}");
+        }
+        Ok(())
+    }
+
+    fn query_list(&self, stream: &mut Stream, now: Epoch) -> Result<()> {
+        let handle = &mut io::stdout().lock();
+        while let Some(dir) = stream.next() {
+            if Some(dir.path.as_ref()) == self.exclude.as_deref() {
+                continue;
+            }
+            let dir = if self.score { dir.display().with_score(now) } else { dir.display() };
+            writeln!(handle, "{dir}").pipe_exit("stdout")?;
+        }
+        Ok(())
+    }
+
+    fn query_first(&self, stream: &mut Stream, now: Epoch) -> Result<()> {
+        let handle = &mut io::stdout();
+
+        let mut dir = stream.next().context("no match found")?;
+        while Some(dir.path.as_ref()) == self.exclude.as_deref() {
+            dir = stream.next().context("you are already in the only match")?;
+        }
+
+        let dir = if self.score { dir.display().with_score(now) } else { dir.display() };
+        writeln!(handle, "{dir}").pipe_exit("stdout")
+    }
+
+    fn get_stream<'a>(&self, db: &'a mut Database, now: Epoch) -> Result<Stream<'a>> {
+        let mut options = StreamOptions::new(now)
+            .with_keywords(self.keywords.iter().map(|s| s.as_str()))
+            .with_exclude(config::exclude_dirs()?)
+            .with_base_dir(self.base_dir.clone());
+        if !self.all {
+            let resolve_symlinks = config::resolve_symlinks();
+            options = options.with_exists(true).with_resolve_symlinks(resolve_symlinks);
+        
+... [TRUNCATED]
+
+[src/cmd/remove.rs]
+use anyhow::{Result, bail};
+
+use crate::cmd::{Remove, Run};
+use crate::db::Database;
+use crate::util;
+
+impl Run for Remove {
+    fn run(&self) -> Result<()> {
+        let mut db = Database::open()?;
+
+        for path in &self.paths {
+            if !db.remove(path) {
+                let path_abs = util::resolve_path(path)?;
+                let path_abs = util::path_to_str(&path_abs)?;
+                if path_abs == path || !db.remove(path_abs) {
+                    bail!("path not found in database: {path}")
+                }
+            }
+        }
+
+        db.save()
+    }
+}
+
+
+--- SHELL COMPLETIONS & MAN PAGES ---
+  contrib/completions/README.md
+  contrib/completions/_zoxide
+  contrib/completions/_zoxide.ps1
+  contrib/completions/zoxide.bash
+  contrib/completions/zoxide.elv
+  contrib/completions/zoxide.fish
+  contrib/completions/zoxide.nu
+  contrib/completions/zoxide.ts
+  init.fish
+  man/man1/zoxide-add.1
+  man/man1/zoxide-import.1
+  man/man1/zoxide-init.1
+  man/man1/zoxide-query.1
+  man/man1/zoxide-remove.1
+  man/man1/zoxide.1
+  zoxide.plugin.zsh
+
+--- DIRECTORY STRUCTURE (depth 2) ---
+├── .cargo/
+│   └── config.toml
+├── .deepsource.toml
+├── .envrc
+├── .gitattributes
+├── .github/
+│   ├── CODE_OF_CONDUCT.md
+│   ├── dependabot.yml
+│   └── workflows/
+│       ├── cd.yml
+│       ├── ci.yml
+│       ├── no-response.yml
+│       ├── release.yml
+│       └── winget.yml
+├── .gitignore
+├── CHANGELOG.md
+├── Cargo.lock
+├── Cargo.toml
+├── Cross.toml
+├── LICENSE
+├── README.md
+├── build.rs
+├── contrib/
+│   ├── completions/
+│   │   ├── README.md
+│   │   ├── _zoxide
+│   │   ├── _zoxide.ps1
+│   │   ├── zoxide.bash
+│   │   ├── zoxide.elv
+│   │   ├── zoxide.fish
+│   │   ├── zoxide.nu
+│   │   └── zoxide.ts
+│   └── tutorial.webp
+├── init.fish
+├── install.sh
+├── justfile
+├── man/
+│   └── man1/
+│       ├── zoxide-add.1
+│       ├── zoxide-import.1
+│       ├── zoxide-init.1
+│       ├── zoxide-query.1
+│       ├── zoxide-remove.1
+│       └── zoxide.1
+├── rustfmt.toml
+├── shell.nix
+├── src/
+│   ├── cmd/
+│   │   ├── add.rs
+│   │   ├── cmd.rs
+│   │   ├── edit.rs
+│   │   ├── import.rs
+│   │   ├── init.rs
+│   │   ├── mod.rs
+│   │   ├── query.rs
+│   │   └── remove.rs
+│   ├── config.rs
+│   ├── db/
+│   │   ├── dir.rs
+│   │   ├── mod.rs
+│   │   └── stream.rs
+│   ├── error.rs
+│   ├── main.rs
+│   ├── shell.rs
+│   └── util.rs
+├── templates/
+│   ├── bash.txt
+│   ├── elvish.txt
+│   ├── fish.txt
+│   ├── nushell.txt
+│   ├── posix.txt
+│   ├── powershell.txt
+│   ├── tcsh.txt
+│   ├── xonsh.txt
+│   └── zsh.txt
+├── tests/
+│   └── completions.rs
+└── zoxide.plugin.zsh

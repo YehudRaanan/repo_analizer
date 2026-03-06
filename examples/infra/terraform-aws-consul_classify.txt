@@ -1,0 +1,67 @@
+=====================================
+REPO CLASSIFICATION SIGNALS
+=====================================
+
+--- METADATA ---
+Name: terraform-aws-consul
+Description: A Terraform Module for how to run Consul on AWS using Terraform and Packer
+Primary language: HCL
+Topics: N/A
+
+--- ROOT FILES (signal matches) ---
+Web App:     (none)
+Backend:     (none)
+Library:     (none)
+CLI:         (none)
+Data/ML:     (none)
+Infra:       main.tf, outputs.tf, variables.tf
+
+--- TOP-LEVEL DIRECTORIES (signal matches) ---
+Web App:     (none)
+Backend:     (none)
+Library:     examples, test
+CLI:         (none)
+Data/ML:     (none)
+Infra:       modules
+
+--- ALL TOP-LEVEL DIRECTORIES ---
+.circleci, .github, _ci, _docs, examples, modules, test
+
+--- TYPE-SPECIFIC EXTENSION COUNTS ---
+Web App extensions (.tsx, .jsx, .vue, .svelte): 0
+Data/ML extensions (.ipynb): 0
+Infra extensions (.tf, .hcl): 18
+Backend extensions (.proto, .graphql): 0
+
+--- TOP FILE EXTENSIONS (by count) ---
+  .md: 23
+  .tf: 18
+  .sh: 8
+  .go: 7
+  .pem: 3
+  .png: 2
+  .json: 2
+  .yml: 1
+  .gitignore: 1
+  .yaml: 1
+  .mod: 1
+  .sum: 1
+
+--- BOOLEAN PATTERN CHECKS ---
+  pages or app dir: no
+  components dir: no
+  cmd or bin dir: no
+  src bin: no
+  run train scripts: no
+  ipynb files: no
+  model training files: no
+  tf files: yes
+  k8s manifests: no
+  ansible playbooks: no
+  route controller dirs: no
+  db migrations: no
+  openapi spec: no
+  src and tests: no
+  examples dir: yes
+  dockerfile: no
+  ci cd: no

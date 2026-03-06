@@ -1,0 +1,655 @@
+=====================================
+Repository Analysis: terraform-aws-eks
+Type: Infrastructure / DevOps / IaC
+=====================================
+
+--- METADATA ---
+Name: terraform-aws-eks
+Description: Terraform module to create Amazon Elastic Kubernetes (EKS) resources 🇺🇦
+Language: HCL
+Topics: aws, aws-eks, aws-eks-cluster, eks, elastic-kubernetes-service, kubernetes, terraform, terraform-module
+Stars: 4900
+License: Apache License 2.0
+
+--- README ---
+# AWS EKS Terraform module
+
+Terraform module which creates Amazon EKS (Kubernetes) resources
+
+[![SWUbanner](https://raw.githubusercontent.com/vshymanskyy/StandWithUkraine/main/banner2-direct.svg)](https://github.com/vshymanskyy/StandWithUkraine/blob/main/docs/README.md)
+
+## [Documentation](https://github.com/terraform-aws-modules/terraform-aws-eks/blob/master/docs)
+
+- [Frequently Asked Questions](https://github.com/terraform-aws-modules/terraform-aws-eks/blob/master/docs/faq.md)
+- [Compute Resources](https://github.com/terraform-aws-modules/terraform-aws-eks/blob/master/docs/compute_resources.md)
+- [User Data](https://github.com/terraform-aws-modules/terraform-aws-eks/blob/master/docs/user_data.md)
+- [Network Connectivity](https://github.com/terraform-aws-modules/terraform-aws-eks/blob/master/docs/network_connectivity.md)
+- Upgrade Guides
+  - [Upgrade to v17.x](https://github.com/terraform-aws-modules/terraform-aws-eks/blob/master/docs/UPGRADE-17.0.md)
+  - [Upgrade to v18.x](https://github.com/terraform-aws-modules/terraform-aws-eks/blob/master/docs/UPGRADE-18.0.md)
+  - [Upgrade to v19.x](https://github.com/terraform-aws-modules/terraform-aws-eks/blob/master/docs/UPGRADE-19.0.md)
+  - [Upgrade to v20.x](https://github.com/terraform-aws-modules/terraform-aws-eks/blob/master/docs/UPGRADE-20.0.md)
+  - [Upgrade to v21.x](https://github.com/terraform-aws-modules/terraform-aws-eks/blob/master/docs/UPGRADE-21.0.md)
+
+<!-- markdownlint-disable no-inline-html -->
+<p align="center">
+  <a href="https://aws-experience.com/emea/smb/events/series/get-hands-on-with-amazon-eks?trk=b70b2d1a-56d6-4834-9913-2e70f5c3ae3c&sc_channel=el"><img src="https://raw.githubusercontent.com/terraform-aws-modules/terraform-aws-eks/master/docs/assets/aws-eks-workshop-830.png" alt="Register for an AWS hosted workshop: Click to view the full schedule of free workshops, from core concepts to advanced use cases" /></a>
+</p>
+
+### External Documentation
+
+Please note that we strive to provide a comprehensive suite of documentation for __*configuring and utilizing the module(s)*__ defined here, and that documentation regarding EKS (including EKS managed node group, self managed node group, and Fargate profile) and/or Kubernetes features, usage, etc. are better left up to their respective sources:
+
+- [AWS EKS Documentation](https://docs.aws.amazon.com/eks/latest/userguide/getting-started.html)
+- [Kubernetes Documentation](https://kubernetes.io/docs/home/)
+
+## Usage
+
+### EKS Auto Mode
+
+> [!CAUTION]
+> Due to the current EKS Auto Mode API, to disable EKS Auto Mode you will have to explicity set:
+>
+>```hcl
+>compute_config = {
+>  enabled = false
+> }
+>```
+>
+> If you try to disable by simply removing the `compute_config` block, this will fail to disable EKS Auto Mode. Only after applying with `enabled = false` can you then remove the `compute_config` block from your configurations.
+
+```hcl
+module "eks" {
+  source  = "terraform-aws-modules/eks/aws"
+  version = "~> 21.0"
+
+  name               = "example"
+  kubernetes_version = "1.33"
+
+  # Optional
+  endpoint_public_access = true
+
+  # Optional: Adds the current caller identity as an administrator via cluster access entry
+  enable_cluster_creator_admin_permissions = true
+
+  compute_config = {
+    enabled    = true
+    node_pools = ["general-purpose"]
+  }
+
+  vpc_id     = "vpc-1234556abcdef"
+  subnet_ids = ["subnet-abcde012", "subnet-bcde012a", "subnet-fghi345a"]
+
+  tags = {
+    Environment = "dev"
+    Terraform   = "true"
+  }
+}
+```
+
+### EKS Auto Mode - Custom Node Pools Only
+
+```hcl
+module "eks" {
+  source  = "terraform-aws-modules/eks/aws"
+  version = "~> 21.0"
+
+  name               = "example"
+  kubernetes_version = "1.33"
+
+  # Optional
+  endpoint_public_access = true
+
+  # Optional: Adds the current caller identity as an administrator via cluster access entry
+  enable_cluster_creator_admin_permissions = true
+
+  # Create just the IAM resources for EKS Auto Mode for use with custom node pools
+  create_auto_mode_iam_resources = true
+  compute_config = {
+    enabled = true
+  }
+
+  vpc_id     = "vpc-1234556abcdef"
+  subnet_ids = ["subnet-abcde012", "subnet-bcde012a", "subnet-fghi345a"]
+
+  tags = {
+    Environment = "dev"
+    Terraform   = "true"
+  }
+}
+```
+
+### EKS Provisioned Control Plane
+
+EKS Provisioned Control Plane allows you to provision a control plane with increased capacity for larger workloads. Valid tier values are `standard`, `tier-xl`, `tier-2xl`, and `tier-4xl`.
+
+```hcl
+module "eks" {
+  source  = "terraform-aws-modules/eks/aws"
+  version = "~> 21.0"
+
+  name               = "my-cluster"
+  kubernetes_version = "1.33"
+
+  # Optional
+  endpoint_public_access = true
+
+  # Optional: Adds the current caller identity as an administrator via cluster access entry
+  enable_cluster_creator_admin_permissions = true
+
+  # EKS Provisioned Control Plane configuration
+  control_plane_scaling_config = {
+    tier = "tier-xl"
+  }
+
+  vpc_id     = "vpc-1234556abcdef"
+  subnet_ids = ["subnet-abcde012", "subnet-bcde012a", "subnet
+... [TRUNCATED]
+
+--- IAC CONFIG FILES ---
+
+[main.tf]
+data "aws_partition" "current" {
+  count = local.create ? 1 : 0
+}
+data "aws_caller_identity" "current" {
+  count = local.create ? 1 : 0
+}
+
+data "aws_iam_session_context" "current" {
+  count = local.create ? 1 : 0
+
+  # This data source provides information on the IAM source role of an STS assumed role
+  # For non-role ARNs, this data source simply passes the ARN through issuer ARN
+  # Ref https://github.com/terraform-aws-modules/terraform-aws-eks/issues/2327#issuecomment-1355581682
+  # Ref https://github.com/hashicorp/terraform-provider-aws/issues/28381
+  arn = try(data.aws_caller_identity.current[0].arn, "")
+}
+
+locals {
+  create = var.create && var.putin_khuylo
+
+  account_id = try(data.aws_caller_identity.current[0].account_id, "")
+  partition  = try(data.aws_partition.current[0].partition, "")
+
+  role_arn = try(aws_iam_role.this[0].arn, var.iam_role_arn)
+
+  create_outposts_local_cluster = var.outpost_config != null
+  enable_encryption_config      = var.encryption_config != null && !local.create_outposts_local_cluster
+
+  create_auto_mode_iam_resources = try(var.compute_config.enabled, false) == true || var.create_auto_mode_iam_resources
+}
+
+################################################################################
+# Cluster
+################################################################################
+
+resource "aws_eks_cluster" "this" {
+  count = local.create ? 1 : 0
+
+  region = var.region
+
+  name                          = var.name
+  role_arn                      = local.role_arn
+  version                       = var.kubernetes_version
+  enabled_cluster_log_types     = var.enabled_log_types
+  deletion_protection           = var.deletion_protection
+  bootstrap_self_managed_addons = false
+  force_update_version          = var.force_update_version
+
+  access_config {
+    authentication_mode = var.authentication_mode
+
+    # See access entries below - this is a one time operation from the EKS API.
+    # Instead, we are hardcoding this to false and if users wish to achieve this
+    # same functionality, we will do that through an access entry which can be
+    # enabled or disabled at any time of their choosing using the variable
+    # var.enable_cluster_creator_admin_permissions
+    bootstrap_cluster_creator_admin_permissions = false
+  }
+
+  dynamic "control_plane_scaling_config" {
+    for_each = var.control_plane_scaling_config != null ? [var.control_plane_scaling_config] : []
+
+    content {
+      tier = control_plane_scaling_config.value.tier
+    }
+  }
+
+  dynamic "compute_config" {
+    for_each = var.compute_config != null ? [var.compute_config] : []
+
+    content {
+      enabled       = compute_config.value.enabled
+      node_pools    = compute_config.value.node_pools
+      node_role_arn = compute_config.value.node_pools != null ? try(aws_iam_role.eks_auto[0].arn, compute_config.value.node_role_arn) : null
+    }
+  }
+
+  vpc_config {
+    security_group_ids      = compact(distinct(concat(var.additional_security_group_ids, [local.security_group_id
+... [TRUNCATED]
+
+[variables.tf]
+variable "create" {
+  description = "Controls if resources should be created (affects nearly all resources)"
+  type        = bool
+  default     = true
+}
+
+variable "prefix_separator" {
+  description = "The separator to use between the prefix and the generated timestamp for resource names"
+  type        = string
+  default     = "-"
+}
+
+variable "region" {
+  description = "Region where the resource(s) will be managed. Defaults to the Region set in the provider configuration"
+  type        = string
+  default     = null
+}
+
+variable "tags" {
+  description = "A map of tags to add to all resources"
+  type        = map(string)
+  default     = {}
+}
+
+################################################################################
+# Cluster
+################################################################################
+
+variable "name" {
+  description = "Name of the EKS cluster"
+  type        = string
+  default     = ""
+}
+
+variable "kubernetes_version" {
+  description = "Kubernetes `<major>.<minor>` version to use for the EKS cluster (i.e.: `1.33`)"
+  type        = string
+  default     = null
+}
+
+variable "enabled_log_types" {
+  description = "A list of the desired control plane logs to enable. For more information, see Amazon EKS Control Plane Logging documentation (https://docs.aws.amazon.com/eks/latest/userguide/control-plane-logs.html)"
+  type        = list(string)
+  default     = ["audit", "api", "authenticator"]
+}
+
+variable "deletion_protection" {
+  description = "Whether to enable deletion protection for the cluster. When enabled, the cluster cannot be deleted unless deletion protection is first disabled"
+  type        = bool
+  default     = null
+}
+
+variable "force_update_version" {
+  description = "Force version update by overriding upgrade-blocking readiness checks when updating a cluster"
+  type        = bool
+  default     = null
+}
+
+variable "authentication_mode" {
+  description = "The authentication mode for the cluster. Valid values are `CONFIG_MAP`, `API` or `API_AND_CONFIG_MAP`"
+  type        = string
+  default     = "API_AND_CONFIG_MAP"
+}
+
+variable "compute_config" {
+  description = "Configuration block for the cluster compute configuration"
+  type = object({
+    enabled       = optional(bool, false)
+    node_pools    = optional(list(string))
+    node_role_arn = optional(string)
+  })
+  default = null
+}
+
+variable "control_plane_scaling_config" {
+  description = "Configuration block for the EKS Provisioned Control Plane scaling tier. Valid values for tier are `standard`, `tier-xl`, `tier-2xl`, and `tier-4xl`"
+  type = object({
+    tier = string
+  })
+  default = null
+}
+
+variable "upgrade_policy" {
+  description = "Configuration block for the cluster upgrade policy"
+  type = object({
+    support_type = optional(string)
+  })
+  default = null
+}
+
+variable "remote_network_config" {
+  description = "Configuration block for the cluster remote network configuration"
+  type = object({
+    remote_node_networks = object({
+      cidrs = optional(list(string))
+... [TRUNCATED]
+
+[outputs.tf]
+################################################################################
+# Cluster
+################################################################################
+
+output "cluster_arn" {
+  description = "The Amazon Resource Name (ARN) of the cluster"
+  value       = try(aws_eks_cluster.this[0].arn, null)
+
+  depends_on = [
+    aws_eks_access_entry.this,
+    aws_eks_access_policy_association.this,
+  ]
+}
+
+output "cluster_certificate_authority_data" {
+  description = "Base64 encoded certificate data required to communicate with the cluster"
+  value       = try(aws_eks_cluster.this[0].certificate_authority[0].data, null)
+
+  depends_on = [
+    aws_eks_access_entry.this,
+    aws_eks_access_policy_association.this,
+  ]
+}
+
+output "cluster_endpoint" {
+  description = "Endpoint for your Kubernetes API server"
+  value       = try(aws_eks_cluster.this[0].endpoint, null)
+
+  depends_on = [
+    aws_eks_access_entry.this,
+    aws_eks_access_policy_association.this,
+  ]
+}
+
+output "cluster_id" {
+  description = "The ID of the EKS cluster. Note: currently a value is returned only for local EKS clusters created on Outposts"
+  value       = try(aws_eks_cluster.this[0].cluster_id, "")
+}
+
+output "cluster_name" {
+  description = "The name of the EKS cluster"
+  value       = try(aws_eks_cluster.this[0].name, "")
+
+  depends_on = [
+    aws_eks_access_entry.this,
+    aws_eks_access_policy_association.this,
+  ]
+}
+
+output "cluster_oidc_issuer_url" {
+  description = "The URL on the EKS cluster for the OpenID Connect identity provider"
+  value       = try(aws_eks_cluster.this[0].identity[0].oidc[0].issuer, null)
+}
+
+output "cluster_dualstack_oidc_issuer_url" {
+  description = "Dual-stack compatible URL on the EKS cluster for the OpenID Connect identity provider"
+  # https://github.com/aws/containers-roadmap/issues/2038#issuecomment-2278450601
+  value = try(replace(replace(aws_eks_cluster.this[0].identity[0].oidc[0].issuer, "https://oidc.eks.", "https://oidc-eks."), ".amazonaws.com/", ".api.aws/"), null)
+}
+
+output "cluster_version" {
+  description = "The Kubernetes version for the cluster"
+  value       = try(aws_eks_cluster.this[0].version, null)
+}
+
+output "cluster_platform_version" {
+  description = "Platform version for the cluster"
+  value       = try(aws_eks_cluster.this[0].platform_version, null)
+}
+
+output "cluster_status" {
+  description = "Status of the EKS cluster. One of `CREATING`, `ACTIVE`, `DELETING`, `FAILED`"
+  value       = try(aws_eks_cluster.this[0].status, null)
+}
+
+output "cluster_primary_security_group_id" {
+  description = "Cluster security group that was created by Amazon EKS for the cluster. Managed node groups use this security group for control-plane-to-data-plane communication. Referred to as 'Cluster security group' in the EKS console"
+  value       = try(aws_eks_cluster.this[0].vpc_config[0].cluster_security_group_id, null)
+}
+
+output "cluster_service_cidr" {
+  description = "The CIDR block where Kubernetes pod and service IP addresses are assig
+... [TRUNCATED]
+
+[versions.tf]
+terraform {
+  required_version = ">= 1.5.7"
+
+  required_providers {
+    aws = {
+      source  = "hashicorp/aws"
+      version = ">= 6.28"
+    }
+    tls = {
+      source  = "hashicorp/tls"
+      version = ">= 4.0"
+    }
+    time = {
+      source  = "hashicorp/time"
+      version = ">= 0.9"
+    }
+  }
+
+  provider_meta "aws" {
+    user_agent = [
+      "github.com/terraform-aws-modules/terraform-aws-eks"
+    ]
+  }
+}
+
+
+--- TERRAFORM FILES ---
+  examples/eks-auto-mode/main.tf
+  examples/eks-auto-mode/outputs.tf
+  examples/eks-auto-mode/variables.tf
+  examples/eks-auto-mode/versions.tf
+  examples/eks-capabilities/main.tf
+  examples/eks-capabilities/outputs.tf
+  examples/eks-capabilities/variables.tf
+  examples/eks-capabilities/versions.tf
+  examples/eks-hybrid-nodes/main.tf
+  examples/eks-hybrid-nodes/outputs.tf
+
+--- KUBERNETES MANIFESTS ---
+  examples/eks-auto-mode/deployment.yaml
+  templates/al2023_user_data.tpl
+  templates/al2_user_data.tpl
+  templates/bottlerocket_user_data.tpl
+  templates/windows_user_data.tpl
+  tests/user-data/templates/al2023_custom.tpl
+  tests/user-data/templates/bottlerocket_custom.tpl
+  tests/user-data/templates/linux_custom.tpl
+  tests/user-data/templates/windows_custom.tpl
+
+--- ANSIBLE FILES ---
+(None found)
+
+--- CI/CD PIPELINES ---
+  .github/workflows/lock.yml
+  .github/workflows/pr-title.yml
+  .github/workflows/pre-commit.yml
+  .github/workflows/publish-docs.yml
+  .github/workflows/release.yml
+  .github/workflows/stale-actions.yaml
+
+--- DIRECTORY STRUCTURE (depth 2) ---
+├── .editorconfig
+├── .gitattributes
+├── .github/
+│   ├── images/
+│   │   ├── security_groups.svg
+│   │   └── user_data.svg
+│   └── workflows/
+│       ├── lock.yml
+│       ├── pr-title.yml
+│       ├── pre-commit.yml
+│       ├── publish-docs.yml
+│       ├── release.yml
+│       └── stale-actions.yaml
+├── .gitignore
+├── .pre-commit-config.yaml
+├── .releaserc.json
+├── CHANGELOG.md
+├── LICENSE
+├── README.md
+├── docs/
+│   ├── .pages
+│   ├── CHANGELOG.pre-v11.0.0.md
+│   ├── README.md
+│   ├── UPGRADE-17.0.md
+│   ├── UPGRADE-18.0.md
+│   ├── UPGRADE-19.0.md
+│   ├── UPGRADE-20.0.md
+│   ├── UPGRADE-21.0.md
+│   ├── assets/
+│   │   ├── aws-eks-workshop-830.png
+│   │   ├── logo.png
+│   │   └── terraform-aws.png
+│   ├── compute_resources.md
+│   ├── faq.md
+│   ├── index.md
+│   ├── local.md
+│   ├── network_connectivity.md
+│   └── user_data.md
+├── examples/
+│   ├── README.md
+│   ├── eks-auto-mode/
+│   │   ├── README.md
+│   │   ├── deployment.yaml
+│   │   ├── main.tf
+│   │   ├── outputs.tf
+│   │   ├── variables.tf
+│   │   └── versions.tf
+│   ├── eks-capabilities/
+│   │   ├── README.md
+│   │   ├── main.tf
+│   │   ├── outputs.tf
+│   │   ├── variables.tf
+│   │   └── versions.tf
+│   ├── eks-hybrid-nodes/
+│   │   ├── .gitignore
+│   │   ├── README.md
+│   │   ├── ami/
+│   │   ├── main.tf
+│   │   ├── outputs.tf
+│   │   ├── remote.tf
+│   │   ├── variables.tf
+│   │   └── versions.tf
+│   ├── eks-managed-node-group/
+│   │   ├── README.md
+│   │   ├── eks-al2023.tf
+│   │   ├── eks-bottlerocket.tf
+│   │   ├── main.tf
+│   │   ├── outputs.tf
+│   │   ├── variables.tf
+│   │   └── versions.tf
+│   ├── karpenter/
+│   │   ├── README.md
+│   │   ├── inflate.yaml
+│   │   ├── karpenter.yaml
+│   │   ├── main.tf
+│   │   ├── outputs.tf
+│   │   ├── variables.tf
+│   │   └── versions.tf
+│   └── self-managed-node-group/
+│       ├── README.md
+│       ├── eks-al2023.tf
+│       ├── eks-bottlerocket.tf
+│       ├── main.tf
+│       ├── outputs.tf
+│       ├── variables.tf
+│       └── versions.tf
+├── main.tf
+├── mkdocs.yml
+├── modules/
+│   ├── _user_data/
+│   │   ├── README.md
+│   │   ├── main.tf
+│   │   ├── outputs.tf
+│   │   ├── variables.tf
+│   │   └── versions.tf
+│   ├── capability/
+│   │   ├── README.md
+│   │   ├── main.tf
+│   │   ├── outputs.tf
+│   │   ├── variables.tf
+│   │   └── versions.tf
+│   ├── eks-managed-node-group/
+│   │   ├── README.md
+│   │   ├── main.tf
+│   │   ├── migrations.tf
+│   │   ├── outputs.tf
+│   │   ├── variables.tf
+│   │   └── versions.tf
+│   ├── fargate-profile/
+│   │   ├── README.md
+│   │   ├── main.tf
+│   │   ├── migrations.tf
+│   │   ├── outputs.tf
+│   │   ├── variables.tf
+│   │   └── versions.tf
+│   ├── hybrid-node-role/
+│   │   ├── README.md
+│   │   ├── main.tf
+│   │   ├── outputs.tf
+│   │   ├── variables.tf
+│   │   └── versions.tf
+│   ├── karpenter/
+│   │   ├── README.md
+│   │   ├── main.tf
+│   │   ├── migrations.tf
+│   │   ├── outputs.tf
+│   │   ├── policy.tf
+│   │   ├── variables.tf
+│   │   └── versions.tf
+│   └── self-managed-node-group/
+│       ├── README.md
+│       ├── main.tf
+│       ├── migrations.tf
+│       ├── outputs.tf
+│       ├── variables.tf
+│       └── versions.tf
+├── node_groups.tf
+├── outputs.tf
+├── templates/
+│   ├── al2023_user_data.tpl
+│   ├── al2_user_data.tpl
+│   ├── bottlerocket_user_data.tpl
+│   └── windows_user_data.tpl
+├── tests/
+│   ├── eks-fargate-profile/
+│   │   ├── README.md
+│   │   ├── main.tf
+│   │   ├── outputs.tf
+│   │   ├── variables.tf
+│   │   └── versions.tf
+│   ├── eks-hybrid-nodes/
+│   │   ├── README.md
+│   │   ├── main.tf
+│   │   ├── outputs.tf
+│   │   ├── variables.tf
+│   │   └── versions.tf
+│   ├── eks-managed-node-group/
+│   │   ├── README.md
+│   │   ├── main.tf
+│   │   ├── outputs.tf
+│   │   ├── variables.tf
+│   │   └── versions.tf
+│   ├── self-managed-node-group/
+│   │   ├── README.md
+│   │   ├── main.tf
+│   │   ├── outputs.tf
+│   │   ├── variables.tf
+│   │   └── versions.tf
+│   └── user-data/
+│       ├── README.md
+│       ├── main.tf
+│       ├── outputs.tf
+│       ├── rendered/
+│       ├── templates/
+│       ├── variables.tf
+│       └── versions.tf
+├── variables.tf
+└── versions.tf

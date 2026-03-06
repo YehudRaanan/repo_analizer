@@ -1,0 +1,833 @@
+=====================================
+Repository Analysis: clearml
+Type: Data / ML / AI Project
+=====================================
+
+--- METADATA ---
+Name: clearml
+Description: ClearML - Auto-Magical CI/CD to streamline your AI workload. Experiment Management, Data Management, Pipeline, Orchestration, Scheduling & Serving in one MLOps/LLMOps solution
+Language: Python
+Topics: ai, clearml, control, deep-learning, deeplearning, devops, experiment, experiment-manager, k8s, machine-learning, machinelearning, mlops, trains, trainsai, version, version-control
+Stars: 6557
+License: Apache License 2.0
+
+--- README ---
+<div align="center" style="text-align: center">
+
+<p style="text-align: center">
+  <img align="center" src="docs/clearml-logo.svg#gh-light-mode-only" alt="Clear|ML"><img align="center" src="docs/clearml-logo-dark.svg#gh-dark-mode-only" alt="Clear|ML">
+</p>
+
+**[ClearML](https://clear.ml) - Auto-Magical Suite of tools to streamline your AI workflow
+</br>Experiment Manager, MLOps/LLMOps and Data-Management**
+
+[![GitHub license](https://img.shields.io/github/license/clearml/clearml.svg)](https://img.shields.io/github/license/clearml/clearml.svg) [![PyPI pyversions](https://img.shields.io/pypi/pyversions/clearml.svg)](https://img.shields.io/pypi/pyversions/clearml.svg) [![PyPI version shields.io](https://img.shields.io/pypi/v/clearml.svg)](https://pypi.org/project/clearml/) [![Conda version shields.io](https://img.shields.io/conda/v/clearml/clearml)](https://anaconda.org/clearml/clearml) [![Optuna](https://img.shields.io/badge/Optuna-integrated-blue)](https://optuna.org)<br>
+[![PyPI Downloads](https://static.pepy.tech/badge/clearml/month)](https://pypi.org/project/clearml/) [![Artifact Hub](https://img.shields.io/endpoint?url=https://artifacthub.io/badge/repository/clearml)](https://artifacthub.io/packages/search?repo=clearml) [![Youtube](https://img.shields.io/badge/ClearML-DD0000?logo=youtube&logoColor=white)](https://www.youtube.com/c/clearml) [![Slack Channel](https://img.shields.io/badge/slack-%23clearml--community-blueviolet?logo=slack)](https://joinslack.clear.ml) [![Signup](https://img.shields.io/badge/Clear%7CML-Signup-brightgreen)](https://app.clear.ml)
+
+
+`🌟 ClearML is open-source - Leave a star to support the project! 🌟`
+
+</div>
+
+---
+### ClearML
+
+ClearML is a ML/DL development and production suite. It contains FIVE main modules:
+
+- [Experiment Manager](#clearml-experiment-manager) - Automagical experiment tracking, environments and results
+- [MLOps / LLMOps](https://github.com/clearml/clearml-agent) - Orchestration, Automation & Pipelines solution for ML/DL/GenAI jobs (Kubernetes / Cloud / bare-metal)  
+- [Data-Management](https://github.com/clearml/clearml/blob/master/docs/datasets.md) - Fully differentiable data management & version control solution on top of object-storage 
+  (S3 / GS / Azure / NAS)  
+- [Model-Serving](https://github.com/clearml/clearml-serving) - *cloud-ready* Scalable model serving solution! 
+  - **Deploy new model endpoints in under 5 minutes** 
+  - Includes optimized GPU serving support backed by Nvidia-Triton 
+  - **with out-of-the-box  Model Monitoring** 
+- [Reports](https://clear.ml/docs/latest/docs/webapp/webapp_reports) - Create and share rich MarkDown documents supporting embeddable online content 
+- :fire: [Orchestration Dashboard](https://clear.ml/docs/latest/docs/webapp/webapp_orchestration_dash/) - Live rich dashboard for your entire compute cluster (Cloud / Kubernetes / On-Prem)
+- 🔥 💥 [Fractional GPUs](https://github.com/clearml/clearml-fractional-gpu) - Container based, driver level GPU memory limitation 🙀 !!!
+  
+
+Instrumenting these components is the **ClearML-server**, see [Self-Hosting](https://clear.ml/docs/latest/docs/deploying_clearml/clearml_server) & [Free tier Hosting](https://app.clear.ml)  
+
+
+---
+<div align="center">
+
+**[Sign up](https://app.clear.ml)  &  [Start using](https://clear.ml/docs/) in under 2 minutes**
+
+---
+**Friendly tutorials to get you started**
+
+<table>
+<tbody>
+  <tr>
+    <td><a href="https://github.com/clearml/clearml/blob/master/docs/tutorials/Getting_Started_1_Experiment_Management.ipynb"><b>Step 1</b></a> - Experiment Management</td>
+    <td><a target="_blank" href="https://colab.research.google.com/github/clearml/clearml/blob/master/docs/tutorials/Getting_Started_1_Experiment_Management.ipynb">
+  <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/>
+</a></td>
+  </tr>
+  <tr>
+    <td><a href="https://github.com/clearml/clearml/blob/master/docs/tutorials/Getting_Started_2_Setting_Up_Agent.ipynb"><b>Step 2</b></a> - Remote Execution Agent Setup</td>
+    <td><a target="_blank" href="https://colab.research.google.com/github/clearml/clearml/blob/master/docs/tutorials/Getting_Started_2_Setting_Up_Agent.ipynb">
+  <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/>
+</a></td>
+  </tr>
+  <tr>
+    <td><a href="https://github.com/clearml/clearml/blob/master/docs/tutorials/Getting_Started_3_Remote_Execution.ipynb"><b>Step 3</b></a> - Remotely Execute Tasks</td>
+    <td><a target="_blank" href="https://colab.research.google.com/github/clearml/clearml/blob/master/docs/tutorials/Getting_Started_3_Remote_Execution.ipynb">
+  <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/>
+</a></td>
+  </tr>
+</tbody>
+</table>
+
+</div>
+
+---
+
+<table>
+<tbody>
+  <tr>
+    <td>Experiment Management</td>
+    <td>Datasets</td>
+  </tr>
+  <tr>
+    <td><a href="https://app.clear.ml"><img src="https://github.com/clearml/clearml/blob/master/docs/experiment_manager.gif?raw=tru
+... [TRUNCATED]
+
+--- PACKAGE MANIFEST(S) ---
+
+[setup.py]
+"""
+ClearML Inc
+https://github.com/clearml/clearml
+"""
+
+import os.path
+# Always prefer setuptools over distutils
+from setuptools import setup, find_packages
+import codecs
+
+
+def read_text(filepath):
+    with codecs.open(filepath, "r", encoding="utf-8") as f:
+        return f.read()
+
+
+here = os.path.dirname(__file__)
+# Get the long description from the README file
+long_description = read_text(os.path.join(here, 'README.md'))
+
+# fix github, dark logo hack.
+long_description = long_description.replace(
+    """<img align="center" src="docs/clearml-logo.svg#gh-light-mode-only" alt="Clear|ML"><img align="center" src="docs/clearml-logo-dark.svg#gh-dark-mode-only" alt="Clear|ML">""",  # noqa
+    """<a href="https://clear.ml"><img src="https://raw.githubusercontent.com/clearml/clearml/refs/heads/master/docs/clearml-logo.svg" width="250px"></a>""",  # noqa
+)
+
+
+def read_version_string(version_file):
+    for line in read_text(version_file).splitlines():
+        if line.startswith('__version__'):
+            delim = '"' if '"' in line else "'"
+            return line.split(delim)[1]
+    else:
+        raise RuntimeError("Unable to find version string.")
+
+
+version = read_version_string("clearml/version.py")
+
+requirements = read_text(os.path.join(here, 'requirements.txt')).splitlines()
+
+setup(
+    name='clearml',
+    version=version,
+    description='ClearML - Auto-Magical Experiment Manager, Version Control, and MLOps for AI',
+    long_description=long_description,
+    long_description_content_type='text/markdown',
+    # The project's main homepage.
+    url='https://github.com/clearml/clearml',
+    author='ClearML',
+    author_email='support@clear.ml',
+    license='Apache License 2.0',
+    classifiers=[
+        'Development Status :: 5 - Production/Stable',
+        'Intended Audience :: Developers',
+        'Intended Audience :: Science/Research',
+        'Operating System :: POSIX :: Linux',
+        'Operating System :: MacOS :: MacOS X',
+        'Operating System :: Microsoft',
+        'Topic :: Scientific/Engineering :: Artificial Intelligence',
+        'Topic :: Software Development',
+        'Topic :: Software Development :: Version Control',
+        'Topic :: System :: Logging',
+        'Topic :: System :: Monitoring',
+        'Programming Language :: Python :: 3.6',
+        'Programming Language :: Python :: 3.7',
+        'Programming Language :: Python :: 3.8',
+        'Programming Language :: Python :: 3.9',
+        'Programming Language :: Python :: 3.10',
+        'Programming Language :: Python :: 3.11',
+        'Programming Language :: Python :: 3.12',
+        'Programming Language :: Python :: 3.13',
+        'Programming Language :: Python :: 3.14',
+        'License :: OSI Approved :: Apache Software License',
+    ],
+    keywords='clearml trains development machine deep learning version control machine-learning machinelearning '
+             'deeplearning deep-learning experiment-manager experimentmanager',
+    packages=find_packages(exclude=['contri
+... [TRUNCATED]
+
+[setup.cfg]
+[bdist_wheel]
+universal=1
+
+
+[requirements.txt]
+attrs>=18.0
+furl>=2.0.0
+jsonschema>=2.6.0
+numpy>=1.10
+pathlib2>=2.3.0
+Pillow>=7.0.0 ; python_version < '3.8'
+Pillow>=10.3.0 ; python_version >= '3.8'
+psutil>=3.4.2
+pyparsing>=2.0.3
+python-dateutil>=2.6.1
+pyjwt>=2.4.0,<2.11.0
+PyYAML>=3.12
+referencing<0.40 ; python_version >= '3.8'
+requests>=2.20.0 ; python_version < '3.8'
+requests>=2.32.0 ; python_version >= '3.8'
+six>=1.16.0
+urllib3>=1.21.1
+
+
+--- REQUIREMENTS FILES ---
+
+[dev-requirements.txt]
+-r requirements.txt
+
+flake8-bugbear~=21.4
+flake8~=3.9
+pytest~=6.2
+
+
+[examples/advanced/model_finetuning/requirements.txt]
+clearml==2.0.2
+transformers==4.53.0
+datasets==2.20.0
+peft==0.11.1
+
+[examples/advanced/requirements.txt]
+torch>=1.1.0
+torchvision>=0.3.0
+clearml>=1.14.4
+
+[examples/automation/requirements.txt]
+clearml>=1.14.4
+
+[examples/cicd/requirements.txt]
+tqdm==4.66.3
+clearml>=1.14.4
+github3.py==3.2.0
+tabulate==0.9.0
+pandas==1.5.1
+
+[examples/datasets/requirements.txt]
+matplotlib
+tensorboard>=1.14.0
+torch>=1.1.0
+torchvision>=0.3.0
+pytorch-ignite
+tqdm
+clearml>=1.14.4
+
+
+[examples/distributed/requirements.txt]
+torch>=1.1.0
+torchvision>=0.3.0
+clearml>=1.14.4
+
+[examples/frameworks/autokeras/requirements.txt]
+autokeras ; python_version >= '3.7'
+clearml>=1.14.4
+
+
+[examples/frameworks/catboost/requirements.txt]
+catboost
+numpy >= 1.19.2
+scikit_learn
+clearml>=1.14.4
+
+
+[examples/frameworks/click/requirements.txt]
+click>=8.0
+clearml>=1.14.4
+
+
+
+[examples/frameworks/fastai/legacy/requirements.txt]
+fastai < 2.0.0
+tensorboard
+tensorboardX
+clearml>=1.14.4
+
+
+[examples/frameworks/fastai/requirements.txt]
+fastai >= 2.6.0
+tensorboard
+tensorboardX
+clearml>=1.14.4
+
+
+[examples/frameworks/fire/requirements.txt]
+clearml>=1.14.4
+fire
+
+
+[examples/frameworks/hydra/requirements.txt]
+clearml>=1.14.4
+hydra-core>=1.2.0
+
+
+[examples/frameworks/ignite/requirements.txt]
+matplotlib
+tensorboard>=1.14.0
+torch>=1.1.0
+torchvision>=0.3.0
+pytorch-ignite
+tqdm
+clearml>=1.14.4
+
+[examples/frameworks/jsonargparse/requirements.txt]
+jsonargparse
+pytorch_lightning
+torch
+torchmetrics
+torchvision
+docstring_parser
+pytorch-lightning[extra]
+lightning; python_version >= '3.8'
+
+
+[examples/frameworks/keras/legacy/requirements.txt]
+clearml>=1.14.4
+Keras>=2.2.4
+
+
+[examples/frameworks/keras/requirements.txt]
+tensorflow>=2.0
+clearml>=1.14.4
+
+[examples/frameworks/kerastuner/requirements.txt]
+keras-tuner
+tensorflow>=2.0
+tensorflow-datasets
+clearml>=1.14.4
+
+[examples/frameworks/lightgbm/requirements.txt]
+lightgbm
+scikit-learn
+pandas
+matplotlib
+clearml>=1.14.4
+
+[examples/frameworks/matplotlib/requirements.txt]
+numpy != 1.24.0  # https://github.com/numpy/numpy/issues/22826
+matplotlib >= 3.1.1
+seaborn
+clearml>=1.14.4
+
+
+[examples/frameworks/megengine/requirements.txt]
+MegEngine ; python_version < '3.9'
+tensorboardX
+clearml>=1.14.4
+
+
+[examples/frameworks/openmmlab/requirements.txt]
+clearml>=1.14.4
+mmcv>=1.5.1,<2.0.0
+torch
+torchvision
+
+
+[examples/frameworks/pytorch-lightning/requirements.txt]
+clearml>=1.14.4
+pytorch-lightning >= 1.6.0
+torch
+torchvision
+
+
+[examples/frameworks/pytorch/requirements.txt]
+clearml>=1.14.4
+matplotlib
+pytorch-ignite
+tensorboard<=2.11.2 ; python_version <= '3.7'
+tensorboard>2.11.2 ; python_version > '3.7'
+tensorboardX
+torch>=1.1.0
+torchvision>=0.3.0
+tqdm
+protobuf==3.20.* ; python_version <= '3.7'
+protobuf>=4.25.8 ; python_version > '3.7'
+
+
+[examples/frameworks/scikit-learn/requirements.txt]
+joblib>=0.13.2
+matplotlib >= 3.1.1
+scikit-learn
+clearml>=1.14.4
+
+[examples/frameworks/tensorboardx/requirements.txt]
+tensorboardX>=1.8
+torch>=1.1.0
+torchvision>=0.3.0
+moviepy
+clearml>=1.14.4
+
+[examples/frameworks/tensorflow/legacy/requirements.txt]
+tensorboard>=1.14.0
+tensorflow>=1.14.0
+
+
+[examples/frameworks/tensorflow/requirements.txt]
+numpy != 1.24.0  # https://github.com/numpy/numpy/issues/22826
+absl-py>=0.7.1
+tensorboard>=2.0
+tensorflow>=2.0
+clearml>=1.14.4
+
+
+[examples/frameworks/xgboost/requirements.txt]
+numpy != 1.24.0  # https://github.com/numpy/numpy/issues/22826
+matplotlib >= 3.1.1
+scikit-learn
+clearml>=1.14.4
+xgboost>=0.90
+# sudo apt-get install graphviz
+graphviz>=0.8
+
+
+[examples/hyperdatasets/legacy/requirements.txt]
+allegroai~=3.5.7
+clearml>=1.14.4
+numpy
+Pillow
+torch
+
+
+[examples/hyperdatasets/requirements.txt]
+clearml>=2.1.0
+accelerate==1.12.0
+peft==0.18.1
+Pillow
+torch==2.10.0+cu130
+torchaudio==2.10.0+cu130
+torchvision==0.25.0+cu130
+transformers==5.1.0
+luqum==1.0.0
+
+
+[examples/optimization/hyper-parameter-optimization/requirements.txt]
+keras
+tensorflow
+clearml>=1.14.4
+
+[examples/pipeline/requirements.txt]
+joblib>=0.13.2
+matplotlib >= 3.1.1
+scikit-learn
+pandas
+clearml>=1.14.4
+
+[examples/reporting/requirements.txt]
+bokeh>=1.4.0
+clearml>=1.14.4
+matplotlib >= 3.1.1
+numpy != 1.24.0 # https://github.com/numpy/numpy/issues/22826
+bokeh_sampledata==2024.2 ; python_version >= '3.10'
+pandas
+pillow>=4.0
+plotly
+seaborn
+six
+
+
+[examples/router/requirements.txt]
+clearml
+clearml[router]
+
+
+[examples/scheduler/requirements.txt]
+clearml>=1.14.4
+
+[examples/services/aws-autoscaler/requirements.txt]
+boto3
+pyYaml
+six
+clearml>=1.14.4
+pathlib2
+
+
+[examples/services/cleanup/requirements.txt]
+clearml>=1.14.4
+
+[examples/services/monitoring/requirements.txt]
+clearml>=1.14.4
+slack_sdk > 3.0.0
+
+
+[requirements.txt]
+attrs>=18.0
+furl>=2.0.0
+jsonschema>=2.6.0
+numpy>=1.10
+pathlib2>=2.3.0
+Pillow>=7.0.0 ; python_version < '3.8'
+Pillow>=10.3.0 ; python_version >= '3.8'
+psutil>=3.4.2
+pyparsing>=2.0.3
+python-dateutil>=2.6.1
+pyjwt>=2.4.0,<2.11.0
+PyYAML>=3.12
+referencing<0.40 ; python_version >= '3.8'
+requests>=2.20.0 ; python_version < '3.8'
+requests>=2.32.0 ; python_version >= '3.8'
+six>=1.16.0
+urllib3>=1.21.1
+
+
+--- ML CONFIG FILES ---
+(No ML config files found)
+
+--- JUPYTER NOTEBOOKS ---
+  docs/tutorials/Getting_Started_1_Experiment_Management.ipynb
+  docs/tutorials/Getting_Started_2_Setting_Up_Agent.ipynb
+  docs/tutorials/Getting_Started_3_Remote_Execution.ipynb
+  examples/clearml_agent/clearml_colab_agent.ipynb
+  examples/frameworks/huggingface/transformers.ipynb
+  examples/frameworks/keras/jupyter.ipynb
+  examples/frameworks/keras/jupyter_keras_TB_example.ipynb
+  examples/frameworks/keras/legacy/jupyter.ipynb
+  examples/frameworks/matplotlib/jupyter_matplotlib_example.ipynb
+  examples/frameworks/pytorch/notebooks/audio/audio_classifier_UrbanSound8K.ipynb
+
+--- MODEL / TRAINING FILES ---
+  clearml/backend_api/services/v2_13/models.py
+  clearml/backend_api/services/v2_20/models.py
+  clearml/backend_api/services/v2_23/models.py
+  clearml/backend_api/services/v2_9/models.py
+  clearml/backend_api/session/apimodel.py
+  clearml/backend_api/session/datamodel.py
+  clearml/backend_api/session/jsonmodels/models.py
+  clearml/backend_interface/datasets/hyper_dataset.py
+  clearml/backend_interface/datasets/hyper_dataset_data_view.py
+  clearml/backend_interface/model.py
+
+--- DIRECTORY STRUCTURE (depth 2) ---
+├── .flake8
+├── .github/
+│   ├── ISSUE_TEMPLATE/
+│   │   ├── bug_report.md
+│   │   └── feature_request.md
+│   ├── PULL_REQUEST_TEMPLATE.md
+│   └── workflows/
+│       └── codeql-analysis.yml
+├── .gitignore
+├── CODE_OF_CONDUCT.md
+├── CONTRIBUTING.md
+├── LICENSE
+├── README.md
+├── SECURITY.md
+├── _config.yml
+├── clearml/
+│   ├── __init__.py
+│   ├── automation/
+│   │   ├── __init__.py
+│   │   ├── auto_scaler.py
+│   │   ├── aws_driver.py
+│   │   ├── cloud_driver.py
+│   │   ├── controller.py
+│   │   ├── hpbandster/
+│   │   ├── job.py
+│   │   ├── monitor.py
+│   │   ├── optimization.py
+│   │   ├── optuna/
+│   │   ├── parameters.py
+│   │   ├── scheduler.py
+│   │   └── trigger.py
+│   ├── backend_api/
+│   │   ├── __init__.py
+│   │   ├── api_proxy.py
+│   │   ├── config/
+│   │   ├── schema/
+│   │   ├── services/
+│   │   ├── session/
+│   │   └── utils.py
+│   ├── backend_config/
+│   │   ├── __init__.py
+│   │   ├── bucket_config.py
+│   │   ├── config.py
+│   │   ├── converters.py
+│   │   ├── defs.py
+│   │   ├── entry.py
+│   │   ├── environment.py
+│   │   ├── errors.py
+│   │   ├── log.py
+│   │   └── utils.py
+│   ├── backend_interface/
+│   │   ├── __init__.py
+│   │   ├── base.py
+│   │   ├── datasets/
+│   │   ├── logger.py
+│   │   ├── metrics/
+│   │   ├── model.py
+│   │   ├── session.py
+│   │   ├── setupuploadmixin.py
+│   │   ├── task/
+│   │   └── util.py
+│   ├── binding/
+│   │   ├── __init__.py
+│   │   ├── absl_bind.py
+│   │   ├── args.py
+│   │   ├── artifacts.py
+│   │   ├── click_bind.py
+│   │   ├── environ_bind.py
+│   │   ├── fire_bind.py
+│   │   ├── frameworks/
+│   │   ├── gradio_bind.py
+│   │   ├── hydra_bind.py
+│   │   ├── import_bind.py
+│   │   ├── joblib_bind.py
+│   │   ├── jsonargs_bind.py
+│   │   └── matplotlib_bind.py
+│   ├── cli/
+│   │   ├── __init__.py
+│   │   ├── config/
+│   │   ├── data/
+│   │   ├── debug/
+│   │   ├── hpo/
+│   │   └── task/
+│   ├── config/
+│   │   ├── __init__.py
+│   │   ├── cache.py
+│   │   ├── default/
+│   │   ├── defs.py
+│   │   └── remote.py
+│   ├── datasets/
+│   │   ├── __init__.py
+│   │   └── dataset.py
+│   ├── debugging/
+│   │   ├── __init__.py
+│   │   ├── log.py
+│   │   ├── timer.py
+│   │   └── trace.py
+│   ├── errors.py
+│   ├── external/
+│   │   ├── __init__.py
+│   │   └── kerastuner.py
+│   ├── hyperdatasets/
+│   │   ├── __init__.py
+│   │   ├── core.py
+│   │   ├── data_entry.py
+│   │   ├── data_entry_image.py
+│   │   ├── data_view.py
+│   │   ├── management.py
+│   │   └── util.py
+│   ├── logger.py
+│   ├── model.py
+│   ├── py.typed
+│   ├── router/
+│   │   ├── __init__.py
+│   │   ├── endpoint_telemetry.py
+│   │   ├── fastapi_proxy.py
+│   │   ├── proxy.py
+│   │   ├── route.py
+│   │   └── router.py
+│   ├── storage/
+│   │   ├── __init__.py
+│   │   ├── cache.py
+│   │   ├── callbacks.py
+│   │   ├── helper.py
+│   │   ├── manager.py
+│   │   └── util.py
+│   ├── task.py
+│   ├── task_parameters.py
+│   ├── utilities/
+│   │   ├── __init__.py
+│   │   ├── async_manager.py
+│   │   ├── attrs.py
+│   │   ├── check_updates.py
+│   │   ├── config.py
+│   │   ├── deferred.py
+│   │   ├── dicts.py
+│   │   ├── distutils_version.py
+│   │   ├── enum.py
+│   │   ├── files.py
+│   │   ├── gpu/
+│   │   ├── io_manager.py
+│   │   ├── locks/
+│   │   ├── lowlevel/
+│   │   ├── matching.py
+│   │   ├── networking.py
+│   │   ├── parallel.py
+│   │   ├── pigar/
+│   │   ├── plotly_reporter.py
+│   │   ├── plotlympl/
+│   │   ├── process/
+│   │   ├── proxy_object.py
+│   │   ├── py3_interop.py
+│   │   ├── pyhocon/
+│   │   ├── requests_toolbelt/
+│   │   ├── resource_monitor.py
+│   │   ├── seed.py
+│   │   ├── version.py
+│   │   └── wizard/
+│   └── version.py
+├── dev-requirements.txt
+├── docs/
+│   ├── clearml-logo-dark.svg
+│   ├── clearml-logo.svg
+│   ├── clearml-task.md
+│   ├── clearml.conf
+│   ├── datasets.gif
+│   ├── datasets.md
+│   ├── errata_breaking_change_gcs_sdk_1_11_x.md
+│   ├── experiment_manager.gif
+│   ├── logger.md
+│   ├── orchestration.gif
+│   ├── pipelines.gif
+│   ├── screenshots/
+│   │   └── hpd.png
+│   ├── system_diagram.png
+│   ├── trains.conf
+│   ├── tutorials/
+│   │   ├── Getting_Started_1_Experiment_Management.ipynb
+│   │   ├── Getting_Started_2_Setting_Up_Agent.ipynb
+│   │   └── Getting_Started_3_Remote_Execution.ipynb
+│   └── webapp_screenshots.gif
+├── examples/
+│   ├── advanced/
+│   │   ├── execute_remotely_example.py
+│   │   ├── model_embedding.py
+│   │   ├── model_finetuning/
+│   │   ├── multiple_tasks_single_process.py
+│   │   └── requirements.txt
+│   ├── automation/
+│   │   ├── manual_random_param_search_example.py
+│   │   ├── programmatic_orchestration.py
+│   │   ├── requirements.txt
+│   │   └── toy_base_task.py
+│   ├── cicd/
+│   │   ├── README.md
+│   │   ├── check_remotely_runnable.py
+│   │   ├── compare_models.py
+│   │   ├── example_task.py
+│   │   ├── images/
+│   │   ├── requirements.txt
+│   │   ├── run_clearml_checks.yml
+│   │   └── task_stats_to_comment.py
+│   ├── clearml_agent/
+│   │   └── clearml_colab_agent.ipynb
+│   ├── datasets/
+│   │   ├── README.md
+│   │   ├── csv_dataset_creation.py
+│   │   ├── data_ingestion.py
+│   │   ├── dataset_creation.py
+│   │   ├── dataset_folder_syncing.py
+│   │   ├── multi_parent_child_dataset.py
+│   │   ├── requirements.txt
+│   │   ├── single_parent_child_dataset.py
+│   │   ├── urbansounds_dataset_preprocessing.py
+│   │   └── urbansounds_get_data.py
+│   ├── distributed/
+│   │   ├── pytorch_distributed_example.py
+│   │   ├── requirements.txt
+│   │   └── subprocess_example.py
+│   ├── frameworks/
+│   │   ├── autokeras/
+│   │   ├── catboost/
+│   │   ├── click/
+│   │   ├── fastai/
+│   │   ├── fire/
+│   │   ├── huggingface/
+│   │   ├── hydra/
+│   │   ├── ignite/
+│   │   ├── jsonargparse/
+│   │   ├── keras/
+│   │   ├── kerastuner/
+│   │   ├── lightgbm/
+│   │   ├── matplotlib/
+│   │   ├── megengine/
+│   │   ├── openmmlab/
+│   │   ├── pytorch-lightning/
+│   │   ├── pytorch/
+│   │   ├── scikit-learn/
+│   │   ├── tensorboardx/
+│   │   ├── tensorflow/
+│   │   └── xgboost/
+│   ├── hyperdatasets/
+│   │   ├── create_coco_hyperdataset.py
+│   │   ├── create_doc_entries.py
+│   │   ├── create_image_entries.py
+│   │   ├── create_qa_entries.py
+│   │   ├── dataview.py
+│   │   ├── dataview_pytorch_dataloader.py
+│   │   ├── finetune_qa_lora.py
+│   │   ├── legacy/
+│   │   ├── qa_entries_sample.json
+│   │   ├── requirements.txt
+│   │   ├── samples/
+│   │   └── vector_search.py
+│   ├── optimization/
+│   │   └── hyper-parameter-optimization/
+│   ├── pipeline/
+│   │   ├── decorated_pipeline_step_decorators.py
+│   │   ├── decorated_pipeline_step_functions.py
+│   │   ├── full_tabular_data_process_pipeline_example.py
+│   │   ├── pipeline_from_decorator.py
+│   │   ├── pipeline_from_functions.py
+│   │   ├── pipeline_from_tasks.py
+│   │   ├── requirements.txt
+│   │   ├── step1_dataset_artifact.py
+│   │   ├── step2_data_processing.py
+│   │   └── step3_train_model.py
+│   ├── reporting/
+│   │   ├── 3d_plots_reporting.py
+│   │   ├── artifacts.py
+│   │   ├── artifacts_retrieval.py
+│   │   ├── config_files.py
+│   │   ├── data_samples/
+│   │   ├── html_reporting.py
+│   │   ├── hyper_parameters.py
+│   │   ├── image_reporting.py
+│   │   ├── jupyter_logging_example.ipynb
+│   │   ├── matplotlib_automatic_reporting.py
+│   │   ├── matplotlib_manual_reporting.py
+│   │   ├── media_reporting.py
+│   │   ├── model_reporting.py
+│   │   ├── model_reporting_plots.py
+│   │   ├── pandas_reporting.py
+│   │   ├── plotly_reporting.py
+│   │   ├── requirements.txt
+│   │   ├── scalar_reporting.py
+│   │   ├── scatter_hist_confusion_mat_reporting.py
+│   │   ├── text_reporting.py
+│   │   └── using_artifacts_example.py
+│   ├── router/
+│   │   ├── http_router.py
+│   │   ├── multi_endpoints.py
+│   │   ├── requirements.txt
+│   │   └── simple_webserver.py
+│   ├── scheduler/
+│   │   ├── cron_example.py
+│   │   ├── requirements.txt
+│   │   └── trigger_example.py
+│   └── services/
+│       ├── aws-autoscaler/
+│       ├── cleanup/
+│       └── monitoring/
+├── requirements.txt
+├── setup.cfg
+└── setup.py

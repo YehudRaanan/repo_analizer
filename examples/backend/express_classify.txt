@@ -1,0 +1,70 @@
+=====================================
+REPO CLASSIFICATION SIGNALS
+=====================================
+
+--- METADATA ---
+Name: express
+Description: Fast, unopinionated, minimalist web framework for node.
+Primary language: JavaScript
+Topics: express, javascript, nodejs, server
+
+--- ROOT FILES (signal matches) ---
+Web App:     (none)
+Backend:     (none)
+Library:     package.json
+CLI:         (none)
+Data/ML:     (none)
+Infra:       (none)
+
+--- TOP-LEVEL DIRECTORIES (signal matches) ---
+Web App:     (none)
+Backend:     (none)
+Library:     examples, lib, test
+CLI:         (none)
+Data/ML:     (none)
+Infra:       (none)
+
+--- ALL TOP-LEVEL DIRECTORIES ---
+.github, examples, lib, test
+
+--- TYPE-SPECIFIC EXTENSION COUNTS ---
+Web App extensions (.tsx, .jsx, .vue, .svelte): 0
+Data/ML extensions (.ipynb): 0
+Infra extensions (.tf, .hcl): 0
+Backend extensions (.proto, .graphql): 0
+
+--- TOP FILE EXTENSIONS (by count) ---
+  .js: 141
+  .ejs: 20
+  .txt: 11
+  .html: 8
+  .tmpl: 7
+  .yml: 6
+  .md: 4
+  .css: 4
+  .hbs: 3
+  .editorconfig: 1
+  .eslintignore: 1
+  .gitignore: 1
+  .npmrc: 1
+  .json: 1
+  .name: 1
+
+--- BOOLEAN PATTERN CHECKS ---
+  pages or app dir: no
+  components dir: no
+  cmd or bin dir: no
+  src bin: no
+  run train scripts: no
+  ipynb files: no
+  model training files: no
+  tf files: no
+  k8s manifests: no
+  ansible playbooks: no
+  route controller dirs: no
+  db migrations: no
+  openapi spec: no
+  src and tests: no
+  examples dir: yes
+  dockerfile: no
+  ci cd: yes

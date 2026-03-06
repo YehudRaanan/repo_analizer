@@ -1,0 +1,932 @@
+=====================================
+Repository Analysis: starship
+Type: CLI Tool
+=====================================
+
+--- METADATA ---
+Name: starship
+Description: ☄🌌️  The minimal, blazing-fast, and infinitely customizable prompt for any shell!
+Language: Rust
+Topics: bash, fish, fish-prompt, fish-theme, oh-my-zsh, powershell, rust, shell-prompt, starship, zsh, zsh-prompt, zsh-theme
+Stars: 54548
+License: ISC License
+
+--- README ---
+<p align="center">
+  <img
+    width="400"
+    src="https://raw.githubusercontent.com/starship/starship/master/media/logo.png"
+    alt="Starship – Cross-shell prompt"
+  />
+</p>
+
+<p align="center">
+  <a href="https://github.com/starship/starship/actions"
+    ><img
+      src="https://img.shields.io/github/actions/workflow/status/starship/starship/workflow.yml?branch=master&label=workflow&style=flat-square"
+      alt="GitHub Actions workflow status"
+  /></a>
+  <a href="https://crates.io/crates/starship"
+    ><img
+      src="https://img.shields.io/crates/v/starship?style=flat-square"
+      alt="Crates.io version"
+  /></a>
+  <a href="https://repology.org/project/starship/versions"
+    ><img
+      src="https://img.shields.io/repology/repositories/starship?label=in%20repositories&style=flat-square"
+      alt="Packaging status"/></a
+  ><br />
+  <a href="https://discord.gg/starship"
+    ><img
+      src="https://img.shields.io/discord/567163873606500352?label=discord&logoColor=white&style=flat-square"
+      alt="Chat on Discord"
+  /></a>
+  <a href="https://twitter.com/StarshipPrompt"
+    ><img
+      src="https://img.shields.io/badge/twitter-@StarshipPrompt-1DA1F3?style=flat-square"
+      alt="Follow @StarshipPrompt on Twitter"
+  /></a>
+  <a href="https://stand-with-ukraine.pp.ua"
+    ><img
+      src="https://raw.githubusercontent.com/vshymanskyy/StandWithUkraine/main/badges/StandWithUkraineFlat.svg"
+      alt="Stand With Ukraine"
+  /></a>
+</p>
+
+<p align="center">
+  <a href="https://starship.rs">Website</a>
+  ·
+  <a href="#🚀-installation">Installation</a>
+  ·
+  <a href="https://starship.rs/config/">Configuration</a>
+</p>
+
+<p align="center">
+  <a href="https://github.com/starship/starship/blob/master/README.md"
+    ><img
+      height="20"
+      src="https://raw.githubusercontent.com/starship/starship/master/media/flag-us.png"
+      alt="English"
+  /></a>
+  &nbsp;
+  <a
+    href="https://github.com/starship/starship/blob/master/docs/de-DE/guide/README.md"
+    ><img
+      height="20"
+      src="https://raw.githubusercontent.com/starship/starship/master/media/flag-de.png"
+      alt="Deutsch"
+  /></a>
+  &nbsp;
+  <a
+    href="https://github.com/starship/starship/blob/master/docs/es-ES/guide/README.md"
+    ><img
+      height="20"
+      src="https://raw.githubusercontent.com/starship/starship/master/media/flag-es.png"
+      alt="Español"
+  /></a>
+  &nbsp;
+  <a
+    href="https://github.com/starship/starship/blob/master/docs/fr-FR/guide/README.md"
+    ><img
+      height="20"
+      src="https://raw.githubusercontent.com/starship/starship/master/media/flag-fr.png"
+      alt="Français"
+  /></a>
+  &nbsp;
+  <a
+    href="https://github.com/starship/starship/blob/master/docs/id-ID/guide/README.md"
+    ><img
+      height="20"
+      src="https://raw.githubusercontent.com/starship/starship/master/media/flag-id.png"
+      alt="Bahasa Indonesia"
+  /></a>
+  &nbsp;
+  <a
+    href="https://github.com/starship/starship/blob/master/docs/it-IT/guide/README.md"
+    ><img
+      height="20"
+      src="https://raw.githubusercontent.com/starship/starship/master/media/flag-it.png"
+      alt="Italiano"
+  /></a>
+  &nbsp;
+  <a
+    href="https://github.com/starship/starship/blob/master/docs/ja-JP/guide/README.md"
+    ><img
+      height="20"
+      src="https://raw.githubusercontent.com/starship/starship/master/media/flag-jp.png"
+      alt="日本語"
+  /></a>
+  &nbsp;
+  <a
+    href="https://github.com/starship/starship/blob/master/docs/pt-BR/guide/README.md"
+    ><img
+      height="20"
+      src="https://raw.githubusercontent.com/starship/starship/master/media/flag-br.png"
+      alt="Português do Brasil"
+  /></a>
+  &nbsp;
+  <a
+    href="https://github.com/starship/starship/blob/master/docs/ru-RU/guide/README.md"
+    ><img
+      height="20"
+      src="https://raw.githubusercontent.com/starship/starship/master/media/flag-ru.png"
+      alt="Русский"
+  /></a>
+  &nbsp;
+  <a
+    href="https://github.com/starship/starship/blob/master/docs/uk-UA/guide/README.md"
+    ><img
+      height="20"
+      src="https://raw.githubusercontent.com/starship/starship/master/media/flag-ua.png"
+      alt="Українська"
+  /></a>
+  &nbsp;
+  <a
+    href="https://github.com/starship/starship/blob/master/docs/vi-VN/guide/README.md"
+    ><img
+      height="20"
+      src="https://raw.githubusercontent.com/starship/starship/master/media/flag-vn.png"
+      alt="Tiếng Việt"
+  /></a>
+  &nbsp;
+  <a
+    href="https://github.com/starship/starship/blob/master/docs/zh-CN/guide/README.md"
+    ><img
+      height="20"
+      src="https://raw.githubusercontent.com/starship/starship/master/media/flag-cn.png"
+      alt="简体中文"
+  /></a>
+  &nbsp;
+  <a
+    href="https://github.com/starship/starship/blob/master/docs/zh-TW/guide/README.md"
+    ><img
+      height="20"
+      src="https://raw.githubusercontent.com/starship/starship/master/media/flag-tw.png"
+      alt="繁體中文"
+  /></a>
+</p>
+
+<h1></h1>
+
+<img
+  src="https://raw.githubusercontent.com/starship/starship/master/media/demo.gif"
+  alt="Starship with iTerm2 and the Sna
+... [TRUNCATED]
+
+--- PACKAGE MANIFEST(S) ---
+
+[Cargo.toml]
+[package]
+name = "starship"
+version = "1.24.2"
+authors = ["Starship Contributors"]
+build = "build.rs"
+categories = ["command-line-utilities"]
+documentation = "https://starship.rs/guide/"
+edition = "2024"
+homepage = "https://starship.rs"
+# Keep `/` in front of `README.md` to exclude localized readmes
+include = [
+  "src/**/*",
+  "/starship.exe.manifest",
+  "media/icon.ico",
+  "build.rs",
+  "LICENSE",
+  "/README.md",
+  "docs/public/presets/toml/",
+  ".github/config-schema.json",
+]
+keywords = ["prompt", "shell", "bash", "fish", "zsh"]
+license = "ISC"
+readme = "README.md"
+repository = "https://github.com/starship/starship"
+# Note: MSRV is only intended as a hint, and only the latest version is officially supported in starship.
+rust-version = "1.90"
+description = """
+The minimal, blazing-fast, and infinitely customizable prompt for any shell! ☄🌌️
+"""
+
+[features]
+default = ["battery", "notify"]
+battery = ["starship-battery"]
+config-schema = ["schemars"]
+notify = ["notify-rust"]
+
+[dependencies]
+chrono = { version = "0.4.44", default-features = false, features = ["clock", "std", "wasmbind"] }
+clap = { version = "4.5.60", features = ["derive", "cargo", "unicode"] }
+clap_complete = "4.5.66"
+clap_complete_nushell = "4.5.10"
+dirs = "6.0.0"
+dunce = "1.0.5"
+# default feature restriction addresses https://github.com/starship/starship/issues/4251
+gix = { version = "0.80.0", default-features = false, features = ["max-performance-safe", "revision", "zlib-rs", "status"] }
+indexmap = { version = "2.13.0", features = ["serde"] }
+jsonc-parser = { version = "0.29.0", features = ["serde"] }
+log = { version = "0.4.29", features = ["std"] }
+# notify-rust is optional (on by default) because the crate doesn't currently build for darwin with nix
+# see: https://github.com/NixOS/nixpkgs/issues/160876
+notify-rust = { version = "4.12.0", optional = true }
+nu-ansi-term = "0.50.3"
+open = "5.3.3"
+# update os module config and tests when upgrading os_info
+os_info = { version = "3.14.0", features = ["schemars"] }
+# for efficient shared state between `git_status` and `git_metrics`, allowing parallel printing. This is for poison-free locks.
+parking_lot = "0.12.5"
+path-slash = "0.2.1"
+pest = "2.8.6"
+pest_derive = "2.8.6"
+process_control = "5.2.0"
+quick-xml = "0.39.2"
+rand = "0.10.0"
+rayon = "1.11.0"
+regex = { version = "1.12.3", default-features = false, features = ["perf", "std", "unicode-perl"] }
+rust-ini = "0.21.3"
+semver = "1.0.27"
+serde = { version = "1.0.228", features = ["derive"] }
+serde_json = "1.0.149"
+sha1 = "0.10.6"
+shadow-rs = { version = "1.7.0", default-features = false, features = ["build"] }
+# battery is optional (on by default) because the crate doesn't currently build for Termux
+# see: https://github.com/svartalf/rust-battery/issues/33
+starship-battery = { version = "0.10.3", optional = true }
+strsim = "0.11.1"
+systemstat = "=0.2.6"
+terminal_size = "0.4.3"
+toml = { version = "1.0.3", features = ["preserve_order"] }
+toml_edit = "0.25.3"
+unicode-segmentation = "1.12.0"
+u
+... [TRUNCATED]
+
+--- CLI ENTRY POINTS / COMMAND DEFINITIONS ---
+
+[src/main.rs]
+#![warn(clippy::disallowed_methods)]
+
+use clap::crate_authors;
+use std::io;
+use std::path::PathBuf;
+use std::time::SystemTime;
+
+use clap::{CommandFactory, Parser, Subcommand, ValueEnum};
+use clap_complete::generate;
+use rand::RngExt;
+use starship::context::{Context, Properties, Target};
+use starship::module::ALL_MODULES;
+use starship::{bug_report, configure, init, logger, num_rayon_threads, print, shadow};
+
+#[derive(Parser, Debug)]
+#[clap(
+    author=crate_authors!(),
+    version=shadow::PKG_VERSION,
+    long_version=shadow::CLAP_LONG_VERSION,
+    about="The cross-shell prompt for astronauts. ☄🌌️",
+    subcommand_required=true,
+    arg_required_else_help=true,
+)]
+struct Cli {
+    #[clap(subcommand)]
+    command: Commands,
+}
+
+#[derive(Debug, Clone, Copy, PartialEq, Eq, ValueEnum)]
+enum CompletionShell {
+    Bash,
+    Elvish,
+    Fish,
+    Nushell,
+    #[clap(name = "powershell", alias = "pwsh", alias = "power-shell")]
+    PowerShell,
+    Zsh,
+}
+
+fn generate_shell(shell: impl clap_complete::Generator) {
+    generate(
+        shell,
+        &mut Cli::command(),
+        "starship",
+        &mut io::stdout().lock(),
+    );
+}
+
+fn generate_completions(shell: CompletionShell) {
+    match shell {
+        CompletionShell::Bash => generate_shell(clap_complete::Shell::Bash),
+        CompletionShell::Elvish => generate_shell(clap_complete::Shell::Elvish),
+        CompletionShell::Fish => generate_shell(clap_complete::Shell::Fish),
+        CompletionShell::PowerShell => generate_shell(clap_complete::Shell::PowerShell),
+        CompletionShell::Zsh => generate_shell(clap_complete::Shell::Zsh),
+        CompletionShell::Nushell => generate_shell(clap_complete_nushell::Nushell),
+    }
+}
+
+#[derive(Subcommand, Debug)]
+enum Commands {
+    /// Create a pre-populated GitHub issue with information about your configuration
+    BugReport,
+    /// Generate starship shell completions for your shell to stdout
+    Completions {
+        #[clap(value_enum)]
+        shell: CompletionShell,
+    },
+    /// Edit the starship configuration
+    Config {
+        /// Configuration key to edit
+        #[clap(requires = "value")]
+        name: Option<String>,
+        /// Value to place into that key
+        value: Option<String>,
+    },
+    /// Explains the currently showing modules
+    Explain(Properties),
+    ///  Prints the shell function used to execute starship
+    Init {
+        shell: String,
+        #[clap(long)]
+        print_full_init: bool,
+    },
+    ///  Prints a specific prompt module
+    Module {
+        /// The name of the module to be printed
+        #[clap(required_unless_present("list"))]
+        name: Option<String>,
+        /// List out all supported modules
+        #[clap(short, long)]
+        list: bool,
+        #[clap(flatten)]
+        properties: Properties,
+    },
+    /// Prints a preset config
+    Preset {
+        /// The name of preset to be printed
+        #[clap(required_unless_present("list"), value_enum)]
+        name: Option<print::Preset>,
+        /// Ou
+... [TRUNCATED]
+
+--- SHELL COMPLETIONS & MAN PAGES ---
+  src/init/starship.bash
+  src/init/starship.fish
+  src/init/starship.zsh
+
+--- DIRECTORY STRUCTURE (depth 2) ---
+├── .codecov.yml
+├── .dprint.json
+├── .gitattributes
+├── .github/
+│   ├── FUNDING.yml
+│   ├── ISSUE_TEMPLATE/
+│   │   ├── Bug_report.md
+│   │   ├── Feature_request.md
+│   │   └── config.yml
+│   ├── PULL_REQUEST_TEMPLATE.md
+│   ├── config-schema.json
+│   ├── renovate.json5
+│   └── workflows/
+│       ├── crowdin-pretranslate.yml
+│       ├── format-workflow.yml
+│       ├── install-script.yml
+│       ├── publish-docs.yml
+│       ├── release.yml
+│       ├── security-audit.yml
+│       ├── spell-check.yml
+│       └── workflow.yml
+├── .gitignore
+├── .rustfmt.toml
+├── CHANGELOG.md
+├── CODE_OF_CONDUCT.md
+├── CONTRIBUTING.md
+├── Cargo.lock
+├── Cargo.toml
+├── LICENSE
+├── README.md
+├── SECURITY.md
+├── build.rs
+├── clippy.toml
+├── crowdin.yml
+├── deny.toml
+├── docs/
+│   ├── .vitepress/
+│   │   ├── config.mts
+│   │   └── theme/
+│   ├── README.md
+│   ├── advanced-config/
+│   │   └── README.md
+│   ├── ar-SA/
+│   │   ├── README.md
+│   │   ├── advanced-config/
+│   │   ├── config/
+│   │   ├── faq/
+│   │   ├── guide/
+│   │   ├── installing/
+│   │   ├── migrating-to-0.45.0/
+│   │   └── presets/
+│   ├── bn-BD/
+│   │   ├── README.md
+│   │   ├── advanced-config/
+│   │   ├── config/
+│   │   ├── faq/
+│   │   ├── guide/
+│   │   ├── installing/
+│   │   ├── migrating-to-0.45.0/
+│   │   └── presets/
+│   ├── ckb-IR/
+│   │   ├── README.md
+│   │   ├── advanced-config/
+│   │   ├── config/
+│   │   ├── faq/
+│   │   ├── guide/
+│   │   ├── installing/
+│   │   ├── migrating-to-0.45.0/
+│   │   └── presets/
+│   ├── config/
+│   │   └── README.md
+│   ├── de-DE/
+│   │   ├── README.md
+│   │   ├── advanced-config/
+│   │   ├── config/
+│   │   ├── faq/
+│   │   ├── guide/
+│   │   ├── installing/
+│   │   ├── migrating-to-0.45.0/
+│   │   └── presets/
+│   ├── es-ES/
+│   │   ├── README.md
+│   │   ├── advanced-config/
+│   │   ├── config/
+│   │   ├── faq/
+│   │   ├── guide/
+│   │   ├── installing/
+│   │   ├── migrating-to-0.45.0/
+│   │   └── presets/
+│   ├── faq/
+│   │   └── README.md
+│   ├── fr-FR/
+│   │   ├── README.md
+│   │   ├── advanced-config/
+│   │   ├── config/
+│   │   ├── faq/
+│   │   ├── guide/
+│   │   ├── installing/
+│   │   ├── migrating-to-0.45.0/
+│   │   └── presets/
+│   ├── guide/
+│   │   └── README.md
+│   ├── id-ID/
+│   │   ├── README.md
+│   │   ├── advanced-config/
+│   │   ├── config/
+│   │   ├── faq/
+│   │   ├── guide/
+│   │   ├── installing/
+│   │   ├── migrating-to-0.45.0/
+│   │   └── presets/
+│   ├── installing/
+│   │   └── README.md
+│   ├── it-IT/
+│   │   ├── README.md
+│   │   ├── advanced-config/
+│   │   ├── config/
+│   │   ├── faq/
+│   │   ├── guide/
+│   │   ├── installing/
+│   │   ├── migrating-to-0.45.0/
+│   │   └── presets/
+│   ├── ja-JP/
+│   │   ├── README.md
+│   │   ├── advanced-config/
+│   │   ├── config/
+│   │   ├── faq/
+│   │   ├── guide/
+│   │   ├── installing/
+│   │   ├── migrating-to-0.45.0/
+│   │   └── presets/
+│   ├── ko-KR/
+│   │   ├── README.md
+│   │   ├── advanced-config/
+│   │   ├── config/
+│   │   ├── faq/
+│   │   ├── guide/
+│   │   ├── installing/
+│   │   ├── migrating-to-0.45.0/
+│   │   └── presets/
+│   ├── migrating-to-0.45.0/
+│   │   └── README.md
+│   ├── nl-NL/
+│   │   ├── README.md
+│   │   ├── advanced-config/
+│   │   ├── config/
+│   │   ├── faq/
+│   │   ├── guide/
+│   │   ├── installing/
+│   │   ├── migrating-to-0.45.0/
+│   │   └── presets/
+│   ├── no-NO/
+│   │   ├── README.md
+│   │   ├── advanced-config/
+│   │   ├── config/
+│   │   ├── faq/
+│   │   ├── guide/
+│   │   ├── installing/
+│   │   ├── migrating-to-0.45.0/
+│   │   └── presets/
+│   ├── package-lock.json
+│   ├── package.json
+│   ├── pl-PL/
+│   │   ├── README.md
+│   │   ├── advanced-config/
+│   │   ├── config/
+│   │   ├── faq/
+│   │   ├── guide/
+│   │   ├── installing/
+│   │   ├── migrating-to-0.45.0/
+│   │   └── presets/
+│   ├── presets/
+│   │   ├── README.md
+│   │   ├── bracketed-segments.md
+│   │   ├── catppuccin-powerline.md
+│   │   ├── gruvbox-rainbow.md
+│   │   ├── jetpack.md
+│   │   ├── nerd-font.md
+│   │   ├── no-empty-icons.md
+│   │   ├── no-nerd-font.md
+│   │   ├── no-runtimes.md
+│   │   ├── pastel-powerline.md
+│   │   ├── plain-text.md
+│   │   ├── pure-preset.md
+│   │   └── tokyo-night.md
+│   ├── pt-BR/
+│   │   ├── README.md
+│   │   ├── advanced-config/
+│   │   ├── config/
+│   │   ├── faq/
+│   │   ├── guide/
+│   │   ├── installing/
+│   │   ├── migrating-to-0.45.0/
+│   │   └── presets/
+│   ├── pt-PT/
+│   │   ├── README.md
+│   │   ├── advanced-config/
+│   │   ├── config/
+│   │   ├── faq/
+│   │   ├── guide/
+│   │   ├── installing/
+│   │   ├── migrating-to-0.45.0/
+│   │   └── presets/
+│   ├── public/
+│   │   ├── _redirects
+│   │   ├── config-schema.json
+│   │   ├── demo.mp4
+│   │   ├── demo.webm
+│   │   ├── icon.png
+│   │   ├── install.sh
+│   │   ├── logo-uwu.png
+│   │   ├── logo.png
+│   │   ├── logo.svg
+│   │   ├── nerd-font.woff2
+│   │   ├── presets/
+│   │   └── robots.txt
+│   ├── ru-RU/
+│   │   ├── README.md
+│   │   ├── advanced-config/
+│   │   ├── config/
+│   │   ├── faq/
+│   │   ├── guide/
+│   │   ├── installing/
+│   │   ├── migrating-to-0.45.0/
+│   │   └── presets/
+│   ├── tr-TR/
+│   │   ├── README.md
+│   │   ├── advanced-config/
+│   │   ├── config/
+│   │   ├── faq/
+│   │   ├── guide/
+│   │   ├── installing/
+│   │   ├── migrating-to-0.45.0/
+│   │   └── presets/
+│   ├── uk-UA/
+│   │   ├── README.md
+│   │   ├── advanced-config/
+│   │   ├── config/
+│   │   ├── faq/
+│   │   ├── guide/
+│   │   ├── installing/
+│   │   ├── migrating-to-0.45.0/
+│   │   └── presets/
+│   ├── vi-VN/
+│   │   ├── README.md
+│   │   ├── advanced-config/
+│   │   ├── config/
+│   │   ├── faq/
+│   │   ├── guide/
+│   │   ├── installing/
+│   │   ├── migrating-to-0.45.0/
+│   │   └── presets/
+│   ├── zh-CN/
+│   │   ├── README.md
+│   │   ├── advanced-config/
+│   │   ├── config/
+│   │   ├── faq/
+│   │   ├── guide/
+│   │   ├── installing/
+│   │   ├── migrating-to-0.45.0/
+│   │   └── presets/
+│   └── zh-TW/
+│       ├── README.md
+│       ├── advanced-config/
+│       ├── config/
+│       ├── faq/
+│       ├── guide/
+│       ├── installing/
+│       ├── migrating-to-0.45.0/
+│       └── presets/
+├── install/
+│   ├── install.sh
+│   ├── macos_packages/
+│   │   ├── aarch64.plist
+│   │   ├── build_and_notarize.sh
+│   │   ├── build_component_package.sh
+│   │   ├── build_distribution_package.sh
+│   │   ├── common.sh
+│   │   ├── pkg_resources/
+│   │   ├── readme.md
+│   │   └── x86_64.plist
+│   └── windows/
+│       ├── choco/
+│       ├── main.wxs
+│       └── pkg_resources/
+├── media/
+│   ├── demo.gif
+│   ├── flag-br.png
+│   ├── flag-cn.png
+│   ├── flag-de.png
+│   ├── flag-es.png
+│   ├── flag-fr.png
+│   ├── flag-id.png
+│   ├── flag-it.png
+│   ├── flag-jp.png
+│   ├── flag-ru.png
+│   ├── flag-tw.png
+│   ├── flag-ua.png
+│   ├── flag-us.png
+│   ├── flag-vn.png
+│   ├── icon.ico
+│   ├── icon.png
+│   ├── icon.svg
+│   ├── logo.ai
+│   ├── logo.png
+│   └── logo.svg
+├── release-please-config.json
+├── src/
+│   ├── bug_report.rs
+│   ├── config.rs
+│   ├── configs/
+│   │   ├── aws.rs
+│   │   ├── azure.rs
+│   │   ├── battery.rs
+│   │   ├── buf.rs
+│   │   ├── bun.rs
+│   │   ├── c.rs
+│   │   ├── cc.rs
+│   │   ├── character.rs
+│   │   ├── cmake.rs
+│   │   ├── cmd_duration.rs
+│   │   ├── cobol.rs
+│   │   ├── conda.rs
+│   │   ├── container.rs
+│   │   ├── cpp.rs
+│   │   ├── crystal.rs
+│   │   ├── custom.rs
+│   │   ├── daml.rs
+│   │   ├── dart.rs
+│   │   ├── deno.rs
+│   │   ├── directory.rs
+│   │   ├── direnv.rs
+│   │   ├── docker_context.rs
+│   │   ├── dotnet.rs
+│   │   ├── elixir.rs
+│   │   ├── elm.rs
+│   │   ├── env_var.rs
+│   │   ├── erlang.rs
+│   │   ├── fennel.rs
+│   │   ├── fill.rs
+│   │   ├── fortran.rs
+│   │   ├── fossil_branch.rs
+│   │   ├── fossil_metrics.rs
+│   │   ├── gcloud.rs
+│   │   ├── git_branch.rs
+│   │   ├── git_commit.rs
+│   │   ├── git_metrics.rs
+│   │   ├── git_state.rs
+│   │   ├── git_status.rs
+│   │   ├── gleam.rs
+│   │   ├── go.rs
+│   │   ├── gradle.rs
+│   │   ├── guix_shell.rs
+│   │   ├── haskell.rs
+│   │   ├── haxe.rs
+│   │   ├── helm.rs
+│   │   ├── hg_branch.rs
+│   │   ├── hg_state.rs
+│   │   ├── hostname.rs
+│   │   ├── java.rs
+│   │   ├── jobs.rs
+│   │   ├── julia.rs
+│   │   ├── kotlin.rs
+│   │   ├── kubernetes.rs
+│   │   ├── line_break.rs
+│   │   ├── localip.rs
+│   │   ├── lua.rs
+│   │   ├── maven.rs
+│   │   ├── memory_usage.rs
+│   │   ├── meson.rs
+│   │   ├── mise.rs
+│   │   ├── mod.rs
+│   │   ├── mojo.rs
+│   │   ├── nats.rs
+│   │   ├── netns.rs
+│   │   ├── nim.rs
+│   │   ├── nix_shell.rs
+│   │   ├── nodejs.rs
+│   │   ├── ocaml.rs
+│   │   ├── odin.rs
+│   │   ├── opa.rs
+│   │   ├── openstack.rs
+│   │   ├── os.rs
+│   │   ├── package.rs
+│   │   ├── perl.rs
+│   │   ├── php.rs
+│   │   ├── pijul_channel.rs
+│   │   ├── pixi.rs
+│   │   ├── pulumi.rs
+│   │   ├── purescript.rs
+│   │   ├── python.rs
+│   │   ├── quarto.rs
+│   │   ├── raku.rs
+│   │   ├── red.rs
+│   │   ├── rlang.rs
+│   │   ├── ruby.rs
+│   │   ├── rust.rs
+│   │   ├── scala.rs
+│   │   ├── shell.rs
+│   │   ├── shlvl.rs
+│   │   ├── singularity.rs
+│   │   ├── solidity.rs
+│   │   ├── spack.rs
+│   │   ├── starship_root.rs
+│   │   ├── status.rs
+│   │   ├── sudo.rs
+│   │   ├── swift.rs
+│   │   ├── terraform.rs
+│   │   ├── time.rs
+│   │   ├── typst.rs
+│   │   ├── username.rs
+│   │   ├── v.rs
+│   │   ├── vagrant.rs
+│   │   ├── vcs.rs
+│   │   ├── vcsh.rs
+│   │   ├── xmake.rs
+│   │   └── zig.rs
+│   ├── configure.rs
+│   ├── context.rs
+│   ├── context_env.rs
+│   ├── formatter/
+│   │   ├── mod.rs
+│   │   ├── model.rs
+│   │   ├── parser.rs
+│   │   ├── spec.pest
+│   │   ├── string_formatter.rs
+│   │   └── version.rs
+│   ├── init/
+│   │   ├── mod.rs
+│   │   ├── starship.bash
+│   │   ├── starship.elv
+│   │   ├── starship.fish
+│   │   ├── starship.ion
+│   │   ├── starship.lua
+│   │   ├── starship.nu
+│   │   ├── starship.ps1
+│   │   ├── starship.tcsh
+│   │   ├── starship.xsh
+│   │   └── starship.zsh
+│   ├── lib.rs
+│   ├── logger.rs
+│   ├── main.rs
+│   ├── module.rs
+│   ├── modules/
+│   │   ├── aws.rs
+│   │   ├── azure.rs
+│   │   ├── battery.rs
+│   │   ├── buf.rs
+│   │   ├── bun.rs
+│   │   ├── c.rs
+│   │   ├── cc.rs
+│   │   ├── character.rs
+│   │   ├── cmake.rs
+│   │   ├── cmd_duration.rs
+│   │   ├── cobol.rs
+│   │   ├── conda.rs
+│   │   ├── container.rs
+│   │   ├── cpp.rs
+│   │   ├── crystal.rs
+│   │   ├── custom.rs
+│   │   ├── daml.rs
+│   │   ├── dart.rs
+│   │   ├── deno.rs
+│   │   ├── directory.rs
+│   │   ├── direnv.rs
+│   │   ├── docker_context.rs
+│   │   ├── dotnet.rs
+│   │   ├── elixir.rs
+│   │   ├── elm.rs
+│   │   ├── env_var.rs
+│   │   ├── erlang.rs
+│   │   ├── fennel.rs
+│   │   ├── fill.rs
+│   │   ├── fortran.rs
+│   │   ├── fossil_branch.rs
+│   │   ├── fossil_metrics.rs
+│   │   ├── gcloud.rs
+│   │   ├── git_branch.rs
+│   │   ├── git_commit.rs
+│   │   ├── git_metrics.rs
+│   │   ├── git_state.rs
+│   │   ├── git_status.rs
+│   │   ├── gleam.rs
+│   │   ├── golang.rs
+│   │   ├── gradle.rs
+│   │   ├── guix_shell.rs
+│   │   ├── haskell.rs
+│   │   ├── haxe.rs
+│   │   ├── helm.rs
+│   │   ├── hg_branch.rs
+│   │   ├── hg_state.rs
+│   │   ├── hostname.rs
+│   │   ├── java.rs
+│   │   ├── jobs.rs
+│   │   ├── julia.rs
+│   │   ├── kotlin.rs
+│   │   ├── kubernetes.rs
+│   │   ├── line_break.rs
+│   │   ├── localip.rs
+│   │   ├── lua.rs
+│   │   ├── maven.rs
+│   │   ├── memory_usage.rs
+│   │   ├── meson.rs
+│   │   ├── mise.rs
+│   │   ├── mod.rs
+│   │   ├── mojo.rs
+│   │   ├── nats.rs
+│   │   ├── netns.rs
+│   │   ├── nim.rs
+│   │   ├── nix_shell.rs
+│   │   ├── nodejs.rs
+│   │   ├── ocaml.rs
+│   │   ├── odin.rs
+│   │   ├── opa.rs
+│   │   ├── openstack.rs
+│   │   ├── os.rs
+│   │   ├── package.rs
+│   │   ├── perl.rs
+│   │   ├── php.rs
+│   │   ├── pijul_channel.rs
+│   │   ├── pixi.rs
+│   │   ├── pulumi.rs
+│   │   ├── purescript.rs
+│   │   ├── python.rs
+│   │   ├── quarto.rs
+│   │   ├── raku.rs
+│   │   ├── red.rs
+│   │   ├── rlang.rs
+│   │   ├── ruby.rs
+│   │   ├── rust.rs
+│   │   ├── scala.rs
+│   │   ├── shell.rs
+│   │   ├── shlvl.rs
+│   │   ├── singularity.rs
+│   │   ├── solidity.rs
+│   │   ├── spack.rs
+│   │   ├── status.rs
+│   │   ├── sudo.rs
+│   │   ├── swift.rs
+│   │   ├── terraform.rs
+│   │   ├── time.rs
+│   │   ├── typst.rs
+│   │   ├── username.rs
+│   │   ├── utils/
+│   │   ├── vagrant.rs
+│   │   ├── vcs.rs
+│   │   ├── vcsh.rs
+│   │   ├── vlang.rs
+│   │   ├── xmake.rs
+│   │   └── zig.rs
+│   ├── print.rs
+│   ├── segment.rs
+│   ├── serde_utils.rs
+│   ├── test/
+│   │   ├── fixtures/
+│   │   └── mod.rs
+│   └── utils.rs
+├── starship.exe.manifest
+└── typos.toml

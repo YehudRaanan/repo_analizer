@@ -1,0 +1,1566 @@
+=====================================
+Repository Analysis: yt-dlp
+Type: CLI Tool
+=====================================
+
+--- METADATA ---
+Name: yt-dlp
+Description: A feature-rich command-line audio/video downloader
+Language: Python
+Topics: cli, downloader, python, sponsorblock, youtube-dl, youtube-downloader, yt-dlp
+Stars: 149807
+License: The Unlicense
+
+--- README ---
+<!-- MANPAGE: BEGIN EXCLUDED SECTION -->
+<div align="center">
+
+[![YT-DLP](https://raw.githubusercontent.com/yt-dlp/yt-dlp/master/.github/banner.svg)](#readme)
+
+[![Release version](https://img.shields.io/github/v/release/yt-dlp/yt-dlp?color=brightgreen&label=Download&style=for-the-badge)](#installation "Installation")
+[![PyPI](https://img.shields.io/badge/-PyPI-blue.svg?logo=pypi&labelColor=555555&style=for-the-badge)](https://pypi.org/project/yt-dlp "PyPI")
+[![Donate](https://img.shields.io/badge/_-Donate-red.svg?logo=githubsponsors&labelColor=555555&style=for-the-badge)](Maintainers.md#maintainers "Donate")
+[![Discord](https://img.shields.io/discord/807245652072857610?color=blue&labelColor=555555&label=&logo=discord&style=for-the-badge)](https://discord.gg/H5MNcFW63r "Discord")
+[![Supported Sites](https://img.shields.io/badge/-Supported_Sites-brightgreen.svg?style=for-the-badge)](supportedsites.md "Supported Sites")
+[![License: Unlicense](https://img.shields.io/badge/-Unlicense-blue.svg?style=for-the-badge)](LICENSE "License")
+[![CI Status](https://img.shields.io/github/actions/workflow/status/yt-dlp/yt-dlp/core.yml?branch=master&label=Tests&style=for-the-badge)](https://github.com/yt-dlp/yt-dlp/actions "CI Status")
+[![Commits](https://img.shields.io/github/commit-activity/m/yt-dlp/yt-dlp?label=commits&style=for-the-badge)](https://github.com/yt-dlp/yt-dlp/commits "Commit History")
+[![Last Commit](https://img.shields.io/github/last-commit/yt-dlp/yt-dlp/master?label=&style=for-the-badge&display_timestamp=committer)](https://github.com/yt-dlp/yt-dlp/pulse/monthly "Last activity")
+
+</div>
+<!-- MANPAGE: END EXCLUDED SECTION -->
+
+yt-dlp is a feature-rich command-line audio/video downloader with support for [thousands of sites](supportedsites.md). The project is a fork of [youtube-dl](https://github.com/ytdl-org/youtube-dl) based on the now inactive [youtube-dlc](https://github.com/blackjack4494/yt-dlc).
+
+<!-- MANPAGE: MOVE "USAGE AND OPTIONS" SECTION HERE -->
+
+<!-- MANPAGE: BEGIN EXCLUDED SECTION -->
+* [INSTALLATION](#installation)
+    * [Detailed instructions](https://github.com/yt-dlp/yt-dlp/wiki/Installation)
+    * [Release Files](#release-files)
+    * [Update](#update)
+    * [Dependencies](#dependencies)
+    * [Compile](#compile)
+* [USAGE AND OPTIONS](#usage-and-options)
+    * [General Options](#general-options)
+    * [Network Options](#network-options)
+    * [Geo-restriction](#geo-restriction)
+    * [Video Selection](#video-selection)
+    * [Download Options](#download-options)
+    * [Filesystem Options](#filesystem-options)
+    * [Thumbnail Options](#thumbnail-options)
+    * [Internet Shortcut Options](#internet-shortcut-options)
+    * [Verbosity and Simulation Options](#verbosity-and-simulation-options)
+    * [Workarounds](#workarounds)
+    * [Video Format Options](#video-format-options)
+    * [Subtitle Options](#subtitle-options)
+    * [Authentication Options](#authentication-options)
+    * [Post-processing Options](#post-processing-options)
+    * [SponsorBlock Options](#sponsorblock-options)
+    * [Extractor Options](#extractor-options)
+    * [Preset Aliases](#preset-aliases)
+* [CONFIGURATION](#configuration)
+    * [Configuration file encoding](#configuration-file-encoding)
+    * [Authentication with netrc](#authentication-with-netrc)
+    * [Notes about environment variables](#notes-about-environment-variables)
+* [OUTPUT TEMPLATE](#output-template)
+    * [Output template examples](#output-template-examples)
+* [FORMAT SELECTION](#format-selection)
+    * [Filtering Formats](#filtering-formats)
+    * [Sorting Formats](#sorting-formats)
+    * [Format Selection examples](#format-selection-examples)
+* [MODIFYING METADATA](#modifying-metadata)
+    * [Modifying metadata examples](#modifying-metadata-examples)
+* [EXTRACTOR ARGUMENTS](#extractor-arguments)
+* [PLUGINS](#plugins)
+    * [Installing Plugins](#installing-plugins)
+    * [Developing Plugins](#developing-plugins)
+* [EMBEDDING YT-DLP](#embedding-yt-dlp)
+    * [Embedding examples](#embedding-examples)
+* [CHANGES FROM YOUTUBE-DL](#changes-from-youtube-dl)
+    * [New features](#new-features)
+    * [Differences in default behavior](#differences-in-default-behavior)
+    * [Deprecated options](#deprecated-options)
+* [CONTRIBUTING](CONTRIBUTING.md#contributing-to-yt-dlp)
+    * [Opening an Issue](CONTRIBUTING.md#opening-an-issue)
+    * [Developer Instructions](CONTRIBUTING.md#developer-instructions)
+* [WIKI](https://github.com/yt-dlp/yt-dlp/wiki)
+    * [FAQ](https://github.com/yt-dlp/yt-dlp/wiki/FAQ)
+<!-- MANPAGE: END EXCLUDED SECTION -->
+
+
+# INSTALLATION
+
+<!-- MANPAGE: BEGIN EXCLUDED SECTION -->
+[![Windows](https://img.shields.io/badge/-Windows_x64-blue.svg?style=for-the-badge&logo=windows)](https://github.com/yt-dlp/yt-dlp/releases/latest/download/yt-dlp.exe)
+[![Unix](https://img.shields.io/badge/-Linux/BSD-red.svg?style=for-the-badge&logo=linux)](https://github.com/yt-dlp/yt-dlp/releases/latest/download/yt-dlp)
+[![MacOS](https://img.shields.io/badge/-MacOS-li
+... [TRUNCATED]
+
+--- PACKAGE MANIFEST(S) ---
+
+[pyproject.toml]
+[build-system]
+requires = ["hatchling>=1.27.0"]
+build-backend = "hatchling.build"
+
+[project]
+name = "yt-dlp"
+authors = [
+    {name = "pukkandan", email = "pukkandan.ytdlp@gmail.com"},
+]
+maintainers = [
+    {email = "maintainers@yt-dlp.org"},
+    {name = "Grub4K", email = "contact@grub4k.dev"},
+    {name = "bashonly", email = "bashonly@protonmail.com"},
+    {name = "coletdjnz", email = "coletdjnz@protonmail.com"},
+]
+description = "A feature-rich command-line audio/video downloader"
+readme = "README.md"
+requires-python = ">=3.10"
+keywords = [
+    "cli",
+    "downloader",
+    "youtube-dl",
+    "youtube-downloader",
+    "sponsorblock",
+    "yt-dlp",
+]
+license = "Unlicense"
+license-files = ["LICENSE"]
+classifiers = [
+    "Topic :: Multimedia :: Video",
+    "Development Status :: 5 - Production/Stable",
+    "Environment :: Console",
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3 :: Only",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: 3.14",
+    "Programming Language :: Python :: Implementation",
+    "Programming Language :: Python :: Implementation :: CPython",
+    "Programming Language :: Python :: Implementation :: PyPy",
+    "Operating System :: OS Independent",
+]
+dynamic = ["version"]
+dependencies = []
+
+[project.optional-dependencies]
+default = [
+    "brotli; implementation_name=='cpython'",
+    "brotlicffi; implementation_name!='cpython'",
+    "certifi",
+    "mutagen",
+    "pycryptodomex",
+    "requests>=2.32.2,<3",
+    "urllib3>=2.0.2,<3",
+    "websockets>=13.0",
+    "yt-dlp-ejs==0.5.0",
+]
+curl-cffi = [
+    "curl-cffi>=0.5.10,!=0.6.*,!=0.7.*,!=0.8.*,!=0.9.*,<0.15; implementation_name=='cpython'",
+]
+build-curl-cffi = [
+    "curl-cffi==0.13.0; sys_platform=='darwin' or (sys_platform=='linux' and platform_machine!='armv7l')",
+    "curl-cffi==0.14.0; sys_platform=='win32' or (sys_platform=='linux' and platform_machine=='armv7l')",
+]
+secretstorage = [
+    "cffi",
+    "secretstorage",
+]
+deno = [
+    "deno>=2.6.6",  # v2.6.5 fixes compatibility, v2.6.6 adds integrity check
+]
+build = [
+    "build",
+    "hatchling>=1.27.0",
+    "pip",
+    "setuptools>=71.0.2",
+    "wheel",
+]
+dev = [
+    "pre-commit",
+    "yt-dlp[static-analysis]",
+    "yt-dlp[test]",
+]
+static-analysis = [
+    "autopep8~=2.0",
+    "ruff~=0.15.0",
+]
+test = [
+    "pytest~=8.1",
+    "pytest-rerunfailures~=14.0",
+]
+pyinstaller = [
+    "pyinstaller>=6.17.0",  # 6.17.0+ needed for compat with setuptools 81+
+]
+
+[project.urls]
+Documentation = "https://github.com/yt-dlp/yt-dlp#readme"
+Repository = "https://github.com/yt-dlp/yt-dlp"
+Tracker = "https://github.com/yt-dlp/yt-dlp/issues"
+Funding = "https://github.com/yt-dlp/yt-dlp/blob/master/Maintainers.md#maintainers"
+
+[project.scripts]
+yt-dlp = "yt_dlp:main"
+
+[project.entry-points.pyinstaller40]
+hook-dirs = "yt_dlp.__pyinstaller:get_hook_dirs"
+
+
+... [TRUNCATED]
+
+[Makefile]
+all: lazy-extractors yt-dlp doc pypi-files
+all-extra: lazy-extractors yt-dlp-extra doc pypi-files
+clean: clean-test clean-dist
+clean-all: clean clean-cache
+completions: completion-bash completion-fish completion-zsh
+doc: README.md CONTRIBUTING.md CONTRIBUTORS issuetemplates supportedsites
+ot: offlinetest
+tar: yt-dlp.tar.gz
+
+# Keep this list in sync with pyproject.toml includes/artifacts
+# intended use: when building a source distribution,
+# make pypi-files && python3 -m build -sn .
+pypi-files: AUTHORS Changelog.md LICENSE README.md README.txt supportedsites \
+            completions yt-dlp.1 pyproject.toml devscripts/* test/*
+
+.PHONY: all clean clean-all clean-test clean-dist clean-cache \
+        completions completion-bash completion-fish completion-zsh \
+        doc issuetemplates supportedsites ot offlinetest codetest test \
+        tar pypi-files lazy-extractors install uninstall \
+        all-extra yt-dlp-extra current-ejs-version
+
+.IGNORE: current-ejs-version
+.SILENT: current-ejs-version
+
+clean-test:
+	rm -rf tmp/ *.annotations.xml *.aria2 *.description *.dump *.frag \
+	*.frag.aria2 *.frag.urls *.info.json *.live_chat.json *.meta *.part* *.tmp *.temp *.unknown_video *.ytdl \
+	*.3gp *.ape *.ass *.avi *.desktop *.f4v *.flac *.flv *.gif *.jpeg *.jpg *.lrc *.m4a *.m4v *.mhtml *.mkv *.mov *.mp3 *.mp4 \
+	*.mpg *.mpga *.oga *.ogg *.opus *.png *.sbv *.srt *.ssa *.swf *.tt *.ttml *.url *.vtt *.wav *.webloc *.webm *.webp \
+	test/testdata/sigs/player-*.js test/testdata/thumbnails/empty.webp "test/testdata/thumbnails/foo %d bar/foo_%d."*
+clean-dist:
+	rm -rf yt-dlp.1.temp.md yt-dlp.1 README.txt MANIFEST build/ dist/ .coverage cover/ yt-dlp.tar.gz completions/ \
+	yt_dlp/extractor/lazy_extractors.py *.spec CONTRIBUTING.md.tmp yt-dlp yt-dlp.exe yt_dlp.egg-info/ AUTHORS \
+	yt-dlp.zip .ejs-* yt_dlp_ejs/
+clean-cache:
+	find . \( \
+		-type d -name ".*_cache" -o -type d -name __pycache__ -o -name "*.pyc" -o -name "*.class" \
+	\) -prune -exec rm -rf {} \;
+
+completion-bash: completions/bash/yt-dlp
+completion-fish: completions/fish/yt-dlp.fish
+completion-zsh: completions/zsh/_yt-dlp
+lazy-extractors: yt_dlp/extractor/lazy_extractors.py
+
+PREFIX ?= /usr/local
+BINDIR ?= $(PREFIX)/bin
+MANDIR ?= $(PREFIX)/man
+SHAREDIR ?= $(PREFIX)/share
+PYTHON ?= /usr/bin/env python3
+GNUTAR ?= tar
+
+# set markdown input format to "markdown-smart" for pandoc version 2+ and to "markdown" for pandoc prior to version 2
+PANDOC_VERSION_CMD = pandoc -v 2>/dev/null | head -n1 | cut -d' ' -f2 | head -c1
+PANDOC_VERSION != $(PANDOC_VERSION_CMD)
+PANDOC_VERSION ?= $(shell $(PANDOC_VERSION_CMD))
+MARKDOWN_CMD = if [ "$(PANDOC_VERSION)" = "1" -o "$(PANDOC_VERSION)" = "0" ]; then echo markdown; else echo markdown-smart; fi
+MARKDOWN != $(MARKDOWN_CMD)
+MARKDOWN ?= $(shell $(MARKDOWN_CMD))
+
+install: lazy-extractors yt-dlp yt-dlp.1 completions
+	mkdir -p $(DESTDIR)$(BINDIR)
+	install -m755 yt-dlp $(DESTDIR)$(BINDIR)/yt-dlp
+	mkdir -p $(DESTDIR)$(MANDIR)/man1
+	install -m644 yt-dlp.1 $(DESTDIR)$(MANDIR)/man1/yt-dl
+... [TRUNCATED]
+
+--- CLI ENTRY POINTS / COMMAND DEFINITIONS ---
+
+[yt_dlp/__main__.py]
+#!/usr/bin/env python3
+
+# Execute with
+# $ python3 -m yt_dlp
+
+import sys
+
+if __package__ is None and not getattr(sys, 'frozen', False):
+    # direct call of __main__.py
+    import os.path
+    path = os.path.realpath(os.path.abspath(__file__))
+    sys.path.insert(0, os.path.dirname(os.path.dirname(path)))
+
+import yt_dlp
+
+if __name__ == '__main__':
+    yt_dlp.main()
+
+
+--- SHELL COMPLETIONS & MAN PAGES ---
+(None found)
+
+--- DIRECTORY STRUCTURE (depth 2) ---
+├── .editorconfig
+├── .gitattributes
+├── .github/
+│   ├── FUNDING.yml
+│   ├── ISSUE_TEMPLATE/
+│   │   ├── 1_broken_site.yml
+│   │   ├── 2_site_support_request.yml
+│   │   ├── 3_site_feature_request.yml
+│   │   ├── 4_bug_report.yml
+│   │   ├── 5_feature_request.yml
+│   │   ├── 6_question.yml
+│   │   └── config.yml
+│   ├── ISSUE_TEMPLATE_tmpl/
+│   │   ├── 1_broken_site.yml
+│   │   ├── 2_site_support_request.yml
+│   │   ├── 3_site_feature_request.yml
+│   │   ├── 4_bug_report.yml
+│   │   ├── 5_feature_request.yml
+│   │   └── 6_question.yml
+│   ├── PULL_REQUEST_TEMPLATE.md
+│   ├── actionlint.yml
+│   ├── banner.svg
+│   ├── workflows/
+│   │   ├── build.yml
+│   │   ├── challenge-tests.yml
+│   │   ├── codeql.yml
+│   │   ├── core.yml
+│   │   ├── issue-lockdown.yml
+│   │   ├── quick-test.yml
+│   │   ├── release-master.yml
+│   │   ├── release-nightly.yml
+│   │   ├── release.yml
+│   │   ├── sanitize-comment.yml
+│   │   └── test-workflows.yml
+│   └── zizmor.yml
+├── .gitignore
+├── .pre-commit-config.yaml
+├── .pre-commit-hatch.yaml
+├── CONTRIBUTING.md
+├── CONTRIBUTORS
+├── Changelog.md
+├── LICENSE
+├── Maintainers.md
+├── Makefile
+├── README.md
+├── THIRD_PARTY_LICENSES.txt
+├── bundle/
+│   ├── __init__.py
+│   ├── docker/
+│   │   ├── compose.yml
+│   │   └── linux/
+│   └── pyinstaller.py
+├── devscripts/
+│   ├── __init__.py
+│   ├── bash-completion.in
+│   ├── bash-completion.py
+│   ├── changelog_override.json
+│   ├── changelog_override.schema.json
+│   ├── check-porn.py
+│   ├── cli_to_api.py
+│   ├── fish-completion.in
+│   ├── fish-completion.py
+│   ├── generate_aes_testdata.py
+│   ├── generate_third_party_licenses.py
+│   ├── install_deps.py
+│   ├── lazy_load_template.py
+│   ├── logo.ico
+│   ├── make_changelog.py
+│   ├── make_contributing.py
+│   ├── make_issue_template.py
+│   ├── make_lazy_extractors.py
+│   ├── make_readme.py
+│   ├── make_supportedsites.py
+│   ├── prepare_manpage.py
+│   ├── run_tests.py
+│   ├── set-variant.py
+│   ├── setup_variables.py
+│   ├── setup_variables_tests.py
+│   ├── tomlparse.py
+│   ├── update-version.py
+│   ├── update_changelog.py
+│   ├── update_ejs.py
+│   ├── utils.py
+│   ├── zsh-completion.in
+│   └── zsh-completion.py
+├── public.key
+├── pyproject.toml
+├── supportedsites.md
+├── test/
+│   ├── __init__.py
+│   ├── conftest.py
+│   ├── helper.py
+│   ├── parameters.json
+│   ├── test_InfoExtractor.py
+│   ├── test_YoutubeDL.py
+│   ├── test_YoutubeDLCookieJar.py
+│   ├── test_aes.py
+│   ├── test_age_restriction.py
+│   ├── test_all_urls.py
+│   ├── test_cache.py
+│   ├── test_compat.py
+│   ├── test_config.py
+│   ├── test_cookies.py
+│   ├── test_devalue.py
+│   ├── test_download.py
+│   ├── test_downloader_external.py
+│   ├── test_downloader_http.py
+│   ├── test_execution.py
+│   ├── test_http_proxy.py
+│   ├── test_jsc/
+│   │   ├── conftest.py
+│   │   ├── test_ejs_integration.py
+│   │   └── test_provider.py
+│   ├── test_jsinterp.py
+│   ├── test_netrc.py
+│   ├── test_networking.py
+│   ├── test_networking_utils.py
+│   ├── test_overwrites.py
+│   ├── test_plugins.py
+│   ├── test_post_hooks.py
+│   ├── test_postprocessors.py
+│   ├── test_pot/
+│   │   ├── conftest.py
+│   │   ├── test_pot_builtin_memorycache.py
+│   │   ├── test_pot_builtin_utils.py
+│   │   ├── test_pot_builtin_webpospec.py
+│   │   ├── test_pot_director.py
+│   │   └── test_pot_framework.py
+│   ├── test_socks.py
+│   ├── test_subtitles.py
+│   ├── test_traversal.py
+│   ├── test_update.py
+│   ├── test_utils.py
+│   ├── test_verbose_output.py
+│   ├── test_websockets.py
+│   ├── test_youtube_lists.py
+│   ├── test_youtube_misc.py
+│   ├── testcert.pem
+│   └── testdata/
+│       ├── certificate/
+│       ├── cookies/
+│       ├── f4m/
+│       ├── ism/
+│       ├── m3u8/
+│       ├── mpd/
+│       ├── netrc/
+│       ├── plugin_packages/
+│       ├── reload_plugins/
+│       ├── thumbnails/
+│       ├── xspf/
+│       ├── yt_dlp_plugins/
+│       └── zipped_plugins/
+├── yt-dlp.cmd
+├── yt-dlp.sh
+└── yt_dlp/
+    ├── YoutubeDL.py
+    ├── __init__.py
+    ├── __main__.py
+    ├── __pyinstaller/
+    │   ├── __init__.py
+    │   └── hook-yt_dlp.py
+    ├── aes.py
+    ├── cache.py
+    ├── compat/
+    │   ├── __init__.py
+    │   ├── _deprecated.py
+    │   ├── _legacy.py
+    │   ├── compat_utils.py
+    │   ├── imghdr.py
+    │   ├── shutil.py
+    │   └── urllib/
+    ├── cookies.py
+    ├── dependencies/
+    │   ├── Cryptodome.py
+    │   └── __init__.py
+    ├── downloader/
+    │   ├── __init__.py
+    │   ├── bunnycdn.py
+    │   ├── common.py
+    │   ├── dash.py
+    │   ├── external.py
+    │   ├── f4m.py
+    │   ├── fc2.py
+    │   ├── fragment.py
+    │   ├── hls.py
+    │   ├── http.py
+    │   ├── ism.py
+    │   ├── mhtml.py
+    │   ├── niconico.py
+    │   ├── rtmp.py
+    │   ├── rtsp.py
+    │   ├── soop.py
+    │   ├── websocket.py
+    │   └── youtube_live_chat.py
+    ├── extractor/
+    │   ├── __init__.py
+    │   ├── _extractors.py
+    │   ├── abc.py
+    │   ├── abcnews.py
+    │   ├── abcotvs.py
+    │   ├── abematv.py
+    │   ├── academicearth.py
+    │   ├── acast.py
+    │   ├── acfun.py
+    │   ├── adn.py
+    │   ├── adobeconnect.py
+    │   ├── adobepass.py
+    │   ├── adobetv.py
+    │   ├── adultswim.py
+    │   ├── aenetworks.py
+    │   ├── aeonco.py
+    │   ├── afreecatv.py
+    │   ├── agalega.py
+    │   ├── agora.py
+    │   ├── airtv.py
+    │   ├── aitube.py
+    │   ├── alibaba.py
+    │   ├── aliexpress.py
+    │   ├── aljazeera.py
+    │   ├── allocine.py
+    │   ├── allstar.py
+    │   ├── alphaporno.py
+    │   ├── alsace20tv.py
+    │   ├── altcensored.py
+    │   ├── alura.py
+    │   ├── amadeustv.py
+    │   ├── amara.py
+    │   ├── amazon.py
+    │   ├── amazonminitv.py
+    │   ├── amcnetworks.py
+    │   ├── americastestkitchen.py
+    │   ├── amp.py
+    │   ├── anchorfm.py
+    │   ├── angel.py
+    │   ├── antenna.py
+    │   ├── anvato.py
+    │   ├── aol.py
+    │   ├── apa.py
+    │   ├── aparat.py
+    │   ├── appleconnect.py
+    │   ├── applepodcasts.py
+    │   ├── appletrailers.py
+    │   ├── archiveorg.py
+    │   ├── arcpublishing.py
+    │   ├── ard.py
+    │   ├── arnes.py
+    │   ├── art19.py
+    │   ├── arte.py
+    │   ├── asobichannel.py
+    │   ├── asobistage.py
+    │   ├── atresplayer.py
+    │   ├── atscaleconf.py
+    │   ├── atvat.py
+    │   ├── audimedia.py
+    │   ├── audioboom.py
+    │   ├── audiodraft.py
+    │   ├── audiomack.py
+    │   ├── audius.py
+    │   ├── awaan.py
+    │   ├── aws.py
+    │   ├── axs.py
+    │   ├── azmedien.py
+    │   ├── baidu.py
+    │   ├── banbye.py
+    │   ├── bandcamp.py
+    │   ├── bandlab.py
+    │   ├── bannedvideo.py
+    │   ├── bbc.py
+    │   ├── beacon.py
+    │   ├── beatbump.py
+    │   ├── beatport.py
+    │   ├── beeg.py
+    │   ├── behindkink.py
+    │   ├── berufetv.py
+    │   ├── bet.py
+    │   ├── bfi.py
+    │   ├── bfmtv.py
+    │   ├── bibeltv.py
+    │   ├── bigflix.py
+    │   ├── bigo.py
+    │   ├── bild.py
+    │   ├── bilibili.py
+    │   ├── biobiochiletv.py
+    │   ├── bitchute.py
+    │   ├── bitmovin.py
+    │   ├── blackboardcollaborate.py
+    │   ├── bleacherreport.py
+    │   ├── blerp.py
+    │   ├── blogger.py
+    │   ├── bloomberg.py
+    │   ├── bluesky.py
+    │   ├── bokecc.py
+    │   ├── bongacams.py
+    │   ├── boosty.py
+    │   ├── bostonglobe.py
+    │   ├── box.py
+    │   ├── boxcast.py
+    │   ├── bpb.py
+    │   ├── br.py
+    │   ├── brainpop.py
+    │   ├── breitbart.py
+    │   ├── brightcove.py
+    │   ├── brilliantpala.py
+    │   ├── btvplus.py
+    │   ├── bundesliga.py
+    │   ├── bundestag.py
+    │   ├── bunnycdn.py
+    │   ├── businessinsider.py
+    │   ├── buzzfeed.py
+    │   ├── byutv.py
+    │   ├── c56.py
+    │   ├── caffeinetv.py
+    │   ├── callin.py
+    │   ├── caltrans.py
+    │   ├── cam4.py
+    │   ├── camdemy.py
+    │   ├── camfm.py
+    │   ├── cammodels.py
+    │   ├── camsoda.py
+    │   ├── camtasia.py
+    │   ├── canal1.py
+    │   ├── canalalpha.py
+    │   ├── canalc2.py
+    │   ├── canalplus.py
+    │   ├── canalsurmas.py
+    │   ├── caracoltv.py
+    │   ├── cbc.py
+    │   ├── cbs.py
+    │   ├── cbsnews.py
+    │   ├── cbssports.py
+    │   ├── ccc.py
+    │   ├── ccma.py
+    │   ├── cctv.py
+    │   ├── cda.py
+    │   ├── cellebrite.py
+    │   ├── ceskatelevize.py
+    │   ├── cgtn.py
+    │   ├── charlierose.py
+    │   ├── chaturbate.py
+    │   ├── chilloutzone.py
+    │   ├── chzzk.py
+    │   ├── cinemax.py
+    │   ├── cinetecamilano.py
+    │   ├── cineverse.py
+    │   ├── ciscolive.py
+    │   ├── ciscowebex.py
+    │   ├── cjsw.py
+    │   ├── clipchamp.py
+    │   ├── clippit.py
+    │   ├── cliprs.py
+    │   ├── closertotruth.py
+    │   ├── cloudflarestream.py
+    │   ├── cloudycdn.py
+    │   ├── clubic.py
+    │   ├── clyp.py
+    │   ├── cnbc.py
+    │   ├── cnn.py
+    │   ├── comedycentral.py
+    │   ├── common.py
+    │   ├── commonmistakes.py
+    │   ├── commonprotocols.py
+    │   ├── condenast.py
+    │   ├── contv.py
+    │   ├── corus.py
+    │   ├── coub.py
+    │   ├── cozytv.py
+    │   ├── cpac.py
+    │   ├── cracked.py
+    │   ├── craftsy.py
+    │   ├── croatianfilm.py
+    │   ├── crooksandliars.py
+    │   ├── crowdbunker.py
+    │   ├── crtvg.py
+    │   ├── cspan.py
+    │   ├── ctsnews.py
+    │   ├── ctvnews.py
+    │   ├── cultureunplugged.py
+    │   ├── curiositystream.py
+    │   ├── cybrary.py
+    │   ├── dacast.py
+    │   ├── dailymail.py
+    │   ├── dailymotion.py
+    │   ├── dailywire.py
+    │   ├── damtomo.py
+    │   ├── dangalplay.py
+    │   ├── daum.py
+    │   ├── daystar.py
+    │   ├── dbtv.py
+    │   ├── dctp.py
+    │   ├── democracynow.py
+    │   ├── detik.py
+    │   ├── deuxm.py
+    │   ├── dfb.py
+    │   ├── dhm.py
+    │   ├── digitalconcerthall.py
+    │   ├── digiteka.py
+    │   ├── digiview.py
+    │   ├── discogs.py
+    │   ├── disney.py
+    │   ├── dispeak.py
+    │   ├── dlf.py
+    │   ├── dlive.py
+    │   ├── douyutv.py
+    │   ├── dplay.py
+    │   ├── drbonanza.py
+    │   ├── dreisat.py
+    │   ├── drooble.py
+    │   ├── dropbox.py
+    │   ├── dropout.py
+    │   ├── drtalks.py
+    │   ├── drtuber.py
+    │   ├── drtv.py
+    │   ├── dtube.py
+    │   ├── duboku.py
+    │   ├── dumpert.py
+    │   ├── duoplay.py
+    │   ├── dvtv.py
+    │   ├── dw.py
+    │   ├── ebaumsworld.py
+    │   ├── ebay.py
+    │   ├── egghead.py
+    │   ├── eggs.py
+    │   ├── eighttracks.py
+    │   ├── eitb.py
+    │   ├── elementorembed.py
+    │   ├── elonet.py
+    │   ├── elpais.py
+    │   ├── eltrecetv.py
+    │   ├── embedly.py
+    │   ├── epicon.py
+    │   ├── epidemicsound.py
+    │   ├── eplus.py
+    │   ├── epoch.py
+    │   ├── eporner.py
+    │   ├── erocast.py
+    │   ├── eroprofile.py
+    │   ├── err.py
+    │   ├── ertgr.py
+    │   ├── espn.py
+    │   ├── ettutv.py
+    │   ├── europa.py
+    │   ├── europeantour.py
+    │   ├── eurosport.py
+    │   ├── euscreen.py
+    │   ├── expressen.py
+    │   ├── extractors.py
+    │   ├── eyedotv.py
+    │   ├── facebook.py
+    │   ├── fancode.py
+    │   ├── fathom.py
+    │   ├── faulio.py
+    │   ├── faz.py
+    │   ├── fc2.py
+    │   ├── fczenit.py
+    │   ├── fifa.py
+    │   ├── filmarchiv.py
+    │   ├── filmon.py
+    │   ├── filmweb.py
+    │   ├── firsttv.py
+    │   ├── fivetv.py
+    │   ├── flextv.py
+    │   ├── flickr.py
+    │   ├── floatplane.py
+    │   ├── folketinget.py
+    │   ├── footyroom.py
+    │   ├── formula1.py
+    │   ├── fourtube.py
+    │   ├── fox.py
+    │   ├── fox9.py
+    │   ├── foxnews.py
+    │   ├── foxsports.py
+    │   ├── fptplay.py
+    │   ├── francaisfacile.py
+    │   ├── franceinter.py
+    │   ├── francetv.py
+    │   ├── freesound.py
+    │   ├── freespeech.py
+    │   ├── freetv.py
+    │   ├── frontendmasters.py
+    │   ├── frontro.py
+    │   ├── fujitv.py
+    │   ├── funk.py
+    │   ├── funker530.py
+    │   ├── fuyintv.py
+    │   ├── gab.py
+    │   ├── gaia.py
+    │   ├── gamedevtv.py
+    │   ├── gamejolt.py
+    │   ├── gamespot.py
+    │   ├── gamestar.py
+    │   ├── gaskrank.py
+    │   ├── gazeta.py
+    │   ├── gbnews.py
+    │   ├── gdcvault.py
+    │   ├── gedidigital.py
+    │   ├── generic.py
+    │   ├── genericembeds.py
+    │   ├── genius.py
+    │   ├── germanupa.py
+    │   ├── getcourseru.py
+    │   ├── gettr.py
+    │   ├── giantbomb.py
+    │   ├── glide.py
+    │   ├── globalplayer.py
+    │   ├── globo.py
+    │   ├── glomex.py
+    │   ├── gmanetwork.py
+    │   ├── go.py
+    │   ├── godresource.py
+    │   ├── godtube.py
+    │   ├── gofile.py
+    │   ├── golem.py
+    │   ├── goodgame.py
+    │   ├── googledrive.py
+    │   ├── googlepodcasts.py
+    │   ├── googlesearch.py
+    │   ├── goplay.py
+    │   ├── gopro.py
+    │   ├── goshgay.py
+    │   ├── gotostage.py
+    │   ├── gputechconf.py
+    │   ├── graspop.py
+    │   ├── gronkh.py
+    │   ├── groupon.py
+    │   ├── harpodeon.py
+    │   ├── hbo.py
+    │   ├── hearthisat.py
+    │   ├── heise.py
+    │   ├── hellporno.py
+    │   ├── hgtv.py
+    │   ├── hidive.py
+    │   ├── historicfilms.py
+    │   ├── hitrecord.py
+    │   ├── hketv.py
+    │   ├── hollywoodreporter.py
+    │   ├── holodex.py
+    │   ├── hotnewhiphop.py
+    │   ├── hotstar.py
+    │   ├── hrefli.py
+    │   ├── hrfensehen.py
+    │   ├── hrti.py
+    │   ├── hse.py
+    │   ├── huajiao.py
+    │   ├── huffpost.py
+    │   ├── hungama.py
+    │   ├── huya.py
+    │   ├── hypem.py
+    │   ├── hypergryph.py
+    │   ├── hytale.py
+    │   ├── icareus.py
+    │   ├── ichinanalive.py
+    │   ├── idagio.py
+    │   ├── idolplus.py
+    │   ├── ign.py
+    │   ├── iheart.py
+    │   ├── ilpost.py
+    │   ├── iltalehti.py
+    │   ├── imdb.py
+    │   ├── imggaming.py
+    │   ├── imgur.py
+    │   ├── ina.py
+    │   ├── inc.py
+    │   ├── indavideo.py
+    │   ├── infoq.py
+    │   ├── instagram.py
+    │   ├── internazionale.py
+    │   ├── internetvideoarchive.py
+    │   ├── iprima.py
+    │   ├── iqiyi.py
+    │   ├── islamchannel.py
+    │   ├── israelnationalnews.py
+    │   ├── itprotv.py
+    │   ├── itv.py
+    │   ├── ivi.py
+    │   ├── ivideon.py
+    │   ├── ivoox.py
+    │   ├── iwara.py
+    │   ├── ixigua.py
+    │   ├── izlesene.py
+    │   ├── jamendo.py
+    │   ├── japandiet.py
+    │   ├── jeuxvideo.py
+    │   ├── jiosaavn.py
+    │   ├── jixie.py
+    │   ├── joj.py
+    │   ├── jove.py
+    │   ├── jstream.py
+    │   ├── jtbc.py
+    │   ├── jwplatform.py
+    │   ├── kakao.py
+    │   ├── kaltura.py
+    │   ├── kankanews.py
+    │   ├── karaoketv.py
+    │   ├── kelbyone.py
+    │   ├── kenh14.py
+    │   ├── khanacademy.py
+    │   ├── kick.py
+    │   ├── kicker.py
+    │   ├── kickstarter.py
+    │   ├── kika.py
+    │   ├── kinja.py
+    │   ├── kinopoisk.py
+    │   ├── kommunetv.py
+    │   ├── kompas.py
+    │   ├── koo.py
+    │   ├── krasview.py
+    │   ├── kth.py
+    │   ├── ku6.py
+    │   ├── kukululive.py
+    │   ├── kuwo.py
+    │   ├── la7.py
+    │   ├── laracasts.py
+    │   ├── lastfm.py
+    │   ├── laxarxames.py
+    │   ├── lbry.py
+    │   ├── lci.py
+    │   ├── lcp.py
+    │   ├── learningonscreen.py
+    │   ├── lecture2go.py
+    │   ├── lecturio.py
+    │   ├── leeco.py
+    │   ├── lefigaro.py
+    │   ├── lego.py
+    │   ├── lemonde.py
+    │   ├── lenta.py
+    │   ├── libraryofcongress.py
+    │   ├── libsyn.py
+    │   ├── lifenews.py
+    │   ├── likee.py
+    │   ├── linkedin.py
+    │   ├── liputan6.py
+    │   ├── listennotes.py
+    │   ├── litv.py
+    │   ├── livejournal.py
+    │   ├── livestream.py
+    │   ├── livestreamfails.py
+    │   ├── lnk.py
+    │   ├── locipo.py
+    │   ├── loco.py
+    │   ├── loom.py
+    │   ├── lovehomeporn.py
+    │   ├── lrt.py
+    │   ├── lsm.py
+    │   ├── lumni.py
+    │   ├── lynda.py
+    │   ├── maariv.py
+    │   ├── magellantv.py
+    │   ├── magentamusik.py
+    │   ├── mailru.py
+    │   ├── mainstreaming.py
+    │   ├── mangomolo.py
+    │   ├── manyvids.py
+    │   ├── maoritv.py
+    │   ├── markiza.py
+    │   ├── massengeschmacktv.py
+    │   ├── masters.py
+    │   ├── matchitv.py
+    │   ├── matchtv.py
+    │   ├── mave.py
+    │   ├── mbn.py
+    │   ├── mdr.py
+    │   ├── medaltv.py
+    │   ├── mediaite.py
+    │   ├── mediaklikk.py
+    │   ├── medialaan.py
+    │   ├── mediaset.py
+    │   ├── mediasite.py
+    │   ├── mediastream.py
+    │   ├── mediaworksnz.py
+    │   ├── medici.py
+    │   ├── megaphone.py
+    │   ├── megatvcom.py
+    │   ├── meipai.py
+    │   ├── melonvod.py
+    │   ├── metacritic.py
+    │   ├── mgtv.py
+    │   ├── microsoftembed.py
+    │   ├── microsoftstream.py
+    │   ├── minds.py
+    │   ├── minoto.py
+    │   ├── mir24tv.py
+    │   ├── mirrativ.py
+    │   ├── mirrorcouk.py
+    │   ├── mit.py
+    │   ├── mixch.py
+    │   ├── mixcloud.py
+    │   ├── mixlr.py
+    │   ├── mlb.py
+    │   ├── mlssoccer.py
+    │   ├── mocha.py
+    │   ├── mojevideo.py
+    │   ├── mojvideo.py
+    │   ├── monstercat.py
+    │   ├── motherless.py
+    │   ├── motorsport.py
+    │   ├── moviepilot.py
+    │   ├── moview.py
+    │   ├── moviezine.py
+    │   ├── movingimage.py
+    │   ├── msn.py
+    │   ├── mtv.py
+    │   ├── muenchentv.py
+    │   ├── murrtube.py
+    │   ├── museai.py
+    │   ├── musescore.py
+    │   ├── musicdex.py
+    │   ├── mux.py
+    │   ├── mx3.py
+    │   ├── mxplayer.py
+    │   ├── myspace.py
+    │   ├── myspass.py
+    │   ├── myvideoge.py
+    │   ├── myvidster.py
+    │   ├── mzaalo.py
+    │   ├── n1.py
+    │   ├── nascar.py
+    │   ├── nate.py
+    │   ├── nationalgeographic.py
+    │   ├── naver.py
+    │   ├── nba.py
+    │   ├── nbc.py
+    │   ├── ndr.py
+    │   ├── ndtv.py
+    │   ├── nebula.py
+    │   ├── nekohacker.py
+    │   ├── nerdcubed.py
+    │   ├── nest.py
+    │   ├── netapp.py
+    │   ├── neteasemusic.py
+    │   ├── netverse.py
+    │   ├── netzkino.py
+    │   ├── newgrounds.py
+    │   ├── newspicks.py
+    │   ├── newsy.py
+    │   ├── nexx.py
+    │   ├── nfb.py
+    │   ├── nfhsnetwork.py
+    │   ├── nfl.py
+    │   ├── nhk.py
+    │   ├── nhl.py
+    │   ├── nick.py
+    │   ├── niconico.py
+    │   ├── niconicochannelplus.py
+    │   ├── ninaprotocol.py
+    │   ├── ninecninemedia.py
+    │   ├── ninegag.py
+    │   ├── ninenews.py
+    │   ├── ninenow.py
+    │   ├── nintendo.py
+    │   ├── nitter.py
+    │   ├── nobelprize.py
+    │   ├── noice.py
+    │   ├── nonktube.py
+    │   ├── noodlemagazine.py
+    │   ├── nosnl.py
+    │   ├── nova.py
+    │   ├── novaplay.py
+    │   ├── nowcanal.py
+    │   ├── nowness.py
+    │   ├── noz.py
+    │   ├── npo.py
+    │   ├── npr.py
+    │   ├── nrk.py
+    │   ├── nrl.py
+    │   ├── nts.py
+    │   ├── ntvcojp.py
+    │   ├── ntvde.py
+    │   ├── ntvru.py
+    │   ├── nubilesporn.py
+    │   ├── nuevo.py
+    │   ├── nuum.py
+    │   ├── nuvid.py
+    │   ├── nytimes.py
+    │   ├── nzherald.py
+    │   ├── nzonscreen.py
+    │   ├── nzz.py
+    │   ├── odkmedia.py
+    │   ├── odnoklassniki.py
+    │   ├── oftv.py
+    │   ├── oktoberfesttv.py
+    │   ├── olympics.py
+    │   ├── on24.py
+    │   ├── ondemandkorea.py
+    │   ├── onefootball.py
+    │   ├── onenewsnz.py
+    │   ├── oneplace.py
+    │   ├── onet.py
+    │   ├── onionstudios.py
+    │   ├── onsen.py
+    │   ├── opencast.py
+    │   ├── openload.py
+    │   ├── openrec.py
+    │   ├── ora.py
+    │   ├── orf.py
+    │   ├── outsidetv.py
+    │   ├── owncloud.py
+    │   ├── packtpub.py
+    │   ├── palcomp3.py
+    │   ├── pandatv.py
+    │   ├── panopto.py
+    │   ├── parler.py
+    │   ├── parlview.py
+    │   ├── parti.py
+    │   ├── patreon.py
+    │   ├── pbs.py
+    │   ├── pearvideo.py
+    │   ├── peekvids.py
+    │   ├── peertube.py
+    │   ├── peertv.py
+    │   ├── peloton.py
+    │   ├── performgroup.py
+    │   ├── periscope.py
+    │   ├── pgatour.py
+    │   ├── philharmoniedeparis.py
+    │   ├── phoenix.py
+    │   ├── photobucket.py
+    │   ├── pialive.py
+    │   ├── piapro.py
+    │   ├── picarto.py
+    │   ├── piksel.py
+    │   ├── pinkbike.py
+    │   ├── pinterest.py
+    │   ├── piramidetv.py
+    │   ├── planetmarathi.py
+    │   ├── platzi.py
+    │   ├── playerfm.py
+    │   ├── playplustv.py
+    │   ├── playsuisse.py
+    │   ├── playtvak.py
+    │   ├── playwire.py
+    │   ├── pluralsight.py
+    │   ├── plutotv.py
+    │   ├── plvideo.py
+    │   ├── plyr.py
+    │   ├── podbayfm.py
+    │   ├── podchaser.py
+    │   ├── podomatic.py
+    │   ├── pokergo.py
+    │   ├── polsatgo.py
+    │   ├── polskieradio.py
+    │   ├── popcorntimes.py
+    │   ├── popcorntv.py
+    │   ├── pornbox.py
+    │   ├── pornflip.py
+    │   ├── pornhub.py
+    │   ├── pornotube.py
+    │   ├── pornovoisines.py
+    │   ├── pornoxo.py
+    │   ├── pr0gramm.py
+    │   ├── prankcast.py
+    │   ├── premiershiprugby.py
+    │   ├── presstv.py
+    │   ├── projectveritas.py
+    │   ├── prosiebensat1.py
+    │   ├── prx.py
+    │   ├── puhutv.py
+    │   ├── puls4.py
+    │   ├── pyvideo.py
+    │   ├── qdance.py
+    │   ├── qingting.py
+    │   ├── qqmusic.py
+    │   ├── r7.py
+    │   ├── radiko.py
+    │   ├── radiocanada.py
+    │   ├── radiocomercial.py
+    │   ├── radiode.py
+    │   ├── radiofrance.py
+    │   ├── radiojavan.py
+    │   ├── radiokapital.py
+    │   ├── radioradicale.py
+    │   ├── radiozet.py
+    │   ├── radlive.py
+    │   ├── rai.py
+    │   ├── raywenderlich.py
+    │   ├── rbgtum.py
+    │   ├── rcs.py
+    │   ├── rcti.py
+    │   ├── rds.py
+    │   ├── redbee.py
+    │   ├── redbulltv.py
+    │   ├── reddit.py
+    │   ├── redge.py
+    │   ├── redgifs.py
+    │   ├── redtube.py
+    │   ├── rentv.py
+    │   ├── restudy.py
+    │   ├── reuters.py
+    │   ├── reverbnation.py
+    │   ├── rheinmaintv.py
+    │   ├── ridehome.py
+    │   ├── rinsefm.py
+    │   ├── rmcdecouverte.py
+    │   ├── rockstargames.py
+    │   ├── rokfin.py
+    │   ├── roosterteeth.py
+    │   ├── rottentomatoes.py
+    │   ├── roya.py
+    │   ├── rozhlas.py
+    │   ├── rte.py
+    │   ├── rtl2.py
+    │   ├── rtlnl.py
+    │   ├── rtnews.py
+    │   ├── rtp.py
+    │   ├── rtrfm.py
+    │   ├── rts.py
+    │   ├── rtvcplay.py
+    │   ├── rtve.py
+    │   ├── rtvs.py
+    │   ├── rtvslo.py
+    │   ├── rudovideo.py
+    │   ├── rule34video.py
+    │   ├── rumble.py
+    │   ├── rutube.py
+    │   ├── ruutu.py
+    │   ├── ruv.py
+    │   ├── s4c.py
+    │   ├── safari.py
+    │   ├── saitosan.py
+    │   ├── samplefocus.py
+    │   ├── sapo.py
+    │   ├── sauceplus.py
+    │   ├── sbs.py
+    │   ├── sbscokr.py
+    │   ├── screen9.py
+    │   ├── screencast.py
+    │   ├── screencastify.py
+    │   ├── screencastomatic.py
+    │   ├── screenrec.py
+    │   ├── scrippsnetworks.py
+    │   ├── scrolller.py
+    │   ├── sejmpl.py
+    │   ├── sen.py
+    │   ├── senalcolombia.py
+    │   ├── senategov.py
+    │   ├── sendtonews.py
+    │   ├── servus.py
+    │   ├── sevenplus.py
+    │   ├── sexu.py
+    │   ├── seznamzpravy.py
+    │   ├── shahid.py
+    │   ├── sharepoint.py
+    │   ├── sharevideos.py
+    │   ├── shemaroome.py
+    │   ├── shiey.py
+    │   ├── showroomlive.py
+    │   ├── sibnet.py
+    │   ├── simplecast.py
+    │   ├── sina.py
+    │   ├── skeb.py
+    │   ├── sky.py
+    │   ├── skyit.py
+    │   ├── skylinewebcams.py
+    │   ├── skynewsarabia.py
+    │   ├── skynewsau.py
+    │   ├── slideshare.py
+    │   ├── slideslive.py
+    │   ├── slutload.py
+    │   ├── smotrim.py
+    │   ├── snapchat.py
+    │   ├── snotr.py
+    │   ├── softwhiteunderbelly.py
+    │   ├── sohu.py
+    │   ├── sonyliv.py
+    │   ├── soundcloud.py
+    │   ├── soundgasm.py
+    │   ├── southpark.py
+    │   ├── sovietscloset.py
+    │   ├── spankbang.py
+    │   ├── spiegel.py
+    │   ├── sport5.py
+    │   ├── sportbox.py
+    │   ├── sportdeutschland.py
+    │   ├── spreaker.py
+    │   ├── springboardplatform.py
+    │   ├── sproutvideo.py
+    │   ├── srgssr.py
+    │   ├── srmediathek.py
+    │   ├── stacommu.py
+    │   ├── stageplus.py
+    │   ├── stanfordoc.py
+    │   ├── startrek.py
+    │   ├── startv.py
+    │   ├── steam.py
+    │   ├── stitcher.py
+    │   ├── storyfire.py
+    │   ├── streaks.py
+    │   ├── streamable.py
+    │   ├── streamcz.py
+    │   ├── streetvoice.py
+    │   ├── stretchinternet.py
+    │   ├── stripchat.py
+    │   ├── stv.py
+    │   ├── subsplash.py
+    │   ├── substack.py
+    │   ├── sunporno.py
+    │   ├── sverigesradio.py
+    │   ├── svt.py
+    │   ├── swearnet.py
+    │   ├── syvdk.py
+    │   ├── sztvhu.py
+    │   ├── tagesschau.py
+    │   ├── taptap.py
+    │   ├── tarangplus.py
+    │   ├── tass.py
+    │   ├── tbs.py
+    │   ├── tbsjp.py
+    │   ├── teachable.py
+    │   ├── teachertube.py
+    │   ├── teachingchannel.py
+    │   ├── teamcoco.py
+    │   ├── teamtreehouse.py
+    │   ├── ted.py
+    │   ├── tele13.py
+    │   ├── tele5.py
+    │   ├── telebruxelles.py
+    │   ├── telecaribe.py
+    │   ├── telecinco.py
+    │   ├── telegraaf.py
+    │   ├── telegram.py
+    │   ├── telemb.py
+    │   ├── telemundo.py
+    │   ├── telequebec.py
+    │   ├── teletask.py
+    │   ├── telewebion.py
+    │   ├── tempo.py
+    │   ├── tencent.py
+    │   ├── tennistv.py
+    │   ├── tenplay.py
+    │   ├── testurl.py
+    │   ├── tf1.py
+    │   ├── tfo.py
+    │   ├── thechosen.py
+    │   ├── theguardian.py
+    │   ├── thehighwire.py
+    │   ├── theholetv.py
+    │   ├── theintercept.py
+    │   ├── theplatform.py
+    │   ├── thestar.py
+    │   ├── thesun.py
+    │   ├── theweatherchannel.py
+    │   ├── thisamericanlife.py
+    │   ├── thisoldhouse.py
+    │   ├── thisvid.py
+    │   ├── threeqsdn.py
+    │   ├── threespeak.py
+    │   ├── tiktok.py
+    │   ├── tmz.py
+    │   ├── tnaflix.py
+    │   ├── toggle.py
+    │   ├── toggo.py
+    │   ├── tonline.py
+    │   ├── toongoggles.py
+    │   ├── toutiao.py
+    │   ├── toutv.py
+    │   ├── toypics.py
+    │   ├── traileraddict.py
+    │   ├── triller.py
+    │   ├── trovo.py
+    │   ├── trtcocuk.py
+    │   ├── trtworld.py
+    │   ├── trueid.py
+    │   ├── trunews.py
+    │   ├── truth.py
+    │   ├── tube8.py
+    │   ├── tubetugraz.py
+    │   ├── tubitv.py
+    │   ├── tumblr.py
+    │   ├── tunein.py
+    │   ├── turner.py
+    │   ├── tv2.py
+    │   ├── tv24ua.py
+    │   ├── tv2dk.py
+    │   ├── tv2hu.py
+    │   ├── tv4.py
+    │   ├── tv5mondeplus.py
+    │   ├── tv5unis.py
+    │   ├── tva.py
+    │   ├── tvanouvelles.py
+    │   ├── tvc.py
+    │   ├── tver.py
+    │   ├── tvigle.py
+    │   ├── tviplayer.py
+    │   ├── tvn24.py
+    │   ├── tvnoe.py
+    │   ├── tvo.py
+    │   ├── tvopengr.py
+    │   ├── tvp.py
+    │   ├── tvplay.py
+    │   ├── tvplayer.py
+    │   ├── tvw.py
+    │   ├── tweakers.py
+    │   ├── twentymin.py
+    │   ├── twentythreevideo.py
+    │   ├── twitcasting.py
+    │   ├── twitch.py
+    │   ├── twitter.py
+    │   ├── txxx.py
+    │   ├── udemy.py
+    │   ├── udn.py
+    │   ├── ufctv.py
+    │   ├── ukcolumn.py
+    │   ├── uktvplay.py
+    │   ├── uliza.py
+    │   ├── umg.py
+    │   ├── unistra.py
+    │   ├── unitednations.py
+    │   ├── unity.py
+    │   ├── unsupported.py
+    │   ├── uol.py
+    │   ├── uplynk.py
+    │   ├── urort.py
+    │   ├── urplay.py
+    │   ├── usanetwork.py
+    │   ├── usatoday.py
+    │   ├── ustream.py
+    │   ├── ustudio.py
+    │   ├── utreon.py
+    │   ├── varzesh3.py
+    │   ├── vbox7.py
+    │   ├── veo.py
+    │   ├── vevo.py
+    │   ├── vgtv.py
+    │   ├── vh1.py
+    │   ├── vice.py
+    │   ├── viddler.py
+    │   ├── videa.py
+    │   ├── videocampus_sachsen.py
+    │   ├── videodetective.py
+    │   ├── videofyme.py
+    │   ├── videoken.py
+    │   ├── videomore.py
+    │   ├── videopress.py
+    │   ├── vidflex.py
+    │   ├── vidio.py
+    │   ├── vidlii.py
+    │   ├── vidly.py
+    │   ├── vidyard.py
+    │   ├── viewlift.py
+    │   ├── viidea.py
+    │   ├── vimeo.py
+    │   ├── vimm.py
+    │   ├── viously.py
+    │   ├── viqeo.py
+    │   ├── visir.py
+    │   ├── viu.py
+    │   ├── vk.py
+    │   ├── vocaroo.py
+    │   ├── vodpl.py
+    │   ├── vodplatform.py
+    │   ├── voicy.py
+    │   ├── volejtv.py
+    │   ├── voxmedia.py
+    │   ├── vrsquare.py
+    │   ├── vrt.py
+    │   ├── vtm.py
+    │   ├── vtv.py
+    │   ├── vuclip.py
+    │   ├── vvvvid.py
+    │   ├── walla.py
+    │   ├── washingtonpost.py
+    │   ├── wat.py
+    │   ├── wdr.py
+    │   ├── webcamerapl.py
+    │   ├── webcaster.py
+    │   ├── webofstories.py
+    │   ├── weibo.py
+    │   ├── weiqitv.py
+    │   ├── weverse.py
+    │   ├── wevidi.py
+    │   ├── weyyak.py
+    │   ├── whowatch.py
+    │   ├── whyp.py
+    │   ├── wikimedia.py
+    │   ├── wimbledon.py
+    │   ├── wimtv.py
+    │   ├── wistia.py
+    │   ├── wordpress.py
+    │   ├── worldstarhiphop.py
+    │   ├── wppilot.py
+    │   ├── wrestleuniverse.py
+    │   ├── wsj.py
+    │   ├── wwe.py
+    │   ├── wykop.py
+    │   ├── xboxclips.py
+    │   ├── xhamster.py
+    │   ├── xiaohongshu.py
+    │   ├── ximalaya.py
+    │   ├── xinpianchang.py
+    │   ├── xminus.py
+    │   ├── xnxx.py
+    │   ├── xstream.py
+    │   ├── xvideos.py
+    │   ├── xxxymovies.py
+    │   ├── yahoo.py
+    │   ├── yandexdisk.py
+    │   ├── yandexmusic.py
+    │   ├── yandexvideo.py
+    │   ├── yapfiles.py
+    │   ├── yappy.py
+    │   ├── yfanefa.py
+    │   ├── yle_areena.py
+    │   ├── youjizz.py
+    │   ├── youku.py
+    │   ├── younow.py
+    │   ├── youporn.py
+    │   ├── youtube/
+    │   ├── zaiko.py
+    │   ├── zapiks.py
+    │   ├── zattoo.py
+    │   ├── zdf.py
+    │   ├── zee5.py
+    │   ├── zeenews.py
+    │   ├── zenporn.py
+    │   ├── zetland.py
+    │   ├── zhihu.py
+    │   ├── zingmp3.py
+    │   ├── zoom.py
+    │   └── zype.py
+    ├── globals.py
+    ├── jsinterp.py
+    ├── minicurses.py
+    ├── networking/
+    │   ├── __init__.py
+    │   ├── _curlcffi.py
+    │   ├── _helper.py
+    │   ├── _requests.py
+    │   ├── _urllib.py
+    │   ├── _websockets.py
+    │   ├── common.py
+    │   ├── exceptions.py
+    │   ├── impersonate.py
+    │   └── websocket.py
+    ├── options.py
+    ├── plugins.py
+    ├── postprocessor/
+    │   ├── __init__.py
+    │   ├── common.py
+    │   ├── embedthumbnail.py
+    │   ├── exec.py
+    │   ├── ffmpeg.py
+    │   ├── metadataparser.py
+    │   ├── modify_chapters.py
+    │   ├── movefilesafterdownload.py
+    │   ├── sponsorblock.py
+    │   └── xattrpp.py
+    ├── socks.py
+    ├── update.py
+    ├── utils/
+    │   ├── __init__.py
+    │   ├── _deprecated.py
+    │   ├── _jsruntime.py
+    │   ├── _legacy.py
+    │   ├── _utils.py
+    │   ├── jslib/
+    │   ├── networking.py
+    │   ├── progress.py
+    │   └── traversal.py
+    ├── version.py
+    └── webvtt.py

@@ -1,0 +1,2494 @@
+=====================================
+Repository Analysis: django
+Type: Library / Package / SDK
+=====================================
+
+--- METADATA ---
+Name: django
+Description: The Web framework for perfectionists with deadlines.
+Language: Python
+Topics: apps, django, framework, models, orm, python, templates, views, web
+Stars: 86978
+License: BSD 3-Clause "New" or "Revised" License
+
+--- README ---
+======
+Django
+======
+
+Django is a high-level Python web framework that encourages rapid development
+and clean, pragmatic design. Thanks for checking it out.
+
+All documentation is in the "``docs``" directory and online at
+https://docs.djangoproject.com/en/stable/. If you're just getting started,
+here's how we recommend you read the docs:
+
+* First, read ``docs/intro/install.txt`` for instructions on installing Django.
+
+* Next, work through the tutorials in order (``docs/intro/tutorial01.txt``,
+  ``docs/intro/tutorial02.txt``, etc.).
+
+* If you want to set up an actual deployment server, read
+  ``docs/howto/deployment/index.txt`` for instructions.
+
+* You'll probably want to read through the topical guides (in ``docs/topics``)
+  next; from there you can jump to the HOWTOs (in ``docs/howto``) for specific
+  problems, and check out the reference (``docs/ref``) for gory details.
+
+* See ``docs/README`` for instructions on building an HTML version of the docs.
+
+Docs are updated rigorously. If you find any problems in the docs, or think
+they should be clarified in any way, please take 30 seconds to fill out a
+ticket here: https://code.djangoproject.com/newticket
+
+To get more help:
+
+* Join the `Django Discord community <https://chat.djangoproject.com>`_.
+
+* Join the community on the `Django Forum <https://forum.djangoproject.com/>`_.
+
+To contribute to Django:
+
+* Check out https://docs.djangoproject.com/en/dev/internals/contributing/ for
+  information about getting involved.
+
+To run Django's test suite:
+
+* Follow the instructions in the "Unit tests" section of
+  ``docs/internals/contributing/writing-code/unit-tests.txt``, published online at
+  https://docs.djangoproject.com/en/dev/internals/contributing/writing-code/unit-tests/#running-the-unit-tests
+
+Supporting the Development of Django
+====================================
+
+Django's development depends on your contributions.
+
+If you depend on Django, remember to support the Django Software Foundation: https://www.djangoproject.com/fundraising/
+
+
+--- PACKAGE MANIFEST(S) ---
+
+[package.json]
+{
+  "name": "Django",
+  "private": true,
+  "scripts": {
+    "pretest": "eslint .",
+    "test": "grunt test --verbose"
+  },
+  "engines": {
+    "npm": ">=1.3.0"
+  },
+  "devDependencies": {
+    "eslint": "^9.39.1",
+    "puppeteer": "^24.22.0",
+    "grunt": "^1.6.1",
+    "grunt-cli": "^1.5.0",
+    "grunt-contrib-qunit": "^10.1.1",
+    "qunit": "^2.24.1"
+  }
+}
+
+
+[pyproject.toml]
+[build-system]
+requires = ["setuptools>=77.0.3"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "Django"
+dynamic = ["version"]
+requires-python = ">= 3.12"
+dependencies = [
+    "asgiref>=3.9.1",
+    "sqlparse>=0.5.0",
+    "tzdata; sys_platform == 'win32'",
+]
+authors = [
+  {name = "Django Software Foundation", email = "foundation@djangoproject.com"},
+]
+description = "A high-level Python web framework that encourages rapid development and clean, pragmatic design."
+readme = "README.rst"
+license = "BSD-3-Clause"
+license-files = ["LICENSE", "LICENSE.python", "AUTHORS"]
+classifiers = [
+    "Development Status :: 2 - Pre-Alpha",
+    "Environment :: Web Environment",
+    "Framework :: Django",
+    "Intended Audience :: Developers",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3 :: Only",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: 3.14",
+    "Topic :: Internet :: WWW/HTTP",
+    "Topic :: Internet :: WWW/HTTP :: Dynamic Content",
+    "Topic :: Internet :: WWW/HTTP :: WSGI",
+    "Topic :: Software Development :: Libraries :: Application Frameworks",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+]
+
+[project.optional-dependencies]
+argon2 = ["argon2-cffi>=23.1.0"]
+bcrypt = ["bcrypt>=4.1.1"]
+
+[project.scripts]
+django-admin = "django.core.management:execute_from_command_line"
+
+[project.urls]
+Homepage = "https://www.djangoproject.com/"
+Documentation = "https://docs.djangoproject.com/"
+"Release notes" = "https://docs.djangoproject.com/en/stable/releases/"
+Funding = "https://www.djangoproject.com/fundraising/"
+Source = "https://github.com/django/django"
+Tracker = "https://code.djangoproject.com/"
+
+[tool.black]
+target-version = ["py312"]
+force-exclude = "tests/test_runner_apps/tagged/tests_syntax_error.py"
+
+[tool.isort]
+profile = "black"
+default_section = "THIRDPARTY"
+known_first_party = "django"
+
+[tool.setuptools.dynamic]
+version = {attr = "django.__version__"}
+
+[tool.setuptools.packages.find]
+include = ["django*"]
+
+
+--- DIRECTORY STRUCTURE (depth 2) ---
+├── .editorconfig
+├── .flake8
+├── .git-blame-ignore-revs
+├── .gitattributes
+├── .github/
+│   ├── CODE_OF_CONDUCT.md
+│   ├── FUNDING.yml
+│   ├── SECURITY.md
+│   ├── pull_request_template.md
+│   └── workflows/
+│       ├── benchmark.yml
+│       ├── check-migrations.yml
+│       ├── check_commit_messages.yml
+│       ├── coverage_comment.yml
+│       ├── coverage_tests.yml
+│       ├── data/
+│       ├── docs.yml
+│       ├── labels.yml
+│       ├── linters.yml
+│       ├── new_contributor_pr.yml
+│       ├── postgis.yml
+│       ├── python_matrix.yml
+│       ├── schedule_tests.yml
+│       ├── schedules.yml
+│       ├── screenshots.yml
+│       ├── selenium.yml
+│       └── tests.yml
+├── .gitignore
+├── .pre-commit-config.yaml
+├── .readthedocs.yml
+├── .tx/
+│   └── config
+├── AUTHORS
+├── CONTRIBUTING.rst
+├── Gruntfile.js
+├── INSTALL
+├── LICENSE
+├── LICENSE.python
+├── MANIFEST.in
+├── README.rst
+├── django/
+│   ├── __init__.py
+│   ├── __main__.py
+│   ├── apps/
+│   │   ├── __init__.py
+│   │   ├── config.py
+│   │   └── registry.py
+│   ├── conf/
+│   │   ├── __init__.py
+│   │   ├── app_template/
+│   │   ├── global_settings.py
+│   │   ├── locale/
+│   │   ├── project_template/
+│   │   └── urls/
+│   ├── contrib/
+│   │   ├── __init__.py
+│   │   ├── admin/
+│   │   ├── admindocs/
+│   │   ├── auth/
+│   │   ├── contenttypes/
+│   │   ├── flatpages/
+│   │   ├── gis/
+│   │   ├── humanize/
+│   │   ├── messages/
+│   │   ├── postgres/
+│   │   ├── redirects/
+│   │   ├── sessions/
+│   │   ├── sitemaps/
+│   │   ├── sites/
+│   │   ├── staticfiles/
+│   │   └── syndication/
+│   ├── core/
+│   │   ├── __init__.py
+│   │   ├── asgi.py
+│   │   ├── cache/
+│   │   ├── checks/
+│   │   ├── exceptions.py
+│   │   ├── files/
+│   │   ├── handlers/
+│   │   ├── mail/
+│   │   ├── management/
+│   │   ├── paginator.py
+│   │   ├── serializers/
+│   │   ├── servers/
+│   │   ├── signals.py
+│   │   ├── signing.py
+│   │   ├── validators.py
+│   │   └── wsgi.py
+│   ├── db/
+│   │   ├── __init__.py
+│   │   ├── backends/
+│   │   ├── migrations/
+│   │   ├── models/
+│   │   ├── transaction.py
+│   │   └── utils.py
+│   ├── dispatch/
+│   │   ├── __init__.py
+│   │   ├── dispatcher.py
+│   │   └── license.txt
+│   ├── forms/
+│   │   ├── __init__.py
+│   │   ├── boundfield.py
+│   │   ├── fields.py
+│   │   ├── forms.py
+│   │   ├── formsets.py
+│   │   ├── jinja2/
+│   │   ├── models.py
+│   │   ├── renderers.py
+│   │   ├── templates/
+│   │   ├── utils.py
+│   │   └── widgets.py
+│   ├── http/
+│   │   ├── __init__.py
+│   │   ├── cookie.py
+│   │   ├── multipartparser.py
+│   │   ├── request.py
+│   │   └── response.py
+│   ├── middleware/
+│   │   ├── __init__.py
+│   │   ├── cache.py
+│   │   ├── clickjacking.py
+│   │   ├── common.py
+│   │   ├── csp.py
+│   │   ├── csrf.py
+│   │   ├── gzip.py
+│   │   ├── http.py
+│   │   ├── locale.py
+│   │   └── security.py
+│   ├── shortcuts.py
+│   ├── tasks/
+│   │   ├── __init__.py
+│   │   ├── backends/
+│   │   ├── base.py
+│   │   ├── checks.py
+│   │   ├── exceptions.py
+│   │   └── signals.py
+│   ├── template/
+│   │   ├── __init__.py
+│   │   ├── autoreload.py
+│   │   ├── backends/
+│   │   ├── base.py
+│   │   ├── context.py
+│   │   ├── context_processors.py
+│   │   ├── defaultfilters.py
+│   │   ├── defaulttags.py
+│   │   ├── engine.py
+│   │   ├── exceptions.py
+│   │   ├── library.py
+│   │   ├── loader.py
+│   │   ├── loader_tags.py
+│   │   ├── loaders/
+│   │   ├── response.py
+│   │   ├── smartif.py
+│   │   └── utils.py
+│   ├── templatetags/
+│   │   ├── __init__.py
+│   │   ├── cache.py
+│   │   ├── i18n.py
+│   │   ├── l10n.py
+│   │   ├── static.py
+│   │   └── tz.py
+│   ├── test/
+│   │   ├── __init__.py
+│   │   ├── client.py
+│   │   ├── html.py
+│   │   ├── runner.py
+│   │   ├── selenium.py
+│   │   ├── signals.py
+│   │   ├── testcases.py
+│   │   └── utils.py
+│   ├── urls/
+│   │   ├── __init__.py
+│   │   ├── base.py
+│   │   ├── conf.py
+│   │   ├── converters.py
+│   │   ├── exceptions.py
+│   │   ├── resolvers.py
+│   │   └── utils.py
+│   ├── utils/
+│   │   ├── __init__.py
+│   │   ├── _os.py
+│   │   ├── archive.py
+│   │   ├── asyncio.py
+│   │   ├── autoreload.py
+│   │   ├── cache.py
+│   │   ├── choices.py
+│   │   ├── connection.py
+│   │   ├── copy.py
+│   │   ├── crypto.py
+│   │   ├── csp.py
+│   │   ├── datastructures.py
+│   │   ├── dateformat.py
+│   │   ├── dateparse.py
+│   │   ├── dates.py
+│   │   ├── deconstruct.py
+│   │   ├── decorators.py
+│   │   ├── deprecation.py
+│   │   ├── duration.py
+│   │   ├── encoding.py
+│   │   ├── feedgenerator.py
+│   │   ├── formats.py
+│   │   ├── functional.py
+│   │   ├── hashable.py
+│   │   ├── html.py
+│   │   ├── http.py
+│   │   ├── inspect.py
+│   │   ├── ipv6.py
+│   │   ├── json.py
+│   │   ├── log.py
+│   │   ├── lorem_ipsum.py
+│   │   ├── module_loading.py
+│   │   ├── numberformat.py
+│   │   ├── regex_helper.py
+│   │   ├── safestring.py
+│   │   ├── termcolors.py
+│   │   ├── text.py
+│   │   ├── timesince.py
+│   │   ├── timezone.py
+│   │   ├── translation/
+│   │   ├── tree.py
+│   │   ├── version.py
+│   │   └── xmlutils.py
+│   └── views/
+│       ├── __init__.py
+│       ├── csrf.py
+│       ├── debug.py
+│       ├── decorators/
+│       ├── defaults.py
+│       ├── generic/
+│       ├── i18n.py
+│       ├── static.py
+│       └── templates/
+├── docs/
+│   ├── Makefile
+│   ├── README.rst
+│   ├── _ext/
+│   │   ├── djangodocs.py
+│   │   └── github_links.py
+│   ├── _theme/
+│   │   ├── djangodocs-epub/
+│   │   └── djangodocs/
+│   ├── conf.py
+│   ├── contents.txt
+│   ├── faq/
+│   │   ├── admin.txt
+│   │   ├── contributing.txt
+│   │   ├── general.txt
+│   │   ├── help.txt
+│   │   ├── index.txt
+│   │   ├── install.txt
+│   │   ├── models.txt
+│   │   ├── troubleshooting.txt
+│   │   └── usage.txt
+│   ├── glossary.txt
+│   ├── howto/
+│   │   ├── _images/
+│   │   ├── auth-remote-user.txt
+│   │   ├── csp.txt
+│   │   ├── csrf.txt
+│   │   ├── custom-file-storage.txt
+│   │   ├── custom-lookups.txt
+│   │   ├── custom-management-commands.txt
+│   │   ├── custom-model-fields.txt
+│   │   ├── custom-shell.txt
+│   │   ├── custom-template-backend.txt
+│   │   ├── custom-template-tags.txt
+│   │   ├── delete-app.txt
+│   │   ├── deployment/
+│   │   ├── error-reporting.txt
+│   │   ├── index.txt
+│   │   ├── initial-data.txt
+│   │   ├── legacy-databases.txt
+│   │   ├── logging.txt
+│   │   ├── outputting-csv.txt
+│   │   ├── outputting-pdf.txt
+│   │   ├── overriding-templates.txt
+│   │   ├── static-files/
+│   │   ├── upgrade-version.txt
+│   │   ├── windows.txt
+│   │   └── writing-migrations.txt
+│   ├── index.txt
+│   ├── internals/
+│   │   ├── _images/
+│   │   ├── contributing/
+│   │   ├── deprecation.txt
+│   │   ├── git.txt
+│   │   ├── howto-release-django.txt
+│   │   ├── index.txt
+│   │   ├── mailing-lists.txt
+│   │   ├── organization.txt
+│   │   ├── release-process.txt
+│   │   └── security.txt
+│   ├── intro/
+│   │   ├── _images/
+│   │   ├── contributing.txt
+│   │   ├── index.txt
+│   │   ├── install.txt
+│   │   ├── overview.txt
+│   │   ├── reusable-apps.txt
+│   │   ├── tutorial01.txt
+│   │   ├── tutorial02.txt
+│   │   ├── tutorial03.txt
+│   │   ├── tutorial04.txt
+│   │   ├── tutorial05.txt
+│   │   ├── tutorial06.txt
+│   │   ├── tutorial07.txt
+│   │   ├── tutorial08.txt
+│   │   └── whatsnext.txt
+│   ├── lint.py
+│   ├── make.bat
+│   ├── man/
+│   │   └── django-admin.1
+│   ├── misc/
+│   │   ├── api-stability.txt
+│   │   ├── design-philosophies.txt
+│   │   ├── distributions.txt
+│   │   └── index.txt
+│   ├── ref/
+│   │   ├── applications.txt
+│   │   ├── checks.txt
+│   │   ├── class-based-views/
+│   │   ├── clickjacking.txt
+│   │   ├── contrib/
+│   │   ├── csp.txt
+│   │   ├── csrf.txt
+│   │   ├── databases.txt
+│   │   ├── django-admin.txt
+│   │   ├── exceptions.txt
+│   │   ├── files/
+│   │   ├── forms/
+│   │   ├── index.txt
+│   │   ├── logging.txt
+│   │   ├── middleware.txt
+│   │   ├── migration-operations.txt
+│   │   ├── models/
+│   │   ├── paginator.txt
+│   │   ├── request-response.txt
+│   │   ├── schema-editor.txt
+│   │   ├── settings.txt
+│   │   ├── signals.txt
+│   │   ├── tasks.txt
+│   │   ├── template-response.txt
+│   │   ├── templates/
+│   │   ├── unicode.txt
+│   │   ├── urlresolvers.txt
+│   │   ├── urls.txt
+│   │   ├── utils.txt
+│   │   ├── validators.txt
+│   │   └── views.txt
+│   ├── releases/
+│   │   ├── 0.95.txt
+│   │   ├── 0.96.txt
+│   │   ├── 1.0-porting-guide.txt
+│   │   ├── 1.0.1.txt
+│   │   ├── 1.0.2.txt
+│   │   ├── 1.0.txt
+│   │   ├── 1.1.2.txt
+│   │   ├── 1.1.3.txt
+│   │   ├── 1.1.4.txt
+│   │   ├── 1.1.txt
+│   │   ├── 1.10.1.txt
+│   │   ├── 1.10.2.txt
+│   │   ├── 1.10.3.txt
+│   │   ├── 1.10.4.txt
+│   │   ├── 1.10.5.txt
+│   │   ├── 1.10.6.txt
+│   │   ├── 1.10.7.txt
+│   │   ├── 1.10.8.txt
+│   │   ├── 1.10.txt
+│   │   ├── 1.11.1.txt
+│   │   ├── 1.11.10.txt
+│   │   ├── 1.11.11.txt
+│   │   ├── 1.11.12.txt
+│   │   ├── 1.11.13.txt
+│   │   ├── 1.11.14.txt
+│   │   ├── 1.11.15.txt
+│   │   ├── 1.11.16.txt
+│   │   ├── 1.11.17.txt
+│   │   ├── 1.11.18.txt
+│   │   ├── 1.11.19.txt
+│   │   ├── 1.11.2.txt
+│   │   ├── 1.11.20.txt
+│   │   ├── 1.11.21.txt
+│   │   ├── 1.11.22.txt
+│   │   ├── 1.11.23.txt
+│   │   ├── 1.11.24.txt
+│   │   ├── 1.11.25.txt
+│   │   ├── 1.11.26.txt
+│   │   ├── 1.11.27.txt
+│   │   ├── 1.11.28.txt
+│   │   ├── 1.11.29.txt
+│   │   ├── 1.11.3.txt
+│   │   ├── 1.11.4.txt
+│   │   ├── 1.11.5.txt
+│   │   ├── 1.11.6.txt
+│   │   ├── 1.11.7.txt
+│   │   ├── 1.11.8.txt
+│   │   ├── 1.11.9.txt
+│   │   ├── 1.11.txt
+│   │   ├── 1.2.1.txt
+│   │   ├── 1.2.2.txt
+│   │   ├── 1.2.3.txt
+│   │   ├── 1.2.4.txt
+│   │   ├── 1.2.5.txt
+│   │   ├── 1.2.6.txt
+│   │   ├── 1.2.7.txt
+│   │   ├── 1.2.txt
+│   │   ├── 1.3.1.txt
+│   │   ├── 1.3.2.txt
+│   │   ├── 1.3.3.txt
+│   │   ├── 1.3.4.txt
+│   │   ├── 1.3.5.txt
+│   │   ├── 1.3.6.txt
+│   │   ├── 1.3.7.txt
+│   │   ├── 1.3.txt
+│   │   ├── 1.4.1.txt
+│   │   ├── 1.4.10.txt
+│   │   ├── 1.4.11.txt
+│   │   ├── 1.4.12.txt
+│   │   ├── 1.4.13.txt
+│   │   ├── 1.4.14.txt
+│   │   ├── 1.4.15.txt
+│   │   ├── 1.4.16.txt
+│   │   ├── 1.4.17.txt
+│   │   ├── 1.4.18.txt
+│   │   ├── 1.4.19.txt
+│   │   ├── 1.4.2.txt
+│   │   ├── 1.4.20.txt
+│   │   ├── 1.4.21.txt
+│   │   ├── 1.4.22.txt
+│   │   ├── 1.4.3.txt
+│   │   ├── 1.4.4.txt
+│   │   ├── 1.4.5.txt
+│   │   ├── 1.4.6.txt
+│   │   ├── 1.4.7.txt
+│   │   ├── 1.4.8.txt
+│   │   ├── 1.4.9.txt
+│   │   ├── 1.4.txt
+│   │   ├── 1.5.1.txt
+│   │   ├── 1.5.10.txt
+│   │   ├── 1.5.11.txt
+│   │   ├── 1.5.12.txt
+│   │   ├── 1.5.2.txt
+│   │   ├── 1.5.3.txt
+│   │   ├── 1.5.4.txt
+│   │   ├── 1.5.5.txt
+│   │   ├── 1.5.6.txt
+│   │   ├── 1.5.7.txt
+│   │   ├── 1.5.8.txt
+│   │   ├── 1.5.9.txt
+│   │   ├── 1.5.txt
+│   │   ├── 1.6.1.txt
+│   │   ├── 1.6.10.txt
+│   │   ├── 1.6.11.txt
+│   │   ├── 1.6.2.txt
+│   │   ├── 1.6.3.txt
+│   │   ├── 1.6.4.txt
+│   │   ├── 1.6.5.txt
+│   │   ├── 1.6.6.txt
+│   │   ├── 1.6.7.txt
+│   │   ├── 1.6.8.txt
+│   │   ├── 1.6.9.txt
+│   │   ├── 1.6.txt
+│   │   ├── 1.7.1.txt
+│   │   ├── 1.7.10.txt
+│   │   ├── 1.7.11.txt
+│   │   ├── 1.7.2.txt
+│   │   ├── 1.7.3.txt
+│   │   ├── 1.7.4.txt
+│   │   ├── 1.7.5.txt
+│   │   ├── 1.7.6.txt
+│   │   ├── 1.7.7.txt
+│   │   ├── 1.7.8.txt
+│   │   ├── 1.7.9.txt
+│   │   ├── 1.7.txt
+│   │   ├── 1.8.1.txt
+│   │   ├── 1.8.10.txt
+│   │   ├── 1.8.11.txt
+│   │   ├── 1.8.12.txt
+│   │   ├── 1.8.13.txt
+│   │   ├── 1.8.14.txt
+│   │   ├── 1.8.15.txt
+│   │   ├── 1.8.16.txt
+│   │   ├── 1.8.17.txt
+│   │   ├── 1.8.18.txt
+│   │   ├── 1.8.19.txt
+│   │   ├── 1.8.2.txt
+│   │   ├── 1.8.3.txt
+│   │   ├── 1.8.4.txt
+│   │   ├── 1.8.5.txt
+│   │   ├── 1.8.6.txt
+│   │   ├── 1.8.7.txt
+│   │   ├── 1.8.8.txt
+│   │   ├── 1.8.9.txt
+│   │   ├── 1.8.txt
+│   │   ├── 1.9.1.txt
+│   │   ├── 1.9.10.txt
+│   │   ├── 1.9.11.txt
+│   │   ├── 1.9.12.txt
+│   │   ├── 1.9.13.txt
+│   │   ├── 1.9.2.txt
+│   │   ├── 1.9.3.txt
+│   │   ├── 1.9.4.txt
+│   │   ├── 1.9.5.txt
+│   │   ├── 1.9.6.txt
+│   │   ├── 1.9.7.txt
+│   │   ├── 1.9.8.txt
+│   │   ├── 1.9.9.txt
+│   │   ├── 1.9.txt
+│   │   ├── 2.0.1.txt
+│   │   ├── 2.0.10.txt
+│   │   ├── 2.0.11.txt
+│   │   ├── 2.0.12.txt
+│   │   ├── 2.0.13.txt
+│   │   ├── 2.0.2.txt
+│   │   ├── 2.0.3.txt
+│   │   ├── 2.0.4.txt
+│   │   ├── 2.0.5.txt
+│   │   ├── 2.0.6.txt
+│   │   ├── 2.0.7.txt
+│   │   ├── 2.0.8.txt
+│   │   ├── 2.0.9.txt
+│   │   ├── 2.0.txt
+│   │   ├── 2.1.1.txt
+│   │   ├── 2.1.10.txt
+│   │   ├── 2.1.11.txt
+│   │   ├── 2.1.12.txt
+│   │   ├── 2.1.13.txt
+│   │   ├── 2.1.14.txt
+│   │   ├── 2.1.15.txt
+│   │   ├── 2.1.2.txt
+│   │   ├── 2.1.3.txt
+│   │   ├── 2.1.4.txt
+│   │   ├── 2.1.5.txt
+│   │   ├── 2.1.6.txt
+│   │   ├── 2.1.7.txt
+│   │   ├── 2.1.8.txt
+│   │   ├── 2.1.9.txt
+│   │   ├── 2.1.txt
+│   │   ├── 2.2.1.txt
+│   │   ├── 2.2.10.txt
+│   │   ├── 2.2.11.txt
+│   │   ├── 2.2.12.txt
+│   │   ├── 2.2.13.txt
+│   │   ├── 2.2.14.txt
+│   │   ├── 2.2.15.txt
+│   │   ├── 2.2.16.txt
+│   │   ├── 2.2.17.txt
+│   │   ├── 2.2.18.txt
+│   │   ├── 2.2.19.txt
+│   │   ├── 2.2.2.txt
+│   │   ├── 2.2.20.txt
+│   │   ├── 2.2.21.txt
+│   │   ├── 2.2.22.txt
+│   │   ├── 2.2.23.txt
+│   │   ├── 2.2.24.txt
+│   │   ├── 2.2.25.txt
+│   │   ├── 2.2.26.txt
+│   │   ├── 2.2.27.txt
+│   │   ├── 2.2.28.txt
+│   │   ├── 2.2.3.txt
+│   │   ├── 2.2.4.txt
+│   │   ├── 2.2.5.txt
+│   │   ├── 2.2.6.txt
+│   │   ├── 2.2.7.txt
+│   │   ├── 2.2.8.txt
+│   │   ├── 2.2.9.txt
+│   │   ├── 2.2.txt
+│   │   ├── 3.0.1.txt
+│   │   ├── 3.0.10.txt
+│   │   ├── 3.0.11.txt
+│   │   ├── 3.0.12.txt
+│   │   ├── 3.0.13.txt
+│   │   ├── 3.0.14.txt
+│   │   ├── 3.0.2.txt
+│   │   ├── 3.0.3.txt
+│   │   ├── 3.0.4.txt
+│   │   ├── 3.0.5.txt
+│   │   ├── 3.0.6.txt
+│   │   ├── 3.0.7.txt
+│   │   ├── 3.0.8.txt
+│   │   ├── 3.0.9.txt
+│   │   ├── 3.0.txt
+│   │   ├── 3.1.1.txt
+│   │   ├── 3.1.10.txt
+│   │   ├── 3.1.11.txt
+│   │   ├── 3.1.12.txt
+│   │   ├── 3.1.13.txt
+│   │   ├── 3.1.14.txt
+│   │   ├── 3.1.2.txt
+│   │   ├── 3.1.3.txt
+│   │   ├── 3.1.4.txt
+│   │   ├── 3.1.5.txt
+│   │   ├── 3.1.6.txt
+│   │   ├── 3.1.7.txt
+│   │   ├── 3.1.8.txt
+│   │   ├── 3.1.9.txt
+│   │   ├── 3.1.txt
+│   │   ├── 3.2.1.txt
+│   │   ├── 3.2.10.txt
+│   │   ├── 3.2.11.txt
+│   │   ├── 3.2.12.txt
+│   │   ├── 3.2.13.txt
+│   │   ├── 3.2.14.txt
+│   │   ├── 3.2.15.txt
+│   │   ├── 3.2.16.txt
+│   │   ├── 3.2.17.txt
+│   │   ├── 3.2.18.txt
+│   │   ├── 3.2.19.txt
+│   │   ├── 3.2.2.txt
+│   │   ├── 3.2.20.txt
+│   │   ├── 3.2.21.txt
+│   │   ├── 3.2.22.txt
+│   │   ├── 3.2.23.txt
+│   │   ├── 3.2.24.txt
+│   │   ├── 3.2.25.txt
+│   │   ├── 3.2.3.txt
+│   │   ├── 3.2.4.txt
+│   │   ├── 3.2.5.txt
+│   │   ├── 3.2.6.txt
+│   │   ├── 3.2.7.txt
+│   │   ├── 3.2.8.txt
+│   │   ├── 3.2.9.txt
+│   │   ├── 3.2.txt
+│   │   ├── 4.0.1.txt
+│   │   ├── 4.0.10.txt
+│   │   ├── 4.0.2.txt
+│   │   ├── 4.0.3.txt
+│   │   ├── 4.0.4.txt
+│   │   ├── 4.0.5.txt
+│   │   ├── 4.0.6.txt
+│   │   ├── 4.0.7.txt
+│   │   ├── 4.0.8.txt
+│   │   ├── 4.0.9.txt
+│   │   ├── 4.0.txt
+│   │   ├── 4.1.1.txt
+│   │   ├── 4.1.10.txt
+│   │   ├── 4.1.11.txt
+│   │   ├── 4.1.12.txt
+│   │   ├── 4.1.13.txt
+│   │   ├── 4.1.2.txt
+│   │   ├── 4.1.3.txt
+│   │   ├── 4.1.4.txt
+│   │   ├── 4.1.5.txt
+│   │   ├── 4.1.6.txt
+│   │   ├── 4.1.7.txt
+│   │   ├── 4.1.8.txt
+│   │   ├── 4.1.9.txt
+│   │   ├── 4.1.txt
+│   │   ├── 4.2.1.txt
+│   │   ├── 4.2.10.txt
+│   │   ├── 4.2.11.txt
+│   │   ├── 4.2.12.txt
+│   │   ├── 4.2.13.txt
+│   │   ├── 4.2.14.txt
+│   │   ├── 4.2.15.txt
+│   │   ├── 4.2.16.txt
+│   │   ├── 4.2.17.txt
+│   │   ├── 4.2.18.txt
+│   │   ├── 4.2.19.txt
+│   │   ├── 4.2.2.txt
+│   │   ├── 4.2.20.txt
+│   │   ├── 4.2.21.txt
+│   │   ├── 4.2.22.txt
+│   │   ├── 4.2.23.txt
+│   │   ├── 4.2.24.txt
+│   │   ├── 4.2.25.txt
+│   │   ├── 4.2.26.txt
+│   │   ├── 4.2.27.txt
+│   │   ├── 4.2.28.txt
+│   │   ├── 4.2.29.txt
+│   │   ├── 4.2.3.txt
+│   │   ├── 4.2.4.txt
+│   │   ├── 4.2.5.txt
+│   │   ├── 4.2.6.txt
+│   │   ├── 4.2.7.txt
+│   │   ├── 4.2.8.txt
+│   │   ├── 4.2.9.txt
+│   │   ├── 4.2.txt
+│   │   ├── 5.0.1.txt
+│   │   ├── 5.0.10.txt
+│   │   ├── 5.0.11.txt
+│   │   ├── 5.0.12.txt
+│   │   ├── 5.0.13.txt
+│   │   ├── 5.0.14.txt
+│   │   ├── 5.0.2.txt
+│   │   ├── 5.0.3.txt
+│   │   ├── 5.0.4.txt
+│   │   ├── 5.0.5.txt
+│   │   ├── 5.0.6.txt
+│   │   ├── 5.0.7.txt
+│   │   ├── 5.0.8.txt
+│   │   ├── 5.0.9.txt
+│   │   ├── 5.0.txt
+│   │   ├── 5.1.1.txt
+│   │   ├── 5.1.10.txt
+│   │   ├── 5.1.11.txt
+│   │   ├── 5.1.12.txt
+│   │   ├── 5.1.13.txt
+│   │   ├── 5.1.14.txt
+│   │   ├── 5.1.15.txt
+│   │   ├── 5.1.2.txt
+│   │   ├── 5.1.3.txt
+│   │   ├── 5.1.4.txt
+│   │   ├── 5.1.5.txt
+│   │   ├── 5.1.6.txt
+│   │   ├── 5.1.7.txt
+│   │   ├── 5.1.8.txt
+│   │   ├── 5.1.9.txt
+│   │   ├── 5.1.txt
+│   │   ├── 5.2.1.txt
+│   │   ├── 5.2.10.txt
+│   │   ├── 5.2.11.txt
+│   │   ├── 5.2.12.txt
+│   │   ├── 5.2.2.txt
+│   │   ├── 5.2.3.txt
+│   │   ├── 5.2.4.txt
+│   │   ├── 5.2.5.txt
+│   │   ├── 5.2.6.txt
+│   │   ├── 5.2.7.txt
+│   │   ├── 5.2.8.txt
+│   │   ├── 5.2.9.txt
+│   │   ├── 5.2.txt
+│   │   ├── 6.0.1.txt
+│   │   ├── 6.0.2.txt
+│   │   ├── 6.0.3.txt
+│   │   ├── 6.0.4.txt
+│   │   ├── 6.0.txt
+│   │   ├── 6.1.txt
+│   │   ├── index.txt
+│   │   └── security.txt
+│   ├── requirements.txt
+│   ├── spelling_wordlist
+│   └── topics/
+│       ├── async.txt
+│       ├── auth/
+│       ├── cache.txt
+│       ├── checks.txt
+│       ├── class-based-views/
+│       ├── composite-primary-key.txt
+│       ├── conditional-view-processing.txt
+│       ├── db/
+│       ├── email.txt
+│       ├── files.txt
+│       ├── forms/
+│       ├── http/
+│       ├── i18n/
+│       ├── index.txt
+│       ├── install.txt
+│       ├── logging.txt
+│       ├── migrations.txt
+│       ├── pagination.txt
+│       ├── performance.txt
+│       ├── security.txt
+│       ├── serialization.txt
+│       ├── settings.txt
+│       ├── signals.txt
+│       ├── signing.txt
+│       ├── tasks.txt
+│       ├── templates.txt
+│       └── testing/
+├── eslint-recommended.js
+├── eslint.config.mjs
+├── extras/
+│   ├── README.TXT
+│   └── django_bash_completion
+├── globals.js
+├── js_tests/
+│   ├── admin/
+│   │   ├── DateTimeShortcuts.test.js
+│   │   ├── RelatedObjectLookups.test.js
+│   │   ├── SelectBox.test.js
+│   │   ├── SelectFilter2.test.js
+│   │   ├── URLify.test.js
+│   │   ├── actions.test.js
+│   │   ├── core.test.js
+│   │   ├── inlines.test.js
+│   │   ├── jsi18n-mocks.test.js
+│   │   └── navigation.test.js
+│   ├── gis/
+│   │   └── mapwidget.test.js
+│   └── tests.html
+├── package.json
+├── pyproject.toml
+├── scripts/
+│   ├── archive_eol_stable_branches.py
+│   ├── backport.sh
+│   ├── check_migrations.py
+│   ├── confirm_release.sh
+│   ├── do_django_release.py
+│   ├── manage_translations.py
+│   └── test_new_version.sh
+├── tests/
+│   ├── .coveragerc
+│   ├── README.rst
+│   ├── absolute_url_overrides/
+│   │   ├── __init__.py
+│   │   └── tests.py
+│   ├── admin_autodiscover/
+│   │   ├── __init__.py
+│   │   ├── admin.py
+│   │   ├── models.py
+│   │   └── tests.py
+│   ├── admin_changelist/
+│   │   ├── __init__.py
+│   │   ├── admin.py
+│   │   ├── models.py
+│   │   ├── test_date_hierarchy.py
+│   │   ├── tests.py
+│   │   └── urls.py
+│   ├── admin_checks/
+│   │   ├── __init__.py
+│   │   ├── models.py
+│   │   └── tests.py
+│   ├── admin_custom_urls/
+│   │   ├── __init__.py
+│   │   ├── models.py
+│   │   ├── tests.py
+│   │   └── urls.py
+│   ├── admin_default_site/
+│   │   ├── __init__.py
+│   │   ├── apps.py
+│   │   ├── sites.py
+│   │   └── tests.py
+│   ├── admin_docs/
+│   │   ├── __init__.py
+│   │   ├── evilfile.txt
+│   │   ├── models.py
+│   │   ├── namespace_urls.py
+│   │   ├── templates/
+│   │   ├── test_middleware.py
+│   │   ├── test_utils.py
+│   │   ├── test_views.py
+│   │   ├── tests.py
+│   │   ├── urls.py
+│   │   └── views.py
+│   ├── admin_filters/
+│   │   ├── __init__.py
+│   │   ├── models.py
+│   │   └── tests.py
+│   ├── admin_inlines/
+│   │   ├── __init__.py
+│   │   ├── admin.py
+│   │   ├── models.py
+│   │   ├── test_templates.py
+│   │   ├── tests.py
+│   │   └── urls.py
+│   ├── admin_ordering/
+│   │   ├── __init__.py
+│   │   ├── models.py
+│   │   └── tests.py
+│   ├── admin_registration/
+│   │   ├── __init__.py
+│   │   ├── models.py
+│   │   └── tests.py
+│   ├── admin_scripts/
+│   │   ├── __init__.py
+│   │   ├── another_app_waiting_migration/
+│   │   ├── app_raising_messages/
+│   │   ├── app_raising_warning/
+│   │   ├── app_waiting_migration/
+│   │   ├── app_with_import/
+│   │   ├── broken_app/
+│   │   ├── complex_app/
+│   │   ├── configured_dynamic_settings_manage.py
+│   │   ├── configured_settings_manage.py
+│   │   ├── custom_templates/
+│   │   ├── management/
+│   │   ├── simple_app/
+│   │   ├── tests.py
+│   │   └── urls.py
+│   ├── admin_utils/
+│   │   ├── __init__.py
+│   │   ├── admin.py
+│   │   ├── models.py
+│   │   ├── test_logentry.py
+│   │   ├── tests.py
+│   │   └── urls.py
+│   ├── admin_views/
+│   │   ├── __init__.py
+│   │   ├── admin.py
+│   │   ├── custom_has_permission_admin.py
+│   │   ├── customadmin.py
+│   │   ├── forms.py
+│   │   ├── models.py
+│   │   ├── templates/
+│   │   ├── test_actions.py
+│   │   ├── test_adminsite.py
+│   │   ├── test_autocomplete_view.py
+│   │   ├── test_breadcrumbs.py
+│   │   ├── test_forms.py
+│   │   ├── test_history_view.py
+│   │   ├── test_multidb.py
+│   │   ├── test_nav_sidebar.py
+│   │   ├── test_password_form.py
+│   │   ├── test_related_object_lookups.py
+│   │   ├── test_skip_link_to_content.py
+│   │   ├── test_templatetags.py
+│   │   ├── tests.py
+│   │   ├── urls.py
+│   │   └── views.py
+│   ├── admin_widgets/
+│   │   ├── __init__.py
+│   │   ├── models.py
+│   │   ├── test_autocomplete_widget.py
+│   │   ├── tests.py
+│   │   ├── urls.py
+│   │   └── widgetadmin.py
+│   ├── aggregation/
+│   │   ├── __init__.py
+│   │   ├── models.py
+│   │   ├── test_filter_argument.py
+│   │   └── tests.py
+│   ├── aggregation_regress/
+│   │   ├── __init__.py
+│   │   ├── models.py
+│   │   └── tests.py
+│   ├── annotations/
+│   │   ├── __init__.py
+│   │   ├── models.py
+│   │   └── tests.py
+│   ├── app_loading/
+│   │   ├── __init__.py
+│   │   ├── eggs/
+│   │   ├── not_installed/
+│   │   └── tests.py
+│   ├── apps/
+│   │   ├── __init__.py
+│   │   ├── apps.py
+│   │   ├── models.py
+│   │   ├── namespace_package_base/
+│   │   ├── namespace_package_other_base/
+│   │   ├── no_config_app/
+│   │   ├── one_config_app/
+│   │   ├── query_performing_app/
+│   │   ├── tests.py
+│   │   ├── two_configs_app/
+│   │   ├── two_configs_one_default_app/
+│   │   └── two_default_configs_app/
+│   ├── asgi/
+│   │   ├── __init__.py
+│   │   ├── project/
+│   │   ├── tests.py
+│   │   └── urls.py
+│   ├── async/
+│   │   ├── __init__.py
+│   │   ├── models.py
+│   │   ├── test_async_auth.py
+│   │   ├── test_async_model_methods.py
+│   │   ├── test_async_queryset.py
+│   │   ├── test_async_related_managers.py
+│   │   ├── test_async_shortcuts.py
+│   │   └── tests.py
+│   ├── auth_tests/
+│   │   ├── __init__.py
+│   │   ├── backend_alias.py
+│   │   ├── client.py
+│   │   ├── common-passwords-custom.txt
+│   │   ├── fixtures/
+│   │   ├── models/
+│   │   ├── operations_migrations/
+│   │   ├── settings.py
+│   │   ├── templates/
+│   │   ├── test_admin_multidb.py
+│   │   ├── test_auth_backends.py
+│   │   ├── test_basic.py
+│   │   ├── test_checks.py
+│   │   ├── test_context_processors.py
+│   │   ├── test_decorators.py
+│   │   ├── test_forms.py
+│   │   ├── test_handlers.py
+│   │   ├── test_hashers.py
+│   │   ├── test_login.py
+│   │   ├── test_management.py
+│   │   ├── test_middleware.py
+│   │   ├── test_migrations.py
+│   │   ├── test_mixins.py
+│   │   ├── test_models.py
+│   │   ├── test_remote_user.py
+│   │   ├── test_signals.py
+│   │   ├── test_templates.py
+│   │   ├── test_templatetags.py
+│   │   ├── test_tokens.py
+│   │   ├── test_validators.py
+│   │   ├── test_views.py
+│   │   ├── urls.py
+│   │   ├── urls_admin.py
+│   │   └── urls_custom_user_admin.py
+│   ├── backends/
+│   │   ├── __init__.py
+│   │   ├── base/
+│   │   ├── models.py
+│   │   ├── mysql/
+│   │   ├── oracle/
+│   │   ├── postgresql/
+│   │   ├── sqlite/
+│   │   ├── test_ddl_references.py
+│   │   ├── test_utils.py
+│   │   └── tests.py
+│   ├── base/
+│   │   ├── __init__.py
+│   │   └── models.py
+│   ├── bash_completion/
+│   │   ├── __init__.py
+│   │   ├── management/
+│   │   └── tests.py
+│   ├── basic/
+│   │   ├── __init__.py
+│   │   ├── models.py
+│   │   └── tests.py
+│   ├── builtin_server/
+│   │   ├── __init__.py
+│   │   ├── tests.py
+│   │   ├── urls.py
+│   │   └── views.py
+│   ├── bulk_create/
+│   │   ├── __init__.py
+│   │   ├── models.py
+│   │   └── tests.py
+│   ├── cache/
+│   │   ├── __init__.py
+│   │   ├── closeable_cache.py
+│   │   ├── failing_cache.py
+│   │   ├── liberal_backend.py
+│   │   ├── models.py
+│   │   ├── tests.py
+│   │   └── tests_async.py
+│   ├── check_framework/
+│   │   ├── __init__.py
+│   │   ├── custom_commands_app/
+│   │   ├── models.py
+│   │   ├── template_test_apps/
+│   │   ├── test_4_0_compatibility.py
+│   │   ├── test_async_checks.py
+│   │   ├── test_caches.py
+│   │   ├── test_commands.py
+│   │   ├── test_database.py
+│   │   ├── test_files.py
+│   │   ├── test_model_checks.py
+│   │   ├── test_model_field_deprecation.py
+│   │   ├── test_multi_db.py
+│   │   ├── test_security.py
+│   │   ├── test_templates.py
+│   │   ├── test_translation.py
+│   │   ├── test_urls.py
+│   │   ├── tests.py
+│   │   └── urls/
+│   ├── composite_pk/
+│   │   ├── __init__.py
+│   │   ├── fixtures/
+│   │   ├── models/
+│   │   ├── test_aggregate.py
+│   │   ├── test_checks.py
+│   │   ├── test_create.py
+│   │   ├── test_delete.py
+│   │   ├── test_filter.py
+│   │   ├── test_get.py
+│   │   ├── test_models.py
+│   │   ├── test_names_to_path.py
+│   │   ├── test_order_by.py
+│   │   ├── test_update.py
+│   │   ├── test_values.py
+│   │   └── tests.py
+│   ├── conditional_processing/
+│   │   ├── __init__.py
+│   │   ├── tests.py
+│   │   ├── urls.py
+│   │   └── views.py
+│   ├── constraints/
+│   │   ├── __init__.py
+│   │   ├── models.py
+│   │   └── tests.py
+│   ├── contenttypes_tests/
+│   │   ├── __init__.py
+│   │   ├── models.py
+│   │   ├── operations_migrations/
+│   │   ├── test_checks.py
+│   │   ├── test_fields.py
+│   │   ├── test_management.py
+│   │   ├── test_migrations.py
+│   │   ├── test_models.py
+│   │   ├── test_operations.py
+│   │   ├── test_order_with_respect_to.py
+│   │   ├── test_views.py
+│   │   └── urls.py
+│   ├── context_processors/
+│   │   ├── __init__.py
+│   │   ├── models.py
+│   │   ├── templates/
+│   │   ├── tests.py
+│   │   ├── urls.py
+│   │   └── views.py
+│   ├── csrf_tests/
+│   │   ├── __init__.py
+│   │   ├── csrf_token_error_handler_urls.py
+│   │   ├── test_context_processor.py
+│   │   ├── tests.py
+│   │   └── views.py
+│   ├── custom_columns/
+│   │   ├── __init__.py
+│   │   ├── models.py
+│   │   └── tests.py
+│   ├── custom_lookups/
+│   │   ├── __init__.py
+│   │   ├── models.py
+│   │   └── tests.py
+│   ├── custom_managers/
+│   │   ├── __init__.py
+│   │   ├── models.py
+│   │   └── tests.py
+│   ├── custom_methods/
+│   │   ├── __init__.py
+│   │   ├── models.py
+│   │   └── tests.py
+│   ├── custom_migration_operations/
+│   │   ├── __init__.py
+│   │   ├── more_operations.py
+│   │   └── operations.py
+│   ├── custom_pk/
+│   │   ├── __init__.py
+│   │   ├── fields.py
+│   │   ├── models.py
+│   │   └── tests.py
+│   ├── datatypes/
+│   │   ├── __init__.py
+│   │   ├── models.py
+│   │   └── tests.py
+│   ├── dates/
+│   │   ├── __init__.py
+│   │   ├── models.py
+│   │   └── tests.py
+│   ├── datetimes/
+│   │   ├── __init__.py
+│   │   ├── models.py
+│   │   └── tests.py
+│   ├── db_functions/
+│   │   ├── __init__.py
+│   │   ├── comparison/
+│   │   ├── datetime/
+│   │   ├── json/
+│   │   ├── math/
+│   │   ├── migrations/
+│   │   ├── models.py
+│   │   ├── test_uuid.py
+│   │   ├── tests.py
+│   │   ├── text/
+│   │   └── window/
+│   ├── db_typecasts/
+│   │   ├── __init__.py
+│   │   └── tests.py
+│   ├── db_utils/
+│   │   ├── __init__.py
+│   │   └── tests.py
+│   ├── dbshell/
+│   │   ├── __init__.py
+│   │   ├── fake_client.py
+│   │   ├── test_mysql.py
+│   │   ├── test_oracle.py
+│   │   ├── test_postgresql.py
+│   │   ├── test_sqlite.py
+│   │   └── tests.py
+│   ├── decorators/
+│   │   ├── __init__.py
+│   │   ├── test_cache.py
+│   │   ├── test_clickjacking.py
+│   │   ├── test_common.py
+│   │   ├── test_csp.py
+│   │   ├── test_csrf.py
+│   │   ├── test_gzip.py
+│   │   ├── test_http.py
+│   │   ├── test_vary.py
+│   │   └── tests.py
+│   ├── defer/
+│   │   ├── __init__.py
+│   │   ├── models.py
+│   │   └── tests.py
+│   ├── defer_regress/
+│   │   ├── __init__.py
+│   │   ├── models.py
+│   │   └── tests.py
+│   ├── delete/
+│   │   ├── __init__.py
+│   │   ├── models.py
+│   │   └── tests.py
+│   ├── delete_regress/
+│   │   ├── __init__.py
+│   │   ├── models.py
+│   │   └── tests.py
+│   ├── deprecation/
+│   │   ├── __init__.py
+│   │   ├── test_deprecate_posargs.py
+│   │   ├── test_middleware_mixin.py
+│   │   └── tests.py
+│   ├── dispatch/
+│   │   ├── __init__.py
+│   │   └── tests.py
+│   ├── distinct_on_fields/
+│   │   ├── __init__.py
+│   │   ├── models.py
+│   │   └── tests.py
+│   ├── empty/
+│   │   ├── __init__.py
+│   │   ├── models.py
+│   │   ├── no_models/
+│   │   └── tests.py
+│   ├── empty_models/
+│   │   ├── __init__.py
+│   │   ├── models.py
+│   │   └── test_commands.py
+│   ├── expressions/
+│   │   ├── __init__.py
+│   │   ├── models.py
+│   │   ├── test_queryset_values.py
+│   │   └── tests.py
+│   ├── expressions_case/
+│   │   ├── __init__.py
+│   │   ├── models.py
+│   │   └── tests.py
+│   ├── expressions_window/
+│   │   ├── __init__.py
+│   │   ├── models.py
+│   │   └── tests.py
+│   ├── extra_regress/
+│   │   ├── __init__.py
+│   │   ├── models.py
+│   │   └── tests.py
+│   ├── field_deconstruction/
+│   │   ├── __init__.py
+│   │   └── tests.py
+│   ├── field_defaults/
+│   │   ├── __init__.py
+│   │   ├── models.py
+│   │   └── tests.py
+│   ├── field_subclassing/
+│   │   ├── __init__.py
+│   │   ├── fields.py
+│   │   └── tests.py
+│   ├── file_storage/
+│   │   ├── __init__.py
+│   │   ├── models.py
+│   │   ├── test_base.py
+│   │   ├── test_generate_filename.py
+│   │   ├── test_inmemory_storage.py
+│   │   ├── tests.py
+│   │   └── urls.py
+│   ├── file_uploads/
+│   │   ├── __init__.py
+│   │   ├── models.py
+│   │   ├── tests.py
+│   │   ├── uploadhandler.py
+│   │   ├── urls.py
+│   │   └── views.py
+│   ├── files/
+│   │   ├── __init__.py
+│   │   ├── brokenimg.png
+│   │   ├── magic.png
+│   │   ├── test.png
+│   │   ├── test.webp
+│   │   ├── test1.png
+│   │   └── tests.py
+│   ├── filtered_relation/
+│   │   ├── __init__.py
+│   │   ├── models.py
+│   │   └── tests.py
+│   ├── fixtures/
+│   │   ├── __init__.py
+│   │   ├── fixtures/
+│   │   ├── models.py
+│   │   └── tests.py
+│   ├── fixtures_model_package/
+│   │   ├── __init__.py
+│   │   ├── fixtures/
+│   │   ├── models/
+│   │   └── tests.py
+│   ├── fixtures_regress/
+│   │   ├── __init__.py
+│   │   ├── fixtures/
+│   │   ├── fixtures_1/
+│   │   ├── fixtures_2/
+│   │   ├── models.py
+│   │   └── tests.py
+│   ├── flatpages_tests/
+│   │   ├── __init__.py
+│   │   ├── absolute_urls.py
+│   │   ├── no_slash_urls.py
+│   │   ├── settings.py
+│   │   ├── templates/
+│   │   ├── test_csrf.py
+│   │   ├── test_forms.py
+│   │   ├── test_middleware.py
+│   │   ├── test_models.py
+│   │   ├── test_sitemaps.py
+│   │   ├── test_templatetags.py
+│   │   ├── test_views.py
+│   │   └── urls.py
+│   ├── force_insert_update/
+│   │   ├── __init__.py
+│   │   ├── models.py
+│   │   └── tests.py
+│   ├── foreign_object/
+│   │   ├── __init__.py
+│   │   ├── models/
+│   │   ├── test_agnostic_order_trimjoin.py
+│   │   ├── test_empty_join.py
+│   │   ├── test_forms.py
+│   │   ├── test_tuple_lookups.py
+│   │   └── tests.py
+│   ├── forms_tests/
+│   │   ├── __init__.py
+│   │   ├── field_tests/
+│   │   ├── jinja2/
+│   │   ├── models.py
+│   │   ├── templates/
+│   │   ├── templatetags/
+│   │   ├── tests/
+│   │   ├── urls.py
+│   │   ├── views.py
+│   │   └── widget_tests/
+│   ├── from_db_value/
+│   │   ├── __init__.py
+│   │   ├── models.py
+│   │   └── tests.py
+│   ├── generic_inline_admin/
+│   │   ├── __init__.py
+│   │   ├── admin.py
+│   │   ├── models.py
+│   │   ├── tests.py
+│   │   └── urls.py
+│   ├── generic_relations/
+│   │   ├── __init__.py
+│   │   ├── models.py
+│   │   ├── test_forms.py
+│   │   └── tests.py
+│   ├── generic_relations_regress/
+│   │   ├── __init__.py
+│   │   ├── models.py
+│   │   └── tests.py
+│   ├── generic_views/
+│   │   ├── __init__.py
+│   │   ├── forms.py
+│   │   ├── jinja2/
+│   │   ├── models.py
+│   │   ├── templates/
+│   │   ├── test_base.py
+│   │   ├── test_dates.py
+│   │   ├── test_detail.py
+│   │   ├── test_edit.py
+│   │   ├── test_list.py
+│   │   ├── urls.py
+│   │   └── views.py
+│   ├── get_earliest_or_latest/
+│   │   ├── __init__.py
+│   │   ├── models.py
+│   │   └── tests.py
+│   ├── get_object_or_404/
+│   │   ├── __init__.py
+│   │   ├── models.py
+│   │   └── tests.py
+│   ├── get_or_create/
+│   │   ├── __init__.py
+│   │   ├── models.py
+│   │   └── tests.py
+│   ├── gis_tests/
+│   │   ├── __init__.py
+│   │   ├── admin.py
+│   │   ├── data/
+│   │   ├── distapp/
+│   │   ├── gdal_tests/
+│   │   ├── geo3d/
+│   │   ├── geoadmin/
+│   │   ├── geoapp/
+│   │   ├── geogapp/
+│   │   ├── geos_tests/
+│   │   ├── gis_migrations/
+│   │   ├── inspectapp/
+│   │   ├── layermap/
+│   │   ├── models.py
+│   │   ├── rasterapp/
+│   │   ├── relatedapp/
+│   │   ├── test_data.py
+│   │   ├── test_fields.py
+│   │   ├── test_geoforms.py
+│   │   ├── test_geoip2.py
+│   │   ├── test_gis_tests_utils.py
+│   │   ├── test_measure.py
+│   │   ├── test_ptr.py
+│   │   ├── test_spatialrefsys.py
+│   │   ├── tests.py
+│   │   └── utils.py
+│   ├── handlers/
+│   │   ├── __init__.py
+│   │   ├── templates/
+│   │   ├── test_exception.py
+│   │   ├── tests.py
+│   │   ├── tests_custom_error_handlers.py
+│   │   ├── urls.py
+│   │   └── views.py
+│   ├── httpwrappers/
+│   │   ├── __init__.py
+│   │   ├── abc.txt
+│   │   └── tests.py
+│   ├── humanize_tests/
+│   │   ├── __init__.py
+│   │   └── tests.py
+│   ├── i18n/
+│   │   ├── __init__.py
+│   │   ├── commands/
+│   │   ├── contenttypes/
+│   │   ├── exclude/
+│   │   ├── forms.py
+│   │   ├── loading/
+│   │   ├── loading_app/
+│   │   ├── models.py
+│   │   ├── obsolete_translations/
+│   │   ├── other/
+│   │   ├── other2/
+│   │   ├── patterns/
+│   │   ├── project_dir/
+│   │   ├── resolution/
+│   │   ├── sampleproject/
+│   │   ├── territorial_fallback/
+│   │   ├── test_compilation.py
+│   │   ├── test_extraction.py
+│   │   ├── test_management.py
+│   │   ├── test_percents.py
+│   │   ├── tests.py
+│   │   ├── unchanged/
+│   │   ├── urls.py
+│   │   ├── urls_default_unprefixed.py
+│   │   └── utils.py
+│   ├── import_error_package/
+│   │   └── __init__.py
+│   ├── indexes/
+│   │   ├── __init__.py
+│   │   ├── models.py
+│   │   └── tests.py
+│   ├── inline_formsets/
+│   │   ├── __init__.py
+│   │   ├── models.py
+│   │   └── tests.py
+│   ├── inspectdb/
+│   │   ├── __init__.py
+│   │   ├── models.py
+│   │   └── tests.py
+│   ├── introspection/
+│   │   ├── __init__.py
+│   │   ├── models.py
+│   │   └── tests.py
+│   ├── invalid_models_tests/
+│   │   ├── __init__.py
+│   │   ├── test_backend_specific.py
+│   │   ├── test_custom_fields.py
+│   │   ├── test_deprecated_fields.py
+│   │   ├── test_models.py
+│   │   ├── test_ordinary_fields.py
+│   │   └── test_relative_fields.py
+│   ├── known_related_objects/
+│   │   ├── __init__.py
+│   │   ├── models.py
+│   │   └── tests.py
+│   ├── logging_tests/
+│   │   ├── __init__.py
+│   │   ├── logconfig.py
+│   │   ├── tests.py
+│   │   ├── urls.py
+│   │   ├── urls_i18n.py
+│   │   └── views.py
+│   ├── lookup/
+│   │   ├── __init__.py
+│   │   ├── models.py
+│   │   ├── test_decimalfield.py
+│   │   ├── test_lookups.py
+│   │   ├── test_timefield.py
+│   │   └── tests.py
+│   ├── m2m_and_m2o/
+│   │   ├── __init__.py
+│   │   ├── models.py
+│   │   └── tests.py
+│   ├── m2m_intermediary/
+│   │   ├── __init__.py
+│   │   ├── models.py
+│   │   └── tests.py
+│   ├── m2m_multiple/
+│   │   ├── __init__.py
+│   │   ├── models.py
+│   │   └── tests.py
+│   ├── m2m_recursive/
+│   │   ├── __init__.py
+│   │   ├── models.py
+│   │   └── tests.py
+│   ├── m2m_regress/
+│   │   ├── __init__.py
+│   │   ├── models.py
+│   │   └── tests.py
+│   ├── m2m_signals/
+│   │   ├── __init__.py
+│   │   ├── models.py
+│   │   └── tests.py
+│   ├── m2m_through/
+│   │   ├── __init__.py
+│   │   ├── models.py
+│   │   └── tests.py
+│   ├── m2m_through_regress/
+│   │   ├── __init__.py
+│   │   ├── fixtures/
+│   │   ├── models.py
+│   │   ├── test_multitable.py
+│   │   └── tests.py
+│   ├── m2o_recursive/
+│   │   ├── __init__.py
+│   │   ├── models.py
+│   │   └── tests.py
+│   ├── mail/
+│   │   ├── __init__.py
+│   │   ├── attachments/
+│   │   ├── custombackend.py
+│   │   ├── test_deprecated.py
+│   │   ├── test_sendtestemail.py
+│   │   └── tests.py
+│   ├── managers_regress/
+│   │   ├── __init__.py
+│   │   ├── models.py
+│   │   └── tests.py
+│   ├── many_to_many/
+│   │   ├── __init__.py
+│   │   ├── models.py
+│   │   └── tests.py
+│   ├── many_to_one/
+│   │   ├── __init__.py
+│   │   ├── models.py
+│   │   └── tests.py
+│   ├── many_to_one_null/
+│   │   ├── __init__.py
+│   │   ├── models.py
+│   │   └── tests.py
+│   ├── max_lengths/
+│   │   ├── __init__.py
+│   │   ├── models.py
+│   │   └── tests.py
+│   ├── messages_tests/
+│   │   ├── __init__.py
+│   │   ├── base.py
+│   │   ├── models.py
+│   │   ├── test_api.py
+│   │   ├── test_cookie.py
+│   │   ├── test_fallback.py
+│   │   ├── test_middleware.py
+│   │   ├── test_mixins.py
+│   │   ├── test_session.py
+│   │   ├── tests.py
+│   │   ├── urls.py
+│   │   └── utils.py
+│   ├── middleware/
+│   │   ├── __init__.py
+│   │   ├── cond_get_urls.py
+│   │   ├── extra_urls.py
+│   │   ├── test_csp.py
+│   │   ├── test_security.py
+│   │   ├── tests.py
+│   │   ├── urls.py
+│   │   └── views.py
+│   ├── middleware_exceptions/
+│   │   ├── __init__.py
+│   │   ├── middleware.py
+│   │   ├── tests.py
+│   │   ├── urls.py
+│   │   └── views.py
+│   ├── migrate_signals/
+│   │   ├── __init__.py
+│   │   ├── custom_migrations/
+│   │   ├── models.py
+│   │   └── tests.py
+│   ├── migration_test_data_persistence/
+│   │   ├── __init__.py
+│   │   ├── migrations/
+│   │   ├── models.py
+│   │   └── tests.py
+│   ├── migrations/
+│   │   ├── __init__.py
+│   │   ├── deprecated_field_migrations/
+│   │   ├── faulty_migrations/
+│   │   ├── migrations_test_apps/
+│   │   ├── models.py
+│   │   ├── related_models_app/
+│   │   ├── routers.py
+│   │   ├── test_add_many_to_many_field_initial/
+│   │   ├── test_auto_now_add/
+│   │   ├── test_autodetector.py
+│   │   ├── test_base.py
+│   │   ├── test_commands.py
+│   │   ├── test_deprecated_fields.py
+│   │   ├── test_exceptions.py
+│   │   ├── test_executor.py
+│   │   ├── test_fake_initial_case_insensitive/
+│   │   ├── test_graph.py
+│   │   ├── test_loader.py
+│   │   ├── test_migrations/
+│   │   ├── test_migrations_atomic_operation/
+│   │   ├── test_migrations_backwards_deps_1/
+│   │   ├── test_migrations_bad_pyc/
+│   │   ├── test_migrations_clashing_prefix/
+│   │   ├── test_migrations_conflict/
+│   │   ├── test_migrations_conflict_long_name/
+│   │   ├── test_migrations_custom_user/
+│   │   ├── test_migrations_empty/
+│   │   ├── test_migrations_fake_split_initial/
+│   │   ├── test_migrations_first/
+│   │   ├── test_migrations_initial_false/
+│   │   ├── test_migrations_manual_porting/
+│   │   ├── test_migrations_namespace_package/
+│   │   ├── test_migrations_no_ancestor/
+│   │   ├── test_migrations_no_changes/
+│   │   ├── test_migrations_no_default/
+│   │   ├── test_migrations_no_init/
+│   │   ├── test_migrations_no_operations/
+│   │   ├── test_migrations_non_atomic/
+│   │   ├── test_migrations_noop/
+│   │   ├── test_migrations_order/
+│   │   ├── test_migrations_plan/
+│   │   ├── test_migrations_private/
+│   │   ├── test_migrations_run_before/
+│   │   ├── test_migrations_squashed/
+│   │   ├── test_migrations_squashed_complex/
+│   │   ├── test_migrations_squashed_complex_multi_apps/
+│   │   ├── test_migrations_squashed_double/
+│   │   ├── test_migrations_squashed_erroneous/
+│   │   ├── test_migrations_squashed_extra/
+│   │   ├── test_migrations_squashed_loop/
+│   │   ├── test_migrations_squashed_no_replaces/
+│   │   ├── test_migrations_squashed_partially_applied/
+│   │   ├── test_migrations_squashed_ref_squashed/
+│   │   ├── test_migrations_squashed_replaced_order/
+│   │   ├── test_migrations_unmigdep/
+│   │   ├── test_multidb.py
+│   │   ├── test_operations.py
+│   │   ├── test_optimizer.py
+│   │   ├── test_questioner.py
+│   │   ├── test_state.py
+│   │   └── test_writer.py
+│   ├── migrations2/
+│   │   ├── __init__.py
+│   │   ├── models.py
+│   │   ├── test_migrations_2/
+│   │   ├── test_migrations_2_first/
+│   │   ├── test_migrations_2_no_deps/
+│   │   └── test_migrations_2_squashed_with_replaces/
+│   ├── model_enums/
+│   │   ├── __init__.py
+│   │   └── tests.py
+│   ├── model_fields/
+│   │   ├── 4x8.png
+│   │   ├── 8x4.png
+│   │   ├── __init__.py
+│   │   ├── models.py
+│   │   ├── storage.py
+│   │   ├── test_autofield.py
+│   │   ├── test_binaryfield.py
+│   │   ├── test_booleanfield.py
+│   │   ├── test_charfield.py
+│   │   ├── test_datetimefield.py
+│   │   ├── test_decimalfield.py
+│   │   ├── test_durationfield.py
+│   │   ├── test_field_flags.py
+│   │   ├── test_filefield.py
+│   │   ├── test_filepathfield.py
+│   │   ├── test_floatfield.py
+│   │   ├── test_foreignkey.py
+│   │   ├── test_generatedfield.py
+│   │   ├── test_genericipaddressfield.py
+│   │   ├── test_imagefield.py
+│   │   ├── test_integerfield.py
+│   │   ├── test_jsonfield.py
+│   │   ├── test_manytomanyfield.py
+│   │   ├── test_mixins.py
+│   │   ├── test_promises.py
+│   │   ├── test_slugfield.py
+│   │   ├── test_textfield.py
+│   │   ├── test_uuid.py
+│   │   └── tests.py
+│   ├── model_forms/
+│   │   ├── __init__.py
+│   │   ├── models.py
+│   │   ├── test.png
+│   │   ├── test2.png
+│   │   ├── test_modelchoicefield.py
+│   │   ├── test_uuid.py
+│   │   └── tests.py
+│   ├── model_formsets/
+│   │   ├── __init__.py
+│   │   ├── models.py
+│   │   ├── test_uuid.py
+│   │   └── tests.py
+│   ├── model_formsets_regress/
+│   │   ├── __init__.py
+│   │   ├── models.py
+│   │   └── tests.py
+│   ├── model_indexes/
+│   │   ├── __init__.py
+│   │   ├── models.py
+│   │   └── tests.py
+│   ├── model_inheritance/
+│   │   ├── __init__.py
+│   │   ├── models.py
+│   │   ├── test_abstract_inheritance.py
+│   │   └── tests.py
+│   ├── model_inheritance_regress/
+│   │   ├── __init__.py
+│   │   ├── models.py
+│   │   └── tests.py
+│   ├── model_meta/
+│   │   ├── __init__.py
+│   │   ├── models.py
+│   │   ├── results.py
+│   │   └── tests.py
+│   ├── model_options/
+│   │   ├── __init__.py
+│   │   ├── apps.py
+│   │   ├── models/
+│   │   ├── test_default_pk.py
+│   │   ├── test_default_related_name.py
+│   │   └── test_tablespaces.py
+│   ├── model_package/
+│   │   ├── __init__.py
+│   │   ├── models/
+│   │   └── tests.py
+│   ├── model_regress/
+│   │   ├── __init__.py
+│   │   ├── models.py
+│   │   ├── test_pickle.py
+│   │   ├── test_state.py
+│   │   └── tests.py
+│   ├── model_utils/
+│   │   ├── __init__.py
+│   │   └── tests.py
+│   ├── modeladmin/
+│   │   ├── __init__.py
+│   │   ├── models.py
+│   │   ├── test_actions.py
+│   │   ├── test_checks.py
+│   │   └── tests.py
+│   ├── multiple_database/
+│   │   ├── __init__.py
+│   │   ├── fixtures/
+│   │   ├── models.py
+│   │   ├── routers.py
+│   │   └── tests.py
+│   ├── mutually_referential/
+│   │   ├── __init__.py
+│   │   ├── models.py
+│   │   └── tests.py
+│   ├── nested_foreign_keys/
+│   │   ├── __init__.py
+│   │   ├── models.py
+│   │   └── tests.py
+│   ├── no_models/
+│   │   ├── __init__.py
+│   │   └── tests.py
+│   ├── null_fk/
+│   │   ├── __init__.py
+│   │   ├── models.py
+│   │   └── tests.py
+│   ├── null_fk_ordering/
+│   │   ├── __init__.py
+│   │   ├── models.py
+│   │   └── tests.py
+│   ├── null_queries/
+│   │   ├── __init__.py
+│   │   ├── models.py
+│   │   └── tests.py
+│   ├── one_to_one/
+│   │   ├── __init__.py
+│   │   ├── models.py
+│   │   └── tests.py
+│   ├── or_lookups/
+│   │   ├── __init__.py
+│   │   ├── models.py
+│   │   └── tests.py
+│   ├── order_with_respect_to/
+│   │   ├── __init__.py
+│   │   ├── base_tests.py
+│   │   ├── models.py
+│   │   └── tests.py
+│   ├── ordering/
+│   │   ├── __init__.py
+│   │   ├── models.py
+│   │   └── tests.py
+│   ├── pagination/
+│   │   ├── __init__.py
+│   │   ├── custom.py
+│   │   ├── models.py
+│   │   └── tests.py
+│   ├── postgres_tests/
+│   │   ├── __init__.py
+│   │   ├── array_default_migrations/
+│   │   ├── array_index_migrations/
+│   │   ├── fields.py
+│   │   ├── integration_settings.py
+│   │   ├── migrations/
+│   │   ├── models.py
+│   │   ├── test_aggregates.py
+│   │   ├── test_app_installed_check.py
+│   │   ├── test_apps.py
+│   │   ├── test_array.py
+│   │   ├── test_bulk_update.py
+│   │   ├── test_constraints.py
+│   │   ├── test_functions.py
+│   │   ├── test_hstore.py
+│   │   ├── test_indexes.py
+│   │   ├── test_integration.py
+│   │   ├── test_introspection.py
+│   │   ├── test_operations.py
+│   │   ├── test_ranges.py
+│   │   ├── test_search.py
+│   │   ├── test_signals.py
+│   │   ├── test_trigram.py
+│   │   └── test_unaccent.py
+│   ├── prefetch_related/
+│   │   ├── __init__.py
+│   │   ├── models.py
+│   │   ├── test_prefetch_related_objects.py
+│   │   ├── test_uuid.py
+│   │   └── tests.py
+│   ├── project_template/
+│   │   ├── __init__.py
+│   │   ├── test_settings.py
+│   │   ├── urls.py
+│   │   └── views.py
+│   ├── properties/
+│   │   ├── __init__.py
+│   │   ├── models.py
+│   │   └── tests.py
+│   ├── proxy_model_inheritance/
+│   │   ├── __init__.py
+│   │   ├── app1/
+│   │   ├── app2/
+│   │   ├── models.py
+│   │   └── tests.py
+│   ├── proxy_models/
+│   │   ├── __init__.py
+│   │   ├── admin.py
+│   │   ├── fixtures/
+│   │   ├── models.py
+│   │   ├── tests.py
+│   │   └── urls.py
+│   ├── queries/
+│   │   ├── __init__.py
+│   │   ├── models.py
+│   │   ├── test_bulk_update.py
+│   │   ├── test_contains.py
+│   │   ├── test_db_returning.py
+│   │   ├── test_explain.py
+│   │   ├── test_iterator.py
+│   │   ├── test_q.py
+│   │   ├── test_qs_combinators.py
+│   │   ├── test_query.py
+│   │   ├── test_sqlcompiler.py
+│   │   └── tests.py
+│   ├── queryset_pickle/
+│   │   ├── __init__.py
+│   │   ├── models.py
+│   │   └── tests.py
+│   ├── raw_query/
+│   │   ├── __init__.py
+│   │   ├── models.py
+│   │   └── tests.py
+│   ├── redirects_tests/
+│   │   ├── __init__.py
+│   │   ├── tests.py
+│   │   └── urls.py
+│   ├── requests_tests/
+│   │   ├── __init__.py
+│   │   ├── test_accept_header.py
+│   │   ├── test_data_upload_settings.py
+│   │   └── tests.py
+│   ├── requirements/
+│   │   ├── mysql.txt
+│   │   ├── oracle.txt
+│   │   ├── postgres.txt
+│   │   └── py3.txt
+│   ├── reserved_names/
+│   │   ├── __init__.py
+│   │   ├── models.py
+│   │   └── tests.py
+│   ├── resolve_url/
+│   │   ├── __init__.py
+│   │   ├── models.py
+│   │   ├── tests.py
+│   │   ├── urls.py
+│   │   └── views.py
+│   ├── responses/
+│   │   ├── __init__.py
+│   │   ├── test_cookie.py
+│   │   ├── test_fileresponse.py
+│   │   └── tests.py
+│   ├── reverse_lookup/
+│   │   ├── __init__.py
+│   │   ├── models.py
+│   │   └── tests.py
+│   ├── runtests.py
+│   ├── save_delete_hooks/
+│   │   ├── __init__.py
+│   │   ├── models.py
+│   │   └── tests.py
+│   ├── schema/
+│   │   ├── __init__.py
+│   │   ├── fields.py
+│   │   ├── models.py
+│   │   ├── test_logging.py
+│   │   └── tests.py
+│   ├── select_for_update/
+│   │   ├── __init__.py
+│   │   ├── models.py
+│   │   └── tests.py
+│   ├── select_related/
+│   │   ├── __init__.py
+│   │   ├── models.py
+│   │   └── tests.py
+│   ├── select_related_onetoone/
+│   │   ├── __init__.py
+│   │   ├── models.py
+│   │   └── tests.py
+│   ├── select_related_regress/
+│   │   ├── __init__.py
+│   │   ├── models.py
+│   │   └── tests.py
+│   ├── serializers/
+│   │   ├── __init__.py
+│   │   ├── models/
+│   │   ├── test_data.py
+│   │   ├── test_deserialization.py
+│   │   ├── test_json.py
+│   │   ├── test_jsonl.py
+│   │   ├── test_natural.py
+│   │   ├── test_xml.py
+│   │   ├── test_yaml.py
+│   │   └── tests.py
+│   ├── servers/
+│   │   ├── __init__.py
+│   │   ├── another_app/
+│   │   ├── fixtures/
+│   │   ├── media/
+│   │   ├── models.py
+│   │   ├── static/
+│   │   ├── test_basehttp.py
+│   │   ├── test_liveserverthread.py
+│   │   ├── tests.py
+│   │   ├── urls.py
+│   │   └── views.py
+│   ├── sessions_tests/
+│   │   ├── __init__.py
+│   │   ├── models.py
+│   │   ├── no_clear_expired.py
+│   │   └── tests.py
+│   ├── settings_tests/
+│   │   ├── __init__.py
+│   │   └── tests.py
+│   ├── shell/
+│   │   ├── __init__.py
+│   │   ├── models.py
+│   │   └── tests.py
+│   ├── shortcuts/
+│   │   ├── __init__.py
+│   │   ├── jinja2/
+│   │   ├── templates/
+│   │   ├── tests.py
+│   │   ├── urls.py
+│   │   └── views.py
+│   ├── signals/
+│   │   ├── __init__.py
+│   │   ├── models.py
+│   │   └── tests.py
+│   ├── signed_cookies_tests/
+│   │   ├── __init__.py
+│   │   └── tests.py
+│   ├── signing/
+│   │   ├── __init__.py
+│   │   └── tests.py
+│   ├── sitecustomize.py
+│   ├── sitemaps_tests/
+│   │   ├── __init__.py
+│   │   ├── base.py
+│   │   ├── models.py
+│   │   ├── templates/
+│   │   ├── test_generic.py
+│   │   ├── test_http.py
+│   │   ├── test_https.py
+│   │   └── urls/
+│   ├── sites_framework/
+│   │   ├── __init__.py
+│   │   ├── migrations/
+│   │   ├── models.py
+│   │   └── tests.py
+│   ├── sites_tests/
+│   │   ├── __init__.py
+│   │   └── tests.py
+│   ├── sphinx/
+│   │   ├── __init__.py
+│   │   ├── test_github_links.py
+│   │   └── testdata/
+│   ├── staticfiles_tests/
+│   │   ├── __init__.py
+│   │   ├── apps/
+│   │   ├── cases.py
+│   │   ├── project/
+│   │   ├── settings.py
+│   │   ├── storage.py
+│   │   ├── test_checks.py
+│   │   ├── test_finders.py
+│   │   ├── test_forms.py
+│   │   ├── test_handlers.py
+│   │   ├── test_liveserver.py
+│   │   ├── test_management.py
+│   │   ├── test_storage.py
+│   │   ├── test_templatetags.py
+│   │   ├── test_utils.py
+│   │   ├── test_views.py
+│   │   └── urls/
+│   ├── str/
+│   │   ├── __init__.py
+│   │   ├── models.py
+│   │   └── tests.py
+│   ├── string_lookup/
+│   │   ├── __init__.py
+│   │   ├── models.py
+│   │   └── tests.py
+│   ├── swappable_models/
+│   │   ├── __init__.py
+│   │   ├── models.py
+│   │   └── tests.py
+│   ├── syndication_tests/
+│   │   ├── __init__.py
+│   │   ├── feeds.py
+│   │   ├── models.py
+│   │   ├── templates/
+│   │   ├── tests.py
+│   │   └── urls.py
+│   ├── tasks/
+│   │   ├── __init__.py
+│   │   ├── tasks.py
+│   │   ├── test_custom_backend.py
+│   │   ├── test_dummy_backend.py
+│   │   ├── test_immediate_backend.py
+│   │   └── test_tasks.py
+│   ├── template_backends/
+│   │   ├── __init__.py
+│   │   ├── apps/
+│   │   ├── forbidden/
+│   │   ├── jinja2/
+│   │   ├── template_strings/
+│   │   ├── templates/
+│   │   ├── test_django.py
+│   │   ├── test_dummy.py
+│   │   ├── test_jinja2.py
+│   │   └── test_utils.py
+│   ├── template_loader/
+│   │   ├── __init__.py
+│   │   ├── template_strings/
+│   │   ├── templates/
+│   │   └── tests.py
+│   ├── template_tests/
+│   │   ├── __init__.py
+│   │   ├── alternate_urls.py
+│   │   ├── annotated_tag_function.py
+│   │   ├── broken_tag.py
+│   │   ├── eggs/
+│   │   ├── filter_tests/
+│   │   ├── jinja2/
+│   │   ├── other_templates/
+│   │   ├── recursive_templates/
+│   │   ├── relative_templates/
+│   │   ├── syntax_tests/
+│   │   ├── templates/
+│   │   ├── templatetags/
+│   │   ├── test_autoreloader.py
+│   │   ├── test_base.py
+│   │   ├── test_callables.py
+│   │   ├── test_context.py
+│   │   ├── test_custom.py
+│   │   ├── test_engine.py
+│   │   ├── test_extends.py
+│   │   ├── test_extends_relative.py
+│   │   ├── test_library.py
+│   │   ├── test_loaders.py
+│   │   ├── test_logging.py
+│   │   ├── test_nodelist.py
+│   │   ├── test_origin.py
+│   │   ├── test_parser.py
+│   │   ├── test_partials.py
+│   │   ├── test_response.py
+│   │   ├── test_smartif.py
+│   │   ├── tests.py
+│   │   ├── urls.py
+│   │   ├── utils.py
+│   │   └── views.py
+│   ├── templates/
+│   │   ├── base.html
+│   │   ├── comments/
+│   │   ├── custom_admin/
+│   │   ├── extended.html
+│   │   ├── form_view.html
+│   │   ├── login.html
+│   │   └── views/
+│   ├── test_client/
+│   │   ├── __init__.py
+│   │   ├── auth_backends.py
+│   │   ├── test_conditional_content_removal.py
+│   │   ├── test_fakepayload.py
+│   │   ├── tests.py
+│   │   ├── urls.py
+│   │   ├── urls_middleware_urlconf.py
+│   │   └── views.py
+│   ├── test_client_regress/
+│   │   ├── __init__.py
+│   │   ├── auth_backends.py
+│   │   ├── bad_templates/
+│   │   ├── context_processors.py
+│   │   ├── models.py
+│   │   ├── session.py
+│   │   ├── templates/
+│   │   ├── tests.py
+│   │   ├── urls.py
+│   │   └── views.py
+│   ├── test_exceptions/
+│   │   ├── __init__.py
+│   │   └── test_validation_error.py
+│   ├── test_runner/
+│   │   ├── __init__.py
+│   │   ├── models.py
+│   │   ├── runner.py
+│   │   ├── test_debug_sql.py
+│   │   ├── test_discover_runner.py
+│   │   ├── test_parallel.py
+│   │   ├── test_shuffler.py
+│   │   └── tests.py
+│   ├── test_runner_apps/
+│   │   ├── __init__.py
+│   │   ├── buffer/
+│   │   ├── databases/
+│   │   ├── failures/
+│   │   ├── sample/
+│   │   ├── simple/
+│   │   └── tagged/
+│   ├── test_sqlite.py
+│   ├── test_utils/
+│   │   ├── __init__.py
+│   │   ├── fixtures/
+│   │   ├── models.py
+│   │   ├── templates/
+│   │   ├── test_serializemixin.py
+│   │   ├── test_simpletestcase.py
+│   │   ├── test_testcase.py
+│   │   ├── test_transactiontestcase.py
+│   │   ├── tests.py
+│   │   ├── urls.py
+│   │   └── views.py
+│   ├── timezones/
+│   │   ├── __init__.py
+│   │   ├── admin.py
+│   │   ├── forms.py
+│   │   ├── models.py
+│   │   ├── tests.py
+│   │   └── urls.py
+│   ├── transaction_hooks/
+│   │   ├── __init__.py
+│   │   ├── models.py
+│   │   └── tests.py
+│   ├── transactions/
+│   │   ├── __init__.py
+│   │   ├── models.py
+│   │   └── tests.py
+│   ├── unmanaged_models/
+│   │   ├── __init__.py
+│   │   ├── models.py
+│   │   └── tests.py
+│   ├── update/
+│   │   ├── __init__.py
+│   │   ├── models.py
+│   │   └── tests.py
+│   ├── update_only_fields/
+│   │   ├── __init__.py
+│   │   ├── models.py
+│   │   └── tests.py
+│   ├── urlpatterns/
+│   │   ├── __init__.py
+│   │   ├── converter_urls.py
+│   │   ├── converters.py
+│   │   ├── included_urls.py
+│   │   ├── lazy_path_urls.py
+│   │   ├── more_urls.py
+│   │   ├── path_base64_urls.py
+│   │   ├── path_dynamic_urls.py
+│   │   ├── path_same_name_urls.py
+│   │   ├── path_urls.py
+│   │   ├── test_resolvers.py
+│   │   ├── tests.py
+│   │   └── views.py
+│   ├── urlpatterns_reverse/
+│   │   ├── __init__.py
+│   │   ├── erroneous_urls.py
+│   │   ├── extra_urls.py
+│   │   ├── included_app_urls.py
+│   │   ├── included_named_urls.py
+│   │   ├── included_named_urls2.py
+│   │   ├── included_namespace_urls.py
+│   │   ├── included_no_kwargs_urls.py
+│   │   ├── included_urls.py
+│   │   ├── included_urls2.py
+│   │   ├── method_view_urls.py
+│   │   ├── middleware.py
+│   │   ├── named_urls.py
+│   │   ├── named_urls_conflict.py
+│   │   ├── namespace_urls.py
+│   │   ├── nested_urls.py
+│   │   ├── no_urls.py
+│   │   ├── nonimported_module.py
+│   │   ├── reverse_lazy_urls.py
+│   │   ├── test_localeregexdescriptor.py
+│   │   ├── tests.py
+│   │   ├── translations/
+│   │   ├── urlconf_inner.py
+│   │   ├── urlconf_outer.py
+│   │   ├── urls.py
+│   │   ├── urls_error_handlers.py
+│   │   ├── urls_error_handlers_callables.py
+│   │   ├── urls_without_handlers.py
+│   │   ├── utils.py
+│   │   ├── views.py
+│   │   └── views_broken.py
+│   ├── urls.py
+│   ├── user_commands/
+│   │   ├── __init__.py
+│   │   ├── eggs/
+│   │   ├── management/
+│   │   ├── models.py
+│   │   ├── test_files/
+│   │   ├── tests.py
+│   │   ├── urls.py
+│   │   └── utils.py
+│   ├── utils_tests/
+│   │   ├── __init__.py
+│   │   ├── archives/
+│   │   ├── deconstructible_classes.py
+│   │   ├── eggs/
+│   │   ├── files/
+│   │   ├── models.py
+│   │   ├── test_archive.py
+│   │   ├── test_autoreload.py
+│   │   ├── test_choices.py
+│   │   ├── test_connection.py
+│   │   ├── test_crypto.py
+│   │   ├── test_csp.py
+│   │   ├── test_datastructures.py
+│   │   ├── test_dateformat.py
+│   │   ├── test_dateparse.py
+│   │   ├── test_deconstruct.py
+│   │   ├── test_decorators.py
+│   │   ├── test_duration.py
+│   │   ├── test_encoding.py
+│   │   ├── test_feedgenerator.py
+│   │   ├── test_functional.py
+│   │   ├── test_hashable.py
+│   │   ├── test_html.py
+│   │   ├── test_http.py
+│   │   ├── test_inspect.py
+│   │   ├── test_ipv6.py
+│   │   ├── test_json.py
+│   │   ├── test_lazyobject.py
+│   │   ├── test_lorem_ipsum.py
+│   │   ├── test_module/
+│   │   ├── test_module_loading.py
+│   │   ├── test_no_submodule.py
+│   │   ├── test_numberformat.py
+│   │   ├── test_os_utils.py
+│   │   ├── test_regex_helper.py
+│   │   ├── test_safestring.py
+│   │   ├── test_simplelazyobject.py
+│   │   ├── test_termcolors.py
+│   │   ├── test_text.py
+│   │   ├── test_timesince.py
+│   │   ├── test_timezone.py
+│   │   ├── test_tree.py
+│   │   ├── traversal_archives/
+│   │   └── utils.py
+│   ├── validation/
+│   │   ├── __init__.py
+│   │   ├── models.py
+│   │   ├── test_constraints.py
+│   │   ├── test_custom_messages.py
+│   │   ├── test_error_messages.py
+│   │   ├── test_picklable.py
+│   │   ├── test_unique.py
+│   │   ├── test_validators.py
+│   │   └── tests.py
+│   ├── validators/
+│   │   ├── __init__.py
+│   │   └── tests.py
+│   ├── version/
+│   │   ├── __init__.py
+│   │   └── tests.py
+│   ├── view_tests/
+│   │   ├── __init__.py
+│   │   ├── app0/
+│   │   ├── app1/
+│   │   ├── app2/
+│   │   ├── app3/
+│   │   ├── app4/
+│   │   ├── app5/
+│   │   ├── custom_locale_path/
+│   │   ├── default_urls.py
+│   │   ├── generic_urls.py
+│   │   ├── locale/
+│   │   ├── media/
+│   │   ├── models.py
+│   │   ├── regression_21530_urls.py
+│   │   ├── templates/
+│   │   ├── templatetags/
+│   │   ├── tests/
+│   │   ├── urls.py
+│   │   └── views.py
+│   ├── wsgi/
+│   │   ├── __init__.py
+│   │   ├── tests.py
+│   │   ├── urls.py
+│   │   └── wsgi.py
+│   └── xor_lookups/
+│       ├── __init__.py
+│       ├── models.py
+│       └── tests.py
+├── tox.ini
+└── zizmor.yml

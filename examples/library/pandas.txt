@@ -1,0 +1,644 @@
+=====================================
+Repository Analysis: pandas
+Type: Library / Package / SDK
+=====================================
+
+--- METADATA ---
+Name: pandas
+Description: Flexible and powerful data analysis / manipulation library for Python, providing labeled data structures similar to R data.frame objects, statistical functions, and much more
+Language: Python
+Topics: alignment, data-analysis, data-science, flexible, pandas, python
+Stars: 48064
+License: BSD 3-Clause "New" or "Revised" License
+
+--- README ---
+<picture align="center">
+  <source media="(prefers-color-scheme: dark)" srcset="https://pandas.pydata.org/static/img/pandas_white.svg">
+  <img alt="Pandas Logo" src="https://pandas.pydata.org/static/img/pandas.svg">
+</picture>
+
+-----------------
+
+# pandas: A Powerful Python Data Analysis Toolkit
+
+| | |
+| --- | --- |
+| Testing | [![CI - Test](https://github.com/pandas-dev/pandas/actions/workflows/unit-tests.yml/badge.svg)](https://github.com/pandas-dev/pandas/actions/workflows/unit-tests.yml) [![Coverage](https://codecov.io/github/pandas-dev/pandas/coverage.svg?branch=main)](https://codecov.io/gh/pandas-dev/pandas) |
+| Package | [![PyPI Latest Release](https://img.shields.io/pypi/v/pandas.svg)](https://pypi.org/project/pandas/) [![PyPI Downloads](https://img.shields.io/pypi/dm/pandas.svg?label=PyPI%20downloads)](https://pypi.org/project/pandas/) [![Conda Latest Release](https://anaconda.org/conda-forge/pandas/badges/version.svg)](https://anaconda.org/conda-forge/pandas) [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/pandas.svg?label=Conda%20downloads)](https://anaconda.org/conda-forge/pandas) |
+| Meta | [![Powered by NumFOCUS](https://img.shields.io/badge/powered%20by-NumFOCUS-orange.svg?style=flat&colorA=E1523D&colorB=007D8A)](https://numfocus.org) [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.3509134.svg)](https://doi.org/10.5281/zenodo.3509134) [![License - BSD 3-Clause](https://img.shields.io/pypi/l/pandas.svg)](https://github.com/pandas-dev/pandas/blob/main/LICENSE) [![Slack](https://img.shields.io/badge/join_Slack-information-brightgreen.svg?logo=slack)](https://pandas.pydata.org/docs/dev/development/community.html?highlight=slack#community-slack) [![LFX Health Score](https://insights.linuxfoundation.org/api/badge/health-score?project=pandas-dev-pandas)](https://insights.linuxfoundation.org/project/pandas-dev-pandas) |
+
+
+## What is it?
+
+**pandas** is a Python package that provides fast, flexible, and expressive data
+structures designed to make working with "relational" or "labeled" data both
+easy and intuitive. It aims to be the fundamental high-level building block for
+doing practical, **real-world** data analysis in Python. Additionally, it has
+the broader goal of becoming **the most powerful and flexible open-source data
+analysis/manipulation tool available in any language**. It is already well on
+its way towards this goal.
+
+## Table of Contents
+
+- [Main Features](#main-features)
+- [Where to get it](#where-to-get-it)
+- [Dependencies](#dependencies)
+- [Installation from sources](#installation-from-sources)
+- [License](#license)
+- [Documentation](#documentation)
+- [Background](#background)
+- [Getting Help](#getting-help)
+- [Discussion and Development](#discussion-and-development)
+- [Contributing to pandas](#contributing-to-pandas)
+
+## Main Features
+Here are just a few of the things that pandas does well:
+
+  - Easy handling of [**missing data**][missing-data] (represented as
+    `NaN`, `NA`, or `NaT`) in floating point as well as non-floating point data
+  - Size mutability: columns can be [**inserted and
+    deleted**][insertion-deletion] from DataFrame and higher dimensional
+    objects
+  - Automatic and explicit [**data alignment**][alignment]: objects can
+    be explicitly aligned to a set of labels, or the user can simply
+    ignore the labels and let `Series`, `DataFrame`, etc. automatically
+    align the data for you in computations
+  - Powerful, flexible [**group by**][groupby] functionality to perform
+    split-apply-combine operations on data sets, for both aggregating
+    and transforming data
+  - Make it [**easy to convert**][conversion] ragged,
+    differently-indexed data in other Python and NumPy data structures
+    into DataFrame objects
+  - Intelligent label-based [**slicing**][slicing], [**fancy
+    indexing**][fancy-indexing], and [**subsetting**][subsetting] of
+    large data sets
+  - Intuitive [**merging**][merging] and [**joining**][joining] data
+    sets
+  - Flexible [**reshaping**][reshape] and [**pivoting**][pivot-table] of
+    data sets
+  - [**Hierarchical**][mi] labeling of axes (possible to have multiple
+    labels per tick)
+  - Robust I/O tools for loading data from [**flat files**][flat-files]
+    (CSV and delimited), [**Excel files**][excel], [**databases**][db],
+    and saving/loading data from the ultrafast [**HDF5 format**][hdfstore]
+  - [**Time series**][timeseries]-specific functionality: date range
+    generation and frequency conversion, moving window statistics,
+    date shifting and lagging
+
+
+   [missing-data]: https://pandas.pydata.org/pandas-docs/stable/user_guide/missing_data.html
+   [insertion-deletion]: https://pandas.pydata.org/pandas-docs/stable/user_guide/dsintro.html#column-selection-addition-deletion
+   [alignment]: https://pandas.pydata.org/pandas-docs/stable/user_guide/dsintro.html?highlight=alignment#intro-to-data-structures
+   [groupby]: https://pandas.pydata.org/pandas-docs/stable/user_guide/groupby.html#group-by-split-apply-c
+... [TRUNCATED]
+
+--- PACKAGE MANIFEST(S) ---
+
+[pyproject.toml]
+[build-system]
+# Minimum requirements for the build system to execute.
+# See https://github.com/scipy/scipy/pull/12940 for the AIX issue.
+requires = [
+    "meson-python>=0.17.1,<1",
+    "meson>=1.2.1,<2",
+    "wheel",
+    "Cython>3.1.0,<4.0.0a0",  # Note: sync with environment.yml and asv.conf.json
+    # Force numpy higher than 2.0, so that built wheels are compatible
+    # with both numpy 1 and 2
+    "numpy>=2.0.0",
+    "versioneer[toml]"
+]
+
+build-backend = "mesonpy"
+
+[project]
+name = 'pandas'
+dynamic = [
+  'version'
+]
+description = 'Powerful data structures for data analysis, time series, and statistics'
+readme = 'README.md'
+authors = [
+  { name = 'The Pandas Development Team', email='pandas-dev@python.org' },
+]
+license = {file = 'LICENSE'}
+requires-python = '>=3.11'
+dependencies = [
+  "numpy>=1.26.0; python_version < '3.14'",
+  # Earlier versions of NumPy are fundamentally broken on 3.14
+  "numpy>=2.3.3; python_version >= '3.14'",
+  "python-dateutil>=2.8.2",
+  "tzdata; sys_platform == 'win32'",
+  # Emscripten is the platform system for Pyodide.
+  "tzdata; sys_platform == 'emscripten'",
+]
+classifiers = [
+    'Development Status :: 5 - Production/Stable',
+    'Environment :: Console',
+    'Intended Audience :: Science/Research',
+    'License :: OSI Approved :: BSD License',
+    'Operating System :: OS Independent',
+    'Programming Language :: Cython',
+    'Programming Language :: Python',
+    'Programming Language :: Python :: 3',
+    'Programming Language :: Python :: 3 :: Only',
+    'Programming Language :: Python :: 3.11',
+    'Programming Language :: Python :: 3.12',
+    'Programming Language :: Python :: 3.13',
+    'Programming Language :: Python :: 3.14',
+    'Topic :: Scientific/Engineering'
+]
+
+[project.urls]
+homepage = 'https://pandas.pydata.org'
+documentation = 'https://pandas.pydata.org/docs/'
+repository = 'https://github.com/pandas-dev/pandas'
+
+[project.entry-points."pandas_plotting_backends"]
+matplotlib = "pandas:plotting._matplotlib"
+
+[project.optional-dependencies]
+test = ['hypothesis>=6.116.0', 'pytest>=8.3.4', 'pytest-xdist>=3.6.1']
+pyarrow = ['pyarrow>=13.0.0']
+performance = ['bottleneck>=1.4.2', 'numba>=0.60.0', 'numexpr>=2.10.2']
+computation = ['scipy>=1.14.1', 'xarray>=2024.10.0']
+fss = ['fsspec>=2024.10.0']
+aws = ['s3fs>=2024.10.0']
+gcp = ['gcsfs>=2024.10.0']
+excel = ['odfpy>=1.4.1', 'openpyxl>=3.1.5', 'python-calamine>=0.3.0', 'pyxlsb>=1.0.10', 'xlrd>=2.0.1', 'xlsxwriter>=3.2.0']
+parquet = ['pyarrow>=13.0.0']
+feather = ['pyarrow>=13.0.0']
+iceberg = ['pyiceberg>=0.8.1']
+hdf5 = ['tables>=3.10.1']
+spss = ['pyreadstat>=1.2.8']
+postgresql = ['SQLAlchemy>=2.0.36', 'psycopg2>=2.9.10', 'adbc-driver-postgresql>=1.2.0']
+mysql = ['SQLAlchemy>=2.0.36', 'pymysql>=1.1.1']
+sql-other = ['SQLAlchemy>=2.0.36', 'adbc-driver-postgresql>=1.2.0', 'adbc-driver-sqlite>=1.2.0']
+html = ['beautifulsoup4>=4.12.3', 'html5lib>=1.1', 'lxml>=5.3.0']
+xml = ['lxml>=5.3.0']
+plot = ['matplotlib>=3.9.3']
+output-formatting = ['jinja2>=3.1.5', 'tabulate>=0.9.0'
+... [TRUNCATED]
+
+--- DIRECTORY STRUCTURE (depth 2) ---
+├── .gitattributes
+├── .github/
+│   ├── CODEOWNERS
+│   ├── ISSUE_TEMPLATE/
+│   │   ├── bug_report.yaml
+│   │   ├── documentation_improvement.yaml
+│   │   ├── feature_request.yaml
+│   │   ├── installation_issue.yaml
+│   │   ├── pdep_vote.yaml
+│   │   ├── performance_issue.yaml
+│   │   └── submit_question.yml
+│   ├── PULL_REQUEST_TEMPLATE.md
+│   ├── actions/
+│   │   ├── build_pandas/
+│   │   ├── run-tests/
+│   │   └── setup-conda/
+│   ├── dependabot.yml
+│   └── workflows/
+│       ├── cache-cleanup-daily.yml
+│       ├── cache-cleanup.yml
+│       ├── code-checks.yml
+│       ├── codeql.yml
+│       ├── comment-commands.yml
+│       ├── deprecation-tracking-bot.yml
+│       ├── docbuild-and-upload.yml
+│       ├── package-checks.yml
+│       ├── stale-pr.yml
+│       ├── unit-tests.yml
+│       └── wheels.yml
+├── .gitignore
+├── .pre-commit-config.yaml
+├── AGENTS.md
+├── AUTHORS.md
+├── CITATION.cff
+├── LICENSE
+├── LICENSES/
+│   ├── BOTTLENECK_LICENCE
+│   ├── DATEUTIL_LICENSE
+│   ├── HAVEN_LICENSE
+│   ├── HAVEN_MIT
+│   ├── KLIB_LICENSE
+│   ├── MUSL_LICENSE
+│   ├── NUMPY_LICENSE
+│   ├── PACKAGING_LICENSE
+│   ├── PSF_LICENSE
+│   ├── PYPERCLIP_LICENSE
+│   ├── PYUPGRADE_LICENSE
+│   ├── SAS7BDAT_LICENSE
+│   └── ULTRAJSON_LICENSE
+├── MANIFEST.in
+├── README.md
+├── asv_bench/
+│   ├── asv.conf.json
+│   └── benchmarks/
+│       ├── __init__.py
+│       ├── algorithms.py
+│       ├── algos/
+│       ├── arithmetic.py
+│       ├── array.py
+│       ├── attrs_caching.py
+│       ├── boolean.py
+│       ├── categoricals.py
+│       ├── ctors.py
+│       ├── dtypes.py
+│       ├── eval.py
+│       ├── finalize.py
+│       ├── frame_ctor.py
+│       ├── frame_methods.py
+│       ├── gil.py
+│       ├── groupby.py
+│       ├── hash_functions.py
+│       ├── index_cached_properties.py
+│       ├── index_object.py
+│       ├── indexing.py
+│       ├── indexing_engines.py
+│       ├── inference.py
+│       ├── io/
+│       ├── join_merge.py
+│       ├── libs.py
+│       ├── multiindex_object.py
+│       ├── package.py
+│       ├── pandas_vb_common.py
+│       ├── period.py
+│       ├── plotting.py
+│       ├── reindex.py
+│       ├── replace.py
+│       ├── reshape.py
+│       ├── rolling.py
+│       ├── series_methods.py
+│       ├── sparse.py
+│       ├── stat_ops.py
+│       ├── strftime.py
+│       ├── strings.py
+│       ├── timedelta.py
+│       ├── timeseries.py
+│       └── tslibs/
+├── ci/
+│   ├── .condarc
+│   ├── code_checks.sh
+│   ├── deps/
+│   │   ├── actions-311-minimum_versions.yaml
+│   │   ├── actions-311.yaml
+│   │   ├── actions-312.yaml
+│   │   ├── actions-313-downstream_compat.yaml
+│   │   ├── actions-313-freethreading.yaml
+│   │   ├── actions-313-numpydev.yaml
+│   │   ├── actions-313-pyarrownightly.yaml
+│   │   ├── actions-313.yaml
+│   │   └── actions-314.yaml
+│   ├── meta.yaml
+│   └── run_tests.sh
+├── codecov.yml
+├── doc/
+│   ├── .gitignore
+│   ├── _templates/
+│   │   ├── api_redirect.html
+│   │   ├── autosummary/
+│   │   ├── docs-announcement-banner.html
+│   │   ├── pandas_footer.html
+│   │   └── sidebar-nav-bs.html
+│   ├── cheatsheet/
+│   │   ├── Pandas_Cheat_Sheet.pdf
+│   │   ├── Pandas_Cheat_Sheet.pptx
+│   │   ├── Pandas_Cheat_Sheet_FA.pdf
+│   │   ├── Pandas_Cheat_Sheet_FA.pptx
+│   │   ├── Pandas_Cheat_Sheet_JA.pdf
+│   │   ├── Pandas_Cheat_Sheet_JA.pptx
+│   │   └── README.md
+│   ├── data/
+│   │   ├── air_quality_long.csv
+│   │   ├── air_quality_no2.csv
+│   │   ├── air_quality_no2_long.csv
+│   │   ├── air_quality_parameters.csv
+│   │   ├── air_quality_pm25_long.csv
+│   │   ├── air_quality_stations.csv
+│   │   ├── baseball.csv
+│   │   ├── iris.data
+│   │   └── titanic.csv
+│   ├── make.py
+│   ├── redirects.csv
+│   ├── scripts/
+│   │   └── eval_performance.py
+│   ├── source/
+│   │   ├── _static/
+│   │   ├── conf.py
+│   │   ├── development/
+│   │   ├── getting_started/
+│   │   ├── index.rst.template
+│   │   ├── reference/
+│   │   ├── user_guide/
+│   │   └── whatsnew/
+│   └── sphinxext/
+│       ├── README.rst
+│       ├── announce.py
+│       └── contributors.py
+├── environment.yml
+├── generate_pxi.py
+├── generate_version.py
+├── meson.build
+├── pandas/
+│   ├── __init__.py
+│   ├── _config/
+│   │   ├── __init__.py
+│   │   ├── config.py
+│   │   ├── dates.py
+│   │   ├── display.py
+│   │   └── localization.py
+│   ├── _libs/
+│   │   ├── __init__.py
+│   │   ├── algos.pxd
+│   │   ├── algos.pyi
+│   │   ├── algos.pyx
+│   │   ├── algos_common_helper.pxi.in
+│   │   ├── algos_take_helper.pxi.in
+│   │   ├── arrays.pxd
+│   │   ├── arrays.pyi
+│   │   ├── arrays.pyx
+│   │   ├── byteswap.pyi
+│   │   ├── byteswap.pyx
+│   │   ├── dtypes.pxd
+│   │   ├── free_threading_config.pxi.in
+│   │   ├── groupby.pyi
+│   │   ├── groupby.pyx
+│   │   ├── hashing.pyi
+│   │   ├── hashing.pyx
+│   │   ├── hashtable.pxd
+│   │   ├── hashtable.pyi
+│   │   ├── hashtable.pyx
+│   │   ├── hashtable_class_helper.pxi.in
+│   │   ├── hashtable_func_helper.pxi.in
+│   │   ├── include/
+│   │   ├── index.pyi
+│   │   ├── index.pyx
+│   │   ├── index_class_helper.pxi.in
+│   │   ├── indexing.pyi
+│   │   ├── indexing.pyx
+│   │   ├── internals.pyi
+│   │   ├── internals.pyx
+│   │   ├── interval.pyi
+│   │   ├── interval.pyx
+│   │   ├── intervaltree.pxi.in
+│   │   ├── join.pyi
+│   │   ├── join.pyx
+│   │   ├── json.pyi
+│   │   ├── khash.pxd
+│   │   ├── khash_for_primitive_helper.pxi.in
+│   │   ├── lib.pxd
+│   │   ├── lib.pyi
+│   │   ├── lib.pyx
+│   │   ├── meson.build
+│   │   ├── missing.pxd
+│   │   ├── missing.pyi
+│   │   ├── missing.pyx
+│   │   ├── ops.pyi
+│   │   ├── ops.pyx
+│   │   ├── ops_dispatch.pyi
+│   │   ├── ops_dispatch.pyx
+│   │   ├── parsers.pyi
+│   │   ├── parsers.pyx
+│   │   ├── properties.pyi
+│   │   ├── properties.pyx
+│   │   ├── reshape.pyi
+│   │   ├── reshape.pyx
+│   │   ├── sas.pyi
+│   │   ├── sas.pyx
+│   │   ├── sparse.pyi
+│   │   ├── sparse.pyx
+│   │   ├── sparse_op_helper.pxi.in
+│   │   ├── src/
+│   │   ├── testing.pyi
+│   │   ├── testing.pyx
+│   │   ├── tslib.pyi
+│   │   ├── tslib.pyx
+│   │   ├── tslibs/
+│   │   ├── util.pxd
+│   │   ├── window/
+│   │   ├── writers.pyi
+│   │   └── writers.pyx
+│   ├── _testing/
+│   │   ├── __init__.py
+│   │   ├── _hypothesis.py
+│   │   ├── _io.py
+│   │   ├── _warnings.py
+│   │   ├── asserters.py
+│   │   ├── compat.py
+│   │   └── contexts.py
+│   ├── _typing.py
+│   ├── api/
+│   │   ├── __init__.py
+│   │   ├── executors/
+│   │   ├── extensions/
+│   │   ├── indexers/
+│   │   ├── interchange/
+│   │   ├── internals.py
+│   │   ├── types/
+│   │   └── typing/
+│   ├── arrays/
+│   │   └── __init__.py
+│   ├── compat/
+│   │   ├── __init__.py
+│   │   ├── _constants.py
+│   │   ├── _optional.py
+│   │   ├── numpy/
+│   │   ├── pickle_compat.py
+│   │   └── pyarrow.py
+│   ├── conftest.py
+│   ├── core/
+│   │   ├── __init__.py
+│   │   ├── _numba/
+│   │   ├── accessor.py
+│   │   ├── algorithms.py
+│   │   ├── api.py
+│   │   ├── apply.py
+│   │   ├── array_algos/
+│   │   ├── arraylike.py
+│   │   ├── arrays/
+│   │   ├── base.py
+│   │   ├── col.py
+│   │   ├── common.py
+│   │   ├── computation/
+│   │   ├── config_init.py
+│   │   ├── construction.py
+│   │   ├── dtypes/
+│   │   ├── flags.py
+│   │   ├── frame.py
+│   │   ├── generic.py
+│   │   ├── groupby/
+│   │   ├── indexers/
+│   │   ├── indexes/
+│   │   ├── indexing.py
+│   │   ├── interchange/
+│   │   ├── internals/
+│   │   ├── methods/
+│   │   ├── missing.py
+│   │   ├── nanops.py
+│   │   ├── ops/
+│   │   ├── resample.py
+│   │   ├── reshape/
+│   │   ├── roperator.py
+│   │   ├── sample.py
+│   │   ├── series.py
+│   │   ├── sorting.py
+│   │   ├── sparse/
+│   │   ├── strings/
+│   │   ├── tools/
+│   │   ├── util/
+│   │   └── window/
+│   ├── errors/
+│   │   ├── __init__.py
+│   │   └── cow.py
+│   ├── io/
+│   │   ├── __init__.py
+│   │   ├── _util.py
+│   │   ├── api.py
+│   │   ├── clipboard/
+│   │   ├── clipboards.py
+│   │   ├── common.py
+│   │   ├── excel/
+│   │   ├── feather_format.py
+│   │   ├── formats/
+│   │   ├── html.py
+│   │   ├── iceberg.py
+│   │   ├── json/
+│   │   ├── orc.py
+│   │   ├── parquet.py
+│   │   ├── parsers/
+│   │   ├── pickle.py
+│   │   ├── pytables.py
+│   │   ├── sas/
+│   │   ├── spss.py
+│   │   ├── sql.py
+│   │   ├── stata.py
+│   │   └── xml.py
+│   ├── meson.build
+│   ├── plotting/
+│   │   ├── __init__.py
+│   │   ├── _core.py
+│   │   ├── _matplotlib/
+│   │   └── _misc.py
+│   ├── testing.py
+│   ├── tests/
+│   │   ├── __init__.py
+│   │   ├── api/
+│   │   ├── apply/
+│   │   ├── arithmetic/
+│   │   ├── arrays/
+│   │   ├── base/
+│   │   ├── computation/
+│   │   ├── config/
+│   │   ├── construction/
+│   │   ├── copy_view/
+│   │   ├── dtypes/
+│   │   ├── extension/
+│   │   ├── frame/
+│   │   ├── generic/
+│   │   ├── groupby/
+│   │   ├── indexes/
+│   │   ├── indexing/
+│   │   ├── interchange/
+│   │   ├── internals/
+│   │   ├── io/
+│   │   ├── libs/
+│   │   ├── plotting/
+│   │   ├── reductions/
+│   │   ├── resample/
+│   │   ├── reshape/
+│   │   ├── scalar/
+│   │   ├── series/
+│   │   ├── strings/
+│   │   ├── test_aggregation.py
+│   │   ├── test_algos.py
+│   │   ├── test_col.py
+│   │   ├── test_common.py
+│   │   ├── test_downstream.py
+│   │   ├── test_errors.py
+│   │   ├── test_expressions.py
+│   │   ├── test_flags.py
+│   │   ├── test_multilevel.py
+│   │   ├── test_nanops.py
+│   │   ├── test_optional_dependency.py
+│   │   ├── test_register_accessor.py
+│   │   ├── test_sorting.py
+│   │   ├── test_take.py
+│   │   ├── tools/
+│   │   ├── tseries/
+│   │   ├── tslibs/
+│   │   ├── util/
+│   │   └── window/
+│   ├── tseries/
+│   │   ├── __init__.py
+│   │   ├── api.py
+│   │   ├── frequencies.py
+│   │   ├── holiday.py
+│   │   └── offsets.py
+│   └── util/
+│       ├── __init__.py
+│       ├── _decorators.py
+│       ├── _doctools.py
+│       ├── _exceptions.py
+│       ├── _print_versions.py
+│       ├── _test_decorators.py
+│       ├── _tester.py
+│       ├── _validators.py
+│       └── version/
+├── pyproject.toml
+├── pyright_reportGeneralTypeIssues.json
+├── requirements-dev.txt
+├── scripts/
+│   ├── __init__.py
+│   ├── check_for_inconsistent_pandas_namespace.py
+│   ├── check_test_naming.py
+│   ├── cibw_before_build.sh
+│   ├── generate_pip_deps_from_conda.py
+│   ├── pandas_errors_documented.py
+│   ├── run_stubtest.py
+│   ├── run_vulture.py
+│   ├── sort_whatsnew_note.py
+│   ├── tests/
+│   │   ├── __init__.py
+│   │   ├── conftest.py
+│   │   ├── data/
+│   │   ├── test_check_test_naming.py
+│   │   ├── test_inconsistent_namespace_check.py
+│   │   ├── test_sort_whatsnew_note.py
+│   │   ├── test_validate_docstrings.py
+│   │   ├── test_validate_exception_location.py
+│   │   ├── test_validate_min_versions_in_sync.py
+│   │   └── test_validate_unwanted_patterns.py
+│   ├── validate_docstrings.py
+│   ├── validate_exception_location.py
+│   ├── validate_min_versions_in_sync.py
+│   ├── validate_rst_title_capitalization.py
+│   └── validate_unwanted_patterns.py
+├── tooling/
+│   └── debug/
+│       ├── Dockerfile.pandas-debug
+│       └── README
+├── typings/
+│   └── numba.pyi
+└── web/
+    ├── README.md
+    ├── interactive_terminal/
+    │   ├── README.md
+    │   ├── jupyter-lite.json
+    │   └── jupyter_lite_config.json
+    ├── pandas/
+    │   ├── _templates/
+    │   ├── about/
+    │   ├── community/
+    │   ├── config.yml
+    │   ├── contribute.md
+    │   ├── getting_started.md
+    │   ├── index.html
+    │   ├── pdeps/
+    │   ├── robots.txt
+    │   ├── static/
+    │   ├── try.md
+    │   └── versions.json
+    ├── pandas_web.py
+    └── tests/
+        └── test_pandas_web.py

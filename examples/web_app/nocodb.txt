@@ -1,0 +1,600 @@
+=====================================
+Repository Analysis: nocodb
+Type: Backend / API Service
+=====================================
+
+--- METADATA ---
+Name: nocodb
+Description: 🔥 🔥 🔥 A Free & Self-hostable Airtable Alternative
+Language: TypeScript
+Topics: airtable, airtable-alternative, automatic-api, hacktoberfest, low-code, no-code, no-code-database, no-code-platform, postgresql, rest-api, restful-api, spreadsheet, sqlite, swagger
+Stars: 62349
+License: Other
+
+--- README ---
+<h1 align="center" style="border-bottom: none">
+    <div>
+        <a style="color:#36f" href="https://www.nocodb.com">
+            <img src="/packages/nc-gui/assets/img/brand/nocodb-full.png" height="80" />
+            <br>
+        </a>
+        <br>
+    </div>
+</h1>
+
+<p align="center">
+NocoDB is the fastest and easiest way to build databases online.
+</p>
+
+
+<p align="center">
+    <a href="http://www.nocodb.com"><b>Website</b></a> •
+    <a href="https://discord.gg/c7GEYrvFtT"><b>Discord</b></a> •
+    <a href="https://community.nocodb.com/"><b>Community</b></a> •
+    <a href="https://twitter.com/nocodb"><b>Twitter</b></a> •
+    <a href="https://www.reddit.com/r/NocoDB/"><b>Reddit</b></a> •
+    <a href="https://docs.nocodb.com/"><b>Documentation</b></a>
+</p>
+
+![video avi](https://github.com/nocodb/nocodb/assets/86527202/e2fad786-f211-4dcb-9bd3-aaece83a6783)
+
+<div align="center">
+
+[<img height="38" src="https://user-images.githubusercontent.com/61551451/135263434-75fe793d-42af-49e4-b964-d70920e41655.png">](markdown/readme/languages/chinese.md)
+[<img height="38" src="https://user-images.githubusercontent.com/61551451/135263474-787d71e7-3a87-42a8-92a8-be1d1f55413d.png">](markdown/readme/languages/french.md)
+[<img height="38" src="https://user-images.githubusercontent.com/61551451/135263531-fae58600-6616-4b43-95a0-5891019dd35d.png">](markdown/readme/languages/german.md)
+[<img height="38" src="https://user-images.githubusercontent.com/61551451/135263589-3dbeda9a-0d2e-4bbd-b1fc-691404bb74fb.png">](markdown/readme/languages/spanish.md)
+[<img height="38" src="https://user-images.githubusercontent.com/61551451/135263669-f567196a-d4e8-4143-a80a-93d3be32ba90.png">](markdown/readme/languages/portuguese.md)
+[<img height="38" src="https://user-images.githubusercontent.com/61551451/135263707-ba4e04a4-268a-4626-91b8-048e572fd9f6.png">](markdown/readme/languages/italian.md)
+[<img height="38" src="https://user-images.githubusercontent.com/61551451/135263770-38e3e79d-11d4-472e-ac27-ae0f17cf65c4.png">](markdown/readme/languages/japanese.md)
+[<img height="38" src="https://user-images.githubusercontent.com/61551451/135263822-28fce9de-915a-44dc-962d-7a61d340e91d.png">](markdown/readme/languages/korean.md)
+[<img height="38" src="https://user-images.githubusercontent.com/61551451/135263888-151d4ad1-7084-4943-97c9-56f28cd40b80.png">](markdown/readme/languages/russian.md)
+[<img height="38" alt="Bengali translation" src="">](markdown/readme/languages/bengali.md)
+
+</div>
+
+<p align="center"><a href="markdown/readme/languages/README.md"><b>See other languages »</b></a></p>
+
+<img src="https://static.scarf.sh/a.png?x-pxid=c12a77cc-855e-4602-8a0f-614b2d0da56a" />
+
+# Join Our Community
+
+<a href="https://discord.gg/c7GEYrvFtT" target="_blank">
+<img src="https://discordapp.com/api/guilds/661905455894888490/widget.png?style=banner3" alt="">
+</a>
+
+[![Stargazers repo roster for @nocodb/nocodb](http://reporoster.com/stars/nocodb/nocodb)](https://github.com/nocodb/nocodb/stargazers)
+
+# Installation
+
+## Docker with SQLite
+
+```bash 
+docker run -d \
+  --name noco \
+  -v "$(pwd)"/nocodb:/usr/app/data/ \
+  -p 8080:8080 \
+  nocodb/nocodb:latest
+  ```
+
+## Docker with PG
+```bash
+docker run -d \
+  --name noco \
+  -v "$(pwd)"/nocodb:/usr/app/data/ \
+  -p 8080:8080 \
+  -e NC_DB="pg://host.docker.internal:5432?u=root&p=password&d=d1" \
+  -e NC_AUTH_JWT_SECRET="569a1821-0a93-45e8-87ab-eb857f20a010" \
+  nocodb/nocodb:latest
+```
+
+## Auto-upstall
+Auto-upstall is a single command that sets up NocoDB on a server for production usage.
+Behind the scenes it auto-generates docker-compose for you.
+
+```bash
+bash <(curl -sSL http://install.nocodb.com/noco.sh) <(mktemp)
+```
+
+Auto-upstall does the following: 🕊
+- 🐳 Automatically installs all pre-requisites like docker, docker-compose
+- 🚀 Automatically installs NocoDB with PostgreSQL, Redis, Minio, Traefik gateway using Docker Compose. 🐘 🗄️ 🌐
+- 🔄 Automatically upgrades NocoDB to the latest version when you run the command again.
+- 🔒 Automatically setups SSL and also renews it. Needs a domain or subdomain as input while installation.
+> install.nocodb.com/noco.sh script can be found [here in our github](https://raw.githubusercontent.com/nocodb/nocodb/develop/docker-compose/1_Auto_Upstall/noco.sh)
+
+
+## Other Methods
+
+> Binaries are only for quick testing locally.
+
+| Install Method                | Command to install                                                                                                                                                                                                                                                                                                                                                         |
+|-------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+... [TRUNCATED]
+
+--- PACKAGE MANIFEST(S) ---
+
+[package.json]
+{
+  "name": "nocodb-root",
+  "description": "NocoDB Root",
+  "private": true,
+  "author": {
+    "name": "NocoDB Inc",
+    "url": "https://nocodb.com/"
+  },
+  "homepage": "https://github.com/nocodb/nocodb",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/nocodb/nocodb.git"
+  },
+  "bugs": {
+    "url": "https://github.com/nocodb/nocodb/issues"
+  },
+  "license": "Sustainable Use License",
+  "devDependencies": {
+    "husky": "^8.0.3",
+    "lerna": "^8.2.2",
+    "xlsx": "https://cdn.sheetjs.com/xlsx-0.20.3/xlsx-0.20.3.tgz"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "pnpm dlx lint-staged"
+    }
+  },
+  "lint-staged": {
+    "scripts/playwright/**/*.{ts,tsx,js,json}": [
+      "pnpm run lint:staged:playwright"
+    ]
+  },
+  "scripts": {
+    "bootstrap": "pnpm --filter=nocodb-sdk install && pnpm --filter=nocodb-sdk run build && pnpm --filter=nocodb --filter=nc-mail-templates --filter=nc-gui --filter=playwright install && pnpm run integrations:build && pnpm run registerIntegrations",
+    "integrations:build": "cd ./packages/noco-integrations/ && pnpm i && pnpm run build",
+    "start:frontend": "pnpm --filter=nc-gui run dev",
+    "start:backend": "pnpm --filter=nocodb run start",
+    "lint:staged:playwright": "cd ./tests/playwright; pnpm dlx lint-staged; cd -",
+    "start:mysql": "docker-compose -f ./tests/playwright/scripts/docker-compose-mysql-playwright.yml up -d",
+    "stop:mysql": "docker-compose -f ./tests/playwright/scripts/docker-compose-mysql-playwright.yml down",
+    "start:pg": "docker-compose -f ./tests/playwright/scripts/docker-compose-pg.yml up -d",
+    "stop:pg": "docker-compose -f ./tests/playwright/scripts/docker-compose-pg.yml down",
+    "prepare": "husky install",
+    "preinstall": "npx only-allow pnpm",
+    "registerIntegrations": "pnpm --filter=nocodb run registerIntegrations",
+    "install:local-sdk": "node scripts/installLocalSdk.js"
+  },
+  "pnpm": {
+    "overrides": {
+      "**>ip": "npm:@eggjs/ip@latest",
+      "vue@*": "3.5.14",
+      "@vue/runtime-core@*": "3.5.14",
+      "@vue/runtime-dom@*": "3.5.14",
+      "@azure/msal-node": "^2.16.2",
+      "@babel/traverse@<7.23.2": ">=7.23.2",
+      "ajv@<6.12.3": ">=6.12.3",
+      "axios@>=0.8.1 <0.28.0": ">=0.28.0",
+      "axios@>=1.0.0 <1.13.5": ">=1.13.5",
+      "follow-redirects@<1.15.4": ">=1.15.4",
+      "node.extend@<1.1.7": ">=1.1.7",
+      "tough-cookie": "^5.1.0",
+      "typescript": "5.8.3",
+      "ufo": ">=1.5.4",
+      "whatwg-url": "13.0.0",
+      "ws@<8.17.1": ">=8.17.1",
+      "xml2js@<0.5.0": ">=0.5.0",
+      "**>ent": "npm:ent-replace@latest",
+      "image-size@<1.2.1": ">=1.2.1",
+      "tar-fs@<2.1.2": ">=3.0.7",
+      "highlight.js@<9.18.5": ">=11.11.1",
+      "multer@1.4.4-lts.1": ">=2.0.2",
+      "vue-i18n@<9.14.5": ">=9.14.5",
+      "knex@<3.1.0": ">=3.1.0",
+      "cookie": ">=0.7.2",
+      "@azure/identity@<4.2.1": ">=4.2.1",
+      "cross-spawn@<7.0.5 >=7.0.0": ">=7.0.5",
+      "dset@<3.1.4": ">=3.1.4",
+      "http-proxy-middleware@<2.0.9":
+... [TRUNCATED]
+
+--- BACKEND CONFIG FILES ---
+(No backend config files found)
+
+--- API ROUTE / ENDPOINT DEFINITIONS ---
+
+[packages/nc-gui/assets/img/views/calendar-with-sidebar.png]
+�PNG
+
+   IHDR  @  T   r߃-   	pHYs  �  �&�:4   sRGB ���   gAMA  ���a |�IDATx�����>���W�C���AA�bP0V�E�Įh�-�1`�&Q��$�(�(hbl�� Ƃ��C�HGA�*����w��}wvf����=��ٽ�m��y�������/aǎihh���]��������Y�z�޽��H��@Q�� 4�@Q�� 4�@Q�� 4�@Q�� 4�@Q�� 4�BDDDDDDDDDDD�a���R__/;e��Fijj"J����/;v������/DDDDDDDDm�DDDDDDDDDDD�1>��֩^Q�466�G}���˓��"��k"""""j_p�qCC���~���_��-/ϧ.�-,,�l���\+�a���o�r@Y�H�>"����I[ ��؀L<Z
+N�t�P�+ډ����������Z���}��՞�Z .8������z��؅mgDDDDD퀾�R}}�
+?e2�;JiiI�{~P)��#�ً�4���$r�I"=�HF��)������e��ZY�~�Too�#k���HYyq��N��%wE���?�
+QK���Sݻw"""""""����[�g�g���\h�Be."""""j��u۶�J��P��S�B���
+C�����رC=Piw!B:�����f�<��P+r��"��ء�LH) ���em��Z�r�K����tK;���W�,��tM:� 4����������5Bؖ-�1�L�C��ҥ��������� �����<�ܹ\���	�jjꤶ�V��L睈�o�t��L��@?t}f�A�������k6�g�-��}+��g��d��d�]��U�b ���r�DDDDDDD�}����ED��wۭB���������碢NRVV�j�Ԣ�����������f��m�T:��\��%*7�得r.�X���I&��L���������������(�p1w<�g};ގ;�F16�fNcc��%muu��oX��=ñ�j\����,e¦:����D-�{|޺�{ٶm{�h���m�!����KZ%}6'ʪ��ʋϿ+�
+˶�ZF,+e^����FY4�!��&?g���1|��wS��D���$&""""��a۶*����r�C���HC�Nun�f/��R����|�MI���p���矯�\�����[���e*OE���F�.]*T�Z�=�/1�~�=��*�n�Leee���rNqq�v�y�|4�^jc�͖�j�|A3 MDDDDDDDDDD�y�������m�P��>��`y���Ȼ��v55���n�N�(�
+ts�?��p|,�~�PSU�ު�<��JT��Ɇ���������������rM�Peqq1��9�՘�}ڹ�h""""��������wX��UXX�.�F��D���P5�]I����T��o���>i���7�a}8���6K�6Q.@U7��y�����kk��ƶ������������5۹�I=#`J��
+;D�c��/��Q� �� ��Z'>}~	�_lu��|�,~s8��x
+�n'��Ϧ��|���"t�C���f)�h?ۈ����������Z6�榼<�t��Ijkk�������Z��F;P��D�,//_��IT�Z�6��N�&+h���$ϷS~~��w��v���ߎ�F��}��]�N6n���_��￫�<�5^�5P��� ;��^�o��'ۖy�����O�+~�,=�a�����������rй�C�,��������b �r.���c�OUi�?kg��}͒g=N9�H����+<�՞�|>iln���fy{�'2k���+�i*�fIc�;!����|������S�w��{󃃈����>+�>��T��H2JKJ�c��+/=W�(�M��ȴ����˩cF	�O��l��U�7DDDDDD�_�����ϞRVZ"Dm�I���	�r�	@���.��(y�<�I�P?����NR^�O9D�?�����_�A������K[�Jϛ�N=�줃�@w�a�zdۻ�.�W^yM�o�&_�F�أ�6L�&}��j]�M{D�mۮ^�y��V�qL.[�L�>��e��Q��:cݵΝ�e���%�<3K֬Y���K.���r��w�COʳ/̕T 8�i���������O�W��%K����h""""""J�����%�y��յ��:�K��R����c�vK�v>� ٭b��ODDDDDD����U2aҝ�a�f�7���N#�;N�ښ�'Y�1����L{Y��J �f��*Ъ⳯I��z�J��6�n>��Y��W��s��b�-���拝�n�����'O�73��n��W���Vzٲ�2q�* m�����_$&\�aP,���v�aXT�M��X0�;|��8 ��̜i�X�Xh�����ng�9.�q�mu���:���+G���[�y֓�K�n���8����ՙ1��q�72��+��^a �(�O��P�C�""""""�D�1}�,Y^u����~{'4,��]S��+VGti��p���o��)ODDDDDD��г?#����~�L}r����UF7R��
+3����f���Nh�%O�}>�[��w�NMe����1�]9��,�Vt���YN?u�lڰ#0\���t�Vɚl��u���`���#�<*�-������wa0����,f@�bz��G�W��>�0����#��P���s�����K[Ve��·�ȆM�U����S<������48��d���ղ��e������J�߯���/�{u�tX��C�\^^���+��k׭W�����BD
+... [TRUNCATED]
+
+[packages/nc-gui/assets/img/views/calendar.png]
+�PNG
+
+   IHDR  
+   �   ���   	pHYs  �  �&�:4   sRGB ���   gAMA  ���a �IDATx���u����]z�PR()�B ��Ф���(  ���`T@%(�!R$`(EH!zI TR �4J ��n����~�f�f���������cٻ����ݾ��H              �*              ��              �z#�              � "              �7�              ��              �z#�              � "              �7�              ��              �z#�              � "              ���            ��u����ի-�JYuuʀRԲeKkժ��h��Jż�ͦ�4[�"��Щ�Y�m���FC             ��������څ�r� b���]���4���3o�M�i@�Q��fge�s3kP)E�           �:(p�x�RW��u��ֶmkw_YY�n@�Q`V7��+VT�ڵk]%�.]:�s��(p�������t�f#���Ć@             uZ�l���hQi]�tn��P,�ܹt�[���:v��nm���m�MFUo��a�!@           @^>|�ֵ�:u��!�Zuuʖ.]j+WV5x��!JEC���             9�u���!�C����
+w.�ֹ�s�!��2�C�
+��V�b�_            �x�R�vY���S�N���9^]]m��a/`C(;�)+*�            H���֭sA-*���u�WUUY1�)�8��bW��_            $Z�|��l��ڶmc@sԺu���ʪ�VY1���%i銰b���"y�%�[��ֽ[��|��e�lYv�#�l��`�w�z�jk;/_�lyu0�j�=;���ܾ�K{+��t�X��u��E�������"����kLݼ�+mۛo��9~�4�Yg�ڮ��           ��­]��:w��2�7l�,Y���-Z؆R�ÙP�ƿh6��E��`��~��������z��������Z����
+	 ���
+{�e����mi:�XQQ�p�O����c7��vioݻ����u�y��6k�*[�l]fzEz;��wq��!aD�/�=�؅���]���#���U�e���o~� 
+L���r<&<V���)�������w*XG�x�{�פ��O�sd}��R������C�X��           ��5k�*�͙?�W�^c��mx q�G������J�s���n�-X��N?u��[�r��0�VQ����������Z�����6k�
+���VX�n�����,Xc���|�����uE�v��&}ܾt��3N٢^�:��o�c�*��1����{����v�ς}�,ؗM����J�j�+��	�X�68Vw������00L�s��x�"�&�˴7�ى�̱���G���R��U��}��a]�          (k׆�++�ׁқ���0i�9�`��}K�Ree:L��� ��-]iES� buM �1�����mQ��p�� �?���?D��J{zx�qٕ�,Xe�5�f�^i?8���ev��O�!f�H�+]e���p8��ǿp!����u�^w�_��Y���j������"����-�?��e^�/U��Ey����ve�f�����~��u�������S��?�T&���cR��������ѽ[+W�ԭ	^qO|��GͼmR�����:��n�v��=�           �!�
+�v�}���6̀�TYf_��Sl����)b���7v�]m����K����*M�J���)|���޷�>���7���Ǫ	"�����̖.[k?�dk�<�����ڛ��Je��o�֧�������B���f�SYۜ�%�5����ڗ���\��/��#z�R5G�"Y�����.tA�3NK�+�|Y|�#�;@��L��+pG��o��JْYs���n�>�B���}n:�:��ʊ��?��!����nk�￯�ر���!C�a]��N�J��l��6�
+]��ŋ�ے̲zn�X}����            ��-��ZMXN�S���f�^n��W�0��������L�S����X��m�z�-XcoN_�*���O|l��ޡ����9סp`���ѻW;�g�|�l�:����`g
+"�ư��~=�c��ס�F����uо��K��n����̜���z{|�[��ؾt�Xig�ZX�I��F0~V2}�_�q�գ{��Ǐ��I�2�k�io,u�Q����T�yս.|�vʾ���������_1�}<�5{��>7�����o��~vEV���ҥ��{��v�?�5r�����O-� b������S%���c�c����>�
+l��g�[�~;۔)O��g���k'�|D          @�L{s��_�������]څ����nm��6f�>7��yxש}�������6*���}��v᱙:��D�@T����\�`S�m��Uv�g۟��;w��:SQ/W�`���bS+�omng|���=��b�������ccͷ��\k{���۲ۮ��?��zĖ׺���e�۬Y+��}ڴ%.�8�������O�s�	[�ܗ��/
+�/Z�=ؗ�Gn�UeR_���nV���S��s�q#IDM��G��q���ҩC���'#X��[)���ɮ����V� �(����9��&Lx�F��~�Ҟ�n�����o�c~��]s���r�>�PI����G� �/��w�q����
+��|د�N          h�|b�?'q��{}{m�Z@�辥����M���D���M�B+��8�P�CÀ]�v��kv��f�������~�W�h(ty��5�H����Ai}
+<沱=Q�V$
+��v�j��Z W����W٩g��U�K����c2��P��	�}�=_큿������{��}7���u��2�j[�t����Oj-?��km�7��ԅ'{�Oj�_o��UF����*� ��
+... [TRUNCATED]
+
+[packages/nc-gui/assets/img/views/form.png]
+�PNG
+
+   IHDR  
+   �   ���   	pHYs  �  �&�:4   sRGB ���   gAMA  ���a l�IDATx��{�\�}���ήV�{msybYJ��\��$x��1���?۽ �\��K� �T�,�VR�P��6ؘ���R�)�V�d7&E���AaGw�J;�9G�eY��λ׹|>z�Ϝa��������~oǁ�}�          HP
+         �DD          �          H&@         �	        �dD          �          H&@         �	        �dD          �          H&@         �	        �dD          �          H&@         �	        �dD          �          H&@         �	        �dD          �          H&@         �	        �dD          �          H&@         �	        �dD          �          H&@         �	        �dD          �          H�   ��R�D����Wo���}��z?   0qJ��Ru��խ�1#�  `� �	�Ņ��G��r<�2��=Ͽ;�۝�>p�p    g��b����~^u��b���L1"  0)�  ��)��c�����m;�kO<���   �K�XK�Y]rV�]�g�J��]�%D  &Lǁ�}�=  ƭ��H��w(޴56o�F�  ��{�����w/???�.�Dw�   /"  0.�J9�������'�����P<�go    �ep��MA��g"  0.D  `̎����|8���˱����  �Ɩ�Y��p��1�sv�43  �X �1�+͗]������G�4�   �H6�sw}$N?}�%� �1   Ɋ���/o�����8��p    �g�m��E�  �Xt  @�l��">\s�}   4�57����"�RG�� �$�   �S�R����|�e�!   �����رcw��ί�  �%@  �v��@�����c�3   ��p`�����;cϞ����  �^D  �.}����wl����   �ud��kn��z��}�G  �D  `TYx�}����   ����vƓO<�ʽQ��  �   U_���l�!   к>s�C�o��8�4   F#@  F�M?<^��'Zz   Z[v�����)�  @=�  ��ʕc���C   ho�F��  �F�  ����۷�4�   ����vǷ���W�  �H�  @M����J|�g   hOV?�D�0  #   5�/g  ���W?�/�  @-D  ���J�8_z	   h;���~&�}6   P�   �)[~y��!   ���%*�r   �"@  j�D9��   ��l
+b9L@  j   5�+��i"   ���%V*�   �E�      ��G%�  @mD          �          H&@         �	        �dD          �          H&@         �	        �dD          �          H&@         �	        �dD          �          H&@         �	        �dD          �          H&@         �	        �dD    `X�n�:�     ��     C��፯Ňn}0     3    x���av�$D    `("    0`h|8p�    B�    �jŇ�]�    "@    F�'B    ^%@   �6Wo|8�x"    D    hk��a�~�    ���    Ц�>�ȶXq݆     ڛ     ��x��#�{    hoD    h3�C    `"   ���   ��"@   �6!>    &�     ��TƇo^xR     �O�    -n*�ßY�$�����	    �6"    ������Кx���)B   ��&@   �5]����   ��	   �Mw|8�s�   �e	   ��4J|8��   �%	   ��4Z|8�s�   ��   �E4j|8��U�_��{    hD    h�f������    ��    ��%>��u�_}��     Z�     ���    �.D    hR�C    `:	   �	�   ��&@   �&#>    �     �H+Ǉ�<�     ��     �D+Ǉ��%�����#    ��    �Z=>��1cFW�;�   �9   ���K|X!   @s    @k��� B   ��'@   �ծ�aA�    �M�    ���Â    �     ̊����{    4"    4�G�|3v�z)�V�3�{�薴�    &�     ��]/��e��[=>\����{�b     �E�    ��Q|    L"    4��"D�!    0��    ��jE��C    `�	   ���Ň    @#    �4���+c��S�~|!����*>d��SbE��    ��     �ت���u��Jlڲ>9B\���ć����M[n�OW���=    ��     �Pʭ��D,�(��"��f�a&{OE�    0��    0EǇ�Ɋ�)>,�   `j	   `
+&:Bl��� B   ��#@   �I6R|X�����Â    ��     &Q=�aa����5"D    �|D    �$�<�m��__�9�o
+... [TRUNCATED]
+
+[packages/nc-gui/assets/img/views/gallery-with-sidebar.png]
+�PNG
+
+   IHDR  @  T   r߃-   	pHYs  �  �&�:4   sRGB ���   gAMA  ���a ��IDATx��	`e����&鑤��Z�jAZQ.�"�\���rT��*����(�W�"�B-����D��P@
+�����d��y6�fv2��&�d��_:�f�g������|�;���ꤡ���khh�#64  zKmmm0�٘1�             `Vb                �G�               �g�               �g�               �g�               �g�               �g�               �g�               �g�               �g�               �g�               �g�        @jhh���zw�L&���� t^YY�Pf����   �����	%%%�xt����x����z���[6��b��+�>Xa(C+�&�3��Nf{�&#��%�����6�����  ����6�l̘Q     �����XUU'^�n��C�TZy�`   �~	w��$l����m��ZSS��[����:��hw�t��R�g�C�0;���B, ���<��/F4���@�p�ꋈ 4 ��     ���!�^��}��g8���c�    ���q�B�C�T�[�'��W]]kuuu�_I�����BR��k�MUFߡ��31��~�-ʬ��k���z�$^�����`�U��g�6ێ���*\��b�%%        z���\����9��koĈA   ��?�N&�mذ!��1��{���z�[��ʚ�SA�B��T�}���I��<�
+�Kh��U�r��*�W����)��m_>���?����?�4        �D�?��!F���   п��n��G����ʺ\�4��<T���:8Mt9��+?�o�c�jЅ�ݥo:~^��r��a�o|�(�Ϣ ��G��V��
+�Xo        ��UU�~z�^�:�   �����l0��3�����l���X�+�}���s��R�i!u�_==1����ۿ��l�F}�ݕ��~8���K{       �s��|MMǅS|5 ���Z�����466Z]]�����M�a�RSSk�
+^g   @����S��|�GqQzŊ��jЪ
+���c��8j� �X��f�?�
+���"�[��*>��r�R��}T_       @�ɥ�N�n��H2�ҝ�%��=�_��bo����X�(    ���q�~T\YYn@�Q�ڊ�rkhX�~��/U
+��iC?�Ņ�w��D=)_{�=+f
+h/^	�d�        @ϩ�o?l�J@
+�z�y
+@>԰~�����Ig    �I�݃rAS�������-[���o�&        @�ihhh7h��sy�`C�)//B����56r�T   �?���
+@�J������5_���T�P�}B�[	[2t��يP7       �8��T��W B�ҥh�����h�~hj�4   ���������9ڙ�/1�SKWX��/`k�M��'Jl���5�%����l��I����_T       ��*�fSYI���Ri+W�2����   @�珻KKK(fz�65�Y������^ ڇw�xIK�'����F[2<���l�i����|k�o��3�Ԗ>Xb#wI��O7��T�  (���ĆT�ۨQ#    �5��%�ҧ(l9I0      }G�|˨�sis��$��7���6�r\*������V���%�o.����|�V���J��嚃��a�5'���ꭄ}�\��^�=�� ��.=�3Ͷ�	B  �K�,�sϿ�v�uG;���    �k�4oq8p����   ������O.��Uն�l����1��o6i��3R��{ia�����7�͉f+	�/�������WxN�T{.I$����j���G_�9���{άi�5[��g
+>�Rw�+�+q���Ð�B@��x��v�}VU]m�1���������c ���-v��     躲��w=��~x�;����7����׼H��%������{����ڴ��v��ڌ#���    ��u�U�lvp��=��"�����F���ϛ�|%�������	@'�,U���J%����.��tw��m�Ф��Oہ�~�����������xm0��_�+Uz^�D׃�Q>� ���4���=���v�}ؚ5���w߳�6o{챇���6~�xC�r�5����k��3����P��E���t�M�<������vo��a6s�	��[o�c��^���|�6l�����w7�mwͳ�PpZmRa���Wm}���l��fC�O���l@���+� ���d    ���������g^t�3Ͻ`��4��x��r��ɉ6y����    нvV�y�J;���6a����o��o���N?�XC�z#���?��*�?����z$ �|s�J]hW�9�/��&�J�
+�6�q�d���w���v��_�7���^xAA�RK%��~e�ϕ�fwo�[�ꪷR����E��y��������r�	��Yg�QaP�w͚T�WaX����t�w�=?ۇ����٩硶�� ����կ3�͘1����թ��Ynϯ"q��w�sn��ƌ�8=~ʁ�����gw�Ƈ�>�iǜl��u�z�^Zgv��y�B���1���G�����:���i:X���� �7�@��`Q�����c�յ��+o��;L�`�����!ΰ�Cl���ؑ�l����̖��4��P�淿��d���m��s����Lmð��ݶ[��Z�vƷNv��m3��?�T   о������o�1���Us�vi^t���Y�nU�������_��s�#��_�3��Ο��W�j3n��Xo{������ڧv��U����:���+��   X�)h+�3ݦ�\���g�lG�<��=�h��O���9ͧj����O��
+... [TRUNCATED]
+
+[packages/nc-gui/assets/img/views/gallery.png]
+�PNG
+
+   IHDR  
+   �   ���   	pHYs  �  �&�:4   sRGB ���   gAMA  ���a /0IDATx��	�$e}��_������r��� (� �I<8�GDM�A��(�x�h0M���#�I4��+r�����.�,�;{���Ww���T=�O�T�1S=�3�y�j���������[�'��              �Y              �D              P3�              �f             @�              ��@              5#�              jF               Ԍ "              �D              P3�              �f             @͚            ��\.'����y��� ����YZZ����IŶ'E�Y/20<�4�t��;T��u2k            �j�|^FGG�Ǹ	���:���]��������ܽ^��� �Y'���<�5H]e<��            h�p��S����U��[�s6�5��h`V�����䤩��dI�Ywg�?����!0�^�"��� "            *2����,Y�;��- -Z�s`�_r��tww�G�]q���N�9�U/O}�!@           @Y6|�M���tS��Z>���������=�H���^!D�             �6]kÇZ���!�l6c�e]�u��u���eh���6�6�"             �����e�|,$===f��u<��K���fBC�W�LRE             ����\.g�ZT>�Bc+!�:>::*i��A�9�Ѥ]���            �544,������&�B����?ZdttL�t��	А��J�ii����'���:e�A���ep����K^�+�ؾc�<�c�n����Cy��qc��{F̼���NI�;/��Y<�5͋.��~9(�9����a�êuY�������t��8�9�}Z�           �}ZnrrRz{iz�l���:���$3���o�a]w����$�����3�M��o߳J^Zcx�?��W�8̫e����&�x�o�����t���L&c�p:��G��+_�T���NY��E�C���o=)���\�{&�N��-1�<�0����d�	;�t\'��!/��^3�J�r�����p/�3��ZV�w��O�S_0\y{�8��!�;���T��#��>           �옘rZ!X��:>>>!3 �B��֐=/g�m�����}����u+��l�3�� ���ؿV���/��dߔO�m�l�8,���aY}P���j�{�������`������|?��^��τ&��+k
+��|�_fZ�4&X|��{�2��_�۟��yYZ~�^�$m�M)Wh��e�)Y}��]���3C/����9����{��W��#��������S���ݰK��I��LO�d�X.��r�          ��cr2h�1�M�J�o�N���7�9/~��^u� s)�B����4@D��Ԥ@�h_�r�	����+��p��*5����<��!*��ǣ�˔V�۾}L>y�VٰqD�y�*�d����?�ńKd�q�U���~���&$����U�*��u<��ӧ�-��Zf��	�n�����t^���2�</�����U�FXx��2�v�}��>����_���2�
+Gg�K�I�t���4P��Ǫ�ZLEĆ�qXro���M/|��lu�d�p�d�6��          Q� �����ט�����K�l�}��=��aIM���?���!�7���]r�twW*Mꅁ�hm�R>|ǻ�>,i��+���*��?�k�N�߽��2�x����S'3�界�N��O�:����#ˆ����+��-���|}W�e���K���}���+.����vw���o�0A�7�>�.�}It���-@���"����?���Hid��h��WN��������<&�/'iټ�	���_�}�a���?OҰy�fط�ׯ}���u|:��;��i�h����?�eɒ^�Q�¦·�~�����<��             YjDS�P�a9}���}�a�|�G�㙐Z��r��׏���{p|�iKd�1�f�۶O�}����ao��~�G�9�]���qh80Z�Q�q��r������=���Pюc[ߘ�å[��=*v�Yw<�s:�.����y9��t��e���)������^����u�U������$>���ᷙ�q�^�R�������{
+����s�����!k��y���129 ��/i�p���UI���`��.��2�7o���N���]u�5r��ߑ׼��@��N��7mڐ؟.�Nx�y}���c�[��          �h��A�۾K�s��=��?a��"r�"۞�{2x�����jv�Ȣ��~�:��#X6w�̑��Z)�_�^`�D[߶1y�_m�/��1�!�|�PQ/)��5�}�F#]3�\!oz�*
+���m��_��U���#��3O�2=�q�iy���w�?LVG��qkp��|L6l)��{��7aǳ_�|�t}�?wŎ�O�te�y��V3����?/g�dYI�I}��7$����2�7�u���M���.�Z��z�2r�?�<��:���[����Y�%�3��lz����^f����?�x��j~<�y���'���/��,6��R����J�Z�1�"���h�F��j�@%          `f�������4����#LЫW(�6_��� j3���i�)�t��D.87ع4`��o��:A�#o��"��,���{��H��[/����i�1�b�\YI������j�	�|�oT^��ߙ�wq<�>S��C+^��ݥ�k��o8P������V���玑U5;������\�;�����2/}�2�\�������cMeD;|�YFi�P�Gǣˮ��K��cp`2v^j��W��o|�X����ߛ
+... [TRUNCATED]
+
+[packages/nc-gui/assets/img/views/grid-with-sidebar.png]
+�PNG
+
+   IHDR  @  T   r߃-   	pHYs  �  �&�:4   sRGB ���   gAMA  ���a IDATx���u����K��H���$T�	��$@Z�D���#�ࡩ�_ZP!�Є ��H	-�	$��Z.w�����~{�s�{�w{w{��K�ݛ�������g�SR]]�0��fM�544ذa�  =���.x�ۨQ#             `Vj                �K�               �k�               �k�               �k�               �k�               �k�               �k�               �k�               �k�               �k�               �k�        @7jhh���5�9�HXss����r�ׯ�`0    �6���JKK��������hYY�u�յf�<d��fK��}��PW�Mk�����c�[�+���I�X����0l�� @O����6j�     ��jkk�����@�	�A����b�   X����KKK����s�{ZSS��]����:��hW�t����g�Cv3;ᐮB, ���|��#z�]U�+�;�%"  (�    @_�s+W�v��������C�t[.    ='|ܭ��A��������Y}}}�W�+++��T�����՟�{�*�;��u�r�$]-R_��}�W���>\nիz�S��V�l�J���h%%�        z���X�{�}ֺ�ްa��   �0ܝH4ې!�
+<ڣcN}���*l��U�jU�57'�Ѕp�]��3z�/��|�q�\��
+?�*��O���]���O�tO��a_����Wl���       �!:�@��9>1|���x   ���w+�<l��V^��z�@�)�ϡB���5�qhI����3z7���]�JН��C����/��z�����"�,
+b{�����A�        �~�յ�����N<   �{�q�z�%���1t��߿�;���B.'�ܗ��{ZH��郩+H����a~����W�����t�Vn�       @��o��N�ՀtbL'k�R[x:����h���fM}��4�-��u6p���{��    ���;yL;>��B�˗��U�VU莸�.���Q�����4��+����vm����j��Jm[�Qm        �'���:I���mР*w���s��z��2d�m��n}cݣ <   ��C�ݺ����b������а�]��/U
+��IC��w��D}(_{�}+f
+h/	�	�D�        @�Y�&{�R���%����:t�a�R__ס��    �������@1҅����}�-Y���_�&        @�ihh��T�b���TTT�!�uIss��k*   ���n��b�
+������G@�Y�](�^���[<d��	�9�n       @q��T��W B�ҭh�����h�nhj�4   ����~������3ڑ�.6�QK�[��,bMu%��R[6�Ě�KRݗ�Ӭ��	�_��<?T       ��*�fRUE���Te+V|jX7455   ���w���P��mj��|��5�Q�� ��ޒ���{�%%�l��p�u����:"S�9��%��2[�@��)a�?�l��Q  ���^l��*lĈ�    X�����[��x��߿�d$�X      ���+��eͥVZ�־u����fc����k�m�u���죥����ۧ����D�`��`����ϚK�~�������R[� s�9JA�%�� ���7ۘ}	B �������.�]w���=�    X�qk��Կ?��#     �9�?l��VW�؎�M�)��e�G�0��3��g$_���V#F��_�K��4x|��=m�/no��s���siI�567Zmu�=���6{�}���Ϛ5�f���L���Y�;cų�� ��c��� ���n��^�����TUe}�G��^Z��=�4     ����#�|x����w��S6�C��װH��-��o���׻����޴UU�v�{������    ��uٕ3mVp��=�������	A�O���1-?	�5!�ޭ{�%M�,��h�%�Vb�8]�9�^���!�v�W?g�y�Ͽ߶S��W����A����V�T�y�c�>G� ���?����'��{��V�Zi���m��8�m��l��w�q��z�k���V�\�^O�>�׾��L.X���>��lҤ�Y��2kٽ�C�،'X.n�u�������O<�2d�����7�mw�c��ദ1hP������^z9��u���/Y���n��V�����]w�1xe��|,��o�ɶ�V�    �����<L>âs�z�y����m�+ܬ���N�I[O���    ������σU��GM��[lb�_u�-|�mw�v����ע`�?���T�.�h�9܍t��-h�V�@���%�6j%A_	Z!�&׭$Qf�A��?���1�R��ԟ���+HXf��t�l���R{wV׆���~39��
+A/X�{��\ :L+*'�p��y�EU{W�J{�%��k�O�yw���8 }�͚��j�@+��ŗ�u�>}Z��������xS�|�{���{�}�6j䆩�����7��i|��c�z�)v۝��� �nk��]չ�e���-6u��Q%v�����:{��E�����&$���.j2x��q�AVH<4�~��_�N�Nu����� ���$�s����'.|��_y���?��i'k��c�a���o�ג��yg�j[o5�f�z�����`:3������2    �'Om'O����Yڕ��tjXt���.vϪ�|�QSSݯ�y��u�\[;�����O�ڦ��׳����{�/����UV�ںz���/��   X�)h+�=ͦ�ܕ�g�bG�8����.@���r
+... [TRUNCATED]
+
+[packages/nc-gui/assets/img/views/grid.png]
+�PNG
+
+   IHDR  
+   �   ���   	pHYs  �  �&�:4   sRGB ���   gAMA  ���a 	jIDATx���$u���gf�v���.
+"Q<��p'
+�*و�	TT=E=T��$��DY$,"*�����,qwf������U�����:�tO��y5��]]�+׷�_.1              �4              @�              ��@              5#�              jF               Ԍ "              �D              P3�              �f             @�              ��@              5#�              j�b            � ���XWW���y���0���ؤI-���l�Œ��_hֱ*y ��6�l�Vf{̳aC             U����5k�D��8|�
+"Θ1ݦM�j#AA�k�2�e��}h���샇�m��5T.�:            P��˗wĕ'O�lS�N������0�(0����U��Xwww\	q����ew�(p�ŋ�ʇ�p:�-f���� "            *��\?���l�����P/���ѱ�zzz��uF�h�^=�5`Ĩ
+Ⅷ6�"D            ���C5]���J�C�i��y���ի�4<�H��E�B��            P�����*>�X�Ԕ��e-�Z���7��]&|��B���zc�            ���/]V�C`<ikk��m-㽽�Vo�{C�P����"�           �Lj����'jQ��WB�2�f���k�J*��M��r�g            @��+WYKK�M�:ŀ�h����c��Y�����0*u�J*!�K����]a��2�fͬ��w��i���˘����K�]?ܜ��Z���+;W�F��G-����xZw}�t��pZZ[���L�iZ4/︫�,�����~��j�W�Y]���^��a�y��A-           `��*\ww���M/c|S�vŊ�x�onn��R�ÅO0j]{���.���7�Ɓ�O�:��1<��_�d<���W�Y>��� ₿�����i7�n�u��\.©s��j�������6k�$�'��-zl�uv�_��S|���4%���r�o��aǐ���.��]/V%�+{��/-��~$�%>�̫���@<���I����������!)���h��           �ǺuINB��̗�u6m����2`T����8��կ?cK�v�1�ۤ������Z`�U�^����g��߾<������]eg}�͞99�j�{n��u��o���H���+�En��K���84y�{7�)\�i9;�g��?&��o��X�2~����i�8����8��/m�P�Ї�м�j4�~r�s������|!g��#�6{Z�_�i�|�c��Oή��)�-5[�������<��n          ����������k_�̮���6���d�gmf�HjjJB��|��D�v��n�@������eq@혣6����
+��@T��ç�3�u%������r�+�-]���>�[��j��I�`�F�}��O�!�~r�a�,�5;��vÍ/�!�����fͪ���p>�]�-{]�A��QظEﷷkZ�DӲ���(���[�b5��s�݇߮yu�xڏy_���y�/���7Oz�3���>f͜WD���G�n<TXK�           �� *|x�%W����Q�0�����Kooހ��c��M+ ��؏.y�>��>{���Z�4i��K��O��}�	k�``�f~��2uI����z����[Gg�}��-����g>��f��|��p|\4<5��s��!�p8}��7΅������u���#��ӳ���}��(�77r�`8�z��]�l4<���_��e���� ]�g>5]�G�8�[��X��m�v��w[��˗G�^_���G�I�qǝ��O���z�l�}���p�eW����8��{���'��Q8o5�=�P�xxX�            k�@��Z_XNϷ��-zt�}�[ۗ��!����9�c����)��ƽ׷�s���]�t�-x�3�xX��|�/ڜWL��ۤ�0L�b�0�l?���g=k�����c�/XM��bADƒ����s������a��p�s�M�>Ѵl?5~��0-�0�n|1�iimm�c�W]�I����������]�4���x|B�gM����pn�͋ſ���舿��s��h��m�V*TXK�����h�������?� ;��O��[om�r��.��#��@��-[o��h�o(���Q�P�U��;�h'�p�}��_*��u��w�y����F����^           �q���Z���lޜmmQ�	�����[�-y�����9�mzҝ��-|�&M���iɼ�o�a��-��Jy?���~6%�ڗ��S>�}��sJ�{{��J���}ɚԫ9{�a�رGϊC�i�ܾ߱��g���+կv�o���Oz>.���j����6;ս���ާ?��-Z��߸���8�xЁ��~�\�p��M�O���������6�WeR�>��V���~.��� ���4�a�5�j�����ٕ�p���h��� �h��}
+����}����#l�T��Ç���ɸ`=Í�u��WơB�OVy��q��_~E� ����?�wt�ʇ;３          Ʈ�����w�����{��6nz���l�P��zh�G:��f��иДv}���Nv!�xq� ����}�h�k�2���6a(t��S������YCix
+<�2Ѿ�P�Չ�sz�9^5�7ܛ</i_c�;��qŻ,y�-~��ـ*^w����W��Gof9e�����r���5�f�l	>�k��ʟ/���7�0`<<`�8<9�DxR�_|�qeD�V��4�zz8�w�����E�Ύ��i��;��.���:#}o��t�G��u7�`�0g����-�K�j�`�
+... [TRUNCATED]
+
+[packages/nc-gui/assets/img/views/kanban-with-sidebar.png]
+�PNG
+
+   IHDR  @  T   r߃-   	pHYs  �  �&�:4   sRGB ���   gAMA  ���a �'IDATx��	`u����&鑤�Ћ�\-(�K�(WAA�-� rUD�P�G��G.�r��
+B�!g��� � ��B+ms7������6���d7�M6����n����lgg��I���&466YSS���� �W��냮�ƍc              �2               �~� 4               �~� 4               �~� 4               �~� 4               �~� 4               �~� 4               �~� 4               �~� 4               �~� 4               �~� 4               �~��         zQSS���7��d2i�����***lР
+2d�:�    ��8�Fo(++s�C�v�����Vי���?�-Yn��rC	^e6y���3�3�&���K���&466���Q�  }���>�lܸ1     �����YMM^�"��aê��r�   X��ϻ��6x����=
+����֬Yc����o���|�XAh��T������N8��A��[ZZ�����bD]_ѯ
+�����@ Jh     0��ʕ���� z����l���V�   @�	�w+�<lX�{z�����zkhh�J�tUU��*>_}O��3�U��u���XQTX��"�n'^����{�լ껽l�-7��#�\��j�%e        ����X�{�{��ָ�ިQ��   0ޝL�ڈ�
+<��sN�{�Օ�r�*[���Z[SA�B���T�����I=�:�
+�Gh��U�r��5��.���u��]��}���ط��E���B�        �]G ���=z]W<   ���ϻ~5j]���q=T����~�tMMmp��q �W~F���Pՠ]	�G�t(����e��Cγ���`I��EA�c���}�qM��F        ������3���ԅg    �?�^g����Q2F�a�r�=�^��償��zM����i��/H��o�b�����鷗�����L�Vn�       @��w�uu]N�ՀtaLk�R[x�����lM����6���K]]�:$x�6    �?�N�S�Y�E!�����A�*tw\s���Ҩɋ�k��ߙ]u�L��E\���U|V��R���
+ڨ�       �ޓK�Y]�]o��6lX��XK��8�]�}G�f믿���X�(    `��y�~T\]]i@�Q�ڪ�JkjZ�~��/U
+��I� �υ��w��D픯����2���d2i        ��46v�T% r	=�>�G�nX�44�w�3   �Ҥ��!C���)P���w�]�����ꖇ�`���
+A�       ��455u�T�r���TVV�!�IkkҚ��k*   0��n��R�
+�n�ף�,U�.�
+C�P�f�V��,i�6#�       (M��,|��зt+چ�w;Z�ZZ�    ��{� �(m�G����ņj�r+�,a-�	[�x�-�����D�����^7i��m�џ�*       @iQ��l��	?��aêmŊ�k���   �������rJ��і����:� �~�@��n�o"i��W2�PoK��sϓmm��ق�aM�M�f�ے�l�NI�c�EUh  Pz���bV]icƌ6    �ڭ������c���m#	�     ���op.o-������{�ƛNL���564�ʏ�m���Kk��7޵��[ke���t��H�A7�Z?�[�f�>�G��\�=�� ��.=�ӭ6�� @�x镅v���خ;ok��M    �ݸ5oi<x����   �������O<c�kjm�m��i��e�Ǎ1`��0�췧����V#F��o[�Vt_:lO���ۙ��l��\�HXsk��մ�㏼dsf�g������j�6�)���_��cO��G���^/�mF ����?ٟ��jjk�;�UW�_�Ӿ�ͣ@�^^��=�4     ��;�|d����;��'ol��5:�q�ғ[&�}��v���Xmm��i�������������    �u�����<�{�.}����ƀ���ھ�sB��[��-�*��le�2KX�N�N�'��6bx��Ҏ������������Wû��[�R�祏�<���
+@��t��z������{���j�J{�wm��6��v��v�}7�p����W_c+W�r�gΜ�o_C�,p�8`�2e�N��:kݽ�#GجY'X.n�u����鿿�lĈ������h�s����ӚǰaUv��|� d��+� ��;og     t�{�s'�q�3O����9�+ܬ��ON�)�����    ť����ÇU��GͰI�ol�^y�-|�-w�v�I�zע`�?��3T�.�h�9܏t��+h囓V�@���	�D0�W�VH���K$˭,�ݎ�s/����C{�	�-�����������3���n�k�L-��B��b��c���
+��	'og�qzI�A��U�R�^�a	�ƻ����a��w�L?@�g�g��C�CWh����3�͜9���D��;�9-2�t��q�_s�sn��ƍ]?���3����fw9��~hӏ>��t�6 ����$G��\��2�o�書[ݨ�����z{��E��6S&Y1�v�<�e���Sm�}����Y�����y�����0h�x    t�I���I3&d��b��vŜ%=7�j[lums���bk�����=�z�qGMO����9v��ۂ-�4�;~�>Z�q�~�^��ڻ�}`［Ķ���VU9�������$�   `����w���vW��q�5�t�w�#E@���ssOը�55�n�(����������g�}�?/vZ�8b�=�k_���+���]}w��^uz����1t�w*@+�le֚HX2x�dY�`�i.o���S�����!v�Ug�a��aK�4���d�=
+... [TRUNCATED]
+
+--- DATABASE SCHEMA / MODEL FILES ---
+  packages/nocodb-sdk/src/lib/mergeSwaggerSchema.ts
+  packages/nocodb-sdk/src/lib/oauth/model.ts
+  packages/nocodb/src/db/sql-data-mapper/__tests__/models/city.meta.js
+  packages/nocodb/src/db/sql-data-mapper/__tests__/models/city.model.js
+  packages/nocodb/src/db/sql-data-mapper/__tests__/models/country.meta.js
+
+--- DIRECTORY STRUCTURE (depth 2) ---
+├── .do/
+│   └── deploy.template.yaml
+├── .github/
+│   ├── CODE_OF_CONDUCT.md
+│   ├── COMMIT_CONVENTION.md
+│   ├── CONTRIBUTING.md
+│   ├── FUNDING.yml
+│   ├── ISSUE_TEMPLATE/
+│   │   ├── --bug-report.yaml
+│   │   └── --feature-request.yaml
+│   ├── PULL_REQUEST_TEMPLATE.md
+│   ├── SPONSORS.md
+│   ├── uffizzi/
+│   │   └── docker-compose.uffizzi.yml
+│   └── workflows/
+│       ├── bats-test.yml
+│       ├── ci-cd.yml
+│       ├── cleanup-caches-by-branch.yml
+│       ├── dco-check.yml
+│       ├── dependency-review.yml
+│       ├── dispatch-oss.yml
+│       ├── docker-readme-publish.yml
+│       ├── jest-unit-test.yml
+│       ├── on-event-issue-closed.yml
+│       ├── playwright-test-workflow.yml
+│       ├── pr-to-master.yml
+│       ├── pre-build-for-playwright.yml
+│       ├── publish-api-docs.yml
+│       ├── release-close-issue.yml
+│       ├── release-docker.yml
+│       ├── release-draft.yml
+│       ├── release-executables.yml
+│       ├── release-nightly-dev.yml
+│       ├── release-nocodb.yml
+│       ├── release-npm.yml
+│       ├── release-pr.yml
+│       ├── release-previous-docker.yml
+│       ├── release-secret-cli.yml
+│       ├── release-timely-docker.yml
+│       ├── release-timely-executables.yml
+│       ├── sync-to-develop.yml
+│       ├── uffizzi-preview.yml
+│       ├── unit-test.yml
+│       └── update-sdk-path.yml
+├── .gitignore
+├── .husky/
+│   └── pre-commit
+├── .npmrc
+├── .run/
+│   ├── Clear metadb.run.xml
+│   ├── Run NocoDB Sqlite.run.xml
+│   ├── build.run.xml
+│   ├── dev.run.xml
+│   ├── start_nocodb.run.xml
+│   ├── test-debug.run.xml
+│   ├── test.run.xml
+│   └── watch_run_mysql.run.xml
+├── APIs.json
+├── LICENSE.md
+├── README.md
+├── SECURITY.md
+├── build-local-docker-image.sh
+├── charts/
+│   └── nocodb/
+│       ├── .gitignore
+│       ├── .helmignore
+│       ├── Chart.yaml
+│       ├── templates/
+│       └── values.yaml
+├── crowdin.yml
+├── docker-compose/
+│   ├── 1_Auto_Upstall/
+│   │   ├── README.md
+│   │   ├── noco.sh
+│   │   └── tests/
+│   ├── 2_pg/
+│   │   └── docker-compose.yml
+│   ├── 3_traefik/
+│   │   ├── .env
+│   │   ├── README.md
+│   │   └── docker-compose.yml
+│   ├── nginx-proxy-manager/
+│   │   └── docker-compose.yml
+│   └── nginx/
+│       ├── certbot-challenge.conf
+│       ├── docker-compose.yml
+│       ├── nocodb.example.domain.conf
+│       └── ssl.conf
+├── lerna.json
+├── markdown/
+│   ├── plugins/
+│   │   ├── google-auth.md
+│   │   └── s3.md
+│   └── readme/
+│       └── languages/
+├── package.json
+├── packages/
+│   ├── nc-gui/
+│   │   ├── .eslintrc.js
+│   │   ├── .gitignore
+│   │   ├── .patches/
+│   │   ├── .prettierrc
+│   │   ├── LICENSE.md
+│   │   ├── README.md
+│   │   ├── ant.d.ts
+│   │   ├── app.vue
+│   │   ├── assets/
+│   │   ├── components.d.ts
+│   │   ├── components/
+│   │   ├── composables/
+│   │   ├── context/
+│   │   ├── error.vue
+│   │   ├── error/
+│   │   ├── extensions/
+│   │   ├── git_log_diff.txt 
+│   │   ├── github-star.shims.d.ts
+│   │   ├── helpers/
+│   │   ├── httpsnippet-shims.d.ts
+│   │   ├── lang/
+│   │   ├── layouts/
+│   │   ├── lib/
+│   │   ├── middleware/
+│   │   ├── nuxt-shim.d.ts
+│   │   ├── nuxt.config.ts
+│   │   ├── package.json
+│   │   ├── pages/
+│   │   ├── plugins/
+│   │   ├── public/
+│   │   ├── store/
+│   │   ├── test/
+│   │   ├── tsconfig.json
+│   │   ├── utils/
+│   │   ├── vue-color-shims.d.ts
+│   │   ├── web-types.json
+│   │   ├── windi.config.ts
+│   │   └── workers/
+│   ├── nc-integration-scaffolder/
+│   │   ├── src/
+│   │   └── tsconfig.json
+│   ├── nc-lib-gui/
+│   │   ├── .gitignore
+│   │   ├── LICENSE.md
+│   │   ├── README.md
+│   │   ├── lib/
+│   │   └── package.json
+│   ├── nc-mail-assets/
+│   │   ├── badges/
+│   │   ├── email-assets/
+│   │   ├── icons/
+│   │   ├── nocodb-logo.png
+│   │   └── social/
+│   ├── nc-secret-mgr/
+│   │   ├── .eslintrc.js
+│   │   ├── .npmignore
+│   │   ├── .prettierrc
+│   │   ├── dist/
+│   │   ├── package.json
+│   │   ├── src/
+│   │   ├── tsconfig.json
+│   │   └── webpack.config.js
+│   ├── noco-integrations/
+│   │   ├── .gitignore
+│   │   ├── .prettierignore
+│   │   ├── .prettierrc
+│   │   ├── README.md
+│   │   ├── core/
+│   │   ├── eslint.config.js
+│   │   ├── nocodb-sdk-reference.ts
+│   │   ├── package.json
+│   │   ├── pnpm-lock.yaml
+│   │   ├── pnpm-workspace.yaml
+│   │   ├── scripts/
+│   │   └── tsconfig.json
+│   ├── nocodb-sdk-v2/
+│   │   ├── .gitignore
+│   │   ├── biome.json
+│   │   ├── package.json
+│   │   ├── rslib.config.ts
+│   │   ├── script/
+│   │   ├── src/
+│   │   └── tsconfig.json
+│   ├── nocodb-sdk/
+│   │   ├── .cspell.json
+│   │   ├── .editorconfig
+│   │   ├── .eslintrc.json
+│   │   ├── .gitignore
+│   │   ├── .prettierignore
+│   │   ├── LICENSE.md
+│   │   ├── README.md
+│   │   ├── build-script/
+│   │   ├── jest.config.js
+│   │   ├── package.json
+│   │   ├── pnpm-lock.yaml
+│   │   ├── src/
+│   │   ├── tsconfig.json
+│   │   └── tsconfig.module.json
+│   └── nocodb/
+│       ├── .eslintrc.js
+│       ├── .gitignore
+│       ├── .npmignore
+│       ├── .prettierrc
+│       ├── Dockerfile
+│       ├── Dockerfile.local
+│       ├── Dockerfile.timely
+│       ├── README.md
+│       ├── build-utils/
+│       ├── docker/
+│       ├── jest.config.js
+│       ├── nest-cli.json
+│       ├── package.json
+│       ├── rspack.cli.config.js
+│       ├── rspack.config.js
+│       ├── rspack.dev.config.js
+│       ├── rspack.timely.config.js
+│       ├── src/
+│       ├── test/
+│       ├── tests/
+│       ├── tsconfig.build.json
+│       ├── tsconfig.eslint.json
+│       └── tsconfig.json
+├── pnpm-lock.yaml
+├── pnpm-workspace.yaml
+├── renovate.json
+├── scripts/
+│   ├── addMigration.js
+│   ├── bumpNcGuiVersion.js
+│   ├── bumpNocodbSdkVersion.js
+│   ├── downgradeSqlite.js
+│   ├── installLocalSdk.js
+│   ├── pkg-executable/
+│   │   ├── binaries/
+│   │   ├── index.js
+│   │   └── package.json
+│   ├── sdk/
+│   │   └── templates/
+│   ├── self-hosted-gh-runner/
+│   │   ├── Dockerfile
+│   │   ├── node-pnpm-check.sh
+│   │   └── values.yaml
+│   ├── updateCliVersion.js
+│   ├── upgradeNcGui.js
+│   └── upgradeNocodbSdk.js
+├── tests/
+│   ├── docker/
+│   │   ├── Dockerfile
+│   │   ├── README.md
+│   │   ├── initInstance.sh
+│   │   └── start.sh
+│   └── playwright/
+│       ├── .env.example
+│       ├── .eslintrc.json
+│       ├── .gitignore
+│       ├── .lintstagedrc.json
+│       ├── .prettierignore
+│       ├── .prettierrc.js
+│       ├── constants/
+│       ├── fixtures/
+│       ├── package.json
+│       ├── pages/
+│       ├── playwright.config.ts
+│       ├── quickTests/
+│       ├── scripts/
+│       ├── setup/
+│       ├── startPlayWrightServer.sh
+│       ├── storageState.json
+│       ├── tests/
+│       └── tsconfig.json
+└── tsconfig.json

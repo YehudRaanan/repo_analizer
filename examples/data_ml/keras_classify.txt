@@ -1,0 +1,66 @@
+=====================================
+REPO CLASSIFICATION SIGNALS
+=====================================
+
+--- METADATA ---
+Name: keras
+Description: Deep Learning for humans
+Primary language: Python
+Topics: data-science, deep-learning, jax, machine-learning, neural-networks, python, pytorch, tensorflow
+
+--- ROOT FILES (signal matches) ---
+Web App:     (none)
+Backend:     (none)
+Library:     pyproject.toml
+CLI:         (none)
+Data/ML:     (none)
+Infra:       (none)
+
+--- TOP-LEVEL DIRECTORIES (signal matches) ---
+Web App:     (none)
+Backend:     (none)
+Library:     benchmarks, examples
+CLI:         (none)
+Data/ML:     (none)
+Infra:       (none)
+
+--- ALL TOP-LEVEL DIRECTORIES ---
+.devcontainer, .gemini, .github, .kokoro, benchmarks, examples, guides, integration_tests, keras, shell
+
+--- TYPE-SPECIFIC EXTENSION COUNTS ---
+Web App extensions (.tsx, .jsx, .vue, .svelte): 0
+Data/ML extensions (.ipynb): 0
+Infra extensions (.tf, .hcl): 0
+Backend extensions (.proto, .graphql): 0
+
+--- TOP FILE EXTENSIONS (by count) ---
+  .py: 962
+  .txt: 10
+  .md: 8
+  .json: 6
+  .yml: 6
+  .cfg: 6
+  .sh: 4
+  .yaml: 4
+  .js: 2
+  .gitignore: 1
+  .toml: 1
+
+--- BOOLEAN PATTERN CHECKS ---
+  pages or app dir: no
+  components dir: no
+  cmd or bin dir: no
+  src bin: no
+  run train scripts: yes
+  ipynb files: no
+  model training files: yes
+  tf files: no
+  k8s manifests: no
+  ansible playbooks: no
+  route controller dirs: no
+  db migrations: no
+  openapi spec: no
+  src and tests: no
+  examples dir: yes
+  dockerfile: no
+  ci cd: yes

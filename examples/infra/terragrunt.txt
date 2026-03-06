@@ -1,0 +1,917 @@
+=====================================
+Repository Analysis: terragrunt
+Type: Infrastructure / DevOps / IaC
+=====================================
+
+--- METADATA ---
+Name: terragrunt
+Description: Terragrunt is a flexible orchestration tool that allows Infrastructure as Code written in OpenTofu/Terraform to scale.
+Language: Go
+Topics: aws, cli, developer-tools, devops, opentofu, terraform
+Stars: 9368
+License: MIT License
+
+--- README ---
+# Terragrunt
+
+[![Maintained by Gruntwork.io](https://img.shields.io/badge/maintained%20by-gruntwork.io-%235849a6.svg)](https://gruntwork.io/?ref=repo_terragrunt)
+[![Go Report Card](https://goreportcard.com/badge/github.com/gruntwork-io/terragrunt)](https://goreportcard.com/report/github.com/gruntwork-io/terragrunt)
+[![GoDoc](https://godoc.org/github.com/gruntwork-io/terragrunt?status.svg)](https://godoc.org/github.com/gruntwork-io/terragrunt)
+![OpenTofu Version](https://img.shields.io/badge/tofu-%3E%3D1.6.0-blue.svg)
+![Terraform Version](https://img.shields.io/badge/tf-%3E%3D0.12.0-blue.svg)
+
+Terragrunt is a flexible orchestration tool that allows Infrastructure as Code written in [OpenTofu](https://opentofu.org)/[Terraform](https://www.terraform.io) to scale.
+
+Please see the following for more info, including install instructions and complete documentation:
+
+* [Terragrunt Website](https://terragrunt.com)
+* [Getting started with Terragrunt](https://docs.terragrunt.com/getting-started/quick-start/)
+* [Terragrunt Documentation](https://docs.terragrunt.com/)
+* [Contributing to Terragrunt](https://docs.terragrunt.com/community/contributing)
+* [Commercial Support](https://gruntwork.io/support/)
+
+## Join the Discord!
+
+Join [our community](https://discord.com/invite/YENaT9h8jh) for discussions, support, and contributions:
+
+[![](https://dcbadge.limes.pink/api/server/https://discord.com/invite/YENaT9h8jh)](https://discord.com/invite/YENaT9h8jh)
+
+## License
+
+This code is released under the MIT License. See [LICENSE.txt](LICENSE.txt).
+
+
+--- IAC CONFIG FILES ---
+
+[Makefile]
+GOFMT_FILES?=$$(find . -name '*.go' | grep -v vendor)
+
+help:
+	@echo "Various utilities for managing the terragrunt repository"
+
+fmt:
+	@echo "Running source files through gofmt..."
+	gofmt -w $(GOFMT_FILES)
+
+fmtcheck:
+	pre-commit run goimports --all-files
+
+install-pre-commit-hook:
+	pre-commit install
+
+# This build target just for convenience for those building directly from
+# source. See also: .github/workflows/build.yml
+build: terragrunt
+terragrunt: $(shell find . \( -type d -name 'vendor' -prune \) \
+                        -o \( -type f -name '*.go'   -print \) )
+	set -xe ;\
+	vtag_maybe_extra=$$(git describe --tags --abbrev=12 --dirty --broken) ;\
+	CGO_ENABLED=0 go build -o $@ -ldflags "-s -w -X github.com/gruntwork-io/go-commons/version.Version=$${vtag_maybe_extra}" .
+
+clean:
+	rm -f terragrunt
+
+IGNORE_TAGS := windows|linux|darwin|freebsd|openbsd|netbsd|dragonfly|solaris|plan9|js|wasip1|aix|android|illumos|ios|386|amd64|arm|arm64|mips|mips64|mips64le|mipsle|ppc64|ppc64le|riscv64|s390x|wasm
+
+LINT_TAGS := $(shell grep -rh --include='*.go' 'go:build' . | \
+	sed 's/.*go:build\s*//' | \
+	tr -cs '[:alnum:]_' '\n' | \
+	grep -vE '^($(IGNORE_TAGS))$$' | \
+	sed '/^$$/d' | \
+	sort -u | \
+	paste -sd, -)
+
+run-lint:
+	@echo "Linting with feature flags: [$(LINT_TAGS)]"
+	GOFLAGS="-tags=$(LINT_TAGS)" golangci-lint run -v --timeout=30m ./...
+
+run-lint-incremental:
+	@echo "Incremental lint (new issues only) with feature flags: [$(LINT_TAGS)]"
+	GOFLAGS="-tags=$(LINT_TAGS)" golangci-lint run -v --timeout=30m --new-from-merge-base=main ./...
+
+run-lint-fix:
+	@echo "Linting with feature flags: [$(LINT_TAGS)]"
+	GOFLAGS="-tags=$(LINT_TAGS)" golangci-lint run -v --timeout=30m --fix ./...
+
+generate-mocks:
+	go generate ./...
+
+license-check:
+	go mod vendor
+	licensei cache --debug
+	licensei check --debug
+	licensei header --debug
+
+fuzz:
+	@for package in $$(go list ./...); do \
+		for fuzz_test in $$(go test -list 'Fuzz' "$$package" 2>/dev/null | grep '^Fuzz' || true); do \
+			echo "Fuzzing $$fuzz_test in $$package"; \
+			go test -run '^$$' -fuzztime="30s" -v -fuzz "^$$fuzz_test$$" "$$package"; \
+		done; \
+	done
+
+.PHONY: help fmt fmtcheck install-pre-commit-hook clean run-lint run-lint-fix fuzz
+
+
+--- TERRAFORM FILES ---
+  docs/src/fixtures/terralith-to-terragrunt/walkthrough/step-1-starting-the-terralith/live/backend.tf
+  docs/src/fixtures/terralith-to-terragrunt/walkthrough/step-1-starting-the-terralith/live/data.tf
+  docs/src/fixtures/terralith-to-terragrunt/walkthrough/step-1-starting-the-terralith/live/ddb.tf
+  docs/src/fixtures/terralith-to-terragrunt/walkthrough/step-1-starting-the-terralith/live/iam.tf
+  docs/src/fixtures/terralith-to-terragrunt/walkthrough/step-1-starting-the-terralith/live/lambda.tf
+  docs/src/fixtures/terralith-to-terragrunt/walkthrough/step-1-starting-the-terralith/live/outputs.tf
+  docs/src/fixtures/terralith-to-terragrunt/walkthrough/step-1-starting-the-terralith/live/providers.tf
+  docs/src/fixtures/terralith-to-terragrunt/walkthrough/step-1-starting-the-terralith/live/s3.tf
+  docs/src/fixtures/terralith-to-terragrunt/walkthrough/step-1-starting-the-terralith/live/vars-optional.tf
+  docs/src/fixtures/terralith-to-terragrunt/walkthrough/step-1-starting-the-terralith/live/vars-required.tf
+
+--- KUBERNETES MANIFESTS ---
+  test/fixtures/regressions/exclude-dependency/amazing-app/k8s/terragrunt.hcl
+  test/fixtures/regressions/exclude-dependency/modules/k8s/.terraform.lock.hcl
+  test/fixtures/regressions/exclude-dependency/modules/k8s/main.tf
+  test/fixtures/regressions/exclude-dependency/testapp/k8s/terragrunt.hcl
+
+--- ANSIBLE FILES ---
+(None found)
+
+--- CI/CD PIPELINES ---
+  .github/workflows/announce-release.yml
+  .github/workflows/base-test.yml
+  .github/workflows/build-no-proxy.yml
+  .github/workflows/build.yml
+  .github/workflows/ci.yml
+  .github/workflows/cloud-nuke.yml
+  .github/workflows/codespell.yml
+  .github/workflows/flake.yml
+  .github/workflows/fuzz.yml
+  .github/workflows/go-mod-tidy-check.yml
+  .github/workflows/gopls.yml
+  .github/workflows/install-script-test.yml
+  .github/workflows/integration-test.yml
+  .github/workflows/license-check.yml
+  .github/workflows/lint.yml
+  .github/workflows/markdownlint.yml
+  .github/workflows/oidc-integration-test.yml
+  .github/workflows/precommit.yml
+  .github/workflows/release.yml
+  .github/workflows/sign-macos.yml
+  .github/workflows/sign-windows.yml
+  .github/workflows/stale.yml
+
+--- DIRECTORY STRUCTURE (depth 2) ---
+├── .coderabbit.yaml
+├── .codespellrc
+├── .gitattributes
+├── .github/
+│   ├── FUNDING.yml
+│   ├── ISSUE_TEMPLATE/
+│   │   ├── 01-bug_report.md
+│   │   ├── 02-bad_error_message.md
+│   │   ├── 03-rfc.yml
+│   │   └── 04-feature-request.md
+│   ├── assets/
+│   │   ├── release-assets-config.json
+│   │   └── terragrunt.png
+│   ├── cloud-nuke/
+│   │   └── config.yml
+│   ├── dependabot.yml
+│   ├── pull_request_template.md
+│   ├── scripts/
+│   │   ├── announce-release.sh
+│   │   ├── gopls/
+│   │   ├── release/
+│   │   └── setup/
+│   └── workflows/
+│       ├── announce-release.yml
+│       ├── base-test.yml
+│       ├── build-no-proxy.yml
+│       ├── build.yml
+│       ├── ci.yml
+│       ├── cloud-nuke.yml
+│       ├── codespell.yml
+│       ├── flake.yml
+│       ├── fuzz.yml
+│       ├── go-mod-tidy-check.yml
+│       ├── gopls.yml
+│       ├── install-script-test.yml
+│       ├── integration-test.yml
+│       ├── license-check.yml
+│       ├── lint.yml
+│       ├── markdownlint.yml
+│       ├── oidc-integration-test.yml
+│       ├── precommit.yml
+│       ├── release.yml
+│       ├── sign-macos.yml
+│       ├── sign-windows.yml
+│       └── stale.yml
+├── .gitignore
+├── .golangci.yml
+├── .gon_amd64.hcl
+├── .gon_arm64.hcl
+├── .licensei.toml
+├── .markdownlint-cli2.yaml
+├── .pre-commit-config.yaml
+├── .sonarcloud.properties
+├── CODEOWNERS
+├── KEYS
+├── LICENSE.txt
+├── Makefile
+├── README.md
+├── SECURITY.md
+├── docs/
+│   ├── .gitignore
+│   ├── .vercelignore
+│   ├── README.md
+│   ├── astro.config.mjs
+│   ├── bun.lock
+│   ├── components.json
+│   ├── mise.toml
+│   ├── package.json
+│   ├── public/
+│   │   ├── d2/
+│   │   ├── favicon.ico
+│   │   ├── favicon.svg
+│   │   ├── fonts/
+│   │   ├── images/
+│   │   ├── install
+│   │   ├── robots.txt
+│   │   └── schemas/
+│   ├── src/
+│   │   ├── assets/
+│   │   ├── components/
+│   │   ├── content.config.ts
+│   │   ├── content/
+│   │   ├── data/
+│   │   ├── fixtures/
+│   │   ├── layouts/
+│   │   ├── lib/
+│   │   ├── pages/
+│   │   └── styles/
+│   ├── tailwind.config.mjs
+│   ├── tests/
+│   │   └── install_test.sh
+│   ├── tree-l2.ps1
+│   ├── tree-l2.txt
+│   ├── tsconfig.json
+│   └── vercel.json
+├── go.mod
+├── go.sum
+├── internal/
+│   ├── awshelper/
+│   │   ├── config.go
+│   │   ├── config_test.go
+│   │   ├── policy.go
+│   │   └── policy_test.go
+│   ├── cache/
+│   │   ├── cache.go
+│   │   ├── cache_test.go
+│   │   └── context.go
+│   ├── cas/
+│   │   ├── .gitignore
+│   │   ├── benchmark_test.go
+│   │   ├── cas.go
+│   │   ├── cas_test.go
+│   │   ├── content.go
+│   │   ├── content_test.go
+│   │   ├── errors.go
+│   │   ├── errors_test.go
+│   │   ├── getter.go
+│   │   ├── getter_ssh_test.go
+│   │   ├── getter_test.go
+│   │   ├── integration_test.go
+│   │   ├── local.go
+│   │   ├── race_test.go
+│   │   ├── store.go
+│   │   ├── store_test.go
+│   │   ├── tree.go
+│   │   └── tree_test.go
+│   ├── cli/
+│   │   ├── app.go
+│   │   ├── app_test.go
+│   │   ├── commands/
+│   │   ├── flags/
+│   │   ├── help.go
+│   │   └── help_test.go
+│   ├── clihelper/
+│   │   ├── app.go
+│   │   ├── args.go
+│   │   ├── args_test.go
+│   │   ├── autocomplete.go
+│   │   ├── bool_flag.go
+│   │   ├── bool_flag_test.go
+│   │   ├── category.go
+│   │   ├── command.go
+│   │   ├── command_test.go
+│   │   ├── commands.go
+│   │   ├── context.go
+│   │   ├── errors.go
+│   │   ├── exit_code.go
+│   │   ├── flag.go
+│   │   ├── flag_test.go
+│   │   ├── flags.go
+│   │   ├── flags_test.go
+│   │   ├── funcs.go
+│   │   ├── generic_flag.go
+│   │   ├── generic_flag_test.go
+│   │   ├── help.go
+│   │   ├── map_flag.go
+│   │   ├── map_flag_test.go
+│   │   ├── slice_flag.go
+│   │   ├── slice_flag_test.go
+│   │   ├── sort.go
+│   │   └── sort_test.go
+│   ├── cloner/
+│   │   ├── clone.go
+│   │   └── cloner.go
+│   ├── codegen/
+│   │   ├── codegen.go
+│   │   ├── errors.go
+│   │   ├── generate.go
+│   │   └── generate_test.go
+│   ├── component/
+│   │   ├── component.go
+│   │   ├── component_test.go
+│   │   ├── stack.go
+│   │   ├── unit.go
+│   │   └── unit_output.go
+│   ├── configbridge/
+│   │   └── bridge.go
+│   ├── ctyhelper/
+│   │   ├── helper.go
+│   │   └── helper_test.go
+│   ├── discovery/
+│   │   ├── benchmark_test.go
+│   │   ├── constructor.go
+│   │   ├── discovery.go
+│   │   ├── discovery_integration_test.go
+│   │   ├── discovery_test.go
+│   │   ├── doc.go
+│   │   ├── errors.go
+│   │   ├── filter_test.go
+│   │   ├── graph_option.go
+│   │   ├── graph_target_test.go
+│   │   ├── helpers.go
+│   │   ├── options.go
+│   │   ├── phase_filesystem.go
+│   │   ├── phase_graph.go
+│   │   ├── phase_parse.go
+│   │   ├── phase_relationship.go
+│   │   ├── phase_test.go
+│   │   ├── phase_worktree.go
+│   │   ├── phase_worktree_integration_test.go
+│   │   ├── phase_worktree_test.go
+│   │   └── types.go
+│   ├── engine/
+│   │   ├── engine.go
+│   │   ├── engine_test.go
+│   │   ├── public_keys.go
+│   │   ├── types.go
+│   │   └── verification.go
+│   ├── errorconfig/
+│   │   ├── types.go
+│   │   └── types_test.go
+│   ├── errors/
+│   │   ├── errors.go
+│   │   ├── export.go
+│   │   ├── multierror.go
+│   │   └── util.go
+│   ├── experiment/
+│   │   ├── errors.go
+│   │   ├── experiment.go
+│   │   ├── experiment_test.go
+│   │   └── warnings.go
+│   ├── filter/
+│   │   ├── ast.go
+│   │   ├── ast_test.go
+│   │   ├── candidacy.go
+│   │   ├── candidacy_test.go
+│   │   ├── classifier.go
+│   │   ├── classifier_test.go
+│   │   ├── complex_test.go
+│   │   ├── diagnostic.go
+│   │   ├── diagnostic_test.go
+│   │   ├── doc.go
+│   │   ├── errors.go
+│   │   ├── evaluator.go
+│   │   ├── evaluator_test.go
+│   │   ├── examples_test.go
+│   │   ├── filter.go
+│   │   ├── filter_test.go
+│   │   ├── filters.go
+│   │   ├── filters_test.go
+│   │   ├── fuzz_test.go
+│   │   ├── hints.go
+│   │   ├── hints_test.go
+│   │   ├── lexer.go
+│   │   ├── lexer_test.go
+│   │   ├── matcher.go
+│   │   ├── parser.go
+│   │   ├── parser_test.go
+│   │   ├── telemetry.go
+│   │   ├── telemetry_test.go
+│   │   ├── token.go
+│   │   └── walk.go
+│   ├── gcphelper/
+│   │   ├── config.go
+│   │   └── config_test.go
+│   ├── git/
+│   │   ├── benchmark_test.go
+│   │   ├── diff.go
+│   │   ├── errors.go
+│   │   ├── git.go
+│   │   ├── git_test.go
+│   │   ├── gogit.go
+│   │   ├── gogit_test.go
+│   │   └── tree.go
+│   ├── github/
+│   │   ├── client.go
+│   │   └── client_test.go
+│   ├── hclhelper/
+│   │   ├── wrap.go
+│   │   └── wrap_test.go
+│   ├── iacargs/
+│   │   ├── boolean_args_test.go
+│   │   ├── iacargs.go
+│   │   └── iacargs_test.go
+│   ├── iam/
+│   │   └── iam.go
+│   ├── locks/
+│   │   └── lock.go
+│   ├── os/
+│   │   ├── exec/
+│   │   ├── signal/
+│   │   └── stdout/
+│   ├── prepare/
+│   │   └── prepare.go
+│   ├── providercache/
+│   │   ├── options/
+│   │   ├── providercache.go
+│   │   ├── providercache_test.go
+│   │   └── resolve_modules_url_test.go
+│   ├── queue/
+│   │   ├── queue.go
+│   │   └── queue_test.go
+│   ├── remotestate/
+│   │   ├── backend/
+│   │   ├── config.go
+│   │   ├── remote_state.go
+│   │   ├── remote_state_test.go
+│   │   ├── terraform_state_file.go
+│   │   └── terraform_state_file_test.go
+│   ├── report/
+│   │   ├── colors.go
+│   │   ├── report.go
+│   │   ├── report_test.go
+│   │   ├── summary.go
+│   │   └── writer.go
+│   ├── retry/
+│   │   └── defaults.go
+│   ├── runner/
+│   │   ├── common/
+│   │   ├── graph/
+│   │   ├── run/
+│   │   ├── runall/
+│   │   ├── runcfg/
+│   │   ├── runner.go
+│   │   └── runnerpool/
+│   ├── services/
+│   │   └── catalog/
+│   ├── shell/
+│   │   ├── error_explainer.go
+│   │   ├── error_explainer_test.go
+│   │   ├── git.go
+│   │   ├── prompt.go
+│   │   ├── run_cmd.go
+│   │   ├── run_cmd_output_test.go
+│   │   ├── run_cmd_test.go
+│   │   ├── run_cmd_unix_test.go
+│   │   ├── run_cmd_windows_test.go
+│   │   └── testdata/
+│   ├── stacks/
+│   │   ├── clean/
+│   │   ├── generate/
+│   │   └── output/
+│   ├── strict/
+│   │   ├── category.go
+│   │   ├── control.go
+│   │   ├── control_test.go
+│   │   ├── controls/
+│   │   ├── errors.go
+│   │   ├── status.go
+│   │   ├── strict.go
+│   │   └── view/
+│   ├── telemetry/
+│   │   ├── context.go
+│   │   ├── errors.go
+│   │   ├── meter.go
+│   │   ├── meter_test.go
+│   │   ├── opts.go
+│   │   ├── telemeter.go
+│   │   ├── tracer.go
+│   │   ├── tracer_test.go
+│   │   └── util.go
+│   ├── tf/
+│   │   ├── cache/
+│   │   ├── cliconfig/
+│   │   ├── context.go
+│   │   ├── detailed_exitcode.go
+│   │   ├── doc.go
+│   │   ├── errors.go
+│   │   ├── getproviders/
+│   │   ├── getter.go
+│   │   ├── getter_test.go
+│   │   ├── log.go
+│   │   ├── run_cmd.go
+│   │   ├── run_cmd_test.go
+│   │   ├── source.go
+│   │   ├── source_test.go
+│   │   ├── testdata/
+│   │   ├── tf.go
+│   │   └── tf_test.go
+│   ├── tfimpl/
+│   │   └── tfimpl.go
+│   ├── tflint/
+│   │   ├── README.md
+│   │   ├── tflint.go
+│   │   └── tflint_test.go
+│   ├── tips/
+│   │   ├── errors.go
+│   │   ├── tip.go
+│   │   ├── tip_test.go
+│   │   └── tips.go
+│   ├── util/
+│   │   ├── collections.go
+│   │   ├── collections_test.go
+│   │   ├── datetime.go
+│   │   ├── datetime_test.go
+│   │   ├── dirs.go
+│   │   ├── file.go
+│   │   ├── file_test.go
+│   │   ├── file_tofu_test.go
+│   │   ├── hash.go
+│   │   ├── jsons.go
+│   │   ├── jsons_test.go
+│   │   ├── lockfile.go
+│   │   ├── locks.go
+│   │   ├── locks_test.go
+│   │   ├── random.go
+│   │   ├── random_test.go
+│   │   ├── reflect.go
+│   │   ├── reflect_test.go
+│   │   ├── retry.go
+│   │   ├── shell.go
+│   │   ├── shell_test.go
+│   │   ├── sync_writer.go
+│   │   ├── testdata/
+│   │   ├── trap_writer.go
+│   │   ├── util.go
+│   │   └── writer_notifier.go
+│   ├── vfs/
+│   │   ├── vfs.go
+│   │   └── vfs_test.go
+│   ├── view/
+│   │   ├── diagnostic/
+│   │   ├── human_render.go
+│   │   ├── json_render.go
+│   │   ├── view.go
+│   │   └── writer.go
+│   ├── worker/
+│   │   ├── worker.go
+│   │   └── worker_test.go
+│   ├── worktrees/
+│   │   ├── worktrees.go
+│   │   └── worktrees_test.go
+│   └── writer/
+│       └── writer.go
+├── main.go
+├── mise.cicd.toml
+├── mise.toml
+├── pkg/
+│   ├── config/
+│   │   ├── cache_test.go
+│   │   ├── catalog.go
+│   │   ├── catalog_test.go
+│   │   ├── config.go
+│   │   ├── config_as_cty.go
+│   │   ├── config_as_cty_test.go
+│   │   ├── config_helpers.go
+│   │   ├── config_helpers_test.go
+│   │   ├── config_partial.go
+│   │   ├── config_partial_test.go
+│   │   ├── config_test.go
+│   │   ├── context.go
+│   │   ├── cty_helpers.go
+│   │   ├── dependency.go
+│   │   ├── dependency_inputs_test.go
+│   │   ├── dependency_test.go
+│   │   ├── engine.go
+│   │   ├── errors.go
+│   │   ├── errors_block.go
+│   │   ├── exclude.go
+│   │   ├── external_test.go
+│   │   ├── feature_flag.go
+│   │   ├── hclparse/
+│   │   ├── include.go
+│   │   ├── include_test.go
+│   │   ├── locals.go
+│   │   ├── locals_test.go
+│   │   ├── options.go
+│   │   ├── parsing_context.go
+│   │   ├── sops_race_test.go
+│   │   ├── sops_test.go
+│   │   ├── stack.go
+│   │   ├── stack_test.go
+│   │   ├── stack_validation.go
+│   │   ├── stack_validation_test.go
+│   │   ├── telemetry.go
+│   │   ├── translate.go
+│   │   ├── util.go
+│   │   ├── variable.go
+│   │   └── variable_test.go
+│   ├── log/
+│   │   ├── context.go
+│   │   ├── fields.go
+│   │   ├── force_level_hook.go
+│   │   ├── format/
+│   │   ├── formatter.go
+│   │   ├── level.go
+│   │   ├── log.go
+│   │   ├── logger.go
+│   │   ├── options.go
+│   │   ├── util.go
+│   │   └── writer/
+│   ├── options/
+│   │   ├── auto_retry_options.go
+│   │   ├── options.go
+│   │   └── options_test.go
+│   └── pkg.go
+└── test/
+    ├── benchmarks/
+    │   ├── .gitignore
+    │   ├── helpers/
+    │   ├── integration_auto_provider_cache_dir_bench_test.go
+    │   ├── integration_bench_test.go
+    │   └── integration_cas_bench_test.go
+    ├── cliconfig.go
+    ├── fixtures/
+    │   ├── assume-role-web-identity/
+    │   ├── assume-role/
+    │   ├── auth-provider-cmd/
+    │   ├── auth-provider-parallel/
+    │   ├── auto-provider-cache-dir/
+    │   ├── aws-provider-patch/
+    │   ├── broken-dependency/
+    │   ├── broken-locals/
+    │   ├── buffer-module-output/
+    │   ├── catalog/
+    │   ├── cli-flag-hints/
+    │   ├── codegen/
+    │   ├── commands-that-need-input/
+    │   ├── config-files/
+    │   ├── config-terraform-functions/
+    │   ├── dag-graph/
+    │   ├── dependency-optimisation/
+    │   ├── dependency-output/
+    │   ├── destroy-dependent-module-errors/
+    │   ├── destroy-dependent-module/
+    │   ├── destroy-order/
+    │   ├── destroy-warning/
+    │   ├── detailed-exitcode/
+    │   ├── dirs/
+    │   ├── disabled-path/
+    │   ├── disabled/
+    │   ├── docs/
+    │   ├── download-source/
+    │   ├── download/
+    │   ├── empty-state/
+    │   ├── endswith/
+    │   ├── engine/
+    │   ├── env-vars-block/
+    │   ├── ephemeral-inputs/
+    │   ├── error-print/
+    │   ├── errors/
+    │   ├── exclude-by-default/
+    │   ├── exclude/
+    │   ├── excludes-file/
+    │   ├── exec-cmd-tf-path/
+    │   ├── exec-cmd/
+    │   ├── external-dependencies/
+    │   ├── external-dependency/
+    │   ├── extra-args/
+    │   ├── fail-fast-early-exit/
+    │   ├── fail-fast/
+    │   ├── failure/
+    │   ├── feature-flags/
+    │   ├── filter-source/
+    │   ├── filter/
+    │   ├── find-parent-with-deprecated-root/
+    │   ├── find-parent/
+    │   ├── find/
+    │   ├── gcs-backend/
+    │   ├── gcs-byo-bucket/
+    │   ├── gcs-impersonate/
+    │   ├── gcs-no-bucket/
+    │   ├── gcs-no-prefix/
+    │   ├── gcs-parallel-state-init/
+    │   ├── gcs/
+    │   ├── get-aws-account-alias/
+    │   ├── get-aws-caller-identity/
+    │   ├── get-output/
+    │   ├── get-path/
+    │   ├── get-platform/
+    │   ├── get-repo-root/
+    │   ├── get-terragrunt-source-cli/
+    │   ├── get-terragrunt-source-hcl/
+    │   ├── get-working-dir/
+    │   ├── graph-dependencies/
+    │   ├── graph/
+    │   ├── hcl-filter/
+    │   ├── hclfmt-check-errors/
+    │   ├── hclfmt-check/
+    │   ├── hclfmt-diff/
+    │   ├── hclfmt-errors/
+    │   ├── hclfmt-heredoc/
+    │   ├── hclfmt-stdin/
+    │   ├── hclvalidate/
+    │   ├── hidden-runall/
+    │   ├── hooks/
+    │   ├── include-deep/
+    │   ├── include-expose/
+    │   ├── include-multiple/
+    │   ├── include-parent/
+    │   ├── include-runall/
+    │   ├── include/
+    │   ├── init-cache/
+    │   ├── init-error/
+    │   ├── init-once/
+    │   ├── inputs-defaults/
+    │   ├── inputs-interpolation/
+    │   ├── inputs/
+    │   ├── list/
+    │   ├── locals-errors/
+    │   ├── locals/
+    │   ├── log/
+    │   ├── manifest-removal/
+    │   ├── manifest/
+    │   ├── missing-dependencies/
+    │   ├── mixed-config/
+    │   ├── module-path-in-error/
+    │   ├── modules/
+    │   ├── multiinclude-dependency/
+    │   ├── no-color-dependency/
+    │   ├── no-color/
+    │   ├── no-submodules/
+    │   ├── null-values/
+    │   ├── out-dir/
+    │   ├── output-all/
+    │   ├── output-from-dependency/
+    │   ├── output-from-remote-state/
+    │   ├── output-module-groups/
+    │   ├── parallel-run/
+    │   ├── parallel-state-init/
+    │   ├── parallelism/
+    │   ├── parent-folders/
+    │   ├── parsing/
+    │   ├── partial-parse/
+    │   ├── planfile-order-test/
+    │   ├── prevent-destroy-not-set/
+    │   ├── prevent-destroy-override/
+    │   ├── private-registry/
+    │   ├── provider-cache/
+    │   ├── queue-strict-include-units-reading/
+    │   ├── queue-strict-include/
+    │   ├── read-config/
+    │   ├── read-tf-vars/
+    │   ├── regressions/
+    │   ├── relative-include-cmd/
+    │   ├── render-json-inputs/
+    │   ├── render-json-metadata/
+    │   ├── render-json-mock-outputs/
+    │   ├── render-json-regression/
+    │   ├── render-json-with-encryption/
+    │   ├── render-json/
+    │   ├── report/
+    │   ├── root-terragrunt-hcl-regression/
+    │   ├── run-cmd-flags/
+    │   ├── run-filter/
+    │   ├── runner-pool-remote-source/
+    │   ├── s3-backend-disable-init/
+    │   ├── s3-backend-migrate/
+    │   ├── s3-backend/
+    │   ├── s3-encryption/
+    │   ├── s3-errors/
+    │   ├── scaffold/
+    │   ├── skip-dependencies/
+    │   ├── skip-legacy-root/
+    │   ├── skip/
+    │   ├── sops-errors/
+    │   ├── sops-kms/
+    │   ├── sops-missing/
+    │   ├── sops/
+    │   ├── source-map/
+    │   ├── stack/
+    │   ├── stacks/
+    │   ├── startswith/
+    │   ├── strcontains/
+    │   ├── streaming/
+    │   ├── strict-bare-include/
+    │   ├── terragrunt-info-error/
+    │   ├── terragrunt.hcl
+    │   ├── terragrunt/
+    │   ├── tf-path/
+    │   ├── tflint/
+    │   ├── tfr/
+    │   ├── tftest/
+    │   ├── timecmp-errors/
+    │   ├── timecmp/
+    │   ├── tips/
+    │   ├── tofu-http-encryption/
+    │   ├── tofu-state-encryption/
+    │   ├── trace-parent/
+    │   ├── units-reading/
+    │   ├── validate-inputs/
+    │   ├── version-check/
+    │   ├── version-files-cache-key/
+    │   └── version-invocation/
+    ├── flake/
+    │   ├── .gitignore
+    │   ├── README.md
+    │   ├── analyzer/
+    │   ├── cmd/
+    │   ├── github/
+    │   ├── go.mod
+    │   ├── go.sum
+    │   ├── main.go
+    │   ├── parser/
+    │   └── types/
+    ├── helpers/
+    │   ├── aws.go
+    │   ├── logger/
+    │   ├── package.go
+    │   ├── test_helpers.go
+    │   ├── test_helpers_unix.go
+    │   ├── test_helpers_windows.go
+    │   └── testcontainer_helpers.go
+    ├── integration_aws_oidc_test.go
+    ├── integration_aws_test.go
+    ├── integration_awsgcp_test.go
+    ├── integration_catalog_test.go
+    ├── integration_common_test.go
+    ├── integration_dag_test.go
+    ├── integration_debug_test.go
+    ├── integration_deprecated_test.go
+    ├── integration_destroy_test.go
+    ├── integration_docs_aws_test.go
+    ├── integration_docs_aws_tofu_test.go
+    ├── integration_docs_test.go
+    ├── integration_download_test.go
+    ├── integration_encryption_shared_test.go
+    ├── integration_engine_test.go
+    ├── integration_errors_test.go
+    ├── integration_exclude_test.go
+    ├── integration_exec_test.go
+    ├── integration_feature_flags_test.go
+    ├── integration_filter_graph_test.go
+    ├── integration_filter_test.go
+    ├── integration_find_test.go
+    ├── integration_functions_test.go
+    ├── integration_gcp_test.go
+    ├── integration_graph_test.go
+    ├── integration_hcl_filter_test.go
+    ├── integration_hooks_test.go
+    ├── integration_include_test.go
+    ├── integration_json_test.go
+    ├── integration_list_test.go
+    ├── integration_local_dev_test.go
+    ├── integration_locals_test.go
+    ├── integration_parse_test.go
+    ├── integration_private_registry_test.go
+    ├── integration_provider_cache_constraint_test.go
+    ├── integration_queue_strict_include_test.go
+    ├── integration_registry_test.go
+    ├── integration_regressions_test.go
+    ├── integration_report_test.go
+    ├── integration_run_cmd_flags_test.go
+    ├── integration_run_cmd_include_output_test.go
+    ├── integration_run_test.go
+    ├── integration_runner_pool_test.go
+    ├── integration_s3_encryption_test.go
+    ├── integration_scaffold_ssh_test.go
+    ├── integration_scaffold_test.go
+    ├── integration_serial_aws_test.go
+    ├── integration_serial_gcp_test.go
+    ├── integration_serial_test.go
+    ├── integration_sops_kms_test.go
+    ├── integration_sops_test.go
+    ├── integration_ssh_test.go
+    ├── integration_stacks_test.go
+    ├── integration_strict_test.go
+    ├── integration_test.go
+    ├── integration_tflint_test.go
+    ├── integration_tips_test.go
+    ├── integration_tofu_aws_state_encryption_test.go
+    ├── integration_tofu_openbao_test.go
+    ├── integration_tofu_test.go
+    ├── integration_units_reading_test.go
+    ├── integration_unix_test.go
+    └── integration_windows_test.go

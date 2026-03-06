@@ -1,0 +1,2646 @@
+=====================================
+Repository Analysis: mlflow
+Type: Data / ML / AI Project
+=====================================
+
+--- METADATA ---
+Name: mlflow
+Description: The open source developer platform to build AI agents and models with confidence. Enhance your AI applications with end-to-end tracking, observability, and evaluations, all in one integrated platform.
+Language: Python
+Topics: agentops, agents, ai, ai-governance, apache-spark, evaluation, langchain, llm-evaluation, llmops, machine-learning, ml, mlflow, mlops, model-management, observability, open-source, openai, prompt-engineering
+Stars: 24591
+License: Apache License 2.0
+
+--- README ---
+<h1 align="center" style="border-bottom: none">
+    <a href="https://mlflow.org/">
+        <img alt="MLflow logo" src="https://raw.githubusercontent.com/mlflow/mlflow/refs/heads/master/assets/logo.svg" width="200" />
+    </a>
+</h1>
+<h2 align="center" style="border-bottom: none">Open-Source Platform for Productionizing AI</h2>
+
+MLflow is an open-source developer platform to build AI/LLM applications and models with confidence. Enhance your AI applications with end-to-end **experiment tracking**, **observability**, and **evaluations**, all in one integrated platform.
+
+<div align="center">
+
+[![Python SDK](https://img.shields.io/pypi/v/mlflow)](https://pypi.org/project/mlflow/)
+[![PyPI Downloads](https://img.shields.io/pypi/dm/mlflow)](https://pepy.tech/projects/mlflow)
+[![License](https://img.shields.io/github/license/mlflow/mlflow)](https://github.com/mlflow/mlflow/blob/master/LICENSE.txt)
+<a href="https://twitter.com/intent/follow?screen_name=mlflow" target="_blank">
+<img src="https://img.shields.io/twitter/follow/mlflow?logo=X&color=%20%23f5f5f5"
+      alt="follow on X(Twitter)"></a>
+<a href="https://www.linkedin.com/company/mlflow-org/" target="_blank">
+<img src="https://custom-icon-badges.demolab.com/badge/LinkedIn-0A66C2?logo=linkedin-white&logoColor=fff"
+      alt="follow on LinkedIn"></a>
+[![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/mlflow/mlflow)
+
+</div>
+
+<div align="center">
+   <div>
+      <a href="https://mlflow.org/"><strong>Website</strong></a> ·
+      <a href="https://mlflow.org/docs/latest"><strong>Docs</strong></a> ·
+      <a href="https://github.com/mlflow/mlflow/issues/new/choose"><strong>Feature Request</strong></a> ·
+      <a href="https://mlflow.org/blog"><strong>News</strong></a> ·
+      <a href="https://www.youtube.com/@mlflowoss"><strong>YouTube</strong></a> ·
+      <a href="https://lu.ma/mlflow?k=c"><strong>Events</strong></a>
+   </div>
+</div>
+
+<br>
+
+## 🚀 Installation
+
+To install the MLflow Python package, run the following command:
+
+```
+pip install mlflow
+```
+
+## 📦 Core Components
+
+MLflow is **the only platform that provides a unified solution for all your AI/ML needs**, including LLMs, Agents, Deep Learning, and traditional machine learning.
+
+### 💡 For LLM / GenAI Developers
+
+<table>
+  <tr>
+    <td>
+    <img src="https://raw.githubusercontent.com/mlflow/mlflow/refs/heads/master/assets/readme-tracing.png" alt="Tracing" width=100%>
+    <div align="center">
+        <br>
+        <a href="https://mlflow.org/docs/latest/llms/tracing/index.html"><strong>🔍 Tracing / Observability</strong></a>
+        <br><br>
+        <div>Trace the internal states of your LLM/agentic applications for debugging quality issues and monitoring performance with ease.</div><br>
+        <a href="https://mlflow.org/docs/latest/genai/tracing/quickstart/">Getting Started →</a>
+        <br><br>
+    </div>
+    </td>
+    <td>
+    <img src="https://raw.githubusercontent.com/mlflow/mlflow/refs/heads/master/assets/readme-llm-eval.png" alt="LLM Evaluation" width=100%>
+    <div align="center">
+        <br>
+        <a href="https://mlflow.org/docs/latest/genai/eval-monitor/"><strong>📊 LLM Evaluation</strong></a>
+        <br><br>
+        <div>A suite of automated model evaluation tools, seamlessly integrated with experiment tracking to compare across multiple versions.</div><br>
+        <a href="https://mlflow.org/docs/latest/genai/eval-monitor/">Getting Started →</a>
+        <br><br>
+    </div>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <img src="https://raw.githubusercontent.com/mlflow/mlflow/refs/heads/master/assets/readme-prompt.png" alt="Prompt Management">
+    <div align="center">
+        <br>
+        <a href="https://mlflow.org/docs/latest/genai/prompt-version-mgmt/prompt-registry/"><strong>🤖 Prompt Management</strong></a>
+        <br><br>
+        <div>Version, track, and reuse prompts across your organization, helping maintain consistency and improve collaboration in prompt development.</div><br>
+        <a href="https://mlflow.org/docs/latest/genai/prompt-registry/create-and-edit-prompts/">Getting Started →</a>
+        <br><br>
+    </div>
+    </td>
+    <td>
+      <img src="https://raw.githubusercontent.com/mlflow/mlflow/refs/heads/master/assets/readme-logged-model.png" alt="MLflow Hero">
+    <div align="center">
+        <br>
+        <a href="https://mlflow.org/docs/latest/genai/prompt-version-mgmt/version-tracking/"><strong>📦 App Version Tracking</strong></a>
+        <br><br>
+        <div>MLflow keeps track of many moving parts in your AI applications, such as models, prompts, tools, and code, with end-to-end lineage.</div><br>
+        <a href="https://mlflow.org/docs/latest/genai/version-tracking/quickstart/">Getting Started →</a>
+        <br><br>
+    </div>
+    </td>
+  </tr>
+</table>
+
+### 🎓 For Data Scientists
+
+<table>
+  <tr>
+    <td colspan="2" align="center" >
+      <img src="https://raw.githubusercontent.com/mlflow/mlflow/refs/heads/master/assets/readme-experiment.png" alt="Tracking" width=5
+... [TRUNCATED]
+
+--- PACKAGE MANIFEST(S) ---
+
+[pyproject.toml]
+# Auto-generated by dev/pyproject.py. Do not edit manually.
+# This file defines the package metadata of `mlflow` **during development**. To install `mlflow`
+# from the source code, `mlflow-skinny` and `mlflow-tracing` are NOT included in the requirements.
+# This file will be replaced by `pyproject.release.toml` when releasing a new version.
+
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "mlflow"
+version = "3.10.1.dev0"
+description = "MLflow is an open source platform for the complete machine learning lifecycle"
+readme = "README.md"
+keywords = ["mlflow", "ai", "databricks"]
+classifiers = [
+  "Development Status :: 5 - Production/Stable",
+  "Intended Audience :: Developers",
+  "Intended Audience :: End Users/Desktop",
+  "Intended Audience :: Science/Research",
+  "Intended Audience :: Information Technology",
+  "Topic :: Scientific/Engineering :: Artificial Intelligence",
+  "Topic :: Software Development :: Libraries :: Python Modules",
+  "License :: OSI Approved :: Apache Software License",
+  "Operating System :: OS Independent",
+  "Programming Language :: Python :: 3.10",
+]
+requires-python = ">=3.10"
+dependencies = [
+  "Flask-CORS<7",
+  "Flask<4",
+  "alembic<2,!=1.10.0",
+  "cachetools<8,>=5.0.0",
+  "click<9,>=7.0",
+  "cloudpickle<4",
+  "cryptography<47,>=43.0.0",
+  "databricks-sdk<1,>=0.20.0",
+  "docker<8,>=4.0.0",
+  "fastapi<1",
+  "gitpython<4,>=3.1.9",
+  "graphene<4",
+  "gunicorn<26; platform_system != 'Windows'",
+  "huey<3,>=2.5.4",
+  "importlib_metadata<9,>=3.7.0,!=4.7.0",
+  "matplotlib<4",
+  "numpy<3",
+  "opentelemetry-api<3,>=1.9.0",
+  "opentelemetry-proto<3,>=1.9.0",
+  "opentelemetry-sdk<3,>=1.9.0",
+  "packaging<27",
+  "pandas<3",
+  "protobuf<7,>=3.12.0",
+  "pyarrow<24,>=4.0.0",
+  "pydantic<3,>=2.0.0",
+  "python-dotenv<2,>=0.19.0",
+  "pyyaml<7,>=5.1",
+  "requests<3,>=2.17.3",
+  "scikit-learn<2",
+  "scipy<2",
+  "skops<1",
+  "sqlalchemy<3,>=1.4.0",
+  "sqlparse<1,>=0.4.0",
+  "typing-extensions<5,>=4.0.0",
+  "uvicorn<1",
+  "waitress<4; platform_system == 'Windows'",
+]
+[[project.maintainers]]
+name = "Databricks"
+email = "mlflow-oss-maintainers@googlegroups.com"
+
+[project.license]
+file = "LICENSE.txt"
+
+[project.optional-dependencies]
+extras = [
+  "pyarrow",
+  "requests-auth-aws-sigv4",
+  "boto3",
+  "botocore",
+  "google-cloud-storage>=1.30.0",
+  "azureml-core>=1.2.0",
+  "pysftp",
+  "kubernetes",
+  "prometheus-flask-exporter",
+]
+db = ["PyMySQL", "psycopg2-binary", "pymssql"]
+databricks = [
+  "azure-storage-file-datalake>12",
+  "google-cloud-storage>=1.30.0",
+  "boto3>1",
+  "botocore",
+  "databricks-agents>=1.2.0,<2.0",
+]
+mlserver = [
+  "mlserver>=1.2.0,!=1.3.1,<2.0.0",
+  "mlserver-mlflow>=1.2.0,!=1.3.1,<2.0.0",
+]
+gateway = [
+  "aiohttp<4",
+  "boto3<2,>=1.28.56",
+  "fastapi<1",
+  "slowapi<1,>=0.1.9",
+  "tiktoken<1",
+  "uvicorn[standard]<1",
+  "watchfiles<2",
+]
+genai = [
+  "aiohttp<4",
+  "boto3<2,>=1.28.56",
+  "fastapi<1",
+  "gepa<1,>=0.0.26",
+  "litellm<2,>=1.0.0",
+  "slowapi<1,>=0.1.9",
+  "tikto
+... [TRUNCATED]
+
+--- REQUIREMENTS FILES ---
+
+[dev/requirements.txt]
+# Dev script dependencies
+click
+requests
+packaging
+pydantic
+pyyaml
+toml
+
+
+[examples/virtualenv/project/requirements.txt]
+mlflow
+scikit-learn==1.0.2
+
+
+[requirements/constraints.txt]
+pytest==9.0.2
+# transformers 4.51.0 has this issue:
+# https://github.com/huggingface/transformers/issues/37326
+transformers!=4.51.0
+# https://github.com/BerriAI/litellm/issues/10373
+litellm!=1.67.4
+# https://github.com/run-llama/llama_index/issues/18587
+llama-index-core!=0.12.34
+# https://github.com/mangiucugna/json_repair/issues/124
+json_repair!=0.45.0
+# https://github.com/huggingface/transformers/issues/38269
+transformers!=4.52.2
+transformers!=4.52.1
+# xgboost 3.1.0 changed base_score format to vector for multi-output models, breaking shap compatibility
+# https://xgboost.readthedocs.io/en/latest/changes/v3.1.0.html#multi-target-class-intercept
+xgboost<3.1.0
+
+
+[requirements/dev-requirements.txt]
+-r extra-ml-requirements.txt
+-r test-requirements.txt
+-r lint-requirements.txt
+-r doc-requirements.txt
+
+
+[requirements/doc-min-requirements.txt]
+# Minimum version that works with Python 3.10
+sphinx==4.2.0
+jinja2==3.0.3
+# to be compatible with jinja2==3.0.3
+flask<=2.2.5
+sphinx-autobuild
+sphinx-click
+# to be compatible with docutils==0.16
+sphinx-tabs==3.2.0
+# redirect handling
+sphinx-reredirects==0.1.3
+# Pin sphinxcontrib packages. Their newer versions are incompatible with sphinx==4.2.0.
+sphinxcontrib-applehelp<1.0.8
+sphinxcontrib-devhelp<1.0.6
+sphinxcontrib-htmlhelp<2.0.4
+sphinxcontrib-serializinghtml<1.1.10
+sphinxcontrib-qthelp<1.0.7
+
+
+[requirements/doc-requirements.txt]
+-r doc-min-requirements.txt
+tensorflow-cpu<=2.12.0; platform_system!="Darwin" or platform_machine!="arm64"
+tensorflow-macos<=2.12.0; platform_system=="Darwin" and platform_machine=="arm64"
+pyspark<4.1.0
+datasets
+# requried to run `log_figure` examples
+plotly
+# nbsphinx and ipython are required for jupyter notebook rendering
+nbsphinx==0.8.8
+# ipython 8.7.0 is an incompatible release
+ipython!=8.7.0
+keras
+torch>=1.11.0
+torchvision>=0.12.0
+lightning>=1.8.1
+scrapy
+ipywidgets>=8.1.1
+# incremental==24.7.0 requires setuptools>=61.0, which causes https://github.com/mlflow/mlflow/issues/8635
+incremental<24.7.0
+# this is an extra dependency for the auth app which
+# is not included in the core mlflow requirements
+Flask-WTF<2
+# required for testing polars dataset integration
+polars>=1
+# required for the genai evaluation example
+openai
+# required for the haystack
+haystack-ai
+# required for deepeval scorer documentation
+deepeval
+# required for ragas scorer documentation
+ragas
+instructor
+litellm
+langchain-community>=0.3.0
+
+
+[requirements/extra-ml-requirements.txt]
+## This file describes extra ML library dependencies that you, as an end user,
+## must install in order to use various MLflow Python modules.
+# Required by mlflow.spacy
+spacy>=3.3.0
+# Required by mlflow.tensorflow
+tensorflow>=2.10.0; platform_system!="Darwin" or platform_machine!="arm64"
+tensorflow-macos>=2.10.0; platform_system=="Darwin" and platform_machine=="arm64"
+# Required by mlflow.pytorch
+torch>=1.11.0
+torchvision>=0.12.0
+lightning>=1.8.1
+# Required by mlflow.xgboost
+xgboost>=0.82
+# Required by mlflow.lightgbm
+lightgbm
+# Required by mlflow.catboost
+catboost
+# Required by mlflow.statsmodels
+statsmodels
+# Required by mlflow.h2o
+h2o
+# Required by mlflow.onnx
+onnx>=1.17.0
+onnxruntime
+onnxscript
+tf2onnx
+# Required by mlflow.spark and using Delta with MLflow Tracking datasets
+pyspark<4.1.0
+# Required by mlflow.paddle
+paddlepaddle
+# Required by mlflow.prophet
+# NOTE: Prophet's whl build process will fail with dependencies not being present.
+#   Installation will default to setup.py in order to install correctly.
+#   To install in dev environment, ensure that gcc>=8 is installed to allow pystan
+#   to compile the model binaries. See: https://gcc.gnu.org/install/
+# Avoid 0.25 due to https://github.com/dr-prodigy/python-holidays/issues/1200
+holidays!=0.25
+prophet
+# Required by mlflow.shap
+# and shap evaluation functionality
+shap>=0.42.1
+# Required by mlflow.pmdarima
+pmdarima
+# Required for using Hugging Face datasets with MLflow Tracking
+# Avoid datasets < 2.19.1 due to an incompatibility issue https://github.com/huggingface/datasets/issues/6737
+datasets>=2.19.1
+# Required by mlflow.transformers
+transformers
+# transformers doesn't support Keras 3 yet. tf-keras needs to be installed as a workaround
+tf-keras
+sentencepiece
+setfit
+librosa
+ffmpeg
+accelerate
+# Required by mlflow.openai
+openai
+tiktoken
+tenacity
+# Required by mlflow.llama_index
+llama_index
+# Required for an agent example of mlflow.llama_index
+llama-index-agent-openai
+# Required by mlflow.langchain
+langchain
+langchain-openai
+# Required by mlflow.sentence_transformers
+sentence-transformers
+# Required by mlflow.anthropic
+anthropic
+# Required by mlflow.ag2
+ag2
+# Required by mlflow.dspy
+# In dspy 2.6.9, `dspy.__name__` is not 'dspy', but 'dspy.__metadata__',
+# which causes auto-logging tests to fail.
+dspy!=2.6.9
+# Required by mlflow.litellm
+litellm
+# Required by mlflow.gemini
+google-genai
+# Required by mlflow.groq
+groq
+# Required by mlflow.mistral
+mistralai
+# Required by mlflow.autogen
+autogen-agentchat
+# Required by mlflow.semantic_kernel
+semantic-kernel
+# Required by mlflow.agno
+agno
+# Required by mlflow.strands
+strands-agents
+# Required by mlflow.haystack
+haystack-ai
+
+
+[requirements/lint-requirements.txt]
+ruff==0.15.2
+black==23.7.0
+blacken-docs==1.18.0
+pre-commit==4.0.1
+toml==0.10.2
+mypy==1.17.1
+pytest==9.0.2
+pydantic==2.11.7
+-e ./dev/clint
+
+
+[requirements/skinny-test-requirements.txt]
+## Test-only dependencies
+pytest
+pytest-cov
+
+
+[requirements/test-requirements.txt]
+## Dependencies required to run tests
+## Test-only dependencies
+pytest
+pytest-asyncio
+pytest-repeat
+pytest-cov
+pytest-timeout
+moto>=4.2.0,<5,!=4.2.5
+azure-storage-blob>=12.0.0
+azure-storage-file-datalake>=12.9.1
+azure-identity>=1.6.1
+pillow
+plotly
+kaleido
+# Required by evaluator tests
+shap
+# Required to evaluate language models in `mlflow.evaluate`
+evaluate
+nltk
+rouge_score
+textstat
+tiktoken
+# Required by progress bar tests
+tqdm[notebook]
+# Required for LLM eval in `mlflow.evaluate`
+openai
+# Required for showing pytest stats
+psutil
+pyspark<4.1.0
+# Required for testing the opentelemetry exporter of tracing
+opentelemetry-exporter-otlp-proto-grpc
+opentelemetry-exporter-otlp-proto-http
+# Required for testing mlflow.server.auth
+Flask-WTF<2
+# required for testing polars dataset integration
+polars>=1
+# required for testing mlflow.genai.optimize_prompt
+dspy
+# required for testing mlflow.genai.optimize.optimizers
+gepa
+# required for testing docker compose
+testcontainers
+# required for testing cost tracking
+litellm
+# required for testing claude_code tracing
+claude-agent-sdk
+
+
+[tests/resources/example_mlflow_1x_sklearn_model/requirements.txt]
+mlflow
+cloudpickle==2.2.1
+scikit-learn==1.5.2
+
+
+[tests/resources/example_mlflow_2.12_langchain_model/metadata/requirements.txt]
+bcrypt==3.2.0
+cloudpickle==2.0.0
+configparser==5.2.0
+cryptography==39.0.1
+databricks-feature-engineering==0.2.1
+entrypoints==0.4
+google-cloud-storage==2.11.0
+grpcio-status==1.48.1
+langchain==0.1.20
+mlflow[gateway]==2.12.2
+numpy==1.23.5
+packaging==23.2
+pandas==1.5.3
+protobuf==4.24.0
+psutil==5.9.0
+pyarrow==8.0.0
+pydantic==1.10.6
+pyyaml==6.0
+requests==2.28.1
+tornado==6.1
+
+
+[tests/resources/example_mlflow_2.12_langchain_model/requirements.txt]
+bcrypt==3.2.0
+cloudpickle==2.0.0
+configparser==5.2.0
+cryptography==39.0.1
+databricks-feature-engineering==0.2.1
+databricks-rag-studio==0.2.0.dev0
+entrypoints==0.4
+google-cloud-storage==2.11.0
+grpcio-status==1.48.1
+langchain==0.1.20
+mlflow[gateway]==2.12.2
+numpy==1.23.5
+packaging==23.2
+pandas==1.5.3
+protobuf==4.24.0
+psutil==5.9.0
+pyarrow==8.0.0
+pydantic==1.10.6
+pyyaml==6.0
+requests==2.28.1
+tornado==6.1
+
+
+[tests/resources/example_virtualenv_no_python_env/requirements.txt]
+mlflow
+scikit-learn==1.4.2
+
+
+[tests/resources/example_virtualenv_project/requirements.txt]
+mlflow
+scikit-learn==1.4.2
+
+
+[tests/resources/pyfunc_models/2.7.1/requirements.txt]
+mlflow==2.7.1
+cloudpickle==2.2.1
+
+
+[tests/resources/pyfunc_models/2.8.1/requirements.txt]
+mlflow==2.8.1
+cloudpickle==2.2.1
+
+
+--- ML CONFIG FILES ---
+(No ML config files found)
+
+--- JUPYTER NOTEBOOKS ---
+  docs/docs/classic-ml/deep-learning/sentence-transformers/tutorials/paraphrase-mining/paraphrase-mining-sentence-transformers.ipynb
+  docs/docs/classic-ml/deep-learning/sentence-transformers/tutorials/quickstart/sentence-transformers-quickstart.ipynb
+  docs/docs/classic-ml/deep-learning/sentence-transformers/tutorials/semantic-search/semantic-search-sentence-transformers.ipynb
+  docs/docs/classic-ml/deep-learning/sentence-transformers/tutorials/semantic-similarity/semantic-similarity-sentence-transformers.ipynb
+  docs/docs/classic-ml/deep-learning/transformers/tutorials/audio-transcription/whisper.ipynb
+  docs/docs/classic-ml/deep-learning/transformers/tutorials/conversational/conversational-model.ipynb
+  docs/docs/classic-ml/deep-learning/transformers/tutorials/conversational/pyfunc-chat-model.ipynb
+  docs/docs/classic-ml/deep-learning/transformers/tutorials/fine-tuning/transformers-fine-tuning.ipynb
+  docs/docs/classic-ml/deep-learning/transformers/tutorials/fine-tuning/transformers-peft.ipynb
+  docs/docs/classic-ml/deep-learning/transformers/tutorials/prompt-templating/prompt-templating.ipynb
+
+--- MODEL / TRAINING FILES ---
+  dev/clint/src/clint/rules/forbidden_set_active_model_usage.py
+  dev/clint/src/clint/rules/log_model_artifact_path.py
+  examples/catboost/train.py
+  examples/docker/train.py
+  examples/evaluation/evaluate_with_model_validation.py
+  examples/evaluation/evaluate_with_static_dataset.py
+  examples/flower_classifier/train.py
+  examples/hyperparam/train.py
+  examples/keras/train.py
+  examples/langchain/retrieval_qa_chain.py
+
+--- DIRECTORY STRUCTURE (depth 2) ---
+├── .claude/
+│   ├── commands/
+│   │   ├── pr-review.md
+│   │   └── resolve.md
+│   ├── hooks/
+│   │   ├── enforce-uv.sh
+│   │   └── lint.py
+│   ├── rules/
+│   │   ├── github-actions.md
+│   │   └── python.md
+│   ├── settings.json
+│   ├── skills/
+│   │   ├── README.md
+│   │   ├── add-review-comment/
+│   │   ├── analyze-ci/
+│   │   ├── copilot/
+│   │   ├── fetch-diff/
+│   │   ├── fetch-unresolved-comments/
+│   │   ├── pyproject.toml
+│   │   └── src/
+│   └── statusline.sh
+├── .dockerignore
+├── .git-blame-ignore-revs
+├── .gitattributes
+├── .github/
+│   ├── ISSUE_TEMPLATE/
+│   │   ├── bug_report_template.yaml
+│   │   ├── doc_fix_template.yaml
+│   │   ├── feature_request_template.yaml
+│   │   ├── good_first_issue.yaml
+│   │   ├── images/
+│   │   ├── installation_issue_template.yaml
+│   │   └── ui_bug_report_template.yaml
+│   ├── actions/
+│   │   ├── cache-pip/
+│   │   ├── free-disk-space/
+│   │   ├── pipdeptree/
+│   │   ├── py-cache-key/
+│   │   ├── setup-java/
+│   │   ├── setup-node/
+│   │   ├── setup-pyenv/
+│   │   ├── setup-python/
+│   │   ├── show-versions/
+│   │   ├── untracked/
+│   │   ├── update-requirements/
+│   │   └── validate-author/
+│   ├── instructions/
+│   │   ├── code-review.instructions.md
+│   │   └── python.instructions.md
+│   ├── policy.rego
+│   ├── pull_request_template.md
+│   ├── scripts/
+│   │   ├── package-lock.json
+│   │   ├── package.json
+│   │   ├── src/
+│   │   └── tsconfig.json
+│   ├── ui-preview/
+│   │   ├── README.md
+│   │   ├── app.py
+│   │   └── app.yaml
+│   └── workflows/
+│       ├── advice.js
+│       ├── advice.yml
+│       ├── auto-assign.js
+│       ├── auto-assign.yml
+│       ├── autoformat-label-notify.yml
+│       ├── autoformat.js
+│       ├── autoformat.md
+│       ├── autoformat.yml
+│       ├── build-wheel.yml
+│       ├── cancel.yml
+│       ├── cherry-picks-warn.yml
+│       ├── closing-pr.js
+│       ├── closing-pr.yml
+│       ├── community-label.yml
+│       ├── copilot-setup-steps.yml
+│       ├── cross-version-test-runner.js
+│       ├── cross-version-test-runner.yml
+│       ├── cross-version-testing.md
+│       ├── cross-version-tests.yml
+│       ├── delete-artifact.js
+│       ├── dev-setup.yml
+│       ├── docs.yml
+│       ├── duplicate-prs.js
+│       ├── duplicate-prs.yml
+│       ├── examples.yml
+│       ├── fs2db.yml
+│       ├── issue-warning.yml
+│       ├── js.yml
+│       ├── labeling.js
+│       ├── labeling.yml
+│       ├── link-checker.yml
+│       ├── lint.yml
+│       ├── maintainer-approval.yml
+│       ├── master.yml
+│       ├── matchers/
+│       ├── patch.js
+│       ├── patch.yml
+│       ├── pr-size.js
+│       ├── pr-size.yml
+│       ├── preview-comment.js
+│       ├── preview-docs.yml
+│       ├── protect.js
+│       ├── protect.yml
+│       ├── protobuf-cross-test.yml
+│       ├── protos.yml
+│       ├── push-images.yml
+│       ├── r.yml
+│       ├── release-note.js
+│       ├── release-note.yml
+│       ├── remove-experimental-decorators.yml
+│       ├── require-core-maintainer-approval.js
+│       ├── rerun-cross-version-tests.yml
+│       ├── rerun-workflow-run.yml
+│       ├── rerun.js
+│       ├── rerun.yml
+│       ├── resolve.yml
+│       ├── review.yml
+│       ├── slow-tests.yml
+│       ├── snapshots.yml
+│       ├── stale-prs.js
+│       ├── stale-prs.yml
+│       ├── stale.yml
+│       ├── team-review.js
+│       ├── team-review.yml
+│       ├── test-requirements.yml
+│       ├── title.js
+│       ├── title.yml
+│       ├── tracing.yaml
+│       ├── triage.md
+│       ├── triage.py
+│       ├── triage.yml
+│       ├── typescript.yml
+│       ├── uc-oss.yml
+│       ├── ui-preview.yml
+│       ├── update-release-labels.yml
+│       ├── uv.js
+│       ├── uv.yml
+│       └── xtest-viz.yml
+├── .gitignore
+├── .gitmodules
+├── .pre-commit-config.yaml
+├── .python-version
+├── .vscode/
+│   ├── extensions.json
+│   └── settings.json
+├── CHANGELOG.md
+├── CITATION.cff
+├── CLAUDE.md
+├── CODE_OF_CONDUCT.rst
+├── COMMITTER.md
+├── CONTRIBUTING.md
+├── EXTRA_DEPENDENCIES.rst
+├── ISSUE_POLICY.md
+├── ISSUE_TRIAGE.rst
+├── LICENSE.txt
+├── MANIFEST.in
+├── README.md
+├── SECURITY.md
+├── assets/
+│   ├── create-codespace.png
+│   ├── icon.svg
+│   ├── logo-white.svg
+│   ├── logo.svg
+│   ├── readme-deployment.png
+│   ├── readme-experiment.png
+│   ├── readme-integrations.png
+│   ├── readme-llm-eval.png
+│   ├── readme-logged-model.png
+│   ├── readme-model-registry.png
+│   ├── readme-prompt.png
+│   ├── readme-providers.png
+│   └── readme-tracing.png
+├── bin/
+│   ├── .gitignore
+│   ├── README.md
+│   └── install.py
+├── changelogs/
+│   ├── v0.x.md
+│   ├── v1.x.md
+│   └── v2.x.md
+├── dev/
+│   ├── Dockerfile.protos
+│   ├── Dockerfile.protos.dockerignore
+│   ├── README.md
+│   ├── build-docs.sh
+│   ├── build.py
+│   ├── check_function_signatures.py
+│   ├── check_init_py.py
+│   ├── check_patch_prs.py
+│   ├── check_whitespace_only.py
+│   ├── clint/
+│   │   ├── README.md
+│   │   ├── pyproject.toml
+│   │   ├── src/
+│   │   └── tests/
+│   ├── create_release_branch.py
+│   ├── create_release_tag.py
+│   ├── dev-env-setup.sh
+│   ├── extract_deps.py
+│   ├── find-unused-media.sh
+│   ├── format.py
+│   ├── gen_rest_api.py
+│   ├── generate-protos.sh
+│   ├── generate_protos.py
+│   ├── install-common-deps.sh
+│   ├── install-skinny.sh
+│   ├── js.sh
+│   ├── mlflow-typo.sh
+│   ├── normalize_chars.py
+│   ├── proto-plugin.sh
+│   ├── proto_plugin.py
+│   ├── proto_to_graphql/
+│   │   ├── README.md
+│   │   ├── autogeneration_utils.py
+│   │   ├── code_generator.py
+│   │   ├── parsing_utils.py
+│   │   ├── schema_autogeneration.py
+│   │   └── string_utils.py
+│   ├── pyproject.py
+│   ├── remove-conda-envs.sh
+│   ├── remove_experimental_decorators.py
+│   ├── requirements.txt
+│   ├── ruff.py
+│   ├── run-dev-server.sh
+│   ├── run-python-skinny-tests.sh
+│   ├── server.py
+│   ├── set_matrix.py
+│   ├── setup-ssh.sh
+│   ├── show_package_release_dates.py
+│   ├── test-dev-env-setup.sh
+│   ├── test-generate-protos.sh
+│   ├── tests/
+│   │   ├── test_set_matrix.py
+│   │   └── test_update_ml_package_versions.py
+│   ├── typos.md
+│   ├── update_changelog.py
+│   ├── update_ml_package_versions.py
+│   ├── update_mlflow_versions.py
+│   ├── update_requirements.py
+│   ├── validate_release_version.py
+│   └── xtest_viz.py
+├── docker-compose/
+│   ├── .env.dev.example
+│   ├── README.md
+│   └── docker-compose.yml
+├── docker/
+│   ├── Dockerfile
+│   ├── Dockerfile.full
+│   ├── Dockerfile.full.dev
+│   └── README.md
+├── docs/
+│   ├── .prettierignore
+│   ├── README.md
+│   ├── api_reference/
+│   │   ├── .gitignore
+│   │   ├── Makefile
+│   │   ├── README.md
+│   │   ├── api_inventory.txt
+│   │   ├── broken_links.py
+│   │   ├── build-javadoc.sh
+│   │   ├── build-rdoc.sh
+│   │   ├── build-tsdoc.sh
+│   │   ├── conftest.py
+│   │   ├── gateway_api_docs.py
+│   │   ├── image-sources/
+│   │   ├── make.bat
+│   │   ├── source/
+│   │   ├── theme/
+│   │   ├── tsdoc.index.html.template
+│   │   └── typedoc-analytics.js
+│   ├── communitySidebar.ts
+│   ├── docs/
+│   │   ├── classic-ml/
+│   │   ├── community/
+│   │   ├── genai/
+│   │   ├── prompts/
+│   │   ├── quickstart_drilldown/
+│   │   └── self-hosting/
+│   ├── docusaurus.config.ts
+│   ├── docusaurusConfigUtils.ts
+│   ├── eslint-plugin-mlflow-docs/
+│   │   ├── index.js
+│   │   └── rules/
+│   ├── eslint.config.js
+│   ├── package-lock.json
+│   ├── package.json
+│   ├── postcss.config.mjs
+│   ├── prettier.config.js
+│   ├── scripts/
+│   │   ├── build-all.py
+│   │   ├── build-api-docs.py
+│   │   ├── check-links.mts
+│   │   ├── compare-sitemaps.ts
+│   │   ├── convert-notebooks.py
+│   │   ├── nbconvert_templates/
+│   │   └── update-api-modules.ts
+│   ├── sidebars.ts
+│   ├── sidebarsClassicML.ts
+│   ├── sidebarsGenAI.ts
+│   ├── sidebarsSelfHosting.ts
+│   ├── src/
+│   │   ├── api_modules.json
+│   │   ├── components/
+│   │   ├── constants.ts
+│   │   ├── content/
+│   │   ├── css/
+│   │   ├── docusaurus.theme.js
+│   │   ├── pages/
+│   │   ├── plugins/
+│   │   └── theme/
+│   ├── static/
+│   │   ├── .nojekyll
+│   │   ├── images/
+│   │   └── js/
+│   └── tsconfig.json
+├── examples/
+│   ├── README.md
+│   ├── ag2/
+│   │   └── tracing.py
+│   ├── agno/
+│   │   └── tracing.py
+│   ├── anthropic/
+│   │   └── tracing.py
+│   ├── auth/
+│   │   ├── README.md
+│   │   └── auth.py
+│   ├── catboost/
+│   │   └── train.py
+│   ├── crewai/
+│   │   └── tracing.py
+│   ├── databricks/
+│   │   ├── dbconnect.py
+│   │   ├── log_runs.py
+│   │   └── multipart.py
+│   ├── demos/
+│   │   ├── mlflow-3/
+│   │   ├── pythonmodel_agent_with_uc_tools.ipynb
+│   │   └── pythonmodel_type_hints_quickstart.ipynb
+│   ├── deployments/
+│   │   ├── README.md
+│   │   └── databricks/
+│   ├── docker/
+│   │   ├── .dockerignore
+│   │   ├── Dockerfile
+│   │   ├── MLproject
+│   │   ├── README.rst
+│   │   ├── kubernetes_config.json
+│   │   ├── kubernetes_job_template.yaml
+│   │   ├── train.py
+│   │   └── wine-quality.csv
+│   ├── evaluation/
+│   │   ├── README.md
+│   │   ├── evaluate_on_binary_classifier.py
+│   │   ├── evaluate_on_multiclass_classifier.py
+│   │   ├── evaluate_on_regressor.py
+│   │   ├── evaluate_with_custom_code_metrics.py
+│   │   ├── evaluate_with_custom_metrics.py
+│   │   ├── evaluate_with_custom_metrics_comprehensive.py
+│   │   ├── evaluate_with_function.py
+│   │   ├── evaluate_with_llm_judge.py
+│   │   ├── evaluate_with_model_validation.py
+│   │   ├── evaluate_with_qa_metrics.py
+│   │   ├── evaluate_with_static_dataset.py
+│   │   ├── huggingface-evaluation.ipynb
+│   │   ├── qa-evaluation.ipynb
+│   │   └── rag-evaluation.ipynb
+│   ├── flower_classifier/
+│   │   ├── MLproject
+│   │   ├── README.rst
+│   │   ├── image_pyfunc.py
+│   │   ├── python_env.yaml
+│   │   ├── score_images_rest.py
+│   │   ├── score_images_spark.py
+│   │   └── train.py
+│   ├── gateway/
+│   │   ├── README.md
+│   │   ├── ai21_labs/
+│   │   ├── anthropic/
+│   │   ├── azure_openai/
+│   │   ├── bedrock/
+│   │   ├── cohere/
+│   │   ├── gemini/
+│   │   ├── huggingface/
+│   │   ├── mistral/
+│   │   ├── mlflow_models/
+│   │   ├── mosaicml/
+│   │   ├── openai/
+│   │   ├── palm/
+│   │   ├── plugin/
+│   │   ├── togetherai/
+│   │   └── uc_functions/
+│   ├── gemini/
+│   │   └── tracing.py
+│   ├── groq/
+│   │   └── tracing.py
+│   ├── h2o/
+│   │   ├── MLproject
+│   │   ├── python_env.yaml
+│   │   ├── random_forest.ipynb
+│   │   ├── random_forest.py
+│   │   └── wine-quality.csv
+│   ├── haystack/
+│   │   └── tracing.py
+│   ├── hyperparam/
+│   │   ├── MLproject
+│   │   ├── README.rst
+│   │   ├── python_env.yaml
+│   │   ├── search_hyperopt.py
+│   │   ├── search_random.py
+│   │   └── train.py
+│   ├── johnsnowlabs/
+│   │   └── export.py
+│   ├── jwt_auth/
+│   │   ├── __init__.py
+│   │   └── jwt_auth.py
+│   ├── keras/
+│   │   └── train.py
+│   ├── langchain/
+│   │   ├── chain_as_code.py
+│   │   ├── chain_as_code_driver.py
+│   │   ├── chain_autolog.py
+│   │   ├── chain_stream_output.py
+│   │   ├── retrieval_qa_chain.py
+│   │   ├── retrieval_qa_chain_azure_openai.py
+│   │   ├── retriever_chain.py
+│   │   ├── simple_agent.py
+│   │   └── simple_chain.py
+│   ├── lightgbm/
+│   │   ├── README.md
+│   │   ├── lightgbm_native/
+│   │   └── lightgbm_sklearn/
+│   ├── livekit/
+│   │   └── voice_agent.py
+│   ├── llama_index/
+│   │   ├── autolog.py
+│   │   ├── simple_index.py
+│   │   └── workflow/
+│   ├── llms/
+│   │   ├── RAG/
+│   │   ├── README.md
+│   │   ├── question_answering/
+│   │   └── summarization/
+│   ├── mistral/
+│   │   └── tracing.py
+│   ├── mlflow-3/
+│   │   ├── evaluate_example.py
+│   │   ├── langchain_databricks_example.py
+│   │   ├── langchain_example.py
+│   │   ├── langchain_simple.py
+│   │   ├── load_model_from_runs_uri.py
+│   │   ├── proto_inputs_outputs.py
+│   │   ├── register_model.py
+│   │   ├── sklearn_autolog.py
+│   │   └── sklearn_example.py
+│   ├── mlflow_artifacts/
+│   │   ├── .dockerignore
+│   │   ├── Dockerfile
+│   │   ├── Dockerfile.dev
+│   │   ├── README.md
+│   │   ├── build.sh
+│   │   ├── docker-compose.yml
+│   │   └── example.py
+│   ├── model_config/
+│   │   ├── model.py
+│   │   └── simple.py
+│   ├── multistep_workflow/
+│   │   ├── MLproject
+│   │   ├── README.rst
+│   │   ├── als.py
+│   │   ├── etl_data.py
+│   │   ├── load_raw_data.py
+│   │   ├── main.py
+│   │   ├── python_env.yaml
+│   │   ├── spark-defaults.conf
+│   │   └── train_keras.py
+│   ├── openai/
+│   │   ├── autologging/
+│   │   ├── azure_openai.py
+│   │   ├── chat_completions.py
+│   │   ├── completions.py
+│   │   ├── embeddings.py
+│   │   └── spark_udf.py
+│   ├── paddle/
+│   │   ├── MLproject
+│   │   ├── python_env.yaml
+│   │   ├── train_high_level_api.py
+│   │   └── train_low_level_api.py
+│   ├── pip_requirements/
+│   │   └── pip_requirements.py
+│   ├── pmdarima/
+│   │   ├── MLproject
+│   │   ├── python_env.yaml
+│   │   └── train.py
+│   ├── prophet/
+│   │   ├── MLproject
+│   │   ├── python_env.yaml
+│   │   └── train.py
+│   ├── pydanticai/
+│   │   └── tracing.py
+│   ├── pyfunc/
+│   │   ├── README.md
+│   │   ├── custom_code.py
+│   │   ├── infer_model_code_paths.py
+│   │   ├── model_as_code.py
+│   │   ├── model_as_code_driver.py
+│   │   └── train.py
+│   ├── pyspark_ml_autologging/
+│   │   ├── README.md
+│   │   ├── logistic_regression.py
+│   │   ├── one_vs_rest.py
+│   │   └── pipeline.py
+│   ├── pyspark_ml_connect/
+│   │   ├── README.md
+│   │   └── pipeline.py
+│   ├── pytorch/
+│   │   ├── CaptumExample/
+│   │   ├── HPOExample/
+│   │   ├── MLproject
+│   │   ├── MNIST/
+│   │   ├── logging/
+│   │   ├── mnist_tensorboard_artifact.py
+│   │   ├── python_env.yaml
+│   │   └── torchscript/
+│   ├── quickstart/
+│   │   └── mlflow_tracking.py
+│   ├── r_wine/
+│   │   ├── train.R
+│   │   ├── train.Rmd
+│   │   └── wine-quality.csv
+│   ├── rapids/
+│   │   └── mlflow_project/
+│   ├── ray_serve/
+│   │   ├── README.md
+│   │   ├── input.json
+│   │   └── train_model.py
+│   ├── remote_store/
+│   │   └── remote_server.py
+│   ├── rest_api/
+│   │   ├── README.rst
+│   │   └── mlflow_tracking_rest_api.py
+│   ├── restore_model_dependencies/
+│   │   ├── README.md
+│   │   └── restore_model_dependencies_example.ipynb
+│   ├── sentence_transformers/
+│   │   └── simple.py
+│   ├── shap/
+│   │   ├── README.md
+│   │   ├── binary_classification.py
+│   │   ├── explainer_logging.py
+│   │   ├── multiclass_classification.py
+│   │   └── regression.py
+│   ├── sklearn_autolog/
+│   │   ├── README.md
+│   │   ├── grid_search_cv.py
+│   │   ├── linear_regression.py
+│   │   ├── pipeline.py
+│   │   └── utils.py
+│   ├── sklearn_elasticnet_diabetes/
+│   │   ├── README.md
+│   │   ├── linux/
+│   │   └── osx/
+│   ├── sklearn_elasticnet_wine/
+│   │   ├── MLproject
+│   │   ├── conda.yaml
+│   │   ├── python_env.yaml
+│   │   ├── train.ipynb
+│   │   ├── train.py
+│   │   └── wine-quality.csv
+│   ├── sklearn_logistic_regression/
+│   │   ├── MLproject
+│   │   ├── python_env.yaml
+│   │   └── train.py
+│   ├── sktime/
+│   │   ├── MLproject
+│   │   ├── README.md
+│   │   ├── flavor.py
+│   │   ├── python_env.yaml
+│   │   ├── score_model.py
+│   │   ├── test_sktime_model_export.py
+│   │   └── train.py
+│   ├── smolagents/
+│   │   └── tracing.py
+│   ├── spacy/
+│   │   ├── MLproject
+│   │   ├── python_env.yaml
+│   │   └── train.py
+│   ├── spark_udf/
+│   │   ├── README.md
+│   │   ├── spark_udf.py
+│   │   ├── spark_udf_datetime.py
+│   │   ├── spark_udf_with_prebuilt_env.py
+│   │   └── structs_and_arrays.py
+│   ├── statsmodels/
+│   │   ├── MLproject
+│   │   ├── README.md
+│   │   ├── python_env.yaml
+│   │   └── train.py
+│   ├── strands/
+│   │   └── tracing.py
+│   ├── supply_chain_security/
+│   │   ├── MLproject
+│   │   ├── README.rst
+│   │   ├── python_env.yaml
+│   │   └── train.py
+│   ├── synapseml/
+│   │   └── autologging.md
+│   ├── system_metrics/
+│   │   └── collect_system_metrics.py
+│   ├── tensorflow/
+│   │   ├── MLProject
+│   │   ├── conda.yaml
+│   │   ├── python_env.yaml
+│   │   └── train.py
+│   ├── tracing/
+│   │   ├── client.py
+│   │   ├── fluent.py
+│   │   ├── langchain_auto.py
+│   │   └── multithreading.py
+│   ├── transformers/
+│   │   ├── MLFlow_X_HuggingFace_Finetune_a_text_classification_model.ipynb
+│   │   ├── conversational.py
+│   │   ├── load_components.py
+│   │   ├── sentence_transformer.py
+│   │   ├── simple.py
+│   │   └── whisper.py
+│   ├── virtualenv/
+│   │   └── project/
+│   └── xgboost/
+│       ├── README.md
+│       ├── xgboost_native/
+│       └── xgboost_sklearn/
+├── fs2db/
+│   ├── README.md
+│   └── src/
+│       └── generate_synthetic_data.py
+├── libs/
+│   ├── skinny/
+│   │   ├── LICENSE.txt
+│   │   ├── MANIFEST.in
+│   │   ├── README.md
+│   │   ├── README_SKINNY.md
+│   │   ├── mlflow
+│   │   └── pyproject.toml
+│   ├── tracing/
+│   │   ├── LICENSE.txt
+│   │   ├── MANIFEST.in
+│   │   ├── README.md
+│   │   ├── mlflow
+│   │   └── pyproject.toml
+│   └── typescript/
+│       ├── .eslintrc.json
+│       ├── .prettierignore
+│       ├── .prettierrc
+│       ├── README.md
+│       ├── core/
+│       ├── integrations/
+│       ├── jest.global-server-setup.ts
+│       ├── jest.global-server-teardown.ts
+│       ├── package-lock.json
+│       ├── package.json
+│       ├── scripts/
+│       ├── tests/
+│       ├── tsconfig.base.json
+│       └── tsconfig.json
+├── mlflow-charter.pdf
+├── mlflow/
+│   ├── R/
+│   │   └── mlflow/
+│   ├── __init__.py
+│   ├── __main__.py
+│   ├── ag2/
+│   │   ├── __init__.py
+│   │   └── ag2_logger.py
+│   ├── agno/
+│   │   ├── __init__.py
+│   │   ├── autolog_v1.py
+│   │   ├── autolog_v2.py
+│   │   └── utils.py
+│   ├── ai_commands/
+│   │   ├── __init__.py
+│   │   ├── ai_command_utils.py
+│   │   └── genai/
+│   ├── anthropic/
+│   │   ├── __init__.py
+│   │   ├── autolog.py
+│   │   └── chat.py
+│   ├── artifacts/
+│   │   └── __init__.py
+│   ├── assistant/
+│   │   ├── __init__.py
+│   │   ├── cli.py
+│   │   ├── config.py
+│   │   ├── providers/
+│   │   ├── skill_installer.py
+│   │   ├── skills
+│   │   └── types.py
+│   ├── autogen/
+│   │   ├── __init__.py
+│   │   └── chat.py
+│   ├── azure/
+│   │   ├── __init__.py
+│   │   └── client.py
+│   ├── bedrock/
+│   │   ├── __init__.py
+│   │   ├── _autolog.py
+│   │   ├── chat.py
+│   │   ├── stream.py
+│   │   └── utils.py
+│   ├── catboost/
+│   │   └── __init__.py
+│   ├── claude_code/
+│   │   ├── README.md
+│   │   ├── __init__.py
+│   │   ├── cli.py
+│   │   ├── config.py
+│   │   ├── hooks.py
+│   │   └── tracing.py
+│   ├── cli/
+│   │   ├── __init__.py
+│   │   ├── crypto.py
+│   │   ├── datasets.py
+│   │   ├── demo.py
+│   │   ├── eval.py
+│   │   ├── genai_eval_utils.py
+│   │   ├── scorers.py
+│   │   └── traces.py
+│   ├── client.py
+│   ├── config/
+│   │   └── __init__.py
+│   ├── crewai/
+│   │   ├── __init__.py
+│   │   └── autolog.py
+│   ├── data/
+│   │   ├── __init__.py
+│   │   ├── artifact_dataset_sources.py
+│   │   ├── code_dataset_source.py
+│   │   ├── dataset.py
+│   │   ├── dataset_registry.py
+│   │   ├── dataset_source.py
+│   │   ├── dataset_source_registry.py
+│   │   ├── delta_dataset_source.py
+│   │   ├── digest_utils.py
+│   │   ├── evaluation_dataset.py
+│   │   ├── evaluation_dataset_source.py
+│   │   ├── filesystem_dataset_source.py
+│   │   ├── http_dataset_source.py
+│   │   ├── huggingface_dataset.py
+│   │   ├── huggingface_dataset_source.py
+│   │   ├── meta_dataset.py
+│   │   ├── numpy_dataset.py
+│   │   ├── pandas_dataset.py
+│   │   ├── polars_dataset.py
+│   │   ├── pyfunc_dataset_mixin.py
+│   │   ├── schema.py
+│   │   ├── sources.py
+│   │   ├── spark_dataset.py
+│   │   ├── spark_dataset_source.py
+│   │   ├── spark_delta_utils.py
+│   │   ├── tensorflow_dataset.py
+│   │   └── uc_volume_dataset_source.py
+│   ├── db.py
+│   ├── demo/
+│   │   ├── README.md
+│   │   ├── __init__.py
+│   │   ├── base.py
+│   │   ├── data.py
+│   │   ├── generators/
+│   │   └── registry.py
+│   ├── deployments/
+│   │   ├── __init__.py
+│   │   ├── base.py
+│   │   ├── cli.py
+│   │   ├── constants.py
+│   │   ├── databricks/
+│   │   ├── interface.py
+│   │   ├── mlflow/
+│   │   ├── openai/
+│   │   ├── plugin_manager.py
+│   │   ├── server/
+│   │   └── utils.py
+│   ├── dspy/
+│   │   ├── __init__.py
+│   │   ├── autolog.py
+│   │   ├── callback.py
+│   │   ├── constant.py
+│   │   ├── load.py
+│   │   ├── save.py
+│   │   ├── util.py
+│   │   └── wrapper.py
+│   ├── entities/
+│   │   ├── __init__.py
+│   │   ├── _job.py
+│   │   ├── _job_status.py
+│   │   ├── _mlflow_object.py
+│   │   ├── assessment.py
+│   │   ├── assessment_error.py
+│   │   ├── assessment_source.py
+│   │   ├── dataset.py
+│   │   ├── dataset_input.py
+│   │   ├── dataset_record.py
+│   │   ├── dataset_record_source.py
+│   │   ├── dataset_summary.py
+│   │   ├── document.py
+│   │   ├── entity_type.py
+│   │   ├── evaluation_dataset.py
+│   │   ├── experiment.py
+│   │   ├── experiment_tag.py
+│   │   ├── file_info.py
+│   │   ├── gateway_budget_policy.py
+│   │   ├── gateway_endpoint.py
+│   │   ├── gateway_secrets.py
+│   │   ├── input_tag.py
+│   │   ├── issue.py
+│   │   ├── lifecycle_stage.py
+│   │   ├── logged_model.py
+│   │   ├── logged_model_input.py
+│   │   ├── logged_model_output.py
+│   │   ├── logged_model_parameter.py
+│   │   ├── logged_model_status.py
+│   │   ├── logged_model_tag.py
+│   │   ├── metric.py
+│   │   ├── model_registry/
+│   │   ├── multipart_upload.py
+│   │   ├── param.py
+│   │   ├── presigned_download.py
+│   │   ├── run.py
+│   │   ├── run_data.py
+│   │   ├── run_info.py
+│   │   ├── run_inputs.py
+│   │   ├── run_outputs.py
+│   │   ├── run_status.py
+│   │   ├── run_tag.py
+│   │   ├── scorer.py
+│   │   ├── session.py
+│   │   ├── source_type.py
+│   │   ├── span.py
+│   │   ├── span_event.py
+│   │   ├── span_status.py
+│   │   ├── trace.py
+│   │   ├── trace_data.py
+│   │   ├── trace_info.py
+│   │   ├── trace_info_v2.py
+│   │   ├── trace_location.py
+│   │   ├── trace_metrics.py
+│   │   ├── trace_state.py
+│   │   ├── trace_status.py
+│   │   ├── view_type.py
+│   │   ├── webhook.py
+│   │   └── workspace.py
+│   ├── environment_variables.py
+│   ├── evaluation/
+│   │   ├── __init__.py
+│   │   ├── assessment.py
+│   │   ├── evaluation.py
+│   │   ├── evaluation_tag.py
+│   │   ├── fluent.py
+│   │   └── utils.py
+│   ├── exceptions.py
+│   ├── experiments.py
+│   ├── gateway/
+│   │   ├── __init__.py
+│   │   ├── app.py
+│   │   ├── base_models.py
+│   │   ├── budget_tracker/
+│   │   ├── cli.py
+│   │   ├── config.py
+│   │   ├── constants.py
+│   │   ├── exceptions.py
+│   │   ├── provider_registry.py
+│   │   ├── providers/
+│   │   ├── runner.py
+│   │   ├── schemas/
+│   │   ├── tracing_utils.py
+│   │   ├── uc_function_utils.py
+│   │   └── utils.py
+│   ├── gemini/
+│   │   ├── __init__.py
+│   │   ├── autolog.py
+│   │   └── chat.py
+│   ├── genai/
+│   │   ├── __init__.py
+│   │   ├── agent_server/
+│   │   ├── datasets/
+│   │   ├── evaluation/
+│   │   ├── git_versioning/
+│   │   ├── judges/
+│   │   ├── label_schemas/
+│   │   ├── labeling/
+│   │   ├── optimize/
+│   │   ├── prompts/
+│   │   ├── scheduled_scorers.py
+│   │   ├── scorers/
+│   │   ├── simulators/
+│   │   └── utils/
+│   ├── groq/
+│   │   ├── __init__.py
+│   │   └── _groq_autolog.py
+│   ├── h2o/
+│   │   └── __init__.py
+│   ├── haystack/
+│   │   ├── __init__.py
+│   │   └── autolog.py
+│   ├── java/
+│   │   ├── .gitignore
+│   │   ├── client/
+│   │   ├── pom.xml
+│   │   ├── spark/
+│   │   ├── spark_2.12/
+│   │   └── spark_2.13/
+│   ├── johnsnowlabs/
+│   │   └── __init__.py
+│   ├── keras/
+│   │   ├── __init__.py
+│   │   ├── autologging.py
+│   │   ├── callback.py
+│   │   ├── load.py
+│   │   ├── save.py
+│   │   └── utils.py
+│   ├── langchain/
+│   │   ├── __init__.py
+│   │   ├── _compat.py
+│   │   ├── api_request_parallel_processor.py
+│   │   ├── autolog.py
+│   │   ├── chat_agent_langgraph.py
+│   │   ├── constant.py
+│   │   ├── constants.py
+│   │   ├── databricks_dependencies.py
+│   │   ├── langchain_tracer.py
+│   │   ├── model.py
+│   │   ├── output_parsers.py
+│   │   ├── retriever_chain.py
+│   │   ├── runnables.py
+│   │   └── utils/
+│   ├── legacy_databricks_cli/
+│   │   ├── __init__.py
+│   │   └── configure/
+│   ├── lightgbm/
+│   │   └── __init__.py
+│   ├── litellm/
+│   │   └── __init__.py
+│   ├── llama_index/
+│   │   ├── __init__.py
+│   │   ├── autolog.py
+│   │   ├── constant.py
+│   │   ├── model.py
+│   │   ├── pyfunc_wrapper.py
+│   │   ├── serialize_objects.py
+│   │   └── tracer.py
+│   ├── mcp/
+│   │   ├── __init__.py
+│   │   ├── cli.py
+│   │   ├── decorator.py
+│   │   └── server.py
+│   ├── metrics/
+│   │   ├── __init__.py
+│   │   ├── base.py
+│   │   ├── genai/
+│   │   └── metric_definitions.py
+│   ├── mismatch.py
+│   ├── mistral/
+│   │   ├── __init__.py
+│   │   ├── autolog.py
+│   │   └── chat.py
+│   ├── ml-package-versions.yml
+│   ├── ml_package_versions.py
+│   ├── models/
+│   │   ├── __init__.py
+│   │   ├── auth_policy.py
+│   │   ├── cli.py
+│   │   ├── container/
+│   │   ├── dependencies_schemas.py
+│   │   ├── display_utils.py
+│   │   ├── docker_utils.py
+│   │   ├── evaluation/
+│   │   ├── flavor_backend.py
+│   │   ├── flavor_backend_registry.py
+│   │   ├── model.py
+│   │   ├── model_config.py
+│   │   ├── notebook_resources/
+│   │   ├── python_api.py
+│   │   ├── rag_signatures.py
+│   │   ├── resources.py
+│   │   ├── signature.py
+│   │   ├── utils.py
+│   │   └── wheeled_model.py
+│   ├── onnx/
+│   │   └── __init__.py
+│   ├── openai/
+│   │   ├── __init__.py
+│   │   ├── _agent_tracer.py
+│   │   ├── api_request_parallel_processor.py
+│   │   ├── autolog.py
+│   │   ├── constant.py
+│   │   ├── model.py
+│   │   └── utils/
+│   ├── optuna/
+│   │   ├── __init__.py
+│   │   └── storage.py
+│   ├── otel/
+│   │   └── __init__.py
+│   ├── paddle/
+│   │   ├── __init__.py
+│   │   └── _paddle_autolog.py
+│   ├── pmdarima/
+│   │   └── __init__.py
+│   ├── projects/
+│   │   ├── __init__.py
+│   │   ├── _project_spec.py
+│   │   ├── backend/
+│   │   ├── databricks.py
+│   │   ├── docker.py
+│   │   ├── env_type.py
+│   │   ├── kubernetes.py
+│   │   ├── submitted_run.py
+│   │   └── utils.py
+│   ├── prompt/
+│   │   ├── __init__.py
+│   │   ├── constants.py
+│   │   ├── promptlab_model.py
+│   │   └── registry_utils.py
+│   ├── prophet/
+│   │   └── __init__.py
+│   ├── protos/
+│   │   ├── __init__.py
+│   │   ├── assessments.proto
+│   │   ├── assessments_pb2.py
+│   │   ├── assessments_pb2.pyi
+│   │   ├── databricks.proto
+│   │   ├── databricks_artifacts.proto
+│   │   ├── databricks_artifacts_pb2.py
+│   │   ├── databricks_artifacts_pb2.pyi
+│   │   ├── databricks_filesystem_service.proto
+│   │   ├── databricks_filesystem_service_pb2.py
+│   │   ├── databricks_filesystem_service_pb2.pyi
+│   │   ├── databricks_managed_catalog_messages.proto
+│   │   ├── databricks_managed_catalog_messages_pb2.py
+│   │   ├── databricks_managed_catalog_messages_pb2.pyi
+│   │   ├── databricks_managed_catalog_service.proto
+│   │   ├── databricks_managed_catalog_service_pb2.py
+│   │   ├── databricks_managed_catalog_service_pb2.pyi
+│   │   ├── databricks_pb2.py
+│   │   ├── databricks_pb2.pyi
+│   │   ├── databricks_tracing.proto
+│   │   ├── databricks_tracing_pb2.py
+│   │   ├── databricks_tracing_pb2.pyi
+│   │   ├── databricks_uc_registry_messages.proto
+│   │   ├── databricks_uc_registry_messages_pb2.py
+│   │   ├── databricks_uc_registry_messages_pb2.pyi
+│   │   ├── databricks_uc_registry_service.proto
+│   │   ├── databricks_uc_registry_service_pb2.py
+│   │   ├── databricks_uc_registry_service_pb2.pyi
+│   │   ├── datasets.proto
+│   │   ├── datasets_pb2.py
+│   │   ├── datasets_pb2.pyi
+│   │   ├── facet_feature_statistics.proto
+│   │   ├── facet_feature_statistics_pb2.py
+│   │   ├── facet_feature_statistics_pb2.pyi
+│   │   ├── internal.proto
+│   │   ├── internal_pb2.py
+│   │   ├── internal_pb2.pyi
+│   │   ├── issues.proto
+│   │   ├── issues_pb2.py
+│   │   ├── issues_pb2.pyi
+│   │   ├── jobs.proto
+│   │   ├── jobs_pb2.py
+│   │   ├── jobs_pb2.pyi
+│   │   ├── mlflow_artifacts.proto
+│   │   ├── mlflow_artifacts_pb2.py
+│   │   ├── mlflow_artifacts_pb2.pyi
+│   │   ├── model_registry.proto
+│   │   ├── model_registry_pb2.py
+│   │   ├── model_registry_pb2.pyi
+│   │   ├── opentelemetry/
+│   │   ├── prompt_optimization.proto
+│   │   ├── prompt_optimization_pb2.py
+│   │   ├── prompt_optimization_pb2.pyi
+│   │   ├── scalapb/
+│   │   ├── service.proto
+│   │   ├── service_pb2.py
+│   │   ├── service_pb2.pyi
+│   │   ├── unity_catalog_oss_messages.proto
+│   │   ├── unity_catalog_oss_messages_pb2.py
+│   │   ├── unity_catalog_oss_messages_pb2.pyi
+│   │   ├── unity_catalog_oss_service.proto
+│   │   ├── unity_catalog_oss_service_pb2.py
+│   │   ├── unity_catalog_oss_service_pb2.pyi
+│   │   ├── unity_catalog_prompt_messages.proto
+│   │   ├── unity_catalog_prompt_messages_pb2.py
+│   │   ├── unity_catalog_prompt_messages_pb2.pyi
+│   │   ├── unity_catalog_prompt_messages_pb2_grpc.py
+│   │   ├── unity_catalog_prompt_service.proto
+│   │   ├── unity_catalog_prompt_service_pb2.py
+│   │   ├── unity_catalog_prompt_service_pb2.pyi
+│   │   ├── unity_catalog_prompt_service_pb2_grpc.py
+│   │   ├── webhooks.proto
+│   │   ├── webhooks_pb2.py
+│   │   └── webhooks_pb2.pyi
+│   ├── py.typed
+│   ├── pydantic_ai/
+│   │   ├── __init__.py
+│   │   └── autolog.py
+│   ├── pyfunc/
+│   │   ├── __init__.py
+│   │   ├── _mlflow_pyfunc_backend_predict.py
+│   │   ├── backend.py
+│   │   ├── context.py
+│   │   ├── dbconnect_artifact_cache.py
+│   │   ├── loaders/
+│   │   ├── mlserver.py
+│   │   ├── model.py
+│   │   ├── scoring_server/
+│   │   ├── spark_model_cache.py
+│   │   ├── stdin_server.py
+│   │   └── utils/
+│   ├── pyspark/
+│   │   ├── __init__.py
+│   │   ├── ml/
+│   │   └── optuna/
+│   ├── pytorch/
+│   │   ├── __init__.py
+│   │   ├── _lightning_autolog.py
+│   │   ├── _pytorch_autolog.py
+│   │   └── pickle_module.py
+│   ├── rfunc/
+│   │   ├── __init__.py
+│   │   └── backend.py
+│   ├── runs.py
+│   ├── sagemaker/
+│   │   ├── __init__.py
+│   │   ├── cli.py
+│   │   └── push_image_to_ecr.sh
+│   ├── semantic_kernel/
+│   │   ├── __init__.py
+│   │   ├── autolog.py
+│   │   └── tracing_utils.py
+│   ├── sentence_transformers/
+│   │   └── __init__.py
+│   ├── server/
+│   │   ├── AGENTS.md
+│   │   ├── __init__.py
+│   │   ├── assistant/
+│   │   ├── auth/
+│   │   ├── constants.py
+│   │   ├── fastapi_app.py
+│   │   ├── fastapi_security.py
+│   │   ├── gateway_api.py
+│   │   ├── gateway_budget.py
+│   │   ├── graphql/
+│   │   ├── handlers.py
+│   │   ├── job_api.py
+│   │   ├── jobs/
+│   │   ├── js/
+│   │   ├── otel_api.py
+│   │   ├── prometheus_exporter.py
+│   │   ├── security.py
+│   │   ├── security_utils.py
+│   │   ├── validation.py
+│   │   └── workspace_helpers.py
+│   ├── shap/
+│   │   └── __init__.py
+│   ├── sklearn/
+│   │   ├── __init__.py
+│   │   └── utils.py
+│   ├── smolagents/
+│   │   ├── __init__.py
+│   │   ├── autolog.py
+│   │   └── chat.py
+│   ├── spacy/
+│   │   └── __init__.py
+│   ├── spark/
+│   │   ├── __init__.py
+│   │   └── autologging.py
+│   ├── statsmodels/
+│   │   └── __init__.py
+│   ├── store/
+│   │   ├── __init__.py
+│   │   ├── _unity_catalog/
+│   │   ├── analytics/
+│   │   ├── artifact/
+│   │   ├── db/
+│   │   ├── db_migrations/
+│   │   ├── entities/
+│   │   ├── fs2db/
+│   │   ├── jobs/
+│   │   ├── model_registry/
+│   │   ├── tracking/
+│   │   ├── workspace/
+│   │   ├── workspace_aware_mixin.py
+│   │   └── workspace_rest_store_mixin.py
+│   ├── strands/
+│   │   ├── __init__.py
+│   │   └── autolog.py
+│   ├── system_metrics/
+│   │   ├── __init__.py
+│   │   ├── metrics/
+│   │   └── system_metrics_monitor.py
+│   ├── telemetry/
+│   │   ├── __init__.py
+│   │   ├── client.py
+│   │   ├── constant.py
+│   │   ├── events.py
+│   │   ├── installation_id.py
+│   │   ├── schemas.py
+│   │   ├── track.py
+│   │   └── utils.py
+│   ├── tensorflow/
+│   │   ├── __init__.py
+│   │   ├── autologging.py
+│   │   └── callback.py
+│   ├── tracing/
+│   │   ├── __init__.py
+│   │   ├── analysis.py
+│   │   ├── archival.py
+│   │   ├── assessment.py
+│   │   ├── client.py
+│   │   ├── config.py
+│   │   ├── constant.py
+│   │   ├── databricks.py
+│   │   ├── destination.py
+│   │   ├── display/
+│   │   ├── distributed/
+│   │   ├── enablement.py
+│   │   ├── export/
+│   │   ├── fluent.py
+│   │   ├── locations.py
+│   │   ├── otel/
+│   │   ├── processor/
+│   │   ├── provider.py
+│   │   ├── sampling.py
+│   │   ├── trace_manager.py
+│   │   └── utils/
+│   ├── tracking/
+│   │   ├── __init__.py
+│   │   ├── _model_registry/
+│   │   ├── _tracking_service/
+│   │   ├── _workspace/
+│   │   ├── artifact_utils.py
+│   │   ├── client.py
+│   │   ├── context/
+│   │   ├── default_experiment/
+│   │   ├── fluent.py
+│   │   ├── metric_value_conversion_utils.py
+│   │   ├── multimedia.py
+│   │   ├── registry.py
+│   │   ├── request_auth/
+│   │   └── request_header/
+│   ├── transformers/
+│   │   ├── __init__.py
+│   │   ├── flavor_config.py
+│   │   ├── hub_utils.py
+│   │   ├── llm_inference_utils.py
+│   │   ├── model_io.py
+│   │   ├── peft.py
+│   │   ├── signature.py
+│   │   └── torch_utils.py
+│   ├── types/
+│   │   ├── __init__.py
+│   │   ├── agent.py
+│   │   ├── chat.py
+│   │   ├── llm.py
+│   │   ├── responses.py
+│   │   ├── responses_helpers.py
+│   │   ├── schema.py
+│   │   ├── type_hints.py
+│   │   └── utils.py
+│   ├── utils/
+│   │   ├── __init__.py
+│   │   ├── _capture_modules.py
+│   │   ├── _capture_transformers_modules.py
+│   │   ├── _spark_utils.py
+│   │   ├── _unity_catalog_oss_utils.py
+│   │   ├── _unity_catalog_utils.py
+│   │   ├── annotations.py
+│   │   ├── arguments_utils.py
+│   │   ├── async_logging/
+│   │   ├── autologging_utils/
+│   │   ├── checkpoint_utils.py
+│   │   ├── class_utils.py
+│   │   ├── cli_args.py
+│   │   ├── conda.py
+│   │   ├── credentials.py
+│   │   ├── crypto.py
+│   │   ├── data_utils.py
+│   │   ├── databricks_tracing_utils.py
+│   │   ├── databricks_utils.py
+│   │   ├── docstring_utils.py
+│   │   ├── doctor.py
+│   │   ├── download_cloud_file_chunk.py
+│   │   ├── env_manager.py
+│   │   ├── env_pack.py
+│   │   ├── environment.py
+│   │   ├── exception_utils.py
+│   │   ├── file_utils.py
+│   │   ├── git_utils.py
+│   │   ├── gorilla.py
+│   │   ├── import_hooks/
+│   │   ├── jsonpath_utils.py
+│   │   ├── lazy_load.py
+│   │   ├── logging_utils.py
+│   │   ├── mime_type_utils.py
+│   │   ├── mlflow_tags.py
+│   │   ├── model_utils.py
+│   │   ├── name_utils.py
+│   │   ├── nfs_on_spark.py
+│   │   ├── openai_utils.py
+│   │   ├── os.py
+│   │   ├── oss_registry_utils.py
+│   │   ├── plugins.py
+│   │   ├── process.py
+│   │   ├── promptlab_utils.py
+│   │   ├── proto_json_utils.py
+│   │   ├── providers.py
+│   │   ├── request_utils.py
+│   │   ├── requirements_utils.py
+│   │   ├── rest_utils.py
+│   │   ├── search_logged_model_utils.py
+│   │   ├── search_utils.py
+│   │   ├── server_cli_utils.py
+│   │   ├── spark_utils.py
+│   │   ├── string_utils.py
+│   │   ├── thread_utils.py
+│   │   ├── time.py
+│   │   ├── timeout.py
+│   │   ├── uri.py
+│   │   ├── validation.py
+│   │   ├── virtualenv.py
+│   │   ├── warnings_utils.py
+│   │   ├── workspace_context.py
+│   │   ├── workspace_utils.py
+│   │   └── yaml_utils.py
+│   ├── version.py
+│   ├── webhooks/
+│   │   ├── __init__.py
+│   │   ├── constants.py
+│   │   ├── delivery.py
+│   │   └── types.py
+│   └── xgboost/
+│       ├── __init__.py
+│       └── _autolog.py
+├── prettier.config.js
+├── pyproject.release.toml
+├── pyproject.toml
+├── requirements/
+│   ├── constraints.txt
+│   ├── core-requirements.yaml
+│   ├── dev-requirements.txt
+│   ├── doc-min-requirements.txt
+│   ├── doc-requirements.txt
+│   ├── extra-ml-requirements.txt
+│   ├── gateway-requirements.yaml
+│   ├── genai-requirements.yaml
+│   ├── lint-requirements.txt
+│   ├── skinny-requirements.yaml
+│   ├── skinny-test-requirements.txt
+│   ├── test-requirements.txt
+│   └── tracing-requirements.yaml
+├── tests/
+│   ├── __init__.py
+│   ├── ag2/
+│   │   ├── __init__.py
+│   │   └── test_ag2_autolog.py
+│   ├── agno/
+│   │   ├── __init__.py
+│   │   ├── conftest.py
+│   │   └── test_agno_tracing.py
+│   ├── ai_commands/
+│   │   ├── __init__.py
+│   │   └── test_ai_command_utils.py
+│   ├── anthropic/
+│   │   ├── __init__.py
+│   │   └── test_anthropic_autolog.py
+│   ├── artifacts/
+│   │   ├── __init__.py
+│   │   └── test_artifacts.py
+│   ├── assistant/
+│   │   ├── __init__.py
+│   │   ├── providers/
+│   │   ├── test_cli.py
+│   │   └── test_skill_installer.py
+│   ├── autogen/
+│   │   ├── __init__.py
+│   │   └── test_autogen_autolog.py
+│   ├── autologging/
+│   │   ├── __init__.py
+│   │   ├── async_helper.py
+│   │   ├── fixtures.py
+│   │   ├── test_autologging_behaviors_integration.py
+│   │   ├── test_autologging_behaviors_unit.py
+│   │   ├── test_autologging_client.py
+│   │   ├── test_autologging_safety_unit.py
+│   │   ├── test_autologging_utils.py
+│   │   └── test_training_session.py
+│   ├── bedrock/
+│   │   ├── __init__.py
+│   │   └── test_bedrock_autolog.py
+│   ├── catboost/
+│   │   ├── __init__.py
+│   │   └── test_catboost_model_export.py
+│   ├── check_mlflow_lazily_imports_ml_packages.py
+│   ├── claude_code/
+│   │   ├── __init__.py
+│   │   ├── test_autolog.py
+│   │   ├── test_cli.py
+│   │   ├── test_config.py
+│   │   └── test_tracing.py
+│   ├── cli/
+│   │   ├── __init__.py
+│   │   ├── test_ai_commands.py
+│   │   ├── test_crypto.py
+│   │   ├── test_datasets.py
+│   │   ├── test_eval.py
+│   │   ├── test_genai_eval_utils.py
+│   │   ├── test_scorers.py
+│   │   └── test_traces.py
+│   ├── conftest.py
+│   ├── crewai/
+│   │   ├── __init__.py
+│   │   └── test_crewai_autolog.py
+│   ├── data/
+│   │   ├── __init__.py
+│   │   ├── test_artifact_dataset_sources.py
+│   │   ├── test_code_dataset_source.py
+│   │   ├── test_dataset.py
+│   │   ├── test_dataset_registry.py
+│   │   ├── test_dataset_source.py
+│   │   ├── test_dataset_source_registry.py
+│   │   ├── test_delta_dataset_source.py
+│   │   ├── test_http_dataset_source.py
+│   │   ├── test_huggingface_dataset_and_source.py
+│   │   ├── test_meta_dataset.py
+│   │   ├── test_numpy_dataset.py
+│   │   ├── test_pandas_dataset.py
+│   │   ├── test_polars_dataset.py
+│   │   ├── test_spark_dataset.py
+│   │   ├── test_spark_dataset_source.py
+│   │   └── test_tensorflow_dataset.py
+│   ├── datasets/
+│   │   ├── apollo11_launch.wav
+│   │   ├── cat.png
+│   │   ├── cat_image.jpg
+│   │   ├── tiger_cat.jpg
+│   │   ├── uci-autos-imports-85.data
+│   │   ├── winequality-red.csv
+│   │   └── winequality-white.csv
+│   ├── db/
+│   │   ├── .dockerignore
+│   │   ├── .gitignore
+│   │   ├── Dockerfile
+│   │   ├── Dockerfile.mssql
+│   │   ├── README.md
+│   │   ├── __init__.py
+│   │   ├── check_migration.py
+│   │   ├── check_migration.sh
+│   │   ├── compose.sh
+│   │   ├── compose.yml
+│   │   ├── conftest.py
+│   │   ├── entrypoint.sh
+│   │   ├── init-mssql-db.sh
+│   │   ├── init-mssql-db.sql
+│   │   ├── schemas/
+│   │   ├── test_schema.py
+│   │   ├── test_tracking_operations.py
+│   │   ├── test_workspace_migration.py
+│   │   └── update_schemas.sh
+│   ├── demo/
+│   │   ├── __init__.py
+│   │   ├── conftest.py
+│   │   ├── test_api_routes.py
+│   │   ├── test_base.py
+│   │   ├── test_cli.py
+│   │   ├── test_demo_integration.py
+│   │   ├── test_evaluation_generator.py
+│   │   ├── test_generate.py
+│   │   ├── test_judges_generator.py
+│   │   ├── test_prompts_generator.py
+│   │   ├── test_registry.py
+│   │   └── test_traces_generator.py
+│   ├── deployments/
+│   │   ├── __init__.py
+│   │   ├── databricks/
+│   │   ├── mlflow/
+│   │   ├── openai/
+│   │   ├── test_cli.py
+│   │   ├── test_deployments.py
+│   │   ├── test_interface.py
+│   │   └── test_utils.py
+│   ├── dev/
+│   │   ├── __init__.py
+│   │   ├── test_check_function_signatures.py
+│   │   ├── test_check_init_py.py
+│   │   ├── test_remove_experimental_decorators.py
+│   │   └── test_update_mlflow_versions.py
+│   ├── docker/
+│   │   ├── __init__.py
+│   │   ├── conftest.py
+│   │   ├── docker-compose.mssql-test.yaml
+│   │   ├── docker-compose.mysql-test.yaml
+│   │   ├── docker-compose.postgres-test.yaml
+│   │   └── test_integrations.py
+│   ├── dspy/
+│   │   ├── __init__.py
+│   │   ├── conftest.py
+│   │   ├── test_dspy_autolog.py
+│   │   ├── test_dspy_evaluate.py
+│   │   ├── test_dspy_util.py
+│   │   └── test_save.py
+│   ├── entities/
+│   │   ├── __init__.py
+│   │   ├── conftest.py
+│   │   ├── model_registry/
+│   │   ├── test_assessment.py
+│   │   ├── test_assessment_source.py
+│   │   ├── test_dataset.py
+│   │   ├── test_dataset_input.py
+│   │   ├── test_dataset_record.py
+│   │   ├── test_dataset_record_source.py
+│   │   ├── test_evaluation_dataset.py
+│   │   ├── test_experiment.py
+│   │   ├── test_file_info.py
+│   │   ├── test_gateway_endpoint.py
+│   │   ├── test_gateway_secrets.py
+│   │   ├── test_input_tag.py
+│   │   ├── test_issue.py
+│   │   ├── test_job_status.py
+│   │   ├── test_metric.py
+│   │   ├── test_param.py
+│   │   ├── test_prompt.py
+│   │   ├── test_run.py
+│   │   ├── test_run_data.py
+│   │   ├── test_run_info.py
+│   │   ├── test_run_inputs.py
+│   │   ├── test_run_status.py
+│   │   ├── test_span.py
+│   │   ├── test_span_event.py
+│   │   ├── test_span_status.py
+│   │   ├── test_trace.py
+│   │   ├── test_trace_data.py
+│   │   ├── test_trace_info.py
+│   │   ├── test_trace_info_v2.py
+│   │   ├── test_trace_location.py
+│   │   ├── test_trace_metrics.py
+│   │   ├── test_trace_state.py
+│   │   ├── test_trace_status.py
+│   │   ├── test_view_type.py
+│   │   └── test_webhook.py
+│   ├── evaluate/
+│   │   ├── __init__.py
+│   │   ├── logging/
+│   │   ├── test_default_evaluator.py
+│   │   ├── test_default_evaluator_delta.py
+│   │   ├── test_deprecated.py
+│   │   ├── test_evaluation.py
+│   │   └── test_validation.py
+│   ├── examples/
+│   │   ├── README.md
+│   │   ├── __init__.py
+│   │   └── test_examples.py
+│   ├── gateway/
+│   │   ├── __init__.py
+│   │   ├── providers/
+│   │   ├── schemas/
+│   │   ├── test_budget_tracker.py
+│   │   ├── test_cli.py
+│   │   ├── test_gateway_app.py
+│   │   ├── test_gateway_budget.py
+│   │   ├── test_gateway_config_parsing.py
+│   │   ├── test_openai_compatibility.py
+│   │   ├── test_runner.py
+│   │   ├── test_tracing_utils.py
+│   │   ├── test_utils.py
+│   │   └── tools.py
+│   ├── gemini/
+│   │   ├── __init__.py
+│   │   ├── test_gemini_autolog.py
+│   │   └── test_legacy_gemini_autolog.py
+│   ├── genai/
+│   │   ├── __init__.py
+│   │   ├── conftest.py
+│   │   ├── datasets/
+│   │   ├── evaluate/
+│   │   ├── judges/
+│   │   ├── label_schemas/
+│   │   ├── labeling/
+│   │   ├── optimize/
+│   │   ├── prompts/
+│   │   ├── scorers/
+│   │   ├── simulators/
+│   │   ├── test_agent_server.py
+│   │   ├── test_genai_import_without_agent_sdk.py
+│   │   ├── test_git_versioning.py
+│   │   ├── test_scheduled_scorers.py
+│   │   └── utils/
+│   ├── generate_ui_test_data.py
+│   ├── groq/
+│   │   ├── __init__.py
+│   │   └── test_groq_autolog.py
+│   ├── h2o/
+│   │   ├── __init__.py
+│   │   └── test_h2o_model_export.py
+│   ├── haystack/
+│   │   ├── __init__.py
+│   │   ├── conftest.py
+│   │   └── test_haystack_tracing.py
+│   ├── helper_functions.py
+│   ├── helpers/
+│   │   ├── __init__.py
+│   │   └── db_mocks.py
+│   ├── integration/
+│   │   ├── __init__.py
+│   │   ├── async_logging/
+│   │   └── utils.py
+│   ├── johnsnowlabs/
+│   │   ├── __init__.py
+│   │   └── test_johnsnowlabs_model_export.py
+│   ├── keras/
+│   │   ├── __init__.py
+│   │   ├── test_autolog.py
+│   │   ├── test_callback.py
+│   │   └── test_save.py
+│   ├── langchain/
+│   │   ├── __init__.py
+│   │   ├── agent_executor/
+│   │   ├── conftest.py
+│   │   ├── sample_code/
+│   │   ├── state_of_the_union.txt
+│   │   ├── test_chat_agent_langchain.py
+│   │   ├── test_chat_utils.py
+│   │   ├── test_langchain_autolog.py
+│   │   ├── test_langchain_databricks_dependency_extraction.py
+│   │   ├── test_langchain_databricks_integration.py
+│   │   ├── test_langchain_model_export.py
+│   │   ├── test_langchain_output_parsers.py
+│   │   ├── test_langchain_tracer.py
+│   │   └── test_responses_agent_langchain.py
+│   ├── langgraph/
+│   │   ├── __init__.py
+│   │   ├── conftest.py
+│   │   ├── sample_code/
+│   │   ├── test_chat_agent_langgraph.py
+│   │   ├── test_langgraph_autolog.py
+│   │   └── test_langgraph_model_export.py
+│   ├── lightgbm/
+│   │   ├── __init__.py
+│   │   ├── test_lightgbm_autolog.py
+│   │   └── test_lightgbm_model_export.py
+│   ├── litellm/
+│   │   ├── __init__.py
+│   │   ├── conftest.py
+│   │   └── test_litellm_autolog.py
+│   ├── llama_index/
+│   │   ├── __init__.py
+│   │   ├── conftest.py
+│   │   ├── sample_code/
+│   │   ├── test_llama_index_autolog.py
+│   │   ├── test_llama_index_evaluate.py
+│   │   ├── test_llama_index_model_export.py
+│   │   ├── test_llama_index_node_conversion.py
+│   │   ├── test_llama_index_pyfunc_wrapper.py
+│   │   ├── test_llama_index_serialization.py
+│   │   └── test_llama_index_tracer.py
+│   ├── mcp/
+│   │   ├── __init__.py
+│   │   ├── test_cli.py
+│   │   └── test_mcp.py
+│   ├── metrics/
+│   │   ├── __init__.py
+│   │   ├── genai/
+│   │   ├── test_metric_base.py
+│   │   └── test_metric_definitions.py
+│   ├── mistral/
+│   │   ├── __init__.py
+│   │   └── test_mistral_autolog.py
+│   ├── models/
+│   │   ├── __init__.py
+│   │   ├── configs/
+│   │   ├── resources/
+│   │   ├── test_artifacts.py
+│   │   ├── test_auth_policy.py
+│   │   ├── test_cli.py
+│   │   ├── test_container.py
+│   │   ├── test_dependencies_schema.py
+│   │   ├── test_display_utils.py
+│   │   ├── test_model.py
+│   │   ├── test_model_config.py
+│   │   ├── test_model_input_examples.py
+│   │   ├── test_pyfunc.py
+│   │   ├── test_python_api.py
+│   │   ├── test_resources.py
+│   │   ├── test_signature.py
+│   │   ├── test_utils.py
+│   │   └── test_wheeled_model.py
+│   ├── onnx/
+│   │   ├── __init__.py
+│   │   └── test_onnx_model_export.py
+│   ├── openai/
+│   │   ├── __init__.py
+│   │   ├── conftest.py
+│   │   ├── mock_openai.py
+│   │   ├── test_openai_agent_autolog.py
+│   │   ├── test_openai_autolog.py
+│   │   ├── test_openai_evaluate.py
+│   │   ├── test_openai_model_export.py
+│   │   └── test_openai_responses_autolog.py
+│   ├── optuna/
+│   │   ├── __init__.py
+│   │   └── test_storage.py
+│   ├── otel/
+│   │   ├── __init__.py
+│   │   └── test_otel_autolog.py
+│   ├── paddle/
+│   │   ├── __init__.py
+│   │   ├── test_paddle_autolog.py
+│   │   └── test_paddle_model_export.py
+│   ├── pmdarima/
+│   │   ├── __init__.py
+│   │   └── test_pmdarima_model_export.py
+│   ├── projects/
+│   │   ├── __init__.py
+│   │   ├── backend/
+│   │   ├── conftest.py
+│   │   ├── test_databricks.py
+│   │   ├── test_docker_projects.py
+│   │   ├── test_entry_point.py
+│   │   ├── test_kubernetes.py
+│   │   ├── test_project_spec.py
+│   │   ├── test_projects.py
+│   │   ├── test_projects_cli.py
+│   │   ├── test_utils.py
+│   │   ├── test_virtualenv_projects.py
+│   │   └── utils.py
+│   ├── prompt/
+│   │   ├── __init__.py
+│   │   └── test_promptlab_model.py
+│   ├── prophet/
+│   │   ├── __init__.py
+│   │   └── test_prophet_model_export.py
+│   ├── protos/
+│   │   ├── __init__.py
+│   │   ├── test_message.proto
+│   │   └── test_message_pb2.py
+│   ├── pydantic_ai/
+│   │   ├── __init__.py
+│   │   ├── conftest.py
+│   │   ├── test_pydanticai_fluent_tracing.py
+│   │   ├── test_pydanticai_mcp_tracing.py
+│   │   └── test_pydanticai_tracing.py
+│   ├── pyfunc/
+│   │   ├── __init__.py
+│   │   ├── custom_model/
+│   │   ├── docker/
+│   │   ├── sample_code/
+│   │   ├── test_backward_compatibility.py
+│   │   ├── test_chat_agent.py
+│   │   ├── test_chat_agent_validation.py
+│   │   ├── test_chat_model.py
+│   │   ├── test_chat_model_validation.py
+│   │   ├── test_context.py
+│   │   ├── test_dependencies_functions.py
+│   │   ├── test_inferred_code_path.py
+│   │   ├── test_logged_models.py
+│   │   ├── test_mlserver.py
+│   │   ├── test_model_export_with_class_and_artifacts.py
+│   │   ├── test_model_export_with_loader_module_and_data_path.py
+│   │   ├── test_pyfunc_class_methods.py
+│   │   ├── test_pyfunc_exceptions.py
+│   │   ├── test_pyfunc_input_converter.py
+│   │   ├── test_pyfunc_model_config.py
+│   │   ├── test_pyfunc_model_with_type_hints.py
+│   │   ├── test_pyfunc_schema_enforcement.py
+│   │   ├── test_pyfunc_schema_enforcement_pyspark.py
+│   │   ├── test_rag_model.py
+│   │   ├── test_responses_agent.py
+│   │   ├── test_responses_agent_validation.py
+│   │   ├── test_scoring_server.py
+│   │   ├── test_spark.py
+│   │   ├── test_spark_connect.py
+│   │   ├── test_virtualenv.py
+│   │   └── utils.py
+│   ├── pyspark/
+│   │   ├── __init__.py
+│   │   └── optuna/
+│   ├── pytorch/
+│   │   ├── __init__.py
+│   │   ├── iris.py
+│   │   ├── iris_data_module.py
+│   │   ├── test_forecasting_model.py
+│   │   ├── test_pytorch_autolog.py
+│   │   ├── test_pytorch_metric_value_conversion_utils.py
+│   │   ├── test_pytorch_model_export.py
+│   │   └── test_tensorboard_autolog.py
+│   ├── resources/
+│   │   ├── __init__.py
+│   │   ├── data/
+│   │   ├── db/
+│   │   ├── dockerfile/
+│   │   ├── example_docker_project/
+│   │   ├── example_mlflow_1x_sklearn_model/
+│   │   ├── example_mlflow_2.12_langchain_model/
+│   │   ├── example_project/
+│   │   ├── example_virtualenv_conda_project/
+│   │   ├── example_virtualenv_no_python_env/
+│   │   ├── example_virtualenv_project/
+│   │   ├── images/
+│   │   ├── mlflow-test-plugin/
+│   │   ├── onnx/
+│   │   └── pyfunc_models/
+│   ├── sagemaker/
+│   │   ├── __init__.py
+│   │   ├── mock/
+│   │   ├── test_batch_deployment.py
+│   │   ├── test_cli.py
+│   │   └── test_sagemaker_deployment_client.py
+│   ├── semantic_kernel/
+│   │   ├── __init__.py
+│   │   ├── conftest.py
+│   │   ├── resources.py
+│   │   └── test_semantic_kernel_autolog.py
+│   ├── sentence_transformers/
+│   │   ├── __init__.py
+│   │   └── test_sentence_transformers_model_export.py
+│   ├── server/
+│   │   ├── __init__.py
+│   │   ├── assistant/
+│   │   ├── auth/
+│   │   ├── conftest.py
+│   │   ├── jobs/
+│   │   ├── test_gateway_api.py
+│   │   ├── test_handlers.py
+│   │   ├── test_init.py
+│   │   ├── test_otel_api.py
+│   │   ├── test_prometheus_exporter.py
+│   │   ├── test_security.py
+│   │   ├── test_security_integration.py
+│   │   ├── test_workspace_endpoints.py
+│   │   └── test_workspace_middleware.py
+│   ├── shap/
+│   │   ├── __init__.py
+│   │   ├── test_log.py
+│   │   └── test_shap.py
+│   ├── sklearn/
+│   │   ├── __init__.py
+│   │   ├── test_sklearn_autolog.py
+│   │   ├── test_sklearn_autolog_without_matplotlib.py
+│   │   └── test_sklearn_model_export.py
+│   ├── smolagents/
+│   │   ├── __init__.py
+│   │   └── test_smolagents_autolog.py
+│   ├── spacy/
+│   │   ├── __init__.py
+│   │   └── test_spacy_model_export.py
+│   ├── spark/
+│   │   ├── __init__.py
+│   │   ├── autologging/
+│   │   ├── test_spark_connect_model_export.py
+│   │   ├── test_spark_model_export.py
+│   │   └── test_sparkml_param_integration.py
+│   ├── statsmodels/
+│   │   ├── __init__.py
+│   │   ├── model_fixtures.py
+│   │   ├── test_statsmodels_autolog.py
+│   │   └── test_statsmodels_model_export.py
+│   ├── store/
+│   │   ├── __init__.py
+│   │   ├── _unity_catalog/
+│   │   ├── analytics/
+│   │   ├── artifact/
+│   │   ├── db/
+│   │   ├── dump_schema.py
+│   │   ├── fs2db/
+│   │   ├── lineage/
+│   │   ├── model_registry/
+│   │   ├── test_workspace_model_coverage.py
+│   │   ├── tracking/
+│   │   └── workspace/
+│   ├── strands/
+│   │   ├── __init__.py
+│   │   ├── conftest.py
+│   │   └── test_strands_tracing.py
+│   ├── system_metrics/
+│   │   ├── __init__.py
+│   │   ├── test_collect_metrics.py
+│   │   └── test_system_metrics_logging.py
+│   ├── telemetry/
+│   │   ├── __init__.py
+│   │   ├── conftest.py
+│   │   ├── helper_functions.py
+│   │   ├── test_client.py
+│   │   ├── test_events.py
+│   │   ├── test_installation_id.py
+│   │   ├── test_track.py
+│   │   ├── test_tracked_events.py
+│   │   └── test_utils.py
+│   ├── tensorflow/
+│   │   ├── __init__.py
+│   │   ├── iris_data_utils.py
+│   │   ├── iris_test.csv
+│   │   ├── iris_training.csv
+│   │   ├── test_keras_model_export.py
+│   │   ├── test_keras_pyfunc_model_works_with_all_input_types.py
+│   │   ├── test_mlflow_callback.py
+│   │   ├── test_tensorflow2_autolog.py
+│   │   ├── test_tensorflow2_core_model_export.py
+│   │   └── test_tensorflow2_metric_value_conversion_utils.py
+│   ├── test_cli.py
+│   ├── test_environment_variables.py
+│   ├── test_exceptions.py
+│   ├── test_flavors.py
+│   ├── test_import.py
+│   ├── test_mismatch.py
+│   ├── test_mlflow_version_comp.py
+│   ├── test_runs.py
+│   ├── test_skinny_client_autolog_without_scipy.py
+│   ├── test_skinny_client_omits_data_science_libs.py
+│   ├── test_skinny_client_omits_sql_libs.py
+│   ├── test_version.py
+│   ├── tracing/
+│   │   ├── __init__.py
+│   │   ├── conftest.py
+│   │   ├── display/
+│   │   ├── export/
+│   │   ├── fixtures/
+│   │   ├── helper.py
+│   │   ├── opentelemetry/
+│   │   ├── otel/
+│   │   ├── processor/
+│   │   ├── sample_code/
+│   │   ├── test_archival.py
+│   │   ├── test_assessment.py
+│   │   ├── test_databricks.py
+│   │   ├── test_distributed.py
+│   │   ├── test_enablement.py
+│   │   ├── test_fluent.py
+│   │   ├── test_otel_loading.py
+│   │   ├── test_otel_logging.py
+│   │   ├── test_provider.py
+│   │   ├── test_trace_manager.py
+│   │   ├── test_tracing_client.py
+│   │   └── utils/
+│   ├── tracking/
+│   │   ├── __init__.py
+│   │   ├── _model_registry/
+│   │   ├── _tracking_service/
+│   │   ├── conftest.py
+│   │   ├── context/
+│   │   ├── default_experiment/
+│   │   ├── fluent/
+│   │   ├── integration_test_utils.py
+│   │   ├── request_auth/
+│   │   ├── request_header/
+│   │   ├── test_artifact_utils.py
+│   │   ├── test_client.py
+│   │   ├── test_client_webhooks.py
+│   │   ├── test_client_workspace.py
+│   │   ├── test_log_figure.py
+│   │   ├── test_log_image.py
+│   │   ├── test_mlflow_artifacts.py
+│   │   ├── test_model_registry.py
+│   │   ├── test_rest_tracking.py
+│   │   ├── test_tracking.py
+│   │   ├── test_workspace_registry.py
+│   │   └── test_workspace_utils.py
+│   ├── transformers/
+│   │   ├── __init__.py
+│   │   ├── conftest.py
+│   │   ├── helper.py
+│   │   ├── test_flavor_configs.py
+│   │   ├── test_transformers_autolog.py
+│   │   ├── test_transformers_llm_inference_utils.py
+│   │   ├── test_transformers_model_export.py
+│   │   ├── test_transformers_peft_model.py
+│   │   ├── test_transformers_prompt_templating.py
+│   │   ├── test_transformers_signature.py
+│   │   └── version.py
+│   ├── types/
+│   │   ├── __init__.py
+│   │   ├── test_genai_types.py
+│   │   ├── test_schema.py
+│   │   └── test_type_hints.py
+│   ├── uc_oss/
+│   │   ├── __init__.py
+│   │   └── test_uc_oss_integration.py
+│   ├── utils/
+│   │   ├── __init__.py
+│   │   ├── test_annotations.py
+│   │   ├── test_arguments_utils.py
+│   │   ├── test_async_artifacts_logging_queue.py
+│   │   ├── test_async_logging_queue.py
+│   │   ├── test_autologging_utils.py
+│   │   ├── test_class_utils.py
+│   │   ├── test_credentials.py
+│   │   ├── test_crypto.py
+│   │   ├── test_data.py
+│   │   ├── test_databricks_tracing_utils.py
+│   │   ├── test_databricks_utils.py
+│   │   ├── test_docstring_utils.py
+│   │   ├── test_doctor.py
+│   │   ├── test_env_pack.py
+│   │   ├── test_environment.py
+│   │   ├── test_exception.py
+│   │   ├── test_file_utils.py
+│   │   ├── test_gorilla.py
+│   │   ├── test_jsonpath_utils.py
+│   │   ├── test_logging_utils.py
+│   │   ├── test_mime_type_utils.py
+│   │   ├── test_model_utils.py
+│   │   ├── test_name_utils.py
+│   │   ├── test_oss_registry_utils.py
+│   │   ├── test_process_utils.py
+│   │   ├── test_promptlab_utils.py
+│   │   ├── test_proto_json_utils.py
+│   │   ├── test_providers.py
+│   │   ├── test_python_env.py
+│   │   ├── test_request_utils.py
+│   │   ├── test_requirements_utils.py
+│   │   ├── test_resources/
+│   │   ├── test_rest_utils.py
+│   │   ├── test_search_utils.py
+│   │   ├── test_string_utils.py
+│   │   ├── test_time.py
+│   │   ├── test_unity_catalog_oss_utils.py
+│   │   ├── test_unity_catalog_utils.py
+│   │   ├── test_uri.py
+│   │   ├── test_utils.py
+│   │   ├── test_validation.py
+│   │   ├── test_workspace_utils.py
+│   │   └── test_yaml_utils.py
+│   ├── webhooks/
+│   │   ├── __init__.py
+│   │   ├── app.py
+│   │   ├── test_delivery.py
+│   │   └── test_e2e.py
+│   └── xgboost/
+│       ├── __init__.py
+│       ├── test_xgboost_autolog.py
+│       └── test_xgboost_model_export.py
+└── uv.lock

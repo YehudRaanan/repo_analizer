@@ -1,0 +1,547 @@
+=====================================
+Repository Analysis: dust
+Type: CLI Tool
+=====================================
+
+--- METADATA ---
+Name: dust
+Description: A more intuitive version of du in rust
+Language: Rust
+Topics: N/A
+Stars: 11347
+License: Apache License 2.0
+
+--- README ---
+[![Build Status](https://github.com/bootandy/dust/actions/workflows/CICD.yml/badge.svg)](https://github.com/bootandy/dust/actions)
+
+
+# Dust
+
+du + rust = dust. Like du but more intuitive.
+
+# Why
+
+Because I want an easy way to see where my disk is being used.
+
+# Demo
+
+![Example](media/snap.png)
+
+Study the above picture. 
+
+* We see `target` has 1.8G
+* `target/debug` is the same size as `target` - so we know nearly all the disk usage of the 1.8G is in this folder
+* `target/debug/deps` this is 1.2G - Note the bar jumps down to 70% to indicate that most disk usage is here but not all.
+* `target/debug/deps/dust-e78c9f87a17f24f3` - This is the largest file in this folder, but it is only 46M - Note the bar jumps down to 3% to indicate the file is small.
+
+From here we can conclude:
+ * `target/debug/deps` takes the majority of the space in `target` and that `target/debug/deps` has a large number of relatively small files.
+  
+
+## Install
+
+### Quick Install (Linux, macOS, Windows) 
+```bash
+curl -sSfL https://raw.githubusercontent.com/bootandy/dust/refs/heads/master/install.sh | sh
+```
+
+### Cargo <a href="https://repology.org/project/du-dust/versions"><img src="https://repology.org/badge/vertical-allrepos/du-dust.svg" alt="Packaging status" align="right"></a>
+
+#### Cargo
+
+- `cargo install du-dust`
+
+#### 🍺 Homebrew (Mac OS)
+
+- `brew install dust`
+
+#### 🍺 Homebrew (Linux)
+
+- `brew install dust`
+
+#### [Snap](https://ubuntu.com/core/services/guide/snaps-intro) Ubuntu and [supported systems](https://snapcraft.io/docs/installing-snapd)
+
+- `snap install dust`
+
+Note: `dust` installed through `snap` can only access files stored in the `/home` directory. See daniejstriata/dust-snap#2 for more information.
+
+#### [Pacstall](https://github.com/pacstall/pacstall) (Debian/Ubuntu)
+
+- `pacstall -I dust-bin`
+
+#### Anaconda (conda-forge)
+
+- `conda install -c conda-forge dust`
+
+#### [deb-get](https://github.com/wimpysworld/deb-get) (Debian/Ubuntu)
+
+- `deb-get install du-dust`
+
+#### [x-cmd](https://www.x-cmd.com/pkg/#VPContent)
+
+- `x env use dust`
+
+#### Windows:
+
+- `scoop install dust`
+- Windows GNU version - works
+- Windows MSVC - requires: [VCRUNTIME140.dll](https://docs.microsoft.com/en-gb/cpp/windows/latest-supported-vc-redist?view=msvc-170)
+
+#### Download
+
+- Download Linux/Mac binary from [Releases](https://github.com/bootandy/dust/releases)
+- unzip file: `tar -xvf _downloaded_file.tar.gz`
+- move file to executable path: `sudo mv dust /usr/local/bin/`
+
+## Overview
+
+Dust is meant to give you an instant overview of which directories are using disk space without requiring sort or head. Dust will print a maximum of one 'Did not have permissions message'.
+
+Dust will list a slightly-less-than-the-terminal-height number of the biggest subdirectories or files and will smartly recurse down the tree to find the larger ones. There is no need for a '-d' flag or a '-h' flag. The largest subdirectories will be colored.
+
+The different colors on the bars: These represent the combined tree hierarchy & disk usage. The shades of grey are used to indicate which parent folder a subfolder belongs to. For instance, look at the above screenshot. `.steam` is a folder taking 44% of the space. From the `.steam` bar is a light grey line that goes up. All these folders are inside `.steam` so if you delete `.steam` all that stuff will be gone too.
+
+If you are new to the tool I recommend to try tweaking the `-n` parameter. `dust -n 10`, `dust -n 50`.
+
+## Usage
+
+```
+Usage: dust
+Usage: dust <dir>
+Usage: dust <dir>  <another_dir> <and_more>
+Usage: dust -p (full-path - Show fullpath of the subdirectories)
+Usage: dust -s (apparent-size - shows the length of the file as opposed to the amount of disk space it uses)
+Usage: dust -n 30  (Shows 30 directories instead of the default [default is terminal height])
+Usage: dust -d 3  (Shows 3 levels of subdirectories)
+Usage: dust -D (Show only directories (eg dust -D))
+Usage: dust -F (Show only files - finds your largest files)
+Usage: dust -r (reverse order of output)
+Usage: dust -o si/b/kb/kib/mb/mib/gb/gib (si - prints sizes in powers of 1000. Others print size in that format).
+Usage: dust -X ignore  (ignore all files and directories with the name 'ignore')
+Usage: dust -x (Only show directories on the same filesystem)
+Usage: dust -b (Do not show percentages or draw ASCII bars)
+Usage: dust -B (--bars-on-right - Percent bars moved to right side of screen)
+Usage: dust -i (Do not show hidden files)
+Usage: dust -c (No colors [monochrome])
+Usage: dust -C (Force colors)
+Usage: dust -f (Count files instead of diskspace [Counts by inode, to include duplicate inodes use dust -f -s])
+Usage: dust -t (Group by filetype)
+Usage: dust -z 10M (min-size, Only include files larger than 10M)
+Usage: dust -e regex (Only include files matching this regex (eg dust -e "\.png$" would match png files))
+Usage: dust -v regex (Exclude files matching this regex (eg dust -v "\.png$" would ignore png files))
+Usage: dust -L (dereference-links - Treat sym links as 
+... [TRUNCATED]
+
+--- PACKAGE MANIFEST(S) ---
+
+[Cargo.toml]
+[package]
+name = "du-dust"
+description = "A more intuitive version of du"
+version = "1.2.4"
+authors = ["bootandy <bootandy@gmail.com>", "nebkor <code@ardent.nebcorp.com>"]
+edition = "2024"
+readme = "README.md"
+
+documentation = "https://github.com/bootandy/dust"
+homepage = "https://github.com/bootandy/dust"
+repository = "https://github.com/bootandy/dust"
+
+keywords = ["du", "command-line", "disk", "disk-usage"]
+categories = ["command-line-utilities"]
+license = "Apache-2.0"
+
+[badges]
+travis-ci = { repository = "https://travis-ci.org/bootandy/dust" }
+
+[[bin]]
+name = "dust"
+path = "src/main.rs"
+
+[profile.release]
+codegen-units = 1
+lto = true
+strip = true
+
+[dependencies]
+clap = { version = "4", features = ["derive"] }
+lscolors = "0.21"
+nu-ansi-term = "0.50"
+terminal_size = "0.4"
+unicode-width = "0.2"
+rayon = "1"
+thousands = "0.2"
+stfu8 = "0.2"
+regex = "1"
+config-file = "0.2"
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+sysinfo = "0.37"
+ctrlc = "3"
+chrono = "0.4"
+
+[target.'cfg(not(target_has_atomic = "64"))'.dependencies]
+portable-atomic = "1.4"
+
+[target.'cfg(windows)'.dependencies]
+winapi-util = "0.1"
+filesize = "0.2.0"
+
+[dev-dependencies]
+assert_cmd = "2"
+tempfile = "=3"
+
+[build-dependencies]
+clap = { version = "4.4", features = ["derive"] }
+clap_complete = "4.4"
+clap_mangen = "0.2"
+
+[[test]]
+name = "integration"
+path = "tests/tests.rs"
+
+[package.metadata.binstall]
+pkg-url = "{ repo }/releases/download/v{ version }/dust-v{ version }-{ target }{ archive-suffix }"
+bin-dir = "dust-v{ version }-{ target }/{ bin }{ binary-ext }"
+
+[package.metadata.deb]
+section = "utils"
+assets = [
+  [
+    "target/release/dust",
+    "usr/bin/",
+    "755",
+  ],
+  [
+    "LICENSE",
+    "usr/share/doc/du-dust/",
+    "644",
+  ],
+  [
+    "README.md",
+    "usr/share/doc/du-dust/README",
+    "644",
+  ],
+  [
+    "man-page/dust.1",
+    "usr/share/man/man1/dust.1",
+    "644",
+  ],
+  [
+    "completions/dust.bash",
+    "usr/share/bash-completion/completions/dust",
+    "644",
+  ],
+]
+extended-description = """\
+Dust is meant to give you an instant overview of which directories are using
+disk space without requiring sort or head. Dust will print a maximum of one
+'Did not have permissions message'.
+"""
+
+
+--- CLI ENTRY POINTS / COMMAND DEFINITIONS ---
+
+[src/cli.rs]
+use std::fmt;
+
+use clap::{Parser, ValueEnum, ValueHint};
+
+// For single thread mode set this variable on your command line:
+// export RAYON_NUM_THREADS=1
+
+/// Like du but more intuitive
+#[derive(Debug, Parser)]
+#[command(name("Dust"), version)]
+pub struct Cli {
+    /// Depth to show
+    #[arg(short, long)]
+    pub depth: Option<usize>,
+
+    /// Number of threads to use
+    #[arg(short('T'), long)]
+    pub threads: Option<usize>,
+
+    /// Specify a config file to use
+    #[arg(long, value_name("FILE"), value_hint(ValueHint::FilePath))]
+    pub config: Option<String>,
+
+    /// Display the 'n' largest entries. (Default is terminal_height)
+    #[arg(short, long, value_name("NUMBER"))]
+    pub number_of_lines: Option<usize>,
+
+    /// Subdirectories will not have their path shortened
+    #[arg(short('p'), long)]
+    pub full_paths: bool,
+
+    /// Exclude any file or directory with this path
+    #[arg(short('X'), long, value_name("PATH"), value_hint(ValueHint::AnyPath))]
+    pub ignore_directory: Option<Vec<String>>,
+
+    /// Exclude any file or directory with a regex matching that listed in this
+    /// file, the file entries will be added to the ignore regexs provided by
+    /// --invert_filter
+    #[arg(short('I'), long, value_name("FILE"), value_hint(ValueHint::FilePath))]
+    pub ignore_all_in_file: Option<String>,
+
+    /// dereference sym links - Treat sym links as directories and go into them
+    #[arg(short('L'), long)]
+    pub dereference_links: bool,
+
+    /// Only count the files and directories on the same filesystem as the
+    /// supplied directory
+    #[arg(short('x'), long)]
+    pub limit_filesystem: bool,
+
+    /// Use file length instead of blocks
+    #[arg(short('s'), long)]
+    pub apparent_size: bool,
+
+    /// Print tree upside down (biggest highest)
+    #[arg(short, long)]
+    pub reverse: bool,
+
+    /// No colors will be printed (Useful for commands like: watch)
+    #[arg(short('c'), long)]
+    pub no_colors: bool,
+
+    /// Force colors print
+    #[arg(short('C'), long)]
+    pub force_colors: bool,
+
+    /// No percent bars or percentages will be displayed
+    #[arg(short('b'), long)]
+    pub no_percent_bars: bool,
+
+    /// percent bars moved to right side of screen
+    #[arg(short('B'), long)]
+    pub bars_on_right: bool,
+
+    /// Minimum size file to include in output
+    #[arg(short('z'), long)]
+    pub min_size: Option<String>,
+
+    /// For screen readers. Removes bars. Adds new column: depth level (May want
+    /// to use -p too for full path)
+    #[arg(short('R'), long)]
+    pub screen_reader: bool,
+
+    /// No total row will be displayed
+    #[arg(long)]
+    pub skip_total: bool,
+
+    /// Directory 'size' is number of child files instead of disk size
+    #[arg(short, long)]
+    pub filecount: bool,
+
+    /// Do not display hidden files
+    // Do not use 'h' this is used by 'help'
+    #[arg(short, long)]
+    pub ignore_hidden: bool,
+
+    /// Exclude filepaths matching this regex. To ignore png files type: -v
+    /// "\.png$"
+   
+... [TRUNCATED]
+
+[src/main.rs]
+mod cli;
+mod config;
+mod dir_walker;
+mod display;
+mod display_node;
+mod filter;
+mod filter_type;
+mod node;
+mod platform;
+mod progress;
+mod utils;
+
+use crate::cli::Cli;
+use crate::config::Config;
+use crate::display_node::DisplayNode;
+use crate::progress::RuntimeErrors;
+use clap::Parser;
+use dir_walker::WalkData;
+use display::InitialDisplayData;
+use filter::AggregateData;
+use progress::PIndicator;
+use regex::Error;
+use std::collections::HashSet;
+use std::env;
+use std::fs::{read, read_to_string};
+use std::io;
+use std::io::Read;
+use std::panic;
+use std::process;
+use std::sync::Arc;
+use std::sync::Mutex;
+use sysinfo::System;
+use utils::canonicalize_absolute_path;
+
+use self::display::draw_it;
+use config::get_config;
+use dir_walker::walk_it;
+use display_node::OUTPUT_TYPE;
+use filter::get_biggest;
+use filter_type::get_all_file_types;
+use regex::Regex;
+use std::cmp::max;
+use std::path::PathBuf;
+use terminal_size::{Height, Width, terminal_size};
+use utils::get_filesystem_devices;
+use utils::simplify_dir_names;
+
+static DEFAULT_NUMBER_OF_LINES: usize = 30;
+static DEFAULT_TERMINAL_WIDTH: usize = 80;
+
+fn should_init_color(no_color: bool, force_color: bool) -> bool {
+    if force_color {
+        return true;
+    }
+    if no_color {
+        return false;
+    }
+    // check if NO_COLOR is set
+    // https://no-color.org/
+    if env::var_os("NO_COLOR").is_some() {
+        return false;
+    }
+    if terminal_size().is_none() {
+        // we are not in a terminal, color may not be needed
+        return false;
+    }
+    // we are in a terminal
+    #[cfg(windows)]
+    {
+        // Required for windows 10
+        // Fails to resolve for windows 8 so disable color
+        match nu_ansi_term::enable_ansi_support() {
+            Ok(_) => true,
+            Err(_) => {
+                eprintln!("This version of Windows does not support ANSI colors");
+                false
+            }
+        }
+    }
+    #[cfg(not(windows))]
+    {
+        true
+    }
+}
+
+fn get_height_of_terminal() -> usize {
+    terminal_size()
+        // Windows CI runners detect a terminal height of 0
+        .map(|(_, Height(h))| max(h.into(), DEFAULT_NUMBER_OF_LINES))
+        .unwrap_or(DEFAULT_NUMBER_OF_LINES)
+        - 10
+}
+
+fn get_width_of_terminal() -> usize {
+    terminal_size()
+        .map(|(Width(w), _)| match cfg!(windows) {
+            // Windows CI runners detect a very low terminal width
+            true => max(w.into(), DEFAULT_TERMINAL_WIDTH),
+            false => w.into(),
+        })
+        .unwrap_or(DEFAULT_TERMINAL_WIDTH)
+}
+
+fn get_regex_value(maybe_value: Option<&Vec<String>>) -> Vec<Regex> {
+    maybe_value
+        .unwrap_or(&Vec::new())
+        .iter()
+        .map(|reg| {
+            Regex::new(reg).unwrap_or_else(|err| {
+                eprintln!("Ignoring bad value for regex {err:?}");
+                process::exit(1)
+            })
+        })
+        .collect()
+}
+
+fn main() {
+    let options = Cli::parse();
+    let config = get_config(options.config.as_ref());
+
+    let errors 
+... [TRUNCATED]
+
+--- SHELL COMPLETIONS & MAN PAGES ---
+  completions/_dust
+  completions/_dust.ps1
+  completions/dust.bash
+  completions/dust.elv
+  completions/dust.fish
+  man-page/dust.1
+
+--- DIRECTORY STRUCTURE (depth 2) ---
+├── .github/
+│   └── workflows/
+│       └── CICD.yml
+├── .gitignore
+├── .pre-commit-config.yaml
+├── Cargo.lock
+├── Cargo.toml
+├── LICENSE
+├── README.md
+├── build.rs
+├── ci/
+│   ├── before_deploy.ps1
+│   ├── before_deploy.sh
+│   ├── how2publish.txt
+│   ├── install.sh
+│   └── script.sh
+├── completions/
+│   ├── _dust
+│   ├── _dust.ps1
+│   ├── dust.bash
+│   ├── dust.elv
+│   └── dust.fish
+├── config/
+│   └── config.toml
+├── install.sh
+├── man-page/
+│   └── dust.1
+├── media/
+│   └── snap.png
+├── src/
+│   ├── cli.rs
+│   ├── config.rs
+│   ├── dir_walker.rs
+│   ├── display.rs
+│   ├── display_node.rs
+│   ├── filter.rs
+│   ├── filter_type.rs
+│   ├── main.rs
+│   ├── node.rs
+│   ├── platform.rs
+│   ├── progress.rs
+│   └── utils.rs
+└── tests/
+    ├── test_dir/
+    │   └── many/
+    ├── test_dir2/
+    │   ├── dir/
+    │   ├── dir_name_clash
+    │   ├── dir_substring/
+    │   └── long_dir_name_what_a_very_long_dir_name_what_happens_when_this_goes_over_80_characters_i_wonder
+    ├── test_dir_files_from/
+    │   ├── a_file
+    │   ├── files0_from.txt
+    │   ├── files_from.txt
+    │   └── hello_file
+    ├── test_dir_hidden_entries/
+    │   ├── .hidden_file
+    │   └── .secret
+    ├── test_dir_matching/
+    │   ├── andy/
+    │   └── dave/
+    ├── test_dir_unicode/
+    │   ├── ラウトは難しいです！.japan
+    │   └── 👩.unicode
+    ├── test_exact_output.rs
+    ├── test_flags.rs
+    ├── tests.rs
+    └── tests_symlinks.rs

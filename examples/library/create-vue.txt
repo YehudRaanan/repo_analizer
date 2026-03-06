@@ -1,0 +1,280 @@
+=====================================
+Repository Analysis: create-vue
+Type: Web Application
+=====================================
+
+--- METADATA ---
+Name: create-vue
+Description: 🛠️ The recommended way to start a Vite-powered Vue project
+Language: Vue
+Topics: vite, vue, vue3, vuejs
+Stars: 4337
+License: Other
+
+--- README ---
+# create-vue <a href="https://npmx.dev/package/create-vue"><img src="https://npmx.dev/api/registry/badge/version/create-vue" alt="npm package"></a><a href="https://npmx.dev/package/create-vue"><img src="https://npmx.dev/api/registry/badge/downloads-week/create-vue" alt="npm package"></a> <a href="https://nodejs.org/en/about/previous-releases"><img src="https://npmx.dev/api/registry/badge/engines/create-vue" alt="node compatibility"></a>
+
+The recommended way to start a Vite-powered Vue project
+
+<p align="center">
+  <img width="898" alt="Screencast from terminal" src="https://github.com/vuejs/create-vue/blob/main/media/screencast-cli.gif?raw=true">
+</p>
+
+## Usage
+
+To create a new Vue project using `create-vue`, simply run the following command in your terminal:
+
+```sh
+npm create vue@latest
+```
+
+> [!IMPORTANT]
+> (`@latest` or `@legacy`) MUST NOT be omitted, otherwise `npm` may resolve to a cached and outdated version of the package.
+
+By default, the command runs in interactive mode with prompts. You can skip these prompts by providing feature flags as CLI arguments. To see all available feature flags and options:
+
+```sh
+npm create vue@latest -- --help
+```
+
+This will show you various feature flags (like `--typescript`, `--router`) and options (like `--bare` for creating a project with minimal boilerplate).
+
+**PowerShell users:** You'll need to quote the double dashes: `npm create vue@latest '--' --help`
+
+### Creating Vue 2 Projects
+
+If you need to support IE11, you can create a Vue 2 project with:
+
+```sh
+npm create vue@legacy
+```
+
+> [!WARNING]  
+> [Vue 2 Has Reached End of Life](https://v2.vuejs.org/eol/)
+
+## Difference from Vue CLI
+
+- Vite-Powered: Vue CLI is based on webpack, while `create-vue` is based on [Vite](https://vite.dev/). Vite supports most of the configured conventions found in Vue CLI projects out of the box, and provides a significantly better development experience due to its extremely fast startup and hot-module replacement speed. Learn more about why we recommend Vite over webpack [here](https://vite.dev/guide/why.html).
+
+- Scaffolding Tool: Unlike Vue CLI, `create-vue` itself is just a scaffolding tool. It creates a pre-configured project based on the features you choose, and delegates the rest to Vite. Projects scaffolded this way can directly leverage the [Vite plugin ecosystem](https://vite.dev/plugins/) which is Rollup-compatible.
+
+## Migrating from Vue CLI
+
+If you're transitioning from Vue CLI to Create Vue, we've got you covered. Here are some resources to help you with the migration:
+How to Migrate from Vue CLI to Vite
+
+- Vue CLI to Vite Migration Guide: A comprehensive guide on migrating from Vue CLI to Vite, available on [VueSchool.io](https://vueschool.io/articles/vuejs-tutorials/how-to-migrate-from-vue-cli-to-vite/)
+- Tools and Plugins for Migration: For a smoother transition, check out the list of tools and plugins designed to assist with the migration process on the
+  [Awesome Vite GitHub page](https://github.com/vitejs/awesome-vite#vue-cli).
+
+
+--- PACKAGE MANIFEST(S) ---
+
+[package.json]
+{
+  "name": "create-vue",
+  "version": "3.22.0",
+  "description": "🛠️ The recommended way to start a Vite-powered Vue project",
+  "keywords": [],
+  "homepage": "https://github.com/vuejs/create-vue#readme",
+  "bugs": {
+    "url": "https://github.com/vuejs/create-vue/issues"
+  },
+  "license": "MIT",
+  "author": "Haoqun Jiang <npm@haoqun.me>",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vuejs/create-vue.git"
+  },
+  "bin": {
+    "create-vue": "bundle.js"
+  },
+  "files": [
+    "bundle.js",
+    "locales",
+    "template",
+    "!template/**/node_modules/.bin/*"
+  ],
+  "type": "module",
+  "publishConfig": {
+    "access": "public",
+    "provenance": true
+  },
+  "scripts": {
+    "prepare": "husky",
+    "format": "oxfmt",
+    "format-check": "oxfmt --check",
+    "lint": "oxlint . --fix",
+    "build": "rolldown -c rolldown.config.ts",
+    "snapshot": "zx ./scripts/snapshot.mjs",
+    "pretest": "pnpm run build && pnpm run snapshot",
+    "test": "zx ./scripts/test.mjs",
+    "test:unit": "vitest",
+    "preversion": "git fetch && git status -uno | grep -q 'Your branch is up to date'",
+    "postversion": "zx ./scripts/postversion.mjs",
+    "prepublishOnly": "pnpm run build"
+  },
+  "devDependencies": {
+    "@clack/prompts": "^1.1.0",
+    "@tsconfig/node24": "^24.0.4",
+    "@types/eslint": "^9.6.1",
+    "@types/node": "^24.11.0",
+    "@types/prompts": "^2.4.9",
+    "@vue/tsconfig": "^0.8.1",
+    "ejs": "^3.1.10",
+    "husky": "^9.1.7",
+    "lint-staged": "^16.3.2",
+    "oxfmt": "^0.35.0",
+    "oxlint": "~1.50.0",
+    "picocolors": "^1.1.1",
+    "rolldown": "1.0.0-rc.6",
+    "rollup-plugin-license": "^3.7.0",
+    "vitest": "^4.0.18",
+    "zx": "^8.8.5"
+  },
+  "lint-staged": {
+    "*.{js,ts,vue,json}": [
+      "oxfmt --no-error-on-unmatched-pattern",
+      "oxlint --fix"
+    ]
+  },
+  "engines": {
+    "node": "^20.19.0 || >=22.12.0"
+  },
+  "packageManager": "pnpm@10.30.3"
+}
+
+
+--- WEB FRAMEWORK CONFIG ---
+
+[tsconfig.json]
+{
+  "extends": "@tsconfig/node24/tsconfig.json",
+  "include": ["index.ts", "utils/**/*"],
+  "compilerOptions": {
+    "strict": false,
+    "resolveJsonModule": true,
+    "moduleResolution": "Bundler",
+    "module": "ESNext"
+  }
+}
+
+
+--- ROUTE / PAGE DEFINITIONS ---
+(No route files found)
+
+--- DIRECTORY STRUCTURE (depth 2) ---
+├── .editorconfig
+├── .git-blame-ignore-revs
+├── .gitattributes
+├── .github/
+│   ├── ISSUE_TEMPLATE/
+│   │   ├── 1-feature_request.md
+│   │   ├── 2-bug_report.md
+│   │   ├── 3-blank.md
+│   │   └── config.yml
+│   ├── MAINTENANCE.md
+│   ├── PULL_REQUEST_TEMPLATE.md
+│   ├── renovate.json
+│   └── workflows/
+│       ├── ci.yml
+│       └── publish.yml
+├── .gitignore
+├── .gitmodules
+├── .husky/
+│   └── pre-commit
+├── .oxfmtrc.jsonc
+├── .oxlintrc.json
+├── CONTRIBUTING.md
+├── LICENSE
+├── README.md
+├── __test__/
+│   ├── getCommand.spec.ts
+│   ├── locale.spec.ts
+│   └── sortDependencies.spec.ts
+├── index.ts
+├── locales/
+│   ├── en-US.json
+│   ├── fr-FR.json
+│   ├── tr-TR.json
+│   ├── zh-Hans.json
+│   └── zh-Hant.json
+├── media/
+│   ├── screencast-cli.gif
+│   └── screenshot-cli.png
+├── package.json
+├── playground
+├── pnpm-lock.yaml
+├── pnpm-workspace.yaml
+├── rolldown.config.ts
+├── scripts/
+│   ├── postversion.mjs
+│   ├── snapshot.mjs
+│   └── test.mjs
+├── template/
+│   ├── bare/
+│   │   ├── base/
+│   │   ├── cypress-ct/
+│   │   ├── typescript/
+│   │   └── vitest/
+│   ├── base/
+│   │   ├── .vscode/
+│   │   ├── _gitignore
+│   │   ├── index.html
+│   │   ├── jsconfig.json
+│   │   ├── package.json
+│   │   ├── public/
+│   │   ├── src/
+│   │   ├── vite.config.js.data.mjs
+│   │   └── vite.config.js.ejs
+│   ├── code/
+│   │   ├── default/
+│   │   ├── router/
+│   │   ├── typescript-default/
+│   │   └── typescript-router/
+│   ├── config/
+│   │   ├── cypress-ct/
+│   │   ├── cypress/
+│   │   ├── jsx/
+│   │   ├── pinia/
+│   │   ├── playwright/
+│   │   ├── router/
+│   │   ├── typescript/
+│   │   └── vitest/
+│   ├── entry/
+│   │   ├── default/
+│   │   ├── pinia/
+│   │   ├── router-and-pinia/
+│   │   └── router/
+│   ├── formatting/
+│   │   ├── oxfmt/
+│   │   └── prettier/
+│   ├── linting/
+│   │   ├── base/
+│   │   ├── core/
+│   │   ├── cypress-ct/
+│   │   ├── cypress/
+│   │   ├── formatter/
+│   │   ├── oxlint/
+│   │   ├── playwright/
+│   │   └── vitest/
+│   └── tsconfig/
+│       ├── base/
+│       ├── cypress-ct/
+│       ├── cypress/
+│       ├── playwright/
+│       └── vitest/
+├── tsconfig.json
+├── utils/
+│   ├── applyVueBeta.ts
+│   ├── banners.ts
+│   ├── deepMerge.ts
+│   ├── directoryTraverse.ts
+│   ├── generateReadme.ts
+│   ├── getCommand.ts
+│   ├── getLanguage.ts
+│   ├── packageManager.ts
+│   ├── renderTemplate.ts
+│   ├── sortDependencies.ts
+│   └── trimBoilerplate.ts
+└── vitest.config.ts

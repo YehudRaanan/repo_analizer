@@ -1,0 +1,2102 @@
+=====================================
+Repository Analysis: argo-cd
+Type: Infrastructure / DevOps / IaC
+=====================================
+
+--- METADATA ---
+Name: argo-cd
+Description: Declarative Continuous Deployment for Kubernetes
+Language: Go
+Topics: argo, argo-cd, cd, ci-cd, cicd, continuous-delivery, continuous-deployment, devops, docker, gitops, hacktoberfest, helm, jsonnet, kubernetes, kustomize, pipeline
+Stars: 22227
+License: Apache License 2.0
+
+--- README ---
+**Releases:**
+[![Release Version](https://img.shields.io/github/v/release/argoproj/argo-cd?label=argo-cd)](https://github.com/argoproj/argo-cd/releases/latest)
+[![Artifact HUB](https://img.shields.io/endpoint?url=https://artifacthub.io/badge/repository/argo-cd)](https://artifacthub.io/packages/helm/argo/argo-cd)
+[![SLSA 3](https://slsa.dev/images/gh-badge-level3.svg)](https://slsa.dev)
+
+**Code:** 
+[![Integration tests](https://github.com/argoproj/argo-cd/workflows/Integration%20tests/badge.svg?branch=master)](https://github.com/argoproj/argo-cd/actions?query=workflow%3A%22Integration+tests%22)
+[![codecov](https://codecov.io/gh/argoproj/argo-cd/branch/master/graph/badge.svg)](https://codecov.io/gh/argoproj/argo-cd)
+[![CII Best Practices](https://bestpractices.coreinfrastructure.org/projects/4486/badge)](https://bestpractices.coreinfrastructure.org/projects/4486)
+[![OpenSSF Scorecard](https://api.securityscorecards.dev/projects/github.com/argoproj/argo-cd/badge)](https://scorecard.dev/viewer/?uri=github.com/argoproj/argo-cd)
+
+**Social:**
+[![Twitter Follow](https://img.shields.io/twitter/follow/argoproj?style=social)](https://twitter.com/argoproj)
+[![Slack](https://img.shields.io/badge/slack-argoproj-brightgreen.svg?logo=slack)](https://argoproj.github.io/community/join-slack)
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-argoproj-blue.svg?logo=linkedin)](https://www.linkedin.com/company/argoproj/)
+[![Bluesky](https://img.shields.io/badge/Bluesky-argoproj-blue.svg?style=social&logo=bluesky)](https://bsky.app/profile/argoproj.bsky.social)
+
+# Argo CD - Declarative Continuous Delivery for Kubernetes
+
+## What is Argo CD?
+
+Argo CD is a declarative, GitOps continuous delivery tool for Kubernetes.
+
+![Argo CD UI](docs/assets/argocd-ui.gif)
+
+[![Argo CD Demo](https://img.youtube.com/vi/0WAm0y2vLIo/0.jpg)](https://youtu.be/0WAm0y2vLIo)
+
+## Why Argo CD?
+
+1. Application definitions, configurations, and environments should be declarative and version controlled.
+1. Application deployment and lifecycle management should be automated, auditable, and easy to understand.
+
+## Who uses Argo CD?
+
+[Official Argo CD user list](USERS.md)
+
+## Documentation
+
+To learn more about Argo CD [go to the complete documentation](https://argo-cd.readthedocs.io/).
+Check live demo at https://cd.apps.argoproj.io/.
+
+## Community
+
+### Contribution, Discussion and Support
+
+ You can reach the Argo CD community and developers via the following channels:
+
+* Q & A : [Github Discussions](https://github.com/argoproj/argo-cd/discussions)
+* Chat : [The #argo-cd Slack channel](https://argoproj.github.io/community/join-slack)
+* Contributors Office Hours: [Every Thursday](https://calendar.google.com/calendar/u/0/embed?src=argoproj@gmail.com) | [Agenda](https://docs.google.com/document/d/1xkoFkVviB70YBzSEa4bDnu-rUZ1sIFtwKKG1Uw8XsY8)
+* User Community meeting: [First Wednesday of the month](https://calendar.google.com/calendar/u/0/embed?src=argoproj@gmail.com) | [Agenda](https://docs.google.com/document/d/1ttgw98MO45Dq7ZUHpIiOIEfbyeitKHNfMjbY5dLLMKQ)
+
+
+Participation in the Argo CD project is governed by the [CNCF Code of Conduct](https://github.com/cncf/foundation/blob/master/code-of-conduct.md)
+
+
+### Blogs and Presentations
+
+1. [Awesome-Argo: A Curated List of Awesome Projects and Resources Related to Argo](https://github.com/terrytangyuan/awesome-argo)
+1. [Unveil the Secret Ingredients of Continuous Delivery at Enterprise Scale with Argo CD](https://akuity.io/blog/secret-ingredients-of-continuous-delivery-at-enterprise-scale-with-argocd/)
+1. [GitOps Without Pipelines With ArgoCD Image Updater](https://youtu.be/avPUQin9kzU)
+1. [Combining Argo CD (GitOps), Crossplane (Control Plane), And KubeVela (OAM)](https://youtu.be/eEcgn_gU3SM)
+1. [How to Apply GitOps to Everything - Combining Argo CD and Crossplane](https://youtu.be/yrj4lmScKHQ)
+1. [Couchbase - How To Run a Database Cluster in Kubernetes Using Argo CD](https://youtu.be/nkPoPaVzExY)
+1. [Automation of Everything - How To Combine Argo Events, Workflows & Pipelines, CD, and Rollouts](https://youtu.be/XNXJtxkUKeY)
+1. [Environments Based On Pull Requests (PRs): Using Argo CD To Apply GitOps Principles On Previews](https://youtu.be/cpAaI8p4R60)
+1. [Argo CD: Applying GitOps Principles To Manage Production Environment In Kubernetes](https://youtu.be/vpWQeoaiRM4)
+1. [Creating Temporary Preview Environments Based On Pull Requests With Argo CD And Codefresh](https://codefresh.io/continuous-deployment/creating-temporary-preview-environments-based-pull-requests-argo-cd-codefresh/)
+1. [Tutorial: Everything You Need To Become A GitOps Ninja](https://www.youtube.com/watch?v=r50tRQjisxw) 90m tutorial on GitOps and Argo CD.
+1. [Comparison of Argo CD, Spinnaker, Jenkins X, and Tekton](https://www.inovex.de/blog/spinnaker-vs-argo-cd-vs-tekton-vs-jenkins-x/)
+1. [Simplify and Automate Deployments Using GitOps with IBM Multicloud Manager 3.1.2](https://www.ibm.com/cloud/blog/simplify-and-automate-deployments-using-gitops-with-ib
+... [TRUNCATED]
+
+--- IAC CONFIG FILES ---
+
+[Dockerfile]
+ARG BASE_IMAGE=docker.io/library/ubuntu:25.10@sha256:4a9232cc47bf99defcc8860ef6222c99773330367fcecbf21ba2edb0b810a31e
+####################################################################################################
+# Builder image
+# Initial stage which pulls prepares build dependencies and CLI tooling we need for our final image
+# Also used as the image in CI jobs so needs all dependencies
+####################################################################################################
+FROM docker.io/library/golang:1.26.0@sha256:b39810f6440772ab1ddaf193aa0c2a2bbddebf7a877f127c113b103e48fd8139 AS builder
+
+WORKDIR /tmp
+
+RUN echo 'deb http://archive.debian.org/debian buster-backports main' >> /etc/apt/sources.list
+
+RUN apt-get update && apt-get install --no-install-recommends -y \
+    openssh-server \
+    nginx \
+    unzip \
+    fcgiwrap \
+    git \
+    make \
+    wget \
+    gcc \
+    sudo \
+    zip && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+
+COPY hack/install.sh hack/tool-versions.sh ./
+COPY hack/installers installers
+
+RUN ./install.sh helm && \
+    INSTALL_PATH=/usr/local/bin ./install.sh kustomize && \
+    ./install.sh git-lfs
+
+####################################################################################################
+# Argo CD Base - used as the base for both the release and dev argocd images
+####################################################################################################
+FROM $BASE_IMAGE AS argocd-base
+
+LABEL org.opencontainers.image.source="https://github.com/argoproj/argo-cd"
+
+USER root
+
+ENV ARGOCD_USER_ID=999 \
+    DEBIAN_FRONTEND=noninteractive
+
+RUN groupadd -g $ARGOCD_USER_ID argocd && \
+    useradd -r -u $ARGOCD_USER_ID -g argocd argocd && \
+    mkdir -p /home/argocd && \
+    chown argocd:0 /home/argocd && \
+    chmod g=u /home/argocd && \
+    apt-get update && \
+    apt-get dist-upgrade -y && \
+    apt-get install --no-install-recommends -y \
+    git tini ca-certificates gpg gpg-agent tzdata connect-proxy openssh-client && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* /usr/share/doc/*
+
+COPY hack/gpg-wrapper.sh \
+    hack/git-verify-wrapper.sh \
+    entrypoint.sh \
+    /usr/local/bin/
+COPY --from=builder /usr/local/bin/helm /usr/local/bin/helm
+COPY --from=builder /usr/local/bin/kustomize /usr/local/bin/kustomize
+COPY --from=builder /usr/local/bin/git-lfs /usr/local/bin/git-lfs
+
+# keep uid_entrypoint.sh for backward compatibility
+RUN ln -s /usr/local/bin/entrypoint.sh /usr/local/bin/uid_entrypoint.sh
+
+# support for mounting configuration from a configmap
+WORKDIR /app/config/ssh
+RUN touch ssh_known_hosts && \
+    ln -s /app/config/ssh/ssh_known_hosts /etc/ssh/ssh_known_hosts
+
+WORKDIR /app/config
+RUN mkdir -p tls && \
+    mkdir -p gpg/source && \
+    mkdir -p gpg/keys && \
+    chown argocd gpg/keys && \
+    chmod 0700 gpg/keys
+
+ENV USER=argocd
+
+# Disable gRPC service config lookups via DNS TXT records to prevent excessive
+# DNS queries for _gr
+... [TRUNCATED]
+
+[Makefile]
+PACKAGE=github.com/argoproj/argo-cd/v3/common
+CURRENT_DIR=$(shell pwd)
+DIST_DIR=${CURRENT_DIR}/dist
+CLI_NAME=argocd
+BIN_NAME=argocd
+
+UNAME_S:=$(shell uname)
+IS_DARWIN:=$(if $(filter Darwin, $(UNAME_S)),true,false)
+
+# When using OSX/Darwin, you might need to enable CGO for local builds
+DEFAULT_CGO_FLAG:=0
+ifeq ($(IS_DARWIN),true)
+    DEFAULT_CGO_FLAG:=1
+endif
+CGO_FLAG?=${DEFAULT_CGO_FLAG}
+
+GEN_RESOURCES_CLI_NAME=argocd-resources-gen
+
+HOST_OS:=$(shell go env GOOS)
+HOST_ARCH:=$(shell go env GOARCH)
+
+TARGET_ARCH?=linux/amd64
+
+VERSION=$(shell cat ${CURRENT_DIR}/VERSION)
+BUILD_DATE:=$(if $(BUILD_DATE),$(BUILD_DATE),$(shell date -u +'%Y-%m-%dT%H:%M:%SZ'))
+GIT_COMMIT:=$(if $(GIT_COMMIT),$(GIT_COMMIT),$(shell git rev-parse HEAD))
+GIT_TAG:=$(if $(GIT_TAG),$(GIT_TAG),$(shell if [ -z "`git status --porcelain`" ]; then git describe --exact-match --tags HEAD 2>/dev/null; fi))
+GIT_TREE_STATE:=$(if $(GIT_TREE_STATE),$(GIT_TREE_STATE),$(shell if [ -z "`git status --porcelain`" ]; then echo "clean" ; else echo "dirty"; fi))
+VOLUME_MOUNT=$(shell if test "$(go env GOOS)" = "darwin"; then echo ":delegated"; elif test selinuxenabled; then echo ":delegated"; else echo ""; fi)
+KUBECTL_VERSION=$(shell go list -m k8s.io/client-go | head -n 1 | rev | cut -d' ' -f1 | rev)
+
+GOPATH?=$(shell if test -x `which go`; then go env GOPATH; else echo "$(HOME)/go"; fi)
+GOCACHE?=$(HOME)/.cache/go-build
+
+# Docker command to use
+DOCKER?=docker
+ifeq ($(DOCKER),podman)
+PODMAN_ARGS=--userns keep-id
+else
+PODMAN_ARGS=
+endif
+
+DOCKER_SRCDIR?=$(GOPATH)/src
+DOCKER_WORKDIR?=/go/src/github.com/argoproj/argo-cd
+
+# Allows you to control which Docker network the test-util containers attach to.
+# This is particularly useful if you are running Kubernetes in Docker (e.g., k3d)
+# and want the test containers to reach the Kubernetes API via an already-existing Docker network.
+DOCKER_NETWORK ?= default
+
+ifneq ($(DOCKER_NETWORK),default)
+DOCKER_NETWORK_ARG := --network $(DOCKER_NETWORK)
+else
+DOCKER_NETWORK_ARG :=
+endif
+
+ARGOCD_PROCFILE?=Procfile
+
+# pointing to python 3.12 to match https://github.com/argoproj/argo-cd/blob/master/.readthedocs.yaml
+MKDOCS_DOCKER_IMAGE?=python:3.12-alpine
+MKDOCS_RUN_ARGS?=
+
+# Configuration for building argocd-test-tools image
+TEST_TOOLS_NAMESPACE?=
+TEST_TOOLS_IMAGE=argocd-test-tools
+TEST_TOOLS_TAG?=latest
+ifdef TEST_TOOLS_NAMESPACE
+TEST_TOOLS_PREFIX=${TEST_TOOLS_NAMESPACE}/
+endif
+
+# You can change the ports where ArgoCD components will be listening on by
+# setting the appropriate environment variables before running make.
+ARGOCD_E2E_APISERVER_PORT?=8080
+ARGOCD_E2E_REPOSERVER_PORT?=8081
+ARGOCD_E2E_REDIS_PORT?=6379
+ARGOCD_E2E_DEX_PORT?=5556
+ARGOCD_E2E_YARN_HOST?=localhost
+ARGOCD_E2E_DISABLE_AUTH?=
+ARGOCD_E2E_DIR?=/tmp/argo-e2e
+
+ARGOCD_E2E_TEST_TIMEOUT?=90m
+ARGOCD_E2E_RERUN_FAILS?=5
+
+ARGOCD_IN_CI?=false
+ARGOCD_TEST_E2E?=true
+ARGOCD_BIN_MODE?=true
+
+# Depending on where we are (legacy or non-legacy pwd), we need to use
+# different Docker volume mounts for our source tree
+LEGACY_PATH=
+... [TRUNCATED]
+
+--- TERRAFORM FILES ---
+(None found)
+
+--- KUBERNETES MANIFESTS ---
+  applicationset/examples/applications-sync-policies/guestbook/engineering-dev/guestbook-ui-deployment.yaml
+  applicationset/examples/applications-sync-policies/guestbook/engineering-prod/guestbook-ui-deployment.yaml
+  applicationset/examples/clusterDecisionResource/configMap.yaml
+  applicationset/examples/git-generator-directory/excludes/cluster-addons/exclude-helm-guestbook/templates/NOTES.txt
+  applicationset/examples/git-generator-directory/excludes/cluster-addons/exclude-helm-guestbook/templates/_helpers.tpl
+  applicationset/examples/git-generator-directory/excludes/cluster-addons/exclude-helm-guestbook/templates/deployment.yaml
+  applicationset/examples/git-generator-directory/excludes/cluster-addons/exclude-helm-guestbook/templates/service.yaml
+  applicationset/examples/git-generator-files-discovery/apps/guestbook/guestbook-ui-deployment.yaml
+  applicationset/examples/list-generator/guestbook/engineering-dev/guestbook-ui-deployment.yaml
+  applicationset/examples/list-generator/guestbook/engineering-prod/guestbook-ui-deployment.yaml
+
+--- ANSIBLE FILES ---
+  gitops-engine/pkg/diff/testdata/ssd-deploy-composite-key-config.yaml
+  gitops-engine/pkg/diff/testdata/ssd-deploy-composite-key-live.yaml
+  manifests/base/application-controller-roles/argocd-application-controller-role.yaml
+  manifests/base/application-controller-roles/argocd-application-controller-rolebinding.yaml
+  manifests/base/application-controller-roles/argocd-application-controller-sa.yaml
+  manifests/base/application-controller-roles/kustomization.yaml
+
+--- CI/CD PIPELINES ---
+  .github/workflows/README.md
+  .github/workflows/bump-major-version.yaml
+  .github/workflows/cherry-pick-single.yml
+  .github/workflows/cherry-pick.yml
+  .github/workflows/ci-build.yaml
+  .github/workflows/codeql.yml
+  .github/workflows/image-reuse.yaml
+  .github/workflows/image.yaml
+  .github/workflows/init-release.yaml
+  .github/workflows/pr-title-check.yml
+  .github/workflows/release.yaml
+  .github/workflows/renovate.yaml
+  .github/workflows/scorecard.yaml
+  .github/workflows/stale.yaml
+  .github/workflows/update-snyk.yaml
+
+--- DIRECTORY STRUCTURE (depth 2) ---
+├── .codecov.yml
+├── .dockerignore
+├── .gitattributes
+├── .github/
+│   ├── ISSUE_TEMPLATE/
+│   │   ├── bug_report.md
+│   │   ├── config.yml
+│   │   ├── enhancement_proposal.md
+│   │   ├── new_dev_tool.md
+│   │   ├── release.md
+│   │   └── security_logs.md
+│   ├── configs/
+│   │   └── renovate-config.js
+│   ├── dependabot.yml
+│   ├── no-response.yml
+│   ├── pr-title-checker-config.json
+│   ├── pull_request_template.md
+│   ├── stale.yml
+│   └── workflows/
+│       ├── README.md
+│       ├── bump-major-version.yaml
+│       ├── cherry-pick-single.yml
+│       ├── cherry-pick.yml
+│       ├── ci-build.yaml
+│       ├── codeql.yml
+│       ├── image-reuse.yaml
+│       ├── image.yaml
+│       ├── init-release.yaml
+│       ├── pr-title-check.yml
+│       ├── release.yaml
+│       ├── renovate.yaml
+│       ├── scorecard.yaml
+│       ├── stale.yaml
+│       └── update-snyk.yaml
+├── .gitignore
+├── .golangci.yaml
+├── .goreleaser.yaml
+├── .mockery.yaml
+├── .readthedocs.yaml
+├── .snyk
+├── CHANGELOG.md
+├── CODEOWNERS
+├── CONTRIBUTING.md
+├── Dockerfile
+├── Dockerfile.dev
+├── Dockerfile.tilt
+├── Dockerfile.ui.tilt
+├── LICENSE
+├── MAINTAINERS.md
+├── Makefile
+├── OWNERS
+├── Procfile
+├── README.md
+├── SECURITY-INSIGHTS.yml
+├── SECURITY.md
+├── SECURITY_CONTACTS
+├── Tiltfile
+├── USERS.md
+├── VERSION
+├── applicationset/
+│   ├── controllers/
+│   │   ├── applicationset_controller.go
+│   │   ├── applicationset_controller_test.go
+│   │   ├── clustereventhandler.go
+│   │   ├── clustereventhandler_test.go
+│   │   ├── requeue_after_test.go
+│   │   └── template/
+│   ├── examples/
+│   │   ├── applications-sync-policies/
+│   │   ├── cluster/
+│   │   ├── clusterDecisionResource/
+│   │   ├── design-doc/
+│   │   ├── git-generator-directory/
+│   │   ├── git-generator-files-discovery/
+│   │   ├── list-generator/
+│   │   ├── matrix/
+│   │   ├── merge/
+│   │   ├── pull-request-generator/
+│   │   ├── scm-provider-generator/
+│   │   └── template-override/
+│   ├── generators/
+│   │   ├── cluster.go
+│   │   ├── cluster_test.go
+│   │   ├── duck_type.go
+│   │   ├── duck_type_test.go
+│   │   ├── generator_spec_processor.go
+│   │   ├── generator_spec_processor_test.go
+│   │   ├── git.go
+│   │   ├── git_test.go
+│   │   ├── interface.go
+│   │   ├── interface_test.go
+│   │   ├── list.go
+│   │   ├── list_test.go
+│   │   ├── matrix.go
+│   │   ├── matrix_test.go
+│   │   ├── merge.go
+│   │   ├── merge_test.go
+│   │   ├── mocks/
+│   │   ├── plugin.go
+│   │   ├── plugin_test.go
+│   │   ├── pull_request.go
+│   │   ├── pull_request_test.go
+│   │   ├── scm_provider.go
+│   │   ├── scm_provider_test.go
+│   │   ├── scm_utils.go
+│   │   ├── utils.go
+│   │   ├── value_interpolation.go
+│   │   └── value_interpolation_test.go
+│   ├── metrics/
+│   │   ├── fake.go
+│   │   ├── metrics.go
+│   │   └── metrics_test.go
+│   ├── services/
+│   │   ├── github_app_auth/
+│   │   ├── github_metrics.go
+│   │   ├── github_metrics_test.go
+│   │   ├── internal/
+│   │   ├── mocks/
+│   │   ├── plugin/
+│   │   ├── pull_request/
+│   │   ├── repo_service.go
+│   │   ├── repo_service_test.go
+│   │   ├── scm_provider/
+│   │   ├── util.go
+│   │   └── util_test.go
+│   ├── status/
+│   │   └── resource_status.go
+│   ├── utils/
+│   │   ├── applicationset_lister.go
+│   │   ├── client.go
+│   │   ├── client_test.go
+│   │   ├── clusterUtils.go
+│   │   ├── createOrUpdate.go
+│   │   ├── createOrUpdate_test.go
+│   │   ├── kubernetes.go
+│   │   ├── kubernetes_test.go
+│   │   ├── map.go
+│   │   ├── map_test.go
+│   │   ├── mocks/
+│   │   ├── policy.go
+│   │   ├── selector.go
+│   │   ├── template_functions.go
+│   │   ├── utils.go
+│   │   └── utils_test.go
+│   └── webhook/
+│       ├── testdata/
+│       ├── webhook.go
+│       └── webhook_test.go
+├── assets/
+│   ├── badge.svg
+│   ├── builtin-policy.csv
+│   ├── embed.go
+│   ├── model.conf
+│   └── swagger.json
+├── cmd/
+│   ├── argocd-application-controller/
+│   │   └── commands/
+│   ├── argocd-applicationset-controller/
+│   │   └── commands/
+│   ├── argocd-cmp-server/
+│   │   └── commands/
+│   ├── argocd-commit-server/
+│   │   └── commands/
+│   ├── argocd-dex/
+│   │   └── commands/
+│   ├── argocd-git-ask-pass/
+│   │   └── commands/
+│   ├── argocd-k8s-auth/
+│   │   └── commands/
+│   ├── argocd-notification/
+│   │   └── commands/
+│   ├── argocd-repo-server/
+│   │   └── commands/
+│   ├── argocd-server/
+│   │   └── commands/
+│   ├── argocd/
+│   │   └── commands/
+│   ├── main.go
+│   └── util/
+│       ├── app.go
+│       ├── app_test.go
+│       ├── applicationset.go
+│       ├── applicationset_test.go
+│       ├── cluster.go
+│       ├── cluster_test.go
+│       ├── common.go
+│       ├── common_test.go
+│       ├── project.go
+│       ├── project_test.go
+│       ├── repo.go
+│       └── testdata/
+├── cmpserver/
+│   ├── apiclient/
+│   │   ├── clientset.go
+│   │   └── plugin.pb.go
+│   ├── plugin/
+│   │   ├── config.go
+│   │   ├── config_test.go
+│   │   ├── plugin.go
+│   │   ├── plugin.proto
+│   │   ├── plugin_test.go
+│   │   ├── plugin_unix.go
+│   │   ├── plugin_windows.go
+│   │   └── testdata/
+│   └── server.go
+├── commitserver/
+│   ├── apiclient/
+│   │   ├── clientset.go
+│   │   ├── commit.pb.go
+│   │   └── mocks/
+│   ├── commit/
+│   │   ├── addnote_race_test.go
+│   │   ├── commit.go
+│   │   ├── commit.proto
+│   │   ├── commit_test.go
+│   │   ├── credentialtypehelper.go
+│   │   ├── credentialtypehelper_test.go
+│   │   ├── hydratorhelper.go
+│   │   ├── hydratorhelper_test.go
+│   │   ├── mocks/
+│   │   └── repo_client_factory.go
+│   ├── metrics/
+│   │   ├── githandlers.go
+│   │   └── metrics.go
+│   └── server.go
+├── common/
+│   ├── common.go
+│   ├── common_test.go
+│   ├── version.go
+│   └── version_test.go
+├── controller/
+│   ├── OWNERS
+│   ├── appcontroller.go
+│   ├── appcontroller_test.go
+│   ├── cache/
+│   │   ├── cache.go
+│   │   ├── cache_test.go
+│   │   ├── info.go
+│   │   ├── info_test.go
+│   │   └── mocks/
+│   ├── clusterinfoupdater.go
+│   ├── clusterinfoupdater_test.go
+│   ├── health.go
+│   ├── health_test.go
+│   ├── hook.go
+│   ├── hook_test.go
+│   ├── hydrator/
+│   │   ├── hydrator.go
+│   │   ├── hydrator_test.go
+│   │   ├── mocks/
+│   │   └── types/
+│   ├── hydrator_dependencies.go
+│   ├── hydrator_dependencies_test.go
+│   ├── metrics/
+│   │   ├── clustercollector.go
+│   │   ├── clustercollector_test.go
+│   │   ├── metrics.go
+│   │   ├── metrics_test.go
+│   │   └── transportwrapper.go
+│   ├── sharding/
+│   │   ├── cache.go
+│   │   ├── cache_test.go
+│   │   ├── consistent/
+│   │   ├── sharding.go
+│   │   ├── sharding_test.go
+│   │   └── shuffle_test.go
+│   ├── sort_delete.go
+│   ├── sort_delete_test.go
+│   ├── state.go
+│   ├── state_test.go
+│   ├── sync.go
+│   ├── sync_namespace.go
+│   ├── sync_namespace_test.go
+│   ├── sync_test.go
+│   ├── syncid/
+│   │   ├── id.go
+│   │   └── id_test.go
+│   └── testdata/
+│       ├── additional-image-replicas-deployment.yaml
+│       ├── configmap.yaml
+│       ├── data.go
+│       ├── diff-cache.yaml
+│       ├── job-failed-ignore-healthcheck.yaml
+│       ├── job-failed.yaml
+│       ├── live-deployment-env-vars.yaml
+│       ├── live-deployment.yaml
+│       ├── live-httpproxy.yaml
+│       ├── minimal-image-replicas-deployment.yaml
+│       ├── pod-running-restart-always.yaml
+│       ├── target-deployment-env-vars.yaml
+│       ├── target-deployment-new-entries.yaml
+│       ├── target-deployment.yaml
+│       └── target-httpproxy.yaml
+├── docs/
+│   ├── CONTRIBUTING.md
+│   ├── SUPPORT.md
+│   ├── assets/
+│   │   ├── app-ui-information.png
+│   │   ├── application-of-applications.png
+│   │   ├── application-pod-view-node-labels.png
+│   │   ├── application-view-extension.png
+│   │   ├── applicationset/
+│   │   ├── argo.png
+│   │   ├── argocd-arch-authn-authz.jpg
+│   │   ├── argocd-components.png
+│   │   ├── argocd-core-components.png
+│   │   ├── argocd-ui.gif
+│   │   ├── argocd_architecture.png
+│   │   ├── azure-api-permissions.png
+│   │   ├── azure-app-registration-authentication.png
+│   │   ├── azure-app-registration-overview.png
+│   │   ├── azure-app-registration-secret.png
+│   │   ├── azure-devops-webhook-config.png
+│   │   ├── azure-enterprise-claims.png
+│   │   ├── azure-enterprise-saml-urls.png
+│   │   ├── azure-enterprise-users.png
+│   │   ├── azure-sso-cli-log-in-success.png
+│   │   ├── azure-sso-web-application.png
+│   │   ├── azure-sso-web-log-in-via-azure.png
+│   │   ├── azure-sso-web-user-info.png
+│   │   ├── azure-token-configuration.png
+│   │   ├── banner.png
+│   │   ├── cert-management-add-ssh.png
+│   │   ├── cert-management-add-tls.png
+│   │   ├── cert-management-overview.png
+│   │   ├── cert-management-remove.png
+│   │   ├── compare-option-ignore-needs-pruning.png
+│   │   ├── confirm-prune.png
+│   │   ├── connect-repo.png
+│   │   ├── create-app.png
+│   │   ├── dashboard.jpg
+│   │   ├── destination.png
+│   │   ├── download-codegen-patch-file.png
+│   │   ├── external-link-1.png
+│   │   ├── external-link.png
+│   │   ├── extra_info-1.png
+│   │   ├── extra_info-2.png
+│   │   ├── extra_info.png
+│   │   ├── favicon.png
+│   │   ├── filter-apps.png
+│   │   ├── google-admin-idp-metadata.png
+│   │   ├── google-admin-oidc-uris.png
+│   │   ├── google-admin-saml-add-app-menu.png
+│   │   ├── google-admin-saml-app-details.png
+│   │   ├── google-admin-saml-apps-menu.png
+│   │   ├── google-admin-saml-attribute-mapping-details.png
+│   │   ├── google-admin-service-provider-details.png
+│   │   ├── google-groups-membership.png
+│   │   ├── guestbook-app.png
+│   │   ├── guestbook-tree.png
+│   │   ├── identity-center-1.png
+│   │   ├── identity-center-2.png
+│   │   ├── identity-center-3.png
+│   │   ├── identity-center-4.png
+│   │   ├── identity-center-5.png
+│   │   ├── identity-center-6.png
+│   │   ├── keycloak-add-client-pkce_2.png
+│   │   ├── keycloak-add-client.png
+│   │   ├── keycloak-add-client_2.png
+│   │   ├── keycloak-add-scope.png
+│   │   ├── keycloak-authentication-successful.png
+│   │   ├── keycloak-client-scope.png
+│   │   ├── keycloak-client-secret.png
+│   │   ├── keycloak-configure-client-pkce.png
+│   │   ├── keycloak-configure-client-pkce_2.png
+│   │   ├── keycloak-configure-client.png
+│   │   ├── keycloak-groups-mapper.png
+│   │   ├── keycloak-login.png
+│   │   ├── keycloak-user-group.png
+│   │   ├── logo.png
+│   │   ├── new-app-of-apps.png
+│   │   ├── new-app.png
+│   │   ├── oauth2-config.png
+│   │   ├── okta-app.png
+│   │   ├── okta-auth-policy-edit.png
+│   │   ├── okta-auth-policy.png
+│   │   ├── okta-auth-rule.png
+│   │   ├── okta-create-oidc-app.png
+│   │   ├── okta-groups-claim.png
+│   │   ├── okta-groups-scope.png
+│   │   ├── openunison-argocd-url.yaml
+│   │   ├── openunison-portal.png
+│   │   ├── orphaned-resources.png
+│   │   ├── register-app.png
+│   │   ├── release-action.png
+│   │   ├── repo-add-azure-workload-identity.png
+│   │   ├── repo-add-github-app.png
+│   │   ├── repo-add-google-cloud-source.png
+│   │   ├── repo-add-https.png
+│   │   ├── repo-add-overview.png
+│   │   ├── repo-add-ssh.png
+│   │   ├── repo-type-helm.png
+│   │   ├── saml-1.png
+│   │   ├── saml-2.png
+│   │   ├── saml-3.png
+│   │   ├── saml-4.png
+│   │   ├── saml-split.png
+│   │   ├── scale_resources_1.png
+│   │   ├── scale_resources_2.png
+│   │   ├── scale_resources_3.png
+│   │   ├── select_env.png
+│   │   ├── select_repo.png
+│   │   ├── selective-sync.png
+│   │   ├── status-badge-healthy-synced.png
+│   │   ├── sync-apps.png
+│   │   ├── sync-option-no-prune-sync-status.png
+│   │   ├── sync-option-no-prune.png
+│   │   ├── synchronization-button.png
+│   │   ├── terminal.png
+│   │   ├── terminate-button.png
+│   │   ├── versions.css
+│   │   ├── versions.js
+│   │   ├── webhook-config.png
+│   │   ├── zitadel-actions.png
+│   │   ├── zitadel-application-1.png
+│   │   ├── zitadel-application-2.png
+│   │   ├── zitadel-application-3.png
+│   │   ├── zitadel-application-4.png
+│   │   ├── zitadel-application-secrets.png
+│   │   ├── zitadel-application-settings.png
+│   │   ├── zitadel-argocd-login.png
+│   │   ├── zitadel-argocd-user-info.png
+│   │   ├── zitadel-project-authorizations.png
+│   │   ├── zitadel-project-roles.png
+│   │   ├── zitadel-project-settings.png
+│   │   └── zitadel-project.png
+│   ├── bug_triage.md
+│   ├── cli_installation.md
+│   ├── core_concepts.md
+│   ├── developer-guide/
+│   │   ├── api-docs.md
+│   │   ├── architecture/
+│   │   ├── backporting-fixes.md
+│   │   ├── ci-pipeline-failed.png
+│   │   ├── ci.md
+│   │   ├── code-contributions.md
+│   │   ├── contributing.md
+│   │   ├── custom-resource-icons.md
+│   │   ├── debugging-locally.md
+│   │   ├── debugging-remote-environment.md
+│   │   ├── dependencies.md
+│   │   ├── development-cycle.md
+│   │   ├── development-environment.md
+│   │   ├── docs-site.md
+│   │   ├── extensions/
+│   │   ├── faq.md
+│   │   ├── index.md
+│   │   ├── mac-users.md
+│   │   ├── maintaining-internal-argo-cd-forks.md
+│   │   ├── release-process-and-cadence.md
+│   │   ├── releasing.md
+│   │   ├── running-locally.md
+│   │   ├── static-code-analysis.md
+│   │   ├── submit-your-pr.md
+│   │   ├── test-e2e.md
+│   │   ├── tilt.md
+│   │   ├── toolchain-guide.md
+│   │   ├── ui-extensions.md
+│   │   └── use-gitpod.md
+│   ├── faq.md
+│   ├── getting_started.md
+│   ├── index.md
+│   ├── operator-manual/
+│   │   ├── app-any-namespace.md
+│   │   ├── app-sync-using-impersonation.md
+│   │   ├── application.yaml
+│   │   ├── applicationset.yaml
+│   │   ├── applicationset/
+│   │   ├── architecture.md
+│   │   ├── argocd-cm-yaml.md
+│   │   ├── argocd-cm.yaml
+│   │   ├── argocd-cmd-params-cm-yaml.md
+│   │   ├── argocd-cmd-params-cm.yaml
+│   │   ├── argocd-rbac-cm-yaml.md
+│   │   ├── argocd-rbac-cm.yaml
+│   │   ├── argocd-repo-creds-yaml.md
+│   │   ├── argocd-repo-creds.yaml
+│   │   ├── argocd-repositories-yaml.md
+│   │   ├── argocd-repositories.yaml
+│   │   ├── argocd-secret-yaml.md
+│   │   ├── argocd-secret.yaml
+│   │   ├── argocd-ssh-known-hosts-cm-yaml.md
+│   │   ├── argocd-ssh-known-hosts-cm.yaml
+│   │   ├── argocd-tls-certs-cm-yaml.md
+│   │   ├── argocd-tls-certs-cm.yaml
+│   │   ├── cluster-bootstrapping.md
+│   │   ├── cluster-management.md
+│   │   ├── config-management-plugins.md
+│   │   ├── core.md
+│   │   ├── custom-styles.md
+│   │   ├── custom_tools.md
+│   │   ├── declarative-setup.md
+│   │   ├── deep_links.md
+│   │   ├── disaster_recovery.md
+│   │   ├── dynamic-cluster-distribution.md
+│   │   ├── feature-maturity.md
+│   │   ├── git_configuration.md
+│   │   ├── health.md
+│   │   ├── high_availability.md
+│   │   ├── index.md
+│   │   ├── ingress.md
+│   │   ├── installation.md
+│   │   ├── managed-by-url.md
+│   │   ├── metrics.md
+│   │   ├── notifications/
+│   │   ├── project-specification.md
+│   │   ├── project.yaml
+│   │   ├── rbac.md
+│   │   ├── reconcile.md
+│   │   ├── resource_actions.md
+│   │   ├── resource_actions_builtin.md
+│   │   ├── secret-management.md
+│   │   ├── security.md
+│   │   ├── server-commands/
+│   │   ├── signed-release-assets.md
+│   │   ├── templates/
+│   │   ├── tested-kubernetes-versions.md
+│   │   ├── tls.md
+│   │   ├── troubleshooting.md
+│   │   ├── ui-customization.md
+│   │   ├── upgrading/
+│   │   ├── user-management/
+│   │   ├── web_based_terminal.md
+│   │   └── webhook.md
+│   ├── proposals/
+│   │   ├── 001-proposal-template.md
+│   │   ├── 002-ui-extensions.md
+│   │   ├── 003-applications-outside-argocd-namespace.md
+│   │   ├── 004-scalability-benchmarking.md
+│   │   ├── 2022-07-13-appset-progressive-rollout-strategy.md
+│   │   ├── application-name-identifier.md
+│   │   ├── applicationset-plugin-generator.md
+│   │   ├── argocd-cli-pluin.md
+│   │   ├── backend-support-appset.md
+│   │   ├── backend-support-appset.png
+│   │   ├── config-management-plugin-v2.md
+│   │   ├── decouple-application-sync-user-using-impersonation.md
+│   │   ├── deep-links.md
+│   │   ├── deletion-strategy-progressive-sync.md
+│   │   ├── feature-bounties.md
+│   │   ├── feature-bounties/
+│   │   ├── headless-argocd.md
+│   │   ├── images/
+│   │   ├── manifest-hydrator.md
+│   │   ├── manifest-hydrator/
+│   │   ├── multiple-sources-for-applications-ui.md
+│   │   ├── multiple-sources-for-applications.md
+│   │   ├── native-oci-support.md
+│   │   ├── notifications-API.md
+│   │   ├── parameterized-config-management-plugins.md
+│   │   ├── project-repos-and-clusters.md
+│   │   ├── project-scoped-repository-enhancements.md
+│   │   ├── proxy-extensions.md
+│   │   ├── rebalancing-clusters-across-shards-dynamically.md
+│   │   ├── resource-deletion-with-approval.md
+│   │   ├── respect-rbac-for-resource-exclusions.md
+│   │   ├── rollout-extension.png
+│   │   ├── server-side-apply.md
+│   │   ├── server-side-pagination.md
+│   │   ├── source-verification-policies.md
+│   │   └── sync-timeout.md
+│   ├── requirements.txt
+│   ├── roadmap.md
+│   ├── security_considerations.md
+│   ├── snyk/
+│   │   ├── index.md
+│   │   ├── master/
+│   │   ├── v3.1.12/
+│   │   ├── v3.2.7/
+│   │   └── v3.3.2/
+│   ├── try_argo_cd_locally.md
+│   ├── understand_the_basics.md
+│   └── user-guide/
+│       ├── annotations-and-labels.md
+│       ├── app_deletion.md
+│       ├── application-set.md
+│       ├── application-specification.md
+│       ├── application_sources.md
+│       ├── auto_sync.md
+│       ├── best_practices.md
+│       ├── build-environment.md
+│       ├── ci_automation.md
+│       ├── commands/
+│       ├── compare-options.md
+│       ├── config-management-plugins.md
+│       ├── diff-strategies.md
+│       ├── diffing.md
+│       ├── directory.md
+│       ├── environment-variables.md
+│       ├── external-url.md
+│       ├── extra_info.md
+│       ├── gpg-verification.md
+│       ├── helm.md
+│       ├── how_phases_work.png
+│       ├── how_waves_work.png
+│       ├── import.md
+│       ├── index.md
+│       ├── jsonnet.md
+│       ├── kustomize.md
+│       ├── multiple_sources.md
+│       ├── oci.md
+│       ├── orphaned-resources.md
+│       ├── parameters.md
+│       ├── plugins.md
+│       ├── private-repositories.md
+│       ├── projects.md
+│       ├── resource_hooks.md
+│       ├── resource_tracking.md
+│       ├── scale_application_resources.md
+│       ├── selective_sync.md
+│       ├── skip_reconcile.md
+│       ├── source-hydrator.md
+│       ├── status-badge.md
+│       ├── subscriptions.md
+│       ├── sync-kubectl.md
+│       ├── sync-options.md
+│       ├── sync-waves.md
+│       ├── sync_windows.md
+│       ├── tool_detection.md
+│       └── tracking_strategies.md
+├── entrypoint.sh
+├── examples/
+│   ├── dashboard-legacy.json
+│   ├── dashboard.json
+│   ├── k8s-rbac/
+│   │   └── argocd-server-applications/
+│   ├── known-hosts/
+│   │   ├── README.md
+│   │   ├── argocd-known-hosts-mounts.yaml
+│   │   ├── argocd-known-hosts.yaml
+│   │   └── kustomization.yaml
+│   └── plugins/
+│       └── helm/
+├── gitops-engine/
+│   ├── Dockerfile
+│   ├── LICENSE
+│   ├── Makefile
+│   ├── OWNERS
+│   ├── README.md
+│   ├── agent/
+│   │   ├── README.md
+│   │   ├── main.go
+│   │   └── manifests/
+│   ├── go.mod
+│   ├── go.sum
+│   ├── hack/
+│   │   └── update_static_schema.sh
+│   ├── internal/
+│   │   └── kubernetes_vendor/
+│   └── pkg/
+│       ├── cache/
+│       ├── diff/
+│       ├── engine/
+│       ├── health/
+│       ├── sync/
+│       └── utils/
+├── go.mod
+├── go.sum
+├── hack/
+│   ├── .dockerignore
+│   ├── Dockerfile.dev-tools
+│   ├── admonitions-to-alerts.sh
+│   ├── boilerplate.go.txt
+│   ├── bump-major-version.sh
+│   ├── custom-boilerplate.go.txt
+│   ├── dev-mounter/
+│   │   └── main.go
+│   ├── gen-catalog/
+│   │   └── main.go
+│   ├── gen-crd-spec/
+│   │   └── main.go
+│   ├── gen-docs/
+│   │   └── main.go
+│   ├── gen-resources/
+│   │   ├── cmd/
+│   │   ├── examples/
+│   │   ├── generators/
+│   │   └── util/
+│   ├── generate-actions-list.sh
+│   ├── generate-icons-typescript.sh
+│   ├── generate-mock.sh
+│   ├── generate-proto.sh
+│   ├── generate-release-notes.sh
+│   ├── get-previous-release/
+│   │   ├── get-previous-version-for-release-notes.go
+│   │   ├── get-previous-version-for-release-notes_test.go
+│   │   ├── go.mod
+│   │   └── go.sum
+│   ├── git-ask-pass.sh
+│   ├── git-verify-wrapper.sh
+│   ├── goreman-start.sh
+│   ├── gpg-wrapper.sh
+│   ├── install.sh
+│   ├── installers/
+│   │   ├── checksums/
+│   │   ├── compare-chksum.sh
+│   │   ├── install-codegen-go-tools.sh
+│   │   ├── install-codegen-tools.sh
+│   │   ├── install-git-lfs.sh
+│   │   ├── install-gotestsum.sh
+│   │   ├── install-helm.sh
+│   │   ├── install-kustomize.sh
+│   │   ├── install-lint-tools.sh
+│   │   ├── install-oras.sh
+│   │   └── install-protoc.sh
+│   ├── k8s/
+│   │   └── main.go
+│   ├── known_types/
+│   │   └── main.go
+│   ├── migrate-gitops-engine/
+│   │   ├── merge.sh
+│   │   ├── replace-vendor.sh
+│   │   └── update-dockerfile.sh
+│   ├── snyk-container-tests.sh
+│   ├── snyk-non-container-tests.sh
+│   ├── snyk-report.sh
+│   ├── ssh_known_hosts
+│   ├── start-redis-with-password.sh
+│   ├── test.sh
+│   ├── tool-versions.sh
+│   ├── tools.go
+│   ├── trigger-release.sh
+│   ├── update-codegen.sh
+│   ├── update-kubernetes-version.sh
+│   ├── update-manifests.sh
+│   ├── update-openapi.sh
+│   ├── update-ssh-known-hosts.sh
+│   └── update-supported-versions.sh
+├── manifests/
+│   ├── .gitignore
+│   ├── README.md
+│   ├── addons/
+│   │   └── README.md
+│   ├── base/
+│   │   ├── application-controller-deployment/
+│   │   ├── application-controller-roles/
+│   │   ├── application-controller/
+│   │   ├── applicationset-controller/
+│   │   ├── commit-server/
+│   │   ├── config/
+│   │   ├── dex/
+│   │   ├── kustomization.yaml
+│   │   ├── notification/
+│   │   ├── redis/
+│   │   ├── repo-server/
+│   │   └── server/
+│   ├── cluster-install-with-hydrator/
+│   │   └── kustomization.yaml
+│   ├── cluster-install/
+│   │   └── kustomization.yaml
+│   ├── cluster-rbac/
+│   │   ├── application-controller/
+│   │   ├── applicationset-controller/
+│   │   ├── kustomization.yaml
+│   │   └── server/
+│   ├── core-install-with-hydrator.yaml
+│   ├── core-install-with-hydrator/
+│   │   └── kustomization.yaml
+│   ├── core-install.yaml
+│   ├── core-install/
+│   │   └── kustomization.yaml
+│   ├── crds/
+│   │   ├── application-crd.yaml
+│   │   ├── applicationset-crd.yaml
+│   │   ├── appproject-crd.yaml
+│   │   └── kustomization.yaml
+│   ├── dev-tilt/
+│   │   ├── kustomization.yaml
+│   │   ├── namespace.yaml
+│   │   ├── ui-deployment.yaml
+│   │   └── ui-service.yaml
+│   ├── ha/
+│   │   ├── base/
+│   │   ├── cluster-install-with-hydrator/
+│   │   ├── cluster-install/
+│   │   ├── install-with-hydrator.yaml
+│   │   ├── install-with-hydrator/
+│   │   ├── install.yaml
+│   │   ├── namespace-install-with-hydrator.yaml
+│   │   ├── namespace-install-with-hydrator/
+│   │   ├── namespace-install.yaml
+│   │   └── namespace-install/
+│   ├── install-with-hydrator.yaml
+│   ├── install.yaml
+│   ├── namespace-install-with-hydrator.yaml
+│   ├── namespace-install-with-hydrator/
+│   │   └── kustomization.yaml
+│   ├── namespace-install.yaml
+│   └── namespace-install/
+│       └── kustomization.yaml
+├── mkdocs.yml
+├── notification_controller/
+│   └── controller/
+│       ├── controller.go
+│       └── controller_test.go
+├── notifications_catalog/
+│   ├── install.yaml
+│   ├── templates/
+│   │   ├── app-created.yaml
+│   │   ├── app-deleted.yaml
+│   │   ├── app-deployed.yaml
+│   │   ├── app-health-degraded.yaml
+│   │   ├── app-sync-failed.yaml
+│   │   ├── app-sync-running.yaml
+│   │   ├── app-sync-status-unknown.yaml
+│   │   └── app-sync-succeeded.yaml
+│   └── triggers/
+│       ├── on-created.yaml
+│       ├── on-deleted.yaml
+│       ├── on-deployed.yaml
+│       ├── on-health-degraded.yaml
+│       ├── on-sync-failed.yaml
+│       ├── on-sync-running.yaml
+│       ├── on-sync-status-unknown.yaml
+│       └── on-sync-succeeded.yaml
+├── overrides/
+│   └── partials/
+│       └── language/
+├── pkg/
+│   ├── apiclient/
+│   │   ├── account/
+│   │   ├── apiclient.go
+│   │   ├── apiclient_test.go
+│   │   ├── application/
+│   │   ├── applicationset/
+│   │   ├── certificate/
+│   │   ├── cluster/
+│   │   ├── gpgkey/
+│   │   ├── grpcproxy.go
+│   │   ├── notification/
+│   │   ├── project/
+│   │   ├── repocreds/
+│   │   ├── repository/
+│   │   ├── session/
+│   │   ├── settings/
+│   │   └── version/
+│   ├── apis/
+│   │   ├── api-rules/
+│   │   └── application/
+│   ├── client/
+│   │   ├── clientset/
+│   │   ├── informers/
+│   │   └── listers/
+│   └── ratelimiter/
+│       └── ratelimiter.go
+├── prepare.sh
+├── renovate-presets/
+│   ├── README.md
+│   ├── commons.json5
+│   ├── custom-managers/
+│   │   ├── shell.json5
+│   │   └── yaml.json5
+│   ├── devtool.json5
+│   ├── docs.json5
+│   └── fix/
+│       ├── disable-all-updates.json5
+│       └── openssf-merge-confidence-columns.json5
+├── renovate.json
+├── reposerver/
+│   ├── OWNERS
+│   ├── apiclient/
+│   │   ├── clientset.go
+│   │   ├── clientset_test.go
+│   │   ├── mocks/
+│   │   ├── repository.go
+│   │   └── repository.pb.go
+│   ├── cache/
+│   │   ├── cache.go
+│   │   ├── cache_test.go
+│   │   └── mocks/
+│   ├── gpgwatcher.go
+│   ├── metrics/
+│   │   ├── githandlers.go
+│   │   ├── githandlers_test.go
+│   │   ├── metrics.go
+│   │   ├── ocihandlers.go
+│   │   └── ocihandlers_test.go
+│   ├── repository/
+│   │   ├── chart.go
+│   │   ├── chart_test.go
+│   │   ├── lock.go
+│   │   ├── lock_test.go
+│   │   ├── repository.go
+│   │   ├── repository.proto
+│   │   ├── repository_test.go
+│   │   ├── testdata/
+│   │   ├── testdata2/
+│   │   ├── types.go
+│   │   ├── utils.go
+│   │   └── utils_test.go
+│   └── server.go
+├── resource_customizations/
+│   ├── _.cnrm.cloud.google.com/
+│   │   └── _/
+│   ├── _.crossplane.io/
+│   │   └── _/
+│   ├── _.upbound.io/
+│   │   └── _/
+│   ├── acid.zalan.do/
+│   │   └── postgresql/
+│   ├── addons.cluster.x-k8s.io/
+│   │   └── ClusterResourceSet/
+│   ├── apiextensions.k8s.io/
+│   │   └── CustomResourceDefinition/
+│   ├── apps.3scale.net/
+│   │   └── APIManager/
+│   ├── apps.kruise.io/
+│   │   ├── AdvancedCronJob/
+│   │   ├── BroadcastJob/
+│   │   ├── CloneSet/
+│   │   ├── DaemonSet/
+│   │   └── StatefulSet/
+│   ├── apps.openshift.io/
+│   │   └── DeploymentConfig/
+│   ├── apps/
+│   │   ├── DaemonSet/
+│   │   ├── Deployment/
+│   │   └── StatefulSet/
+│   ├── argoproj.io/
+│   │   ├── AnalysisRun/
+│   │   ├── ApplicationSet/
+│   │   ├── CronWorkflow/
+│   │   ├── EventBus/
+│   │   ├── Experiment/
+│   │   ├── Rollout/
+│   │   └── WorkflowTemplate/
+│   ├── astra.netapp.io/
+│   │   ├── AppVault/
+│   │   ├── Application/
+│   │   ├── Backup/
+│   │   ├── ExecHook/
+│   │   ├── ExecHooksRun/
+│   │   ├── ResourceBackup/
+│   │   ├── ResticVolumeBackup/
+│   │   ├── Schedule/
+│   │   └── Snapshot/
+│   ├── batch/
+│   │   ├── CronJob/
+│   │   └── Job/
+│   ├── beat.k8s.elastic.co/
+│   │   └── Beat/
+│   ├── bitnami.com/
+│   │   └── SealedSecret/
+│   ├── camel.apache.org/
+│   │   └── Integration/
+│   ├── capabilities.3scale.net/
+│   │   ├── ActiveDoc/
+│   │   ├── Application/
+│   │   ├── ApplicationAuth/
+│   │   ├── Backend/
+│   │   ├── CustomPolicyDefinition/
+│   │   ├── DeveloperAccount/
+│   │   ├── DeveloperUser/
+│   │   ├── OpenAPI/
+│   │   ├── Product/
+│   │   ├── ProxyConfigPromote/
+│   │   └── Tenant/
+│   ├── cassandra.rook.io/
+│   │   └── Cluster/
+│   ├── cdi.kubevirt.io/
+│   │   └── DataVolume/
+│   ├── ceph.rook.io/
+│   │   ├── CephCluster/
+│   │   └── CephObjectStore/
+│   ├── cert-manager.io/
+│   │   ├── Certificate/
+│   │   ├── ClusterIssuer/
+│   │   └── Issuer/
+│   ├── certmanager.k8s.io/
+│   │   ├── Certificate/
+│   │   └── Issuer/
+│   ├── clickhouse-keeper.altinity.com/
+│   │   └── ClickHouseKeeperInstallation/
+│   ├── clickhouse.altinity.com/
+│   │   └── ClickHouseInstallation/
+│   ├── cloudfront.aws.crossplane.io/
+│   │   └── Distribution/
+│   ├── cluster.x-k8s.io/
+│   │   ├── Cluster/
+│   │   ├── Machine/
+│   │   ├── MachineDeployment/
+│   │   ├── MachineHealthCheck/
+│   │   └── MachinePool/
+│   ├── controlplane.cluster.x-k8s.io/
+│   │   └── AWSManagedControlPlane/
+│   ├── coralogix.com/
+│   │   ├── Alert/
+│   │   └── RecordingRuleGroupSet/
+│   ├── core.humio.com/
+│   │   ├── HumioAction/
+│   │   ├── HumioAlert/
+│   │   ├── HumioCluster/
+│   │   ├── HumioIngestToken/
+│   │   ├── HumioParser/
+│   │   ├── HumioRepository/
+│   │   └── HumioView/
+│   ├── core.spinkube.dev/
+│   │   └── SpinApp/
+│   ├── datadoghq.com/
+│   │   └── DatadogMetric/
+│   ├── db.atlasgo.io/
+│   │   ├── AtlasMigration/
+│   │   └── AtlasSchema/
+│   ├── elasticsearch.k8s.elastic.co/
+│   │   └── Elasticsearch/
+│   ├── embed.go
+│   ├── external-secrets.io/
+│   │   ├── ClusterExternalSecret/
+│   │   ├── ClusterSecretStore/
+│   │   ├── ExternalSecret/
+│   │   ├── PushSecret/
+│   │   └── SecretStore/
+│   ├── flagger.app/
+│   │   └── Canary/
+│   ├── flink.apache.org/
+│   │   └── FlinkDeployment/
+│   ├── game.kruise.io/
+│   │   ├── GameServer/
+│   │   └── GameServerSet/
+│   ├── gateway.networking.k8s.io/
+│   │   ├── GRPCRoute/
+│   │   ├── Gateway/
+│   │   └── HTTPRoute/
+│   ├── gateway.solo.io/
+│   │   ├── Gateway/
+│   │   ├── MatchableHttpGateway/
+│   │   ├── RouteOption/
+│   │   ├── RouteTable/
+│   │   ├── VirtualHostOption/
+│   │   └── VirtualService/
+│   ├── gloo.solo.io/
+│   │   ├── Proxy/
+│   │   ├── Settings/
+│   │   ├── Upstream/
+│   │   └── UpstreamGroup/
+│   ├── grafana-org-operator.kubitus-project.gitlab.io/
+│   │   └── _/
+│   ├── grafana.integreatly.org/
+│   │   ├── Grafana/
+│   │   ├── GrafanaDashboard/
+│   │   ├── GrafanaDatasource/
+│   │   └── GrafanaFolder/
+│   ├── helm.toolkit.fluxcd.io/
+│   │   └── HelmRelease/
+│   ├── iam.aws.crossplane.io/
+│   │   ├── Policy/
+│   │   ├── Role/
+│   │   └── RolePolicyAttachment/
+│   ├── iammanager.keikoproj.io/
+│   │   └── Iamrole/
+│   ├── image.toolkit.fluxcd.io/
+│   │   ├── ImagePolicy/
+│   │   ├── ImageRepository/
+│   │   └── ImageUpdateAutomation/
+│   ├── install.istio.io/
+│   │   └── IstioOperator/
+│   ├── jaegertracing.io/
+│   │   └── Jaeger/
+│   ├── k8s.keycloak.org/
+│   │   └── Keycloak/
+│   ├── k8s.mariadb.com/
+│   │   ├── Backup/
+│   │   ├── Database/
+│   │   ├── Grant/
+│   │   ├── MariaDB/
+│   │   ├── SqlJob/
+│   │   └── User/
+│   ├── kafka.banzaicloud.io/
+│   │   └── KafkaCluster/
+│   ├── kafka.strimzi.io/
+│   │   ├── Kafka/
+│   │   ├── KafkaBridge/
+│   │   ├── KafkaConnect/
+│   │   ├── KafkaConnector/
+│   │   ├── KafkaTopic/
+│   │   └── KafkaUser/
+│   ├── karpenter.k8s.aws/
+│   │   └── EC2NodeClass/
+│   ├── karpenter.sh/
+│   │   └── NodePool/
+│   ├── keda.sh/
+│   │   ├── ScaledJob/
+│   │   └── ScaledObject/
+│   ├── kiali.io/
+│   │   └── Kiali/
+│   ├── kubernetes-client.io/
+│   │   └── ExternalSecret/
+│   ├── kubevirt.io/
+│   │   ├── VirtualMachine/
+│   │   └── VirtualMachineInstance/
+│   ├── kustomize.toolkit.fluxcd.io/
+│   │   └── Kustomization/
+│   ├── kyverno.io/
+│   │   └── Policy/
+│   ├── lifecycle.keptn.sh/
+│   │   ├── KeptnAppVersion/
+│   │   ├── KeptnEvaluation/
+│   │   ├── KeptnTask/
+│   │   ├── KeptnWorkloadInstance/
+│   │   └── KeptnWorkloadVersion/
+│   ├── logstash.k8s.elastic.co/
+│   │   └── Logstash/
+│   ├── mariadb.mmontes.io/
+│   │   └── MariaDB/
+│   ├── metrics.keptn.sh/
+│   │   ├── Analysis/
+│   │   └── KeptnMetric/
+│   ├── minio.min.io/
+│   │   └── Tenant/
+│   ├── monitoring.coreos.com/
+│   │   └── Prometheus/
+│   ├── networking.gke.io/
+│   │   └── ManagedCertificate/
+│   ├── nmstate.io/
+│   │   └── NodeNetworkConfigurationPolicy/
+│   ├── notification.toolkit.fluxcd.io/
+│   │   ├── Alert/
+│   │   ├── Provider/
+│   │   └── Receiver/
+│   ├── numaflow.numaproj.io/
+│   │   ├── InterStepBufferService/
+│   │   ├── MonoVertex/
+│   │   ├── Pipeline/
+│   │   └── Vertex/
+│   ├── numaplane.numaproj.io/
+│   │   ├── ISBServiceRollout/
+│   │   ├── MonoVertexRollout/
+│   │   ├── NumaflowControllerRollout/
+│   │   └── PipelineRollout/
+│   ├── objectbucket.io/
+│   │   └── ObjectBucketClaim/
+│   ├── ocs.openshift.io/
+│   │   └── StorageCluster/
+│   ├── onepassword.com/
+│   │   └── OnePasswordItem/
+│   ├── openfaas.com/
+│   │   └── Function/
+│   ├── opentelemetry.io/
+│   │   └── OpenTelemetryCollector/
+│   ├── operator.knative.dev/
+│   │   ├── KnativeEventing/
+│   │   └── KnativeServing/
+│   ├── operator.openshift.io/
+│   │   └── IngressController/
+│   ├── operators.coreos.com/
+│   │   └── Subscription/
+│   ├── pkg.crossplane.io/
+│   │   └── Provider/
+│   ├── platform.confluent.io/
+│   │   ├── Connect/
+│   │   ├── Connector/
+│   │   ├── ControlCenter/
+│   │   ├── Kafka/
+│   │   ├── KsqlDB/
+│   │   ├── SchemaRegistry/
+│   │   └── Zookeeper/
+│   ├── policy.open-cluster-management.io/
+│   │   ├── CertificatePolicy/
+│   │   ├── ConfigurationPolicy/
+│   │   ├── OperatorPolicy/
+│   │   └── Policy/
+│   ├── policy/
+│   │   └── PodDisruptionBudget/
+│   ├── postgresql.cnpg.io/
+│   │   └── Cluster/
+│   ├── proclaim.dogmatiq.io/
+│   │   └── DNSSDServiceInstance/
+│   ├── projectcontour.io/
+│   │   ├── ExtensionService/
+│   │   └── HTTPProxy/
+│   ├── promoter.argoproj.io/
+│   │   ├── ArgoCDCommitStatus/
+│   │   ├── ChangeTransferPolicy/
+│   │   ├── CommitStatus/
+│   │   ├── PromotionStrategy/
+│   │   └── PullRequest/
+│   ├── psmdb.percona.com/
+│   │   └── PerconaServerMongoDB/
+│   ├── pxc.percona.com/
+│   │   └── PerconaXtraDBCluster/
+│   ├── rabbitmq.com/
+│   │   ├── Binding/
+│   │   ├── Exchange/
+│   │   ├── Permission/
+│   │   ├── Policy/
+│   │   ├── Queue/
+│   │   ├── RabbitmqCluster/
+│   │   ├── Shovel/
+│   │   ├── User/
+│   │   └── Vhost/
+│   ├── rds.aws.crossplane.io/
+│   │   ├── DBCluster/
+│   │   └── DBInstance/
+│   ├── rollouts.kruise.io/
+│   │   └── Rollout/
+│   ├── route.openshift.io/
+│   │   └── Route/
+│   ├── route53.aws.crossplane.io/
+│   │   └── ResourceRecordSet/
+│   ├── s3.aws.crossplane.io/
+│   │   └── Bucket/
+│   ├── services.cloud.sap.com/
+│   │   ├── ServiceBinding/
+│   │   └── ServiceInstance/
+│   ├── serving.knative.dev/
+│   │   └── Service/
+│   ├── serving.kserve.io/
+│   │   └── InferenceService/
+│   ├── snapshot.storage.k8s.io/
+│   │   ├── VolumeSnapshot/
+│   │   └── VolumeSnapshotContent/
+│   ├── solr.apache.org/
+│   │   └── SolrCloud/
+│   ├── source.toolkit.fluxcd.io/
+│   │   ├── Bucket/
+│   │   ├── GitRepository/
+│   │   ├── HelmChart/
+│   │   ├── HelmRepository/
+│   │   └── OCIRepository/
+│   ├── sparkoperator.k8s.io/
+│   │   └── SparkApplication/
+│   ├── spot.io/
+│   │   └── SpotDeployment/
+│   ├── stacks.crossplane.io/
+│   │   └── ClusterStackInstall/
+│   ├── tower.ansible.com/
+│   │   └── AnsibleJob/
+│   ├── trident.netapp.io/
+│   │   ├── TridentBackendConfig/
+│   │   └── TridentOrchestrator/
+│   ├── work.karmada.io/
+│   │   ├── ClusterResourceBinding/
+│   │   └── ResourceBinding/
+│   └── zookeeper.pravega.io/
+│       └── ZookeeperCluster/
+├── server/
+│   ├── account/
+│   │   ├── account.go
+│   │   ├── account.proto
+│   │   └── account_test.go
+│   ├── application/
+│   │   ├── application.go
+│   │   ├── application.proto
+│   │   ├── application_test.go
+│   │   ├── deepinformer.go
+│   │   ├── deepinformer_test.go
+│   │   ├── logs.go
+│   │   ├── logs_test.go
+│   │   ├── terminal.go
+│   │   ├── terminal_test.go
+│   │   ├── websocket.go
+│   │   └── websocket_test.go
+│   ├── applicationset/
+│   │   ├── applicationset.go
+│   │   ├── applicationset.proto
+│   │   └── applicationset_test.go
+│   ├── badge/
+│   │   ├── badge.go
+│   │   ├── badge_test.go
+│   │   └── color.go
+│   ├── broadcast/
+│   │   ├── broadcaster.go
+│   │   ├── broadcaster_test.go
+│   │   └── mocks/
+│   ├── cache/
+│   │   ├── cache.go
+│   │   └── cache_test.go
+│   ├── certificate/
+│   │   ├── certificate.go
+│   │   └── certificate.proto
+│   ├── cluster/
+│   │   ├── cluster.go
+│   │   ├── cluster.proto
+│   │   └── cluster_test.go
+│   ├── deeplinks/
+│   │   ├── deeplinks.go
+│   │   └── deeplinks_test.go
+│   ├── extension/
+│   │   ├── extension.go
+│   │   ├── extension_test.go
+│   │   └── mocks/
+│   ├── gpgkey/
+│   │   ├── gpgkey.go
+│   │   └── gpgkey.proto
+│   ├── logout/
+│   │   ├── logout.go
+│   │   └── logout_test.go
+│   ├── metrics/
+│   │   └── metrics.go
+│   ├── notification/
+│   │   ├── notification.go
+│   │   ├── notification.proto
+│   │   └── notification_test.go
+│   ├── project/
+│   │   ├── project.go
+│   │   ├── project.proto
+│   │   ├── project_test.go
+│   │   ├── util.go
+│   │   └── util_test.go
+│   ├── rbacpolicy/
+│   │   ├── rbacpolicy.go
+│   │   └── rbacpolicy_test.go
+│   ├── repocreds/
+│   │   ├── repocreds.go
+│   │   └── repocreds.proto
+│   ├── repository/
+│   │   ├── repository.go
+│   │   ├── repository.proto
+│   │   └── repository_test.go
+│   ├── rootpath_test.go
+│   ├── server.go
+│   ├── server_norace_test.go
+│   ├── server_test.go
+│   ├── session/
+│   │   ├── ratelimiter.go
+│   │   ├── ratelimiter_test.go
+│   │   ├── session.go
+│   │   └── session.proto
+│   ├── settings/
+│   │   ├── oidc/
+│   │   ├── settings.go
+│   │   ├── settings.proto
+│   │   └── settings_test.go
+│   └── version/
+│       ├── version.go
+│       └── version.proto
+├── sonar-project.properties
+├── test/
+│   ├── certificates/
+│   │   ├── cert1.pem
+│   │   ├── cert2.pem
+│   │   └── ssh_known_hosts
+│   ├── cmp/
+│   │   └── plugin.yaml
+│   ├── container/
+│   │   ├── Dockerfile
+│   │   ├── Procfile
+│   │   ├── entrypoint.sh
+│   │   └── reaper.sh
+│   ├── e2e/
+│   │   ├── accounts_test.go
+│   │   ├── admin_test.go
+│   │   ├── api_versions_test.go
+│   │   ├── app_autosync_ns_test.go
+│   │   ├── app_autosync_test.go
+│   │   ├── app_deletion_test.go
+│   │   ├── app_k8s_events_test.go
+│   │   ├── app_management_ns_test.go
+│   │   ├── app_management_test.go
+│   │   ├── app_multiple_sources_test.go
+│   │   ├── app_namespaces_test.go
+│   │   ├── app_skipreconcile_test.go
+│   │   ├── applicationset_git_generator_test.go
+│   │   ├── applicationset_progressive_sync_test.go
+│   │   ├── applicationset_test.go
+│   │   ├── cli_test.go
+│   │   ├── cluster_generator_test.go
+│   │   ├── cluster_objects_test.go
+│   │   ├── cluster_test.go
+│   │   ├── clusterdecisiongenerator_e2e_test.go
+│   │   ├── cross_namespace_ownership_test.go
+│   │   ├── custom_tool_test.go
+│   │   ├── declarative_test.go
+│   │   ├── deployment_test.go
+│   │   ├── diff_test.go
+│   │   ├── fixture/
+│   │   ├── git_submodule_test.go
+│   │   ├── git_test.go
+│   │   ├── graceful_restart_test.go
+│   │   ├── helm_test.go
+│   │   ├── hook_test.go
+│   │   ├── hydrator_test.go
+│   │   ├── jsonnet_test.go
+│   │   ├── kustomize_test.go
+│   │   ├── managed_by_url_test.go
+│   │   ├── mask_secret_values_test.go
+│   │   ├── matrix_e2e_test.go
+│   │   ├── merge_e2e_test.go
+│   │   ├── metrics_test.go
+│   │   ├── multiarch-container/
+│   │   ├── notification_test.go
+│   │   ├── oci_test.go
+│   │   ├── project_management_test.go
+│   │   ├── pruning_required_test.go
+│   │   ├── repo_creds_test.go
+│   │   ├── repo_management_test.go
+│   │   ├── scoped_repository_test.go
+│   │   ├── selective_sync_test.go
+│   │   ├── ssh_repo_test.go
+│   │   ├── sync_options_test.go
+│   │   ├── sync_waves_test.go
+│   │   ├── sync_with_impersonate_test.go
+│   │   ├── testdata/
+│   │   ├── testdata2/
+│   │   ├── testdata3/
+│   │   └── user_info_test.go
+│   ├── fixture/
+│   │   ├── certs/
+│   │   ├── gpg/
+│   │   ├── log/
+│   │   ├── path/
+│   │   ├── revision_metadata/
+│   │   ├── test/
+│   │   └── testrepos/
+│   ├── manifests/
+│   │   ├── base/
+│   │   └── cmp/
+│   ├── manifests_test.go
+│   ├── remote/
+│   │   ├── Dockerfile
+│   │   ├── Makefile
+│   │   ├── Procfile
+│   │   ├── README.md
+│   │   ├── argocd-remote-permissions.yaml
+│   │   ├── entrypoint.sh
+│   │   ├── generate-permissions.sh
+│   │   ├── manifests/
+│   │   └── run-e2e-remote.sh
+│   ├── testdata.go
+│   ├── testdata/
+│   │   └── static/
+│   └── testutil.go
+├── tools/
+│   └── cmd-docs/
+│       └── main.go
+├── ui-test/
+│   ├── .env
+│   ├── .gitignore
+│   ├── .prettierrc
+│   ├── Dockerfile
+│   ├── osv-scanner.toml
+│   ├── package.json
+│   ├── src/
+│   │   ├── Configuration.ts
+│   │   ├── Constants.ts
+│   │   ├── UiTestUtilities.ts
+│   │   ├── application-create-panel/
+│   │   ├── applications-list/
+│   │   ├── applications-sync-panel/
+│   │   ├── auth/
+│   │   ├── base.ts
+│   │   ├── navigation.ts
+│   │   ├── popup/
+│   │   ├── test001.ts
+│   │   └── test002.ts
+│   ├── tsconfig.json
+│   ├── tslint.json
+│   └── yarn.lock
+├── ui/
+│   ├── .babelrc
+│   ├── .dockerignore
+│   ├── .gitignore
+│   ├── .jshintrc
+│   ├── .nvmrc
+│   ├── .prettierrc
+│   ├── LICENSE
+│   ├── OWNERS
+│   ├── README.md
+│   ├── __mocks__/
+│   │   └── fileMock.js
+│   ├── babel.config.js
+│   ├── dist/
+│   │   └── app/
+│   ├── embed.go
+│   ├── eslint.config.mjs
+│   ├── jest.config.js
+│   ├── osv-scanner.toml
+│   ├── package.json
+│   ├── scripts/
+│   │   └── build_docker.sh
+│   ├── src/
+│   │   ├── app/
+│   │   └── assets/
+│   ├── tsconfig.json
+│   └── yarn.lock
+└── util/
+    ├── app/
+    │   ├── discovery/
+    │   ├── log/
+    │   └── path/
+    ├── argo/
+    │   ├── argo.go
+    │   ├── argo_test.go
+    │   ├── audit_logger.go
+    │   ├── audit_logger_test.go
+    │   ├── diff/
+    │   ├── managedfields/
+    │   ├── normalizers/
+    │   ├── resource_tracking.go
+    │   ├── resource_tracking_test.go
+    │   ├── testdata/
+    │   └── types.go
+    ├── askpass/
+    │   ├── askpass.pb.go
+    │   ├── askpass.proto
+    │   ├── common.go
+    │   ├── server.go
+    │   └── server_test.go
+    ├── assets/
+    │   └── assets.go
+    ├── buffered_context/
+    │   ├── buffered_context.go
+    │   └── buffered_context_test.go
+    ├── cache/
+    │   ├── appstate/
+    │   ├── cache.go
+    │   ├── cache_test.go
+    │   ├── client.go
+    │   ├── client_test.go
+    │   ├── inmemory.go
+    │   ├── inmemory_test.go
+    │   ├── mocks/
+    │   ├── redis.go
+    │   ├── redis_hook.go
+    │   ├── redis_hook_test.go
+    │   ├── redis_test.go
+    │   └── twolevelclient.go
+    ├── cert/
+    │   ├── cert.go
+    │   └── cert_test.go
+    ├── cli/
+    │   ├── cli.go
+    │   └── cli_test.go
+    ├── clusterauth/
+    │   ├── clusterauth.go
+    │   ├── clusterauth_test.go
+    │   └── testdata/
+    ├── cmp/
+    │   ├── stream.go
+    │   ├── stream_test.go
+    │   └── testdata/
+    ├── collections/
+    │   ├── maps.go
+    │   └── maps_test.go
+    ├── config/
+    │   ├── env.go
+    │   ├── env_test.go
+    │   ├── reader.go
+    │   └── reader_test.go
+    ├── crypto/
+    │   ├── crypto.go
+    │   └── crypto_test.go
+    ├── db/
+    │   ├── OWNERS
+    │   ├── certificate.go
+    │   ├── certificate_test.go
+    │   ├── cluster.go
+    │   ├── cluster_norace_test.go
+    │   ├── cluster_test.go
+    │   ├── db.go
+    │   ├── db_test.go
+    │   ├── gpgkeys.go
+    │   ├── gpgkeys_test.go
+    │   ├── helmrepository.go
+    │   ├── mocks/
+    │   ├── repo_creds.go
+    │   ├── repository.go
+    │   ├── repository_secrets.go
+    │   ├── repository_secrets_test.go
+    │   ├── repository_test.go
+    │   └── secrets.go
+    ├── dex/
+    │   ├── config.go
+    │   ├── dex.go
+    │   └── dex_test.go
+    ├── env/
+    │   ├── env.go
+    │   └── env_test.go
+    ├── errors/
+    │   ├── credentials.go
+    │   └── errors.go
+    ├── exec/
+    │   ├── exec.go
+    │   ├── exec_norace_test.go
+    │   └── exec_test.go
+    ├── git/
+    │   ├── OWNERS
+    │   ├── client.go
+    │   ├── client_test.go
+    │   ├── creds.go
+    │   ├── creds_test.go
+    │   ├── git.go
+    │   ├── git_test.go
+    │   ├── mocks/
+    │   ├── ssh.go
+    │   └── workaround.go
+    ├── github_app/
+    │   ├── repos.go
+    │   └── repos_test.go
+    ├── glob/
+    │   ├── glob.go
+    │   ├── glob_test.go
+    │   └── list.go
+    ├── gpg/
+    │   ├── OWNERS
+    │   ├── gpg.go
+    │   ├── gpg_test.go
+    │   └── testdata/
+    ├── grpc/
+    │   ├── errors.go
+    │   ├── errors_test.go
+    │   ├── grpc.go
+    │   ├── grpc_test.go
+    │   ├── interceptor.go
+    │   ├── json.go
+    │   ├── logging.go
+    │   ├── logging_test.go
+    │   ├── sanitizer.go
+    │   ├── sanitizer_test.go
+    │   ├── useragent.go
+    │   └── useragent_test.go
+    ├── guard/
+    │   ├── guard.go
+    │   └── guard_test.go
+    ├── hash/
+    │   └── hash.go
+    ├── healthz/
+    │   ├── healthz.go
+    │   └── healthz_test.go
+    ├── helm/
+    │   ├── OWNERS
+    │   ├── client.go
+    │   ├── client_test.go
+    │   ├── cmd.go
+    │   ├── cmd_test.go
+    │   ├── creds.go
+    │   ├── creds_test.go
+    │   ├── helm.go
+    │   ├── helm_test.go
+    │   ├── index.go
+    │   ├── index_test.go
+    │   ├── mocks/
+    │   └── testdata/
+    ├── http/
+    │   ├── http.go
+    │   └── http_test.go
+    ├── hydrator/
+    │   ├── hydrator.go
+    │   ├── hydrator_test.go
+    │   ├── template.go
+    │   └── template_test.go
+    ├── io/
+    │   ├── bytereadseeker.go
+    │   ├── bytereadseeker_test.go
+    │   ├── closer.go
+    │   ├── componsablefs.go
+    │   ├── files/
+    │   ├── mocks/
+    │   ├── path/
+    │   ├── paths.go
+    │   └── paths_test.go
+    ├── jwt/
+    │   ├── jwt.go
+    │   └── jwt_test.go
+    ├── kube/
+    │   ├── failureretrywrapper.go
+    │   ├── kube.go
+    │   ├── kube_test.go
+    │   ├── kubectl.go
+    │   ├── portforwarder.go
+    │   ├── portforwarder_test.go
+    │   ├── testdata/
+    │   ├── util.go
+    │   └── util_test.go
+    ├── kustomize/
+    │   ├── kustomize.go
+    │   ├── kustomize_test.go
+    │   └── testdata/
+    ├── localconfig/
+    │   ├── file_perm_unix.go
+    │   ├── file_perm_windows.go
+    │   ├── localconfig.go
+    │   ├── localconfig_test.go
+    │   └── testdata/
+    ├── log/
+    │   ├── logrus.go
+    │   └── logrus_test.go
+    ├── lua/
+    │   ├── custom_actions_test.go
+    │   ├── health_test.go
+    │   ├── impacted_resource.go
+    │   ├── lua.go
+    │   ├── lua_test.go
+    │   ├── oslib_safe.go
+    │   └── testdata/
+    ├── manifeststream/
+    │   ├── stream.go
+    │   ├── stream_test.go
+    │   └── testdata/
+    ├── metrics/
+    │   ├── kubectl/
+    │   ├── metrics.go
+    │   └── metrics_test.go
+    ├── notification/
+    │   ├── argocd/
+    │   ├── expression/
+    │   ├── k8s/
+    │   └── settings/
+    ├── oci/
+    │   ├── client.go
+    │   ├── client_test.go
+    │   └── mocks/
+    ├── oidc/
+    │   ├── oidc.go
+    │   ├── oidc_test.go
+    │   ├── provider.go
+    │   ├── templates.go
+    │   └── testdata/
+    ├── password/
+    │   ├── password.go
+    │   └── password_test.go
+    ├── profile/
+    │   ├── profile.go
+    │   └── profile_test.go
+    ├── proxy/
+    │   ├── proxy.go
+    │   └── proxy_test.go
+    ├── rand/
+    │   ├── rand.go
+    │   └── rand_test.go
+    ├── rbac/
+    │   ├── rbac.go
+    │   ├── rbac_norace_test.go
+    │   └── rbac_test.go
+    ├── regex/
+    │   └── regex.go
+    ├── resource/
+    │   ├── revision.go
+    │   └── revision_test.go
+    ├── security/
+    │   ├── application_namespaces.go
+    │   ├── application_namespaces_test.go
+    │   ├── jwt.go
+    │   ├── jwt_test.go
+    │   ├── path_traversal.go
+    │   ├── path_traversal_test.go
+    │   ├── rbac.go
+    │   └── rbac_test.go
+    ├── session/
+    │   ├── sessionmanager.go
+    │   ├── sessionmanager_norace_test.go
+    │   ├── sessionmanager_test.go
+    │   ├── state.go
+    │   └── state_test.go
+    ├── settings/
+    │   ├── accounts.go
+    │   ├── accounts_test.go
+    │   ├── cluster_informer.go
+    │   ├── cluster_informer_test.go
+    │   ├── filtered_resource.go
+    │   ├── filtered_resource_test.go
+    │   ├── resources_filter.go
+    │   ├── resources_filter_test.go
+    │   ├── settings.go
+    │   └── settings_test.go
+    ├── stats/
+    │   ├── stats.go
+    │   └── stats_test.go
+    ├── swagger/
+    │   ├── swagger.go
+    │   └── swagger_test.go
+    ├── templates/
+    │   └── normalizers.go
+    ├── test/
+    │   └── testutil.go
+    ├── text/
+    │   └── label/
+    ├── tgzstream/
+    │   └── stream.go
+    ├── tls/
+    │   ├── testdata/
+    │   ├── tls.go
+    │   └── tls_test.go
+    ├── trace/
+    │   └── trace.go
+    ├── util.go
+    ├── util_test.go
+    ├── versions/
+    │   ├── tags.go
+    │   ├── tags_test.go
+    │   ├── version.go
+    │   └── version_test.go
+    ├── webhook/
+    │   ├── testdata/
+    │   ├── webhook.go
+    │   └── webhook_test.go
+    └── workloadidentity/
+        ├── mocks/
+        ├── workloadidentity.go
+        ├── workloadidentity_cgo.go
+        ├── workloadidentity_no_cgo.go
+        └── workloadidentity_test.go

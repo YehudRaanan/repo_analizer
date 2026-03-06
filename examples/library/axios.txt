@@ -1,0 +1,308 @@
+=====================================
+Repository Analysis: axios
+Type: Library / Package / SDK
+=====================================
+
+--- METADATA ---
+Name: axios
+Description: Promise based HTTP client for the browser and node.js
+Language: JavaScript
+Topics: hacktoberfest, http-client, javascript, nodejs, promise
+Stars: 108585
+License: MIT License
+
+--- README ---
+<h3 align="center"> 🥇 Gold sponsors <br> </h3> <table align="center" width="100%"><tr width="33.333333333333336%"><td align="center" width="33.333333333333336%"> <a href="https://www.principal.com/about-us?utm_source&#x3D;axios&amp;utm_medium&#x3D;sponsorlist&amp;utm_campaign&#x3D;sponsorship" style="padding: 10px; display: inline-block" target="_blank"> <img width="133px" height="43px" src="https://axios-http.com/assets/sponsors/principal.svg" alt="Principal Financial Group"/> </a> <p align="center" title="We’re bound by one common purpose: to give you the financial tools, resources and information you need to live your best life.">We’re bound by one common purpose: to give you the financial tools, resources and information you ne...</p> <p align="center"> <a href="https://www.principal.com/about-us?utm_source&#x3D;axios&amp;utm_medium&#x3D;readme_sponsorlist&amp;utm_campaign&#x3D;sponsorship" target="_blank"><b>www.principal.com</b></a> </p>
+</td><td align="center" width="33.333333333333336%"> <a href="https://twicsy.com/buy-instagram-followers?utm_source&#x3D;axios&amp;utm_medium&#x3D;sponsorlist&amp;utm_campaign&#x3D;sponsorship" style="padding: 10px; display: inline-block" target="_blank"> <img width="85px" height="70px" src="https://axios-http.com/assets/sponsors/opencollective/dfa9670ad5e66eea17315332453c7f4e3a3b5905.png" alt="Buy Instagram Followers Twicsy"/> </a> <p align="center" title="Buy real Instagram followers from Twicsy starting at only $2.97. Twicsy has been voted the best site to buy followers from the likes of US Magazine.">Buy real Instagram followers from Twicsy starting at only $2.97. Twicsy has been voted the best site...</p> <p align="center"> <a href="https://twicsy.com/buy-instagram-followers?utm_source&#x3D;axios&amp;utm_medium&#x3D;readme_sponsorlist&amp;utm_campaign&#x3D;sponsorship" target="_blank"><b>twicsy.com</b></a> </p>
+</td><td align="center" width="33.333333333333336%"> <a href="https://www.descope.com/?utm_source&#x3D;axios&amp;utm_medium&#x3D;referral&amp;utm_campaign&#x3D;axios-oss-sponsorship" style="padding: 10px; display: inline-block" target="_blank"> <picture> <source width="200px" height="52px" media="(prefers-color-scheme: dark)" srcset="https://axios-http.com/assets/sponsors/descope_white.png"> <img width="200px" height="52px" src="https://axios-http.com/assets/sponsors/descope.png" alt="Descope"/> </picture> </a> <p align="center" title="Hi, we&#x27;re Descope! We are building something in the authentication space for app developers and can’t wait to place it in your hands.">Hi, we&#x27;re Descope! We are building something in the authentication space for app developers and...</p> <p align="center"> <a href="https://www.descope.com/?utm_source&#x3D;axios&amp;utm_medium&#x3D;referral&amp;utm_campaign&#x3D;axios-oss-sponsorship" target="_blank"><b>Website</b></a> | <a href="https://docs.descope.com/?utm_source&#x3D;axios&amp;utm_medium&#x3D;referral&amp;utm_campaign&#x3D;axios-oss-sponsorship" target="_blank"><b>Docs</b></a> | <a href="https://www.descope.com/community?utm_source&#x3D;axios&amp;utm_medium&#x3D;referral&amp;utm_campaign&#x3D;axios-oss-sponsorship" target="_blank"><b>Community</b></a> </p>
+</td></tr><tr width="33.333333333333336%"><td align="center" width="33.333333333333336%"> <a href="https://route4me.com/?utm_source&#x3D;axios&amp;utm_medium&#x3D;sponsorlist&amp;utm_campaign&#x3D;sponsorship" style="padding: 10px; display: inline-block" target="_blank"> <picture> <source width="200px" height="51px" media="(prefers-color-scheme: dark)" srcset="https://axios-http.com/assets/sponsors/route4me_white.png"> <img width="200px" height="51px" src="https://axios-http.com/assets/sponsors/route4me.png" alt="Route4Me"/> </picture> </a> <p align="center" title="Best Route Planning And Route Optimization Software">Best Route Planning And Route Optimization Software</p> <p align="center"> <a href="https://route4me.com/platform/route-optimization-software?utm_source&#x3D;axios&amp;utm_medium&#x3D;readme_sponsorlist&amp;utm_campaign&#x3D;sponsorship" target="_blank"><b>Explore</b></a> | <a href="https://route4me.com/platform/marketplace/pricing?utm_source&#x3D;axios&amp;utm_medium&#x3D;readme_sponsorlist&amp;utm_campaign&#x3D;sponsorship" target="_blank"><b>Free Trial</b></a> | <a href="https://route4me.com/contact?utm_source&#x3D;axios&amp;utm_medium&#x3D;readme_sponsorlist&amp;utm_campaign&#x3D;sponsorship" target="_blank"><b>Contact</b></a> </p>
+</td><td align="center" width="33.333333333333336%"> <a href="https://buzzoid.com/buy-instagram-followers/?utm_source&#x3D;axios&amp;utm_medium&#x3D;sponsorlist&amp;utm_campaign&#x3D;sponsorship" style="padding: 10px; display: inline-block" target="_blank"> <img width="62px" height="70px" src="https://axios-http.com/assets/sponsors/opencollective/e1625cb54e10ee40180c99d1495a462e9d6664a4.png" alt="Buzzoid - Buy Instagram Followers"/> </a> <p align="center" title="At Buzzoid, you can buy Instagram followers quickly, s
+... [TRUNCATED]
+
+--- PACKAGE MANIFEST(S) ---
+
+[package.json]
+{
+  "name": "axios",
+  "version": "1.13.6",
+  "description": "Promise based HTTP client for the browser and node.js",
+  "main": "./index.js",
+  "module": "./index.js",
+  "exports": {
+    ".": {
+      "types": {
+        "require": "./index.d.cts",
+        "default": "./index.d.ts"
+      },
+      "bun": {
+        "require": "./dist/node/axios.cjs",
+        "default": "./index.js"
+      },
+      "react-native": {
+        "require": "./dist/browser/axios.cjs",
+        "default": "./dist/esm/axios.js"
+      },
+      "browser": {
+        "require": "./dist/browser/axios.cjs",
+        "default": "./index.js"
+      },
+      "default": {
+        "require": "./dist/node/axios.cjs",
+        "default": "./index.js"
+      }
+    },
+    "./lib/adapters/http.js": "./lib/adapters/http.js",
+    "./lib/adapters/xhr.js": "./lib/adapters/xhr.js",
+    "./unsafe/*": "./lib/*",
+    "./unsafe/core/settle.js": "./lib/core/settle.js",
+    "./unsafe/core/buildFullPath.js": "./lib/core/buildFullPath.js",
+    "./unsafe/helpers/isAbsoluteURL.js": "./lib/helpers/isAbsoluteURL.js",
+    "./unsafe/helpers/buildURL.js": "./lib/helpers/buildURL.js",
+    "./unsafe/helpers/combineURLs.js": "./lib/helpers/combineURLs.js",
+    "./unsafe/adapters/http.js": "./lib/adapters/http.js",
+    "./unsafe/adapters/xhr.js": "./lib/adapters/xhr.js",
+    "./unsafe/utils.js": "./lib/utils.js",
+    "./package.json": "./package.json",
+    "./dist/browser/axios.cjs": "./dist/browser/axios.cjs",
+    "./dist/node/axios.cjs": "./dist/node/axios.cjs"
+  },
+  "type": "module",
+  "types": "index.d.ts",
+  "scripts": {
+    "test": "npm run test:node && npm run test:browser && npm run test:package",
+    "test:node": "npm run test:mocha",
+    "test:node:coverage": "c8 npm run test:mocha",
+    "test:browser": "npm run test:karma",
+    "test:package": "npm run test:eslint && npm run test:exports",
+    "test:eslint": "node bin/ssl_hotfix.js eslint lib/**/*.js",
+    "test:mocha": "node bin/ssl_hotfix.js mocha test/unit/**/*.js --timeout 30000 --exit",
+    "test:exports": "node bin/ssl_hotfix.js mocha test/module/test.js --timeout 30000 --exit",
+    "test:karma": "node ./bin/run-karma-tests.js",
+    "test:karma:firefox": "node bin/ssl_hotfix.js cross-env LISTEN_ADDR=:: Browsers=Firefox karma start karma.conf.cjs --single-run",
+    "test:karma:server": "node bin/ssl_hotfix.js cross-env karma start karma.conf.cjs",
+    "test:build:version": "node ./bin/check-build-version.js",
+    "start": "node ./sandbox/server.js",
+    "preversion": "gulp version",
+    "version": "npm run build && git add package.json",
+    "prepublishOnly": "npm run test:build:version",
+    "build": "gulp clear && cross-env NODE_ENV=production rollup -c -m",
+    "examples": "node ./examples/server.js",
+    "fix": "eslint --fix lib/**/*.js",
+    "prepare": "husky install && npm run prepare:hooks",
+    "prepare:hooks": "npx husky set .husky/commit-msg \"npx commitlint --edit $1\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/a
+... [TRUNCATED]
+
+--- DIRECTORY STRUCTURE (depth 2) ---
+├── .eslintrc.cjs
+├── .github/
+│   ├── FUNDING.yml
+│   ├── ISSUE_TEMPLATE.md
+│   ├── PULL_REQUEST_TEMPLATE.md
+│   ├── copilot-instructions.md
+│   ├── dependabot.yml
+│   └── workflows/
+│       ├── publish.yml
+│       ├── release-branch.yml
+│       ├── run-ci.yml
+│       └── update-sponsor-block.yml
+├── .gitignore
+├── .npmignore
+├── .prettierignore
+├── .prettierrc
+├── CHANGELOG.md
+├── CODE_OF_CONDUCT.md
+├── COLLABORATOR_GUIDE.md
+├── CONTRIBUTING.md
+├── CONTRIBUTORS.md
+├── ECOSYSTEM.md
+├── LICENSE
+├── MIGRATION_GUIDE.md
+├── README.md
+├── SECURITY.md
+├── bin/
+│   ├── GithubAPI.js
+│   ├── RepoBot.js
+│   ├── actions/
+│   │   └── notify_published.js
+│   ├── api.js
+│   ├── check-build-version.js
+│   ├── contributors.js
+│   ├── githubAxios.js
+│   ├── helpers/
+│   │   ├── colorize.js
+│   │   └── parser.js
+│   ├── injectContributorsList.js
+│   ├── pr.js
+│   ├── repo.js
+│   ├── resolveNPMTag.js
+│   ├── run-karma-tests.js
+│   ├── sponsors.js
+│   └── ssl_hotfix.js
+├── bower.json
+├── examples/
+│   ├── README.md
+│   ├── abort-controller/
+│   │   ├── index.html
+│   │   └── server.js
+│   ├── all/
+│   │   └── index.html
+│   ├── amd/
+│   │   └── index.html
+│   ├── get/
+│   │   ├── index.html
+│   │   └── server.js
+│   ├── improved-network-errors.md
+│   ├── network_enhanced.js
+│   ├── post/
+│   │   ├── index.html
+│   │   └── server.js
+│   ├── postMultipartFormData/
+│   │   ├── index.html
+│   │   └── server.js
+│   ├── server.js
+│   ├── transform-response/
+│   │   └── index.html
+│   └── upload/
+│       ├── index.html
+│       └── server.js
+├── gulpfile.js
+├── index.d.cts
+├── index.d.ts
+├── index.js
+├── karma.conf.cjs
+├── lib/
+│   ├── adapters/
+│   │   ├── README.md
+│   │   ├── adapters.js
+│   │   ├── fetch.js
+│   │   ├── http.js
+│   │   └── xhr.js
+│   ├── axios.js
+│   ├── cancel/
+│   │   ├── CancelToken.js
+│   │   ├── CanceledError.js
+│   │   └── isCancel.js
+│   ├── core/
+│   │   ├── Axios.js
+│   │   ├── AxiosError.js
+│   │   ├── AxiosHeaders.js
+│   │   ├── InterceptorManager.js
+│   │   ├── README.md
+│   │   ├── buildFullPath.js
+│   │   ├── dispatchRequest.js
+│   │   ├── mergeConfig.js
+│   │   ├── settle.js
+│   │   └── transformData.js
+│   ├── defaults/
+│   │   ├── index.js
+│   │   └── transitional.js
+│   ├── env/
+│   │   ├── README.md
+│   │   ├── classes/
+│   │   └── data.js
+│   ├── helpers/
+│   │   ├── AxiosTransformStream.js
+│   │   ├── AxiosURLSearchParams.js
+│   │   ├── HttpStatusCode.js
+│   │   ├── README.md
+│   │   ├── ZlibHeaderTransformStream.js
+│   │   ├── bind.js
+│   │   ├── buildURL.js
+│   │   ├── callbackify.js
+│   │   ├── combineURLs.js
+│   │   ├── composeSignals.js
+│   │   ├── cookies.js
+│   │   ├── deprecatedMethod.js
+│   │   ├── estimateDataURLDecodedBytes.js
+│   │   ├── formDataToJSON.js
+│   │   ├── formDataToStream.js
+│   │   ├── fromDataURI.js
+│   │   ├── isAbsoluteURL.js
+│   │   ├── isAxiosError.js
+│   │   ├── isURLSameOrigin.js
+│   │   ├── null.js
+│   │   ├── parseHeaders.js
+│   │   ├── parseProtocol.js
+│   │   ├── progressEventReducer.js
+│   │   ├── readBlob.js
+│   │   ├── resolveConfig.js
+│   │   ├── speedometer.js
+│   │   ├── spread.js
+│   │   ├── throttle.js
+│   │   ├── toFormData.js
+│   │   ├── toURLEncodedForm.js
+│   │   ├── trackStream.js
+│   │   └── validator.js
+│   ├── platform/
+│   │   ├── browser/
+│   │   ├── common/
+│   │   ├── index.js
+│   │   └── node/
+│   └── utils.js
+├── mise.toml
+├── package-lock.json
+├── package.json
+├── rollup.config.js
+├── sandbox/
+│   ├── client.html
+│   ├── client.js
+│   └── server.js
+├── templates/
+│   ├── contributors.hbs
+│   ├── pr.hbs
+│   ├── pr_published.hbs
+│   └── prs.hbs
+├── test/
+│   ├── helpers/
+│   │   ├── retry.js
+│   │   └── server.js
+│   ├── manual/
+│   │   ├── basic.html
+│   │   ├── cors.html
+│   │   ├── fixture.json
+│   │   ├── progress.html
+│   │   └── promise.js
+│   ├── module/
+│   │   ├── cjs/
+│   │   ├── esm/
+│   │   ├── test.js
+│   │   ├── ts-require-default/
+│   │   ├── ts-require/
+│   │   ├── ts/
+│   │   └── typings/
+│   ├── specs/
+│   │   ├── __helpers.js
+│   │   ├── adapter.spec.js
+│   │   ├── api.spec.js
+│   │   ├── basicAuth.spec.js
+│   │   ├── cancel.spec.js
+│   │   ├── cancel/
+│   │   ├── core/
+│   │   ├── defaults.spec.js
+│   │   ├── formdata.spec.js
+│   │   ├── headers.spec.js
+│   │   ├── helpers/
+│   │   ├── instance.spec.js
+│   │   ├── interceptors.spec.js
+│   │   ├── options.spec.js
+│   │   ├── progress.spec.js
+│   │   ├── promise.spec.js
+│   │   ├── requests.spec.js
+│   │   ├── transform.spec.js
+│   │   ├── utils/
+│   │   └── xsrf.spec.js
+│   └── unit/
+│       ├── adapters/
+│       ├── core/
+│       ├── defaults/
+│       ├── helpers/
+│       ├── platform/
+│       ├── regression/
+│       └── utils/
+├── tsconfig.json
+├── tslint.json
+└── webpack.config.js

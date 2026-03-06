@@ -1,0 +1,1062 @@
+=====================================
+Repository Analysis: novu
+Type: Web Application
+=====================================
+
+--- METADATA ---
+Name: novu
+Description: The open-source notification Inbox infrastructure. E-mail, SMS, Push and Slack Integrations.
+Language: TypeScript
+Topics: alternative, communication, email, hacktoberfest, inbox, javascript, nodejs, notification-center, notifications, novu, push-notifications, react, reactjs, sms, transactional, typescript
+Stars: 38644
+License: Other
+
+--- README ---
+<div align="center">
+  <a href="https://go.novu.co/github" target="_blank" rel="noopener noreferrer"
+>
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="https://user-images.githubusercontent.com/2233092/213641039-220ac15f-f367-4d13-9eaf-56e79433b8c1.png">
+    <img alt="Novu Logo" src="https://user-images.githubusercontent.com/2233092/213641043-3bbb3f21-3c53-4e67-afe5-755aeb222159.png" width="280"/>
+  </picture>
+  </a>
+</div>
+
+<br/>
+<p align="center">
+  <a href="https://www.producthunt.com/products/novu" target="_blank" rel="noopener noreferrer"
+>
+    <img src="https://img.shields.io/badge/Product%20Hunt-Golden%20Kitty%20Award%202023-yellow" alt="Product Hunt">
+  </a>
+  <a href="https://news.ycombinator.com/item?id=38419513" target="_blank" rel="noopener noreferrer"
+><img src="https://img.shields.io/badge/Hacker%20News-%231-%23FF6600" alt="Hacker News"></a>
+  <a href="https://www.npmjs.com/package/@novu/react" target="_blank" rel="noopener noreferrer"
+>
+    <img src="https://img.shields.io/npm/v/@novu/react" alt="NPM">
+  </a>
+  <a href="https://www.npmjs.com/package/@novu/react" target="_blank" rel="noopener noreferrer"
+>
+    <img src="https://img.shields.io/npm/dm/@novu/react" alt="npm downloads">
+  </a>
+</p>
+
+<h1 align="center">
+ The &lt;Inbox /&gt; infrastructure for modern products
+</h1>
+
+<div align="center">
+  The notification platform that turns complex multi-channel delivery into a single component. Built for developers, designed for growth, powered by open source.
+</div>
+
+<p align="center">
+  <br />
+  <a href="https://go.novu.co/github?utm_campaign=readme_learn_more" rel="dofollow"><strong>Learn More »</strong></a>
+  <br />
+
+<br/>
+  <a href="https://github.com/novuhq/novu/issues/new?assignees=&labels=type%3A+bug&template=bug_report.yml&title=%F0%9F%90%9B+Bug+Report%3A+" target="_blank" rel="noopener noreferrer"
+>Report a bug</a>
+  ·
+  <a href="https://docs.novu.co" target="_blank" rel="noopener noreferrer"
+>Docs</a>
+  ·
+  <a href="https://go.novu.co/github?utm_campaign=readme_website" target="_blank" rel="noopener noreferrer"
+>Website</a>
+  ·
+  <a href="https://discord.novu.co" target="_blank" rel="noopener noreferrer"
+>Join our Discord</a>
+  ·
+  <a href="https://go.novu.co/changelog" target="_blank" rel="noopener noreferrer"
+>Changelog</a>
+  ·
+  <a href="https://go.novu.co/roadmap" target="_blank" rel="noopener noreferrer"
+>Roadmap</a>
+  ·
+  <a href="https://twitter.com/novuhq" target="_blank" rel="noopener noreferrer"
+>X</a>
+  ·
+  <a href="https://novu.co/contact-us/?utm_campaign=github-readme" target="_blank" rel="noopener noreferrer"
+>Contact us</a>
+.
+<a href="https://www.recent.dev">Recent.dev</a>
+</p>
+
+## ⭐️ Why Novu?
+
+Novu provides a unified API that makes it simple to send notifications through multiple channels, including Inbox/In-App, Push, Email, SMS, and Chat.
+With Novu, you can create custom workflows and define conditions for each channel, ensuring that your notifications are delivered in the most effective way possible.
+
+## ✨ Features
+
+- Embeddable Inbox component with real-time support
+- Single API for all messaging providers (Inbox/In-App, Email, SMS, Push, Chat)
+- Digest Engine to combine multiple notification in to a single E-mail
+- No-Code Block Editor for Email
+- Notification Workflow Engine
+- Embeddable user preferences component gives your subscribers control over their notifications
+- Community-driven
+
+## 🚀 Getting Started
+
+[Create a free account](https://go.novu.co/dashboard?utm_campaign=github-readme) and follow the instructions on the dashboard.
+
+## 📚 Table of contents
+
+- [Getting Started](https://github.com/novuhq/novu#-getting-started)
+- [Embeddable Inbox and Preferences](https://github.com/novuhq/novu#embeddable-notification-center)
+- [Providers](https://github.com/novuhq/novu#providers)
+  - [Email](https://github.com/novuhq/novu#-email)
+  - [SMS](https://github.com/novuhq/novu#-sms)
+  - [Push](https://github.com/novuhq/novu#-push)
+  - [Chat](https://github.com/novuhq/novu#-chat)
+  - [In-App](https://github.com/novuhq/novu#-in-app)
+  - [Others](https://github.com/novuhq/novu#other-coming-soon)
+- [Need Help?](https://github.com/novuhq/novu#-need-help)
+- [Links](https://github.com/novuhq/novu#-links)
+- [License](https://github.com/novuhq/novu#%EF%B8%8F-license)
+
+## Embeddable Inbox component
+
+Using the Novu API and admin panel, you can easily add a real-time notification center to your web app without building it yourself. You can use our [React](https://docs.novu.co/inbox/react/get-started?utm_campaign=github-readme), or build your own via our API and SDK. React native, Vue, and Angular are coming soon.
+
+<div align="center">
+<img width="4800" height="2700" alt="Novu's Embeddable Inbox components" src="https://github.com/user-attachments/assets/00224c75-7ed0-4e19-b6fd-2a0bdced6258" />
+
+Read more about how to add a [notification center Inbox](https://docs.novu.co/inbox/react/get-started?utm_campaign=github-readme) to your app.
+
+</div>
+
+## Providers
+
+Novu 
+... [TRUNCATED]
+
+--- PACKAGE MANIFEST(S) ---
+
+[package.json]
+{
+  "name": "root",
+  "private": true,
+  "packageManager": "pnpm@10.16.1",
+  "scripts": {
+    "bootstrap": "npm run setup:dev",
+    "build-ee": "nx run-many --target=build-ee --all",
+    "build:api": "nx build @novu/api-service",
+    "build:dashboard": "nx build @novu/dashboard",
+    "build:inbound-mail": "nx build @novu/inbound-mail",
+    "build:packages": "nx run-many --target=build --all --projects=tag:type:package",
+    "build:v2": "nx run-many --target=build --all --projects=@novu/api-service,@novu/worker,@novu/ws,@novu/dashboard,tag:type:package",
+    "build:webhook": "nx build @novu/webhook",
+    "build:with-ee": "pnpm build && pnpm build-ee",
+    "build:agents": "nx run-many --target=build --all --exclude=nextjs,nestjs,@novu/api-service,@novu/worker,@novu/dashboard && pnpm build-ee",
+    "build:worker": "nx build @novu/worker",
+    "build:ws": "nx build @novu/ws",
+    "build": "nx run-many --target=build --all --exclude=nextjs,nestjs",
+    "clean": "rimraf **/build **/dist **/node_modules",
+    "commit": "cz",
+    "dev-environment-setup": "sh ./scripts/dev-environment-setup.sh",
+    "docker:build": "pnpm -r --if-present --parallel docker:build",
+    "g:module": "hygen module new --name=$npm_config_name",
+    "g:usecase": "hygen usecase new --name=$npm_config_name --module=$npm_config_module",
+    "generate:provider": "cd libs/automation && npm run generate:provider",
+    "get-affected": "node scripts/print-affected-array.mjs",
+    "get-affected-batch": "node scripts/get-affected-batch.mjs",
+    "get-packages-folder": "node scripts/get-packages-folder.mjs",
+    "get-remote-env-files": "sh ./scripts/get-remote-env-files.sh",
+    "install:with-ee": "pnpm install && pnpm symlink:submodules",
+    "jarvis": "node scripts/jarvis.js",
+    "lint-staged": "lint-staged",
+    "lint": "nx run-many --target=lint --all --exclude=nextjs",
+    "lint:fix": "biome check --write .",
+    "format": "biome format .",
+    "format:fix": "biome format --write .",
+    "check": "biome check .",
+    "check:fix": "biome check --write .",
+    "nx": "nx",
+    "packages:set-latest": "node scripts/set-package-dependencies.mjs latest",
+    "packages:set-workspace-protocol": "node scripts/set-package-dependencies.mjs workspace:*",
+    "pnpm-context": "node scripts/pnpm-context.mjs",
+    "prebuild": "nx run-many --target=prebuild --all",
+    "preinstall": "npx only-allow pnpm",
+    "preview:pkg:build": "IS_PREVIEW=true nx affected -t build --base=origin/next --head=HEAD --exclude='*,!tag:type:package'",
+    "preview:pkg:publish": "node scripts/publish-preview-packages.mjs",
+    "release": "node scripts/release.mjs",
+    "release:version:apps": "nx release version --projects=tag:type:app",
+    "setup:project": "npx --yes pnpm@10.16.1 i && node scripts/setup-env-files.js && pnpm build",
+    "start:api:dev": "cross-env nx run @novu/api-service:start:dev",
+    "start:api:test": "cross-env nx run-many --target=start:test --projects=@novu/api-service",
+    "start:api": "cross-env 
+... [TRUNCATED]
+
+--- WEB FRAMEWORK CONFIG ---
+
+[tsconfig.json]
+{
+  "compilerOptions": {
+    "allowSyntheticDefaultImports": true,
+    "declaration": true,
+    "declarationMap": true,
+    "downlevelIteration": true,
+    "emitDecoratorMetadata": true,
+    "esModuleInterop": true,
+    "experimentalDecorators": true,
+    "lib": ["es2015", "dom"],
+    "moduleResolution": "node",
+    "noImplicitAny": false,
+    "removeComments": true,
+    "resolveJsonModule": true,
+    "skipLibCheck": true,
+    "strictNullChecks": false,
+    "strictPropertyInitialization": false,
+    "target": "es5"
+  }
+}
+
+
+--- ROUTE / PAGE DEFINITIONS ---
+
+[apps/dashboard/src/pages/access-denied-page.tsx]
+import { ArrowLeft } from 'lucide-react';
+import { Button } from '@/components/primitives/button';
+
+export function AccessDeniedPage() {
+  return (
+    <div className="flex h-full w-full flex-col items-center justify-center" data-error="true">
+      <div className="flex w-full flex-col items-center gap-6">
+        <div className="text-2xl font-semibold text-[#E2E2E3]">¯\_(ツ)_/¯</div>
+
+        <div className="flex flex-col items-center gap-1">
+          <h3 className="text-base font-medium text-gray-900">🔒 Access Denied</h3>
+          <p className="max-w-[367px] text-center text-xs font-medium text-[#99A0AE]">
+            Your role doesn't have the keys to this door — but hey, you found our nicest error message!
+          </p>
+        </div>
+
+        <Button
+          variant="secondary"
+          mode="outline"
+          size="sm"
+          className="flex items-center gap-1"
+          onClick={() => window.history.back()}
+        >
+          <ArrowLeft className="size-4 text-[#525866]" />
+          <span className="text-xs font-medium text-[#525866]">Take me back</span>
+        </Button>
+      </div>
+    </div>
+  );
+}
+
+
+[apps/dashboard/src/pages/activity-feed.tsx]
+import { FeatureFlagsKeysEnum } from '@novu/shared';
+import { useEffect } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { ActivityFeedContent } from '@/components/activity/activity-feed-content';
+import { DashboardLayout } from '@/components/dashboard-layout';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/primitives/tabs';
+import { useEnvironment } from '@/context/environment/hooks';
+import { useFeatureFlag } from '@/hooks/use-feature-flag';
+import { useTelemetry } from '@/hooks/use-telemetry';
+import { buildRoute, ROUTES } from '@/utils/routes';
+import { TelemetryEvent } from '@/utils/telemetry';
+import { RequestsTable } from '../components/http-logs/logs-table';
+import { PageMeta } from '../components/page-meta';
+
+export function ActivityFeed() {
+  const isHttpLogsPageEnabled = useFeatureFlag(FeatureFlagsKeysEnum.IS_HTTP_LOGS_PAGE_ENABLED, false);
+  const { currentEnvironment } = useEnvironment();
+  const location = useLocation();
+  const navigate = useNavigate();
+  const track = useTelemetry();
+
+  // Determine current tab based on URL
+  const getCurrentTab = () => {
+    if (location.pathname.includes('/activity/requests')) {
+      return 'requests';
+    }
+
+    if (location.pathname.includes('/activity/workflow-runs')) {
+      return 'workflow-runs';
+    }
+
+    // Default fallback for the original activity-feed route
+    if (location.pathname.includes('/activity-feed')) {
+      return 'workflow-runs';
+    }
+
+    return 'workflow-runs';
+  };
+
+  const currentTab = getCurrentTab();
+
+  // Handle tab changes by navigating to the appropriate URL
+  const handleTabChange = (value: string) => {
+    if (!currentEnvironment?.slug) return;
+
+    if (value === 'requests') {
+      navigate(buildRoute(ROUTES.ACTIVITY_REQUESTS, { environmentSlug: currentEnvironment.slug }));
+    } else if (value === 'workflow-runs') {
+      navigate(buildRoute(ROUTES.ACTIVITY_WORKFLOW_RUNS, { environmentSlug: currentEnvironment.slug }));
+    }
+  };
+
+  // Redirect legacy activity-feed URLs to the new runs URL when feature flag is enabled
+  useEffect(() => {
+    if (isHttpLogsPageEnabled && location.pathname.includes('/activity-feed') && currentEnvironment?.slug) {
+      const newPath = buildRoute(ROUTES.ACTIVITY_WORKFLOW_RUNS, { environmentSlug: currentEnvironment.slug });
+      navigate(`${newPath}${location.search}`, {
+        replace: true,
+      });
+    }
+  }, [isHttpLogsPageEnabled, location.pathname, location.search, currentEnvironment?.slug, navigate]);
+
+  // Track page visit for requests tab
+  useEffect(() => {
+    if (currentTab === 'requests') {
+      track(TelemetryEvent.REQUEST_LOGS_PAGE_VISIT);
+    }
+  }, [currentTab, track]);
+
+  return (
+    <>
+      <PageMeta title="Activity Feed" />
+      <DashboardLayout
+        headerStartItems={
+          <h1 className="text-foreground-950 flex items-center gap-1">
+            <span>Activity Feed</span>
+          </h1>
+        }
+      >
+        <Tabs value={currentTa
+... [TRUNCATED]
+
+[apps/dashboard/src/pages/analytics.tsx]
+import { useOrganization } from '@clerk/clerk-react';
+import { EnvironmentTypeEnum, FeatureFlagsKeysEnum } from '@novu/shared';
+import { CalendarIcon } from 'lucide-react';
+import { motion } from 'motion/react';
+import { useEffect, useState } from 'react';
+import { useSearchParams } from 'react-router-dom';
+import {
+  type ActiveSubscribersTrendDataPoint,
+  type ProviderVolumeDataPoint,
+  ReportTypeEnum,
+  type WorkflowRunsTrendDataPoint,
+} from '../api/activity';
+import {
+  ANIMATION_VARIANTS,
+  AnalyticsSection,
+  AnalyticsUpgradeCtaIcon,
+  CHART_CONFIG,
+  ChartsSection,
+  useAnalyticsDateFilter,
+  useMetricData,
+} from '../components/analytics';
+import { ActiveSubscribersTrendChart } from '../components/analytics/charts/active-subscribers-trend-chart';
+import { ProvidersByVolume } from '../components/analytics/charts/providers-by-volume';
+import { WorkflowRunsTrendChart } from '../components/analytics/charts/workflow-runs-trend-chart';
+import { DashboardLayout } from '../components/dashboard-layout';
+import { PageMeta } from '../components/page-meta';
+import { Badge } from '../components/primitives/badge';
+import { FacetedFormFilter } from '../components/primitives/form/faceted-filter/facated-form-filter';
+import { InlineToast } from '../components/primitives/inline-toast';
+import { useEnvironment } from '../context/environment/hooks';
+import { useFeatureFlag } from '../hooks/use-feature-flag';
+import { useFetchCharts } from '../hooks/use-fetch-charts';
+import { useFetchSubscription } from '../hooks/use-fetch-subscription';
+import { useFetchWorkflows } from '../hooks/use-fetch-workflows';
+import { useTelemetry } from '../hooks/use-telemetry';
+import { TelemetryEvent } from '../utils/telemetry';
+
+export function AnalyticsPage() {
+  const telemetry = useTelemetry();
+  const { organization } = useOrganization();
+  const { subscription } = useFetchSubscription();
+  const { currentEnvironment, switchEnvironment, oppositeEnvironment } = useEnvironment();
+  const [searchParams] = useSearchParams();
+  const isWorkflowFilterEnabled = useFeatureFlag(FeatureFlagsKeysEnum.IS_ANALYTICS_WORKFLOW_FILTER_ENABLED);
+
+  const isDevMockMode = searchParams.get('dev_mock_date') === 'true';
+
+  const { selectedDateRange, setSelectedDateRange, dateFilterOptions, chartsDateRange } = useAnalyticsDateFilter({
+    organization,
+    subscription,
+    upgradeCtaIcon: AnalyticsUpgradeCtaIcon,
+  });
+
+  const [selectedWorkflows, setSelectedWorkflows] = useState<string[]>([]);
+  const { data: workflowTemplates } = useFetchWorkflows({ limit: 100 });
+
+  // Define report types for each section
+  // Request 1: Metrics
+  const metricsReportTypes = [
+    ReportTypeEnum.MESSAGES_DELIVERED,
+    ReportTypeEnum.ACTIVE_SUBSCRIBERS,
+    ReportTypeEnum.AVG_MESSAGES_PER_SUBSCRIBER,
+    ReportTypeEnum.TOTAL_INTERACTIONS,
+  ];
+
+  // Request 2: Trends and provider charts
+  const trendsReportTypes = [
+    ReportTypeEnum.DELIVERY_TREND,
+    ReportTypeEnum.INTERACTION_TREND,
+    ReportTypeEnum.PRO
+... [TRUNCATED]
+
+[apps/dashboard/src/pages/api-keys.tsx]
+import { PermissionsEnum } from '@novu/shared';
+import { useState } from 'react';
+import { useForm } from 'react-hook-form';
+import { RiEyeLine, RiEyeOffLine, RiLoopRightFill } from 'react-icons/ri';
+import { PageMeta } from '@/components/page-meta';
+import { Card, CardContent, CardHeader } from '@/components/primitives/card';
+import { CopyButton } from '@/components/primitives/copy-button';
+import { Form } from '@/components/primitives/form/form';
+import { Input } from '@/components/primitives/input';
+import { Skeleton } from '@/components/primitives/skeleton';
+import { ExternalLink } from '@/components/shared/external-link';
+import { useEnvironment } from '@/context/environment/hooks';
+import { getRegionConfig, useRegion } from '@/context/region';
+import { apiHostnameManager } from '@/utils/api-hostname-manager';
+import { DashboardLayout } from '../components/dashboard-layout';
+import { Button } from '../components/primitives/button';
+import { Container } from '../components/primitives/container';
+import { HelpTooltipIndicator } from '../components/primitives/help-tooltip-indicator';
+import { showErrorToast, showSuccessToast } from '../components/primitives/sonner-helpers';
+import { Tooltip, TooltipContent, TooltipTrigger } from '../components/primitives/tooltip';
+import { RegenerateApiKeysDialog } from '../components/regenerate-api-keys-dialog';
+import { IS_SELF_HOSTED } from '../config';
+import { useFetchApiKeys, useRegenerateApiKeys } from '../hooks/use-fetch-api-keys';
+import { useHasPermission } from '../hooks/use-has-permission';
+
+// Convert https:// to wss:// for WebSocket URLs
+const getWebSocketUrl = (url: string) => {
+  if (!url) return url;
+  return url.replace(/^https:\/\//, 'wss://');
+};
+
+interface ApiKeysFormData {
+  apiKey: string;
+  environmentId: string;
+  identifier: string;
+}
+
+export function ApiKeysPage() {
+  const apiKeysQuery = useFetchApiKeys();
+  const { currentEnvironment } = useEnvironment();
+  const { selectedRegion } = useRegion();
+  const apiKeys = apiKeysQuery.data?.data;
+  const isLoading = apiKeysQuery.isLoading;
+  const [isRegenerateDialogOpen, setIsRegenerateDialogOpen] = useState(false);
+  const regenerateApiKeysMutation = useRegenerateApiKeys();
+  const has = useHasPermission();
+  const canRegenerateApiKeys = has({ permission: PermissionsEnum.API_KEY_WRITE });
+
+  const form = useForm<ApiKeysFormData>({
+    values: {
+      apiKey: apiKeys?.[0]?.key ?? '',
+      environmentId: currentEnvironment?._id ?? '',
+      identifier: currentEnvironment?.identifier ?? '',
+    },
+  });
+
+  const handleRegenerateKeys = async () => {
+    try {
+      await regenerateApiKeysMutation.mutateAsync();
+      showSuccessToast('API keys regenerated successfully');
+      setIsRegenerateDialogOpen(false);
+    } catch (e: any) {
+      const message = e?.message || 'Failed to regenerate API keys';
+      showErrorToast(message);
+    }
+  };
+
+  if (!currentEnvironment) {
+    return null;
+  }
+
+  // Use dynamic region from region selector
+  co
+... [TRUNCATED]
+
+[apps/dashboard/src/pages/contexts.tsx]
+import { useEffect } from 'react';
+import { AnimatedOutlet } from '@/components/animated-outlet';
+import { ContextList } from '@/components/contexts';
+import { DashboardLayout } from '@/components/dashboard-layout';
+import { PageMeta } from '@/components/page-meta';
+import { Badge } from '@/components/primitives/badge';
+import { useTelemetry } from '@/hooks/use-telemetry';
+import { TelemetryEvent } from '@/utils/telemetry';
+
+export const ContextsPage = () => {
+  const track = useTelemetry();
+
+  useEffect(() => {
+    track(TelemetryEvent.CONTEXTS_PAGE_VISIT);
+  }, [track]);
+
+  return (
+    <>
+      <PageMeta title="Contexts" />
+      <DashboardLayout
+        headerStartItems={
+          <h1 className="text-foreground-950 flex items-center gap-1">
+            Contexts{' '}
+            <Badge color="gray" size="sm">
+              BETA
+            </Badge>
+          </h1>
+        }
+      >
+        <ContextList />
+        <AnimatedOutlet />
+      </DashboardLayout>
+    </>
+  );
+};
+
+
+--- DIRECTORY STRUCTURE (depth 2) ---
+├── .agents/
+│   └── skills/
+│       ├── email-best-practices/
+│       └── react-email/
+├── .claude/
+│   └── skills/
+│       └── better-auth-best-practices/
+├── .cspell.json
+├── .cursor/
+│   ├── Dockerfile
+│   ├── commands/
+│   │   ├── code-review-checklist.md
+│   │   └── create-pr.md
+│   ├── rules/
+│   │   ├── context-engineering.mdc
+│   │   ├── dal-repository.mdc
+│   │   ├── dashboard.mdc
+│   │   ├── figma.mdc
+│   │   ├── novu.mdc
+│   │   └── pullrequest.mdc
+│   ├── settings.json
+│   └── skills/
+│       ├── better-auth-best-practices/
+│       ├── enterprise-submodule/
+│       └── run-api-e2e-tests/
+├── .cursorignore
+├── .deepsource.toml
+├── .devcontainer/
+│   ├── Dockerfile
+│   ├── devcontainer.json
+│   └── docker-compose.yml
+├── .editorconfig
+├── .github/
+│   ├── CODEOWNERS
+│   ├── ISSUE_TEMPLATE.md
+│   ├── ISSUE_TEMPLATE/
+│   │   ├── bug_report.yml
+│   │   ├── docs_feedback.yml
+│   │   ├── feature_request.yml
+│   │   └── polishing.yml
+│   ├── PULL_REQUEST_TEMPLATE.md
+│   ├── actions/
+│   │   ├── cache/
+│   │   ├── checkout-submodules/
+│   │   ├── free-space/
+│   │   ├── run-api/
+│   │   ├── run-backend/
+│   │   ├── setup-project-minimal/
+│   │   ├── setup-project/
+│   │   ├── setup-redis-cluster/
+│   │   ├── slack-notify-on-failure/
+│   │   ├── start-localstack/
+│   │   └── validate-openapi/
+│   ├── labeler.yml
+│   └── workflows/
+│       ├── check-only.yml
+│       ├── check-submodule-sync-merge.yaml
+│       ├── check-submodule-sync-pr.yaml
+│       ├── codeql-analysis.yml
+│       ├── community-label.yml
+│       ├── contributor-checks.yml
+│       ├── conventional-commit.yml
+│       ├── deploy.yml
+│       ├── deployment-summary.yml
+│       ├── dev-deploy-dashboard.yml
+│       ├── dev-deploy-inbound-mail.yml
+│       ├── issue-label.yml
+│       ├── jarvis.yml
+│       ├── on-pr-change.yml
+│       ├── on-pr.yml
+│       ├── on-push-trigger.yml
+│       ├── pr-labeler.yml
+│       ├── pr-manager.yml
+│       ├── prepare-cloud-release.yaml
+│       ├── prepare-enterprise-self-hosted-release.yml
+│       ├── prepare-self-hosted-release.yml
+│       ├── preview-packages.yml
+│       ├── prod-deploy-inbound-mail.yml
+│       ├── release-packages.yml
+│       ├── reusable-api-e2e.yml
+│       ├── reusable-dashboard-deploy.yml
+│       ├── reusable-dashboard-e2e.yml
+│       ├── reusable-inbound-mail-e2e.yml
+│       ├── reusable-webhook-e2e.yml
+│       ├── reusable-worker-e2e.yml
+│       ├── reusable-ws-e2e.yml
+│       ├── rollback.yml
+│       └── scripts/
+├── .gitignore
+├── .gitmodules
+├── .husky/
+│   └── pre-commit
+├── .idea/
+│   ├── .gitignore
+│   ├── aws.xml
+│   ├── codeStyles/
+│   │   ├── Project.xml
+│   │   └── codeStyleConfig.xml
+│   ├── discord.xml
+│   ├── inspectionProfiles/
+│   │   └── Project_Default.xml
+│   ├── jsLibraryMappings.xml
+│   ├── modules.xml
+│   ├── novu.iml
+│   ├── nx-angular-config.xml
+│   ├── runConfigurations/
+│   │   ├── API.xml
+│   │   ├── API___TEST.xml
+│   │   ├── APPLICATION_GENERIC.xml
+│   │   ├── DAL.xml
+│   │   ├── DAL2.xml
+│   │   ├── DOCS.xml
+│   │   ├── EE_AUTH.xml
+│   │   ├── EMBED.xml
+│   │   ├── RUN_LOCAL_ENV.xml
+│   │   ├── RUN_TEST_ENV.xml
+│   │   ├── SHARED.xml
+│   │   ├── SHARED_WEB.xml
+│   │   ├── TESTING.xml
+│   │   ├── WEB.xml
+│   │   ├── WEBHOOK.xml
+│   │   ├── WEB___CYPRESS.xml
+│   │   ├── WIDGET.xml
+│   │   ├── WIDGET_CLI.xml
+│   │   ├── WIDGET___CYPRESS.xml
+│   │   ├── WIDGET___TEST.xml
+│   │   ├── WORKER.xml
+│   │   ├── WORKER___TEST.xml
+│   │   ├── WS.xml
+│   │   ├── WS___TEST.xml
+│   │   └── _template__of_Mocha.xml
+│   ├── swagger-settings.xml
+│   └── vcs.xml
+├── .markdownlint.jsonc
+├── .npmrc
+├── .npmrc-cloud
+├── .nvmrc
+├── .nxignore
+├── .source
+├── .vscode/
+│   ├── extensions.json
+│   ├── launch.json
+│   ├── settings.json
+│   └── tasks.json
+├── AGENTS.md
+├── CITATION.cff
+├── CLAUDE.md
+├── CODE_OF_CONDUCT.md
+├── CONTRIBUTING.md
+├── EE-PACKAGES-LICENSE
+├── LICENSE-ENTERPRISE
+├── LICENSE-MIT
+├── README.md
+├── SECURITY.md
+├── _templates/
+│   ├── module/
+│   │   └── new/
+│   └── usecase/
+│       └── new/
+├── apps/
+│   ├── api/
+│   │   ├── .gitignore
+│   │   ├── .mocharc.json
+│   │   ├── .spectral.yaml
+│   │   ├── .swcrc
+│   │   ├── .vscode/
+│   │   ├── Dockerfile
+│   │   ├── README.md
+│   │   ├── admin/
+│   │   ├── e2e/
+│   │   ├── exportOpenAPIJSON.ts
+│   │   ├── jarvis-api-intro.md
+│   │   ├── migrations/
+│   │   ├── nest-cli.json
+│   │   ├── package.json
+│   │   ├── project.json
+│   │   ├── scripts/
+│   │   ├── src/
+│   │   ├── swagger-spec.json
+│   │   ├── swc-register.js
+│   │   ├── tsconfig.build.json
+│   │   ├── tsconfig.json
+│   │   ├── tsconfig.spec.json
+│   │   └── webpack.config.js
+│   ├── dashboard/
+│   │   ├── .example.env
+│   │   ├── .gitignore
+│   │   ├── .vscode/
+│   │   ├── README.md
+│   │   ├── components.json
+│   │   ├── docker-entrypoint.sh
+│   │   ├── dockerfile
+│   │   ├── index.html
+│   │   ├── netlify.toml
+│   │   ├── package.json
+│   │   ├── playwright.config.ts
+│   │   ├── postcss.config.js
+│   │   ├── public/
+│   │   ├── src/
+│   │   ├── tailwind.config.ts
+│   │   ├── tests-examples/
+│   │   ├── tests/
+│   │   ├── tsconfig.app.json
+│   │   ├── tsconfig.json
+│   │   ├── tsconfig.node.json
+│   │   └── vite.config.ts
+│   ├── inbound-mail/
+│   │   ├── .example.env
+│   │   ├── .gitignore
+│   │   ├── Dockerfile
+│   │   ├── e2e/
+│   │   ├── nodemon.json
+│   │   ├── package.json
+│   │   ├── src/
+│   │   └── tsconfig.json
+│   ├── webhook/
+│   │   ├── .dockerignore
+│   │   ├── .gitignore
+│   │   ├── Dockerfile
+│   │   ├── e2e/
+│   │   ├── nest-cli.json
+│   │   ├── package.json
+│   │   ├── src/
+│   │   ├── tsconfig.build.json
+│   │   └── tsconfig.json
+│   ├── worker/
+│   │   ├── .gitignore
+│   │   ├── .mocharc.json
+│   │   ├── .vscode/
+│   │   ├── Dockerfile
+│   │   ├── README.md
+│   │   ├── e2e/
+│   │   ├── nest-cli.json
+│   │   ├── package.json
+│   │   ├── project.json
+│   │   ├── src/
+│   │   ├── tsconfig.build.json
+│   │   ├── tsconfig.json
+│   │   ├── tsconfig.spec.json
+│   │   └── webpack.config.js
+│   └── ws/
+│       ├── .gitignore
+│       ├── Dockerfile
+│       ├── e2e/
+│       ├── nest-cli.json
+│       ├── package.json
+│       ├── src/
+│       ├── tsconfig.build.json
+│       └── tsconfig.json
+├── biome-plugins/
+│   ├── api-property-record-type.grit
+│   ├── command-session-exclusion.grit
+│   └── pino-logger-arg-order.grit
+├── biome.json
+├── docker/
+│   ├── .env.example
+│   ├── Readme.md
+│   ├── community/
+│   │   ├── .env.example
+│   │   └── docker-compose.yml
+│   └── local/
+│       ├── docker-compose.e2e.yml
+│       ├── docker-compose.local.yml
+│       └── docker-compose.yml
+├── enterprise/
+│   ├── packages/
+│   │   ├── api/
+│   │   ├── auth/
+│   │   ├── billing/
+│   │   ├── shared-services/
+│   │   └── translation/
+│   └── workers/
+│       ├── scheduler/
+│       ├── socket/
+│       └── step-resolver/
+├── jest.config.js
+├── libs/
+│   ├── application-generic/
+│   │   ├── .czrc
+│   │   ├── .gitignore
+│   │   ├── README.md
+│   │   ├── jest.config.js
+│   │   ├── jest.setup.js
+│   │   ├── package.json
+│   │   ├── src/
+│   │   ├── tsconfig.json
+│   │   └── tsconfig.module.json
+│   ├── automation/
+│   │   ├── .editorconfig
+│   │   ├── .gitignore
+│   │   ├── .verdaccio/
+│   │   ├── .vscode/
+│   │   ├── README.md
+│   │   ├── generators.json
+│   │   ├── nx.json
+│   │   ├── package.json
+│   │   ├── project.json
+│   │   ├── src/
+│   │   ├── tsconfig.json
+│   │   ├── tsconfig.lib.json
+│   │   └── tsconfig.spec.json
+│   ├── dal/
+│   │   ├── .dockerignore
+│   │   ├── .gitignore
+│   │   ├── package.json
+│   │   ├── project.json
+│   │   ├── src/
+│   │   ├── tsconfig.build.json
+│   │   └── tsconfig.json
+│   ├── internal-sdk/
+│   │   ├── .gitattributes
+│   │   ├── .gitignore
+│   │   ├── .npmignore
+│   │   ├── .speakeasy/
+│   │   ├── CONTRIBUTING.md
+│   │   ├── RUNTIMES.md
+│   │   ├── core.js.map
+│   │   ├── eslint.config.mjs
+│   │   ├── examples/
+│   │   ├── index.js.map
+│   │   ├── jsr.json
+│   │   ├── package.json
+│   │   ├── postman/
+│   │   ├── project.json
+│   │   ├── sources/
+│   │   ├── src/
+│   │   ├── temp/
+│   │   └── tsconfig.json
+│   ├── maily-core/
+│   │   ├── package.json
+│   │   ├── postcss.config.cjs
+│   │   ├── readme.md
+│   │   ├── src/
+│   │   ├── tailwind.config.ts
+│   │   ├── tsconfig.json
+│   │   └── tsup.config.ts
+│   ├── maily-render/
+│   │   ├── .babelrc
+│   │   ├── package.json
+│   │   ├── readme.md
+│   │   ├── src/
+│   │   ├── tsconfig.json
+│   │   ├── tsup.config.ts
+│   │   └── vitest.config.ts
+│   ├── maily-tailwind-config/
+│   │   ├── package.json
+│   │   └── tailwind.config.ts
+│   ├── maily-tsconfig/
+│   │   ├── base.json
+│   │   ├── nextjs.json
+│   │   ├── package.json
+│   │   └── react-library.json
+│   ├── notifications/
+│   │   ├── .gitignore
+│   │   ├── README.md
+│   │   ├── package.json
+│   │   ├── project.json
+│   │   ├── src/
+│   │   ├── tsconfig.json
+│   │   └── tsconfig.module.json
+│   └── testing/
+│       ├── .dockerignore
+│       ├── .gitignore
+│       ├── package.json
+│       ├── project.json
+│       ├── src/
+│       ├── tsconfig.build.json
+│       └── tsconfig.json
+├── novu.code-workspace
+├── nx.json
+├── package.json
+├── packages/
+│   ├── add-inbox/
+│   │   ├── .gitignore
+│   │   ├── README.md
+│   │   ├── package.json
+│   │   ├── project.json
+│   │   ├── src/
+│   │   ├── tsconfig.json
+│   │   └── vitest.config.js
+│   ├── framework/
+│   │   ├── .gitignore
+│   │   ├── CHANGELOG.md
+│   │   ├── README.md
+│   │   ├── express/
+│   │   ├── h3/
+│   │   ├── internal/
+│   │   ├── lambda/
+│   │   ├── nest/
+│   │   ├── next/
+│   │   ├── nuxt/
+│   │   ├── package.json
+│   │   ├── project.json
+│   │   ├── remix/
+│   │   ├── scripts/
+│   │   ├── src/
+│   │   ├── step-resolver/
+│   │   ├── sveltekit/
+│   │   ├── tsconfig.json
+│   │   ├── tsup-debug.config.ts
+│   │   ├── tsup.config.ts
+│   │   ├── validators/
+│   │   └── vitest.config.ts
+│   ├── js/
+│   │   ├── .gitignore
+│   │   ├── .vscode/
+│   │   ├── CHANGELOG.md
+│   │   ├── README.md
+│   │   ├── internal/
+│   │   ├── jest.config.cjs
+│   │   ├── jest.setup.ts
+│   │   ├── package.cjs.json
+│   │   ├── package.esm.json
+│   │   ├── package.json
+│   │   ├── postcss.config.js
+│   │   ├── project.json
+│   │   ├── scripts/
+│   │   ├── src/
+│   │   ├── tailwind.config.js
+│   │   ├── test-sdk.ts
+│   │   ├── themes/
+│   │   ├── tsconfig.cjs.json
+│   │   ├── tsconfig.json
+│   │   ├── tsup.config.ts
+│   │   ├── ui/
+│   │   └── webpack.config.cjs
+│   ├── nextjs/
+│   │   ├── .gitignore
+│   │   ├── CHANGELOG.md
+│   │   ├── README.md
+│   │   ├── hooks/
+│   │   ├── package.json
+│   │   ├── project.json
+│   │   ├── server/
+│   │   ├── src/
+│   │   ├── themes/
+│   │   ├── tsconfig.declarations.json
+│   │   ├── tsconfig.json
+│   │   └── tsup.config.ts
+│   ├── novu/
+│   │   ├── .gitignore
+│   │   ├── CHANGELOG.md
+│   │   ├── README.MD
+│   │   ├── nodemon-debug.json
+│   │   ├── nodemon.json
+│   │   ├── package.json
+│   │   ├── project.json
+│   │   ├── src/
+│   │   ├── tsconfig.json
+│   │   └── vitest.config.ts
+│   ├── providers/
+│   │   ├── .czrc
+│   │   ├── .gitignore
+│   │   ├── CHANGELOG.md
+│   │   ├── README.md
+│   │   ├── package.json
+│   │   ├── project.json
+│   │   ├── src/
+│   │   ├── tsconfig.esm.json
+│   │   ├── tsconfig.json
+│   │   └── vitest.config.js
+│   ├── react-native/
+│   │   ├── .gitignore
+│   │   ├── CHANGELOG.md
+│   │   ├── README.md
+│   │   ├── package.json
+│   │   ├── project.json
+│   │   ├── src/
+│   │   ├── tsconfig.json
+│   │   └── tsup.config.ts
+│   ├── react/
+│   │   ├── .gitignore
+│   │   ├── CHANGELOG.md
+│   │   ├── README.md
+│   │   ├── hooks/
+│   │   ├── internal/
+│   │   ├── package.json
+│   │   ├── project.json
+│   │   ├── server/
+│   │   ├── src/
+│   │   ├── themes/
+│   │   ├── tsconfig.json
+│   │   └── tsup.config.ts
+│   ├── shared/
+│   │   ├── .dockerignore
+│   │   ├── .gitignore
+│   │   ├── CHANGELOG.md
+│   │   ├── package.json
+│   │   ├── project.json
+│   │   ├── src/
+│   │   ├── tsconfig.esm.json
+│   │   └── tsconfig.json
+│   └── stateless/
+│       ├── .czrc
+│       ├── .gitignore
+│       ├── CHANGELOG.md
+│       ├── README.md
+│       ├── jest.config.js
+│       ├── package.json
+│       ├── project.json
+│       ├── src/
+│       ├── tsconfig.esm.json
+│       └── tsconfig.json
+├── playground/
+│   ├── nestjs/
+│   │   ├── .env.example
+│   │   ├── .gitignore
+│   │   ├── README.md
+│   │   ├── nest-cli.json
+│   │   ├── package.json
+│   │   ├── src/
+│   │   ├── tsconfig.json
+│   │   └── vitest.config.mts
+│   └── nextjs/
+│       ├── .env.example
+│       ├── .gitignore
+│       ├── components.json
+│       ├── next.config.mjs
+│       ├── package.json
+│       ├── postcss.config.mjs
+│       ├── public/
+│       ├── src/
+│       └── tsconfig.json
+├── pnpm-lock.yaml
+├── pnpm-workspace.yaml
+├── renovate.json
+├── scripts/
+│   ├── clean-build.sh
+│   ├── dev-environment-setup.sh
+│   ├── dotenvcreate.mjs
+│   ├── get-affected-batch.mjs
+│   ├── get-packages-folder.mjs
+│   ├── jarvis.js
+│   ├── pnpm-context.mjs
+│   ├── print-affected-array.mjs
+│   ├── publish-preview-packages.mjs
+│   ├── release.mjs
+│   ├── set-package-dependencies.mjs
+│   ├── setup-env-files.js
+│   └── symlink-ee.mjs
+└── tsconfig.json

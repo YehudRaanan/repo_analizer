@@ -1,0 +1,968 @@
+=====================================
+Repository Analysis: rails
+Type: Library / Package / SDK
+=====================================
+
+--- METADATA ---
+Name: rails
+Description: Ruby on Rails
+Language: Ruby
+Topics: activejob, activerecord, framework, html, mvc, rails, ruby
+Stars: 58345
+License: MIT License
+
+--- README ---
+# Welcome to Rails
+
+## What's Rails?
+
+Rails is a web application framework that includes everything needed to
+create database-backed web applications according to the
+[Model-View-Controller (MVC)](https://en.wikipedia.org/wiki/Model-view-controller)
+pattern.
+
+Understanding the MVC pattern is key to understanding Rails. MVC divides your
+application into three layers: Model, View, and Controller, each with a specific responsibility.
+
+## Model layer
+
+The _**Model layer**_ represents the domain model (such as Account, Product,
+Person, Post, etc.) and encapsulates the business logic specific to
+your application. In Rails, database-backed model classes are derived from
+`ActiveRecord::Base`. [Active Record](activerecord/README.rdoc) allows you to present the data from
+database rows as objects and embellish these data objects with business logic
+methods.
+Although most Rails models are backed by a database, models can also be ordinary
+Ruby classes, or Ruby classes that implement a set of interfaces as provided by
+the [Active Model](activemodel/README.rdoc) module.
+
+## View layer
+
+The _**View layer**_ is composed of "templates" that are responsible for providing
+appropriate representations of your application's resources. Templates can
+come in a variety of formats, but most view templates are HTML with embedded
+Ruby code (ERB files). Views are typically rendered to generate a controller response
+or to generate the body of an email. In Rails, View generation is handled by [Action View](actionview/README.rdoc).
+
+## Controller layer
+
+The _**Controller layer**_ is responsible for handling incoming HTTP requests and
+providing a suitable response. Usually, this means returning HTML, but Rails controllers
+can also generate XML, JSON, PDFs, mobile-specific views, and more. Controllers load and
+manipulate models, and render view templates in order to generate the appropriate HTTP response.
+In Rails, incoming requests are routed by Action Dispatch to an appropriate controller, and
+controller classes are derived from `ActionController::Base`. Action Dispatch and Action Controller
+are bundled together in [Action Pack](actionpack/README.rdoc).
+
+## Frameworks and libraries
+
+[Active Record](activerecord/README.rdoc), [Active Model](activemodel/README.rdoc), [Action Pack](actionpack/README.rdoc), and [Action View](actionview/README.rdoc) can each be used independently outside Rails.
+
+In addition to that, Rails also comes with:
+
+- [Action Mailer](actionmailer/README.rdoc), a library to generate and send emails
+- [Action Mailbox](actionmailbox/README.md), a library to receive emails within a Rails application
+- [Active Job](activejob/README.md), a framework for declaring jobs and making them run on a variety of queuing backends
+- [Action Cable](actioncable/README.md), a framework to integrate WebSockets with a Rails application
+- [Active Storage](activestorage/README.md), a library to attach cloud and local files to Rails applications
+- [Action Text](actiontext/README.md), a library to handle rich text content
+- [Active Support](activesupport/README.rdoc), a collection of utility classes and standard library extensions that are useful for Rails, and may also be used independently outside Rails
+
+## Getting Started
+
+1. Install Rails at the command prompt if you haven't yet:
+
+	```bash
+	$ gem install rails
+	```
+
+2. At the command prompt, create a new Rails application:
+
+	```bash
+	$ rails new myapp
+	```
+
+   where "myapp" is the application name.
+
+3. Change directory to `myapp` and start the web server:
+
+	```bash
+	$ cd myapp
+	$ bin/rails server
+	```
+   Run with `--help` or `-h` for options.
+
+4. Go to `http://localhost:3000` and you'll see the Rails bootscreen with your Rails and Ruby versions.
+
+5. Follow the guidelines to start developing your application. You may find
+   the following resources handy:
+    * [Getting Started with Rails](https://guides.rubyonrails.org/getting_started.html)
+    * [Ruby on Rails Guides](https://guides.rubyonrails.org)
+    * [The API Documentation](https://api.rubyonrails.org)
+
+## Contributing
+
+We encourage you to contribute to Ruby on Rails! Please check out the
+[Contributing to Ruby on Rails guide](https://edgeguides.rubyonrails.org/contributing_to_ruby_on_rails.html) for guidelines about how to proceed. [Join us!](https://contributors.rubyonrails.org)
+
+Trying to report a possible security vulnerability in Rails? Please
+check out our [security policy](https://rubyonrails.org/security) for
+guidelines about how to proceed.
+
+Everyone interacting in Rails and its sub-projects' codebases, issue trackers, chat rooms, and mailing lists is expected to follow the Rails [code of conduct](https://rubyonrails.org/conduct).
+
+## License
+
+Ruby on Rails is released under the [MIT License](https://opensource.org/licenses/MIT).
+
+
+--- PACKAGE MANIFEST(S) ---
+
+[package.json]
+{
+  "private": true,
+  "workspaces": [
+    "actioncable",
+    "actiontext",
+    "activestorage"
+  ]
+}
+
+
+[Gemfile]
+# frozen_string_literal: true
+
+source "https://rubygems.org"
+gemspec
+
+gem "minitest", "~> 6.0"
+gem "minitest-mock"
+
+gem "releaser", path: "tools/releaser"
+
+gem "sprockets-rails", ">= 2.0.0", require: false
+gem "propshaft", ">= 0.1.7", "!= 1.0.1"
+gem "capybara", ">= 3.39"
+gem "selenium-webdriver", ">= 4.20.0"
+
+gem "rack-cache", "~> 1.2"
+gem "stimulus-rails"
+gem "turbo-rails"
+gem "jsbundling-rails"
+gem "cssbundling-rails"
+gem "importmap-rails", ">= 1.2.3"
+gem "tailwindcss-rails"
+gem "dartsass-rails"
+gem "solid_cache"
+gem "solid_queue"
+gem "solid_cable"
+gem "kamal", ">= 2.1.0", require: false
+gem "thruster", require: false
+# require: false so bcrypt and argon2 are loaded only when has_secure_password is used.
+# This is to avoid Active Model (and by extension the entire framework)
+# being dependent on binary libraries.
+gem "bcrypt", "~> 3.1.11", require: false
+gem "argon2", "~> 2.3.2", require: false
+
+# This needs to be with require false to avoid it being automatically loaded by
+# sprockets.
+gem "terser", ">= 1.1.4", require: false
+
+# Explicitly avoid 1.x that doesn't support Ruby 2.4+
+gem "json", ">= 2.0.0", "!=2.7.0"
+
+# Workaround until all supported Ruby versions ship with uri version 0.13.1 or higher.
+gem "uri", ">= 0.13.1", require: false
+
+gem "prism"
+
+group :rubocop do
+  gem "rubocop", "1.79.2", require: false
+  gem "rubocop-minitest", require: false
+  gem "rubocop-packaging", require: false
+  gem "rubocop-performance", require: false
+  gem "rubocop-rails", require: false
+  gem "rubocop-md", require: false
+
+  # This gem is used in Railties tests so it must be a development dependency.
+  gem "rubocop-rails-omakase", require: false
+end
+
+group :mdl do
+  gem "mdl", "!= 0.13.0", require: false
+end
+
+group :doc do
+  gem "sdoc", "~> 2.6.4"
+  gem "redcarpet", "~> 3.6.1", platforms: :ruby
+  gem "w3c_validators", "~> 1.3.6"
+  gem "rouge"
+  gem "rubyzip", "~> 2.0"
+end
+
+# Active Support
+gem "dalli"
+gem "listen", "~> 3.3", require: false
+gem "libxml-ruby", platforms: :ruby
+gem "connection_pool", require: false
+gem "rexml", require: false
+gem "msgpack", ">= 1.7.0", require: false
+
+# for railties
+gem "bootsnap", ">= 1.4.4", require: false
+gem "webrick", require: false
+gem "jbuilder", require: false
+gem "web-console", require: false
+
+# Action Pack and railties
+rack_version = ENV.fetch("RACK", "~> 3.0")
+if rack_version != "head"
+  gem "rack", rack_version
+else
+  gem "rack", git: "https://github.com/rack/rack.git", branch: "main"
+end
+
+gem "useragent", require: false
+
+# Active Job
+group :job do
+  gem "resque", require: false
+  gem "resque-scheduler", require: false
+  gem "queue_classic", ">= 4.0.0", require: false, platforms: :ruby
+  gem "sneakers", require: false
+  gem "backburner", require: false
+end
+
+# Action Cable
+group :cable do
+  gem "puma", ">= 5.0.3", require: false
+
+  gem "redis", ">= 4.0.1", require: false
+
+  gem "redis-namespace"
+
+  gem "websocket-client-simple", require: false
+end
+
+# Active Storage
+group :storage do
+  gem "aws-sdk-s3", require: false
+
+... [TRUNCATED]
+
+[rails.gemspec]
+# frozen_string_literal: true
+
+version = File.read(File.expand_path("RAILS_VERSION", __dir__)).strip
+
+Gem::Specification.new do |s|
+  s.platform    = Gem::Platform::RUBY
+  s.name        = "rails"
+  s.version     = version
+  s.summary     = "Full-stack web application framework."
+  s.description = "Ruby on Rails is a full-stack web framework optimized for programmer happiness and sustainable productivity. It encourages beautiful code by favoring convention over configuration."
+
+  s.required_ruby_version     = ">= 3.3.0"
+  s.required_rubygems_version = ">= 1.8.11"
+
+  s.license = "MIT"
+
+  s.author   = "David Heinemeier Hansson"
+  s.email    = "david@loudthinking.com"
+  s.homepage = "https://rubyonrails.org"
+
+  s.files = ["README.md", "MIT-LICENSE"]
+
+  s.metadata = {
+    "bug_tracker_uri"   => "https://github.com/rails/rails/issues",
+    "changelog_uri"     => "https://github.com/rails/rails/releases/tag/v#{version}",
+    "documentation_uri" => "https://api.rubyonrails.org/v#{version}/",
+    "mailing_list_uri"  => "https://discuss.rubyonrails.org/c/rubyonrails-talk",
+    "source_code_uri"   => "https://github.com/rails/rails/tree/v#{version}",
+    "rubygems_mfa_required" => "true",
+  }
+
+  s.add_dependency "activesupport", version
+  s.add_dependency "actionpack",    version
+  s.add_dependency "actionview",    version
+  s.add_dependency "activemodel",   version
+  s.add_dependency "activerecord",  version
+  s.add_dependency "actionmailer",  version
+  s.add_dependency "activejob",     version
+  s.add_dependency "actioncable",   version
+  s.add_dependency "activestorage", version
+  s.add_dependency "actionmailbox", version
+  s.add_dependency "actiontext",    version
+  s.add_dependency "railties",      version
+
+  s.add_dependency "bundler", ">= 1.15.0"
+end
+
+
+--- DIRECTORY STRUCTURE (depth 2) ---
+├── .devcontainer/
+│   ├── Dockerfile
+│   ├── boot.sh
+│   ├── compose.yaml
+│   └── devcontainer.json
+├── .git-blame-ignore-revs
+├── .gitattributes
+├── .github/
+│   ├── CODEOWNERS
+│   ├── ISSUE_TEMPLATE/
+│   │   ├── bug_report.md
+│   │   └── config.yml
+│   ├── labeler.yml
+│   ├── pull_request_template.md
+│   ├── security.md
+│   └── workflows/
+│       ├── devcontainer-shellcheck.yml
+│       ├── devcontainer-smoke-test.yml
+│       ├── labeler.yml
+│       ├── more-info-needed.yml
+│       ├── rail_inspector.yml
+│       ├── rails-new-docker.yml
+│       ├── rails_releaser_tests.yml
+│       ├── release.yml
+│       ├── scripts/
+│       └── stale.yml
+├── .gitignore
+├── .mdlrc
+├── .mdlrc.rb
+├── .rubocop.yml
+├── .yardopts
+├── .yarnrc
+├── Brewfile
+├── CODE_OF_CONDUCT.md
+├── CONTRIBUTING.md
+├── Gemfile
+├── Gemfile.lock
+├── MIT-LICENSE
+├── RAILS_VERSION
+├── README.md
+├── RELEASING_RAILS.md
+├── Rakefile
+├── actioncable/
+│   ├── .babelrc
+│   ├── .gitignore
+│   ├── CHANGELOG.md
+│   ├── MIT-LICENSE
+│   ├── README.md
+│   ├── Rakefile
+│   ├── actioncable.gemspec
+│   ├── app/
+│   │   ├── assets/
+│   │   └── javascript/
+│   ├── bin/
+│   │   └── test
+│   ├── karma.conf.js
+│   ├── lib/
+│   │   ├── action_cable.rb
+│   │   ├── action_cable/
+│   │   └── rails/
+│   ├── package.json
+│   ├── rollup.config.js
+│   ├── rollup.config.test.js
+│   └── test/
+│       ├── channel/
+│       ├── client_test.rb
+│       ├── connection/
+│       ├── javascript/
+│       ├── javascript_package_test.rb
+│       ├── server/
+│       ├── stubs/
+│       ├── subscription_adapter/
+│       ├── test_helper.rb
+│       ├── test_helper_test.rb
+│       └── worker_test.rb
+├── actionmailbox/
+│   ├── .gitignore
+│   ├── CHANGELOG.md
+│   ├── MIT-LICENSE
+│   ├── README.md
+│   ├── Rakefile
+│   ├── actionmailbox.gemspec
+│   ├── app/
+│   │   ├── controllers/
+│   │   ├── jobs/
+│   │   ├── models/
+│   │   └── views/
+│   ├── bin/
+│   │   └── test
+│   ├── config/
+│   │   └── routes.rb
+│   ├── db/
+│   │   └── migrate/
+│   ├── lib/
+│   │   ├── action_mailbox.rb
+│   │   ├── action_mailbox/
+│   │   ├── generators/
+│   │   ├── rails/
+│   │   └── tasks/
+│   └── test/
+│       ├── controllers/
+│       ├── dummy/
+│       ├── fixtures/
+│       ├── generators/
+│       ├── jobs/
+│       ├── migrations_test.rb
+│       ├── models/
+│       ├── test_helper.rb
+│       └── unit/
+├── actionmailer/
+│   ├── CHANGELOG.md
+│   ├── MIT-LICENSE
+│   ├── README.rdoc
+│   ├── Rakefile
+│   ├── actionmailer.gemspec
+│   ├── bin/
+│   │   └── test
+│   ├── lib/
+│   │   ├── action_mailer.rb
+│   │   ├── action_mailer/
+│   │   └── rails/
+│   └── test/
+│       ├── abstract_unit.rb
+│       ├── assert_select_email_test.rb
+│       ├── asset_host_test.rb
+│       ├── base_test.rb
+│       ├── caching_test.rb
+│       ├── callbacks_test.rb
+│       ├── delivery_methods_test.rb
+│       ├── fixtures/
+│       ├── form_builder_test.rb
+│       ├── i18n_with_controller_test.rb
+│       ├── log_subscriber_test.rb
+│       ├── mail_helper_test.rb
+│       ├── mail_layout_test.rb
+│       ├── mailers/
+│       ├── message_delivery_test.rb
+│       ├── parameterized_test.rb
+│       ├── structured_event_subscriber_test.rb
+│       ├── test_case_test.rb
+│       ├── test_helper_test.rb
+│       └── url_test.rb
+├── actionpack/
+│   ├── CHANGELOG.md
+│   ├── MIT-LICENSE
+│   ├── README.rdoc
+│   ├── Rakefile
+│   ├── actionpack.gemspec
+│   ├── bin/
+│   │   └── test
+│   ├── lib/
+│   │   ├── abstract_controller.rb
+│   │   ├── abstract_controller/
+│   │   ├── action_controller.rb
+│   │   ├── action_controller/
+│   │   ├── action_dispatch.rb
+│   │   ├── action_dispatch/
+│   │   ├── action_pack.rb
+│   │   └── action_pack/
+│   └── test/
+│       ├── abstract/
+│       ├── abstract_unit.rb
+│       ├── assertions/
+│       ├── controller/
+│       ├── dispatch/
+│       ├── fixtures/
+│       ├── journey/
+│       ├── lib/
+│       ├── routing/
+│       └── support/
+├── actiontext/
+│   ├── .gitignore
+│   ├── CHANGELOG.md
+│   ├── MIT-LICENSE
+│   ├── README.md
+│   ├── Rakefile
+│   ├── actiontext.gemspec
+│   ├── app/
+│   │   ├── assets/
+│   │   ├── helpers/
+│   │   ├── javascript/
+│   │   ├── models/
+│   │   └── views/
+│   ├── bin/
+│   │   └── test
+│   ├── db/
+│   │   └── migrate/
+│   ├── lib/
+│   │   ├── action_text.rb
+│   │   ├── action_text/
+│   │   ├── generators/
+│   │   ├── rails/
+│   │   └── tasks/
+│   ├── package.json
+│   ├── rollup.config.js
+│   └── test/
+│       ├── application_system_test_case.rb
+│       ├── dummy/
+│       ├── fixtures/
+│       ├── integration/
+│       ├── javascript_package_test.rb
+│       ├── models/
+│       ├── system/
+│       ├── template/
+│       ├── test_helper.rb
+│       └── unit/
+├── actionview/
+│   ├── .gitignore
+│   ├── CHANGELOG.md
+│   ├── MIT-LICENSE
+│   ├── README.rdoc
+│   ├── RUNNING_UNIT_TESTS.rdoc
+│   ├── Rakefile
+│   ├── actionview.gemspec
+│   ├── app/
+│   │   └── assets/
+│   ├── bin/
+│   │   └── test
+│   ├── lib/
+│   │   ├── action_view.rb
+│   │   └── action_view/
+│   └── test/
+│       ├── abstract_unit.rb
+│       ├── actionpack/
+│       ├── active_record_unit.rb
+│       ├── activerecord/
+│       ├── buffers_test.rb
+│       ├── fixtures/
+│       ├── lib/
+│       └── template/
+├── activejob/
+│   ├── CHANGELOG.md
+│   ├── MIT-LICENSE
+│   ├── README.md
+│   ├── Rakefile
+│   ├── activejob.gemspec
+│   ├── bin/
+│   │   └── test
+│   ├── lib/
+│   │   ├── active_job.rb
+│   │   ├── active_job/
+│   │   └── rails/
+│   └── test/
+│       ├── adapters/
+│       ├── cases/
+│       ├── helper.rb
+│       ├── integration/
+│       ├── jobs/
+│       ├── models/
+│       ├── serializers/
+│       └── support/
+├── activemodel/
+│   ├── CHANGELOG.md
+│   ├── MIT-LICENSE
+│   ├── README.rdoc
+│   ├── Rakefile
+│   ├── activemodel.gemspec
+│   ├── bin/
+│   │   └── test
+│   ├── lib/
+│   │   ├── active_model.rb
+│   │   └── active_model/
+│   └── test/
+│       ├── cases/
+│       ├── models/
+│       └── validators/
+├── activerecord/
+│   ├── .gitignore
+│   ├── CHANGELOG.md
+│   ├── MIT-LICENSE
+│   ├── README.rdoc
+│   ├── RUNNING_UNIT_TESTS.rdoc
+│   ├── Rakefile
+│   ├── activerecord.gemspec
+│   ├── bin/
+│   │   └── test
+│   ├── examples/
+│   │   ├── performance.rb
+│   │   └── simple.rb
+│   ├── lib/
+│   │   ├── active_record.rb
+│   │   ├── active_record/
+│   │   ├── arel.rb
+│   │   ├── arel/
+│   │   └── rails/
+│   └── test/
+│       ├── active_record/
+│       ├── activejob/
+│       ├── assets/
+│       ├── cases/
+│       ├── config.example.yml
+│       ├── config.rb
+│       ├── fixtures/
+│       ├── migrations/
+│       ├── models/
+│       ├── schema/
+│       └── support/
+├── activestorage/
+│   ├── .babelrc
+│   ├── .gitignore
+│   ├── CHANGELOG.md
+│   ├── MIT-LICENSE
+│   ├── README.md
+│   ├── Rakefile
+│   ├── activestorage.gemspec
+│   ├── app/
+│   │   ├── assets/
+│   │   ├── controllers/
+│   │   ├── javascript/
+│   │   ├── jobs/
+│   │   └── models/
+│   ├── bin/
+│   │   └── test
+│   ├── config/
+│   │   └── routes.rb
+│   ├── db/
+│   │   ├── migrate/
+│   │   └── update_migrate/
+│   ├── lib/
+│   │   ├── active_storage.rb
+│   │   ├── active_storage/
+│   │   └── tasks/
+│   ├── package.json
+│   ├── rollup.config.js
+│   └── test/
+│       ├── analyzer/
+│       ├── controllers/
+│       ├── database/
+│       ├── dummy/
+│       ├── engine_test.rb
+│       ├── fixture_set_test.rb
+│       ├── fixtures/
+│       ├── javascript_package_test.rb
+│       ├── jobs/
+│       ├── log_subscriber_test.rb
+│       ├── migrations_test.rb
+│       ├── models/
+│       ├── previewer/
+│       ├── service/
+│       ├── service_test.rb
+│       ├── structured_event_subscriber_test.rb
+│       ├── template/
+│       ├── test_helper.rb
+│       └── urls/
+├── activesupport/
+│   ├── .gitignore
+│   ├── CHANGELOG.md
+│   ├── MIT-LICENSE
+│   ├── README.rdoc
+│   ├── Rakefile
+│   ├── activesupport.gemspec
+│   ├── bin/
+│   │   └── test
+│   ├── lib/
+│   │   ├── active_support.rb
+│   │   └── active_support/
+│   └── test/
+│       ├── abstract_unit.rb
+│       ├── actionable_error_test.rb
+│       ├── array_inquirer_test.rb
+│       ├── autoload_test.rb
+│       ├── autoloading_fixtures/
+│       ├── backtrace_cleaner_test.rb
+│       ├── benchmark_test.rb
+│       ├── benchmarkable_test.rb
+│       ├── broadcast_logger_test.rb
+│       ├── cache/
+│       ├── callback_inheritance_test.rb
+│       ├── callbacks_test.rb
+│       ├── clean_logger_test.rb
+│       ├── combined_configuration_test.rb
+│       ├── concern_test.rb
+│       ├── concurrency/
+│       ├── configurable_test.rb
+│       ├── configuration_file_test.rb
+│       ├── constantize_test_cases.rb
+│       ├── constantize_test_helpers.rb
+│       ├── continuous_integration_test.rb
+│       ├── core_ext/
+│       ├── current_attributes_test.rb
+│       ├── deep_mergeable_test.rb
+│       ├── dependencies/
+│       ├── dependencies_test.rb
+│       ├── deprecation/
+│       ├── deprecation_test.rb
+│       ├── descendants_tracker_test.rb
+│       ├── digest_test.rb
+│       ├── dot_env_configuration_test.rb
+│       ├── editor_test.rb
+│       ├── encrypted_configuration_test.rb
+│       ├── encrypted_file_test.rb
+│       ├── env_configuration_test.rb
+│       ├── environment_inquirer_test.rb
+│       ├── error_reporter_test.rb
+│       ├── event_reporter/
+│       ├── event_reporter_test.rb
+│       ├── evented_file_update_checker_test.rb
+│       ├── execution_context_test.rb
+│       ├── executor_test.rb
+│       ├── file_fixtures/
+│       ├── file_update_checker_shared_tests.rb
+│       ├── file_update_checker_test.rb
+│       ├── fixtures/
+│       ├── fork_tracker_test.rb
+│       ├── gzip_test.rb
+│       ├── hash_with_indifferent_access_test.rb
+│       ├── i18n_test.rb
+│       ├── inflector_test.rb
+│       ├── inflector_test_cases.rb
+│       ├── inspect_backport_test.rb
+│       ├── isolated_execution_state_test.rb
+│       ├── json/
+│       ├── key_generator_test.rb
+│       ├── lazy_load_hooks_test.rb
+│       ├── log_subscriber_test.rb
+│       ├── logger_test.rb
+│       ├── message_encryptor_test.rb
+│       ├── message_encryptors_test.rb
+│       ├── message_pack/
+│       ├── message_verifier_test.rb
+│       ├── message_verifiers_test.rb
+│       ├── messages/
+│       ├── multibyte_test_helpers.rb
+│       ├── notifications/
+│       ├── notifications_test.rb
+│       ├── number_helper_i18n_test.rb
+│       ├── number_helper_test.rb
+│       ├── option_merger_test.rb
+│       ├── ordered_hash_test.rb
+│       ├── ordered_options_test.rb
+│       ├── parallelization/
+│       ├── parallelization_test.rb
+│       ├── parameter_filter_test.rb
+│       ├── reloader_test.rb
+│       ├── rescuable_test.rb
+│       ├── rotation_coordinator_tests.rb
+│       ├── safe_buffer_test.rb
+│       ├── secure_compare_rotator_test.rb
+│       ├── security_utils_test.rb
+│       ├── share_lock_test.rb
+│       ├── silence_logger_test.rb
+│       ├── string_inquirer_test.rb
+│       ├── structured_event_subscriber_test.rb
+│       ├── subscriber_test.rb
+│       ├── tagged_logging_test.rb
+│       ├── test_case_test.rb
+│       ├── testing/
+│       ├── time_travel_test.rb
+│       ├── time_zone_test.rb
+│       ├── time_zone_test_helpers.rb
+│       ├── transliterate_test.rb
+│       ├── xml_mini/
+│       └── xml_mini_test.rb
+├── bin/
+│   └── test
+├── eslint.config.mjs
+├── guides/
+│   ├── .document
+│   ├── .rubocop.yml
+│   ├── CHANGELOG.md
+│   ├── README.md
+│   ├── Rakefile
+│   ├── assets/
+│   │   ├── images/
+│   │   ├── javascripts/
+│   │   ├── robots.txt
+│   │   ├── stylesheets/
+│   │   └── stylesrc/
+│   ├── bin/
+│   │   └── test
+│   ├── bug_report_templates/
+│   │   ├── action_controller.rb
+│   │   ├── action_mailbox.rb
+│   │   ├── action_mailer.rb
+│   │   ├── action_view.rb
+│   │   ├── active_job.rb
+│   │   ├── active_record.rb
+│   │   ├── active_record_migrations.rb
+│   │   ├── active_storage.rb
+│   │   ├── benchmark.rb
+│   │   └── generic.rb
+│   ├── rails_guides.rb
+│   ├── rails_guides/
+│   │   ├── epub.rb
+│   │   ├── epub_packer.rb
+│   │   ├── generator.rb
+│   │   ├── helpers.rb
+│   │   ├── markdown.rb
+│   │   └── markdown/
+│   ├── source/
+│   │   ├── 2_2_release_notes.md
+│   │   ├── 2_3_release_notes.md
+│   │   ├── 3_0_release_notes.md
+│   │   ├── 3_1_release_notes.md
+│   │   ├── 3_2_release_notes.md
+│   │   ├── 4_0_release_notes.md
+│   │   ├── 4_1_release_notes.md
+│   │   ├── 4_2_release_notes.md
+│   │   ├── 5_0_release_notes.md
+│   │   ├── 5_1_release_notes.md
+│   │   ├── 5_2_release_notes.md
+│   │   ├── 6_0_release_notes.md
+│   │   ├── 6_1_release_notes.md
+│   │   ├── 7_0_release_notes.md
+│   │   ├── 7_1_release_notes.md
+│   │   ├── 7_2_release_notes.md
+│   │   ├── 8_0_release_notes.md
+│   │   ├── 8_1_release_notes.md
+│   │   ├── 8_2_release_notes.md
+│   │   ├── _license.html.erb
+│   │   ├── _welcome.html.erb
+│   │   ├── action_cable_overview.md
+│   │   ├── action_controller_advanced_topics.md
+│   │   ├── action_controller_overview.md
+│   │   ├── action_mailbox_basics.md
+│   │   ├── action_mailer_basics.md
+│   │   ├── action_text_overview.md
+│   │   ├── action_view_helpers.md
+│   │   ├── action_view_overview.md
+│   │   ├── active_job_basics.md
+│   │   ├── active_model_basics.md
+│   │   ├── active_record_basics.md
+│   │   ├── active_record_callbacks.md
+│   │   ├── active_record_composite_primary_keys.md
+│   │   ├── active_record_encryption.md
+│   │   ├── active_record_migrations.md
+│   │   ├── active_record_multiple_databases.md
+│   │   ├── active_record_postgresql.md
+│   │   ├── active_record_querying.md
+│   │   ├── active_record_validations.md
+│   │   ├── active_storage_overview.md
+│   │   ├── active_support_core_extensions.md
+│   │   ├── active_support_instrumentation.md
+│   │   ├── api_app.md
+│   │   ├── api_documentation_guidelines.md
+│   │   ├── asset_pipeline.md
+│   │   ├── association_basics.md
+│   │   ├── autoloading_and_reloading_constants.md
+│   │   ├── caching_with_rails.md
+│   │   ├── command_line.md
+│   │   ├── configuring.md
+│   │   ├── contributing_to_ruby_on_rails.md
+│   │   ├── debugging_rails_applications.md
+│   │   ├── development_dependencies_install.md
+│   │   ├── documents.yaml
+│   │   ├── engines.md
+│   │   ├── epub/
+│   │   ├── error_reporting.md
+│   │   ├── form_helpers.md
+│   │   ├── generators.md
+│   │   ├── getting_started.md
+│   │   ├── getting_started_with_devcontainer.md
+│   │   ├── i18n.md
+│   │   ├── index.html.erb
+│   │   ├── initialization.md
+│   │   ├── install_ruby_on_rails.md
+│   │   ├── layout.html.erb
+│   │   ├── layouts_and_rendering.md
+│   │   ├── maintenance_policy.md
+│   │   ├── plugins.md
+│   │   ├── rails_on_rack.md
+│   │   ├── routing.md
+│   │   ├── ruby_on_rails_guides_guidelines.md
+│   │   ├── security.md
+│   │   ├── sign_up_and_settings.md
+│   │   ├── testing.md
+│   │   ├── threading_and_code_execution.md
+│   │   ├── tuning_performance_for_deployment.md
+│   │   ├── upgrading_ruby_on_rails.md
+│   │   ├── wishlists.md
+│   │   └── working_with_javascript_in_rails.md
+│   ├── test/
+│   │   ├── bug_report_template_test.rb
+│   │   ├── generator_test.rb
+│   │   ├── markdown/
+│   │   └── test_helper.rb
+│   └── w3c_validator.rb
+├── package.json
+├── rails.gemspec
+├── railties/
+│   ├── .gitignore
+│   ├── CHANGELOG.md
+│   ├── MIT-LICENSE
+│   ├── RDOC_MAIN.md
+│   ├── README.rdoc
+│   ├── Rakefile
+│   ├── bin/
+│   │   └── test
+│   ├── exe/
+│   │   └── rails
+│   ├── lib/
+│   │   ├── minitest/
+│   │   ├── rails.rb
+│   │   └── rails/
+│   ├── railties.gemspec
+│   └── test/
+│       ├── abstract_unit.rb
+│       ├── app_loader_test.rb
+│       ├── application/
+│       ├── backtrace_cleaner_test.rb
+│       ├── code_statistics_calculator_test.rb
+│       ├── code_statistics_test.rb
+│       ├── command/
+│       ├── commands/
+│       ├── configuration/
+│       ├── console_helpers.rb
+│       ├── credentials_helpers.rb
+│       ├── engine/
+│       ├── engine_test.rb
+│       ├── env_helpers.rb
+│       ├── fixtures/
+│       ├── generators/
+│       ├── generators_test.rb
+│       ├── initializable_test.rb
+│       ├── isolation/
+│       ├── json_params_parsing_test.rb
+│       ├── minitest/
+│       ├── path_generation_test.rb
+│       ├── paths_test.rb
+│       ├── plugin_helpers.rb
+│       ├── rack_logger_test.rb
+│       ├── rack_silence_request_test.rb
+│       ├── rails_devtools_controller_test.rb
+│       ├── rails_health_controller_test.rb
+│       ├── rails_info_controller_test.rb
+│       ├── rails_info_test.rb
+│       ├── railties/
+│       ├── structured_event_subscriber_test.rb
+│       ├── test_unit/
+│       └── version_test.rb
+├── tasks/
+│   ├── release.rb
+│   └── release_announcement_draft.erb
+├── tools/
+│   ├── README.md
+│   ├── console
+│   ├── cve_announcement.rb
+│   ├── devcontainer
+│   ├── line_statistics
+│   ├── preview_docs.rb
+│   ├── preview_docs/
+│   │   └── index.html.erb
+│   ├── rail_inspector/
+│   │   ├── LICENSE
+│   │   ├── Rakefile
+│   │   ├── bin/
+│   │   ├── lib/
+│   │   ├── rail_inspector.gemspec
+│   │   └── test/
+│   ├── railspect
+│   ├── rdoc-to-md
+│   ├── releaser/
+│   │   ├── Gemfile
+│   │   ├── Gemfile.lock
+│   │   ├── README.md
+│   │   ├── Rakefile
+│   │   ├── bin/
+│   │   ├── lib/
+│   │   ├── releaser.gemspec
+│   │   └── test/
+│   ├── strict_warnings.rb
+│   ├── support/
+│   │   └── leak_checker.rb
+│   ├── test.rb
+│   └── test_common.rb
+└── yarn.lock

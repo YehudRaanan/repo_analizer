@@ -1,0 +1,320 @@
+=====================================
+Repository Analysis: supertokens-core
+Type: Backend / API Service
+=====================================
+
+--- METADATA ---
+Name: supertokens-core
+Description: Open source alternative to Auth0 / Firebase Auth / AWS Cognito 
+Language: Java
+Topics: auth0, authentication, aws-cognito, email-password, email-password-login, firebase-auth, hacktoberfest, java, keycloak, login, oauth, password, passwordless, passwordless-authentication, passwordless-login, session-management, signin, social-login, supertokens
+Stars: 14950
+License: Other
+
+--- README ---
+[![SuperTokens banner](https://raw.githubusercontent.com/supertokens/supertokens-logo/master/images/Artboard%20%E2%80%93%2027%402x.png)](https://supertokens.com/)
+
+# Open-Source auth provider
+
+<a href="https://supertokens.io/discord">
+<img src="https://img.shields.io/discord/603466164219281420.svg?logo=discord"
+    alt="chat on Discord"></a>
+<span><img src="https://img.shields.io/docker/pulls/supertokens/supertokens-postgresql.svg" alt="Docker pull stats"/></span>
+
+Add **secure login and session management** to your apps. [SDKs available](https://supertokens.com/docs/community/sdks)
+for popular languages and front-end frameworks e.g. Node.js, Go, Python, React.js, React Native, Vanilla JS, etc.
+
+![Architecture Diagram](https://supertokens.com/img/architecture/self_hosted_generic.png)
+Supertokens architecture is optimized to add secure authentication for your users without compromising on user and
+developer experience
+
+**Three building blocks of SuperTokens architecture**
+
+1. Frontend SDK: Manages session tokens and renders login UI widgets
+2. Backend SDK: Provides APIs for sign-up, sign-in, signout, session refreshing, etc. Your Frontend will talk to these
+   APIs
+3. SuperTokens Core: The HTTP service for the core auth logic and database operations. This service is used by the
+   Backend SDK
+
+## Features
+
+[![Click here to get started](.github/click-here-to-get-started.png)](https://supertokens.com/docs/guides)
+
+* Passwordless Login
+* Social Login
+* Email Password Login
+* Phone Password Login
+* Session Management
+* Multi-Factor Authentication
+* Multi Tenancy / Organization Support (Enterprise SSO)
+* User Roles
+* Microservice Authentication
+
+## Learn more
+
+- [🚀 What is SuperTokens?](https://github.com/supertokens/supertokens-core#-what-is-supertokens)
+    - [Philosophy](https://github.com/supertokens/supertokens-core#philosophy)
+    - [Features + Demo app](https://github.com/supertokens/supertokens-core#features---click-here-to-see-the-demo-app)
+    - [Documentation](https://github.com/supertokens/supertokens-core#documentation)
+- [🏗️ Architecture](https://github.com/supertokens/supertokens-core#%EF%B8%8F-architecture)
+- [☕ Why Java?](https://github.com/supertokens/supertokens-core#-why-java)
+- [⌨️ User Management Dashboard](https://github.com/supertokens/supertokens-core#-user-management-dashboard)
+- [🔥 SuperTokens vs Others](https://github.com/supertokens/supertokens-core#-supertokens-vs-others)
+- [🛠️ Building from source](https://github.com/supertokens/supertokens-core#%EF%B8%8F-building-from-source)
+- [👥 Community](https://github.com/supertokens/supertokens-core#-community)
+    - [Contributors](https://github.com/supertokens/supertokens-core#contributors-across-all-supertokens-repositories)
+- [👩‍💻 Contributing](https://github.com/supertokens/supertokens-core#-contributing)
+- [📝 License](https://github.com/supertokens/supertokens-core#-license)
+
+### If you like our project, please :star2: this repository! For feedback, feel free to join our [Discord](https://supertokens.io/discord), or create an issue on this repo
+
+## 🚀 What is SuperTokens?
+
+SuperTokens is an open-core alternative to proprietary login providers like Auth0 or AWS Cognito. We are
+different because we offer:
+
+- Open source: SuperTokens can be used for free, forever, with no limits on the number of users.
+- An on-premises deployment so that you control 100% of your user data, using your own database.
+- An end-to-end solution with login, sign-ups, user and session management, without all the complexities of OAuth
+  protocols.
+- Ease of implementation and higher security.
+- Extensibility: Anyone can contribute and make SuperTokens better!
+
+### Philosophy
+
+Authentication directly affects the UX, dev experience, and security of any app. We believe that
+current solutions cannot optimize for all three "pillars", leading to many
+applications hand-rolling their own auth. This not only leads to security issues but is also a massive
+time drain.
+
+We want to change that - we believe the only way is to provide a solution that has the right level of
+abstraction gives you maximum control, is secure, and is simple to use - just like if you build it yourself,
+from scratch (minus the time to learn, build, and maintain).
+
+We also believe in the principle of least vendor lock-in. Your having full control of your user's data means that you
+can switch away from SuperTokens without forcing your existing users to logout, reset their passwords, or in the worst
+case, sign up again.
+
+### [Click here](https://thirdpartyemailpassword.demo.supertokens.com/) to see the demo app.
+
+- Please visit [our website](https://supertokens.io/pricing) to see the list of features.
+- We want to make features as decoupled as possible. This means you can use SuperTokens for just login, or just session
+  management, or both. In fact, we also offer session management integrations with other login providers like Auth0.
+
+### Documentation
+
+The docs can be seen [on our website](https://supertok
+... [TRUNCATED]
+
+--- PACKAGE MANIFEST(S) ---
+
+[build.gradle]
+/*
+ * This file was generated by the Gradle 'init' task.
+ *
+ * This generated file contains a sample Java Library project to get you started.
+ * For more details take a look at the Java Libraries chapter in the Gradle
+ * User Manual available at https://docs.gradle.org/5.4/userguide/java_library_plugin.html
+ */
+
+plugins {
+    id 'application'
+    id 'java-library'
+    id "io.freefair.aspectj" version "8.13" //same as gradle version!
+}
+compileJava { options.encoding = "UTF-8" }
+compileTestJava { options.encoding = "UTF-8" }
+
+// Uncomment the below lines to make UTF-9 non default while testing
+//allprojects {
+//    tasks.withType(Test) {
+//        systemProperty "file.encoding", "US-ASCII"
+//    }
+//}
+
+java {
+    toolchain {
+        languageVersion.set(JavaLanguageVersion.of(21))
+    }
+}
+
+version = "11.4.0"
+
+repositories {
+    mavenCentral()
+
+    maven { url 'https://build.shibboleth.net/nexus/content/repositories/releases/' }
+}
+
+dependencies {
+
+    // https://mvnrepository.com/artifact/com.google.code.gson/gson
+    // if this changes, remember to also change in the ee folder's build.gradle
+    implementation group: 'com.google.code.gson', name: 'gson', version: '2.13.1'
+
+    // https://mvnrepository.com/artifact/com.fasterxml.jackson.dataformat/jackson-dataformat-yaml
+    implementation group: 'com.fasterxml.jackson.dataformat', name: 'jackson-dataformat-yaml', version: '2.18.2'
+
+    // https://mvnrepository.com/artifact/com.fasterxml.jackson.dataformat/jackson-dataformat-cbor
+    implementation group: 'com.fasterxml.jackson.dataformat', name: 'jackson-dataformat-cbor', version: '2.18.2'
+
+    // https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-core
+    implementation group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.18.2'
+
+    // https://mvnrepository.com/artifact/org.apache.tomcat.embed/tomcat-embed-core
+    api group: 'org.apache.tomcat.embed', name: 'tomcat-embed-core', version: '11.0.12'
+
+    // https://mvnrepository.com/artifact/com.google.code.findbugs/jsr305
+    implementation group: 'com.google.code.findbugs', name: 'jsr305', version: '3.0.2'
+
+    // https://mvnrepository.com/artifact/org.xerial/sqlite-jdbc
+    implementation group: 'org.xerial', name: 'sqlite-jdbc', version: '3.45.1.0'
+
+    // https://mvnrepository.com/artifact/org.mindrot/jbcrypt
+    implementation group: 'org.mindrot', name: 'jbcrypt', version: '0.4'
+
+    // https://mvnrepository.com/artifact/org.jetbrains/annotations
+    implementation group: 'org.jetbrains', name: 'annotations', version: '13.0'
+
+    // https://mvnrepository.com/artifact/de.mkammerer/argon2-jvm
+    implementation group: 'de.mkammerer', name: 'argon2-jvm', version: '2.11'
+
+    // https://mvnrepository.com/artifact/com.auth0/java-jwt
+    implementation 'com.auth0:java-jwt:4.4.0'
+
+    // https://mvnrepository.com/artifact/com.lambdaworks/scrypt
+    implementation group: 'com.lambdaworks', name: 'scrypt', version: '1.4.0'
+
+    // https://mvnrepository.com/artif
+... [TRUNCATED]
+
+--- BACKEND CONFIG FILES ---
+(No backend config files found)
+
+--- API ROUTE / ENDPOINT DEFINITIONS ---
+(No route files found)
+
+--- DATABASE SCHEMA / MODEL FILES ---
+(None found)
+
+--- DIRECTORY STRUCTURE (depth 2) ---
+├── .circleci/
+│   ├── Dockerfile
+│   ├── Dockerfile-original
+│   ├── Dockerfile-ubuntu18
+│   ├── Dockerfile-ubuntu22
+│   ├── _config.yml
+│   ├── doTests.sh
+│   ├── getPluginInterfaceExactVersions.sh
+│   ├── markPassed.sh
+│   ├── runMySQL.sh
+│   ├── startDb.sh
+│   ├── stopDb.sh
+│   └── testCli.sh
+├── .github/
+│   ├── ISSUE_TEMPLATE/
+│   │   ├── bug.md
+│   │   ├── documentation.md
+│   │   ├── feature.md
+│   │   └── release.md
+│   ├── PULL_REQUEST_TEMPLATE.md
+│   ├── click-here-to-get-started.png
+│   ├── helpers/
+│   │   ├── .gitignore
+│   │   ├── Dockerfile
+│   │   ├── package.json
+│   │   ├── register-new-core-version.py
+│   │   ├── register-new-plugin-version.py
+│   │   ├── release-docker.sh
+│   │   └── wait-for-docker.py
+│   ├── list-user.png
+│   ├── user-info.png
+│   └── workflows/
+│       ├── add-dev-tag.yml
+│       ├── container-check.yml
+│       ├── dev-tag.yml
+│       ├── do-release.yml
+│       ├── pr-checks.yml
+│       ├── publish-dev-docker.yml
+│       ├── stress-tests.yml
+│       └── unit-test.yml
+├── .gitignore
+├── CHANGELOG.md
+├── CODE_OF_CONDUCT.md
+├── CONTRIBUTING.md
+├── LICENSE.md
+├── README.md
+├── build.gradle
+├── cli/
+│   ├── build.gradle
+│   ├── implementationDependencies.json
+│   ├── jar/
+│   │   └── cli.jar
+│   ├── runBuild
+│   └── src/
+│       └── main/
+├── config.yaml
+├── coreDriverInterfaceSupported.json
+├── devConfig.yaml
+├── downloader/
+│   ├── build.gradle
+│   ├── implementationDependencies.json
+│   ├── jar/
+│   │   └── downloader.jar
+│   ├── runBuild
+│   └── src/
+│       └── main/
+├── ee/
+│   ├── LICENSE.md
+│   ├── build.gradle
+│   ├── jar/
+│   │   └── ee.jar
+│   ├── runBuild
+│   └── src/
+│       ├── main/
+│       └── test/
+├── implementationDependencies.json
+├── install
+├── install.bat
+├── jar/
+│   └── core-11.4.0.jar
+├── migration_scripts/
+│   └── to_version_7_0_12/
+│       ├── .gitignore
+│       ├── index.js
+│       ├── package-lock.json
+│       └── package.json
+├── pluginInterfaceSupported.json
+├── runBuild
+├── settings.gradle
+├── src/
+│   ├── main/
+│   │   ├── java/
+│   │   └── resources/
+│   └── test/
+│       └── java/
+├── stress-tests/
+│   ├── .gitignore
+│   ├── .prettierrc
+│   ├── docker-compose.yml
+│   ├── package.json
+│   ├── src/
+│   │   ├── common/
+│   │   └── oneMillionUsers/
+│   └── tsconfig.json
+└── test-data/
+    ├── README.md
+    ├── playground/
+    │   ├── .gitignore
+    │   ├── README.md
+    │   ├── components/
+    │   ├── package-lock.json
+    │   ├── package.json
+    │   ├── public/
+    │   └── src/
+    ├── tenant-cdi-test-cases_1.jsonl
+    ├── tenant-cdi-test-cases_2.jsonl
+    ├── tenant-cdi-test-cases_3.jsonl
+    ├── tenant-cdi-test-cases_4.jsonl
+    ├── tenant-cdi-test-cases_5.jsonl
+    └── tenant-cdi-test-cases_6.jsonl

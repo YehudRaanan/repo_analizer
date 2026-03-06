@@ -1,0 +1,1519 @@
+=====================================
+Repository Analysis: kong
+Type: Backend / API Service
+=====================================
+
+--- METADATA ---
+Name: kong
+Description: 🦍 The API and AI Gateway
+Language: Lua
+Topics: ai, ai-gateway, api-gateway, api-management, apis, artificial-intelligence, cloud-native, devops, kubernetes, kubernetes-ingress, kubernetes-ingress-controller, llm-gateway, llm-ops, mcp, mcp-gateway, microservice, microservices, openai-proxy, reverse-proxy, serverless
+Stars: 42885
+License: Apache License 2.0
+
+--- README ---
+[![][kong-logo]][kong-url]
+
+![Stars](https://img.shields.io/github/stars/Kong/kong?style=flat-square) ![GitHub commit activity](https://img.shields.io/docker/pulls/_/kong?style=flat-square) [![Build Status][badge-action-image]][badge-action-url] ![Version](https://img.shields.io/github/v/release/Kong/kong?color=green&label=Version&style=flat-square)  ![License](https://img.shields.io/badge/License-Apache%202.0-blue?style=flat-square) [![Twitter Follow](https://img.shields.io/twitter/follow/thekonginc?style=social)](https://x.com/thekonginc)
+
+
+Kong or Kong Gateway is a cloud-native, platform-agnostic, scalable **API 𖧹 LLM 𖧹 MCP** Gateway distinguished for its high performance and extensibility via plugins. It also provides advanced AI traffic capabilities with multi-LLM support, semantic security, MCP traffic security and analytics, and more.
+
+By providing functionality for proxying, routing, load balancing, health checking, authentication (and [more](#features)), Kong serves as the central layer for orchestrating microservices or conventional API traffic - and agentic LLM and MCP as well - with ease.
+
+Kong runs natively on Kubernetes thanks to its official [Kubernetes Ingress Controller](https://github.com/Kong/kubernetes-ingress-controller).
+
+<br />
+
+[![][kong-diagram]][kong-url]
+
+---
+
+[Installation](https://konghq.com/install/#kong-community) | [Documentation](https://docs.konghq.com) | [Discussions](https://github.com/Kong/kong/discussions) | [Forum](https://discuss.konghq.com) | [Blog](https://konghq.com/blog) | [Builds][kong-master-builds] | [AI Gateway](https://konghq.com/products/kong-ai-gateway) | [Cloud Hosted Kong](https://konghq.com/kong-konnect/)
+
+---
+
+## Getting Started
+
+If you prefer to use a cloud-hosted Kong, you can [sign up for a free trial of Kong Konnect](https://konghq.com/products/kong-konnect/register?utm_medium=Referral&utm_source=Github&utm_campaign=kong-gateway&utm_content=konnect-promo-in-gateway&utm_term=get-started) and get started in minutes. If not, you can follow the instructions below to get started with Kong on your own infrastructure.
+
+Let’s test drive Kong by adding authentication to an API in under 5 minutes.
+
+We suggest using the docker-compose distribution via the instructions below, but there is also a [docker installation](https://docs.konghq.com/gateway/latest/install/docker/#install-kong-gateway-in-db-less-mode) procedure if you’d prefer to run the Kong Gateway in DB-less mode.
+
+Whether you’re running in the cloud, on bare metal, or using containers, you can find every supported distribution on our [official installation](https://konghq.com/install/#kong-community) page.
+
+1) To start, clone the Docker repository and navigate to the compose folder.
+```cmd
+  $ git clone https://github.com/Kong/docker-kong
+  $ cd docker-kong/compose/
+```
+
+2) Start the Gateway stack using:
+```cmd
+  $ KONG_DATABASE=postgres docker-compose --profile database up
+```
+
+The Gateway is now available on the following ports on localhost:
+
+- `:8000` - send traffic to your service via Kong
+- `:8001` - configure Kong using Admin API or via [decK](https://github.com/kong/deck)
+- `:8002` - access Kong's management Web UI ([Kong Manager](https://github.com/Kong/kong-manager)) on [localhost:8002](http://localhost:8002)
+
+Next, follow the [quick start guide](https://docs.konghq.com/gateway-oss/latest/getting-started/configuring-a-service/
+) to tour the Gateway features.
+
+### Getting started with AI Gateway for LLM and MCP
+
+If you would like to get started with Kong AI Gateway capabilities including LLM and MCP features, please refer to the [official AI documentation](https://developer.konghq.com/ai-gateway/).
+
+## Features
+
+By centralizing common API, AI and MCP functionality across all your organization's services, Kong Gateway creates more freedom for engineering teams to focus on the challenges that matter most.
+
+The top Kong features include:
+
+- Advanced routing, load balancing, health checking - all configurable via a RESTful admin API or declarative configuration.
+- Authentication and authorization for APIs using methods like JWT, basic auth, OAuth, ACLs and more.
+- Universal LLM API to route across multiple providers like OpenAI, Anthropic, GCP Gemini, AWS Bedrock, Azure AI, Databricks, Mistral, Huggingface and more.
+- MCP traffic governance, MCP security and MCP observability in addition to MCP autogeneration from any RESTful API.
+- 60+ AI features like AI observability, semantic security and caching, semantic routing and more.
+- Proxy, SSL/TLS termination, and connectivity support for L4 or L7 traffic.
+- Plugins for enforcing traffic controls, rate limiting, req/res transformations, logging, monitoring and including a plugin developer hub.
+- Sophisticated deployment models like Declarative Databaseless Deployment and Hybrid Deployment (control plane/data plane separation) without any vendor lock-in.
+- Native [ingress controller](https://github.com/Kong/kubernetes-ingress-controller) support for 
+... [TRUNCATED]
+
+--- PACKAGE MANIFEST(S) ---
+(No package manifest found)
+
+--- BACKEND CONFIG FILES ---
+(No backend config files found)
+
+--- API ROUTE / ENDPOINT DEFINITIONS ---
+
+[kong/api/routes/cache.lua]
+local kong = kong
+
+
+return {
+  ["/cache/:key"] = {
+    GET = function(self)
+      -- probe the cache to see if a key has been requested before
+
+      local ttl, err, value = kong.cache:probe(self.params.key)
+      if err then
+        kong.log.err(err)
+        return kong.response.exit(500, { message = "An unexpected error happened" })
+      end
+
+      if ttl then
+        return kong.response.exit(200, type(value) == "table" and value or { message = value })
+      end
+
+      ttl, err, value = kong.core_cache:probe(self.params.key)
+      if err then
+        kong.log.err(err)
+        return kong.response.exit(500, { message = "An unexpected error happened" })
+      end
+
+      if ttl then
+        return kong.response.exit(200, type(value) == "table" and value or { message = value })
+      end
+
+      return kong.response.exit(404, { message = "Not found" })
+    end,
+
+    DELETE = function(self)
+      kong.cache:invalidate_local(self.params.key)
+      kong.core_cache:invalidate_local(self.params.key)
+
+      return kong.response.exit(204) -- no content
+    end,
+  },
+
+  ["/cache"] = {
+    DELETE = function()
+      kong.cache:purge()
+      kong.core_cache:purge()
+
+      return kong.response.exit(204) -- no content
+    end,
+  },
+}
+
+
+[kong/api/routes/certificates.lua]
+local endpoints   = require "kong.api.endpoints"
+local arguments   = require "kong.api.arguments"
+local uuid        = require "kong.tools.uuid"
+
+
+local ngx = ngx
+local kong = kong
+local type = type
+local find = string.find
+local lower = string.lower
+local unescape_uri = ngx.unescape_uri
+
+
+local function prepare_params(self)
+  local id = unescape_uri(self.params.certificates)
+  local method = self.req.method
+  local name
+  if not uuid.is_valid_uuid(id) then
+    name = arguments.infer_value(id, kong.db.snis.schema.fields.name)
+
+    local sni, _, err_t = kong.db.snis:select_by_name(name)
+    if err_t then
+      return endpoints.handle_error(err_t)
+    end
+
+    if sni then
+      id = sni.certificate.id
+
+    else
+      if method ~= "PUT" then
+        return kong.response.exit(404, { message = "SNI not found" })
+      end
+
+      id = uuid.uuid()
+    end
+  end
+
+  self.params.certificates = id
+  self.params.name = name
+end
+
+
+local function prepare_args(self)
+  local infer_snis
+  do
+    local content_type = ngx.var.content_type
+    if content_type then
+      content_type = lower(content_type)
+
+      if find(content_type, "application/x-www-form-urlencoded", 1, true) == 1
+      or find(content_type, "multipart/form-data",               1, true) == 1
+      then
+        infer_snis = true
+      end
+    end
+  end
+
+  local method = self.req.method
+
+  local snis = self.args.post.snis
+  local name = self.params.name
+
+  if type(snis) == "table" then
+    local found
+    local count = #snis
+    for i=1, count do
+      if infer_snis then
+        snis[i] = arguments.infer_value(snis[i], kong.db.snis.schema.fields.name)
+      end
+
+      if not found and name and name == snis[i] then
+        found = true
+      end
+    end
+
+    if not found and name and method == "PUT" then
+      snis[count + 1] = name
+    end
+
+  elseif type(snis) == "string" then
+    if infer_snis then
+      snis = arguments.infer_value(snis, kong.db.snis.schema.fields.name)
+    end
+
+    if name and method == "PUT" and name ~= snis then
+      snis = { snis, name }
+    else
+      snis = { snis }
+    end
+  end
+
+  if not snis and method == "PUT" then
+    snis = ngx.null
+  end
+
+  self.params.name = nil
+  self.args.post.snis = snis
+end
+
+
+return {
+  ["/certificates/:certificates"] = {
+    before = prepare_params,
+
+    -- override to include the snis list when getting an individual certificate
+    GET = endpoints.get_entity_endpoint(kong.db.certificates.schema,
+                                        nil, nil, "select_with_name_list"),
+
+    PUT = function(self, _, _, parent)
+      prepare_args(self)
+      return parent()
+    end,
+
+    PATCH = function(self, _, _, parent)
+      prepare_args(self)
+      return parent()
+    end
+  },
+
+  ["/certificates/:certificates/snis"] = {
+    before = prepare_params,
+  },
+
+  ["/certificates/:certificates/snis/:snis"] = {
+    before = prepare_params,
+  },
+}
+
+
+
+[kong/api/routes/clustering.lua]
+local endpoints = require "kong.api.endpoints"
+
+
+local kong = kong
+
+
+local dp_collection_endpoint = endpoints.get_collection_endpoint(kong.db.clustering_data_planes.schema)
+
+
+return {
+  ["/clustering/data-planes"] = {
+    schema = kong.db.clustering_data_planes.schema,
+    methods = {
+      GET = function(self, dao, helpers)
+        if kong.configuration.role ~= "control_plane" then
+          return kong.response.exit(400, {
+            message = "this endpoint is only available when Kong is " ..
+                      "configured to run as Control Plane for the cluster"
+          })
+        end
+
+        return dp_collection_endpoint(self, dao, helpers)
+      end,
+    },
+  },
+
+  ["/clustering/status"] = {
+    schema = kong.db.clustering_data_planes.schema,
+    methods = {
+      GET = function(self, db, helpers)
+        if kong.configuration.role ~= "control_plane" then
+          return kong.response.exit(400, {
+            message = "this endpoint is only available when Kong is " ..
+                      "configured to run as Control Plane for the cluster"
+          })
+        end
+
+        local data = {}
+
+        for row, err in kong.db.clustering_data_planes:each() do
+          if err then
+            kong.log.err(err)
+            return kong.response.exit(500, { message = "An unexpected error happened" })
+          end
+
+          data[row.id] = {
+            config_hash = row.config_hash,
+            hostname    = row.hostname,
+            ip          = row.ip,
+            last_seen   = row.last_seen,
+          }
+        end
+
+        return kong.response.exit(200, data, {
+          ["Deprecation"] = "true" -- see: https://tools.ietf.org/html/draft-dalal-deprecation-header-03
+        })
+      end,
+    },
+  },
+}
+
+
+[kong/api/routes/config.lua]
+local buffer = require("string.buffer")
+local declarative = require("kong.db.declarative")
+local reports = require("kong.reports")
+local errors = require("kong.db.errors")
+
+
+local kong = kong
+local ngx = ngx
+local type = type
+local tostring = tostring
+
+
+local _reports = {
+  decl_fmt_version = false,
+}
+
+
+local function reports_timer(premature)
+  if premature then
+    return
+  end
+
+  reports.send("dbless-reconfigure", _reports)
+end
+
+
+local function truthy(val)
+  if type(val) == "string" then
+    val = val:lower()
+
+    return val == "true"
+        or val == "1"
+        or val == "on"
+        or val == "yes"
+  end
+
+  return val == true
+      or val == 1
+end
+
+
+local function hydrate_config_from_request(params, dc)
+  if params._format_version then
+    return params
+  end
+
+  local config = params.config
+
+  if not config then
+    local body = kong.request.get_raw_body()
+    if type(body) == "string" and #body > 0 then
+      config = body
+
+    else
+      return kong.response.exit(400, {
+        message = "expected a declarative configuration"
+      })
+    end
+  end
+
+  local dc_table, _, err_t, new_hash = dc:unserialize(config)
+  if not dc_table then
+    return kong.response.exit(400, errors:declarative_config(err_t))
+  end
+
+  return dc_table, new_hash
+end
+
+
+local function parse_config_post_opts(params)
+  local flatten_errors = truthy(params.flatten_errors)
+  params.flatten_errors = nil
+
+  -- XXX: this code is much older than the `flatten_errors` flag and therefore
+  -- does not use the same `truthy()` helper, for backwards compatibility
+  local check_hash = tostring(params.check_hash) == "1"
+  params.check_hash = nil
+
+  return {
+    flatten_errors = flatten_errors,
+    check_hash = check_hash,
+  }
+end
+
+
+return {
+  ["/config"] = {
+    GET = function(self, db)
+      if kong.db.strategy ~= "off" then
+        return kong.response.exit(400, {
+          message = "this endpoint is only available when Kong is " ..
+                    "configured to not use a database"
+        })
+      end
+
+      local file = {
+        buf = buffer.new(),
+        write = function(self, str)
+          self.buf:put(str)
+        end,
+      }
+
+      local ok, err = declarative.export_from_db(file)
+      if not ok then
+        kong.log.err("failed exporting config from cache: ", err)
+        return kong.response.exit(500, { message = "An unexpected error occurred" })
+      end
+
+      return kong.response.exit(200, { config = file.buf:get() })
+    end,
+    POST = function(self, db)
+      if kong.db.strategy ~= "off" then
+        return kong.response.exit(400, {
+          message = "this endpoint is only available when Kong is " ..
+                    "configured to not use a database"
+        })
+      end
+
+      local opts = parse_config_post_opts(self.params)
+
+      local old_hash = opts.check_hash and declarative.get_current_hash()
+
+      local dc = kong.db.declarative_config
+      if not dc then
+        kong.log.crit("received POST request to /config endpoint, but ",
+               
+... [TRUNCATED]
+
+[kong/api/routes/consumers.lua]
+local endpoints = require "kong.api.endpoints"
+local cjson = require "cjson"
+
+
+local kong = kong
+local null = ngx.null
+
+
+return {
+  ["/consumers"] = {
+    GET = function(self, db, helpers, parent)
+      local args = self.args.uri
+      local custom_id = args.custom_id
+
+      if custom_id and type(custom_id) ~= "string" or custom_id == "" then
+        return kong.response.exit(400, {
+          message = "custom_id must be an unempty string",
+        })
+      end
+
+      -- Search by custom_id: /consumers?custom_id=xxx
+      if custom_id then
+        local opts, _, err_t = endpoints.extract_options(db, args, db.consumers.schema, "select")
+        if err_t then
+          return endpoints.handle_error(err_t)
+        end
+
+        local consumer, _, err_t = db.consumers:select_by_custom_id(custom_id, opts)
+        if err_t then
+          return endpoints.handle_error(err_t)
+        end
+
+        return kong.response.exit(200, {
+          data = setmetatable({ consumer }, cjson.array_mt),
+          next = null,
+        })
+      end
+
+      return parent()
+    end,
+  },
+}
+
+
+[kong/api/routes/debug.lua]
+local set_log_level                = require("resty.kong.log").set_log_level
+local cjson                        = require("cjson.safe")
+local constants                    = require("kong.constants")
+
+local LOG_LEVELS                   = constants.LOG_LEVELS
+local DYN_LOG_LEVEL_KEY            = constants.DYN_LOG_LEVEL_KEY
+local DYN_LOG_LEVEL_TIMEOUT_AT_KEY = constants.DYN_LOG_LEVEL_TIMEOUT_AT_KEY
+
+local ngx                          = ngx
+local kong                         = kong
+local pcall                        = pcall
+local type                         = type
+local tostring                     = tostring
+local tonumber                     = tonumber
+
+local get_log_level                = require("resty.kong.log").get_log_level
+
+local NODE_LEVEL_BROADCAST         = false
+local CLUSTER_LEVEL_BROADCAST      = true
+local DEFAULT_LOG_LEVEL_TIMEOUT    = 60 -- 60s
+
+
+local function handle_put_log_level(self, broadcast)
+  if kong.configuration.database == "off" then
+    local message = "cannot change log level when not using a database"
+    return kong.response.exit(405, { message = message })
+  end
+
+  local log_level = LOG_LEVELS[self.params.log_level]
+  local timeout = math.ceil(tonumber(self.params.timeout) or DEFAULT_LOG_LEVEL_TIMEOUT)
+
+  if type(log_level) ~= "number" then
+    return kong.response.exit(400, { message = "unknown log level: " .. self.params.log_level })
+  end
+
+  if timeout < 0 then
+    return kong.response.exit(400, { message = "timeout must be greater than or equal to 0" })
+  end
+
+  local cur_log_level = get_log_level()
+
+  if cur_log_level == log_level then
+    local message = "log level is already " .. self.params.log_level
+    return kong.response.exit(200, { message = message })
+  end
+
+  local ok, err = pcall(set_log_level, log_level, timeout)
+
+  if not ok then
+    local message = "failed setting log level: " .. err
+    return kong.response.exit(500, { message = message })
+  end
+
+  local data = {
+    log_level = log_level,
+    timeout = timeout,
+  }
+
+  -- broadcast to all workers in a node
+  ok, err = kong.worker_events.post("debug", "log_level", data)
+
+  if not ok then
+    local message = "failed broadcasting to workers: " .. err
+    return kong.response.exit(500, { message = message })
+  end
+
+  if broadcast then
+    -- broadcast to all nodes in a cluster
+    ok, err = kong.cluster_events:broadcast("log_level", cjson.encode(data))
+
+    if not ok then
+      local message = "failed broadcasting to cluster: " .. err
+      return kong.response.exit(500, { message = message })
+    end
+  end
+
+  -- store in shm so that newly spawned workers can update their log levels
+  ok, err = ngx.shared.kong:set(DYN_LOG_LEVEL_KEY, log_level, timeout)
+
+  if not ok then
+    local message = "failed storing log level in shm: " .. err
+    return kong.response.exit(500, { message = message })
+  end
+
+  ok, err = ngx.shared.kong:set(DYN_LOG_LEVEL_TIMEOUT_AT_KEY, ngx.time() + timeout, timeout)
+
+  if not ok then
+    local message = "failed storing the timeout
+... [TRUNCATED]
+
+[kong/api/routes/dns.lua]
+local kong = kong
+
+
+return {
+  ["/status/dns"] = {
+    GET = function (self, db, helpers)
+
+      if not kong.configuration.new_dns_client then
+        return kong.response.exit(501, {
+          message = "not implemented with the legacy DNS client"
+        })
+      end
+
+      return kong.response.exit(200, {
+        worker = {
+          id = ngx.worker.id() or -1,
+          count = ngx.worker.count(),
+        },
+        stats = kong.dns.stats(),
+      })
+    end
+  },
+}
+
+
+[kong/api/routes/filter_chains.lua]
+local cjson = require "cjson"
+local endpoints = require "kong.api.endpoints"
+
+
+local kong = kong
+
+
+if kong.configuration.wasm == false then
+
+  local function wasm_disabled_error()
+    return kong.response.exit(400, {
+      message = "this endpoint is only available when wasm is enabled"
+    })
+  end
+
+  return {
+    ["/filter-chains"] = {
+      before = wasm_disabled_error,
+    },
+
+    ["/filter-chains/:filter_chains"] = {
+      before = wasm_disabled_error,
+    },
+
+    ["/filter-chains/:filter_chains/route"] = {
+      before = wasm_disabled_error,
+    },
+
+    ["/filter-chains/:filter_chains/service"] = {
+      before = wasm_disabled_error,
+    },
+
+    -- foreign key endpoints:
+
+    ["/routes/:routes/filter-chains"] = {
+      before = wasm_disabled_error,
+    },
+
+    ["/routes/:routes/filter-chains/:filter_chains"] = {
+      before = wasm_disabled_error,
+    },
+
+    ["/services/:services/filter-chains"] = {
+      before = wasm_disabled_error,
+    },
+
+    ["/services/:services/filter-chains/:filter_chains"] = {
+      before = wasm_disabled_error,
+    },
+
+    -- custom endpoints (implemented below):
+
+    ["/routes/:routes/filters/enabled"] = {
+      GET = wasm_disabled_error,
+    },
+
+    ["/routes/:routes/filters/disabled"] = {
+      GET = wasm_disabled_error,
+    },
+
+    ["/routes/:routes/filters/all"] = {
+      GET = wasm_disabled_error,
+    },
+  }
+end
+
+
+local function add_filters(filters, chain, from)
+  if not chain then
+    return
+  end
+
+  for _, filter in ipairs(chain.filters) do
+    table.insert(filters, {
+      name = filter.name,
+      config = filter.config,
+      from = from,
+      enabled = (chain.enabled == true and filter.enabled == true),
+      filter_chain = {
+        name = chain.name,
+        id = chain.id,
+      }
+    })
+  end
+end
+
+
+local function get_filters(self, db)
+  local route, _, err_t = endpoints.select_entity(self, db, db.routes.schema)
+  if err_t then
+    return nil, err_t
+  end
+
+  if not route then
+    return kong.response.exit(404, { message = "Not found" })
+  end
+
+  local route_chain
+  for chain, _, err_t in kong.db.filter_chains:each_for_route(route, nil, { nulls = true }) do
+    if not chain then
+      return nil, err_t
+    end
+
+    route_chain = chain
+  end
+
+  local service
+  local service_chain
+
+  if route.service then
+    service , _, err_t = kong.db.services:select(route.service)
+    if err_t then
+      return nil, err_t
+    end
+
+    for chain, _, err_t in kong.db.filter_chains:each_for_service(service, nil, { nulls = true }) do
+      if not chain then
+        return nil, err_t
+      end
+
+      service_chain = chain
+    end
+  end
+
+  local filters = setmetatable({}, cjson.array_mt)
+  add_filters(filters, service_chain, "service")
+  add_filters(filters, route_chain, "route")
+
+  return filters
+end
+
+
+return {
+  ["/routes/:routes/filters/all"] = {
+    GET = function(self, db)
+      local filters, err_t = get_filters(self, db)
+      if err_t then
+        return endpoints.handle_error(err_t)
+      end
+
+      return kong
+... [TRUNCATED]
+
+--- DATABASE SCHEMA / MODEL FILES ---
+(None found)
+
+--- DIRECTORY STRUCTURE (depth 2) ---
+├── .bazelignore
+├── .bazelrc
+├── .bazelversion
+├── .busted
+├── .ci/
+│   ├── ast-grep/
+│   │   ├── README.md
+│   │   ├── common/
+│   │   ├── rules/
+│   │   └── tests/
+│   ├── luacov-stats-aggregator.lua
+│   └── test_suites.json
+├── .devcontainer/
+│   ├── Dockerfile
+│   ├── devcontainer.json
+│   └── docker-compose.yml
+├── .editorconfig
+├── .github/
+│   ├── ISSUE_TEMPLATE/
+│   │   ├── bug_report.yaml
+│   │   └── config.yml
+│   ├── PULL_REQUEST_TEMPLATE.md
+│   ├── actions/
+│   │   ├── build-cache-key/
+│   │   └── build-wasm-test-filters/
+│   ├── dependabot.yml
+│   ├── labeler.yml
+│   ├── matrix-commitly.yml
+│   ├── matrix-full.yml
+│   └── workflows/
+│       ├── add-release-pongo.yml
+│       ├── ast-grep.yml
+│       ├── auto-assignee.yml
+│       ├── autodocs.yml
+│       ├── backport-fail-bot.yml
+│       ├── backport-v2.yml
+│       ├── build.yml
+│       ├── build_and_test.yml
+│       ├── buildifier.yml
+│       ├── changelog-requirement.yml
+│       ├── changelog-validation.yml
+│       ├── cherry-picks-v2.yml
+│       ├── community-stale.yml
+│       ├── copyright-check.yml
+│       ├── deck-integration.yml
+│       ├── label-check.yml
+│       ├── label-community-pr.yml
+│       ├── label-schema.yml
+│       ├── labeler-v2.yml
+│       ├── openresty-patches-companion.yml
+│       ├── perf.yml
+│       ├── release.yml
+│       ├── update-ngx-wasm-module.yml
+│       ├── update-test-runtime-statistics.yml
+│       └── upgrade-tests.yml
+├── .gitignore
+├── .luacheckrc
+├── .luacov
+├── .requirements
+├── BUILD.bazel
+├── CHANGELOG-OLD.md
+├── CHANGELOG.md
+├── CODE_OF_CONDUCT.md
+├── COMMUNITY_PLEDGE.md
+├── CONTRIBUTING.md
+├── COPYRIGHT
+├── DEVELOPER.md
+├── LICENSE
+├── MODULE.bazel
+├── Makefile
+├── README.md
+├── SECURITY.md
+├── UPGRADE.md
+├── WORKSPACE
+├── autodoc/
+│   ├── README.md
+│   ├── cli/
+│   │   ├── data.lua
+│   │   └── generate.lua
+│   └── pdk/
+│       ├── generate.lua
+│       └── ldoc/
+├── bin/
+│   ├── busted
+│   ├── kong
+│   └── kong-health
+├── build/
+│   ├── BUILD.bazel
+│   ├── Makefile
+│   ├── README.md
+│   ├── build_system.bzl
+│   ├── cross_deps/
+│   │   ├── BUILD.bazel
+│   │   ├── README.md
+│   │   ├── libxcrypt/
+│   │   ├── libyaml/
+│   │   ├── repositories.bzl
+│   │   └── zlib/
+│   ├── dockerfiles/
+│   │   ├── deb.Dockerfile
+│   │   ├── entrypoint.sh
+│   │   └── rpm.Dockerfile
+│   ├── kong_bindings.bzl
+│   ├── kong_crate/
+│   │   ├── BUILD.bazel
+│   │   ├── crates.bzl
+│   │   └── deps.bzl
+│   ├── libexpat/
+│   │   ├── BUILD.bazel
+│   │   ├── BUILD.libexpat.bazel
+│   │   └── repositories.bzl
+│   ├── luarocks/
+│   │   ├── BUILD.bazel
+│   │   ├── BUILD.luarocks.bazel
+│   │   ├── lua/
+│   │   ├── luarocks_repositories.bzl
+│   │   ├── luarocks_wrap_script.lua
+│   │   └── templates/
+│   ├── nfpm/
+│   │   ├── BUILD.bazel
+│   │   ├── BUILD.nfpm.bazel
+│   │   ├── repositories.bzl
+│   │   └── rules.bzl
+│   ├── openresty/
+│   │   ├── BUILD.bazel
+│   │   ├── BUILD.openresty.bazel
+│   │   ├── ada/
+│   │   ├── atc_router/
+│   │   ├── brotli/
+│   │   ├── lua-resty-lmdb-cross.patch
+│   │   ├── openssl/
+│   │   ├── patches/
+│   │   ├── pcre/
+│   │   ├── repositories.bzl
+│   │   ├── simdjson_ffi/
+│   │   ├── snappy/
+│   │   └── wasmx/
+│   ├── package/
+│   │   ├── kong.logrotate
+│   │   ├── kong.service
+│   │   ├── nfpm.yaml
+│   │   └── postinstall.sh
+│   ├── patches/
+│   │   ├── 01-revert-LD-environment.patch
+│   │   └── 02-revert-Reduce-build-times-especially-on-windows.patch
+│   ├── platforms/
+│   │   └── distro/
+│   ├── repositories.bzl
+│   ├── templates/
+│   │   ├── venv-commons
+│   │   ├── venv.fish
+│   │   └── venv.sh
+│   └── toolchain/
+│       ├── .gitignore
+│       ├── BUILD
+│       ├── bindings.bzl
+│       ├── cc_toolchain_config.bzl
+│       ├── generate_wrappers.sh
+│       ├── managed_toolchain.bzl
+│       └── repositories.bzl
+├── changelog/
+│   ├── 3.5.0/
+│   │   ├── 3.5.0.md
+│   │   └── kong/
+│   ├── 3.6.0/
+│   │   ├── 3.6.0.md
+│   │   ├── kong-manager/
+│   │   └── kong/
+│   ├── 3.7.0/
+│   │   ├── 3.7.0.md
+│   │   ├── kong-manager/
+│   │   └── kong/
+│   ├── 3.8.0/
+│   │   ├── 3.8.0.md
+│   │   ├── kong-manager/
+│   │   └── kong/
+│   ├── 3.9.0/
+│   │   ├── 3.9.0.md
+│   │   ├── kong-manager/
+│   │   └── kong/
+│   ├── Makefile
+│   ├── README.md
+│   ├── changelog-template.yaml
+│   ├── create_pr
+│   ├── kong-diagram.png
+│   ├── unreleased/
+│   │   ├── kong-manager/
+│   │   └── kong/
+│   └── verify-prs
+├── crate_locks/
+│   ├── README.md
+│   ├── atc_router.Cargo.lock
+│   └── atc_router.lock
+├── kong-admin-api.yml
+├── kong-latest.rockspec
+├── kong.conf.default
+├── kong/
+│   ├── admin_gui/
+│   │   ├── init.lua
+│   │   └── utils.lua
+│   ├── api/
+│   │   ├── api_helpers.lua
+│   │   ├── arguments.lua
+│   │   ├── arguments_decoder.lua
+│   │   ├── endpoints.lua
+│   │   ├── init.lua
+│   │   └── routes/
+│   ├── cache/
+│   │   ├── init.lua
+│   │   └── warmup.lua
+│   ├── cluster_events/
+│   │   ├── init.lua
+│   │   └── strategies/
+│   ├── clustering/
+│   │   ├── compat/
+│   │   ├── config_helper.lua
+│   │   ├── control_plane.lua
+│   │   ├── data_plane.lua
+│   │   ├── events.lua
+│   │   ├── init.lua
+│   │   ├── rpc/
+│   │   ├── services/
+│   │   ├── tls.lua
+│   │   └── utils.lua
+│   ├── cmd/
+│   │   ├── check.lua
+│   │   ├── config.lua
+│   │   ├── drain.lua
+│   │   ├── health.lua
+│   │   ├── hybrid.lua
+│   │   ├── init.lua
+│   │   ├── migrations.lua
+│   │   ├── prepare.lua
+│   │   ├── quit.lua
+│   │   ├── reload.lua
+│   │   ├── restart.lua
+│   │   ├── roar.lua
+│   │   ├── start.lua
+│   │   ├── stop.lua
+│   │   ├── utils/
+│   │   ├── vault.lua
+│   │   └── version.lua
+│   ├── concurrency.lua
+│   ├── conf_loader/
+│   │   ├── constants.lua
+│   │   ├── init.lua
+│   │   ├── listeners.lua
+│   │   ├── parse.lua
+│   │   └── sys.lua
+│   ├── constants.lua
+│   ├── db/
+│   │   ├── dao/
+│   │   ├── declarative/
+│   │   ├── errors.lua
+│   │   ├── init.lua
+│   │   ├── iteration.lua
+│   │   ├── migrations/
+│   │   ├── schema/
+│   │   ├── strategies/
+│   │   └── utils.lua
+│   ├── deprecation.lua
+│   ├── dns/
+│   │   ├── README.md
+│   │   ├── client.lua
+│   │   ├── stats.lua
+│   │   └── utils.lua
+│   ├── dynamic_hook/
+│   │   ├── README.md
+│   │   └── init.lua
+│   ├── error_handlers.lua
+│   ├── global.lua
+│   ├── globalpatches.lua
+│   ├── hooks.lua
+│   ├── include/
+│   │   ├── kong/
+│   │   └── opentelemetry/
+│   ├── init.lua
+│   ├── llm/
+│   │   ├── adapters/
+│   │   ├── drivers/
+│   │   ├── init.lua
+│   │   ├── plugin/
+│   │   └── schemas/
+│   ├── meta.lua
+│   ├── observability/
+│   │   ├── logs.lua
+│   │   ├── otlp/
+│   │   └── tracing/
+│   ├── pdk/
+│   │   ├── client.lua
+│   │   ├── client/
+│   │   ├── cluster.lua
+│   │   ├── ctx.lua
+│   │   ├── init.lua
+│   │   ├── ip.lua
+│   │   ├── log.lua
+│   │   ├── nginx.lua
+│   │   ├── node.lua
+│   │   ├── plugin.lua
+│   │   ├── private/
+│   │   ├── request.lua
+│   │   ├── response.lua
+│   │   ├── router.lua
+│   │   ├── service.lua
+│   │   ├── service/
+│   │   ├── table.lua
+│   │   ├── telemetry.lua
+│   │   ├── tracing.lua
+│   │   └── vault.lua
+│   ├── plugins/
+│   │   ├── acl/
+│   │   ├── acme/
+│   │   ├── ai-prompt-decorator/
+│   │   ├── ai-prompt-guard/
+│   │   ├── ai-prompt-template/
+│   │   ├── ai-proxy/
+│   │   ├── ai-request-transformer/
+│   │   ├── ai-response-transformer/
+│   │   ├── aws-lambda/
+│   │   ├── azure-functions/
+│   │   ├── basic-auth/
+│   │   ├── bot-detection/
+│   │   ├── correlation-id/
+│   │   ├── cors/
+│   │   ├── datadog/
+│   │   ├── file-log/
+│   │   ├── grpc-gateway/
+│   │   ├── grpc-web/
+│   │   ├── hmac-auth/
+│   │   ├── http-log/
+│   │   ├── ip-restriction/
+│   │   ├── jwt/
+│   │   ├── key-auth/
+│   │   ├── ldap-auth/
+│   │   ├── loggly/
+│   │   ├── oauth2/
+│   │   ├── opentelemetry/
+│   │   ├── post-function/
+│   │   ├── pre-function/
+│   │   ├── prometheus/
+│   │   ├── proxy-cache/
+│   │   ├── rate-limiting/
+│   │   ├── redirect/
+│   │   ├── request-size-limiting/
+│   │   ├── request-termination/
+│   │   ├── request-transformer/
+│   │   ├── response-ratelimiting/
+│   │   ├── response-transformer/
+│   │   ├── session/
+│   │   ├── standard-webhooks/
+│   │   ├── statsd/
+│   │   ├── syslog/
+│   │   ├── tcp-log/
+│   │   ├── udp-log/
+│   │   └── zipkin/
+│   ├── reports.lua
+│   ├── resty/
+│   │   ├── ctx.lua
+│   │   ├── dns/
+│   │   └── mlcache/
+│   ├── router/
+│   │   ├── atc.lua
+│   │   ├── compat.lua
+│   │   ├── expressions.lua
+│   │   ├── fields.lua
+│   │   ├── init.lua
+│   │   ├── traditional.lua
+│   │   ├── transform.lua
+│   │   └── utils.lua
+│   ├── runloop/
+│   │   ├── balancer/
+│   │   ├── certificate.lua
+│   │   ├── events.lua
+│   │   ├── handler.lua
+│   │   ├── log_level.lua
+│   │   ├── plugin_servers/
+│   │   ├── plugins_iterator.lua
+│   │   ├── upstream_retry.lua
+│   │   ├── upstream_ssl.lua
+│   │   ├── wasm.lua
+│   │   └── wasm/
+│   ├── status/
+│   │   ├── init.lua
+│   │   └── ready.lua
+│   ├── templates/
+│   │   ├── kong_defaults.lua
+│   │   ├── kong_yml.lua
+│   │   ├── nginx.lua
+│   │   ├── nginx_inject.lua
+│   │   ├── nginx_kong.lua
+│   │   ├── nginx_kong_gui_include.lua
+│   │   ├── nginx_kong_inject.lua
+│   │   ├── nginx_kong_stream.lua
+│   │   ├── nginx_kong_stream_inject.lua
+│   │   └── wasmtime_cache_config.lua
+│   ├── timing/
+│   │   ├── context.lua
+│   │   ├── hooks/
+│   │   └── init.lua
+│   ├── tools/
+│   │   ├── aws_stream.lua
+│   │   ├── cjson.lua
+│   │   ├── dns.lua
+│   │   ├── emmy_debugger.lua
+│   │   ├── grpc.lua
+│   │   ├── gzip.lua
+│   │   ├── http.lua
+│   │   ├── ip.lua
+│   │   ├── kong-lua-sandbox.lua
+│   │   ├── mime_type.lua
+│   │   ├── module.lua
+│   │   ├── protobuf.lua
+│   │   ├── queue.lua
+│   │   ├── queue_schema.lua
+│   │   ├── rand.lua
+│   │   ├── redis/
+│   │   ├── request_aware_table.lua
+│   │   ├── sandbox/
+│   │   ├── sha256.lua
+│   │   ├── stream_api.lua
+│   │   ├── string.lua
+│   │   ├── system.lua
+│   │   ├── table.lua
+│   │   ├── time.lua
+│   │   ├── timestamp.lua
+│   │   ├── uri.lua
+│   │   ├── utils.lua
+│   │   ├── uuid.lua
+│   │   └── yield.lua
+│   ├── vaults/
+│   │   └── env/
+│   └── workspaces/
+│       └── init.lua
+├── scripts/
+│   ├── Dockerfile
+│   ├── autodoc
+│   ├── build-wasm-test-filters.sh
+│   ├── changelog-helper.lua
+│   ├── check-labeler.pl
+│   ├── check_spec_files_spelling.sh
+│   ├── dependency_services/
+│   │   ├── 00-create-pg-db.sh
+│   │   ├── common.sh
+│   │   ├── docker-compose-test-services.yml
+│   │   ├── up.fish
+│   │   └── up.sh
+│   ├── explain_manifest/
+│   │   ├── .gitignore
+│   │   ├── config.py
+│   │   ├── docker_image_filelist.txt
+│   │   ├── expect.py
+│   │   ├── explain.py
+│   │   ├── filelist.txt
+│   │   ├── fixtures/
+│   │   ├── main.py
+│   │   ├── requirements.txt
+│   │   └── suites.py
+│   ├── grep-kong-version.sh
+│   ├── make-release
+│   ├── release-kong.sh
+│   ├── release-lib.sh
+│   ├── update-copyright
+│   ├── upgrade-tests/
+│   │   ├── docker-compose.yml
+│   │   ├── luarocks-system-lua
+│   │   ├── source-versions
+│   │   └── test-upgrade-path.sh
+│   └── validate-rockspec
+├── sgconfig.yml
+├── spec/
+│   ├── 01-unit/
+│   │   ├── 01-db/
+│   │   ├── 02-rockspec_meta_spec.lua
+│   │   ├── 03-conf_loader_spec.lua
+│   │   ├── 04-prefix_handler_spec.lua
+│   │   ├── 05-utils_spec.lua
+│   │   ├── 06-timestamp_spec.lua
+│   │   ├── 07-api_helpers_spec.lua
+│   │   ├── 08-router_spec.lua
+│   │   ├── 09-balancer/
+│   │   ├── 10-log_serializer_spec.lua
+│   │   ├── 11-reports_spec.lua
+│   │   ├── 12-plugins_order_spec.lua
+│   │   ├── 13-plugins_version_spec.lua
+│   │   ├── 14-dns_spec.lua
+│   │   ├── 16-runloop_handler_spec.lua
+│   │   ├── 17-concurrency_spec.lua
+│   │   ├── 18-tools_uri_spec.lua
+│   │   ├── 19-hooks_spec.lua
+│   │   ├── 19-hybrid/
+│   │   ├── 20-sandbox_spec.lua
+│   │   ├── 21-dns-client/
+│   │   ├── 22-grpc-utils_spec.lua
+│   │   ├── 23-vaults_spec.lua
+│   │   ├── 24-runloop_certificate_spec.lua
+│   │   ├── 25-msgpack_rpc_spec.lua
+│   │   ├── 26-mime-type_spec.lua
+│   │   ├── 26-observability/
+│   │   ├── 27-queue_spec.lua
+│   │   ├── 28-inject_confs_spec.lua
+│   │   ├── 28-plugins-iterator/
+│   │   ├── 29-admin_gui/
+│   │   ├── 29-lua_cjson_large_str_spec.lua
+│   │   ├── 30-new-dns-client/
+│   │   ├── 30-standardized_redis_config_spec.lua
+│   │   ├── 31-ada-url_spec.lua
+│   │   ├── 31-simdjson/
+│   │   └── 32-tools_string_spec.lua
+│   ├── 02-integration/
+│   │   ├── 01-helpers/
+│   │   ├── 02-cmd/
+│   │   ├── 03-db/
+│   │   ├── 04-admin_api/
+│   │   ├── 05-proxy/
+│   │   ├── 06-invalidations/
+│   │   ├── 07-sdk/
+│   │   ├── 08-status_api/
+│   │   ├── 09-hybrid_mode/
+│   │   ├── 10-external-plugins/
+│   │   ├── 11-dbless/
+│   │   ├── 12-stream_api/
+│   │   ├── 13-vaults/
+│   │   ├── 14-observability/
+│   │   ├── 15-plugins-iterator/
+│   │   ├── 16-queues/
+│   │   ├── 17-admin_gui/
+│   │   ├── 18-hybrid_rpc/
+│   │   ├── 21-request-debug/
+│   │   └── 22-ai_plugins/
+│   ├── 03-plugins/
+│   │   ├── 01-legacy_queue_parameter_warning_spec.lua
+│   │   ├── 01-tcp-log/
+│   │   ├── 02-legacy_propagation_parameter_warning_spec.lua
+│   │   ├── 02-udp-log/
+│   │   ├── 03-http-log/
+│   │   ├── 04-file-log/
+│   │   ├── 05-syslog/
+│   │   ├── 06-statsd/
+│   │   ├── 07-loggly/
+│   │   ├── 08-datadog/
+│   │   ├── 09-key-auth/
+│   │   ├── 10-basic-auth/
+│   │   ├── 11-correlation-id/
+│   │   ├── 12-request-size-limiting/
+│   │   ├── 13-cors/
+│   │   ├── 14-request-termination/
+│   │   ├── 15-response-transformer/
+│   │   ├── 16-jwt/
+│   │   ├── 17-ip-restriction/
+│   │   ├── 18-acl/
+│   │   ├── 19-hmac-auth/
+│   │   ├── 20-ldap-auth/
+│   │   ├── 21-bot-detection/
+│   │   ├── 23-rate-limiting/
+│   │   ├── 24-response-rate-limiting/
+│   │   ├── 25-oauth2/
+│   │   ├── 26-prometheus/
+│   │   ├── 27-aws-lambda/
+│   │   ├── 28-grpc-gateway/
+│   │   ├── 29-acme/
+│   │   ├── 30-session/
+│   │   ├── 31-proxy-cache/
+│   │   ├── 32-grpc-web/
+│   │   ├── 33-serverless-functions/
+│   │   ├── 34-zipkin/
+│   │   ├── 35-azure-functions/
+│   │   ├── 36-request-transformer/
+│   │   ├── 37-opentelemetry/
+│   │   ├── 38-ai-proxy/
+│   │   ├── 39-ai-request-transformer/
+│   │   ├── 39-reconfiguration-completion/
+│   │   ├── 40-ai-response-transformer/
+│   │   ├── 41-ai-prompt-decorator/
+│   │   ├── 42-ai-prompt-guard/
+│   │   ├── 43-ai-prompt-template/
+│   │   ├── 44-standard-webhooks/
+│   │   └── 45-redirect/
+│   ├── 04-perf/
+│   │   ├── 01-rps/
+│   │   ├── 02-flamegraph/
+│   │   └── 99-teardown/
+│   ├── 05-migration/
+│   │   ├── db/
+│   │   └── plugins/
+│   ├── 06-third-party/
+│   │   └── 01-deck/
+│   ├── README.md
+│   ├── busted-ci-helper.lua
+│   ├── config.ld
+│   ├── fixtures/
+│   │   ├── 1.2_custom_nginx.template
+│   │   ├── admin_api.lua
+│   │   ├── ai-proxy/
+│   │   ├── aws-lambda.lua
+│   │   ├── aws-sam.lua
+│   │   ├── balancer_utils.lua
+│   │   ├── blueprints.lua
+│   │   ├── burst.yml
+│   │   ├── custom_nginx.template
+│   │   ├── custom_plugins/
+│   │   ├── custom_vaults/
+│   │   ├── dc_blueprints.lua
+│   │   ├── default_status_listen.conf
+│   │   ├── dump_lmdb_key.lua
+│   │   ├── error_templates/
+│   │   ├── external_plugins/
+│   │   ├── factories/
+│   │   ├── forward-proxy-server.lua
+│   │   ├── grpc/
+│   │   ├── headers.conf
+│   │   ├── hosts
+│   │   ├── https_server.lua
+│   │   ├── invalid-module.lua
+│   │   ├── invalid.conf
+│   │   ├── invalid_nginx_directives.conf
+│   │   ├── kong_clustering.crt
+│   │   ├── kong_clustering.key
+│   │   ├── kong_clustering_ca.crt
+│   │   ├── kong_clustering_client.crt
+│   │   ├── kong_clustering_client.key
+│   │   ├── kong_spec.crt
+│   │   ├── kong_spec.key
+│   │   ├── migrations/
+│   │   ├── mock_cp.lua
+│   │   ├── mock_upstream.lua
+│   │   ├── mock_webserver_tpl.lua
+│   │   ├── mocker.lua
+│   │   ├── mocks/
+│   │   ├── mtls_certs/
+│   │   ├── nginx-directives.conf
+│   │   ├── ocsp_certs/
+│   │   ├── opentelemetry/
+│   │   ├── perf/
+│   │   ├── prometheus/
+│   │   ├── proxy_wasm_filters/
+│   │   ├── redis/
+│   │   ├── reload.conf
+│   │   ├── router_path_handling_tests.lua
+│   │   ├── sam-app/
+│   │   ├── shared_dict.lua
+│   │   ├── shm-stub.lua
+│   │   ├── ssl.lua
+│   │   ├── stress_generator.lua
+│   │   ├── template_inject/
+│   │   ├── to-strip.conf
+│   │   └── valid-module.lua
+│   ├── helpers.lua
+│   ├── helpers/
+│   │   ├── dns.lua
+│   │   ├── http_mock.lua
+│   │   ├── http_mock/
+│   │   ├── perf.lua
+│   │   ├── perf/
+│   │   ├── redis_helper.lua
+│   │   ├── rpc_mock/
+│   │   └── wait.lua
+│   ├── hybrid.lua
+│   ├── internal/
+│   │   ├── asserts.lua
+│   │   ├── client.lua
+│   │   ├── cmd.lua
+│   │   ├── conf.lua
+│   │   ├── constants.lua
+│   │   ├── db.lua
+│   │   ├── dns.lua
+│   │   ├── grpc.lua
+│   │   ├── misc.lua
+│   │   ├── module.lua
+│   │   ├── pid.lua
+│   │   ├── server.lua
+│   │   ├── shell.lua
+│   │   ├── ssl.lua
+│   │   ├── sys.lua
+│   │   └── wait.lua
+│   ├── kong_tests.conf
+│   ├── ldoc.css
+│   ├── on_demand_specs
+│   ├── renderdocs.sh
+│   ├── require.lua
+│   └── upgrade_helpers.lua
+└── t/
+    ├── 01-pdk/
+    │   ├── 01-table.t
+    │   ├── 02-log/
+    │   ├── 03-ip/
+    │   ├── 04-request/
+    │   ├── 05-client/
+    │   ├── 06-service-request/
+    │   ├── 07-service-response/
+    │   ├── 08-response/
+    │   ├── 09-service/
+    │   ├── 10-nginx/
+    │   ├── 11-ctx.t
+    │   ├── 12-node/
+    │   ├── 13-router/
+    │   ├── 14-client-tls/
+    │   ├── 15-tracing/
+    │   └── 16-rl-ctx.t
+    ├── 02-global/
+    │   ├── 01-init-pdk.t
+    │   ├── 02-set-named-ctx.t
+    │   └── 03-namespaced_log.t
+    ├── 03-dns-client/
+    │   ├── 00-sanity.t
+    │   ├── 01-phases.t
+    │   └── 02-timer-usage.t
+    ├── 04-patch/
+    │   ├── 01-ngx-buf-double-free.t
+    │   ├── 02-ngx-read-body-block.t
+    │   ├── 03-fix-ngx-send-header-filter-finalize-ctx.t
+    │   ├── 04-fix-ngx-recreate-request-work-for-body.t
+    │   └── 05-ngx-refresh-upstream-uri-when-balancer-retry.t
+    ├── 05-mlcache/
+    │   ├── 00-ipc.t
+    │   ├── 01-new.t
+    │   ├── 02-get.t
+    │   ├── 03-peek.t
+    │   ├── 04-update.t
+    │   ├── 05-set.t
+    │   ├── 06-delete.t
+    │   ├── 07-l1_serializer.t
+    │   ├── 08-purge.t
+    │   ├── 09-isolation.t
+    │   ├── 10-ipc_shm.t
+    │   ├── 11-locks_shm.t
+    │   ├── 12-resurrect-stale.t
+    │   ├── 13-get_bulk.t
+    │   ├── 14-bulk-and-res.t
+    │   └── 15-renew.t
+    ├── Util.pm
+    ├── certs/
+    │   ├── ca.crt
+    │   ├── ca.key
+    │   ├── client_example.com.crt
+    │   ├── client_example.com.key
+    │   ├── intermediate.crt
+    │   ├── intermediate.key
+    │   ├── test.crt
+    │   └── test.key
+    ├── pdk.luacov
+    └── phase_checks.luacov

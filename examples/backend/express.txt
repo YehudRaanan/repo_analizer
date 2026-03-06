@@ -1,0 +1,516 @@
+=====================================
+Repository Analysis: express
+Type: Library / Package / SDK
+=====================================
+
+--- METADATA ---
+Name: express
+Description: Fast, unopinionated, minimalist web framework for node.
+Language: JavaScript
+Topics: express, javascript, nodejs, server
+Stars: 68868
+License: MIT License
+
+--- README ---
+[![Express Logo](https://i.cloudup.com/zfY6lL7eFa-3000x3000.png)](https://expressjs.com/)
+
+**Fast, unopinionated, minimalist web framework for [Node.js](https://nodejs.org).**
+
+**This project has a [Code of Conduct].**
+
+## Table of contents
+
+- [Table of contents](#table-of-contents)
+- [Installation](#installation)
+- [Features](#features)
+- [Docs \& Community](#docs--community)
+- [Quick Start](#quick-start)
+- [Philosophy](#philosophy)
+- [Examples](#examples)
+- [Contributing](#contributing)
+  - [Security Issues](#security-issues)
+  - [Running Tests](#running-tests)
+- [Current project team members](#current-project-team-members)
+  - [TC (Technical Committee)](#tc-technical-committee)
+    - [TC emeriti members](#tc-emeriti-members)
+  - [Triagers](#triagers)
+    - [Emeritus Triagers](#emeritus-triagers)
+- [License](#license)
+
+
+[![NPM Version][npm-version-image]][npm-url]
+[![NPM Downloads][npm-downloads-image]][npm-downloads-url]
+[![Linux Build][github-actions-ci-image]][github-actions-ci-url]
+[![Test Coverage][coveralls-image]][coveralls-url]
+[![OpenSSF Scorecard Badge][ossf-scorecard-badge]][ossf-scorecard-visualizer]
+
+
+```js
+import express from 'express'
+
+const app = express()
+
+app.get('/', (req, res) => {
+  res.send('Hello World')
+})
+
+app.listen(3000, () => {
+  console.log('Server is running on http://localhost:3000')
+})
+```
+
+## Installation
+
+This is a [Node.js](https://nodejs.org/en/) module available through the
+[npm registry](https://www.npmjs.com/).
+
+Before installing, [download and install Node.js](https://nodejs.org/en/download/).
+Node.js 18 or higher is required.
+
+If this is a brand new project, make sure to create a `package.json` first with
+the [`npm init` command](https://docs.npmjs.com/creating-a-package-json-file).
+
+Installation is done using the
+[`npm install` command](https://docs.npmjs.com/getting-started/installing-npm-packages-locally):
+
+```bash
+npm install express
+```
+
+Follow [our installing guide](https://expressjs.com/en/starter/installing.html)
+for more information.
+
+## Features
+
+  * Robust routing
+  * Focus on high performance
+  * Super-high test coverage
+  * HTTP helpers (redirection, caching, etc)
+  * View system supporting 14+ template engines
+  * Content negotiation
+  * Executable for generating applications quickly
+
+## Docs & Community
+
+  * [Website and Documentation](https://expressjs.com/) - [[website repo](https://github.com/expressjs/expressjs.com)]
+  * [GitHub Organization](https://github.com/expressjs) for Official Middleware & Modules
+  * [Github Discussions](https://github.com/expressjs/discussions) for discussion on the development and usage of Express
+
+**PROTIP** Be sure to read the [migration guide to v5](https://expressjs.com/en/guide/migrating-5)
+
+## Quick Start
+
+  The quickest way to get started with express is to utilize the executable [`express(1)`](https://github.com/expressjs/generator) to generate an application as shown below:
+
+  Install the executable. The executable's major version will match Express's:
+
+```bash
+npm install -g express-generator@4
+```
+
+  Create the app:
+
+```bash
+express /tmp/foo && cd /tmp/foo
+```
+
+  Install dependencies:
+
+```bash
+npm install
+```
+
+  Start the server:
+
+```bash
+npm start
+```
+
+  View the website at: http://localhost:3000
+
+## Philosophy
+
+  The Express philosophy is to provide small, robust tooling for HTTP servers, making
+  it a great solution for single page applications, websites, hybrids, or public
+  HTTP APIs.
+
+  Express does not force you to use any specific ORM or template engine. With support for over
+  14 template engines via [@ladjs/consolidate](https://github.com/ladjs/consolidate),
+  you can quickly craft your perfect framework.
+
+## Examples
+
+  To view the examples, clone the Express repository:
+
+```bash
+git clone https://github.com/expressjs/express.git --depth 1 && cd express
+```
+
+  Then install the dependencies:
+
+```bash
+npm install
+```
+
+  Then run whichever example you want:
+
+```bash
+node examples/content-negotiation
+```
+
+## Contributing
+
+The Express.js project welcomes all constructive contributions. Contributions take many forms,
+from code for bug fixes and enhancements, to additions and fixes to documentation, additional
+tests, triaging incoming pull requests and issues, and more!
+
+See the [Contributing Guide] for more technical details on contributing.
+
+### Security Issues
+
+If you discover a security vulnerability in Express, please see [Security Policies and Procedures](https://github.com/expressjs/express/security/policy).
+
+### Running Tests
+
+To run the test suite, first install the dependencies:
+
+```bash
+npm install
+```
+
+Then run `npm test`:
+
+```bash
+npm test
+```
+
+## Current project team members
+
+For information about the governance of the express.js project, see [GOVERNANCE.md](https://github.com/expressjs/discussions/blob/HEAD/docs/GOVERNANCE.md).
+
+The original author of Express is [TJ Holowaychuk](https://github.com/tj)
+
+[List of all contributors](https://github.com/expressjs/express/graphs/contributors)
+
+##
+... [TRUNCATED]
+
+--- PACKAGE MANIFEST(S) ---
+
+[package.json]
+{
+  "name": "express",
+  "description": "Fast, unopinionated, minimalist web framework",
+  "version": "5.2.1",
+  "author": "TJ Holowaychuk <tj@vision-media.ca>",
+  "contributors": [
+    "Aaron Heckmann <aaron.heckmann+github@gmail.com>",
+    "Ciaran Jessup <ciaranj@gmail.com>",
+    "Douglas Christopher Wilson <doug@somethingdoug.com>",
+    "Guillermo Rauch <rauchg@gmail.com>",
+    "Jonathan Ong <me@jongleberry.com>",
+    "Roman Shtylman <shtylman+expressjs@gmail.com>",
+    "Young Jae Sim <hanul@hanul.me>"
+  ],
+  "license": "MIT",
+  "repository": "expressjs/express",
+  "homepage": "https://expressjs.com/",
+  "funding": {
+    "type": "opencollective",
+    "url": "https://opencollective.com/express"
+  },
+  "keywords": [
+    "express",
+    "framework",
+    "sinatra",
+    "web",
+    "http",
+    "rest",
+    "restful",
+    "router",
+    "app",
+    "api"
+  ],
+  "dependencies": {
+    "accepts": "^2.0.0",
+    "body-parser": "^2.2.1",
+    "content-disposition": "^1.0.0",
+    "content-type": "^1.0.5",
+    "cookie": "^0.7.1",
+    "cookie-signature": "^1.2.1",
+    "debug": "^4.4.0",
+    "depd": "^2.0.0",
+    "encodeurl": "^2.0.0",
+    "escape-html": "^1.0.3",
+    "etag": "^1.8.1",
+    "finalhandler": "^2.1.0",
+    "fresh": "^2.0.0",
+    "http-errors": "^2.0.0",
+    "merge-descriptors": "^2.0.0",
+    "mime-types": "^3.0.0",
+    "on-finished": "^2.4.1",
+    "once": "^1.4.0",
+    "parseurl": "^1.3.3",
+    "proxy-addr": "^2.0.7",
+    "qs": "^6.14.2",
+    "range-parser": "^1.2.1",
+    "router": "^2.2.0",
+    "send": "^1.1.0",
+    "serve-static": "^2.2.0",
+    "statuses": "^2.0.1",
+    "type-is": "^2.0.1",
+    "vary": "^1.1.2"
+  },
+  "devDependencies": {
+    "after": "0.8.2",
+    "connect-redis": "^8.0.1",
+    "cookie-parser": "1.4.7",
+    "cookie-session": "2.1.1",
+    "ejs": "^3.1.10",
+    "eslint": "8.47.0",
+    "express-session": "^1.18.1",
+    "hbs": "4.2.0",
+    "marked": "^15.0.3",
+    "method-override": "3.0.0",
+    "mocha": "^10.7.3",
+    "morgan": "1.10.1",
+    "nyc": "^17.1.0",
+    "pbkdf2-password": "1.2.1",
+    "supertest": "^6.3.0",
+    "vhost": "~3.0.2"
+  },
+  "engines": {
+    "node": ">= 18"
+  },
+  "files": [
+    "LICENSE",
+    "Readme.md",
+    "index.js",
+    "lib/"
+  ],
+  "scripts": {
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "test": "mocha --require test/support/env --reporter spec --check-leaks test/ test/acceptance/",
+    "test-ci": "nyc --exclude examples --exclude test --exclude benchmarks --reporter=lcovonly --reporter=text npm test",
+    "test-cov": "nyc --exclude examples --exclude test --exclude benchmarks --reporter=html --reporter=text npm test",
+    "test-tap": "mocha --require test/support/env --reporter tap --check-leaks test/ test/acceptance/"
+  }
+}
+
+
+--- DIRECTORY STRUCTURE (depth 2) ---
+├── .editorconfig
+├── .eslintignore
+├── .eslintrc.yml
+├── .github/
+│   ├── dependabot.yml
+│   └── workflows/
+│       ├── ci.yml
+│       ├── codeql.yml
+│       ├── legacy.yml
+│       └── scorecard.yml
+├── .gitignore
+├── .npmrc
+├── History.md
+├── LICENSE
+├── Readme.md
+├── examples/
+│   ├── README.md
+│   ├── auth/
+│   │   ├── index.js
+│   │   └── views/
+│   ├── content-negotiation/
+│   │   ├── db.js
+│   │   ├── index.js
+│   │   └── users.js
+│   ├── cookie-sessions/
+│   │   └── index.js
+│   ├── cookies/
+│   │   └── index.js
+│   ├── downloads/
+│   │   ├── files/
+│   │   └── index.js
+│   ├── ejs/
+│   │   ├── index.js
+│   │   ├── public/
+│   │   └── views/
+│   ├── error-pages/
+│   │   ├── index.js
+│   │   └── views/
+│   ├── error/
+│   │   └── index.js
+│   ├── hello-world/
+│   │   └── index.js
+│   ├── markdown/
+│   │   ├── index.js
+│   │   └── views/
+│   ├── multi-router/
+│   │   ├── controllers/
+│   │   └── index.js
+│   ├── mvc/
+│   │   ├── controllers/
+│   │   ├── db.js
+│   │   ├── index.js
+│   │   ├── lib/
+│   │   ├── public/
+│   │   └── views/
+│   ├── online/
+│   │   └── index.js
+│   ├── params/
+│   │   └── index.js
+│   ├── resource/
+│   │   └── index.js
+│   ├── route-map/
+│   │   └── index.js
+│   ├── route-middleware/
+│   │   └── index.js
+│   ├── route-separation/
+│   │   ├── index.js
+│   │   ├── post.js
+│   │   ├── public/
+│   │   ├── site.js
+│   │   ├── user.js
+│   │   └── views/
+│   ├── search/
+│   │   ├── index.js
+│   │   └── public/
+│   ├── session/
+│   │   ├── index.js
+│   │   └── redis.js
+│   ├── static-files/
+│   │   ├── index.js
+│   │   └── public/
+│   ├── vhost/
+│   │   └── index.js
+│   ├── view-constructor/
+│   │   ├── github-view.js
+│   │   └── index.js
+│   ├── view-locals/
+│   │   ├── index.js
+│   │   ├── user.js
+│   │   └── views/
+│   └── web-service/
+│       └── index.js
+├── index.js
+├── lib/
+│   ├── application.js
+│   ├── express.js
+│   ├── request.js
+│   ├── response.js
+│   ├── utils.js
+│   └── view.js
+├── package.json
+└── test/
+    ├── Route.js
+    ├── Router.js
+    ├── acceptance/
+    │   ├── auth.js
+    │   ├── content-negotiation.js
+    │   ├── cookie-sessions.js
+    │   ├── cookies.js
+    │   ├── downloads.js
+    │   ├── ejs.js
+    │   ├── error-pages.js
+    │   ├── error.js
+    │   ├── hello-world.js
+    │   ├── markdown.js
+    │   ├── multi-router.js
+    │   ├── mvc.js
+    │   ├── params.js
+    │   ├── resource.js
+    │   ├── route-map.js
+    │   ├── route-separation.js
+    │   ├── vhost.js
+    │   └── web-service.js
+    ├── app.all.js
+    ├── app.engine.js
+    ├── app.head.js
+    ├── app.js
+    ├── app.listen.js
+    ├── app.locals.js
+    ├── app.options.js
+    ├── app.param.js
+    ├── app.render.js
+    ├── app.request.js
+    ├── app.response.js
+    ├── app.route.js
+    ├── app.router.js
+    ├── app.routes.error.js
+    ├── app.use.js
+    ├── config.js
+    ├── exports.js
+    ├── express.json.js
+    ├── express.raw.js
+    ├── express.static.js
+    ├── express.text.js
+    ├── express.urlencoded.js
+    ├── fixtures/
+    │   ├── % of dogs.txt
+    │   ├── .name
+    │   ├── blog/
+    │   ├── broken.send
+    │   ├── default_layout/
+    │   ├── email.tmpl
+    │   ├── empty.txt
+    │   ├── local_layout/
+    │   ├── name.tmpl
+    │   ├── name.txt
+    │   ├── nums.txt
+    │   ├── pets/
+    │   ├── snow ☃/
+    │   ├── todo.html
+    │   ├── todo.txt
+    │   ├── user.html
+    │   ├── user.tmpl
+    │   └── users/
+    ├── middleware.basic.js
+    ├── regression.js
+    ├── req.accepts.js
+    ├── req.acceptsCharsets.js
+    ├── req.acceptsEncodings.js
+    ├── req.acceptsLanguages.js
+    ├── req.baseUrl.js
+    ├── req.fresh.js
+    ├── req.get.js
+    ├── req.host.js
+    ├── req.hostname.js
+    ├── req.ip.js
+    ├── req.ips.js
+    ├── req.is.js
+    ├── req.path.js
+    ├── req.protocol.js
+    ├── req.query.js
+    ├── req.range.js
+    ├── req.route.js
+    ├── req.secure.js
+    ├── req.signedCookies.js
+    ├── req.stale.js
+    ├── req.subdomains.js
+    ├── req.xhr.js
+    ├── res.append.js
+    ├── res.attachment.js
+    ├── res.clearCookie.js
+    ├── res.cookie.js
+    ├── res.download.js
+    ├── res.format.js
+    ├── res.get.js
+    ├── res.json.js
+    ├── res.jsonp.js
+    ├── res.links.js
+    ├── res.locals.js
+    ├── res.location.js
+    ├── res.redirect.js
+    ├── res.render.js
+    ├── res.send.js
+    ├── res.sendFile.js
+    ├── res.sendStatus.js
+    ├── res.set.js
+    ├── res.status.js
+    ├── res.type.js
+    ├── res.vary.js
+    ├── support/
+    │   ├── env.js
+    │   ├── tmpl.js
+    │   └── utils.js
+    └── utils.js

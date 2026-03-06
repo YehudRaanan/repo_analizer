@@ -1,0 +1,949 @@
+=====================================
+Repository Analysis: realtime
+Type: Backend / API Service
+=====================================
+
+--- METADATA ---
+Name: realtime
+Description: Broadcast, Presence, and Postgres Changes via WebSockets
+Language: Elixir
+Topics: cdc, change-data-capture, crdt, distributed-systems, elixir, phoenix, phoenix-framework, postgres, postgresql, pubsub, realtime
+Stars: 7505
+License: Apache License 2.0
+
+--- README ---
+<br />
+<p align="center">
+  <a href="https://supabase.io">
+        <picture>
+      <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/supabase/supabase/master/packages/common/assets/images/supabase-logo-wordmark--dark.svg">
+      <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/supabase/supabase/master/packages/common/assets/images/supabase-logo-wordmark--light.svg">
+      <img alt="Supabase Logo" width="300" src="https://raw.githubusercontent.com/supabase/supabase/master/packages/common/assets/images/logo-preview.jpg">
+    </picture>
+  </a>
+
+  <h1 align="center">Supabase Realtime</h1>
+
+  <p align="center">
+    Send ephemeral messages, track and synchronize shared state, and listen to Postgres changes all over WebSockets.
+    <br />
+    <a href="https://multiplayer.dev">Multiplayer Demo</a>
+    ·
+    <a href="https://github.com/supabase/realtime/issues/new?assignees=&labels=enhancement&template=2.Feature_request.md">Request Feature</a>
+    ·
+    <a href="https://github.com/supabase/realtime/issues/new?assignees=&labels=bug&template=1.Bug_report.md">Report Bug</a>
+    <br />
+  </p>
+</p>
+
+## Status
+
+[![GitHub License](https://img.shields.io/github/license/supabase/realtime)](https://github.com/supabase/realtime/blob/main/LICENSE)
+[![Coverage Status](https://coveralls.io/repos/github/supabase/realtime/badge.svg?branch=main)](https://coveralls.io/github/supabase/realtime?branch=main)
+
+| Features         | v1  | v2  | Status |
+| ---------------- | --- | --- | ------ |
+| Postgres Changes | ✔   | ✔   | GA     |
+| Broadcast        |     | ✔   | GA     |
+| Presence         |     | ✔   | GA     |
+
+This repository focuses on version 2 but you can still access the previous version's [code](https://github.com/supabase/realtime/tree/v1) and [Docker image](https://hub.docker.com/layers/supabase/realtime/v1.0.0/images/sha256-e2766e0e3b0d03f7e9aa1b238286245697d0892c2f6f192fd2995dca32a4446a). For the latest Docker images go to https://hub.docker.com/r/supabase/realtime.
+
+The codebase is under heavy development and the documentation is constantly evolving. Give it a try and let us know what you think by creating an issue. Watch [releases](https://github.com/supabase/realtime/releases) of this repo to get notified of updates. And give us a star if you like it!
+
+## Overview
+
+### What is this?
+
+This is a server built with Elixir using the [Phoenix Framework](https://www.phoenixframework.org) that enables the following functionality:
+
+- Broadcast: Send ephemeral messages from client to clients with low latency.
+- Presence: Track and synchronize shared state between clients.
+- Postgres Changes: Listen to Postgres database changes and send them to authorized clients.
+
+For a more detailed overview head over to [Realtime guides](https://supabase.com/docs/guides/realtime).
+
+### Does this server guarantee message delivery?
+
+The server does not guarantee that every message will be delivered to your clients so keep that in mind as you're using Realtime.
+
+## Quick start
+
+You can check out the [Supabase UI Library](https://supabase.com/ui) Realtime components and the [multiplayer.dev](https://multiplayer.dev) demo app source code [here](https://github.com/supabase/multiplayer.dev)
+
+## Client libraries
+
+- [JavaScript](https://github.com/supabase/supabase-js/tree/master/packages/core/realtime-js)
+- [Flutter/Dart](https://github.com/supabase/supabase-flutter/tree/main/packages/realtime_client)
+- [Python](https://github.com/supabase/supabase-py/tree/main/src/realtime)
+- [Swift](https://github.com/supabase/supabase-swift/tree/main/Sources/Realtime)
+
+## Server Setup
+
+To get started, spin up your Postgres database and Realtime server containers defined in `docker-compose.yml`. As an example, you may run `docker-compose -f docker-compose.yml up`.
+
+> **Note**
+> Supabase runs Realtime in production with a separate database that keeps track of all tenants. However, a schema, `_realtime`, is created when spinning up containers via `docker-compose.yml` to simplify local development.
+
+A tenant has already been added on your behalf. You can confirm this by checking the `_realtime.tenants` and `_realtime.extensions` tables inside the database.
+
+You can add your own by making a `POST` request to the server. You must change both `name` and `external_id` while you may update other values as you see fit:
+
+```bash
+  curl -X POST \
+  -H 'Content-Type: application/json' \
+  -H 'Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiIiLCJpYXQiOjE2NzEyMzc4NzMsImV4cCI6MTcwMjc3Mzk5MywiYXVkIjoiIiwic3ViIjoiIn0._ARixa2KFUVsKBf3UGR90qKLCpGjxhKcXY4akVbmeNQ' \
+  -d $'{
+    "tenant" : {
+      "name": "realtime-dev",
+      "external_id": "realtime-dev",
+      "jwt_secret": "a1d99c8b-91b6-47b2-8f3c-aa7d9a9ad20f",
+      "extensions": [
+        {
+          "type": "postgres_cdc_rls",
+          "settings": {
+            "db_name": "postgres",
+            "db_host": "host.docker.internal",
+ 
+... [TRUNCATED]
+
+--- PACKAGE MANIFEST(S) ---
+(No package manifest found)
+
+--- BACKEND CONFIG FILES ---
+
+[docker-compose.yml]
+services:
+  db:
+    image: supabase/postgres:17.6.1.074
+    container_name: realtime-db
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./dev/postgres/00-supabase-schema.sql:/docker-entrypoint-initdb.d/00-supabase-schema.sql
+    command: postgres -c config_file=/etc/postgresql/postgresql.conf
+    environment:
+      POSTGRES_HOST: /var/run/postgresql
+      POSTGRES_PASSWORD: postgres
+  tenant_db:
+    image: supabase/postgres:17.6.1.074
+    container_name: tenant-db
+    ports:
+      - "5433:5432"
+    command: postgres -c config_file=/etc/postgresql/postgresql.conf
+    environment:
+      POSTGRES_HOST: /var/run/postgresql
+      POSTGRES_PASSWORD: postgres
+  realtime:
+    depends_on:
+      - db
+    build: .
+    container_name: realtime-server
+    ports:
+      - "4000:4000"
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    environment:
+      PORT: 4000
+      DB_HOST: host.docker.internal
+      DB_PORT: 5432
+      DB_USER: supabase_admin
+      DB_PASSWORD: postgres
+      DB_NAME: postgres
+      DB_ENC_KEY: supabaserealtime
+      DB_AFTER_CONNECT_QUERY: 'SET search_path TO _realtime'
+      API_JWT_SECRET: dc447559-996d-4761-a306-f47a5eab1623
+      SECRET_KEY_BASE: UpNVntn3cDxHJpq99YMc1T1AQgQpc8kfYTuRgBiYa15BLrx8etQoXz3gZv1/u2oq
+      ERL_AFLAGS: -proto_dist inet_tcp
+      RLIMIT_NOFILE: 1000000
+      DNS_NODES: "''"
+      APP_NAME: realtime
+      RUN_JANITOR: true
+      JANITOR_INTERVAL: 60000
+      LOG_LEVEL: "info"
+      SEED_SELF_HOST: true
+
+
+
+[Dockerfile]
+ARG ELIXIR_VERSION=1.18
+ARG OTP_VERSION=27.3
+ARG DEBIAN_VERSION=bookworm-20250929-slim
+ARG BUILDER_IMAGE="hexpm/elixir:${ELIXIR_VERSION}-erlang-${OTP_VERSION}-debian-${DEBIAN_VERSION}"
+ARG RUNNER_IMAGE="debian:${DEBIAN_VERSION}"
+
+FROM ${BUILDER_IMAGE} AS builder
+
+ENV MIX_ENV="prod"
+
+RUN apt-get update -y \
+    && apt-get install curl -y \
+    && apt-get install -y build-essential git \
+    && apt-get clean
+
+RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y --default-toolchain stable --profile minimal
+ENV PATH="/root/.cargo/bin:${PATH}"
+
+RUN set -uex; \
+    apt-get update; \
+    apt-get install -y ca-certificates curl gnupg; \
+    mkdir -p /etc/apt/keyrings; \
+    curl -fsSL https://deb.nodesource.com/gpgkey/nodesource-repo.gpg.key \
+    | gpg --dearmor -o /etc/apt/keyrings/nodesource.gpg; \
+    NODE_MAJOR=24; \
+    echo "deb [signed-by=/etc/apt/keyrings/nodesource.gpg] https://deb.nodesource.com/node_$NODE_MAJOR.x nodistro main" \
+    > /etc/apt/sources.list.d/nodesource.list; \
+    apt-get -qy update; \
+    apt-get -qy install nodejs;
+
+# prepare build dir
+WORKDIR /app
+
+# install hex + rebar
+RUN mix local.hex --force && \
+    mix local.rebar --force
+
+# install mix dependencies
+COPY mix.exs mix.lock ./
+COPY beacon beacon
+RUN mix deps.get --only $MIX_ENV
+RUN mkdir config
+
+# copy compile-time config files before we compile dependencies
+# to ensure any relevant config change will trigger the dependencies
+# to be re-compiled.
+COPY config/config.exs config/${MIX_ENV}.exs config/
+RUN mix deps.compile
+COPY priv priv
+COPY lib lib
+COPY native native
+COPY assets assets
+
+# compile assets with esbuild and npm
+RUN cd assets \
+    && npm install \
+    && cd .. \
+    && mix assets.deploy
+
+# Compile the release
+RUN mix compile
+
+# Changes to config/runtime.exs don't require recompiling the code
+COPY config/runtime.exs config/
+COPY rel rel
+RUN mix release
+
+# start a new build stage so that the final image will only contain
+# the compiled release and other runtime necessities
+FROM ${RUNNER_IMAGE}
+ARG SLOT_NAME_SUFFIX
+
+ENV SLOT_NAME_SUFFIX="${SLOT_NAME_SUFFIX}" \
+    LANG="en_US.UTF-8" \
+    LANGUAGE="en_US:en" \
+    LC_ALL="en_US.UTF-8" \
+    MIX_ENV="prod" \
+    ECTO_IPV6="true" \
+    ERL_AFLAGS="-proto_dist inet6_tcp"
+
+RUN apt-get update -y && \
+    apt-get install -y libstdc++6 openssl libncurses5 locales iptables sudo tini curl awscli jq && \
+    apt-get clean && rm -f /var/lib/apt/lists/*_*
+
+# Set the locale
+RUN sed -i '/en_US.UTF-8/s/^# //g' /etc/locale.gen && locale-gen
+
+WORKDIR "/app"
+
+RUN chown nobody /app
+
+COPY --from=builder --chown=nobody:root /app/_build/${MIX_ENV}/rel/realtime ./
+COPY run.sh run.sh
+RUN ls -la /app
+ENTRYPOINT ["/usr/bin/tini", "-s", "-g", "--", "/app/run.sh"]
+CMD ["/app/bin/server"]
+
+
+--- API ROUTE / ENDPOINT DEFINITIONS ---
+
+[lib/realtime_web/controllers/broadcast_controller.ex]
+defmodule RealtimeWeb.BroadcastController do
+  use RealtimeWeb, :controller
+  use OpenApiSpex.ControllerSpecs
+  require Logger
+
+  alias Realtime.Tenants.BatchBroadcast
+  alias RealtimeWeb.OpenApiSchemas.EmptyResponse
+  alias RealtimeWeb.OpenApiSchemas.TenantBatchParams
+  alias RealtimeWeb.OpenApiSchemas.TooManyRequestsResponse
+  alias RealtimeWeb.OpenApiSchemas.UnprocessableEntityResponse
+
+  action_fallback(RealtimeWeb.FallbackController)
+
+  operation(:broadcast,
+    summary: "Broadcasts a batch of messages",
+    parameters: [
+      token: [
+        in: :header,
+        name: "Authorization",
+        schema: %OpenApiSpex.Schema{type: :string},
+        required: true,
+        example:
+          "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2ODAxNjIxNTR9.U9orU6YYqXAtpF8uAiw6MS553tm4XxRzxOhz2IwDhpY"
+      ]
+    ],
+    request_body: TenantBatchParams.params(),
+    responses: %{
+      202 => EmptyResponse.response(),
+      403 => EmptyResponse.response(),
+      422 => UnprocessableEntityResponse.response(),
+      429 => TooManyRequestsResponse.response()
+    }
+  )
+
+  def broadcast(%{assigns: %{tenant: tenant}} = conn, attrs) do
+    with :ok <- BatchBroadcast.broadcast(conn, tenant, attrs) do
+      send_resp(conn, :accepted, "")
+    end
+  end
+end
+
+
+[lib/realtime_web/controllers/fallback_controller.ex]
+defmodule RealtimeWeb.FallbackController do
+  @moduledoc """
+  Translates controller action results into valid `Plug.Conn` responses.
+
+  See `Phoenix.Controller.action_fallback/1` for more details.
+  """
+
+  use RealtimeWeb, :controller
+  use Realtime.Logs
+
+  import RealtimeWeb.ErrorHelpers
+
+  def call(conn, {:error, :not_found}) do
+    log_error("TenantNotFound", "Tenant not found")
+
+    conn
+    |> put_status(:not_found)
+    |> put_view(RealtimeWeb.ErrorView)
+    |> render("error.json", message: "not found")
+  end
+
+  def call(conn, {:error, %Ecto.Changeset{} = changeset}) do
+    log_error(
+      "UnprocessableEntity",
+      Ecto.Changeset.traverse_errors(changeset, &translate_error/1)
+    )
+
+    conn
+    |> put_status(:unprocessable_entity)
+    |> put_view(RealtimeWeb.ChangesetView)
+    |> render("error.json", changeset: changeset)
+  end
+
+  def call(conn, {:error, status, message}) when is_atom(status) and is_binary(message) do
+    log_error("UnprocessableEntity", message)
+
+    conn
+    |> put_status(status)
+    |> put_view(RealtimeWeb.ErrorView)
+    |> render("error.json", message: message)
+  end
+
+  def call(conn, {:error, %Ecto.Changeset{valid?: false} = changeset}) do
+    log_error(
+      "UnprocessableEntity",
+      Ecto.Changeset.traverse_errors(changeset, &translate_error/1)
+    )
+
+    conn
+    |> put_status(:unprocessable_entity)
+    |> put_view(RealtimeWeb.ChangesetView)
+    |> render("error.json", changeset: changeset)
+  end
+
+  def call(conn, {:error, _}) do
+    conn
+    |> put_status(:unauthorized)
+    |> put_view(RealtimeWeb.ErrorView)
+    |> render("error.json", message: "Unauthorized")
+  end
+
+  def call(conn, %Ecto.Changeset{valid?: false} = changeset) do
+    log_error(
+      "UnprocessableEntity",
+      Ecto.Changeset.traverse_errors(changeset, &translate_error/1)
+    )
+
+    conn
+    |> put_status(:unprocessable_entity)
+    |> put_view(RealtimeWeb.ChangesetView)
+    |> render("error.json", changeset: changeset)
+  end
+
+  def call(conn, response) do
+    log_error("UnknownErrorOnController", response)
+
+    conn
+    |> put_status(:unprocessable_entity)
+    |> put_view(RealtimeWeb.ErrorView)
+    |> render("error.json", message: "Unknown error")
+  end
+end
+
+
+[lib/realtime_web/controllers/legacy_metrics_controller.ex]
+defmodule RealtimeWeb.LegacyMetricsController do
+  use RealtimeWeb, :controller
+  require Logger
+  alias Realtime.PromEx
+  alias Realtime.TenantPromEx
+  alias Realtime.GenRpc
+
+  def index(conn, _) do
+    serve_metrics(conn, [Node.self() | Node.list()], "combined cluster")
+  end
+
+  def region(conn, %{"region" => region}) do
+    serve_metrics(conn, Realtime.Nodes.region_nodes(region), "combined region=#{region}")
+  end
+
+  def get_combined_metrics do
+    bump_max_heap_size()
+    [PromEx.get_global_metrics(), TenantPromEx.get_metrics()]
+  end
+
+  defp serve_metrics(conn, nodes, label) do
+    conn =
+      conn
+      |> put_resp_content_type("text/plain")
+      |> send_chunked(200)
+
+    {time, conn} = :timer.tc(fn -> collect_metrics(nodes, conn) end, :millisecond)
+    Logger.info("Collected #{label} metrics in #{time} milliseconds")
+
+    conn
+  end
+
+  defp collect_metrics(nodes, conn) do
+    bump_max_heap_size()
+    timeout = Application.fetch_env!(:realtime, :metrics_rpc_timeout)
+
+    nodes
+    |> Task.async_stream(
+      fn node ->
+        {node, GenRpc.call(node, __MODULE__, :get_combined_metrics, [], timeout: timeout)}
+      end,
+      timeout: :infinity
+    )
+    |> Enum.reduce(conn, fn
+      {:ok, {node, {:error, :rpc_error, reason}}}, acc_conn ->
+        Logger.error("Cannot fetch metrics from the node #{inspect(node)} because #{inspect(reason)}")
+        acc_conn
+
+      {:ok, {_node, metrics}}, acc_conn ->
+        case chunk(acc_conn, metrics) do
+          {:ok, acc_conn} ->
+            :erlang.garbage_collect()
+            acc_conn
+
+          {:error, reason} ->
+            Logger.error("Cannot stream metrics chunk because #{inspect(reason)}")
+            acc_conn
+        end
+
+      {:exit, reason}, acc_conn ->
+        Logger.error("Metrics collection task exited: #{inspect(reason)}")
+        acc_conn
+    end)
+  end
+
+  defp bump_max_heap_size do
+    system_max_heap_size = :erlang.system_info(:max_heap_size)[:size]
+
+    if is_integer(system_max_heap_size) and system_max_heap_size > 0 do
+      Process.flag(:max_heap_size, system_max_heap_size * 3)
+    end
+  end
+end
+
+
+[lib/realtime_web/controllers/metrics_controller.ex]
+defmodule RealtimeWeb.MetricsController do
+  use RealtimeWeb, :controller
+  require Logger
+  alias Realtime.PromEx
+  alias Realtime.TenantPromEx
+  alias Realtime.GenRpc
+
+  def index(conn, _) do
+    serve_metrics(conn, [Node.self() | Node.list()], :get_global_metrics, "global cluster")
+  end
+
+  def tenant(conn, _) do
+    serve_metrics(conn, [Node.self() | Node.list()], :get_tenant_metrics, "tenant cluster")
+  end
+
+  def region(conn, %{"region" => region}) do
+    serve_metrics(conn, Realtime.Nodes.region_nodes(region), :get_global_metrics, "global region=#{region}")
+  end
+
+  def region_tenant(conn, %{"region" => region}) do
+    serve_metrics(conn, Realtime.Nodes.region_nodes(region), :get_tenant_metrics, "tenant region=#{region}")
+  end
+
+  defp serve_metrics(conn, nodes, metrics_fun, label) do
+    conn =
+      conn
+      |> put_resp_content_type("text/plain")
+      |> send_chunked(200)
+
+    {time, conn} = :timer.tc(fn -> collect_metrics(nodes, metrics_fun, conn) end, :millisecond)
+    Logger.info("Collected #{label} metrics in #{time} milliseconds")
+
+    conn
+  end
+
+  defp collect_metrics(nodes, metrics_fun, conn) do
+    bump_max_heap_size()
+    timeout = Application.fetch_env!(:realtime, :metrics_rpc_timeout)
+
+    nodes
+    |> Task.async_stream(
+      fn node ->
+        {node, GenRpc.call(node, __MODULE__, metrics_fun, [], timeout: timeout)}
+      end,
+      timeout: :infinity
+    )
+    |> Enum.reduce(conn, fn {_, {node, response}}, acc_conn ->
+      case response do
+        {:error, :rpc_error, reason} ->
+          Logger.error("Cannot fetch metrics from the node #{inspect(node)} because #{inspect(reason)}")
+          acc_conn
+
+        metrics ->
+          {:ok, acc_conn} = chunk(acc_conn, metrics)
+          :erlang.garbage_collect()
+          acc_conn
+      end
+    end)
+  end
+
+  def get_global_metrics do
+    bump_max_heap_size()
+    PromEx.get_global_metrics()
+  end
+
+  def get_tenant_metrics do
+    bump_max_heap_size()
+    TenantPromEx.get_metrics()
+  end
+
+  @doc deprecated: "Use get_global_metrics/0 instead"
+  def get_metrics, do: get_global_metrics()
+
+  defp bump_max_heap_size do
+    system_max_heap_size = :erlang.system_info(:max_heap_size)[:size]
+
+    if is_integer(system_max_heap_size) and system_max_heap_size > 0 do
+      Process.flag(:max_heap_size, system_max_heap_size * 3)
+    end
+  end
+end
+
+
+[lib/realtime_web/controllers/page_controller.ex]
+defmodule RealtimeWeb.PageController do
+  use RealtimeWeb, :controller
+
+  def index(conn, _params) do
+    render(conn, "index.html")
+  end
+
+  def healthcheck(conn, _params) do
+    conn
+    |> put_status(:ok)
+    |> text("ok")
+  end
+end
+
+
+[lib/realtime_web/controllers/ping_controller.ex]
+defmodule RealtimeWeb.PingController do
+  use RealtimeWeb, :controller
+
+  def ping(conn, _params) do
+    json(conn, %{message: "Success"})
+  end
+end
+
+
+[lib/realtime_web/controllers/tenant_controller.ex]
+defmodule RealtimeWeb.TenantController do
+  use RealtimeWeb, :controller
+  use OpenApiSpex.ControllerSpecs
+
+  use Realtime.Logs
+
+  import Realtime.Logs
+
+  alias Realtime.Api
+  alias Realtime.Api.Tenant
+  alias Realtime.Database
+  alias Realtime.PostgresCdc
+  alias Realtime.Tenants
+  alias Realtime.Tenants.Cache
+  alias Realtime.Tenants.Connect
+  alias Realtime.Tenants.Migrations
+  alias RealtimeWeb.OpenApiSchemas.EmptyResponse
+  alias RealtimeWeb.OpenApiSchemas.ErrorResponse
+  alias RealtimeWeb.OpenApiSchemas.NotFoundResponse
+  alias RealtimeWeb.OpenApiSchemas.TenantHealthResponse
+  alias RealtimeWeb.OpenApiSchemas.TenantParams
+  alias RealtimeWeb.OpenApiSchemas.TenantResponse
+  alias RealtimeWeb.OpenApiSchemas.TenantResponseList
+  alias RealtimeWeb.OpenApiSchemas.UnauthorizedResponse
+  alias RealtimeWeb.SocketDisconnect
+
+  @stop_timeout 10_000
+
+  action_fallback(RealtimeWeb.FallbackController)
+
+  plug :set_observability_attributes when action in [:show, :edit, :update, :delete, :reload, :shutdown, :health]
+
+  operation(:index,
+    summary: "List tenants",
+    parameters: [
+      authorization: [
+        in: :header,
+        name: "Authorization",
+        schema: %OpenApiSpex.Schema{type: :string},
+        required: true,
+        example:
+          "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2ODAxNjIxNTR9.U9orU6YYqXAtpF8uAiw6MS553tm4XxRzxOhz2IwDhpY"
+      ]
+    ],
+    responses: %{
+      200 => TenantResponseList.response(),
+      403 => EmptyResponse.response()
+    }
+  )
+
+  def index(conn, _params) do
+    tenants = Api.list_tenants()
+    render(conn, "index.json", tenants: tenants)
+  end
+
+  operation(:show,
+    summary: "Fetch tenant",
+    parameters: [
+      token: [
+        in: :header,
+        name: "Authorization",
+        schema: %OpenApiSpex.Schema{type: :string},
+        required: true,
+        example:
+          "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2ODAxNjIxNTR9.U9orU6YYqXAtpF8uAiw6MS553tm4XxRzxOhz2IwDhpY"
+      ],
+      tenant_id: [in: :path, description: "Tenant ID", type: :string]
+    ],
+    responses: %{
+      200 => TenantResponse.response(),
+      403 => EmptyResponse.response(),
+      404 => NotFoundResponse.response()
+    }
+  )
+
+  def show(conn, %{"tenant_id" => id}) do
+    tenant = Api.get_tenant_by_external_id(id)
+
+    case tenant do
+      %Tenant{} = tenant -> render(conn, "show.json", tenant: tenant)
+      nil -> {:error, :not_found}
+    end
+  end
+
+  operation(:create,
+    summary: "Create or update tenant",
+    parameters: [
+      token: [
+        in: :header,
+        name: "Authorization",
+        schema: %OpenApiSpex.Schema{type: :string},
+        required: true,
+        example:
+          "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2ODAxNjIxNTR9.U9orU6YYqXAtpF8uAiw6MS553tm4XxRzxOhz2IwDhpY"
+      ]
+    ],
+    request_body: TenantParams.params(),
+    responses: %{
+      200 => TenantResponse.response(),
+      403 => EmptyResponse.response()
+    }
+  )
+
+  @spec create(any(), map()) :
+... [TRUNCATED]
+
+[lib/realtime_web/views/changeset_view.ex]
+defmodule RealtimeWeb.ChangesetView do
+  use RealtimeWeb, :view
+
+  @doc """
+  Traverses and translates changeset errors.
+
+  See `Ecto.Changeset.traverse_errors/2` and
+  `RealtimeWeb.ErrorHelpers.translate_error/1` for more details.
+  """
+  def translate_errors(changeset) do
+    Ecto.Changeset.traverse_errors(changeset, &translate_error/1)
+  end
+
+  def render("error.json", %{changeset: changeset}) do
+    %{errors: translate_errors(changeset)}
+  end
+end
+
+
+--- DATABASE SCHEMA / MODEL FILES ---
+  dev/postgres/00-supabase-schema.sql
+
+--- DIRECTORY STRUCTURE (depth 2) ---
+├── .credo.exs
+├── .dockerignore
+├── .formatter.exs
+├── .github/
+│   ├── actionlint.yaml
+│   └── workflows/
+│       ├── beacon_tests.yml
+│       ├── docker-build.yml
+│       ├── integration_tests.yml
+│       ├── lint.yml
+│       ├── manual_prod_build.yml
+│       ├── mirror.yml
+│       ├── prod_build.yml
+│       ├── prod_linter.yml
+│       ├── rust.yml
+│       ├── tests.yml
+│       └── update-supabase-js.yml
+├── .gitignore
+├── .releaserc
+├── .sobelow-conf
+├── .tool-versions
+├── Dockerfile
+├── LICENSE
+├── Makefile
+├── README.md
+├── assets/
+│   ├── css/
+│   │   ├── app.css
+│   │   └── phoenix.css
+│   ├── js/
+│   │   └── app.js
+│   ├── package-lock.json
+│   ├── package.json
+│   ├── tailwind.config.js
+│   └── vendor/
+│       └── topbar.js
+├── beacon/
+│   ├── .formatter.exs
+│   ├── .gitignore
+│   ├── README.md
+│   ├── config/
+│   │   └── config.exs
+│   ├── lib/
+│   │   ├── beacon.ex
+│   │   └── beacon/
+│   ├── mix.exs
+│   ├── mix.lock
+│   └── test/
+│       ├── beacon/
+│       ├── beacon_test.exs
+│       ├── support/
+│       └── test_helper.exs
+├── bench/
+│   ├── gen_counter.exs
+│   └── secrets.exs
+├── config/
+│   ├── config.exs
+│   ├── dev.exs
+│   ├── prod.exs
+│   ├── runtime.exs
+│   └── test.exs
+├── coveralls.json
+├── deploy/
+│   └── fly/
+│       ├── prod.toml
+│       ├── qa.toml
+│       └── staging.toml
+├── dev/
+│   └── postgres/
+│       └── 00-supabase-schema.sql
+├── docker-compose.dbs.yml
+├── docker-compose.tests.yml
+├── docker-compose.yml
+├── lib/
+│   ├── extensions/
+│   │   ├── extensions.ex
+│   │   └── postgres_cdc_rls/
+│   ├── realtime.ex
+│   ├── realtime/
+│   │   ├── adapters/
+│   │   ├── api.ex
+│   │   ├── api/
+│   │   ├── application.ex
+│   │   ├── beacon_pub_sub_adapter.ex
+│   │   ├── crypto.ex
+│   │   ├── database.ex
+│   │   ├── gen_counter/
+│   │   ├── gen_rpc.ex
+│   │   ├── gen_rpc/
+│   │   ├── helpers.ex
+│   │   ├── log_filter.ex
+│   │   ├── logs.ex
+│   │   ├── messages.ex
+│   │   ├── metrics_cleaner.ex
+│   │   ├── metrics_pusher.ex
+│   │   ├── monitoring/
+│   │   ├── nodes.ex
+│   │   ├── operations.ex
+│   │   ├── postgres_cdc.ex
+│   │   ├── prometheus_remote_write.ex
+│   │   ├── rate_counter/
+│   │   ├── release.ex
+│   │   ├── repo.ex
+│   │   ├── repo_replica.ex
+│   │   ├── rpc.ex
+│   │   ├── signal_handler.ex
+│   │   ├── syn/
+│   │   ├── syn_handler.ex
+│   │   ├── telemetry/
+│   │   ├── tenants.ex
+│   │   ├── tenants/
+│   │   └── users_counter.ex
+│   ├── realtime_web.ex
+│   └── realtime_web/
+│       ├── api_spec.ex
+│       ├── channels/
+│       ├── controllers/
+│       ├── dashboard/
+│       ├── endpoint.ex
+│       ├── gettext.ex
+│       ├── live/
+│       ├── open_api_schemas.ex
+│       ├── plugs/
+│       ├── router.ex
+│       ├── socket/
+│       ├── telemetry.ex
+│       ├── templates/
+│       ├── tenant_broadcaster.ex
+│       └── views/
+├── mix.exs
+├── mix.lock
+├── native/
+│   └── prometheus_remote_write/
+│       ├── Cargo.lock
+│       ├── Cargo.toml
+│       ├── rustfmt.toml
+│       └── src/
+├── phx_join.schema.json
+├── priv/
+│   ├── gettext/
+│   │   ├── en/
+│   │   └── errors.pot
+│   ├── repo/
+│   │   ├── dev_seeds.exs
+│   │   ├── migrations/
+│   │   ├── seeds.exs
+│   │   └── seeds_before_migration.exs
+│   └── static/
+│       ├── favicon.svg
+│       ├── robots.txt
+│       └── worker.js
+├── rel/
+│   ├── env.bat.eex
+│   ├── env.sh.eex
+│   ├── overlays/
+│   │   ├── bin/
+│   │   └── config.example.yml
+│   └── vm.args.eex
+├── run.sh
+└── test/
+    ├── api_jwt_secret_test.exs
+    ├── e2e/
+    │   ├── .gitignore
+    │   ├── .template.env
+    │   ├── .tool-versions
+    │   ├── README.md
+    │   └── tests.ts
+    ├── extensions/
+    │   └── postgres_cdc_rls/
+    ├── integration/
+    │   ├── distributed_realtime_channel_test.exs
+    │   ├── measure_traffic_test.exs
+    │   ├── region_aware_migrations_test.exs
+    │   ├── region_aware_routing_test.exs
+    │   ├── rt_channel/
+    │   ├── tests.ts
+    │   └── tracker_test.exs
+    ├── realtime/
+    │   ├── adapters/
+    │   ├── api/
+    │   ├── api_test.exs
+    │   ├── database_distributed_test.exs
+    │   ├── database_test.exs
+    │   ├── extensions/
+    │   ├── gen_counter/
+    │   ├── gen_rpc_pub_sub/
+    │   ├── gen_rpc_pub_sub_test.exs
+    │   ├── gen_rpc_test.exs
+    │   ├── helpers_test.exs
+    │   ├── log_filter_test.exs
+    │   ├── logs_test.exs
+    │   ├── messages_test.exs
+    │   ├── metrics_cleaner_test.exs
+    │   ├── metrics_pusher_test.exs
+    │   ├── monitoring/
+    │   ├── nodes_test.exs
+    │   ├── oid_test.exs
+    │   ├── postgres_decoder_test.exs
+    │   ├── prometheus_remote_write_test.exs
+    │   ├── rate_counter/
+    │   ├── repo_replica_test.exs
+    │   ├── rpc_test.exs
+    │   ├── signal_handler_test.exs
+    │   ├── syn_handler_test.exs
+    │   ├── telemetry/
+    │   ├── tenants/
+    │   ├── tenants_test.exs
+    │   └── users_counter_test.exs
+    ├── realtime_web/
+    │   ├── channels/
+    │   ├── controllers/
+    │   ├── integration/
+    │   ├── live/
+    │   ├── plugs/
+    │   ├── socket/
+    │   ├── tenant_broadcaster_test.exs
+    │   └── views/
+    ├── support/
+    │   ├── channel_case.ex
+    │   ├── cleanup.ex
+    │   ├── clustered.ex
+    │   ├── conn_case.ex
+    │   ├── containers.ex
+    │   ├── containers/
+    │   ├── data_case.ex
+    │   ├── generators.ex
+    │   ├── integrations.ex
+    │   ├── joken_current_time_mock.ex
+    │   ├── metrics_helper.ex
+    │   ├── prometheus_fixtures.ex
+    │   ├── rate_counter_helper.ex
+    │   ├── replication_test_handler.ex
+    │   ├── tenant_connection.ex
+    │   ├── tracing.ex
+    │   └── websocket_client.ex
+    └── test_helper.exs

@@ -1,0 +1,998 @@
+=====================================
+Repository Analysis: django-rest-framework
+Type: Backend / API Service
+=====================================
+
+--- METADATA ---
+Name: django-rest-framework
+Description: Web APIs for Django. 🎸
+Language: Python
+Topics: api, django, python, rest
+Stars: 29924
+License: Other
+
+--- README ---
+# [Django REST framework][docs]
+
+[![build-status-image]][build-status]
+[![coverage-status-image]][codecov]
+[![pypi-version]][pypi]
+
+**Awesome web-browsable Web APIs.**
+
+Full documentation for the project is available at [https://www.django-rest-framework.org/][docs].
+
+---
+
+# Overview
+
+Django REST framework is a powerful and flexible toolkit for building Web APIs.
+
+Some reasons you might want to use REST framework:
+
+* The Web browsable API is a huge usability win for your developers.
+* [Authentication policies][authentication] including optional packages for [OAuth1a][oauth1-section] and [OAuth2][oauth2-section].
+* [Serialization][serializers] that supports both [ORM][modelserializer-section] and [non-ORM][serializer-section] data sources.
+* Customizable all the way down - just use [regular function-based views][functionview-section] if you don't need the [more][generic-views] [powerful][viewsets] [features][routers].
+* [Extensive documentation][docs], and [great community support][group].
+
+**Below**: *Screenshot from the browsable API*
+
+![Screenshot][image]
+
+----
+
+# Requirements
+
+* Python 3.10+
+* Django 4.2, 5.0, 5.1, 5.2, 6.0
+
+We **highly recommend** and only officially support the latest patch release of
+each Python and Django series.
+
+# Installation
+
+Install using `pip`...
+
+    pip install djangorestframework
+
+Add `'rest_framework'` to your `INSTALLED_APPS` setting.
+
+```python
+INSTALLED_APPS = [
+    # ...
+    "rest_framework",
+]
+```
+
+# Example
+
+Let's take a look at a quick example of using REST framework to build a simple model-backed API for accessing users and groups.
+
+Start up a new project like so...
+
+    pip install django
+    pip install djangorestframework
+    django-admin startproject example .
+    ./manage.py migrate
+    ./manage.py createsuperuser
+
+
+Now edit the `example/urls.py` module in your project:
+
+```python
+from django.contrib.auth.models import User
+from django.urls import include, path
+from rest_framework import routers, serializers, viewsets
+
+
+# Serializers define the API representation.
+class UserSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = User
+        fields = ["url", "username", "email", "is_staff"]
+
+
+# ViewSets define the view behavior.
+class UserViewSet(viewsets.ModelViewSet):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
+
+
+# Routers provide a way of automatically determining the URL conf.
+router = routers.DefaultRouter()
+router.register(r"users", UserViewSet)
+
+# Wire up our API using automatic URL routing.
+# Additionally, we include login URLs for the browsable API.
+urlpatterns = [
+    path("", include(router.urls)),
+    path("api-auth/", include("rest_framework.urls", namespace="rest_framework")),
+]
+```
+
+We'd also like to configure a couple of settings for our API.
+
+Add the following to your `settings.py` module:
+
+```python
+INSTALLED_APPS = [
+    # ... make sure to include the default installed apps here.
+    "rest_framework",
+]
+
+REST_FRAMEWORK = {
+    # Use Django's standard `django.contrib.auth` permissions,
+    # or allow read-only access for unauthenticated users.
+    "DEFAULT_PERMISSION_CLASSES": [
+        "rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly",
+    ]
+}
+```
+
+That's it, we're done!
+
+    ./manage.py runserver
+
+You can now open the API in your browser at `http://127.0.0.1:8000/`, and view your new 'users' API. If you use the `Login` control in the top right corner you'll also be able to add, create and delete users from the system.
+
+You can also interact with the API using command line tools such as [`curl`](https://curl.haxx.se/). For example, to list the users endpoint:
+
+    $ curl -H 'Accept: application/json; indent=4' -u admin:password http://127.0.0.1:8000/users/
+    [
+        {
+            "url": "http://127.0.0.1:8000/users/1/",
+            "username": "admin",
+            "email": "admin@example.com",
+            "is_staff": true,
+        }
+    ]
+
+Or to create a new user:
+
+    $ curl -X POST -d username=new -d email=new@example.com -d is_staff=false -H 'Accept: application/json; indent=4' -u admin:password http://127.0.0.1:8000/users/
+    {
+        "url": "http://127.0.0.1:8000/users/2/",
+        "username": "new",
+        "email": "new@example.com",
+        "is_staff": false,
+    }
+
+# Documentation & Support
+
+Full documentation for the project is available at [https://www.django-rest-framework.org/][docs].
+
+For questions and support, use the [REST framework discussion group][group], or `#restframework` on libera.chat IRC.
+
+# Security
+
+Please see the [security policy][security-policy].
+
+[build-status-image]: https://github.com/encode/django-rest-framework/actions/workflows/main.yml/badge.svg
+[build-status]: https://github.com/encode/django-rest-framework/actions/workflows/main.yml
+[coverage-status-image]: https://img.shields.io/codecov/c/github/encode/django-rest-framework/main.svg
+[codecov]: https://codecov.io/github/encode/django-rest-framework?branch=main
+[pypi-version]: h
+... [TRUNCATED]
+
+--- PACKAGE MANIFEST(S) ---
+
+[pyproject.toml]
+[build-system]
+build-backend = "setuptools.build_meta"
+requires = [ "setuptools>=77.0.3" ]
+
+[project]
+name = "djangorestframework"
+description = "Web APIs for Django, made easy."
+readme = "README.md"
+license = "BSD-3-Clause"
+license-files = [ "LICENSE.md" ]
+authors = [ { name = "Tom Christie", email = "tom@tomchristie.com" } ]
+requires-python = ">=3.10"
+classifiers = [
+  "Development Status :: 5 - Production/Stable",
+  "Environment :: Web Environment",
+  "Framework :: Django",
+  "Framework :: Django :: 4.2",
+  "Framework :: Django :: 5.0",
+  "Framework :: Django :: 5.1",
+  "Framework :: Django :: 5.2",
+  "Framework :: Django :: 6.0",
+  "Intended Audience :: Developers",
+  "Operating System :: OS Independent",
+  "Programming Language :: Python",
+  "Programming Language :: Python :: 3 :: Only",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: 3.13",
+  "Programming Language :: Python :: 3.14",
+  "Topic :: Internet :: WWW/HTTP",
+]
+dynamic = [ "version" ]
+dependencies = [ "django>=4.2" ]
+urls.Changelog = "https://www.django-rest-framework.org/community/release-notes/"
+urls.Funding = "https://fund.django-rest-framework.org/topics/funding/"
+urls.Homepage = "https://www.django-rest-framework.org"
+urls.Source = "https://github.com/encode/django-rest-framework"
+
+[dependency-groups]
+dev = [
+  { include-group = "docs" },
+  { include-group = "optional" },
+  { include-group = "test" },
+]
+test = [
+  "importlib-metadata<9.0",
+
+  # Pytest for running the tests.
+  "pytest==9.*",
+  "pytest-cov==7.*",
+  "pytest-django>=4.5.2,<5",
+
+  # Remove when dropping support for Django<5.0
+  "pytz",
+]
+docs = [
+  # MkDocs to build our documentation.
+  "mkdocs==1.6.1",
+  "mkdocs-material[imaging]==9.7.3",
+  # pylinkvalidator to check for broken links in documentation.
+  "pylinkvalidator==0.3",
+]
+optional = [
+  # Optional packages which may be used with REST framework.
+  "coreapi==2.3.3",
+  "coreschema==0.0.4",
+  "django-filter",
+  "django-guardian>=2.4.0,<3.4",
+  "inflection==0.5.1",
+  "legacy-cgi; python_version>='3.13'",
+  "markdown>=3.3.7",
+  "psycopg[binary]>=3.1.8",
+  "pygments>=2.17,<2.20",
+  "pyyaml>=5.3.1,<6.1",
+  # setuptools is needed for coreapi (imports pkg_resources)
+  "setuptools<82",
+]
+django42 = [ "django>=4.2,<5.0" ]
+django50 = [ "django>=5.0,<5.1" ]
+django51 = [ "django>=5.1,<5.2" ]
+django52 = [ "django>=5.2,<6.0" ]
+django60 = [ "django>=6.0,<6.1" ]
+djangomain = [ "django @ https://github.com/django/django/archive/main.tar.gz" ]
+
+[tool.setuptools]
+
+[tool.setuptools.dynamic]
+version = { attr = "rest_framework.__version__" }
+
+[tool.setuptools.packages.find]
+include = [ "rest_framework*" ]
+
+[tool.setuptools.package-data]
+"rest_framework" = [
+  "templates/**/*",
+  "static/**/*",
+  "locale/**/*.mo",
+]
+
+[tool.isort]
+skip = [ ".tox" ]
+atomic = true
+multi_line_output = 5
+extra_standard_library = [ "types" ]
+known_third_party = [ "pytest", "_pytest", "d
+... [TRUNCATED]
+
+--- BACKEND CONFIG FILES ---
+(No backend config files found)
+
+--- API ROUTE / ENDPOINT DEFINITIONS ---
+
+[rest_framework/authtoken/views.py]
+from rest_framework import parsers, renderers
+from rest_framework.authtoken.models import Token
+from rest_framework.authtoken.serializers import AuthTokenSerializer
+from rest_framework.compat import coreapi, coreschema
+from rest_framework.response import Response
+from rest_framework.schemas import ManualSchema
+from rest_framework.schemas import coreapi as coreapi_schema
+from rest_framework.views import APIView
+
+
+class ObtainAuthToken(APIView):
+    throttle_classes = ()
+    permission_classes = ()
+    parser_classes = (parsers.FormParser, parsers.MultiPartParser, parsers.JSONParser,)
+    renderer_classes = (renderers.JSONRenderer,)
+    serializer_class = AuthTokenSerializer
+
+    if coreapi_schema.is_enabled():
+        schema = ManualSchema(
+            fields=[
+                coreapi.Field(
+                    name="username",
+                    required=True,
+                    location='form',
+                    schema=coreschema.String(
+                        title="Username",
+                        description="Valid username for authentication",
+                    ),
+                ),
+                coreapi.Field(
+                    name="password",
+                    required=True,
+                    location='form',
+                    schema=coreschema.String(
+                        title="Password",
+                        description="Valid password for authentication",
+                    ),
+                ),
+            ],
+            encoding="application/json",
+        )
+
+    def get_serializer_context(self):
+        return {
+            'request': self.request,
+            'format': self.format_kwarg,
+            'view': self
+        }
+
+    def get_serializer(self, *args, **kwargs):
+        kwargs['context'] = self.get_serializer_context()
+        return self.serializer_class(*args, **kwargs)
+
+    def post(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        user = serializer.validated_data['user']
+        token, created = Token.objects.get_or_create(user=user)
+        return Response({'token': token.key})
+
+
+obtain_auth_token = ObtainAuthToken.as_view()
+
+
+[rest_framework/schemas/views.py]
+"""
+views.py        # Houses `SchemaView`, `APIView` subclass.
+
+See schemas.__init__.py for package overview.
+"""
+from rest_framework import exceptions, renderers
+from rest_framework.response import Response
+from rest_framework.schemas import coreapi
+from rest_framework.settings import api_settings
+from rest_framework.views import APIView
+
+
+class SchemaView(APIView):
+    _ignore_model_permissions = True
+    schema = None  # exclude from schema
+    renderer_classes = None
+    schema_generator = None
+    public = False
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        if self.renderer_classes is None:
+            if coreapi.is_enabled():
+                self.renderer_classes = [
+                    renderers.CoreAPIOpenAPIRenderer,
+                    renderers.CoreJSONRenderer
+                ]
+            else:
+                self.renderer_classes = [
+                    renderers.OpenAPIRenderer,
+                    renderers.JSONOpenAPIRenderer,
+                ]
+            if renderers.BrowsableAPIRenderer in api_settings.DEFAULT_RENDERER_CLASSES:
+                self.renderer_classes += [renderers.BrowsableAPIRenderer]
+
+    def get(self, request, *args, **kwargs):
+        schema = self.schema_generator.get_schema(request, self.public)
+        if schema is None:
+            raise exceptions.PermissionDenied()
+        return Response(schema)
+
+    def handle_exception(self, exc):
+        # Schema renderers do not render exceptions, so re-perform content
+        # negotiation with default renderers.
+        self.renderer_classes = api_settings.DEFAULT_RENDERER_CLASSES
+        neg = self.perform_content_negotiation(self.request, force=True)
+        self.request.accepted_renderer, self.request.accepted_media_type = neg
+        return super().handle_exception(exc)
+
+
+[rest_framework/urls.py]
+"""
+Login and logout views for the browsable API.
+
+Add these to your root URLconf if you're using the browsable API and
+your API requires authentication:
+
+    urlpatterns = [
+        ...
+        path('auth/', include('rest_framework.urls'))
+    ]
+
+You should make sure your authentication settings include `SessionAuthentication`.
+"""
+from django.contrib.auth import views
+from django.urls import path
+
+app_name = 'rest_framework'
+urlpatterns = [
+    path('login/', views.LoginView.as_view(template_name='rest_framework/login.html'), name='login'),
+    path('logout/', views.LogoutView.as_view(), name='logout'),
+]
+
+
+[rest_framework/utils/urls.py]
+from urllib import parse
+
+from django.utils.encoding import force_str
+
+
+def replace_query_param(url, key, val):
+    """
+    Given a URL and a key/val pair, set or replace an item in the query
+    parameters of the URL, and return the new URL.
+    """
+    (scheme, netloc, path, query, fragment) = parse.urlsplit(force_str(url))
+    query_dict = parse.parse_qs(query, keep_blank_values=True)
+    query_dict[force_str(key)] = [force_str(val)]
+    query = parse.urlencode(sorted(query_dict.items()), doseq=True)
+    return parse.urlunsplit((scheme, netloc, path, query, fragment))
+
+
+def remove_query_param(url, key):
+    """
+    Given a URL and a key/val pair, remove an item in the query
+    parameters of the URL, and return the new URL.
+    """
+    (scheme, netloc, path, query, fragment) = parse.urlsplit(force_str(url))
+    query_dict = parse.parse_qs(query, keep_blank_values=True)
+    query_dict.pop(key, None)
+    query = parse.urlencode(sorted(query_dict.items()), doseq=True)
+    return parse.urlunsplit((scheme, netloc, path, query, fragment))
+
+
+[rest_framework/views.py]
+"""
+Provides an APIView class that is the base of all views in REST framework.
+"""
+from django import VERSION as DJANGO_VERSION
+from django.conf import settings
+from django.core.exceptions import PermissionDenied
+from django.db import connections, models
+from django.http import Http404
+from django.http.response import HttpResponseBase
+from django.utils.cache import cc_delim_re, patch_vary_headers
+from django.utils.encoding import smart_str
+from django.views.decorators.csrf import csrf_exempt
+from django.views.generic import View
+
+from rest_framework import exceptions, status
+from rest_framework.request import Request
+from rest_framework.response import Response
+from rest_framework.schemas import DefaultSchema
+from rest_framework.settings import api_settings
+from rest_framework.utils import formatting
+
+
+def get_view_name(view):
+    """
+    Given a view instance, return a textual name to represent the view.
+    This name is used in the browsable API, and in OPTIONS responses.
+
+    This function is the default for the `VIEW_NAME_FUNCTION` setting.
+    """
+    # Name may be set by some Views, such as a ViewSet.
+    name = getattr(view, 'name', None)
+    if name is not None:
+        return name
+
+    name = view.__class__.__name__
+    name = formatting.remove_trailing_string(name, 'View')
+    name = formatting.remove_trailing_string(name, 'ViewSet')
+    name = formatting.camelcase_to_spaces(name)
+
+    # Suffix may be set by some Views, such as a ViewSet.
+    suffix = getattr(view, 'suffix', None)
+    if suffix:
+        name += ' ' + suffix
+
+    return name
+
+
+def get_view_description(view, html=False):
+    """
+    Given a view instance, return a textual description to represent the view.
+    This name is used in the browsable API, and in OPTIONS responses.
+
+    This function is the default for the `VIEW_DESCRIPTION_FUNCTION` setting.
+    """
+    # Description may be set by some Views, such as a ViewSet.
+    description = getattr(view, 'description', None)
+    if description is None:
+        description = view.__class__.__doc__ or ''
+
+    description = formatting.dedent(smart_str(description))
+    if html:
+        return formatting.markup_description(description)
+    return description
+
+
+def set_rollback():
+    for db in connections.all():
+        if db.settings_dict['ATOMIC_REQUESTS'] and db.in_atomic_block:
+            db.set_rollback(True)
+
+
+def exception_handler(exc, context):
+    """
+    Returns the response that should be used for any given exception.
+
+    By default we handle the REST framework `APIException`, and also
+    Django's built-in `Http404` and `PermissionDenied` exceptions.
+
+    Any unhandled exceptions may return `None`, which will cause a 500 error
+    to be raised.
+    """
+    if isinstance(exc, Http404):
+        exc = exceptions.NotFound(*(exc.args))
+    elif isinstance(exc, PermissionDenied):
+        exc = exceptions.PermissionDenied(*(exc.args))
+
+    if isinstance(exc, exceptions.APIException):
+        headers = {}
+        if geta
+... [TRUNCATED]
+
+[tests/browsable_api/auth_urls.py]
+from django.urls import include, path
+
+from .views import MockView
+
+urlpatterns = [
+    path('', MockView.as_view()),
+    path('auth/', include('rest_framework.urls', namespace='rest_framework')),
+]
+
+
+[tests/browsable_api/no_auth_urls.py]
+from django.urls import path
+
+from .views import BasicModelWithUsersViewSet, MockView
+
+urlpatterns = [
+    path('', MockView.as_view()),
+    path('basicviewset', BasicModelWithUsersViewSet.as_view({'get': 'list'})),
+]
+
+
+[tests/browsable_api/views.py]
+from rest_framework import authentication, renderers
+from rest_framework.permissions import BasePermission
+from rest_framework.response import Response
+from rest_framework.views import APIView
+from rest_framework.viewsets import ModelViewSet
+
+from ..models import BasicModelWithUsers
+from .serializers import BasicSerializer
+
+
+class OrganizationPermissions(BasePermission):
+    def has_object_permission(self, request, view, obj):
+        return request.user.is_staff or (request.user == obj.owner.organization_user.user)
+
+
+class MockView(APIView):
+    authentication_classes = (authentication.SessionAuthentication,)
+    renderer_classes = (renderers.BrowsableAPIRenderer, renderers.JSONRenderer)
+
+    def get(self, request):
+        return Response({'a': 1, 'b': 2, 'c': 3})
+
+
+class BasicModelWithUsersViewSet(ModelViewSet):
+    queryset = BasicModelWithUsers.objects.all()
+    serializer_class = BasicSerializer
+    permission_classes = [OrganizationPermissions]
+    # permission_classes = [IsAuthenticated, OrganizationPermissions]
+    renderer_classes = (renderers.BrowsableAPIRenderer, renderers.JSONRenderer)
+
+    def get_queryset(self):
+        qs = super().get_queryset().filter(users=self.request.user)
+        return qs
+
+
+--- DATABASE SCHEMA / MODEL FILES ---
+  rest_framework/authtoken/migrations/0001_initial.py
+  rest_framework/authtoken/migrations/0002_auto_20160226_1747.py
+  rest_framework/authtoken/migrations/0003_tokenproxy.py
+  rest_framework/authtoken/migrations/0004_alter_tokenproxy_options.py
+  rest_framework/authtoken/migrations/__init__.py
+
+--- DIRECTORY STRUCTURE (depth 2) ---
+├── .gitattributes
+├── .github/
+│   ├── FUNDING.yml
+│   ├── ISSUE_TEMPLATE/
+│   │   └── config.yml
+│   ├── dependabot.yml
+│   ├── release.yml
+│   ├── stale.yml
+│   └── workflows/
+│       ├── main.yml
+│       ├── mkdocs-deploy.yml
+│       └── release.yml
+├── .gitignore
+├── .pre-commit-config.yaml
+├── .readthedocs.yaml
+├── .tx/
+│   └── config
+├── CONTRIBUTING.md
+├── LICENSE.md
+├── MANIFEST.in
+├── PULL_REQUEST_TEMPLATE.md
+├── README.md
+├── SECURITY.md
+├── codecov.yml
+├── codespell-ignore-words.txt
+├── docs/
+│   ├── CNAME
+│   ├── api-guide/
+│   │   ├── authentication.md
+│   │   ├── caching.md
+│   │   ├── content-negotiation.md
+│   │   ├── exceptions.md
+│   │   ├── fields.md
+│   │   ├── filtering.md
+│   │   ├── format-suffixes.md
+│   │   ├── generic-views.md
+│   │   ├── metadata.md
+│   │   ├── pagination.md
+│   │   ├── parsers.md
+│   │   ├── permissions.md
+│   │   ├── relations.md
+│   │   ├── renderers.md
+│   │   ├── requests.md
+│   │   ├── responses.md
+│   │   ├── reverse.md
+│   │   ├── routers.md
+│   │   ├── schemas.md
+│   │   ├── serializers.md
+│   │   ├── settings.md
+│   │   ├── status-codes.md
+│   │   ├── testing.md
+│   │   ├── throttling.md
+│   │   ├── validators.md
+│   │   ├── versioning.md
+│   │   ├── views.md
+│   │   └── viewsets.md
+│   ├── community/
+│   │   ├── 3.0-announcement.md
+│   │   ├── 3.1-announcement.md
+│   │   ├── 3.10-announcement.md
+│   │   ├── 3.11-announcement.md
+│   │   ├── 3.12-announcement.md
+│   │   ├── 3.13-announcement.md
+│   │   ├── 3.14-announcement.md
+│   │   ├── 3.15-announcement.md
+│   │   ├── 3.16-announcement.md
+│   │   ├── 3.2-announcement.md
+│   │   ├── 3.3-announcement.md
+│   │   ├── 3.4-announcement.md
+│   │   ├── 3.5-announcement.md
+│   │   ├── 3.6-announcement.md
+│   │   ├── 3.7-announcement.md
+│   │   ├── 3.8-announcement.md
+│   │   ├── 3.9-announcement.md
+│   │   ├── contributing.md
+│   │   ├── jobs.md
+│   │   ├── kickstarter-announcement.md
+│   │   ├── mozilla-grant.md
+│   │   ├── project-management.md
+│   │   ├── release-notes.md
+│   │   ├── third-party-packages.md
+│   │   └── tutorials-and-resources.md
+│   ├── img/
+│   │   ├── admin.png
+│   │   ├── api-docs.gif
+│   │   ├── api-docs.png
+│   │   ├── bayer.png
+│   │   ├── books/
+│   │   ├── build-status.png
+│   │   ├── cerulean.png
+│   │   ├── corejson-format.png
+│   │   ├── cursor-pagination.png
+│   │   ├── drf-m-api-root.png
+│   │   ├── drf-m-detail-view.png
+│   │   ├── drf-m-list-view.png
+│   │   ├── drf-r-api-root.png
+│   │   ├── drf-r-detail-view.png
+│   │   ├── drf-r-list-view.png
+│   │   ├── drf-rw-api-root.png
+│   │   ├── drf-rw-detail-view.png
+│   │   ├── drf-rw-list-view.png
+│   │   ├── drf-yasg.png
+│   │   ├── filter-controls.png
+│   │   ├── horizontal.png
+│   │   ├── inline.png
+│   │   ├── labels-and-milestones.png
+│   │   ├── link-header-pagination.png
+│   │   ├── logo-dark.png
+│   │   ├── logo-light.png
+│   │   ├── ordering-filter.png
+│   │   ├── pages-pagination.png
+│   │   ├── premium/
+│   │   ├── quickstart.png
+│   │   ├── raml.png
+│   │   ├── rover.png
+│   │   ├── search-filter.png
+│   │   ├── self-describing.png
+│   │   ├── slate.png
+│   │   ├── sponsors/
+│   │   └── vertical.png
+│   ├── index.md
+│   ├── theme/
+│   │   ├── img/
+│   │   ├── js/
+│   │   ├── main.html
+│   │   ├── src/
+│   │   └── stylesheets/
+│   ├── topics/
+│   │   ├── ajax-csrf-cors.md
+│   │   ├── browsable-api.md
+│   │   ├── browser-enhancements.md
+│   │   ├── documenting-your-api.md
+│   │   ├── html-and-forms.md
+│   │   ├── internationalization.md
+│   │   ├── rest-hypermedia-hateoas.md
+│   │   └── writable-nested-serializers.md
+│   └── tutorial/
+│       ├── 1-serialization.md
+│       ├── 2-requests-and-responses.md
+│       ├── 3-class-based-views.md
+│       ├── 4-authentication-and-permissions.md
+│       ├── 5-relationships-and-hyperlinked-apis.md
+│       ├── 6-viewsets-and-routers.md
+│       └── quickstart.md
+├── licenses/
+│   ├── bootstrap.md
+│   └── jquery.json-view.md
+├── mkdocs.yml
+├── pyproject.toml
+├── rest_framework/
+│   ├── __init__.py
+│   ├── apps.py
+│   ├── authentication.py
+│   ├── authtoken/
+│   │   ├── __init__.py
+│   │   ├── admin.py
+│   │   ├── apps.py
+│   │   ├── management/
+│   │   ├── migrations/
+│   │   ├── models.py
+│   │   ├── serializers.py
+│   │   └── views.py
+│   ├── checks.py
+│   ├── compat.py
+│   ├── decorators.py
+│   ├── documentation.py
+│   ├── exceptions.py
+│   ├── fields.py
+│   ├── filters.py
+│   ├── generics.py
+│   ├── locale/
+│   │   ├── ach/
+│   │   ├── ar/
+│   │   ├── az/
+│   │   ├── be/
+│   │   ├── bg/
+│   │   ├── ca/
+│   │   ├── ca_ES/
+│   │   ├── cs/
+│   │   ├── da/
+│   │   ├── de/
+│   │   ├── el/
+│   │   ├── el_GR/
+│   │   ├── en/
+│   │   ├── en_AU/
+│   │   ├── en_CA/
+│   │   ├── en_US/
+│   │   ├── es/
+│   │   ├── et/
+│   │   ├── fa/
+│   │   ├── fa_IR/
+│   │   ├── fi/
+│   │   ├── fr/
+│   │   ├── fr_CA/
+│   │   ├── gl/
+│   │   ├── gl_ES/
+│   │   ├── he_IL/
+│   │   ├── hu/
+│   │   ├── hy/
+│   │   ├── id/
+│   │   ├── it/
+│   │   ├── ja/
+│   │   ├── kk/
+│   │   ├── ko_KR/
+│   │   ├── lt/
+│   │   ├── lv/
+│   │   ├── mk/
+│   │   ├── nb/
+│   │   ├── ne_NP/
+│   │   ├── nl/
+│   │   ├── nn/
+│   │   ├── no/
+│   │   ├── pl/
+│   │   ├── pt/
+│   │   ├── pt_BR/
+│   │   ├── pt_PT/
+│   │   ├── ro/
+│   │   ├── ru/
+│   │   ├── ru_RU/
+│   │   ├── sk/
+│   │   ├── sl/
+│   │   ├── sv/
+│   │   ├── th/
+│   │   ├── tr/
+│   │   ├── tr_TR/
+│   │   ├── uk/
+│   │   ├── vi/
+│   │   ├── zh_CN/
+│   │   ├── zh_Hans/
+│   │   ├── zh_Hant/
+│   │   └── zh_TW/
+│   ├── management/
+│   │   ├── __init__.py
+│   │   └── commands/
+│   ├── metadata.py
+│   ├── mixins.py
+│   ├── negotiation.py
+│   ├── pagination.py
+│   ├── parsers.py
+│   ├── permissions.py
+│   ├── relations.py
+│   ├── renderers.py
+│   ├── request.py
+│   ├── response.py
+│   ├── reverse.py
+│   ├── routers.py
+│   ├── schemas/
+│   │   ├── __init__.py
+│   │   ├── coreapi.py
+│   │   ├── generators.py
+│   │   ├── inspectors.py
+│   │   ├── openapi.py
+│   │   ├── utils.py
+│   │   └── views.py
+│   ├── serializers.py
+│   ├── settings.py
+│   ├── static/
+│   │   └── rest_framework/
+│   ├── status.py
+│   ├── templates/
+│   │   └── rest_framework/
+│   ├── templatetags/
+│   │   ├── __init__.py
+│   │   └── rest_framework.py
+│   ├── test.py
+│   ├── throttling.py
+│   ├── urlpatterns.py
+│   ├── urls.py
+│   ├── utils/
+│   │   ├── __init__.py
+│   │   ├── breadcrumbs.py
+│   │   ├── encoders.py
+│   │   ├── field_mapping.py
+│   │   ├── formatting.py
+│   │   ├── html.py
+│   │   ├── humanize_datetime.py
+│   │   ├── json.py
+│   │   ├── mediatypes.py
+│   │   ├── model_meta.py
+│   │   ├── representation.py
+│   │   ├── serializer_helpers.py
+│   │   ├── timezone.py
+│   │   └── urls.py
+│   ├── validators.py
+│   ├── versioning.py
+│   ├── views.py
+│   └── viewsets.py
+├── runtests.py
+├── setup.cfg
+├── tests/
+│   ├── __init__.py
+│   ├── authentication/
+│   │   ├── __init__.py
+│   │   ├── migrations/
+│   │   ├── models.py
+│   │   └── test_authentication.py
+│   ├── browsable_api/
+│   │   ├── __init__.py
+│   │   ├── auth_urls.py
+│   │   ├── no_auth_urls.py
+│   │   ├── serializers.py
+│   │   ├── test_browsable_api.py
+│   │   ├── test_browsable_nested_api.py
+│   │   ├── test_form_rendering.py
+│   │   └── views.py
+│   ├── conftest.py
+│   ├── generic_relations/
+│   │   ├── __init__.py
+│   │   ├── migrations/
+│   │   ├── models.py
+│   │   └── test_generic_relations.py
+│   ├── importable/
+│   │   ├── __init__.py
+│   │   └── test_installed.py
+│   ├── models.py
+│   ├── schemas/
+│   │   ├── __init__.py
+│   │   ├── test_coreapi.py
+│   │   ├── test_get_schema_view.py
+│   │   ├── test_managementcommand.py
+│   │   ├── test_openapi.py
+│   │   └── views.py
+│   ├── test_api_client.py
+│   ├── test_atomic_requests.py
+│   ├── test_authtoken.py
+│   ├── test_bound_fields.py
+│   ├── test_decorators.py
+│   ├── test_description.py
+│   ├── test_encoders.py
+│   ├── test_exceptions.py
+│   ├── test_fields.py
+│   ├── test_filters.py
+│   ├── test_generics.py
+│   ├── test_htmlrenderer.py
+│   ├── test_lazy_hyperlinks.py
+│   ├── test_metadata.py
+│   ├── test_middleware.py
+│   ├── test_model_serializer.py
+│   ├── test_multitable_inheritance.py
+│   ├── test_negotiation.py
+│   ├── test_one_to_one_with_inheritance.py
+│   ├── test_pagination.py
+│   ├── test_parsers.py
+│   ├── test_permissions.py
+│   ├── test_prefetch_related.py
+│   ├── test_relations.py
+│   ├── test_relations_hyperlink.py
+│   ├── test_relations_pk.py
+│   ├── test_relations_slug.py
+│   ├── test_renderers.py
+│   ├── test_request.py
+│   ├── test_requests_client.py
+│   ├── test_response.py
+│   ├── test_reverse.py
+│   ├── test_routers.py
+│   ├── test_serializer.py
+│   ├── test_serializer_bulk_update.py
+│   ├── test_serializer_lists.py
+│   ├── test_serializer_nested.py
+│   ├── test_settings.py
+│   ├── test_status.py
+│   ├── test_templates.py
+│   ├── test_templatetags.py
+│   ├── test_testing.py
+│   ├── test_throttling.py
+│   ├── test_urlpatterns.py
+│   ├── test_utils.py
+│   ├── test_validation.py
+│   ├── test_validation_error.py
+│   ├── test_validators.py
+│   ├── test_versioning.py
+│   ├── test_views.py
+│   ├── test_viewsets.py
+│   ├── test_write_only_fields.py
+│   ├── urls.py
+│   └── utils.py
+└── tox.ini

@@ -1,0 +1,1392 @@
+=====================================
+Repository Analysis: llama.cpp
+Type: Data / ML / AI Project
+=====================================
+
+--- METADATA ---
+Name: llama.cpp
+Description: LLM inference in C/C++
+Language: C++
+Topics: ggml
+Stars: 96852
+License: MIT License
+
+--- README ---
+# llama.cpp
+
+![llama](https://user-images.githubusercontent.com/1991296/230134379-7181e485-c521-4d23-a0d6-f7b3b61ba524.png)
+
+[![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](https://opensource.org/licenses/MIT)
+[![Release](https://img.shields.io/github/v/release/ggml-org/llama.cpp)](https://github.com/ggml-org/llama.cpp/releases)
+[![Server](https://github.com/ggml-org/llama.cpp/actions/workflows/server.yml/badge.svg)](https://github.com/ggml-org/llama.cpp/actions/workflows/server.yml)
+
+[Manifesto](https://github.com/ggml-org/llama.cpp/discussions/205) / [ggml](https://github.com/ggml-org/ggml) / [ops](https://github.com/ggml-org/llama.cpp/blob/master/docs/ops.md)
+
+LLM inference in C/C++
+
+## Recent API changes
+
+- [Changelog for `libllama` API](https://github.com/ggml-org/llama.cpp/issues/9289)
+- [Changelog for `llama-server` REST API](https://github.com/ggml-org/llama.cpp/issues/9291)
+
+## Hot topics
+
+- **[guide : using the new WebUI of llama.cpp](https://github.com/ggml-org/llama.cpp/discussions/16938)**
+- [guide : running gpt-oss with llama.cpp](https://github.com/ggml-org/llama.cpp/discussions/15396)
+- [[FEEDBACK] Better packaging for llama.cpp to support downstream consumers 🤗](https://github.com/ggml-org/llama.cpp/discussions/15313)
+- Support for the `gpt-oss` model with native MXFP4 format has been added | [PR](https://github.com/ggml-org/llama.cpp/pull/15091) | [Collaboration with NVIDIA](https://blogs.nvidia.com/blog/rtx-ai-garage-openai-oss) | [Comment](https://github.com/ggml-org/llama.cpp/discussions/15095)
+- Multimodal support arrived in `llama-server`: [#12898](https://github.com/ggml-org/llama.cpp/pull/12898) | [documentation](./docs/multimodal.md)
+- VS Code extension for FIM completions: https://github.com/ggml-org/llama.vscode
+- Vim/Neovim plugin for FIM completions: https://github.com/ggml-org/llama.vim
+- Hugging Face Inference Endpoints now support GGUF out of the box! https://github.com/ggml-org/llama.cpp/discussions/9669
+- Hugging Face GGUF editor: [discussion](https://github.com/ggml-org/llama.cpp/discussions/9268) | [tool](https://huggingface.co/spaces/CISCai/gguf-editor)
+
+----
+
+## Quick start
+
+Getting started with llama.cpp is straightforward. Here are several ways to install it on your machine:
+
+- Install `llama.cpp` using [brew, nix or winget](docs/install.md)
+- Run with Docker - see our [Docker documentation](docs/docker.md)
+- Download pre-built binaries from the [releases page](https://github.com/ggml-org/llama.cpp/releases)
+- Build from source by cloning this repository - check out [our build guide](docs/build.md)
+
+Once installed, you'll need a model to work with. Head to the [Obtaining and quantizing models](#obtaining-and-quantizing-models) section to learn more.
+
+Example command:
+
+```sh
+# Use a local model file
+llama-cli -m my_model.gguf
+
+# Or download and run a model directly from Hugging Face
+llama-cli -hf ggml-org/gemma-3-1b-it-GGUF
+
+# Launch OpenAI-compatible API server
+llama-server -hf ggml-org/gemma-3-1b-it-GGUF
+```
+
+## Description
+
+The main goal of `llama.cpp` is to enable LLM inference with minimal setup and state-of-the-art performance on a wide
+range of hardware - locally and in the cloud.
+
+- Plain C/C++ implementation without any dependencies
+- Apple silicon is a first-class citizen - optimized via ARM NEON, Accelerate and Metal frameworks
+- AVX, AVX2, AVX512 and AMX support for x86 architectures
+- RVV, ZVFH, ZFH, ZICBOP and ZIHINTPAUSE support for RISC-V architectures
+- 1.5-bit, 2-bit, 3-bit, 4-bit, 5-bit, 6-bit, and 8-bit integer quantization for faster inference and reduced memory use
+- Custom CUDA kernels for running LLMs on NVIDIA GPUs (support for AMD GPUs via HIP and Moore Threads GPUs via MUSA)
+- Vulkan and SYCL backend support
+- CPU+GPU hybrid inference to partially accelerate models larger than the total VRAM capacity
+
+The `llama.cpp` project is the main playground for developing new features for the [ggml](https://github.com/ggml-org/ggml) library.
+
+<details>
+<summary>Models</summary>
+
+Typically finetunes of the base models below are supported as well.
+
+Instructions for adding support for new models: [HOWTO-add-model.md](docs/development/HOWTO-add-model.md)
+
+#### Text-only
+
+- [X] LLaMA 🦙
+- [x] LLaMA 2 🦙🦙
+- [x] LLaMA 3 🦙🦙🦙
+- [X] [Mistral 7B](https://huggingface.co/mistralai/Mistral-7B-v0.1)
+- [x] [Mixtral MoE](https://huggingface.co/models?search=mistral-ai/Mixtral)
+- [x] [DBRX](https://huggingface.co/databricks/dbrx-instruct)
+- [x] [Jamba](https://huggingface.co/ai21labs)
+- [X] [Falcon](https://huggingface.co/models?search=tiiuae/falcon)
+- [X] [Chinese LLaMA / Alpaca](https://github.com/ymcui/Chinese-LLaMA-Alpaca) and [Chinese LLaMA-2 / Alpaca-2](https://github.com/ymcui/Chinese-LLaMA-Alpaca-2)
+- [X] [Vigogne (French)](https://github.com/bofenghuang/vigogne)
+- [X] [BERT](https://github.com/ggml-org/llama.cpp/pull/5423)
+- [X] [Koala](https://bair.berkeley.edu/blog/2023/04/03/koala/)
+- [X] [Baichuan 1 & 2](https://huggingface.co/models?sea
+... [TRUNCATED]
+
+--- PACKAGE MANIFEST(S) ---
+
+[pyproject.toml]
+[tool.poetry]
+name = "llama-cpp-scripts"
+version = "0.0.0"
+description = "Scripts that ship with llama.cpp"
+authors = ["GGML <ggml@ggml.ai>"]
+readme = "README.md"
+homepage = "https://ggml.ai"
+repository = "https://github.com/ggml-org/llama.cpp"
+keywords = ["ggml", "gguf", "llama.cpp"]
+packages = [{ include = "*.py", from = "." }]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
+
+[tool.poetry.dependencies]
+python = ">=3.9"
+numpy = "^1.25.0"
+sentencepiece = ">=0.1.98,<0.3.0"
+transformers = ">=4.35.2,<5.0.0"
+protobuf = ">=4.21.0,<5.0.0"
+gguf = { path = "./gguf-py" }
+torch = { version = "^2.2.0", source = "pytorch" }
+
+[tool.poetry.dev-dependencies]
+pytest = "^5.2"
+
+
+# Force wheel + cpu
+# For discussion and context see https://github.com/python-poetry/poetry#6409
+[[tool.poetry.source]]
+name = "pytorch"
+url = "https://download.pytorch.org/whl/cpu"
+priority = "explicit"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.poetry.scripts]
+llama-convert-hf-to-gguf = "convert_hf_to_gguf:main"
+llama-convert-lora-to-gguf = "convert_lora_to_gguf:main"
+llama-convert-llama-ggml-to-gguf = "convert_llama_ggml_to_gguf:main"
+llama-ggml-vk-generate-shaders = "ggml_vk_generate_shaders:main"
+
+
+[requirements.txt]
+# These requirements include all dependencies for all top-level python scripts
+# for llama.cpp. Avoid adding packages here directly.
+#
+# Package versions must stay compatible across all top-level python scripts.
+#
+
+-r ./requirements/requirements-convert_legacy_llama.txt
+
+-r ./requirements/requirements-convert_hf_to_gguf.txt
+-r ./requirements/requirements-convert_hf_to_gguf_update.txt
+-r ./requirements/requirements-convert_llama_ggml_to_gguf.txt
+-r ./requirements/requirements-convert_lora_to_gguf.txt
+-r ./requirements/requirements-tool_bench.txt
+
+
+--- REQUIREMENTS FILES ---
+
+[examples/model-conversion/requirements.txt]
+--extra-index-url https://download.pytorch.org/whl/cpu
+torch
+torchvision
+transformers
+huggingface-hub
+accelerate
+sentence-transformers
+
+
+[requirements.txt]
+# These requirements include all dependencies for all top-level python scripts
+# for llama.cpp. Avoid adding packages here directly.
+#
+# Package versions must stay compatible across all top-level python scripts.
+#
+
+-r ./requirements/requirements-convert_legacy_llama.txt
+
+-r ./requirements/requirements-convert_hf_to_gguf.txt
+-r ./requirements/requirements-convert_hf_to_gguf_update.txt
+-r ./requirements/requirements-convert_llama_ggml_to_gguf.txt
+-r ./requirements/requirements-convert_lora_to_gguf.txt
+-r ./requirements/requirements-tool_bench.txt
+
+
+[requirements/requirements-all.txt]
+-r ../tools/mtmd/requirements.txt
+-r ../tools/server/bench/requirements.txt
+-r ../tools/server/tests/requirements.txt
+
+-r ./requirements-compare-llama-bench.txt
+-r ./requirements-server-bench.txt
+-r ./requirements-pydantic.txt
+-r ./requirements-test-tokenizer-random.txt
+
+-r ./requirements-convert_hf_to_gguf.txt
+-r ./requirements-convert_hf_to_gguf_update.txt
+-r ./requirements-convert_legacy_llama.txt
+-r ./requirements-convert_llama_ggml_to_gguf.txt
+-r ./requirements-tool_bench.txt
+
+-r ./requirements-gguf_editor_gui.txt
+
+-r ../examples/model-conversion/requirements.txt
+
+
+[requirements/requirements-compare-llama-bench.txt]
+tabulate~=0.9.0
+GitPython~=3.1.43
+matplotlib~=3.10.0
+
+
+[requirements/requirements-convert_hf_to_gguf.txt]
+-r ./requirements-convert_legacy_llama.txt
+--extra-index-url https://download.pytorch.org/whl/cpu
+
+## Embedding Gemma requires PyTorch 2.6.0 or later
+torch~=2.6.0; platform_machine != "s390x"
+
+# torch s390x packages can only be found from nightly builds
+--extra-index-url https://download.pytorch.org/whl/nightly
+torch>=0.0.0.dev0; platform_machine == "s390x"
+
+
+[requirements/requirements-convert_hf_to_gguf_update.txt]
+-r ./requirements-convert_legacy_llama.txt
+
+
+[requirements/requirements-convert_legacy_llama.txt]
+numpy~=1.26.4
+sentencepiece>=0.1.98,<0.3.0
+
+transformers>=4.57.1,<5.0.0
+
+gguf>=0.1.0
+protobuf>=4.21.0,<5.0.0
+
+
+[requirements/requirements-convert_llama_ggml_to_gguf.txt]
+-r ./requirements-convert_legacy_llama.txt
+
+
+[requirements/requirements-convert_lora_to_gguf.txt]
+-r ./requirements-convert_hf_to_gguf.txt
+--extra-index-url https://download.pytorch.org/whl/cpu
+# torch s390x packages can only be found from nightly builds
+--extra-index-url https://download.pytorch.org/whl/nightly
+
+
+[requirements/requirements-gguf_editor_gui.txt]
+numpy~=1.26.4
+PySide6~=6.9.0
+gguf>=0.17.0
+
+
+[requirements/requirements-pydantic.txt]
+docstring_parser~=0.15
+pydantic~=2.11.7
+requests
+
+
+[requirements/requirements-server-bench.txt]
+datasets~=3.2.0
+matplotlib~=3.10.0
+numpy~=1.26.4
+requests~=2.32.3
+tqdm~=4.67.1
+
+
+[requirements/requirements-test-tokenizer-random.txt]
+cffi~=1.16.0
+
+
+[requirements/requirements-tool_bench.txt]
+aiohttp~=3.9.3
+pytest~=8.3.3
+huggingface_hub>=0.34.0,<1.0
+matplotlib~=3.10.0
+numpy~=1.26.4
+openai~=2.14.0
+pandas~=2.2.3
+prometheus-client~=0.20.0
+requests~=2.32.3
+wget~=3.2
+typer~=0.15.1
+seaborn~=0.13.2
+
+
+[scripts/jinja/requirements.txt]
+PySide6
+jinja2
+
+
+[scripts/snapdragon/qdc/requirements.txt]
+Appium-Python-Client==5.2.4
+attrs==25.4.0
+certifi==2025.10.5
+exceptiongroup==1.3.0
+h11==0.16.0
+idna==3.11
+iniconfig==2.1.0
+outcome==1.3.0.post0
+packaging==25.0
+pluggy==1.6.0
+Pygments==2.19.2
+PySocks==1.7.1
+pytest==8.4.2
+pytest-dependency==0.6.0
+selenium==4.36.0
+setuptools==80.9.0
+sniffio==1.3.1
+sortedcontainers==2.4.0
+tomli==2.3.0
+trio==0.31.0
+trio-websocket==0.12.2
+typing_extensions==4.15.0
+urllib3==2.5.0
+websocket-client==1.9.0
+wsproto==1.2.0
+
+
+[tools/mtmd/requirements.txt]
+-r ../../requirements/requirements-convert_legacy_llama.txt
+--extra-index-url https://download.pytorch.org/whl/cpu
+pillow~=11.3.0
+torch~=2.6.0
+torchvision~=0.21.0
+
+
+[tools/server/bench/requirements.txt]
+matplotlib
+requests
+
+
+[tools/server/tests/requirements.txt]
+aiohttp~=3.9.3
+pytest~=8.3.3
+huggingface_hub>=0.34.0,<1.0
+numpy~=1.26.4
+openai~=2.14.0
+prometheus-client~=0.20.0
+requests~=2.32.3
+wget~=3.2
+
+
+--- ML CONFIG FILES ---
+(No ML config files found)
+
+--- JUPYTER NOTEBOOKS ---
+(No notebooks found)
+
+--- MODEL / TRAINING FILES ---
+  examples/model-conversion/scripts/causal/run-org-model.py
+  examples/model-conversion/scripts/embedding/run-original-model.py
+  examples/model-conversion/scripts/utils/hf-create-model.py
+  examples/model-conversion/scripts/utils/hf-upload-gguf-model.py
+  examples/model-conversion/scripts/utils/inspect-org-model.py
+  scripts/verify-checksum-models.py
+
+--- DIRECTORY STRUCTURE (depth 2) ---
+├── .clang-format
+├── .clang-tidy
+├── .devops/
+│   ├── cann.Dockerfile
+│   ├── cpu.Dockerfile
+│   ├── cuda-new.Dockerfile
+│   ├── cuda.Dockerfile
+│   ├── intel.Dockerfile
+│   ├── llama-cli-cann.Dockerfile
+│   ├── llama-cpp-cuda.srpm.spec
+│   ├── llama-cpp.srpm.spec
+│   ├── musa.Dockerfile
+│   ├── nix/
+│   │   ├── apps.nix
+│   │   ├── devshells.nix
+│   │   ├── docker.nix
+│   │   ├── jetson-support.nix
+│   │   ├── nixpkgs-instances.nix
+│   │   ├── package-gguf-py.nix
+│   │   ├── package.nix
+│   │   ├── python-scripts.nix
+│   │   ├── scope.nix
+│   │   └── sif.nix
+│   ├── rocm.Dockerfile
+│   ├── s390x.Dockerfile
+│   ├── tools.sh
+│   └── vulkan.Dockerfile
+├── .dockerignore
+├── .ecrc
+├── .editorconfig
+├── .flake8
+├── .gemini/
+│   └── settings.json
+├── .github/
+│   ├── ISSUE_TEMPLATE/
+│   │   ├── 010-bug-compilation.yml
+│   │   ├── 011-bug-results.yml
+│   │   ├── 019-bug-misc.yml
+│   │   ├── 020-enhancement.yml
+│   │   ├── 030-research.yml
+│   │   ├── 040-refactor.yml
+│   │   └── config.yml
+│   ├── actions/
+│   │   ├── get-tag-name/
+│   │   ├── install-exe/
+│   │   ├── linux-setup-spacemit/
+│   │   ├── linux-setup-vulkan/
+│   │   ├── unarchive-tar/
+│   │   ├── windows-setup-cuda/
+│   │   └── windows-setup-rocm/
+│   ├── labeler.yml
+│   ├── pull_request_template.md
+│   └── workflows/
+│       ├── bench.yml.disabled
+│       ├── build-cache.yml
+│       ├── build-cmake-pkg.yml
+│       ├── build-linux-cross.yml
+│       ├── build.yml
+│       ├── check-vendor.yml
+│       ├── close-issue.yml
+│       ├── copilot-setup-steps.yml
+│       ├── docker.yml
+│       ├── editorconfig.yml
+│       ├── gguf-publish.yml
+│       ├── labeler.yml
+│       ├── pre-tokenizer-hashes.yml
+│       ├── python-check-requirements.yml
+│       ├── python-lint.yml
+│       ├── python-type-check.yml
+│       ├── release.yml
+│       ├── server-metal.yml
+│       ├── server-webui.yml
+│       ├── server.yml
+│       ├── update-ops-docs.yml
+│       └── winget.yml
+├── .gitignore
+├── .gitmodules
+├── .pre-commit-config.yaml
+├── AGENTS.md
+├── AUTHORS
+├── CLAUDE.md
+├── CMakeLists.txt
+├── CMakePresets.json
+├── CODEOWNERS
+├── CONTRIBUTING.md
+├── LICENSE
+├── Makefile
+├── README.md
+├── SECURITY.md
+├── benches/
+│   ├── dgx-spark/
+│   │   ├── aime25_openai__gpt-oss-120b-high_temp1.0_20251109_094547.html
+│   │   ├── aime25_openai__gpt-oss-120b-high_temp1.0_20251109_094547.json
+│   │   ├── aime25_openai__gpt-oss-120b-high_temp1.0_20251109_094547_allresults.json
+│   │   ├── dgx-spark.md
+│   │   └── run-aime-120b-t8-x8-high.log
+│   └── mac-m2-ultra/
+│       └── mac-m2-ultra.md
+├── build-xcframework.sh
+├── ci/
+│   ├── README-MUSA.md
+│   ├── README.md
+│   └── run.sh
+├── cmake/
+│   ├── arm64-apple-clang.cmake
+│   ├── arm64-windows-llvm.cmake
+│   ├── build-info.cmake
+│   ├── common.cmake
+│   ├── download-models.cmake
+│   ├── git-vars.cmake
+│   ├── license.cmake
+│   ├── llama-config.cmake.in
+│   ├── llama.pc.in
+│   ├── riscv64-spacemit-linux-gnu-gcc.cmake
+│   └── x64-windows-llvm.cmake
+├── common/
+│   ├── CMakeLists.txt
+│   ├── arg.cpp
+│   ├── arg.h
+│   ├── base64.hpp
+│   ├── build-info.cpp.in
+│   ├── chat-parser-xml-toolcall.cpp
+│   ├── chat-parser-xml-toolcall.h
+│   ├── chat-parser.cpp
+│   ├── chat-parser.h
+│   ├── chat-peg-parser.cpp
+│   ├── chat-peg-parser.h
+│   ├── chat.cpp
+│   ├── chat.h
+│   ├── common.cpp
+│   ├── common.h
+│   ├── console.cpp
+│   ├── console.h
+│   ├── debug.cpp
+│   ├── debug.h
+│   ├── download.cpp
+│   ├── download.h
+│   ├── http.h
+│   ├── jinja/
+│   │   ├── README.md
+│   │   ├── caps.cpp
+│   │   ├── caps.h
+│   │   ├── lexer.cpp
+│   │   ├── lexer.h
+│   │   ├── parser.cpp
+│   │   ├── parser.h
+│   │   ├── runtime.cpp
+│   │   ├── runtime.h
+│   │   ├── string.cpp
+│   │   ├── string.h
+│   │   ├── utils.h
+│   │   ├── value.cpp
+│   │   └── value.h
+│   ├── json-partial.cpp
+│   ├── json-partial.h
+│   ├── json-schema-to-grammar.cpp
+│   ├── json-schema-to-grammar.h
+│   ├── llguidance.cpp
+│   ├── log.cpp
+│   ├── log.h
+│   ├── ngram-cache.cpp
+│   ├── ngram-cache.h
+│   ├── ngram-map.cpp
+│   ├── ngram-map.h
+│   ├── ngram-mod.cpp
+│   ├── ngram-mod.h
+│   ├── peg-parser.cpp
+│   ├── peg-parser.h
+│   ├── preset.cpp
+│   ├── preset.h
+│   ├── regex-partial.cpp
+│   ├── regex-partial.h
+│   ├── sampling.cpp
+│   ├── sampling.h
+│   ├── speculative.cpp
+│   ├── speculative.h
+│   ├── unicode.cpp
+│   └── unicode.h
+├── convert_hf_to_gguf.py
+├── convert_hf_to_gguf_update.py
+├── convert_llama_ggml_to_gguf.py
+├── convert_lora_to_gguf.py
+├── docs/
+│   ├── android.md
+│   ├── android/
+│   │   └── imported-into-android-studio.jpg
+│   ├── backend/
+│   │   ├── BLIS.md
+│   │   ├── CANN.md
+│   │   ├── CUDA-FEDORA.md
+│   │   ├── OPENCL.md
+│   │   ├── SYCL.md
+│   │   ├── VirtGPU.md
+│   │   ├── VirtGPU/
+│   │   ├── ZenDNN.md
+│   │   ├── snapdragon/
+│   │   └── zDNN.md
+│   ├── build-riscv64-spacemit.md
+│   ├── build-s390x.md
+│   ├── build.md
+│   ├── development/
+│   │   ├── HOWTO-add-model.md
+│   │   ├── debugging-tests.md
+│   │   ├── llama-star/
+│   │   ├── parsing.md
+│   │   └── token_generation_performance_tips.md
+│   ├── docker.md
+│   ├── function-calling.md
+│   ├── install.md
+│   ├── llguidance.md
+│   ├── multimodal.md
+│   ├── multimodal/
+│   │   ├── MobileVLM.md
+│   │   ├── gemma3.md
+│   │   ├── glmedge.md
+│   │   ├── granitevision.md
+│   │   ├── llava.md
+│   │   ├── minicpmo2.6.md
+│   │   ├── minicpmo4.0.md
+│   │   ├── minicpmv2.5.md
+│   │   ├── minicpmv2.6.md
+│   │   ├── minicpmv4.0.md
+│   │   └── minicpmv4.5.md
+│   ├── ops.md
+│   ├── ops/
+│   │   ├── BLAS.csv
+│   │   ├── CANN.csv
+│   │   ├── CPU.csv
+│   │   ├── CUDA.csv
+│   │   ├── Metal.csv
+│   │   ├── OpenCL.csv
+│   │   ├── SYCL.csv
+│   │   ├── Vulkan.csv
+│   │   ├── WebGPU.csv
+│   │   ├── ZenDNN.csv
+│   │   └── zDNN.csv
+│   ├── preset.md
+│   └── speculative.md
+├── examples/
+│   ├── CMakeLists.txt
+│   ├── batched.swift/
+│   │   ├── .gitignore
+│   │   ├── Makefile
+│   │   ├── Package.swift
+│   │   ├── README.md
+│   │   └── Sources/
+│   ├── batched/
+│   │   ├── CMakeLists.txt
+│   │   ├── README.md
+│   │   └── batched.cpp
+│   ├── convert-llama2c-to-ggml/
+│   │   ├── CMakeLists.txt
+│   │   ├── README.md
+│   │   └── convert-llama2c-to-ggml.cpp
+│   ├── convert_legacy_llama.py
+│   ├── debug/
+│   │   ├── CMakeLists.txt
+│   │   ├── README.md
+│   │   └── debug.cpp
+│   ├── deprecation-warning/
+│   │   ├── README.md
+│   │   └── deprecation-warning.cpp
+│   ├── diffusion/
+│   │   ├── CMakeLists.txt
+│   │   ├── README.md
+│   │   └── diffusion-cli.cpp
+│   ├── embedding/
+│   │   ├── CMakeLists.txt
+│   │   ├── README.md
+│   │   └── embedding.cpp
+│   ├── eval-callback/
+│   │   ├── CMakeLists.txt
+│   │   ├── README.md
+│   │   └── eval-callback.cpp
+│   ├── gen-docs/
+│   │   ├── CMakeLists.txt
+│   │   └── gen-docs.cpp
+│   ├── gguf-hash/
+│   │   ├── CMakeLists.txt
+│   │   ├── README.md
+│   │   ├── deps/
+│   │   └── gguf-hash.cpp
+│   ├── gguf/
+│   │   ├── CMakeLists.txt
+│   │   └── gguf.cpp
+│   ├── idle/
+│   │   ├── CMakeLists.txt
+│   │   ├── README.md
+│   │   └── idle.cpp
+│   ├── json_schema_pydantic_example.py
+│   ├── json_schema_to_grammar.py
+│   ├── llama.android/
+│   │   ├── .gitignore
+│   │   ├── app/
+│   │   ├── build.gradle.kts
+│   │   ├── gradle.properties
+│   │   ├── gradle/
+│   │   ├── gradlew
+│   │   ├── lib/
+│   │   └── settings.gradle.kts
+│   ├── llama.swiftui/
+│   │   ├── .gitignore
+│   │   ├── README.md
+│   │   ├── llama.cpp.swift/
+│   │   ├── llama.swiftui.xcodeproj/
+│   │   └── llama.swiftui/
+│   ├── llama.vim
+│   ├── lookahead/
+│   │   ├── CMakeLists.txt
+│   │   ├── README.md
+│   │   └── lookahead.cpp
+│   ├── lookup/
+│   │   ├── CMakeLists.txt
+│   │   ├── README.md
+│   │   ├── lookup-create.cpp
+│   │   ├── lookup-merge.cpp
+│   │   ├── lookup-stats.cpp
+│   │   └── lookup.cpp
+│   ├── model-conversion/
+│   │   ├── .gitignore
+│   │   ├── Makefile
+│   │   ├── README.md
+│   │   ├── requirements.txt
+│   │   └── scripts/
+│   ├── parallel/
+│   │   ├── CMakeLists.txt
+│   │   ├── README.md
+│   │   └── parallel.cpp
+│   ├── passkey/
+│   │   ├── CMakeLists.txt
+│   │   ├── README.md
+│   │   └── passkey.cpp
+│   ├── pydantic_models_to_grammar.py
+│   ├── pydantic_models_to_grammar_examples.py
+│   ├── reason-act.sh
+│   ├── regex_to_grammar.py
+│   ├── retrieval/
+│   │   ├── CMakeLists.txt
+│   │   ├── README.md
+│   │   └── retrieval.cpp
+│   ├── save-load-state/
+│   │   ├── CMakeLists.txt
+│   │   └── save-load-state.cpp
+│   ├── server-llama2-13B.sh
+│   ├── server_embd.py
+│   ├── simple-chat/
+│   │   ├── CMakeLists.txt
+│   │   ├── README.md
+│   │   └── simple-chat.cpp
+│   ├── simple-cmake-pkg/
+│   │   ├── .gitignore
+│   │   ├── CMakeLists.txt
+│   │   └── README.md
+│   ├── simple/
+│   │   ├── CMakeLists.txt
+│   │   ├── README.md
+│   │   └── simple.cpp
+│   ├── speculative-simple/
+│   │   ├── CMakeLists.txt
+│   │   ├── README.md
+│   │   └── speculative-simple.cpp
+│   ├── speculative/
+│   │   ├── CMakeLists.txt
+│   │   ├── README.md
+│   │   └── speculative.cpp
+│   ├── sycl/
+│   │   ├── CMakeLists.txt
+│   │   ├── README.md
+│   │   ├── build.sh
+│   │   ├── ls-sycl-device.cpp
+│   │   ├── run-llama2.sh
+│   │   ├── test.sh
+│   │   ├── win-build-sycl.bat
+│   │   ├── win-run-llama2.bat
+│   │   └── win-test.bat
+│   ├── training/
+│   │   ├── CMakeLists.txt
+│   │   ├── README.md
+│   │   └── finetune.cpp
+│   └── ts-type-to-grammar.sh
+├── flake.lock
+├── flake.nix
+├── ggml/
+│   ├── .gitignore
+│   ├── CMakeLists.txt
+│   ├── cmake/
+│   │   ├── GitVars.cmake
+│   │   ├── common.cmake
+│   │   └── ggml-config.cmake.in
+│   ├── include/
+│   │   ├── ggml-alloc.h
+│   │   ├── ggml-backend.h
+│   │   ├── ggml-blas.h
+│   │   ├── ggml-cann.h
+│   │   ├── ggml-cpp.h
+│   │   ├── ggml-cpu.h
+│   │   ├── ggml-cuda.h
+│   │   ├── ggml-hexagon.h
+│   │   ├── ggml-metal.h
+│   │   ├── ggml-opencl.h
+│   │   ├── ggml-opt.h
+│   │   ├── ggml-rpc.h
+│   │   ├── ggml-sycl.h
+│   │   ├── ggml-virtgpu.h
+│   │   ├── ggml-vulkan.h
+│   │   ├── ggml-webgpu.h
+│   │   ├── ggml-zdnn.h
+│   │   ├── ggml-zendnn.h
+│   │   ├── ggml.h
+│   │   └── gguf.h
+│   └── src/
+│       ├── CMakeLists.txt
+│       ├── ggml-alloc.c
+│       ├── ggml-backend-dl.cpp
+│       ├── ggml-backend-dl.h
+│       ├── ggml-backend-impl.h
+│       ├── ggml-backend-reg.cpp
+│       ├── ggml-backend.cpp
+│       ├── ggml-blas/
+│       ├── ggml-cann/
+│       ├── ggml-common.h
+│       ├── ggml-cpu/
+│       ├── ggml-cuda/
+│       ├── ggml-hexagon/
+│       ├── ggml-hip/
+│       ├── ggml-impl.h
+│       ├── ggml-metal/
+│       ├── ggml-musa/
+│       ├── ggml-opencl/
+│       ├── ggml-opt.cpp
+│       ├── ggml-quants.c
+│       ├── ggml-quants.h
+│       ├── ggml-rpc/
+│       ├── ggml-sycl/
+│       ├── ggml-threading.cpp
+│       ├── ggml-threading.h
+│       ├── ggml-virtgpu/
+│       ├── ggml-vulkan/
+│       ├── ggml-webgpu/
+│       ├── ggml-zdnn/
+│       ├── ggml-zendnn/
+│       ├── ggml.c
+│       ├── ggml.cpp
+│       └── gguf.cpp
+├── gguf-py/
+│   ├── LICENSE
+│   ├── README.md
+│   ├── examples/
+│   │   ├── reader.py
+│   │   └── writer.py
+│   ├── gguf/
+│   │   ├── __init__.py
+│   │   ├── constants.py
+│   │   ├── gguf.py
+│   │   ├── gguf_reader.py
+│   │   ├── gguf_writer.py
+│   │   ├── lazy.py
+│   │   ├── metadata.py
+│   │   ├── py.typed
+│   │   ├── quants.py
+│   │   ├── scripts/
+│   │   ├── tensor_mapping.py
+│   │   ├── utility.py
+│   │   └── vocab.py
+│   ├── pyproject.toml
+│   └── tests/
+│       ├── __init__.py
+│       ├── test_metadata.py
+│       └── test_quants.py
+├── grammars/
+│   ├── README.md
+│   ├── arithmetic.gbnf
+│   ├── c.gbnf
+│   ├── chess.gbnf
+│   ├── english.gbnf
+│   ├── japanese.gbnf
+│   ├── json.gbnf
+│   ├── json_arr.gbnf
+│   └── list.gbnf
+├── include/
+│   ├── llama-cpp.h
+│   └── llama.h
+├── licenses/
+│   └── LICENSE-jsonhpp
+├── media/
+│   ├── llama0-banner.png
+│   ├── llama0-logo.png
+│   ├── llama1-banner.png
+│   ├── llama1-icon-transparent.png
+│   ├── llama1-icon-transparent.svg
+│   ├── llama1-icon.png
+│   ├── llama1-icon.svg
+│   ├── llama1-logo.png
+│   ├── llama1-logo.svg
+│   ├── matmul.png
+│   └── matmul.svg
+├── models/
+│   ├── .editorconfig
+│   ├── ggml-vocab-aquila.gguf
+│   ├── ggml-vocab-baichuan.gguf
+│   ├── ggml-vocab-bert-bge.gguf
+│   ├── ggml-vocab-bert-bge.gguf.inp
+│   ├── ggml-vocab-bert-bge.gguf.out
+│   ├── ggml-vocab-command-r.gguf
+│   ├── ggml-vocab-command-r.gguf.inp
+│   ├── ggml-vocab-command-r.gguf.out
+│   ├── ggml-vocab-deepseek-coder.gguf
+│   ├── ggml-vocab-deepseek-coder.gguf.inp
+│   ├── ggml-vocab-deepseek-coder.gguf.out
+│   ├── ggml-vocab-deepseek-llm.gguf
+│   ├── ggml-vocab-deepseek-llm.gguf.inp
+│   ├── ggml-vocab-deepseek-llm.gguf.out
+│   ├── ggml-vocab-falcon.gguf
+│   ├── ggml-vocab-falcon.gguf.inp
+│   ├── ggml-vocab-falcon.gguf.out
+│   ├── ggml-vocab-gpt-2.gguf
+│   ├── ggml-vocab-gpt-2.gguf.inp
+│   ├── ggml-vocab-gpt-2.gguf.out
+│   ├── ggml-vocab-gpt-neox.gguf
+│   ├── ggml-vocab-llama-bpe.gguf
+│   ├── ggml-vocab-llama-bpe.gguf.inp
+│   ├── ggml-vocab-llama-bpe.gguf.out
+│   ├── ggml-vocab-llama-spm.gguf
+│   ├── ggml-vocab-llama-spm.gguf.inp
+│   ├── ggml-vocab-llama-spm.gguf.out
+│   ├── ggml-vocab-mpt.gguf
+│   ├── ggml-vocab-mpt.gguf.inp
+│   ├── ggml-vocab-mpt.gguf.out
+│   ├── ggml-vocab-nomic-bert-moe.gguf
+│   ├── ggml-vocab-phi-3.gguf
+│   ├── ggml-vocab-phi-3.gguf.inp
+│   ├── ggml-vocab-phi-3.gguf.out
+│   ├── ggml-vocab-qwen2.gguf
+│   ├── ggml-vocab-qwen2.gguf.inp
+│   ├── ggml-vocab-qwen2.gguf.out
+│   ├── ggml-vocab-refact.gguf
+│   ├── ggml-vocab-refact.gguf.inp
+│   ├── ggml-vocab-refact.gguf.out
+│   ├── ggml-vocab-starcoder.gguf
+│   ├── ggml-vocab-starcoder.gguf.inp
+│   ├── ggml-vocab-starcoder.gguf.out
+│   └── templates/
+│       ├── Apertus-8B-Instruct.jinja
+│       ├── ByteDance-Seed-OSS.jinja
+│       ├── CohereForAI-c4ai-command-r-plus-tool_use.jinja
+│       ├── CohereForAI-c4ai-command-r7b-12-2024-tool_use.jinja
+│       ├── GLM-4.6.jinja
+│       ├── Kimi-K2-Instruct.jinja
+│       ├── Kimi-K2-Thinking.jinja
+│       ├── MiMo-VL.jinja
+│       ├── MiniMax-M2.jinja
+│       ├── Mistral-Small-3.2-24B-Instruct-2506.jinja
+│       ├── NVIDIA-Nemotron-3-Nano-30B-A3B-BF16.jinja
+│       ├── NVIDIA-Nemotron-Nano-v2.jinja
+│       ├── NousResearch-Hermes-2-Pro-Llama-3-8B-tool_use.jinja
+│       ├── NousResearch-Hermes-3-Llama-3.1-8B-tool_use.jinja
+│       ├── Qwen-QwQ-32B.jinja
+│       ├── Qwen-Qwen2.5-7B-Instruct.jinja
+│       ├── Qwen-Qwen3-0.6B.jinja
+│       ├── Qwen3-Coder.jinja
+│       ├── README.md
+│       ├── deepseek-ai-DeepSeek-R1-Distill-Llama-8B.jinja
+│       ├── deepseek-ai-DeepSeek-R1-Distill-Qwen-32B.jinja
+│       ├── deepseek-ai-DeepSeek-V3.1.jinja
+│       ├── fireworks-ai-llama-3-firefunction-v2.jinja
+│       ├── google-gemma-2-2b-it.jinja
+│       ├── ibm-granite-granite-3.3-2B-Instruct.jinja
+│       ├── llama-cpp-deepseek-r1.jinja
+│       ├── llama-cpp-lfm2.jinja
+│       ├── llama-cpp-rwkv-world.jinja
+│       ├── meetkai-functionary-medium-v3.1.jinja
+│       ├── meetkai-functionary-medium-v3.2.jinja
+│       ├── meta-llama-Llama-3.1-8B-Instruct.jinja
+│       ├── meta-llama-Llama-3.2-3B-Instruct.jinja
+│       ├── meta-llama-Llama-3.3-70B-Instruct.jinja
+│       ├── microsoft-Phi-3.5-mini-instruct.jinja
+│       ├── mistralai-Ministral-3-14B-Reasoning-2512.jinja
+│       ├── mistralai-Mistral-Nemo-Instruct-2407.jinja
+│       ├── moonshotai-Kimi-K2.jinja
+│       ├── openai-gpt-oss-120b.jinja
+│       ├── stepfun-ai-Step-3.5-Flash.jinja
+│       ├── unsloth-Apriel-1.5.jinja
+│       ├── unsloth-mistral-Devstral-Small-2507.jinja
+│       └── upstage-Solar-Open-100B.jinja
+├── mypy.ini
+├── pocs/
+│   ├── CMakeLists.txt
+│   └── vdot/
+│       ├── CMakeLists.txt
+│       ├── q8dot.cpp
+│       └── vdot.cpp
+├── poetry.lock
+├── pyproject.toml
+├── pyrightconfig.json
+├── requirements.txt
+├── requirements/
+│   ├── requirements-all.txt
+│   ├── requirements-compare-llama-bench.txt
+│   ├── requirements-convert_hf_to_gguf.txt
+│   ├── requirements-convert_hf_to_gguf_update.txt
+│   ├── requirements-convert_legacy_llama.txt
+│   ├── requirements-convert_llama_ggml_to_gguf.txt
+│   ├── requirements-convert_lora_to_gguf.txt
+│   ├── requirements-gguf_editor_gui.txt
+│   ├── requirements-pydantic.txt
+│   ├── requirements-server-bench.txt
+│   ├── requirements-test-tokenizer-random.txt
+│   └── requirements-tool_bench.txt
+├── scripts/
+│   ├── apple/
+│   │   ├── validate-apps.sh
+│   │   ├── validate-ios.sh
+│   │   ├── validate-macos.sh
+│   │   ├── validate-tvos.sh
+│   │   └── validate-visionos.sh
+│   ├── bench-models.sh
+│   ├── build-info.sh
+│   ├── check-requirements.sh
+│   ├── compare-commits.sh
+│   ├── compare-llama-bench.py
+│   ├── compare-logprobs.py
+│   ├── create_ops_docs.py
+│   ├── debug-test.sh
+│   ├── fetch_server_test_models.py
+│   ├── gen-authors.sh
+│   ├── gen-unicode-data.py
+│   ├── get-flags.mk
+│   ├── get-hellaswag.sh
+│   ├── get-pg.sh
+│   ├── get-wikitext-103.sh
+│   ├── get-wikitext-2.sh
+│   ├── get-winogrande.sh
+│   ├── get_chat_template.py
+│   ├── hf.sh
+│   ├── install-oneapi.bat
+│   ├── jinja/
+│   │   ├── jinja-tester.py
+│   │   └── requirements.txt
+│   ├── pr2wt.sh
+│   ├── serve-static.js
+│   ├── server-bench.py
+│   ├── snapdragon/
+│   │   ├── adb/
+│   │   ├── qdc/
+│   │   └── windows/
+│   ├── sync-ggml-am.sh
+│   ├── sync-ggml.last
+│   ├── sync-ggml.sh
+│   ├── sync_vendor.py
+│   ├── tool_bench.py
+│   ├── tool_bench.sh
+│   ├── verify-checksum-models.py
+│   └── xxd.cmake
+├── src/
+│   ├── CMakeLists.txt
+│   ├── llama-adapter.cpp
+│   ├── llama-adapter.h
+│   ├── llama-arch.cpp
+│   ├── llama-arch.h
+│   ├── llama-batch.cpp
+│   ├── llama-batch.h
+│   ├── llama-chat.cpp
+│   ├── llama-chat.h
+│   ├── llama-context.cpp
+│   ├── llama-context.h
+│   ├── llama-cparams.cpp
+│   ├── llama-cparams.h
+│   ├── llama-grammar.cpp
+│   ├── llama-grammar.h
+│   ├── llama-graph.cpp
+│   ├── llama-graph.h
+│   ├── llama-hparams.cpp
+│   ├── llama-hparams.h
+│   ├── llama-impl.cpp
+│   ├── llama-impl.h
+│   ├── llama-io.cpp
+│   ├── llama-io.h
+│   ├── llama-kv-cache-iswa.cpp
+│   ├── llama-kv-cache-iswa.h
+│   ├── llama-kv-cache.cpp
+│   ├── llama-kv-cache.h
+│   ├── llama-kv-cells.h
+│   ├── llama-memory-hybrid-iswa.cpp
+│   ├── llama-memory-hybrid-iswa.h
+│   ├── llama-memory-hybrid.cpp
+│   ├── llama-memory-hybrid.h
+│   ├── llama-memory-recurrent.cpp
+│   ├── llama-memory-recurrent.h
+│   ├── llama-memory.cpp
+│   ├── llama-memory.h
+│   ├── llama-mmap.cpp
+│   ├── llama-mmap.h
+│   ├── llama-model-loader.cpp
+│   ├── llama-model-loader.h
+│   ├── llama-model-saver.cpp
+│   ├── llama-model-saver.h
+│   ├── llama-model.cpp
+│   ├── llama-model.h
+│   ├── llama-quant.cpp
+│   ├── llama-quant.h
+│   ├── llama-sampler.cpp
+│   ├── llama-sampler.h
+│   ├── llama-vocab.cpp
+│   ├── llama-vocab.h
+│   ├── llama.cpp
+│   ├── models/
+│   │   ├── afmoe.cpp
+│   │   ├── apertus.cpp
+│   │   ├── arcee.cpp
+│   │   ├── arctic.cpp
+│   │   ├── arwkv7.cpp
+│   │   ├── baichuan.cpp
+│   │   ├── bailingmoe.cpp
+│   │   ├── bailingmoe2.cpp
+│   │   ├── bert.cpp
+│   │   ├── bitnet.cpp
+│   │   ├── bloom.cpp
+│   │   ├── chameleon.cpp
+│   │   ├── chatglm.cpp
+│   │   ├── codeshell.cpp
+│   │   ├── cogvlm.cpp
+│   │   ├── cohere2-iswa.cpp
+│   │   ├── command-r.cpp
+│   │   ├── dbrx.cpp
+│   │   ├── deci.cpp
+│   │   ├── deepseek.cpp
+│   │   ├── deepseek2.cpp
+│   │   ├── delta-net-base.cpp
+│   │   ├── dots1.cpp
+│   │   ├── dream.cpp
+│   │   ├── ernie4-5-moe.cpp
+│   │   ├── ernie4-5.cpp
+│   │   ├── eurobert.cpp
+│   │   ├── exaone-moe.cpp
+│   │   ├── exaone.cpp
+│   │   ├── exaone4.cpp
+│   │   ├── falcon-h1.cpp
+│   │   ├── falcon.cpp
+│   │   ├── gemma-embedding.cpp
+│   │   ├── gemma.cpp
+│   │   ├── gemma2-iswa.cpp
+│   │   ├── gemma3.cpp
+│   │   ├── gemma3n-iswa.cpp
+│   │   ├── glm4-moe.cpp
+│   │   ├── glm4.cpp
+│   │   ├── gpt2.cpp
+│   │   ├── gptneox.cpp
+│   │   ├── granite-hybrid.cpp
+│   │   ├── granite.cpp
+│   │   ├── grok.cpp
+│   │   ├── grovemoe.cpp
+│   │   ├── hunyuan-dense.cpp
+│   │   ├── hunyuan-moe.cpp
+│   │   ├── internlm2.cpp
+│   │   ├── jais.cpp
+│   │   ├── jais2.cpp
+│   │   ├── jamba.cpp
+│   │   ├── kimi-linear.cpp
+│   │   ├── lfm2.cpp
+│   │   ├── llada-moe.cpp
+│   │   ├── llada.cpp
+│   │   ├── llama-iswa.cpp
+│   │   ├── llama.cpp
+│   │   ├── maincoder.cpp
+│   │   ├── mamba-base.cpp
+│   │   ├── mamba.cpp
+│   │   ├── mimo2-iswa.cpp
+│   │   ├── minicpm3.cpp
+│   │   ├── minimax-m2.cpp
+│   │   ├── mistral3.cpp
+│   │   ├── models.h
+│   │   ├── modern-bert.cpp
+│   │   ├── mpt.cpp
+│   │   ├── nemotron-h.cpp
+│   │   ├── nemotron.cpp
+│   │   ├── neo-bert.cpp
+│   │   ├── olmo.cpp
+│   │   ├── olmo2.cpp
+│   │   ├── olmoe.cpp
+│   │   ├── openai-moe-iswa.cpp
+│   │   ├── openelm.cpp
+│   │   ├── orion.cpp
+│   │   ├── paddleocr.cpp
+│   │   ├── pangu-embedded.cpp
+│   │   ├── phi2.cpp
+│   │   ├── phi3.cpp
+│   │   ├── plamo.cpp
+│   │   ├── plamo2.cpp
+│   │   ├── plamo3.cpp
+│   │   ├── plm.cpp
+│   │   ├── qwen.cpp
+│   │   ├── qwen2.cpp
+│   │   ├── qwen2moe.cpp
+│   │   ├── qwen2vl.cpp
+│   │   ├── qwen3.cpp
+│   │   ├── qwen35.cpp
+│   │   ├── qwen35moe.cpp
+│   │   ├── qwen3moe.cpp
+│   │   ├── qwen3next.cpp
+│   │   ├── qwen3vl-moe.cpp
+│   │   ├── qwen3vl.cpp
+│   │   ├── refact.cpp
+│   │   ├── rnd1.cpp
+│   │   ├── rwkv6-base.cpp
+│   │   ├── rwkv6.cpp
+│   │   ├── rwkv6qwen2.cpp
+│   │   ├── rwkv7-base.cpp
+│   │   ├── rwkv7.cpp
+│   │   ├── seed-oss.cpp
+│   │   ├── smallthinker.cpp
+│   │   ├── smollm3.cpp
+│   │   ├── stablelm.cpp
+│   │   ├── starcoder.cpp
+│   │   ├── starcoder2.cpp
+│   │   ├── step35-iswa.cpp
+│   │   ├── t5-dec.cpp
+│   │   ├── t5-enc.cpp
+│   │   ├── wavtokenizer-dec.cpp
+│   │   └── xverse.cpp
+│   ├── unicode-data.cpp
+│   ├── unicode-data.h
+│   ├── unicode.cpp
+│   └── unicode.h
+├── tests/
+│   ├── .gitignore
+│   ├── CMakeLists.txt
+│   ├── get-model.cpp
+│   ├── get-model.h
+│   ├── gguf-model-data.cpp
+│   ├── gguf-model-data.h
+│   ├── peg-parser/
+│   │   ├── simple-tokenize.cpp
+│   │   ├── simple-tokenize.h
+│   │   ├── test-basic.cpp
+│   │   ├── test-gbnf-generation.cpp
+│   │   ├── test-json-parser.cpp
+│   │   ├── test-json-serialization.cpp
+│   │   ├── test-unicode.cpp
+│   │   └── tests.h
+│   ├── run-json-schema-to-grammar.mjs
+│   ├── test-alloc.cpp
+│   ├── test-arg-parser.cpp
+│   ├── test-autorelease.cpp
+│   ├── test-backend-ops.cpp
+│   ├── test-backend-sampler.cpp
+│   ├── test-barrier.cpp
+│   ├── test-c.c
+│   ├── test-chat-parser.cpp
+│   ├── test-chat-peg-parser.cpp
+│   ├── test-chat-template.cpp
+│   ├── test-chat.cpp
+│   ├── test-double-float.cpp
+│   ├── test-gbnf-validator.cpp
+│   ├── test-gguf-model-data.cpp
+│   ├── test-gguf.cpp
+│   ├── test-grammar-integration.cpp
+│   ├── test-grammar-llguidance.cpp
+│   ├── test-grammar-parser.cpp
+│   ├── test-jinja.cpp
+│   ├── test-json-partial.cpp
+│   ├── test-json-schema-to-grammar.cpp
+│   ├── test-llama-grammar.cpp
+│   ├── test-log.cpp
+│   ├── test-lora-conversion-inference.sh
+│   ├── test-model-load-cancel.cpp
+│   ├── test-mtmd-c-api.c
+│   ├── test-opt.cpp
+│   ├── test-peg-parser.cpp
+│   ├── test-quantize-fns.cpp
+│   ├── test-quantize-perf.cpp
+│   ├── test-quantize-stats.cpp
+│   ├── test-regex-partial.cpp
+│   ├── test-rope.cpp
+│   ├── test-sampling.cpp
+│   ├── test-state-restore-fragmented.cpp
+│   ├── test-thread-safety.cpp
+│   ├── test-tokenizer-0.cpp
+│   ├── test-tokenizer-0.py
+│   ├── test-tokenizer-0.sh
+│   ├── test-tokenizer-1-bpe.cpp
+│   ├── test-tokenizer-1-spm.cpp
+│   ├── test-tokenizer-random.py
+│   ├── test-tokenizers-repo.sh
+│   └── testing.h
+├── tools/
+│   ├── CMakeLists.txt
+│   ├── batched-bench/
+│   │   ├── CMakeLists.txt
+│   │   ├── README.md
+│   │   └── batched-bench.cpp
+│   ├── cli/
+│   │   ├── CMakeLists.txt
+│   │   ├── README.md
+│   │   └── cli.cpp
+│   ├── completion/
+│   │   ├── CMakeLists.txt
+│   │   ├── README.md
+│   │   └── completion.cpp
+│   ├── cvector-generator/
+│   │   ├── CMakeLists.txt
+│   │   ├── README.md
+│   │   ├── completions.txt
+│   │   ├── cvector-generator.cpp
+│   │   ├── mean.hpp
+│   │   ├── negative.txt
+│   │   ├── pca.hpp
+│   │   └── positive.txt
+│   ├── export-lora/
+│   │   ├── CMakeLists.txt
+│   │   ├── README.md
+│   │   └── export-lora.cpp
+│   ├── fit-params/
+│   │   ├── CMakeLists.txt
+│   │   ├── README.md
+│   │   └── fit-params.cpp
+│   ├── gguf-split/
+│   │   ├── CMakeLists.txt
+│   │   ├── README.md
+│   │   ├── gguf-split.cpp
+│   │   └── tests.sh
+│   ├── imatrix/
+│   │   ├── CMakeLists.txt
+│   │   ├── README.md
+│   │   └── imatrix.cpp
+│   ├── llama-bench/
+│   │   ├── CMakeLists.txt
+│   │   ├── README.md
+│   │   └── llama-bench.cpp
+│   ├── mtmd/
+│   │   ├── CMakeLists.txt
+│   │   ├── README.md
+│   │   ├── clip-graph.h
+│   │   ├── clip-impl.h
+│   │   ├── clip-model.h
+│   │   ├── clip.cpp
+│   │   ├── clip.h
+│   │   ├── deprecation-warning.cpp
+│   │   ├── legacy-models/
+│   │   ├── models/
+│   │   ├── mtmd-audio.cpp
+│   │   ├── mtmd-audio.h
+│   │   ├── mtmd-cli.cpp
+│   │   ├── mtmd-helper.cpp
+│   │   ├── mtmd-helper.h
+│   │   ├── mtmd.cpp
+│   │   ├── mtmd.h
+│   │   ├── requirements.txt
+│   │   ├── test-1.jpeg
+│   │   ├── test-2.mp3
+│   │   └── tests.sh
+│   ├── perplexity/
+│   │   ├── CMakeLists.txt
+│   │   ├── README.md
+│   │   └── perplexity.cpp
+│   ├── quantize/
+│   │   ├── CMakeLists.txt
+│   │   ├── README.md
+│   │   ├── quantize.cpp
+│   │   └── tests.sh
+│   ├── rpc/
+│   │   ├── CMakeLists.txt
+│   │   ├── README.md
+│   │   └── rpc-server.cpp
+│   ├── server/
+│   │   ├── CMakeLists.txt
+│   │   ├── README-dev.md
+│   │   ├── README.md
+│   │   ├── bench/
+│   │   ├── chat-llama2.sh
+│   │   ├── chat.mjs
+│   │   ├── chat.sh
+│   │   ├── public/
+│   │   ├── public_legacy/
+│   │   ├── public_simplechat/
+│   │   ├── server-common.cpp
+│   │   ├── server-common.h
+│   │   ├── server-context.cpp
+│   │   ├── server-context.h
+│   │   ├── server-http.cpp
+│   │   ├── server-http.h
+│   │   ├── server-models.cpp
+│   │   ├── server-models.h
+│   │   ├── server-queue.cpp
+│   │   ├── server-queue.h
+│   │   ├── server-task.cpp
+│   │   ├── server-task.h
+│   │   ├── server.cpp
+│   │   ├── tests/
+│   │   ├── themes/
+│   │   └── webui/
+│   ├── tokenize/
+│   │   ├── CMakeLists.txt
+│   │   └── tokenize.cpp
+│   └── tts/
+│       ├── CMakeLists.txt
+│       ├── README.md
+│       ├── convert_pt_to_hf.py
+│       ├── tts-outetts.py
+│       └── tts.cpp
+└── vendor/
+    ├── cpp-httplib/
+    │   ├── CMakeLists.txt
+    │   ├── LICENSE
+    │   ├── httplib.cpp
+    │   └── httplib.h
+    ├── miniaudio/
+    │   └── miniaudio.h
+    ├── nlohmann/
+    │   ├── json.hpp
+    │   └── json_fwd.hpp
+    ├── sheredom/
+    │   └── subprocess.h
+    └── stb/
+        └── stb_image.h

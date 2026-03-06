@@ -1,0 +1,503 @@
+=====================================
+Repository Analysis: starlette
+Type: Backend / API Service
+=====================================
+
+--- METADATA ---
+Name: starlette
+Description: The little ASGI framework that shines. 🌟
+Language: Python
+Topics: asgi, async, http, python, websockets
+Stars: 11997
+License: BSD 3-Clause "New" or "Revised" License
+
+--- README ---
+<p align="center">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/Kludex/starlette/main/docs/img/starlette_dark.svg" width="420px">
+    <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/Kludex/starlette/main/docs/img/starlette.svg" width="420px">
+    <img alt="starlette-logo" src="https://raw.githubusercontent.com/Kludex/starlette/main/docs/img/starlette.svg">
+  </picture>
+</p>
+
+<p align="center">
+    <em>✨ The little ASGI framework that shines. ✨</em>
+</p>
+
+---
+
+[![Build Status](https://github.com/Kludex/starlette/workflows/Test%20Suite/badge.svg)](https://github.com/Kludex/starlette/actions)
+[![Package version](https://badge.fury.io/py/starlette.svg)](https://pypi.python.org/pypi/starlette)
+[![Supported Python Version](https://img.shields.io/pypi/pyversions/starlette.svg?color=%2334D058)](https://pypi.org/project/starlette)
+[![Discord](https://img.shields.io/discord/1051468649518616576?logo=discord&logoColor=ffffff&color=7389D8&labelColor=6A7EC2)](https://discord.gg/RxKUF5JuHs)
+
+---
+
+**Documentation**: <a href="https://starlette.dev/" target="_blank">https://starlette.dev</a>
+
+**Source Code**: <a href="https://github.com/Kludex/starlette" target="_blank">https://github.com/Kludex/starlette</a>
+
+---
+
+# Starlette
+
+Starlette is a lightweight [ASGI][asgi] framework/toolkit,
+which is ideal for building async web services in Python.
+
+It is production-ready, and gives you the following:
+
+* A lightweight, low-complexity HTTP web framework.
+* WebSocket support.
+* In-process background tasks.
+* Startup and shutdown events.
+* Test client built on `httpx`.
+* CORS, GZip, Static Files, Streaming responses.
+* Session and Cookie support.
+* 100% test coverage.
+* 100% type annotated codebase.
+* Few hard dependencies.
+* Compatible with `asyncio` and `trio` backends.
+* Great overall performance [against independent benchmarks][techempower].
+
+## Installation
+
+```shell
+$ pip install starlette
+```
+
+You'll also want to install an ASGI server, such as [uvicorn](https://www.uvicorn.org/), [daphne](https://github.com/django/daphne/), or [hypercorn](https://hypercorn.readthedocs.io/en/latest/).
+
+```shell
+$ pip install uvicorn
+```
+
+## Example
+
+```python title="main.py"
+from starlette.applications import Starlette
+from starlette.responses import JSONResponse
+from starlette.routing import Route
+
+
+async def homepage(request):
+    return JSONResponse({'hello': 'world'})
+
+routes = [
+    Route("/", endpoint=homepage)
+]
+
+app = Starlette(debug=True, routes=routes)
+```
+
+Then run the application using Uvicorn:
+
+```shell
+$ uvicorn main:app
+```
+
+## Dependencies
+
+Starlette only requires `anyio`, and the following are optional:
+
+* [`httpx`][httpx] - Required if you want to use the `TestClient`.
+* [`jinja2`][jinja2] - Required if you want to use `Jinja2Templates`.
+* [`python-multipart`][python-multipart] - Required if you want to support form parsing, with `request.form()`.
+* [`itsdangerous`][itsdangerous] - Required for `SessionMiddleware` support.
+* [`pyyaml`][pyyaml] - Required for `SchemaGenerator` support.
+
+You can install all of these with `pip install starlette[full]`.
+
+## Framework or Toolkit
+
+Starlette is designed to be used either as a complete framework, or as
+an ASGI toolkit. You can use any of its components independently.
+
+```python
+from starlette.responses import PlainTextResponse
+
+
+async def app(scope, receive, send):
+    assert scope['type'] == 'http'
+    response = PlainTextResponse('Hello, world!')
+    await response(scope, receive, send)
+```
+
+Run the `app` application in `example.py`:
+
+```shell
+$ uvicorn example:app
+INFO: Started server process [11509]
+INFO: Uvicorn running on http://127.0.0.1:8000 (Press CTRL+C to quit)
+```
+
+Run uvicorn with `--reload` to enable auto-reloading on code changes.
+
+## Modularity
+
+The modularity that Starlette is designed on promotes building re-usable
+components that can be shared between any ASGI framework. This should enable
+an ecosystem of shared middleware and mountable applications.
+
+The clean API separation also means it's easier to understand each component
+in isolation.
+
+---
+
+<p align="center"><i>Starlette is <a href="https://github.com/Kludex/starlette/blob/main/LICENSE.md">BSD licensed</a> code.<br/>Designed & crafted with care.</i></br>&mdash; ⭐️ &mdash;</p>
+
+[asgi]: https://asgi.readthedocs.io/en/latest/
+[httpx]: https://www.python-httpx.org/
+[jinja2]: https://jinja.palletsprojects.com/
+[python-multipart]: https://multipart.fastapiexpert.com/
+[itsdangerous]: https://itsdangerous.palletsprojects.com/
+[sqlalchemy]: https://www.sqlalchemy.org
+[pyyaml]: https://pyyaml.org/wiki/PyYAMLDocumentation
+[techempower]: https://www.techempower.com/benchmarks/#hw=ph&test=fortune&l=zijzen-sf
+
+
+--- PACKAGE MANIFEST(S) ---
+
+[pyproject.toml]
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "starlette"
+dynamic = ["version"]
+description = "The little ASGI library that shines."
+readme = "README.md"
+license = "BSD-3-Clause"
+license-files = ["LICENSE.md"]
+requires-python = ">=3.10"
+authors = [
+    { name = "Tom Christie", email = "tom@tomchristie.com" }
+]
+maintainers = [
+    { name = "Marcelo Trylesinski", email = "marcelotryle@gmail.com" },
+]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Environment :: Web Environment",
+    "Framework :: AnyIO",
+    "Intended Audience :: Developers",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: 3.14",
+    "Topic :: Internet :: WWW/HTTP",
+]
+dependencies = [
+    "anyio>=3.6.2,<5",
+    "typing_extensions>=4.10.0; python_version < '3.13'",
+]
+
+[project.optional-dependencies]
+full = [
+    "itsdangerous",
+    "jinja2",
+    "python-multipart>=0.0.18",
+    "pyyaml",
+    "httpx>=0.27.0,<0.29.0",
+]
+
+[dependency-groups]
+dev = [
+    # We add starlette[full] so `uv sync` considers the extras.
+    "starlette[full]",
+    "coverage>=7.8.2",
+    "importlib-metadata==8.7.1",
+    "mypy==1.16.1",
+    "ruff==0.14.14",
+    "types-PyYAML==6.0.12.20250516",
+    "pytest==9.0.2",
+    "trio==0.32.0",
+    # Check dist
+    "twine==6.2.0",
+]
+docs = [
+    "black==26.1.0",
+    "mkdocstrings>=1.0.2",
+    "mkdocstrings-python>=2.0.1",
+    "zensical>=0.0.19",
+]
+
+[tool.uv]
+default-groups = ["dev", "docs"]
+required-version = ">=0.8.6"
+
+[project.urls]
+Homepage = "https://github.com/Kludex/starlette"
+Documentation = "https://starlette.dev/"
+Changelog = "https://starlette.dev/release-notes/"
+Funding = "https://github.com/sponsors/Kludex"
+Source = "https://github.com/Kludex/starlette"
+
+[tool.hatch.version]
+path = "starlette/__init__.py"
+
+[tool.ruff]
+line-length = 120
+
+[tool.ruff.lint]
+select = [
+    "E",      # https://docs.astral.sh/ruff/rules/#error-e
+    "F",      # https://docs.astral.sh/ruff/rules/#pyflakes-f
+    "I",      # https://docs.astral.sh/ruff/rules/#isort-i
+    "FA",     # https://docs.astral.sh/ruff/rules/#flake8-future-annotations-fa
+    "UP",     # https://docs.astral.sh/ruff/rules/#pyupgrade-up
+    "RUF100", # https://docs.astral.sh/ruff/rules/#ruff-specific-rules-ruf
+]
+ignore = ["UP031"] # https://docs.astral.sh/ruff/rules/printf-string-formatting/
+
+[tool.ruff.lint.isort]
+combine-as-imports = true
+
+[tool.mypy]
+strict = true
+
+[[tool.mypy.overrides]]
+module = "starlette.testclient.*"
+implicit_optional = true
+
+[tool.pytest.ini_options]
+addopts = "-rXs --strict-config --strict-markers"
+xfail_strict = true
+filterwarnings = [
+    # Turn warnings that aren't filtered into exceptions
+    "error",
+    "ignore: run_until_first_complete is deprecated and will be removed in
+... [TRUNCATED]
+
+--- BACKEND CONFIG FILES ---
+(No backend config files found)
+
+--- API ROUTE / ENDPOINT DEFINITIONS ---
+
+[starlette/endpoints.py]
+from __future__ import annotations
+
+import json
+from collections.abc import Callable, Generator
+from typing import Any, Literal
+
+from starlette import status
+from starlette._utils import is_async_callable
+from starlette.concurrency import run_in_threadpool
+from starlette.exceptions import HTTPException
+from starlette.requests import Request
+from starlette.responses import PlainTextResponse, Response
+from starlette.types import Message, Receive, Scope, Send
+from starlette.websockets import WebSocket
+
+
+class HTTPEndpoint:
+    def __init__(self, scope: Scope, receive: Receive, send: Send) -> None:
+        assert scope["type"] == "http"
+        self.scope = scope
+        self.receive = receive
+        self.send = send
+        self._allowed_methods = [
+            method
+            for method in ("GET", "HEAD", "POST", "PUT", "PATCH", "DELETE", "OPTIONS")
+            if getattr(self, method.lower(), None) is not None
+        ]
+
+    def __await__(self) -> Generator[Any, None, None]:
+        return self.dispatch().__await__()
+
+    async def dispatch(self) -> None:
+        request = Request(self.scope, receive=self.receive)
+        handler_name = "get" if request.method == "HEAD" and not hasattr(self, "head") else request.method.lower()
+
+        handler: Callable[[Request], Any] = getattr(self, handler_name, self.method_not_allowed)
+        is_async = is_async_callable(handler)
+        if is_async:
+            response = await handler(request)
+        else:
+            response = await run_in_threadpool(handler, request)
+        await response(self.scope, self.receive, self.send)
+
+    async def method_not_allowed(self, request: Request) -> Response:
+        # If we're running inside a starlette application then raise an
+        # exception, so that the configurable exception handler can deal with
+        # returning the response. For plain ASGI apps, just return the response.
+        headers = {"Allow": ", ".join(self._allowed_methods)}
+        if "app" in self.scope:
+            raise HTTPException(status_code=405, headers=headers)
+        return PlainTextResponse("Method Not Allowed", status_code=405, headers=headers)
+
+
+class WebSocketEndpoint:
+    encoding: Literal["text", "bytes", "json"] | None = None
+
+    def __init__(self, scope: Scope, receive: Receive, send: Send) -> None:
+        assert scope["type"] == "websocket"
+        self.scope = scope
+        self.receive = receive
+        self.send = send
+
+    def __await__(self) -> Generator[Any, None, None]:
+        return self.dispatch().__await__()
+
+    async def dispatch(self) -> None:
+        websocket = WebSocket(self.scope, receive=self.receive, send=self.send)
+        await self.on_connect(websocket)
+
+        close_code = status.WS_1000_NORMAL_CLOSURE
+
+        try:
+            while True:
+                message = await websocket.receive()
+                if message["type"] == "websocket.receive":
+                    data = await self.decode(websocket, message)
+                    await self.o
+... [TRUNCATED]
+
+--- DATABASE SCHEMA / MODEL FILES ---
+(None found)
+
+--- DIRECTORY STRUCTURE (depth 2) ---
+├── .github/
+│   ├── FUNDING.yml
+│   ├── ISSUE_TEMPLATE/
+│   │   ├── 1-issue.md
+│   │   └── config.yml
+│   ├── dependabot.yml
+│   ├── pull_request_template.md
+│   └── workflows/
+│       ├── main.yml
+│       └── publish.yml
+├── .gitignore
+├── CITATION.cff
+├── LICENSE.md
+├── README.md
+├── docs/
+│   ├── CNAME
+│   ├── applications.md
+│   ├── authentication.md
+│   ├── background.md
+│   ├── config.md
+│   ├── contributing.md
+│   ├── css/
+│   │   └── custom.css
+│   ├── database.md
+│   ├── endpoints.md
+│   ├── exceptions.md
+│   ├── graphql.md
+│   ├── img/
+│   │   ├── gh-actions-fail-check.png
+│   │   ├── gh-actions-fail-test.png
+│   │   ├── gh-actions-fail.png
+│   │   ├── starlette.svg
+│   │   └── starlette_dark.svg
+│   ├── index.md
+│   ├── js/
+│   │   └── custom.js
+│   ├── lifespan.md
+│   ├── middleware.md
+│   ├── overrides/
+│   │   ├── main.html
+│   │   └── partials/
+│   ├── release-notes.md
+│   ├── requests.md
+│   ├── responses.md
+│   ├── routing.md
+│   ├── schemas.md
+│   ├── server-push.md
+│   ├── staticfiles.md
+│   ├── templates.md
+│   ├── testclient.md
+│   ├── third-party-packages.md
+│   ├── threadpool.md
+│   └── websockets.md
+├── mkdocs.yml
+├── pyproject.toml
+├── scripts/
+│   ├── README.md
+│   ├── build
+│   ├── check
+│   ├── coverage
+│   ├── docs
+│   ├── install
+│   ├── lint
+│   ├── sync-version
+│   └── test
+├── starlette/
+│   ├── __init__.py
+│   ├── _exception_handler.py
+│   ├── _utils.py
+│   ├── applications.py
+│   ├── authentication.py
+│   ├── background.py
+│   ├── concurrency.py
+│   ├── config.py
+│   ├── convertors.py
+│   ├── datastructures.py
+│   ├── endpoints.py
+│   ├── exceptions.py
+│   ├── formparsers.py
+│   ├── middleware/
+│   │   ├── __init__.py
+│   │   ├── authentication.py
+│   │   ├── base.py
+│   │   ├── cors.py
+│   │   ├── errors.py
+│   │   ├── exceptions.py
+│   │   ├── gzip.py
+│   │   ├── httpsredirect.py
+│   │   ├── sessions.py
+│   │   ├── trustedhost.py
+│   │   └── wsgi.py
+│   ├── py.typed
+│   ├── requests.py
+│   ├── responses.py
+│   ├── routing.py
+│   ├── schemas.py
+│   ├── staticfiles.py
+│   ├── status.py
+│   ├── templating.py
+│   ├── testclient.py
+│   ├── types.py
+│   └── websockets.py
+├── tests/
+│   ├── __init__.py
+│   ├── conftest.py
+│   ├── middleware/
+│   │   ├── __init__.py
+│   │   ├── test_base.py
+│   │   ├── test_cors.py
+│   │   ├── test_errors.py
+│   │   ├── test_gzip.py
+│   │   ├── test_https_redirect.py
+│   │   ├── test_middleware.py
+│   │   ├── test_session.py
+│   │   ├── test_trusted_host.py
+│   │   └── test_wsgi.py
+│   ├── statics/
+│   │   └── example.txt
+│   ├── test__utils.py
+│   ├── test_applications.py
+│   ├── test_authentication.py
+│   ├── test_background.py
+│   ├── test_concurrency.py
+│   ├── test_config.py
+│   ├── test_convertors.py
+│   ├── test_datastructures.py
+│   ├── test_endpoints.py
+│   ├── test_exceptions.py
+│   ├── test_formparsers.py
+│   ├── test_requests.py
+│   ├── test_responses.py
+│   ├── test_routing.py
+│   ├── test_schemas.py
+│   ├── test_staticfiles.py
+│   ├── test_status.py
+│   ├── test_templates.py
+│   ├── test_testclient.py
+│   ├── test_websockets.py
+│   └── types.py
+└── uv.lock

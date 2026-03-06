@@ -1,0 +1,583 @@
+=====================================
+Repository Analysis: pytest
+Type: Library / Package / SDK
+=====================================
+
+--- METADATA ---
+Name: pytest
+Description: The pytest framework makes it easy to write small tests, yet scales to support complex functional testing
+Language: Python
+Topics: hacktoberfest, python, test, testing, unit-testing
+Stars: 13690
+License: MIT License
+
+--- README ---
+.. image:: https://github.com/pytest-dev/pytest/raw/main/doc/en/img/pytest_logo_curves.svg
+   :target: https://docs.pytest.org/en/stable/
+   :align: center
+   :height: 200
+   :alt: pytest
+
+
+------
+
+.. image:: https://img.shields.io/pypi/v/pytest.svg
+    :target: https://pypi.org/project/pytest/
+
+.. image:: https://img.shields.io/conda/vn/conda-forge/pytest.svg
+    :target: https://anaconda.org/conda-forge/pytest
+
+.. image:: https://img.shields.io/pypi/pyversions/pytest.svg
+    :target: https://pypi.org/project/pytest/
+
+.. image:: https://codecov.io/gh/pytest-dev/pytest/branch/main/graph/badge.svg
+    :target: https://codecov.io/gh/pytest-dev/pytest
+    :alt: Code coverage Status
+
+.. image:: https://github.com/pytest-dev/pytest/actions/workflows/test.yml/badge.svg
+    :target: https://github.com/pytest-dev/pytest/actions?query=workflow%3Atest
+
+.. image:: https://results.pre-commit.ci/badge/github/pytest-dev/pytest/main.svg
+   :target: https://results.pre-commit.ci/latest/github/pytest-dev/pytest/main
+   :alt: pre-commit.ci status
+
+.. image:: https://www.codetriage.com/pytest-dev/pytest/badges/users.svg
+    :target: https://www.codetriage.com/pytest-dev/pytest
+
+.. image:: https://readthedocs.org/projects/pytest/badge/?version=latest
+    :target: https://pytest.readthedocs.io/en/latest/?badge=latest
+    :alt: Documentation Status
+
+.. image:: https://img.shields.io/badge/Discord-pytest--dev-blue
+    :target: https://discord.com/invite/pytest-dev
+    :alt: Discord
+
+.. image:: https://img.shields.io/badge/Libera%20chat-%23pytest-orange
+    :target: https://web.libera.chat/#pytest
+    :alt: Libera chat
+
+
+The ``pytest`` framework makes it easy to write small tests, yet
+scales to support complex functional testing for applications and libraries.
+
+An example of a simple test:
+
+.. code-block:: python
+
+    # content of test_sample.py
+    def inc(x):
+        return x + 1
+
+
+    def test_answer():
+        assert inc(3) == 5
+
+
+To execute it::
+
+    $ pytest
+    ============================= test session starts =============================
+    collected 1 items
+
+    test_sample.py F
+
+    ================================== FAILURES ===================================
+    _________________________________ test_answer _________________________________
+
+        def test_answer():
+    >       assert inc(3) == 5
+    E       assert 4 == 5
+    E        +  where 4 = inc(3)
+
+    test_sample.py:5: AssertionError
+    ========================== 1 failed in 0.04 seconds ===========================
+
+
+Thanks to ``pytest``'s detailed assertion introspection, you can simply use plain ``assert`` statements. See `getting-started <https://docs.pytest.org/en/stable/getting-started.html#our-first-test-run>`_ for more examples.
+
+
+Features
+--------
+
+- Detailed info on failing `assert statements <https://docs.pytest.org/en/stable/how-to/assert.html>`_ (no need to remember ``self.assert*`` names)
+
+- `Auto-discovery
+  <https://docs.pytest.org/en/stable/explanation/goodpractices.html#python-test-discovery>`_
+  of test modules and functions
+
+- `Modular fixtures <https://docs.pytest.org/en/stable/explanation/fixtures.html>`_ for
+  managing small or parametrized long-lived test resources
+
+- Can run `unittest <https://docs.pytest.org/en/stable/how-to/unittest.html>`_ (or trial)
+  test suites out of the box
+
+- Python 3.10+ or PyPy3
+
+- Rich plugin architecture, with over 1300+ `external plugins <https://docs.pytest.org/en/latest/reference/plugin_list.html>`_ and thriving community
+
+
+Documentation
+-------------
+
+For full documentation, including installation, tutorials and PDF documents, please see https://docs.pytest.org/en/stable/.
+
+
+Bugs/Requests
+-------------
+
+Please use the `GitHub issue tracker <https://github.com/pytest-dev/pytest/issues>`_ to submit bugs or request features.
+
+
+Changelog
+---------
+
+Consult the `Changelog <https://docs.pytest.org/en/stable/changelog.html>`__ page for fixes and enhancements of each version.
+
+
+Support pytest
+--------------
+
+`Open Collective`_ is an online funding platform for open and transparent communities.
+It provides tools to raise money and share your finances in full transparency.
+
+It is the platform of choice for individuals and companies that want to make one-time or
+monthly donations directly to the project.
+
+See more details in the `pytest collective`_.
+
+.. _Open Collective: https://opencollective.com
+.. _pytest collective: https://opencollective.com/pytest
+
+
+pytest for enterprise
+---------------------
+
+Available as part of the Tidelift Subscription.
+
+The maintainers of pytest and thousands of other packages are working with Tidelift to deliver commercial support and
+maintenance for the open source dependencies you use to build your applications.
+Save time, reduce risk, and improve code health, while paying the maintainers of the exact dependencies you use.
+
+`Learn more. <https://tidelift.com/subscription/pkg/pypi-pytest?utm_source=pypi-pytest&utm_medium=referral&utm_campaign=enterprise&utm_term=repo>`_
+
+Securit
+... [TRUNCATED]
+
+--- PACKAGE MANIFEST(S) ---
+
+[pyproject.toml]
+[build-system]
+build-backend = "setuptools.build_meta"
+requires = [
+    "setuptools>=77",
+    "setuptools-scm[toml]>=6.2.3",
+]
+
+[project]
+name = "pytest"
+description = "pytest: simple powerful testing with Python"
+readme = "README.rst"
+keywords = [
+    "test",
+    "unittest",
+]
+license = "MIT"
+license-files = [ "LICENSE" ]
+authors = [
+    { name = "Brianna Laugher" },
+    { name = "Bruno Oliveira" },
+    { name = "Floris Bruynooghe" },
+    { name = "Freya Bruhin" },
+    { name = "Holger Krekel" },
+    { name = "Others (See AUTHORS)" },
+    { name = "Ronny Pfannschmidt" },
+]
+requires-python = ">=3.10"
+classifiers = [
+    "Development Status :: 6 - Mature",
+    "Intended Audience :: Developers",
+    "Operating System :: MacOS",
+    "Operating System :: Microsoft :: Windows",
+    "Operating System :: POSIX",
+    "Operating System :: Unix",
+    "Programming Language :: Python :: 3 :: Only",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: 3.14",
+    "Topic :: Software Development :: Libraries",
+    "Topic :: Software Development :: Testing",
+    "Topic :: Utilities",
+]
+dynamic = [
+    "version",
+]
+dependencies = [
+    "colorama>=0.4; sys_platform=='win32'",
+    "exceptiongroup>=1; python_version<'3.11'",
+    "iniconfig>=1.0.1",
+    "packaging>=22",
+    "pluggy>=1.5,<2",
+    "pygments>=2.7.2",
+    "tomli>=1; python_version<'3.11'",
+]
+optional-dependencies.dev = [
+    "argcomplete",
+    "attrs>=19.2",
+    "hypothesis>=3.56",
+    "mock",
+    "requests",
+    "setuptools",
+    "xmlschema",
+]
+urls.Changelog = "https://docs.pytest.org/en/stable/changelog.html"
+urls.Contact = "https://docs.pytest.org/en/stable/contact.html"
+urls.Funding = "https://docs.pytest.org/en/stable/sponsor.html"
+urls.Homepage = "https://docs.pytest.org/en/latest/"
+urls.Source = "https://github.com/pytest-dev/pytest"
+urls.Tracker = "https://github.com/pytest-dev/pytest/issues"
+scripts."py.test" = "pytest:console_main"
+scripts.pytest = "pytest:console_main"
+
+[tool.setuptools.package-data]
+"_pytest" = [
+    "py.typed",
+]
+"pytest" = [
+    "py.typed",
+]
+
+[tool.setuptools_scm]
+write_to = "src/_pytest/_version.py"
+
+[tool.black]
+# See https://black.readthedocs.io/en/stable/usage_and_configuration/the_basics.html#t-target-version
+target-version = [ "py310", "py311", "py312", "py313" ]
+
+[tool.ruff]
+target-version = "py310"
+line-length = 88
+src = [
+    "src",
+]
+format.docstring-code-format = true
+lint.select = [
+    "B",       # bugbear
+    "D",       # pydocstyle
+    "E",       # pycodestyle
+    "F",       # pyflakes
+    "FA100",   # add future annotations
+    "I",       # isort
+    "PGH004",  # pygrep-hooks - Use specific rule codes when using noqa
+    "PIE",     # flake8-pie
+    "PLC",     # pylint convention
+    "PLE",     # pylint error
+    "PLR",     # pylint refactor
+    "PLR1714", # Consider merging multiple compari
+... [TRUNCATED]
+
+--- DIRECTORY STRUCTURE (depth 2) ---
+├── .git-blame-ignore-revs
+├── .gitattributes
+├── .github/
+│   ├── FUNDING.yml
+│   ├── ISSUE_TEMPLATE/
+│   │   ├── 1_bug_report.md
+│   │   ├── 2_feature_request.md
+│   │   └── config.yml
+│   ├── PULL_REQUEST_TEMPLATE.md
+│   ├── chronographer.yml
+│   ├── config.yml
+│   ├── dependabot.yml
+│   ├── labels.toml
+│   ├── patchback.yml
+│   └── workflows/
+│       ├── deploy.yml
+│       ├── doc-check-links.yml
+│       ├── prepare-release-pr.yml
+│       ├── stale.yml
+│       ├── test.yml
+│       └── update-plugin-list.yml
+├── .gitignore
+├── .mailmap
+├── .pre-commit-config.yaml
+├── .readthedocs.yaml
+├── AUTHORS
+├── CHANGELOG.rst
+├── CITATION
+├── CODE_OF_CONDUCT.md
+├── CONTRIBUTING.rst
+├── LICENSE
+├── OPENCOLLECTIVE.rst
+├── README.rst
+├── RELEASING.rst
+├── TIDELIFT.rst
+├── bench/
+│   ├── bench.py
+│   ├── bench_argcomplete.py
+│   ├── empty.py
+│   ├── manyparam.py
+│   ├── skip.py
+│   ├── unit_test.py
+│   └── xunit.py
+├── changelog/
+│   ├── .gitignore
+│   ├── 12444.bugfix.rst
+│   ├── 12689.contrib.rst
+│   ├── 13388.doc.rst
+│   ├── 13409.deprecation.rst
+│   ├── 13634.bugfix.rst
+│   ├── 13731.doc.rst
+│   ├── 13734.bugfix.rst
+│   ├── 13884.bugfix.rst
+│   ├── 13917.bugfix.rst
+│   ├── 13946.deprecation.rst
+│   ├── 13963.bugfix.rst
+│   ├── 14023.feature.rst
+│   ├── 14026.improvement.rst
+│   ├── 14050.bugfix.rst
+│   ├── 14088.doc.rst
+│   ├── 14195.bugfix.rst
+│   ├── 719.bugfix.rst
+│   ├── README.rst
+│   └── _template.rst
+├── codecov.yml
+├── doc/
+│   └── en/
+│       ├── Makefile
+│       ├── _static/
+│       ├── _templates/
+│       ├── adopt.rst
+│       ├── announce/
+│       ├── backwards-compatibility.rst
+│       ├── broken-dep-constraints.txt
+│       ├── builtin.rst
+│       ├── changelog.rst
+│       ├── conf.py
+│       ├── conftest.py
+│       ├── contact.rst
+│       ├── contents.rst
+│       ├── contributing.rst
+│       ├── deprecations.rst
+│       ├── development_guide.rst
+│       ├── example/
+│       ├── explanation/
+│       ├── funcarg_compare.rst
+│       ├── funcargs.rst
+│       ├── getting-started.rst
+│       ├── historical-notes.rst
+│       ├── history.rst
+│       ├── how-to/
+│       ├── img/
+│       ├── index.rst
+│       ├── license.rst
+│       ├── naming20.rst
+│       ├── proposals/
+│       ├── pytest.ini
+│       ├── recwarn.rst
+│       ├── reference/
+│       ├── requirements.txt
+│       ├── sponsor.rst
+│       ├── talks.rst
+│       ├── tidelift.rst
+│       └── yieldfixture.rst
+├── extra/
+│   └── get_issues.py
+├── pyproject.toml
+├── scripts/
+│   ├── .gitignore
+│   ├── generate-gh-release-notes.py
+│   ├── prepare-release-pr.py
+│   ├── release.major.rst
+│   ├── release.minor.rst
+│   ├── release.patch.rst
+│   ├── release.pre.rst
+│   ├── release.py
+│   └── update-plugin-list.py
+├── src/
+│   ├── _pytest/
+│   │   ├── __init__.py
+│   │   ├── _argcomplete.py
+│   │   ├── _code/
+│   │   ├── _io/
+│   │   ├── _py/
+│   │   ├── assertion/
+│   │   ├── cacheprovider.py
+│   │   ├── capture.py
+│   │   ├── compat.py
+│   │   ├── config/
+│   │   ├── debugging.py
+│   │   ├── deprecated.py
+│   │   ├── doctest.py
+│   │   ├── faulthandler.py
+│   │   ├── fixtures.py
+│   │   ├── freeze_support.py
+│   │   ├── helpconfig.py
+│   │   ├── hookspec.py
+│   │   ├── junitxml.py
+│   │   ├── legacypath.py
+│   │   ├── logging.py
+│   │   ├── main.py
+│   │   ├── mark/
+│   │   ├── monkeypatch.py
+│   │   ├── nodes.py
+│   │   ├── outcomes.py
+│   │   ├── pastebin.py
+│   │   ├── pathlib.py
+│   │   ├── py.typed
+│   │   ├── pytester.py
+│   │   ├── pytester_assertions.py
+│   │   ├── python.py
+│   │   ├── python_api.py
+│   │   ├── raises.py
+│   │   ├── recwarn.py
+│   │   ├── reports.py
+│   │   ├── runner.py
+│   │   ├── scope.py
+│   │   ├── setuponly.py
+│   │   ├── setupplan.py
+│   │   ├── skipping.py
+│   │   ├── stash.py
+│   │   ├── stepwise.py
+│   │   ├── subtests.py
+│   │   ├── terminal.py
+│   │   ├── terminalprogress.py
+│   │   ├── threadexception.py
+│   │   ├── timing.py
+│   │   ├── tmpdir.py
+│   │   ├── tracemalloc.py
+│   │   ├── unittest.py
+│   │   ├── unraisableexception.py
+│   │   ├── warning_types.py
+│   │   └── warnings.py
+│   ├── py.py
+│   └── pytest/
+│       ├── __init__.py
+│       ├── __main__.py
+│       └── py.typed
+├── testing/
+│   ├── _py/
+│   │   └── test_local.py
+│   ├── acceptance_test.py
+│   ├── code/
+│   │   ├── test_code.py
+│   │   ├── test_excinfo.py
+│   │   └── test_source.py
+│   ├── conftest.py
+│   ├── deprecated_test.py
+│   ├── example_scripts/
+│   │   ├── README.rst
+│   │   ├── __init__.py
+│   │   ├── acceptance/
+│   │   ├── collect/
+│   │   ├── config/
+│   │   ├── conftest_usageerror/
+│   │   ├── customdirectory/
+│   │   ├── dataclasses/
+│   │   ├── doctest/
+│   │   ├── fixtures/
+│   │   ├── issue88_initial_file_multinodes/
+│   │   ├── issue_519.py
+│   │   ├── junit-10.xsd
+│   │   ├── marks/
+│   │   ├── perf_examples/
+│   │   ├── pytest.ini
+│   │   ├── tmpdir/
+│   │   ├── unittest/
+│   │   └── warnings/
+│   ├── examples/
+│   │   └── test_issue519.py
+│   ├── freeze/
+│   │   ├── .gitignore
+│   │   ├── create_executable.py
+│   │   ├── runtests_script.py
+│   │   ├── tests/
+│   │   └── tox_run.py
+│   ├── io/
+│   │   ├── test_pprint.py
+│   │   ├── test_saferepr.py
+│   │   ├── test_terminalwriter.py
+│   │   └── test_wcwidth.py
+│   ├── logging/
+│   │   ├── test_fixture.py
+│   │   ├── test_formatter.py
+│   │   └── test_reporting.py
+│   ├── plugins_integration/
+│   │   ├── .gitignore
+│   │   ├── README.rst
+│   │   ├── bdd_wallet.feature
+│   │   ├── bdd_wallet.py
+│   │   ├── django_settings.py
+│   │   ├── pytest.ini
+│   │   ├── pytest_anyio_integration.py
+│   │   ├── pytest_asyncio_integration.py
+│   │   ├── pytest_mock_integration.py
+│   │   ├── pytest_rerunfailures_integration.py
+│   │   ├── pytest_trio_integration.py
+│   │   ├── pytest_twisted_integration.py
+│   │   ├── requirements.txt
+│   │   └── simple_integration.py
+│   ├── python/
+│   │   ├── approx.py
+│   │   ├── collect.py
+│   │   ├── fixtures.py
+│   │   ├── integration.py
+│   │   ├── metafunc.py
+│   │   ├── raises.py
+│   │   ├── raises_group.py
+│   │   └── show_fixtures_per_test.py
+│   ├── test_argcomplete.py
+│   ├── test_assertion.py
+│   ├── test_assertrewrite.py
+│   ├── test_cacheprovider.py
+│   ├── test_capture.py
+│   ├── test_collect_imported_tests.py
+│   ├── test_collection.py
+│   ├── test_compat.py
+│   ├── test_config.py
+│   ├── test_conftest.py
+│   ├── test_debugging.py
+│   ├── test_doctest.py
+│   ├── test_entry_points.py
+│   ├── test_error_diffs.py
+│   ├── test_faulthandler.py
+│   ├── test_findpaths.py
+│   ├── test_helpconfig.py
+│   ├── test_junitxml.py
+│   ├── test_legacypath.py
+│   ├── test_link_resolve.py
+│   ├── test_main.py
+│   ├── test_mark.py
+│   ├── test_mark_expression.py
+│   ├── test_meta.py
+│   ├── test_monkeypatch.py
+│   ├── test_nodes.py
+│   ├── test_parseopt.py
+│   ├── test_pastebin.py
+│   ├── test_pathlib.py
+│   ├── test_pluginmanager.py
+│   ├── test_pytester.py
+│   ├── test_python_path.py
+│   ├── test_recwarn.py
+│   ├── test_reports.py
+│   ├── test_runner.py
+│   ├── test_runner_xunit.py
+│   ├── test_scope.py
+│   ├── test_session.py
+│   ├── test_setuponly.py
+│   ├── test_setupplan.py
+│   ├── test_skipping.py
+│   ├── test_stash.py
+│   ├── test_stepwise.py
+│   ├── test_subtests.py
+│   ├── test_terminal.py
+│   ├── test_threadexception.py
+│   ├── test_tmpdir.py
+│   ├── test_unittest.py
+│   ├── test_unraisableexception.py
+│   ├── test_warning_types.py
+│   ├── test_warnings.py
+│   ├── typing_checks.py
+│   └── typing_raises_group.py
+└── tox.ini

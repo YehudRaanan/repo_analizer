@@ -1,0 +1,482 @@
+=====================================
+Repository Analysis: volta
+Type: CLI Tool
+=====================================
+
+--- METADATA ---
+Name: volta
+Description: Volta: JS Toolchains as Code. ⚡
+Language: Rust
+Topics: node, nodejs, package-manager
+Stars: 12822
+License: Other
+
+--- README ---
+<p align="center">
+  <a href="https://www.volta.sh/">
+    <img alt="Volta" src="./volta.png?raw=true" width="360">
+  </a>
+</p>
+
+<p align="center">
+  The Hassle-Free JavaScript Tool Manager
+</p>
+
+<p align="center">
+  <img alt="Production Build Status" src="https://github.com/volta-cli/volta/workflows/Production/badge.svg" />
+  <a href="https://github.com/volta-cli/volta/actions?query=workflow%3ATest">
+    <img alt="Test Status" src="https://github.com/volta-cli/volta/workflows/Test/badge.svg" />
+  </a>
+</p>
+
+---
+
+> [!IMPORTANT]
+> **Volta is unmaintained.** Everything that works today should continue to do so for the foreseeable future, so if it is working for you, there is no particular *urgency* to migrate to another tool, but we will not be able to address breakages from new OS releases or other changes in the ecosystem, so you should put it on your maintenance roadmap at some point. We recommend migrating to [`mise`](https://mise.jdx.dev/). See [issue #2080](https://github.com/volta-cli/volta/issues/2080).
+
+---
+
+
+**Fast:** Install and run any JS tool quickly and seamlessly! Volta is built in Rust and ships as a snappy static binary.
+
+**Reliable:** Ensure everyone in your project has the same tools—without interfering with their workflow.
+
+**Universal:** No matter the package manager, Node runtime, or OS, one command is all you need: `volta install`.
+
+## Features
+
+- Speed 🚀
+- Seamless, per-project version switching
+- Cross-platform support, including Windows and all Unix shells
+- Support for multiple package managers
+- Stable tool installation—no reinstalling on every Node upgrade!
+- Extensibility hooks for site-specific customization
+
+## Installing Volta
+
+Read the [Getting Started Guide](https://docs.volta.sh/guide/getting-started) on our website for detailed instructions on how to install Volta.
+
+## Using Volta
+
+Read the [Understanding Volta Guide](https://docs.volta.sh/guide/understanding) on our website for detailed instructions on how to use Volta.
+
+## Contributing to Volta
+
+Contributions are always welcome, no matter how large or small. Substantial feature ideas should be proposed as an [RFC](https://github.com/volta-cli/rfcs). Before contributing, please read the [code of conduct](CODE_OF_CONDUCT.md).
+
+See the [Contributing Guide](https://docs.volta.sh/contributing/) on our website for detailed instructions on how to contribute to Volta.
+
+## Who is using Volta?
+
+<table>
+  <tbody>
+    <tr>
+      <td align="center">
+        <a href="https://github.com/microsoft/TypeScript" target="_blank">
+          <img src="https://raw.githubusercontent.com/microsoft/TypeScript-Website/v2/packages/typescriptlang-org/static/branding/ts-logo-512.svg" alt="TypeScript" width="100" height="100">
+        </a>
+      </td>
+      <td align="center">
+        <a href="https://github.com/getsentry/sentry-javascript" target="_blank">
+          <img src="https://avatars.githubusercontent.com/u/1396951?s=100" alt="Sentry" width="100" height="100">
+        </a>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+See [here](https://sourcegraph.com/search?q=context:global+%22volta%22+file:package.json&patternType=literal) for more Volta users.
+
+
+--- PACKAGE MANIFEST(S) ---
+
+[Cargo.toml]
+[package]
+name = "volta"
+version = "2.0.2"
+authors = ["David Herman <david.herman@gmail.com>", "Charles Pierce <cpierce.grad@gmail.com>"]
+license = "BSD-2-Clause"
+repository = "https://github.com/volta-cli/volta"
+edition = "2021"
+
+[features]
+cross-platform-docs = ["volta-core/cross-platform-docs"]
+mock-network = ["mockito", "volta-core/mock-network"]
+volta-dev = []
+smoke-tests = []
+
+[[bin]]
+name = "volta-shim"
+path = "src/volta-shim.rs"
+
+[[bin]]
+name = "volta-migrate"
+path = "src/volta-migrate.rs"
+
+[profile.release]
+lto = "fat"
+codegen-units = 1
+
+[dependencies]
+volta-core = { path = "crates/volta-core" }
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0.135"
+once_cell = "1.19.0"
+log = { version = "0.4", features = ["std"] }
+node-semver = "2"
+clap = { version = "4.5.24", features = ["color", "derive", "wrap_help"] }
+clap_complete = "4.5.46"
+mockito = { version = "0.31.1", optional = true }
+textwrap = "0.16.1"
+which = "7.0.1"
+dirs = "6.0.0"
+volta-migrate = { path = "crates/volta-migrate" }
+
+[target.'cfg(windows)'.dependencies]
+winreg = "0.53.0"
+
+[dev-dependencies]
+hamcrest2 = "0.3.0"
+envoy = "0.1.3"
+ci_info = "0.14.14"
+headers = "0.4"
+cfg-if = "1.0"
+test-support = { path = "crates/test-support" }
+
+[workspace]
+
+
+--- CLI ENTRY POINTS / COMMAND DEFINITIONS ---
+
+[src/cli.rs]
+use clap::{builder::styling, ColorChoice, Parser};
+
+use crate::command::{self, Command};
+use volta_core::error::{ExitCode, Fallible};
+use volta_core::session::Session;
+use volta_core::style::{text_width, MAX_WIDTH};
+
+#[derive(Parser)]
+#[command(
+    about = "The JavaScript Launcher ⚡",
+    long_about = "The JavaScript Launcher ⚡
+
+    To install a tool in your toolchain, use `volta install`.
+    To pin your project's runtime or package manager, use `volta pin`.",
+    color = ColorChoice::Auto,
+    disable_version_flag = true,
+    styles = styles(),
+    term_width = text_width().unwrap_or(MAX_WIDTH),
+)]
+pub(crate) struct Volta {
+    #[command(subcommand)]
+    pub(crate) command: Option<Subcommand>,
+
+    /// Enables verbose diagnostics
+    #[arg(long, global = true)]
+    pub(crate) verbose: bool,
+
+    /// Enables trace-level diagnostics.
+    #[arg(long, global = true, requires = "verbose")]
+    pub(crate) very_verbose: bool,
+
+    /// Prevents unnecessary output
+    #[arg(
+        long,
+        global = true,
+        conflicts_with = "verbose",
+        aliases = &["silent"]
+    )]
+    pub(crate) quiet: bool,
+
+    /// Prints the current version of Volta
+    #[arg(short, long)]
+    pub(crate) version: bool,
+}
+
+impl Volta {
+    pub(crate) fn run(self, session: &mut Session) -> Fallible<ExitCode> {
+        if self.version {
+            // suffix indicator for dev build
+            if cfg!(debug_assertions) {
+                println!("{}-dev", env!("CARGO_PKG_VERSION"));
+            } else {
+                println!("{}", env!("CARGO_PKG_VERSION"));
+            }
+            Ok(ExitCode::Success)
+        } else if let Some(command) = self.command {
+            command.run(session)
+        } else {
+            Volta::parse_from(["volta", "help"].iter()).run(session)
+        }
+    }
+}
+
+#[derive(clap::Subcommand)]
+pub(crate) enum Subcommand {
+    /// Fetches a tool to the local machine
+    Fetch(command::Fetch),
+
+    /// Installs a tool in your toolchain
+    Install(command::Install),
+
+    /// Uninstalls a tool from your toolchain
+    Uninstall(command::Uninstall),
+
+    /// Pins your project's runtime or package manager
+    Pin(command::Pin),
+
+    /// Displays the current toolchain
+    #[command(alias = "ls")]
+    List(command::List),
+
+    /// Generates Volta completions
+    ///
+    /// By default, completions will be generated for the value of your current shell,
+    /// shell, i.e. the value of `SHELL`. If you set the `<shell>` option, completions
+    /// will be generated for that shell instead.
+    ///
+    /// If you specify a directory, the completions will be written to a file there;
+    /// otherwise, they will be written to `stdout`.
+    #[command(arg_required_else_help = true)]
+    Completions(command::Completions),
+
+    /// Locates the actual binary that will be called by Volta
+    Which(command::Which),
+
+    #[command(long_about = crate::command::r#use::USAGE, hide = true)]
+    Use(command::Use),
+
+    /// Enables Volta for the current user / shell
+... [TRUNCATED]
+
+[src/main.rs]
+#[macro_use]
+mod command;
+mod cli;
+
+use clap::Parser;
+
+use volta_core::error::report_error;
+use volta_core::log::{LogContext, LogVerbosity, Logger};
+use volta_core::session::{ActivityKind, Session};
+
+mod common;
+use common::{ensure_layout, Error};
+
+/// The entry point for the `volta` CLI.
+pub fn main() {
+    let volta = cli::Volta::parse();
+    let verbosity = match (&volta.verbose, &volta.quiet) {
+        (false, false) => LogVerbosity::Default,
+        (true, false) => {
+            if volta.very_verbose {
+                LogVerbosity::VeryVerbose
+            } else {
+                LogVerbosity::Verbose
+            }
+        }
+        (false, true) => LogVerbosity::Quiet,
+        (true, true) => {
+            unreachable!("Clap should prevent the user from providing both --verbose and --quiet")
+        }
+    };
+    Logger::init(LogContext::Volta, verbosity).expect("Only a single logger should be initialized");
+    log::trace!("log level: {verbosity:?}");
+
+    let mut session = Session::init();
+    session.add_event_start(ActivityKind::Volta);
+
+    let result = ensure_layout().and_then(|()| volta.run(&mut session).map_err(Error::Volta));
+    match result {
+        Ok(exit_code) => {
+            session.add_event_end(ActivityKind::Volta, exit_code);
+            session.exit(exit_code);
+        }
+        Err(Error::Tool(code)) => {
+            session.add_event_tool_end(ActivityKind::Volta, code);
+            session.exit_tool(code);
+        }
+        Err(Error::Volta(err)) => {
+            report_error(env!("CARGO_PKG_VERSION"), &err);
+            session.add_event_error(ActivityKind::Volta, &err);
+            let code = err.exit_code();
+            session.add_event_end(ActivityKind::Volta, code);
+            session.exit(code);
+        }
+    }
+}
+
+
+--- SHELL COMPLETIONS & MAN PAGES ---
+(None found)
+
+--- DIRECTORY STRUCTURE (depth 2) ---
+├── .cargo/
+│   └── config.toml
+├── .github/
+│   ├── dependabot.yml
+│   └── workflows/
+│       ├── api-docs.yml
+│       ├── release.yml
+│       └── test.yml
+├── .gitignore
+├── .vscode/
+│   ├── launch.json
+│   └── settings.json
+├── CODE_OF_CONDUCT.md
+├── COMPATIBILITY.md
+├── CONTRIBUTING.md
+├── Cargo.lock
+├── Cargo.toml
+├── LICENSE
+├── README.md
+├── RELEASES.md
+├── ci/
+│   ├── build-linux.sh
+│   ├── build-macos.sh
+│   ├── docker/
+│   │   └── Dockerfile
+│   └── volta.manifest
+├── crates/
+│   ├── archive/
+│   │   ├── Cargo.toml
+│   │   ├── fixtures/
+│   │   └── src/
+│   ├── fs-utils/
+│   │   ├── Cargo.toml
+│   │   └── src/
+│   ├── progress-read/
+│   │   ├── Cargo.toml
+│   │   └── src/
+│   ├── test-support/
+│   │   ├── Cargo.toml
+│   │   └── src/
+│   ├── validate-npm-package-name/
+│   │   ├── Cargo.toml
+│   │   └── src/
+│   ├── volta-core/
+│   │   ├── Cargo.toml
+│   │   ├── fixtures/
+│   │   └── src/
+│   ├── volta-layout-macro/
+│   │   ├── Cargo.toml
+│   │   └── src/
+│   ├── volta-layout/
+│   │   ├── Cargo.toml
+│   │   └── src/
+│   └── volta-migrate/
+│       ├── Cargo.toml
+│       └── src/
+├── dev/
+│   ├── package.json
+│   ├── rpm/
+│   │   ├── build-rpm.sh
+│   │   └── volta.spec
+│   └── unix/
+│       ├── SHASUMS256.txt
+│       ├── boot-install.sh
+│       ├── build.sh
+│       ├── install.sh.in
+│       ├── release.sh
+│       ├── test-events
+│       ├── tests/
+│       ├── volta-install-legacy.sh
+│       └── volta-install.sh
+├── rust-toolchain.toml
+├── src/
+│   ├── cli.rs
+│   ├── command/
+│   │   ├── completions.rs
+│   │   ├── fetch.rs
+│   │   ├── install.rs
+│   │   ├── list/
+│   │   ├── mod.rs
+│   │   ├── pin.rs
+│   │   ├── run.rs
+│   │   ├── setup.rs
+│   │   ├── uninstall.rs
+│   │   ├── use.rs
+│   │   └── which.rs
+│   ├── common.rs
+│   ├── main.rs
+│   ├── volta-migrate.rs
+│   └── volta-shim.rs
+├── tests/
+│   ├── acceptance/
+│   │   ├── corrupted_download.rs
+│   │   ├── direct_install.rs
+│   │   ├── direct_uninstall.rs
+│   │   ├── execute_binary.rs
+│   │   ├── hooks.rs
+│   │   ├── main.rs
+│   │   ├── merged_platform.rs
+│   │   ├── migrations.rs
+│   │   ├── run_shim_directly.rs
+│   │   ├── support/
+│   │   ├── verbose_errors.rs
+│   │   ├── volta_bypass.rs
+│   │   ├── volta_install.rs
+│   │   ├── volta_pin.rs
+│   │   ├── volta_run.rs
+│   │   └── volta_uninstall.rs
+│   ├── fixtures/
+│   │   ├── cli-dist-2.4.159.tgz
+│   │   ├── cli-dist-3.12.99.tgz
+│   │   ├── cli-dist-3.2.42.tgz
+│   │   ├── cli-dist-3.7.71.tgz
+│   │   ├── node-v0.0.1-darwin-x64.tar.gz
+│   │   ├── node-v0.0.1-linux-arm64.tar.gz
+│   │   ├── node-v0.0.1-linux-x64.tar.gz
+│   │   ├── node-v0.0.1-win-x64.zip
+│   │   ├── node-v0.0.1-win-x86.zip
+│   │   ├── node-v10.99.1040-darwin-x64.tar.gz
+│   │   ├── node-v10.99.1040-linux-arm64.tar.gz
+│   │   ├── node-v10.99.1040-linux-x64.tar.gz
+│   │   ├── node-v10.99.1040-win-x64.zip
+│   │   ├── node-v10.99.1040-win-x86.zip
+│   │   ├── node-v6.19.62-darwin-x64.tar.gz
+│   │   ├── node-v6.19.62-linux-arm64.tar.gz
+│   │   ├── node-v6.19.62-linux-x64.tar.gz
+│   │   ├── node-v6.19.62-win-x64.zip
+│   │   ├── node-v6.19.62-win-x86.zip
+│   │   ├── node-v8.9.10-darwin-x64.tar.gz
+│   │   ├── node-v8.9.10-linux-arm64.tar.gz
+│   │   ├── node-v8.9.10-linux-x64.tar.gz
+│   │   ├── node-v8.9.10-win-x64.zip
+│   │   ├── node-v8.9.10-win-x86.zip
+│   │   ├── node-v9.27.6-darwin-x64.tar.gz
+│   │   ├── node-v9.27.6-linux-arm64.tar.gz
+│   │   ├── node-v9.27.6-linux-x64.tar.gz
+│   │   ├── node-v9.27.6-win-x64.zip
+│   │   ├── node-v9.27.6-win-x86.zip
+│   │   ├── npm-1.2.3.tgz
+│   │   ├── npm-4.5.6.tgz
+│   │   ├── npm-8.1.5.tgz
+│   │   ├── pnpm-0.0.1.tgz
+│   │   ├── pnpm-6.34.0.tgz
+│   │   ├── pnpm-7.7.1.tgz
+│   │   ├── volta-test-1.0.0.tgz
+│   │   ├── yarn-0.0.1.tgz
+│   │   ├── yarn-1.12.99.tgz
+│   │   ├── yarn-1.2.42.tgz
+│   │   ├── yarn-1.4.159.tgz
+│   │   └── yarn-1.7.71.tgz
+│   └── smoke/
+│       ├── autodownload.rs
+│       ├── direct_install.rs
+│       ├── direct_upgrade.rs
+│       ├── main.rs
+│       ├── npm_link.rs
+│       ├── package_migration.rs
+│       ├── support/
+│       ├── volta_fetch.rs
+│       ├── volta_install.rs
+│       └── volta_run.rs
+├── volta.iml
+├── volta.png
+└── wix/
+    ├── License.rtf
+    ├── main.wxs
+    ├── shim.cmd
+    └── volta.ico

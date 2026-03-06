@@ -1,0 +1,70 @@
+=====================================
+REPO CLASSIFICATION SIGNALS
+=====================================
+
+--- METADATA ---
+Name: cal.com
+Description: Scheduling infrastructure for absolutely everyone.
+Primary language: TypeScript
+Topics: next-auth, nextjs, open-source, postgresql, prisma, t3-stack, tailwindcss, trpc, turborepo, typescript, zod
+
+--- ROOT FILES (signal matches) ---
+Web App:     (none)
+Backend:     Procfile
+Library:     package.json
+CLI:         (none)
+Data/ML:     (none)
+Infra:       (none)
+
+--- TOP-LEVEL DIRECTORIES (signal matches) ---
+Web App:     (none)
+Backend:     (none)
+Library:     docs
+CLI:         (none)
+Data/ML:     (none)
+Infra:       (none)
+
+--- ALL TOP-LEVEL DIRECTORIES ---
+.changeset, .claude, .cursor, .github, .husky, .opencode, .snaplet, .vscode, .well-known, .yarn, __checks__, agents, apps, deploy, docs, example-apps, packages, scripts, specs, vitest-mocks
+
+--- TYPE-SPECIFIC EXTENSION COUNTS ---
+Web App extensions (.tsx, .jsx, .vue, .svelte): 1687
+Data/ML extensions (.ipynb): 0
+Infra extensions (.tf, .hcl): 0
+Backend extensions (.proto, .graphql): 0
+
+--- TOP FILE EXTENSIONS (by count) ---
+  .ts: 5707
+  .tsx: 1687
+  .sql: 595
+  .svg: 484
+  .md: 380
+  .png: 331
+  .json: 323
+  .yml: 310
+  .jpg: 117
+  .jpeg: 100
+  .mdx: 94
+  .js: 36
+  .gitkeep: 24
+  .webp: 20
+  .css: 19
+
+--- BOOLEAN PATTERN CHECKS ---
+  pages or app dir: no
+  components dir: no
+  cmd or bin dir: no
+  src bin: no
+  run train scripts: no
+  ipynb files: no
+  model training files: no
+  tf files: no
+  k8s manifests: no
+  ansible playbooks: no
+  route controller dirs: no
+  db migrations: yes
+  openapi spec: no
+  src and tests: no
+  examples dir: no
+  dockerfile: yes
+  ci cd: yes

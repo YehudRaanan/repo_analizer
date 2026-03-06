@@ -1,0 +1,915 @@
+=====================================
+Repository Analysis: nuxt
+Type: Web Application
+=====================================
+
+--- METADATA ---
+Name: nuxt
+Description: The Full-Stack Vue Framework.
+Language: TypeScript
+Topics: csr, framework, full-stack, hacktoberfest, hybrid, node, nuxt, server-rendering, ssg, ssr, static-site-generator, universal, vue
+Stars: 59793
+License: MIT License
+
+--- README ---
+<a href="https://nuxt.com"><img width="830" height="213" src="./.github/assets/banner.svg" alt="Nuxt banner"></a>
+
+# Nuxt
+
+<p>
+  <a href="https://npmx.dev/package/nuxt"><img src="https://npmx.dev/api/registry/badge/version/nuxt" alt="Version"></a>
+  <a href="https://npmx.dev/package/nuxt"><img src="https://npmx.dev/api/registry/badge/downloads/nuxt" alt="Downloads"></a>
+  <a href="https://github.com/nuxt/nuxt/blob/main/LICENSE"><img src="https://img.shields.io/github/license/nuxt/nuxt.svg?style=flat&colorA=18181B&colorB=28CF8D" alt="License"></a>
+  <a href="https://nuxt.com/modules"><img src="https://img.shields.io/badge/dynamic/json?url=https://nuxt.com/api/v1/modules&query=$.stats.modules&label=Modules&style=flat&colorA=18181B&colorB=28CF8D" alt="Modules"></a>
+  <a href="https://nuxt.com"><img src="https://img.shields.io/badge/Nuxt%20Docs-18181B?logo=nuxt" alt="Website"></a>
+  <a href="https://chat.nuxt.dev"><img src="https://img.shields.io/badge/Nuxt%20Discord-18181B?logo=discord" alt="Discord"></a>
+  <a href="https://securityscorecards.dev/viewer/?uri=github.com/nuxt/nuxt"><img src="https://api.securityscorecards.dev/projects/github.com/nuxt/nuxt/badge" alt="Nuxt openssf scorecard score"></a>
+  <a href="https://deepwiki.com/nuxt/nuxt"><img src="https://deepwiki.com/badge.svg" alt="Ask DeepWiki"></a>
+</p>
+
+Nuxt is a free and open-source framework with an intuitive and extendable way to create type-safe, performant and production-grade full-stack web applications and websites with Vue.js.
+
+It provides a number of features that make it easy to build fast, SEO-friendly, and scalable web applications, including:
+- Server-side rendering, static site generation, hybrid rendering and edge-side rendering
+- Automatic routing with code-splitting and pre-fetching
+- Data fetching and state management
+- Search engine optimization and defining meta tags
+- Auto imports of components, composables and utils
+- TypeScript with zero configuration
+- Go full-stack with our server/ directory
+- Extensible with [300+ modules](https://nuxt.com/modules)
+- Deployment to a variety of [hosting platforms](https://nuxt.com/deploy)
+- ...[and much more](https://nuxt.com) 🚀
+
+### Table of Contents
+
+- 🚀 [Getting Started](#getting-started)
+- 💻 [Vue Development](#vue-development)
+- 📖 [Documentation](#documentation)
+- 🧩 [Modules](#modules)
+- ❤️ [Contribute](#contribute)
+- 🏠 [Local Development](#local-development)
+- 🛟 [Professional Support](#professional-support)
+- 🔗 [Follow Us](#follow-us)
+- ⚖️ [License](#license)
+
+---
+
+## <a name="getting-started">🚀 Getting Started</a>
+
+Use the following command to create a new starter project. This will create a starter project with all the necessary files and dependencies:
+
+```bash
+npm create nuxt@latest <my-project>
+```
+
+> [!TIP]
+> Discover also [nuxt.new](https://nuxt.new): Open a Nuxt starter on CodeSandbox, StackBlitz or locally to get up and running in a few seconds.
+
+## <a name="vue-development">💻 Vue Development</a>
+
+Simple, intuitive and powerful, Nuxt lets you write Vue components in a way that makes sense. Every repetitive task is automated, so you can focus on writing your full-stack Vue application with confidence.
+
+Example of an `app.vue`:
+
+```vue
+<script setup lang="ts">
+useSeoMeta({
+  title: 'Meet Nuxt',
+  description: 'The Intuitive Vue Framework.',
+})
+</script>
+
+<template>
+  <div id="app">
+    <AppHeader />
+    <NuxtPage />
+    <AppFooter />
+  </div>
+</template>
+
+<style scoped>
+#app {
+  background-color: #020420;
+  color: #00DC82;
+}
+</style>
+```
+
+## <a name="documentation">📖 Documentation</a>
+
+We highly recommend you take a look at the [Nuxt documentation](https://nuxt.com/docs) to level up. It’s a great resource for learning more about the framework. It covers everything from getting started to advanced topics.
+
+## <a name="modules">🧩 Modules</a>
+
+Discover our [list of modules](https://nuxt.com/modules) to supercharge your Nuxt project, created by the Nuxt team and community.
+
+## <a name="contribute">❤️ Contribute</a>
+
+We invite you to contribute and help improve Nuxt 💚
+
+Here are a few ways you can get involved:
+- **Reporting Bugs:** If you come across any bugs or issues, please check out the [reporting bugs guide](https://nuxt.com/docs/4.x/community/reporting-bugs) to learn how to submit a bug report.
+- **Suggestions:** Have ideas to enhance Nuxt? We'd love to hear them! Check out the [contribution guide](https://nuxt.com/docs/4.x/community/contribution) to share your suggestions.
+- **Questions:** If you have questions or need assistance, the [getting help guide](https://nuxt.com/docs/4.x/community/getting-help) provides resources to help you out.
+
+## <a name="local-development">🏠 Local Development</a>
+
+Follow the docs to [Set Up Your Local Development Environment](https://nuxt.com/docs/4.x/community/framework-contribution#setup) to contribute to the framework and documentation.
+
+## <a name="professional-support">🛟 Professional Support</a>
+
+- Technical audit & consulting: [Nuxt Experts](h
+... [TRUNCATED]
+
+--- PACKAGE MANIFEST(S) ---
+
+[package.json]
+{
+  "name": "nuxt-framework",
+  "private": true,
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nuxt/nuxt.git"
+  },
+  "license": "MIT",
+  "type": "module",
+  "scripts": {
+    "build": "pnpm --filter './packages/**' prepack",
+    "build:stub": "pnpm dev:prepare",
+    "dev": "pnpm play",
+    "dev:prepare": "pnpm --filter './packages/**' build:stub && nuxt prepare",
+    "debug:dev": "rm -rf **/node_modules/.cache/jiti && pnpm nuxt dev",
+    "lint": "eslint . --cache",
+    "lint:fix": "eslint . --cache --fix",
+    "lint:docs": "markdownlint --ignore-path=.gitignore ./docs && case-police 'docs/**/*.md' *.md && eslint docs --cache",
+    "lint:docs:fix": "markdownlint --ignore-path=.gitignore ./docs --fix && case-police 'docs/**/*.md' *.md --fix && eslint docs --cache --fix",
+    "lint:knip": "knip",
+    "play": "nuxt dev playground",
+    "play:build": "nuxt build playground",
+    "play:generate": "nuxt generate playground",
+    "play:preview": "nuxt preview playground",
+    "test": "pnpm test:prepare && vitest run && pnpm test:fixtures:dev && pnpm test:fixtures:webpack && pnpm test:types && pnpm typecheck",
+    "test:prepare": "jiti ./test/prepare.ts",
+    "test:fixtures": "pnpm test:prepare && vitest run --project fixtures",
+    "test:fixtures:dev": "TEST_ENV=dev pnpm test:fixtures",
+    "test:fixtures:webpack": "TEST_BUILDER=webpack pnpm test:fixtures",
+    "test:runtime": "vitest run --project nuxt --project nuxt-universal --project nuxt-legacy",
+    "test:types": "pnpm --filter './test/fixtures/**' test:types",
+    "test:bundle": "pnpm build && vitest run bundle",
+    "test:unit": "vitest run --project unit",
+    "test:attw": "pnpm --filter './packages/**' test:attw",
+    "test:e2e": "playwright test",
+    "test:e2e:debug": "playwright test --debug",
+    "test:e2e:ui": "playwright test --ui",
+    "test:e2e:dev": "TEST_ENV=dev playwright test",
+    "test:e2e:webpack": "TEST_BUILDER=webpack playwright test",
+    "typecheck": "vue-tsc --noEmit",
+    "typecheck:docs": "DOCS_TYPECHECK=true pnpm nuxt prepare && nuxt-content-twoslash verify --content-dir docs --languages html"
+  },
+  "resolutions": {
+    "@babel/core": "7.29.0",
+    "@babel/helper-plugin-utils": "7.28.6",
+    "@nuxt/cli": "3.33.1",
+    "@nuxt/kit": "workspace:*",
+    "@nuxt/nitro-server": "workspace:*",
+    "@nuxt/rspack-builder": "workspace:*",
+    "@nuxt/schema": "workspace:*",
+    "@nuxt/vite-builder": "workspace:*",
+    "@nuxt/webpack-builder": "workspace:*",
+    "@types/node": "24.11.0",
+    "@unhead/vue": "2.1.10",
+    "@vue/compiler-core": "3.5.29",
+    "@vue/compiler-dom": "3.5.29",
+    "@vue/shared": "3.5.29",
+    "c12": "3.3.3",
+    "compatx": "0.2.0",
+    "h3": "1.15.5",
+    "jiti": "2.6.1",
+    "magic-string": "0.30.21",
+    "nitropack": "2.13.1",
+    "nuxt": "workspace:*",
+    "postcss": "8.5.8",
+    "rollup": "4.59.0",
+    "send": ">=1.2.1",
+    "typescript": "5.9.3",
+    "ufo": "1.6.3",
+    "unstorage": "1.17.4",
+    "vite": "7.3.1",
+    "vue": "3.5
+... [TRUNCATED]
+
+--- WEB FRAMEWORK CONFIG ---
+
+[nuxt.config.ts]
+// For pnpm typecheck:docs to generate correct types
+
+import process from 'node:process'
+import { fileURLToPath } from 'node:url'
+import { addPluginTemplate, addRouteMiddleware, addVitePlugin } from 'nuxt/kit'
+
+export default defineNuxtConfig({
+  modules: [
+    function () {
+      if (!process.env.DOCS_TYPECHECK) { return }
+      addPluginTemplate({
+        filename: 'plugins/my-plugin.mjs',
+        getContents: () => 'export default defineNuxtPlugin({ name: \'my-plugin\' })',
+      })
+      addRouteMiddleware({
+        name: 'auth',
+        path: '#build/auth.js',
+      })
+    },
+    function (_options, nuxt) {
+      // this preserves onPrehydrate so we can make assertions on the client
+      nuxt.options.optimization.treeShake.composables.client ||= {}
+      nuxt.options.optimization.treeShake.composables.client['#app'] = nuxt.options.optimization.treeShake.composables.client['#app']?.filter(c => c !== 'onPrehydrate') || []
+
+      addVitePlugin(() => ({
+        name: 'preserve-ssr-composables',
+        enforce: 'pre',
+        transform (code, id) {
+          let replaced = false
+          if (code.includes('export function onPrehydrate')) {
+            replaced = true
+            code = code.replaceAll('if (import.meta.client) { return }', '')
+          }
+          if (id.includes('nuxt-time.vue')) {
+            replaced = true
+            code = code.replace('if (import.meta.server) {', 'if (useAttrs().ssr) {')
+          }
+          if (replaced) {
+            return code
+          }
+        },
+      }))
+    },
+  ],
+  pages: process.env.DOCS_TYPECHECK === 'true',
+  dir: {
+    app: fileURLToPath(new URL('./test/runtime/app', import.meta.url)),
+  },
+  vite: {
+    define: {
+      'import.meta.dev': 'globalThis.__TEST_DEV__',
+    },
+  },
+  typescript: {
+    shim: process.env.DOCS_TYPECHECK === 'true',
+    hoist: ['@vitejs/plugin-vue', 'vue-router'],
+  },
+})
+
+
+[tsconfig.json]
+{
+  // https://www.totaltypescript.com/tsconfig-cheat-sheet
+  "compilerOptions": {
+    /* Base options: */
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "target": "es2022",
+    "allowJs": true,
+    "allowImportingTsExtensions": true,
+    "resolveJsonModule": true,
+    "moduleDetection": "force",
+    "isolatedModules": true,
+    "verbatimModuleSyntax": true,
+    /* Strictness */
+    "strict": true,
+    "noUncheckedIndexedAccess": true,
+    "noUncheckedSideEffectImports": true,
+    "forceConsistentCasingInFileNames": true,
+    "noImplicitOverride": true,
+    /* If NOT transpiling with TypeScript: */
+    "module": "preserve",
+    "noEmit": true,
+    /* If your code runs in the DOM: */
+    "lib": [
+      "es2022",
+      "webworker",
+      "dom",
+      "dom.iterable"
+    ],
+    "paths": {
+      "#app": [
+        "./packages/nuxt/src/app/index"
+      ],
+      "#app/*": [
+        "./packages/nuxt/src/app/*"
+      ],
+      "#unhead/composables": [
+        "./packages/nuxt/src/head/runtime/composables"
+      ]
+    }
+  },
+  "exclude": [
+    "**/dist/**",
+    "**/.nuxt/**",
+    "packages/nuxt/src/app/types/**",
+    "packages/nuxt/meta.d.ts",
+    "**/nuxt.d.ts",
+    "**/examples/**",
+    "**/docs/**",
+    "**/playground/**",
+    "**/test/nuxt/**",
+    "**/test/fixtures/**",
+    "**/test/fixtures-temp/**"
+  ]
+}
+
+
+--- ROUTE / PAGE DEFINITIONS ---
+
+[packages/kit/src/pages.ts]
+import type { NuxtHooks, NuxtMiddleware } from '@nuxt/schema'
+import { defu } from 'defu'
+
+import { useNuxt } from './context.ts'
+import { logger } from './logger.ts'
+import type { NitroRouteConfig } from './nitro-types.ts'
+import { toArray } from './utils.ts'
+
+export function extendPages (cb: NuxtHooks['pages:extend']): void {
+  useNuxt().hook('pages:extend', cb)
+}
+
+export interface ExtendRouteRulesOptions {
+  /**
+   * Override route rule config
+   * @default false
+   */
+  override?: boolean
+}
+
+export function extendRouteRules (route: string, rule: NitroRouteConfig, options: ExtendRouteRulesOptions = {}): void {
+  const nuxt = useNuxt()
+  for (const opts of [nuxt.options, nuxt.options.nitro]) {
+    opts.routeRules ||= {}
+    opts.routeRules[route] = options.override
+      ? defu(rule, opts.routeRules[route] as any)
+      : defu(opts.routeRules[route] as any, rule)
+  }
+}
+
+export interface AddRouteMiddlewareOptions {
+  /**
+   * Override existing middleware with the same name, if it exists
+   * @default false
+   */
+  override?: boolean
+  /**
+   * Prepend middleware to the list
+   * @default false
+   */
+  prepend?: boolean
+}
+
+export function addRouteMiddleware (input: NuxtMiddleware | NuxtMiddleware[], options: AddRouteMiddlewareOptions = {}): void {
+  const nuxt = useNuxt()
+  const middlewares = toArray(input)
+  nuxt.hook('app:resolve', (app) => {
+    for (const middleware of middlewares) {
+      const find = app.middleware.findIndex(item => item.name === middleware.name)
+      if (find >= 0) {
+        const foundPath = app.middleware[find]!.path
+        if (foundPath === middleware.path) { continue }
+        if (options.override === true) {
+          app.middleware[find] = { ...middleware }
+        } else {
+          logger.warn(`'${middleware.name}' middleware already exists at '${foundPath}'. You can set \`override: true\` to replace it.`)
+        }
+      } else if (options.prepend === true) {
+        app.middleware.unshift({ ...middleware })
+      } else {
+        app.middleware.push({ ...middleware })
+      }
+    }
+  })
+}
+
+
+[packages/nuxt/src/app/composables/pages.ts]
+export type { PageMeta } from '#pages/composables'
+
+export { definePageMeta, defineRouteRules } from '#pages/composables'
+
+
+[packages/nuxt/src/app/composables/router.ts]
+import { getCurrentInstance, hasInjectionContext, inject, onScopeDispose } from 'vue'
+import type { Ref } from 'vue'
+import type { NavigationFailure, NavigationGuard, RouteLocationNormalized, RouteLocationRaw, Router, useRoute as _useRoute, useRouter as _useRouter } from 'vue-router'
+import { sanitizeStatusCode } from '@nuxt/nitro-server/h3'
+import { decodePath, encodePath, hasProtocol, isScriptProtocol, joinURL, parseQuery, parseURL, withQuery } from 'ufo'
+
+import type { NuxtLayouts, PageMeta } from '../../pages/runtime/composables'
+
+import { useNuxtApp, useRuntimeConfig } from '../nuxt'
+import { PageRouteSymbol } from '../components/injections'
+import type { NuxtError } from './error'
+import { createError, showError } from './error'
+import { getUserTrace } from '../utils'
+import type { MakeSerializableObject } from '../../pages/runtime/utils'
+
+/** @since 3.0.0 */
+export const useRouter: typeof _useRouter = () => {
+  return useNuxtApp()?.$router as Router
+}
+
+/** @since 3.0.0 */
+export const useRoute: typeof _useRoute = () => {
+  if (import.meta.dev && !getCurrentInstance() && isProcessingMiddleware()) {
+    const middleware = useNuxtApp()._processingMiddleware
+    const trace = getUserTrace().map(({ source, line, column }) => `at ${source}:${line}:${column}`).join('\n')
+    console.warn(`[nuxt] \`useRoute\` was called within middleware${typeof middleware === 'string' ? ` (\`${middleware}\`)` : ''}. This may lead to misleading results. Instead, use the (to, from) arguments passed to the middleware to access the new and old routes. Learn more: https://nuxt.com/docs/4.x/directory-structure/app/middleware#accessing-route-in-middleware` + ('\n' + trace))
+  }
+  if (hasInjectionContext()) {
+    return inject(PageRouteSymbol, useNuxtApp()._route)
+  }
+  return useNuxtApp()._route
+}
+
+/** @since 3.0.0 */
+export const onBeforeRouteLeave = (guard: NavigationGuard) => {
+  const unsubscribe = useRouter().beforeEach((to, from, next) => {
+    if (to === from) { return }
+    return guard(to, from, next)
+  })
+  onScopeDispose(unsubscribe)
+}
+
+/** @since 3.0.0 */
+export const onBeforeRouteUpdate = (guard: NavigationGuard) => {
+  const unsubscribe = useRouter().beforeEach(guard)
+  onScopeDispose(unsubscribe)
+}
+
+export interface RouteMiddleware {
+  (to: RouteLocationNormalized, from: RouteLocationNormalized): ReturnType<NavigationGuard>
+}
+
+/** @since 3.0.0 */
+/* @__NO_SIDE_EFFECTS__ */
+export function defineNuxtRouteMiddleware (middleware: RouteMiddleware) {
+  return middleware
+}
+
+export interface AddRouteMiddlewareOptions {
+  global?: boolean
+}
+
+interface AddRouteMiddleware {
+  (name: string, middleware: RouteMiddleware, options?: AddRouteMiddlewareOptions): void
+  (middleware: RouteMiddleware): void
+}
+
+/** @since 3.0.0 */
+export const addRouteMiddleware: AddRouteMiddleware = (name: string | RouteMiddleware, middleware?: RouteMiddleware, options: AddRouteMiddlewareOptions = {}) => {
+  const nuxtApp = useNuxtApp()
+  const global = options.global || typeof name !== 'st
+... [TRUNCATED]
+
+[packages/nuxt/src/app/plugins/router.ts]
+import type { Ref } from 'vue'
+import { computed, defineComponent, h, isReadonly, reactive } from 'vue'
+import { isEqual, joinURL, parseQuery, stringifyParsedURL, stringifyQuery, withoutBase } from 'ufo'
+import { createError } from '@nuxt/nitro-server/h3'
+import { defineNuxtPlugin, useRuntimeConfig } from '../nuxt'
+import { getRouteRules } from '../composables/manifest'
+import { clearError, showError } from '../composables/error'
+import { navigateTo } from '../composables/router'
+
+// @ts-expect-error virtual file
+import { globalMiddleware } from '#build/middleware'
+
+interface Route {
+  /** Percentage encoded pathname section of the URL. */
+  path: string
+  /** The whole location including the `search` and `hash`. */
+  fullPath: string
+  /** Object representation of the `search` property of the current location. */
+  query: Record<string, any>
+  /** Hash of the current location. If present, starts with a `#`. */
+  hash: string
+  /** Name of the matched record */
+  name: string | null | undefined
+  /** Object of decoded params extracted from the `path`. */
+  params: Record<string, any>
+  /**
+   * The location we were initially trying to access before ending up
+   * on the current location.
+   */
+  redirectedFrom: Route | undefined
+  /** Merged `meta` properties from all of the matched route records. */
+  meta: Record<string, any>
+  /** compatibility type for vue-router */
+  matched: never[]
+}
+
+function getRouteFromPath (fullPath: string | Partial<Route>) {
+  const route = fullPath && typeof fullPath === 'object' ? fullPath : {}
+
+  if (typeof fullPath === 'object') {
+    fullPath = stringifyParsedURL({
+      pathname: fullPath.path || '',
+      search: stringifyQuery(fullPath.query || {}),
+      hash: fullPath.hash || '',
+    })
+  }
+
+  const url = new URL(fullPath.toString(), import.meta.client ? window.location.href : 'http://localhost')
+  return {
+    path: url.pathname,
+    fullPath,
+    query: parseQuery(url.search),
+    hash: url.hash,
+    // stub properties for compat with vue-router
+    params: route.params || {},
+    name: undefined,
+    matched: route.matched || [],
+    redirectedFrom: undefined,
+    meta: route.meta || {},
+    href: fullPath,
+  }
+}
+
+type RouteGuardReturn = void | Error | string | boolean
+
+interface RouteGuard {
+  (to: Route, from: Route): RouteGuardReturn | Promise<RouteGuardReturn>
+}
+
+interface RouterHooks {
+  'resolve:before': (to: Route, from: Route) => RouteGuardReturn | Promise<RouteGuardReturn>
+  'navigate:before': (to: Route, from: Route) => RouteGuardReturn | Promise<RouteGuardReturn>
+  'navigate:after': (to: Route, from: Route) => void | Promise<void>
+  'error': (err: any) => void | Promise<void>
+}
+
+interface Router {
+  currentRoute: Ref<Route>
+  isReady: () => Promise<void>
+  options: Record<string, unknown>
+  install: () => Promise<void>
+  // Navigation
+  push: (url: string) => Promise<void>
+  replace: (url: string) => Promise<void>
+  back: () => void
+  go: (delta: number) => void
+  forward: () => void
+  // Guar
+... [TRUNCATED]
+
+[packages/nuxt/src/pages/build.d.ts]
+declare module '#build/router.options.mjs' {
+  import type { RouterOptions } from '@nuxt/schema'
+
+  export const hashMode: boolean
+  const _default: RouterOptions
+  export default _default
+}
+
+declare module '#build/routes' {
+  import type { RouterOptions } from '@nuxt/schema'
+  import type { Router, RouterOptions as VueRouterOptions } from 'vue-router'
+
+  export const handleHotUpdate: (_router: Router, _generateRoutes: RouterOptions['routes']) => void
+
+  const _default: VueRouterOptions['routes']
+  export default _default
+}
+
+
+--- DIRECTORY STRUCTURE (depth 2) ---
+├── .devcontainer/
+│   ├── Dockerfile
+│   └── devcontainer.json
+├── .editorconfig
+├── .github/
+│   ├── FUNDING.yml
+│   ├── ISSUE_TEMPLATE/
+│   │   ├── bug-report.yml
+│   │   ├── config.yml
+│   │   └── feature-request.yml
+│   ├── assets/
+│   │   ├── banner.svg
+│   │   ├── bluesky.svg
+│   │   ├── discord.svg
+│   │   ├── documentation.png
+│   │   ├── examples.png
+│   │   ├── github.svg
+│   │   ├── modules.png
+│   │   ├── questions.png
+│   │   ├── reporting-bugs.png
+│   │   ├── suggestions.png
+│   │   └── twitter.svg
+│   ├── copilot-instructions.md
+│   ├── logo-light.svg
+│   ├── logo.svg
+│   └── workflows/
+│       ├── autofix-docs.yml
+│       ├── autofix.yml
+│       ├── cache-cleanup.yml
+│       ├── changelog.yml
+│       ├── ci.yml
+│       ├── dependency-review.yml
+│       ├── docs-check-links.yml
+│       ├── docs-deploy.yml
+│       ├── docs.yml
+│       ├── ecosystem-ci-trigger.yml
+│       ├── gh-ai-moderator.yml
+│       ├── issue-comment-created.yml
+│       ├── issue-edited.yml
+│       ├── issue-labelled.yml
+│       ├── issue-opened.yml
+│       ├── label-pr.yml
+│       ├── lint-monorepo.yml
+│       ├── lint-workflows.yml
+│       ├── notify-nuxt-bridge.yml
+│       ├── notify-nuxt-website.yml
+│       ├── release.yml
+│       ├── scorecards.yml
+│       ├── semantic-pull-requests.yml
+│       ├── stackblitz-link.yml
+│       ├── stale.yml
+│       └── team-triage.yml
+├── .gitignore
+├── .gitpod/
+│   └── automations.yaml
+├── .idea/
+│   ├── inspectionProfiles/
+│   │   └── Project_Default.xml
+│   ├── modules.xml
+│   └── nuxt.iml
+├── .markdownlint.yml
+├── .nuxtrc
+├── .stackblitz/
+│   ├── codeflow.json
+│   └── config.json
+├── .vscode/
+│   └── extensions.json
+├── CODEOWNERS
+├── LICENSE
+├── README.md
+├── SECURITY.md
+├── docs/
+│   ├── .navigation.yml
+│   ├── 1.getting-started/
+│   │   ├── .navigation.yml
+│   │   ├── 01.introduction.md
+│   │   ├── 02.installation.md
+│   │   ├── 03.configuration.md
+│   │   ├── 04.views.md
+│   │   ├── 05.assets.md
+│   │   ├── 06.styling.md
+│   │   ├── 07.routing.md
+│   │   ├── 08.seo-meta.md
+│   │   ├── 09.transitions.md
+│   │   ├── 10.data-fetching.md
+│   │   ├── 11.state-management.md
+│   │   ├── 12.error-handling.md
+│   │   ├── 13.server.md
+│   │   ├── 14.layers.md
+│   │   ├── 15.prerendering.md
+│   │   ├── 16.deployment.md
+│   │   ├── 17.testing.md
+│   │   └── 18.upgrade.md
+│   ├── 2.directory-structure/
+│   │   ├── .navigation.yml
+│   │   ├── 0.nuxt.md
+│   │   ├── 0.output.md
+│   │   ├── 1.app/
+│   │   ├── 1.content.md
+│   │   ├── 1.layers.md
+│   │   ├── 1.modules.md
+│   │   ├── 1.node_modules.md
+│   │   ├── 1.public.md
+│   │   ├── 1.server.md
+│   │   ├── 1.shared.md
+│   │   ├── 2.env.md
+│   │   ├── 2.gitignore.md
+│   │   ├── 2.nuxtignore.md
+│   │   ├── 2.nuxtrc.md
+│   │   ├── 3.nuxt-config.md
+│   │   ├── 3.package.md
+│   │   ├── 3.tsconfig.md
+│   │   └── index.md
+│   ├── 3.guide/
+│   │   ├── .navigation.yml
+│   │   ├── 0.index.md
+│   │   ├── 1.concepts/
+│   │   ├── 2.best-practices/
+│   │   ├── 3.ai/
+│   │   ├── 4.modules/
+│   │   ├── 5.recipes/
+│   │   └── 6.going-further/
+│   ├── 4.api/
+│   │   ├── .navigation.yml
+│   │   ├── 1.components/
+│   │   ├── 2.composables/
+│   │   ├── 3.utils/
+│   │   ├── 4.commands/
+│   │   ├── 5.kit/
+│   │   ├── 6.advanced/
+│   │   ├── 6.nuxt-config.md
+│   │   └── index.md
+│   ├── 5.community/
+│   │   ├── .navigation.yml
+│   │   ├── 2.getting-help.md
+│   │   ├── 3.reporting-bugs.md
+│   │   ├── 4.contribution.md
+│   │   ├── 5.framework-contribution.md
+│   │   ├── 6.roadmap.md
+│   │   └── 7.changelog.md
+│   ├── 6.bridge/
+│   │   ├── .navigation.yml
+│   │   ├── 1.overview.md
+│   │   ├── 10.configuration.md
+│   │   ├── 2.typescript.md
+│   │   ├── 3.bridge-composition-api.md
+│   │   ├── 4.plugins-and-middleware.md
+│   │   ├── 5.nuxt3-compatible-api.md
+│   │   ├── 6.meta.md
+│   │   ├── 7.runtime-config.md
+│   │   ├── 8.nitro.md
+│   │   └── 9.vite.md
+│   ├── 7.migration/
+│   │   ├── .navigation.yml
+│   │   ├── 1.overview.md
+│   │   ├── 10.bundling.md
+│   │   ├── 11.server.md
+│   │   ├── 2.configuration.md
+│   │   ├── 20.module-authors.md
+│   │   ├── 3.auto-imports.md
+│   │   ├── 4.meta.md
+│   │   ├── 5.plugins-and-middleware.md
+│   │   ├── 6.pages-and-layouts.md
+│   │   ├── 7.component-options.md
+│   │   └── 8.runtime-config.md
+│   ├── README.md
+│   └── package.json
+├── eslint.config.mjs
+├── examples/
+│   └── README.md
+├── knip.json
+├── lychee.toml
+├── nuxt.config.ts
+├── package.json
+├── packages/
+│   ├── kit/
+│   │   ├── .attw.json
+│   │   ├── .gitignore
+│   │   ├── build.config.ts
+│   │   ├── package.json
+│   │   ├── src/
+│   │   └── test/
+│   ├── nitro-server/
+│   │   ├── .attw.json
+│   │   ├── .gitignore
+│   │   ├── build.config.ts
+│   │   ├── package.json
+│   │   └── src/
+│   ├── nuxi/
+│   │   └── README.md
+│   ├── nuxt/
+│   │   ├── .attw.json
+│   │   ├── .gitignore
+│   │   ├── app.d.ts
+│   │   ├── bin/
+│   │   ├── build.config.ts
+│   │   ├── config.cjs
+│   │   ├── config.d.ts
+│   │   ├── config.js
+│   │   ├── index.d.ts
+│   │   ├── kit.d.ts
+│   │   ├── kit.js
+│   │   ├── meta.d.ts
+│   │   ├── meta.js
+│   │   ├── package.json
+│   │   ├── schema.d.ts
+│   │   ├── schema.js
+│   │   ├── src/
+│   │   ├── test/
+│   │   ├── types.d.mts
+│   │   └── types.d.ts
+│   ├── rspack/
+│   │   ├── .attw.json
+│   │   ├── build.config.ts
+│   │   ├── builder.mjs
+│   │   ├── package.json
+│   │   └── src/
+│   ├── schema/
+│   │   ├── .attw.json
+│   │   ├── .gitignore
+│   │   ├── build.config.ts
+│   │   ├── builder-env.d.ts
+│   │   ├── package.json
+│   │   ├── src/
+│   │   └── test/
+│   ├── test-utils/
+│   │   └── README.md
+│   ├── ui-templates/
+│   │   ├── README.md
+│   │   ├── index.html
+│   │   ├── lib/
+│   │   ├── package.json
+│   │   ├── public/
+│   │   ├── styles.ts
+│   │   ├── templates/
+│   │   ├── test/
+│   │   ├── uno.config.ts
+│   │   └── vite.config.ts
+│   ├── vite/
+│   │   ├── .attw.json
+│   │   ├── build.config.ts
+│   │   ├── package.json
+│   │   ├── src/
+│   │   └── test/
+│   └── webpack/
+│       ├── .attw.json
+│       ├── build.config.ts
+│       ├── builder.d.ts
+│       ├── builder.mjs
+│       ├── package.json
+│       └── src/
+├── patches/
+│   └── changelogen.patch
+├── playground/
+│   ├── app/
+│   │   └── app.vue
+│   ├── nuxt.config.ts
+│   ├── package.json
+│   ├── server/
+│   │   └── api/
+│   └── tsconfig.json
+├── playwright.config.ts
+├── pnpm-lock.yaml
+├── pnpm-workspace.yaml
+├── renovate.json
+├── scripts/
+│   ├── _utils.ts
+│   ├── bump-nightly.ts
+│   ├── bump.ts
+│   ├── example.sh
+│   ├── release.ts
+│   └── update-changelog.ts
+├── test/
+│   ├── basic.test.ts
+│   ├── bundle.test.ts
+│   ├── e2e/
+│   │   ├── global.setup.ts
+│   │   ├── global.teardown.ts
+│   │   ├── hmr.test.ts
+│   │   ├── lazy-hydration.test.ts
+│   │   ├── runtime-compiler.test.ts
+│   │   ├── spa-preloader-body.test.ts
+│   │   ├── spa-preloader-within.test.ts
+│   │   ├── suspense.test.ts
+│   │   └── test-utils.ts
+│   ├── fixtures/
+│   │   ├── basic-types/
+│   │   ├── basic/
+│   │   ├── hmr/
+│   │   ├── lazy-hydration/
+│   │   ├── minimal-pages/
+│   │   ├── minimal-types/
+│   │   ├── minimal/
+│   │   ├── runtime-compiler/
+│   │   ├── spa-loader/
+│   │   └── suspense/
+│   ├── matrix.ts
+│   ├── mocks/
+│   │   ├── app-config.ts
+│   │   ├── nuxt-config.ts
+│   │   ├── paths.ts
+│   │   └── router-options.ts
+│   ├── nuxt/
+│   │   ├── client-only.test.ts
+│   │   ├── components.test.ts
+│   │   ├── composables.test.ts
+│   │   ├── define-nuxt-component.test.ts
+│   │   ├── error-boundary.test.ts
+│   │   ├── island-pages.test.ts
+│   │   ├── loading-indicator.test.ts
+│   │   ├── nuxt-island.test.ts
+│   │   ├── nuxt-layout.test.ts
+│   │   ├── nuxt-page.test.ts
+│   │   ├── nuxt-time.test.ts
+│   │   ├── plugin.test.ts
+│   │   ├── polyfills.test.ts
+│   │   ├── router.options.test.ts
+│   │   ├── tsconfig.json
+│   │   ├── universal/
+│   │   ├── use-async-data.test.ts
+│   │   ├── use-fetch.test.ts
+│   │   └── view-transitions.test.ts
+│   ├── prepare.ts
+│   ├── runtime/
+│   │   └── app/
+│   ├── setup-env.ts
+│   ├── setup-runtime.ts
+│   ├── typed-router.test.ts
+│   └── utils.ts
+├── tsconfig.json
+└── vitest.config.ts

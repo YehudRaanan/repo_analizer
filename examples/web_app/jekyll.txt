@@ -1,0 +1,793 @@
+=====================================
+Repository Analysis: jekyll
+Type: Library / Package / SDK
+=====================================
+
+--- METADATA ---
+Name: jekyll
+Description: :globe_with_meridians: Jekyll is a blog-aware static site generator in Ruby
+Language: Ruby
+Topics: blog-engine, jekyll, liquid, markdown, ruby, static-site-generator
+Stars: 51422
+License: MIT License
+
+--- README ---
+(No README found)
+
+--- PACKAGE MANIFEST(S) ---
+
+[Gemfile]
+# frozen_string_literal: true
+
+source "https://rubygems.org"
+gemspec :name => "jekyll"
+
+gem "rake", "~> 13.0"
+
+group :development do
+  gem "launchy", "~> 2.3"
+  gem "pry"
+
+  gem "pry-byebug" unless RUBY_ENGINE == "jruby"
+end
+
+#
+
+group :test do
+  gem "activesupport", "< 7.1.0"
+  gem "cucumber", "~> 9.0"
+  gem "httpclient"
+  gem "jekyll_test_plugin"
+  gem "jekyll_test_plugin_malicious"
+  gem "memory_profiler"
+
+  # Runtime dependency of gem `httpclient`. _Needed only in Ruby 3.4+_.
+  # Remove once gem `httpclient` ships with `mutex_m` listed as a dependency in its gemspec.
+  gem "mutex_m", "~> 0.3" if RUBY_VERSION >= "3.4"
+
+  gem "nokogiri", "~> 1.7"
+  gem "rspec"
+  gem "rspec-mocks"
+  gem "rubocop", "~> 1.57.2"
+  gem "rubocop-minitest"
+  gem "rubocop-performance"
+  gem "rubocop-rake"
+  gem "rubocop-rspec"
+  gem "test-dependency-theme", :path => File.expand_path("test/fixtures/test-dependency-theme", __dir__)
+  gem "test-theme", :path => File.expand_path("test/fixtures/test-theme", __dir__)
+  gem "test-theme-skinny", :path => File.expand_path("test/fixtures/test-theme-skinny", __dir__)
+  gem "test-theme-symlink", :path => File.expand_path("test/fixtures/test-theme-symlink", __dir__)
+  gem "test-theme-w-empty-data", :path => File.expand_path("test/fixtures/test-theme-w-empty-data", __dir__)
+
+  if RUBY_ENGINE == "jruby"
+    gem "http_parser.rb", "~> 0.6.0"
+    gem "jruby-openssl"
+  end
+end
+
+#
+
+group :test_legacy do
+  gem "test-unit" if RUBY_PLATFORM =~ %r!cygwin!
+
+  gem "minitest"
+  gem "minitest-profile"
+  gem "minitest-reporters"
+  gem "shoulda-context"
+  gem "simplecov"
+end
+
+#
+
+group :benchmark do
+  if ENV["BENCHMARK"]
+    gem "benchmark-ips"
+    gem "rbtrace"
+    gem "ruby-prof"
+    gem "stackprof"
+  end
+end
+
+#
+
+group :jekyll_optional_dependencies do
+  gem "jekyll-coffeescript"
+  gem "jekyll-docs", :path => "../docs" if Dir.exist?("../docs") && ENV["JEKYLL_VERSION"]
+  gem "jekyll-feed", "~> 0.9"
+  gem "jekyll-gist"
+  gem "jekyll-paginate"
+  gem "jekyll-redirect-from"
+  gem "kramdown-syntax-coderay"
+  gem "matrix"
+  gem "mime-types", "~> 3.0"
+  gem "tomlrb"
+
+  platforms :ruby, :mswin, :mingw, :x64_mingw do
+    gem "classifier-reborn", "~> 2.2"
+    gem "liquid-c", "~> 4.0"
+    gem "yajl-ruby", "~> 1.4"
+  end
+
+  # Windows and JRuby does not include zoneinfo files, so bundle the tzinfo-data gem
+  # and associated library
+  platforms :jruby, :mswin, :mingw, :x64_mingw do
+    gem "tzinfo", ENV["TZINFO_VERSION"] if ENV["TZINFO_VERSION"]
+    gem "tzinfo-data"
+  end
+end
+
+#
+
+group :rdoc, :optional => true do
+  # Psych 5 has stopped bundling `libyaml` and expects it to be installed on the host system prior
+  # to being invoked.
+  # Since we don't have a direct dependency on the Psych gem (it gets included in the gem bundle as
+  # a dependency of the `rdoc` gem), lock psych gem to v4.x instead of installing `libyaml` in our
+  # development / CI environment.
+  gem "psych", "~> 4.0"
+  gem "rdoc", "~> 6.0"
+end
+
+#
+
+group :site do
+  gem "html-proofer", "~> 3.4" if
+... [TRUNCATED]
+
+[jekyll.gemspec]
+# frozen_string_literal: true
+
+require "English"
+require_relative "lib/jekyll/version"
+
+Gem::Specification.new do |s|
+  s.name          = "jekyll"
+  s.version       = Jekyll::VERSION
+  s.license       = "MIT"
+  s.authors       = ["Tom Preston-Werner", "Parker Moore", "Matt Rogers"]
+  s.email         = ["maintainers@jekyllrb.com"]
+  s.homepage      = "https://jekyllrb.com"
+  s.summary       = "A simple, blog aware, static site generator."
+  s.description   = "Jekyll is a simple, blog aware, static site generator."
+
+  all_files       = `git ls-files`.split($INPUT_RECORD_SEPARATOR)
+  s.files         = all_files.grep(%r!^(exe|lib|rubocop)/|^.rubocop.yml$!)
+  s.executables   = all_files.grep(%r!^exe/!) { |f| File.basename(f) }
+  s.bindir        = "exe"
+  s.require_paths = ["lib"]
+
+  s.metadata      = {
+    "source_code_uri" => "https://github.com/jekyll/jekyll",
+    "bug_tracker_uri" => "https://github.com/jekyll/jekyll/issues",
+    "changelog_uri"   => "https://github.com/jekyll/jekyll/releases",
+    "homepage_uri"    => s.homepage,
+  }
+
+  s.rdoc_options     = ["--charset=UTF-8"]
+  s.extra_rdoc_files = %w(README.markdown LICENSE)
+
+  s.required_ruby_version     = ">= 2.7.0"
+  s.required_rubygems_version = ">= 2.7.0"
+
+  s.add_runtime_dependency("addressable",           "~> 2.4")
+  s.add_runtime_dependency("base64",                "~> 0.2")
+  s.add_runtime_dependency("colorator",             "~> 1.0")
+  s.add_runtime_dependency("csv",                   "~> 3.0")
+  s.add_runtime_dependency("em-websocket",          "~> 0.5")
+  s.add_runtime_dependency("i18n",                  "~> 1.0")
+  s.add_runtime_dependency("jekyll-sass-converter", ">= 2.0", "< 4.0")
+  s.add_runtime_dependency("jekyll-watch",          "~> 2.0")
+  s.add_runtime_dependency("json",                  "~> 2.6")
+  s.add_runtime_dependency("kramdown",              "~> 2.3", ">= 2.3.1")
+  s.add_runtime_dependency("kramdown-parser-gfm",   "~> 1.0")
+  s.add_runtime_dependency("liquid",                "~> 4.0")
+  s.add_runtime_dependency("logger",                "~> 1.3")
+  s.add_runtime_dependency("mercenary",             "~> 0.3", ">= 0.3.6")
+  s.add_runtime_dependency("pathutil",              "~> 0.9")
+  s.add_runtime_dependency("rouge",                 ">= 3.0", "< 5.0")
+  s.add_runtime_dependency("safe_yaml",             "~> 1.0")
+  s.add_runtime_dependency("terminal-table",        ">= 1.8", "< 4.0")
+  s.add_runtime_dependency("webrick",               "~> 1.7")
+end
+
+
+--- DIRECTORY STRUCTURE (depth 2) ---
+├── .codeclimate.yml
+├── .devcontainer/
+│   ├── Dockerfile
+│   └── devcontainer.json
+├── .editorconfig
+├── .gitattributes
+├── .github/
+│   ├── CODEOWNERS
+│   ├── CODE_OF_CONDUCT.markdown
+│   ├── CONTRIBUTING.markdown
+│   ├── FUNDING.yml
+│   ├── ISSUE_TEMPLATE/
+│   │   ├── bug_report.yml
+│   │   ├── config.yml
+│   │   ├── documentation.md
+│   │   └── feature_request.md
+│   ├── PULL_REQUEST_TEMPLATE.md
+│   ├── SECURITY.markdown
+│   ├── SUPPORT.markdown
+│   ├── actions/
+│   │   └── spelling/
+│   ├── config.yml
+│   ├── dependabot.yml
+│   ├── first-timers-issue-template.md
+│   ├── first-timers.yml
+│   └── workflows/
+│       ├── actions/
+│       ├── benchmark.yml
+│       ├── ci.yml
+│       ├── codeql.yml
+│       ├── docs.yml
+│       ├── release.yml
+│       ├── spelling.yml
+│       └── third-party.yml
+├── .gitignore
+├── .jrubyrc
+├── .rubocop.yml
+├── .rubocop_todo.yml
+├── Earthfile
+├── Gemfile
+├── History.markdown
+├── LICENSE
+├── README.markdown
+├── Rakefile
+├── benchmark/
+│   ├── capture-assign.rb
+│   ├── conditional_liquid.rb
+│   ├── end-with-vs-regexp
+│   ├── file-dir-ensure-trailing-slash
+│   ├── find-filter-vs-where-first-filters.rb
+│   ├── flat-map
+│   ├── hash-fetch
+│   ├── jekyll-sanitize-path
+│   ├── local-require
+│   ├── native-vs-pathutil-relative
+│   ├── parse-date
+│   ├── parse-include-tag-params.rb
+│   ├── path-manager.rb
+│   ├── proc-call-vs-yield
+│   ├── regexp-vs-include.rb
+│   ├── sanitize-url.rb
+│   ├── schwartzian_transform.rb
+│   ├── sequential-assignment
+│   ├── static-drop-vs-forwarded.rb
+│   ├── string-concat
+│   ├── string-replacement
+│   └── symbol-to-proc
+├── docs/
+│   ├── .gitignore
+│   ├── CNAME
+│   ├── _config.yml
+│   ├── _data/
+│   │   ├── config_options/
+│   │   ├── docs_nav.yml
+│   │   ├── jekyll_filters.yml
+│   │   ├── jekyll_variables.yml
+│   │   ├── jekyllconf-talks.yml
+│   │   ├── permalinks.yml
+│   │   ├── primary_nav.yml
+│   │   ├── ruby.yml
+│   │   ├── showcase.yml
+│   │   └── tutorials.yml
+│   ├── _docs/
+│   │   ├── assets.md
+│   │   ├── code_of_conduct.md
+│   │   ├── collections.md
+│   │   ├── community/
+│   │   ├── conduct.md
+│   │   ├── configuration.md
+│   │   ├── configuration/
+│   │   ├── continuous-integration/
+│   │   ├── contributing.md
+│   │   ├── datafiles.md
+│   │   ├── deployment.md
+│   │   ├── deployment/
+│   │   ├── front-matter.md
+│   │   ├── github-pages.md
+│   │   ├── history.md
+│   │   ├── includes.md
+│   │   ├── index.md
+│   │   ├── installation.md
+│   │   ├── installation/
+│   │   ├── layouts.md
+│   │   ├── liquid.md
+│   │   ├── liquid/
+│   │   ├── maintaining/
+│   │   ├── markdown-101.md
+│   │   ├── migrations.md
+│   │   ├── pages.md
+│   │   ├── pagination.md
+│   │   ├── permalinks.md
+│   │   ├── plugins.md
+│   │   ├── plugins/
+│   │   ├── posts.md
+│   │   ├── rendering-process.md
+│   │   ├── ruby-101.md
+│   │   ├── security.md
+│   │   ├── static_files.md
+│   │   ├── step-by-step/
+│   │   ├── structure.md
+│   │   ├── support.md
+│   │   ├── themes.md
+│   │   ├── troubleshooting.md
+│   │   ├── upgrading.md
+│   │   ├── upgrading/
+│   │   ├── usage.md
+│   │   └── variables.md
+│   ├── _includes/
+│   │   ├── analytics.html
+│   │   ├── anchor_links.html
+│   │   ├── docs_contents.html
+│   │   ├── docs_contents_mobile.html
+│   │   ├── docs_variables_table.html
+│   │   ├── docs_version_badge.html
+│   │   ├── footer.html
+│   │   ├── header.html
+│   │   ├── improve_doc_link.html
+│   │   ├── mobile-nav-items.html
+│   │   ├── news_contents.html
+│   │   ├── news_contents_mobile.html
+│   │   ├── news_item.html
+│   │   ├── news_item_archive.html
+│   │   ├── primary-nav-items.html
+│   │   ├── search/
+│   │   ├── section_nav_tutorials.html
+│   │   ├── step-index.html
+│   │   ├── top.html
+│   │   ├── tutorials_contents.html
+│   │   └── tutorials_contents_mobile.html
+│   ├── _layouts/
+│   │   ├── default.html
+│   │   ├── docs.html
+│   │   ├── error.html
+│   │   ├── news.html
+│   │   ├── news_item.html
+│   │   ├── page.html
+│   │   ├── step.html
+│   │   └── tutorials.html
+│   ├── _posts/
+│   │   ├── 2013-05-06-jekyll-1-0-0-released.markdown
+│   │   ├── 2013-05-08-jekyll-1-0-1-released.markdown
+│   │   ├── 2013-05-12-jekyll-1-0-2-released.markdown
+│   │   ├── 2013-06-07-jekyll-1-0-3-released.markdown
+│   │   ├── 2013-07-14-jekyll-1-1-0-released.markdown
+│   │   ├── 2013-07-24-jekyll-1-1-1-released.markdown
+│   │   ├── 2013-07-25-jekyll-1-0-4-released.markdown
+│   │   ├── 2013-07-25-jekyll-1-1-2-released.markdown
+│   │   ├── 2013-09-06-jekyll-1-2-0-released.markdown
+│   │   ├── 2013-09-14-jekyll-1-2-1-released.markdown
+│   │   ├── 2013-10-28-jekyll-1-3-0-rc1-released.markdown
+│   │   ├── 2013-11-04-jekyll-1-3-0-released.markdown
+│   │   ├── 2013-11-26-jekyll-1-3-1-released.markdown
+│   │   ├── 2013-12-07-jekyll-1-4-0-released.markdown
+│   │   ├── 2013-12-09-jekyll-1-4-1-released.markdown
+│   │   ├── 2013-12-16-jekyll-1-4-2-released.markdown
+│   │   ├── 2014-01-13-jekyll-1-4-3-released.markdown
+│   │   ├── 2014-03-24-jekyll-1-5-0-released.markdown
+│   │   ├── 2014-03-27-jekyll-1-5-1-released.markdown
+│   │   ├── 2014-05-06-jekyll-turns-2-0-0.markdown
+│   │   ├── 2014-05-08-jekyll-2-0-3-released.markdown
+│   │   ├── 2014-06-04-jekyll-stickers-1-dollar-stickermule.markdown
+│   │   ├── 2014-06-28-jekyll-turns-21-i-mean-2-1-0.markdown
+│   │   ├── 2014-07-01-jekyll-2-1-1-released.markdown
+│   │   ├── 2014-07-29-jekyll-2-2-0-released.markdown
+│   │   ├── 2014-08-10-jekyll-2-3-0-released.markdown
+│   │   ├── 2014-09-09-jekyll-2-4-0-released.markdown
+│   │   ├── 2014-11-06-jekylls-midlife-crisis-jekyll-turns-2-5-0.markdown
+│   │   ├── 2014-11-08-jekyll-2-5-1-released.markdown
+│   │   ├── 2014-11-12-jekyll-2-5-2-released.markdown
+│   │   ├── 2014-12-17-alfredxing-welcome-to-jekyll-core.md
+│   │   ├── 2014-12-22-jekyll-2-5-3-released.markdown
+│   │   ├── 2015-01-20-jekyll-meet-and-greet.markdown
+│   │   ├── 2015-01-24-jekyll-3-0-0-beta1-released.markdown
+│   │   ├── 2015-02-26-introducing-jekyll-talk.markdown
+│   │   ├── 2015-10-26-jekyll-3-0-released.markdown
+│   │   ├── 2015-11-17-jekyll-3-0-1-released.markdown
+│   │   ├── 2016-01-20-jekyll-3-0-2-released.markdown
+│   │   ├── 2016-01-24-jekyll-3-1-0-released.markdown
+│   │   ├── 2016-01-28-jekyll-3-1-1-released.markdown
+│   │   ├── 2016-02-08-jekyll-3-0-3-released.markdown
+│   │   ├── 2016-02-19-jekyll-3-1-2-released.markdown
+│   │   ├── 2016-03-10-making-it-easier-to-contribute-to-jekyll.md
+│   │   ├── 2016-04-19-jekyll-3-0-4-released.markdown
+│   │   ├── 2016-04-19-jekyll-3-1-3-released.markdown
+│   │   ├── 2016-04-26-jekyll-3-0-5-released.markdown
+│   │   ├── 2016-05-18-jekyll-3-1-4-released.markdown
+│   │   ├── 2016-05-18-jekyll-3-1-5-released.markdown
+│   │   ├── 2016-05-19-jekyll-3-1-6-released.markdown
+│   │   ├── 2016-06-03-update-on-jekyll-s-google-summer-of-code-projects.markdown
+│   │   ├── 2016-07-26-jekyll-3-2-0-released.markdown
+│   │   ├── 2016-08-02-jekyll-3-2-1-released.markdown
+│   │   ├── 2016-08-24-jekyll-admin-initial-release.markdown
+│   │   ├── 2016-10-06-jekyll-3-3-is-here.md
+│   │   ├── 2016-11-14-jekyll-3-3-1-released.markdown
+│   │   ├── 2017-01-18-jekyll-3-4-0-released.markdown
+│   │   ├── 2017-03-02-jekyll-3-4-1-released.markdown
+│   │   ├── 2017-03-09-jekyll-3-4-2-released.markdown
+│   │   ├── 2017-03-21-jekyll-3-4-3-released.markdown
+│   │   ├── 2017-06-14-jekyll-3-5-0-released.markdown
+│   │   ├── 2017-07-17-jekyll-3-5-1-released.markdown
+│   │   ├── 2017-08-12-jekyll-3-5-2-released.markdown
+│   │   ├── 2017-09-21-jekyll-3-6-0-released.markdown
+│   │   ├── 2017-10-19-diversity-open-source.markdown
+│   │   ├── 2017-10-21-jekyll-3-6-2-released.markdown
+│   │   ├── 2018-01-02-jekyll-3-7-0-released.md
+│   │   ├── 2018-01-25-jekyll-3-7-2-released.md
+│   │   ├── 2018-02-19-meet-jekyll-s-new-lead-developer.markdown
+│   │   ├── 2018-02-25-jekyll-3-7-3-released.markdown
+│   │   ├── 2018-03-14-development-update.md
+│   │   ├── 2018-03-15-jekyll-3-8-0-released.markdown
+│   │   ├── 2018-05-01-jekyll-3-8-1-released.markdown
+│   │   ├── 2018-05-18-jekyll-3-8-2-released.markdown
+│   │   ├── 2018-06-04-jekyll-3-8-3-released.markdown
+│   │   ├── 2018-08-01-jekyll-sponsoring.markdown
+│   │   ├── 2018-09-19-security-fixes-for-3-6-3-7-3-8.markdown
+│   │   ├── 2018-11-04-jekyll-3-8-5-released.markdown
+│   │   ├── 2019-03-18-jekyll-4-0-0-pre-alpha1-released.markdown
+│   │   ├── 2019-07-02-jekyll-3-8-6-released.markdown
+│   │   ├── 2019-08-04-jekyll-4-0-0-pre-beta1-released.markdown
+│   │   ├── 2019-08-19-jekyll-4-0-0-released.markdown
+│   │   ├── 2020-05-08-jekyll-4-0-1-released.markdown
+│   │   ├── 2020-05-27-jekyll-4-1-0-released.markdown
+│   │   ├── 2020-06-24-jekyll-4-1-1-released.markdown
+│   │   ├── 2020-08-05-jekyll-3-9-0-released.markdown
+│   │   ├── 2020-12-14-jekyll-4-2-0-released.markdown
+│   │   ├── 2021-04-08-jekyll-3-9-1-released.markdown
+│   │   ├── 2021-09-14-goodbye-dear-frank.markdown
+│   │   ├── 2021-09-27-jekyll-4-2-1-released.markdown
+│   │   ├── 2022-03-03-jekyll-4-2-2-released.markdown
+│   │   ├── 2022-03-27-jekyll-3-9-2-released.markdown
+│   │   ├── 2022-10-20-jekyll-4-3-0-released.markdown
+│   │   ├── 2022-10-26-jekyll-4-3-1-released.markdown
+│   │   ├── 2022-12-21-jekyll-sass-converter-3.0-released.markdown
+│   │   ├── 2023-01-20-jekyll-4-3-2-released.markdown
+│   │   ├── 2023-01-29-jekyll-3-9-3-released.markdown
+│   │   ├── 2023-12-27-jekyll-4-3-3-released.markdown
+│   │   ├── 2023-12-28-jekyll-3-9-4-released.markdown
+│   │   ├── 2024-06-23-jekyll-3-10-0-released.markdown
+│   │   ├── 2024-09-16-jekyll-4-3-4-released.markdown
+│   │   ├── 2025-01-27-jekyll-4-4-0-released.markdown
+│   │   └── 2025-01-29-jekyll-4-4-1-released.markdown
+│   ├── _sass/
+│   │   ├── _docsearch.scss
+│   │   ├── _font-awesome.scss
+│   │   ├── _fonts.scss
+│   │   ├── _gridism.scss
+│   │   ├── _mixins.scss
+│   │   ├── _normalize.scss
+│   │   ├── _pygments.scss
+│   │   └── _style.scss
+│   ├── _tutorials/
+│   │   ├── cache-api.md
+│   │   ├── convert-site-to-jekyll.md
+│   │   ├── csv-to-table.md
+│   │   ├── custom-404-page.md
+│   │   ├── index.md
+│   │   ├── navigation.md
+│   │   ├── orderofinterpretation.md
+│   │   ├── using-jekyll-with-bundler.md
+│   │   └── video-walkthroughs.md
+│   ├── css/
+│   │   └── screen.scss
+│   ├── favicon.ico
+│   ├── fonts/
+│   │   ├── FontAwesome.eot
+│   │   ├── FontAwesome.svg
+│   │   ├── FontAwesome.ttf
+│   │   ├── FontAwesome.woff
+│   │   ├── lato-v14-latin-300.woff
+│   │   ├── lato-v14-latin-300.woff2
+│   │   ├── lato-v14-latin-300italic.woff
+│   │   ├── lato-v14-latin-300italic.woff2
+│   │   ├── lato-v14-latin-700.woff
+│   │   ├── lato-v14-latin-700.woff2
+│   │   ├── lato-v14-latin-700italic.woff
+│   │   ├── lato-v14-latin-700italic.woff2
+│   │   ├── lato-v14-latin-900.woff
+│   │   ├── lato-v14-latin-900.woff2
+│   │   ├── lato-v14-latin-900italic.woff
+│   │   ├── lato-v14-latin-900italic.woff2
+│   │   ├── lato-v14-latin-italic.woff
+│   │   ├── lato-v14-latin-italic.woff2
+│   │   ├── lato-v14-latin-regular.woff
+│   │   └── lato-v14-latin-regular.woff2
+│   ├── icomoon-selection.json
+│   ├── img/
+│   │   ├── article-footer.png
+│   │   ├── footer-arrow.png
+│   │   ├── footer-logo.png
+│   │   ├── forestry-logo.svg
+│   │   ├── jekyll-og.png
+│   │   ├── jekyll-sticker.jpg
+│   │   ├── jekyll-sticker.png
+│   │   ├── jekylllayoutconcept.png
+│   │   ├── logo-2x.png
+│   │   ├── logo-rss.png
+│   │   ├── octojekyll.png
+│   │   ├── spacer.gif
+│   │   └── twitter-card.png
+│   ├── js/
+│   │   ├── html5shiv.min.js
+│   │   └── respond.min.js
+│   ├── latest_version.txt
+│   ├── pages/
+│   │   ├── 404.html
+│   │   ├── index.html
+│   │   ├── jekyllconf.md
+│   │   ├── news.html
+│   │   ├── philosophy.md
+│   │   ├── redirects/
+│   │   ├── releases.html
+│   │   ├── resources.md
+│   │   ├── showcase.html
+│   │   └── team.md
+│   └── readme.md
+├── exe/
+│   └── jekyll
+├── features/
+│   ├── cache.feature
+│   ├── collections.feature
+│   ├── collections_dir.feature
+│   ├── create_sites.feature
+│   ├── data.feature
+│   ├── drafts.feature
+│   ├── embed_filters.feature
+│   ├── frontmatter_defaults.feature
+│   ├── highlighting.feature
+│   ├── hooks.feature
+│   ├── include_relative_tag.feature
+│   ├── include_tag.feature
+│   ├── incremental_rebuild.feature
+│   ├── layout_data.feature
+│   ├── link_tag.feature
+│   ├── markdown.feature
+│   ├── pagination.feature
+│   ├── permalinks.feature
+│   ├── plugins.feature
+│   ├── post_data.feature
+│   ├── post_excerpts.feature
+│   ├── post_url_tag.feature
+│   ├── rendering.feature
+│   ├── site_configuration.feature
+│   ├── site_data.feature
+│   ├── step_definitions.rb
+│   ├── support/
+│   │   ├── formatter.rb
+│   │   └── helpers.rb
+│   ├── theme.feature
+│   ├── theme_configuration.feature
+│   └── theme_gem.feature
+├── jekyll.gemspec
+├── lib/
+│   ├── blank_template/
+│   │   ├── _config.yml
+│   │   ├── _layouts/
+│   │   ├── _sass/
+│   │   ├── assets/
+│   │   └── index.md
+│   ├── jekyll.rb
+│   ├── jekyll/
+│   │   ├── cache.rb
+│   │   ├── cleaner.rb
+│   │   ├── collection.rb
+│   │   ├── command.rb
+│   │   ├── commands/
+│   │   ├── configuration.rb
+│   │   ├── converter.rb
+│   │   ├── converters/
+│   │   ├── convertible.rb
+│   │   ├── deprecator.rb
+│   │   ├── document.rb
+│   │   ├── drops/
+│   │   ├── entry_filter.rb
+│   │   ├── errors.rb
+│   │   ├── excerpt.rb
+│   │   ├── external.rb
+│   │   ├── filters.rb
+│   │   ├── filters/
+│   │   ├── frontmatter_defaults.rb
+│   │   ├── generator.rb
+│   │   ├── hooks.rb
+│   │   ├── inclusion.rb
+│   │   ├── layout.rb
+│   │   ├── liquid_extensions.rb
+│   │   ├── liquid_renderer.rb
+│   │   ├── liquid_renderer/
+│   │   ├── log_adapter.rb
+│   │   ├── mime.types
+│   │   ├── page.rb
+│   │   ├── page_excerpt.rb
+│   │   ├── page_without_a_file.rb
+│   │   ├── path_manager.rb
+│   │   ├── plugin.rb
+│   │   ├── plugin_manager.rb
+│   │   ├── profiler.rb
+│   │   ├── publisher.rb
+│   │   ├── reader.rb
+│   │   ├── readers/
+│   │   ├── regenerator.rb
+│   │   ├── related_posts.rb
+│   │   ├── renderer.rb
+│   │   ├── site.rb
+│   │   ├── static_file.rb
+│   │   ├── stevenson.rb
+│   │   ├── tags/
+│   │   ├── theme.rb
+│   │   ├── theme_builder.rb
+│   │   ├── url.rb
+│   │   ├── utils.rb
+│   │   ├── utils/
+│   │   └── version.rb
+│   ├── site_template/
+│   │   ├── .gitignore
+│   │   ├── 404.html
+│   │   ├── _config.yml
+│   │   ├── _posts/
+│   │   ├── about.markdown
+│   │   └── index.markdown
+│   └── theme_template/
+│       ├── CODE_OF_CONDUCT.md.erb
+│       ├── Gemfile
+│       ├── LICENSE.txt.erb
+│       ├── README.md.erb
+│       ├── _layouts/
+│       ├── example/
+│       ├── gitignore.erb
+│       └── theme.gemspec.erb
+├── rake/
+│   ├── profile.rake
+│   ├── release.rake
+│   ├── rubocop.rake
+│   ├── site.rake
+│   └── task_utils/
+│       └── rubocop_config_formatter.rb
+├── rubocop/
+│   ├── jekyll.rb
+│   └── jekyll/
+│       ├── assert_equal_literal_actual.rb
+│       ├── no_p_allowed.rb
+│       └── no_puts_allowed.rb
+├── script/
+│   ├── backport-pr
+│   ├── bootstrap
+│   ├── branding
+│   ├── cibuild
+│   ├── console
+│   ├── cucumber
+│   ├── default-site
+│   ├── fmt
+│   ├── memprof
+│   ├── profile-docs
+│   ├── proof
+│   ├── rubies
+│   ├── rubyprof
+│   ├── stackprof
+│   ├── test
+│   ├── travis
+│   └── vendor-mimes
+└── test/
+    ├── fixtures/
+    │   ├── broken_front_matter1.erb
+    │   ├── broken_front_matter2.erb
+    │   ├── broken_front_matter3.erb
+    │   ├── empty_permalink.erb
+    │   ├── exploit_front_matter.erb
+    │   ├── front_matter.erb
+    │   ├── no_liquid.erb
+    │   ├── physical.html
+    │   ├── sample.csv
+    │   ├── sample.tsv
+    │   ├── test-dependency-theme/
+    │   ├── test-theme-skinny/
+    │   ├── test-theme-symlink/
+    │   ├── test-theme-w-empty-data/
+    │   ├── test-theme/
+    │   └── webrick/
+    ├── helper.rb
+    ├── safe_glob_test[/
+    │   └── find_me.txt
+    ├── simplecov_custom_profile.rb
+    ├── source/
+    │   ├── +/
+    │   ├── .gitattributes
+    │   ├── .htaccess
+    │   ├── _broken/
+    │   ├── _config.dev.toml
+    │   ├── _config_folded.yml
+    │   ├── _data/
+    │   ├── _dates/
+    │   ├── _drafts/
+    │   ├── _encodings/
+    │   ├── _glob_include_test/
+    │   ├── _includes/
+    │   ├── _includes_custom/
+    │   ├── _layouts/
+    │   ├── _methods/
+    │   ├── _plugins/
+    │   ├── _posts/
+    │   ├── _roles/
+    │   ├── _sass/
+    │   ├── _slides/
+    │   ├── _thanksgiving/
+    │   ├── _tutorials/
+    │   ├── _urls_differ_by_case_invalid/
+    │   ├── _urls_differ_by_case_valid/
+    │   ├── _with.dots/
+    │   ├── about.html
+    │   ├── assets/
+    │   ├── category/
+    │   ├── contacts.html
+    │   ├── contacts/
+    │   ├── css/
+    │   ├── deal.with.dots.html
+    │   ├── dynamic_file.php
+    │   ├── environment.html
+    │   ├── exploit.md
+    │   ├── foo/
+    │   ├── index.html
+    │   ├── info.md
+    │   ├── js/
+    │   ├── pgp.key
+    │   ├── products.yml
+    │   ├── properties.html
+    │   ├── sitemap.xml
+    │   ├── static_files.html
+    │   ├── symlink-test/
+    │   ├── trailing-dots...md
+    │   ├── unpublished.html
+    │   ├── win/
+    │   └── z_category/
+    ├── test_ansi.rb
+    ├── test_cleaner.rb
+    ├── test_coffeescript.rb
+    ├── test_collections.rb
+    ├── test_command.rb
+    ├── test_commands_serve.rb
+    ├── test_commands_serve_servlet.rb
+    ├── test_configuration.rb
+    ├── test_convertible.rb
+    ├── test_data_reader.rb
+    ├── test_doctor_command.rb
+    ├── test_document.rb
+    ├── test_drop.rb
+    ├── test_entry_filter.rb
+    ├── test_excerpt.rb
+    ├── test_excerpt_drop.rb
+    ├── test_filters.rb
+    ├── test_front_matter_defaults.rb
+    ├── test_generated_site.rb
+    ├── test_kramdown.rb
+    ├── test_layout_reader.rb
+    ├── test_liquid_extensions.rb
+    ├── test_liquid_renderer.rb
+    ├── test_log_adapter.rb
+    ├── test_new_command.rb
+    ├── test_page.rb
+    ├── test_page_without_a_file.rb
+    ├── test_path_manager.rb
+    ├── test_path_sanitization.rb
+    ├── test_plugin_manager.rb
+    ├── test_post_reader.rb
+    ├── test_regenerator.rb
+    ├── test_related_posts.rb
+    ├── test_sass.rb
+    ├── test_site.rb
+    ├── test_site_drop.rb
+    ├── test_static_file.rb
+    ├── test_tag_highlight.rb
+    ├── test_tag_include.rb
+    ├── test_tag_include_relative.rb
+    ├── test_tag_link.rb
+    ├── test_tag_post_url.rb
+    ├── test_theme.rb
+    ├── test_theme_assets_reader.rb
+    ├── test_theme_data_reader.rb
+    ├── test_theme_drop.rb
+    ├── test_url.rb
+    ├── test_utils.rb
+    └── test_win_tz.rb

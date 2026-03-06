@@ -1,0 +1,623 @@
+=====================================
+Repository Analysis: tokio
+Type: Library / Package / SDK
+=====================================
+
+--- METADATA ---
+Name: tokio
+Description: A runtime for writing reliable asynchronous applications with Rust. Provides I/O, networking, scheduling, timers, ...
+Language: Rust
+Topics: asynchronous, networking, rust
+Stars: 31370
+License: MIT License
+
+--- README ---
+# Tokio
+
+A runtime for writing reliable, asynchronous, and slim applications with
+the Rust programming language. It is:
+
+* **Fast**: Tokio's zero-cost abstractions give you bare-metal
+  performance.
+
+* **Reliable**: Tokio leverages Rust's ownership, type system, and
+  concurrency model to reduce bugs and ensure thread safety.
+
+* **Scalable**: Tokio has a minimal footprint, and handles backpressure
+  and cancellation naturally.
+
+[![Crates.io][crates-badge]][crates-url]
+[![MIT licensed][mit-badge]][mit-url]
+[![Build Status][actions-badge]][actions-url]
+[![Discord chat][discord-badge]][discord-url]
+
+[crates-badge]: https://img.shields.io/crates/v/tokio.svg
+[crates-url]: https://crates.io/crates/tokio
+[mit-badge]: https://img.shields.io/badge/license-MIT-blue.svg
+[mit-url]: https://github.com/tokio-rs/tokio/blob/master/LICENSE
+[actions-badge]: https://github.com/tokio-rs/tokio/workflows/CI/badge.svg
+[actions-url]: https://github.com/tokio-rs/tokio/actions?query=workflow%3ACI+branch%3Amaster
+[discord-badge]: https://img.shields.io/discord/500028886025895936.svg?logo=discord&style=flat-square
+[discord-url]: https://discord.gg/tokio
+
+[Website](https://tokio.rs) |
+[Guides](https://tokio.rs/tokio/tutorial) |
+[API Docs](https://docs.rs/tokio/latest/tokio) |
+[Chat](https://discord.gg/tokio)
+
+## Overview
+
+Tokio is an event-driven, non-blocking I/O platform for writing
+asynchronous applications with the Rust programming language. At a high
+level, it provides a few major components:
+
+* A multithreaded, work-stealing based task [scheduler].
+* A reactor backed by the operating system's event queue (epoll, kqueue,
+  IOCP, etc.).
+* Asynchronous [TCP and UDP][net] sockets.
+
+These components provide the runtime components necessary for building
+an asynchronous application.
+
+[net]: https://docs.rs/tokio/latest/tokio/net/index.html
+[scheduler]: https://docs.rs/tokio/latest/tokio/runtime/index.html
+
+## Example
+
+A basic TCP echo server with Tokio.
+
+Make sure you enable the full features of the tokio crate on Cargo.toml:
+
+```toml
+[dependencies]
+tokio = { version = "1.50.0", features = ["full"] }
+```
+Then, on your main.rs:
+
+```rust,no_run
+use tokio::net::TcpListener;
+use tokio::io::{AsyncReadExt, AsyncWriteExt};
+
+#[tokio::main]
+async fn main() -> Result<(), Box<dyn std::error::Error>> {
+    let listener = TcpListener::bind("127.0.0.1:8080").await?;
+
+    loop {
+        let (mut socket, _) = listener.accept().await?;
+
+        tokio::spawn(async move {
+            let mut buf = [0; 1024];
+
+            // In a loop, read data from the socket and write the data back.
+            loop {
+                let n = match socket.read(&mut buf).await {
+                    // socket closed
+                    Ok(0) => return,
+                    Ok(n) => n,
+                    Err(e) => {
+                        eprintln!("failed to read from socket; err = {:?}", e);
+                        return;
+                    }
+                };
+
+                // Write the data back
+                if let Err(e) = socket.write_all(&buf[0..n]).await {
+                    eprintln!("failed to write to socket; err = {:?}", e);
+                    return;
+                }
+            }
+        });
+    }
+}
+```
+
+More examples can be found [here][examples]. For a larger "real world" example, see the
+[mini-redis] repository.
+
+[examples]: https://github.com/tokio-rs/tokio/tree/master/examples
+[mini-redis]: https://github.com/tokio-rs/mini-redis/
+
+To see a list of the available feature flags that can be enabled, check our
+[docs][feature-flag-docs].
+
+## Getting Help
+
+First, see if the answer to your question can be found in the [Guides] or the
+[API documentation]. If the answer is not there, there is an active community in
+the [Tokio Discord server][chat]. We would be happy to try to answer your
+question. You can also ask your question on [the discussions page][discussions].
+
+[Guides]: https://tokio.rs/tokio/tutorial
+[API documentation]: https://docs.rs/tokio/latest/tokio
+[chat]: https://discord.gg/tokio
+[discussions]: https://github.com/tokio-rs/tokio/discussions
+[feature-flag-docs]: https://docs.rs/tokio/#feature-flags
+
+## Contributing
+
+:balloon: Thanks for your help improving the project! We are so happy to have
+you! We have a [contributing guide][guide] to help you get involved in the Tokio
+project.
+
+[guide]: https://github.com/tokio-rs/tokio/blob/master/docs/contributing/README.md
+
+## Related Projects
+
+In addition to the crates in this repository, the Tokio project also maintains
+several other libraries, including:
+
+* [`axum`]: A web application framework that focuses on ergonomics and modularity.
+
+* [`hyper`]: A fast and correct HTTP/1.1 and HTTP/2 implementation for Rust.
+
+* [`tonic`]: A gRPC over HTTP/2 implementation focused on high performance, interoperability, and flexibility.
+
+* [`warp`]: A super-easy, composable, web server framework for warp speeds.
+
+* [`tower`]: A library of modular and reusable components for building robust networking clients 
+... [TRUNCATED]
+
+--- PACKAGE MANIFEST(S) ---
+
+[Cargo.toml]
+[workspace]
+resolver = "2"
+members = [
+  "tokio",
+  "tokio-macros",
+  "tokio-test",
+  "tokio-stream",
+  "tokio-util",
+
+  # Internal
+  "benches",
+  "examples",
+  "stress-test",
+  "tests-build",
+  "tests-integration",
+]
+
+[patch.crates-io]
+tokio = { path = "tokio" }
+
+[workspace.metadata.spellcheck]
+config = "spellcheck.toml"
+
+[workspace.lints.rust]
+unexpected_cfgs = { level = "warn", check-cfg = [
+  'cfg(fuzzing)',
+  'cfg(loom)',
+  'cfg(mio_unsupported_force_poll_poll)',
+  'cfg(tokio_allow_from_blocking_fd)',
+  'cfg(tokio_internal_mt_counters)',
+  'cfg(tokio_no_parking_lot)',
+  'cfg(tokio_no_tuning_tests)',
+  'cfg(tokio_unstable)',
+  'cfg(target_os, values("cygwin"))',
+] }
+
+
+--- DIRECTORY STRUCTURE (depth 2) ---
+├── .cirrus.yml
+├── .github/
+│   ├── FUNDING.yml
+│   ├── ISSUE_TEMPLATE/
+│   │   ├── bug_report.md
+│   │   ├── config.yml
+│   │   └── feature_request.md
+│   ├── PULL_REQUEST_TEMPLATE.md
+│   ├── buildomat/
+│   │   ├── README.md
+│   │   └── config.toml
+│   ├── labeler.yml
+│   └── workflows/
+│       ├── audit.yml
+│       ├── ci.yml
+│       ├── labeler.yml
+│       ├── loom.yml
+│       ├── pr-audit.yml
+│       ├── stress-test.yml
+│       └── uring-kernel-version-test.yml
+├── .gitignore
+├── CODE_OF_CONDUCT.md
+├── CONTRIBUTING.md
+├── Cargo.toml
+├── Cross.toml
+├── LICENSE
+├── README.md
+├── SECURITY.md
+├── benches/
+│   ├── Cargo.toml
+│   ├── copy.rs
+│   ├── fs.rs
+│   ├── rt_current_thread.rs
+│   ├── rt_multi_threaded.rs
+│   ├── signal.rs
+│   ├── spawn.rs
+│   ├── spawn_blocking.rs
+│   ├── sync_broadcast.rs
+│   ├── sync_mpsc.rs
+│   ├── sync_mpsc_oneshot.rs
+│   ├── sync_notify.rs
+│   ├── sync_rwlock.rs
+│   ├── sync_semaphore.rs
+│   ├── sync_watch.rs
+│   ├── time_now.rs
+│   └── time_timeout.rs
+├── deny.toml
+├── docs/
+│   └── contributing/
+│       ├── README.md
+│       ├── contributing-in-issues.md
+│       ├── how-to-specify-crates-dependencies-versions.md
+│       ├── keeping-track-of-issues-and-prs.md
+│       ├── pull-requests.md
+│       └── reviewing-pull-requests.md
+├── examples/
+│   ├── Cargo.toml
+│   ├── README.md
+│   ├── chat.rs
+│   ├── connect-tcp.rs
+│   ├── connect-udp.rs
+│   ├── custom-executor-tokio-context.rs
+│   ├── custom-executor.rs
+│   ├── dump.rs
+│   ├── echo-tcp.rs
+│   ├── echo-udp.rs
+│   ├── hello_world.rs
+│   ├── named-pipe-multi-client.rs
+│   ├── named-pipe-ready.rs
+│   ├── named-pipe.rs
+│   ├── print_each_packet.rs
+│   ├── proxy.rs
+│   ├── tinydb.rs
+│   ├── tinyhttp.rs
+│   ├── udp-client.rs
+│   └── udp-codec.rs
+├── netlify.toml
+├── spellcheck.dic
+├── spellcheck.toml
+├── stress-test/
+│   ├── Cargo.toml
+│   └── examples/
+│       └── simple_echo_tcp.rs
+├── target-specs/
+│   ├── README.md
+│   └── i686-unknown-linux-gnu.json
+├── tests-build/
+│   ├── Cargo.toml
+│   ├── README.md
+│   ├── src/
+│   │   └── lib.rs
+│   └── tests/
+│       ├── fail/
+│       ├── macros.rs
+│       ├── macros_clippy.rs
+│       └── pass/
+├── tests-integration/
+│   ├── Cargo.toml
+│   ├── README.md
+│   ├── src/
+│   │   ├── bin/
+│   │   └── lib.rs
+│   └── tests/
+│       ├── macros_main.rs
+│       ├── macros_pin.rs
+│       ├── macros_select.rs
+│       ├── process_stdio.rs
+│       └── rt_yield.rs
+├── tokio-macros/
+│   ├── CHANGELOG.md
+│   ├── Cargo.toml
+│   ├── LICENSE
+│   ├── README.md
+│   └── src/
+│       ├── entry.rs
+│       ├── lib.rs
+│       └── select.rs
+├── tokio-stream/
+│   ├── CHANGELOG.md
+│   ├── Cargo.toml
+│   ├── LICENSE
+│   ├── README.md
+│   ├── fuzz/
+│   │   ├── .gitignore
+│   │   ├── Cargo.toml
+│   │   └── fuzz_targets/
+│   ├── src/
+│   │   ├── empty.rs
+│   │   ├── iter.rs
+│   │   ├── lib.rs
+│   │   ├── macros.rs
+│   │   ├── once.rs
+│   │   ├── pending.rs
+│   │   ├── stream_close.rs
+│   │   ├── stream_ext.rs
+│   │   ├── stream_ext/
+│   │   ├── stream_map.rs
+│   │   ├── wrappers.rs
+│   │   └── wrappers/
+│   └── tests/
+│       ├── async_send_sync.rs
+│       ├── chunks_timeout.rs
+│       ├── mpsc_bounded_stream.rs
+│       ├── mpsc_unbounded_stream.rs
+│       ├── stream_chain.rs
+│       ├── stream_chunks_timeout.rs
+│       ├── stream_close.rs
+│       ├── stream_collect.rs
+│       ├── stream_empty.rs
+│       ├── stream_fuse.rs
+│       ├── stream_iter.rs
+│       ├── stream_merge.rs
+│       ├── stream_once.rs
+│       ├── stream_panic.rs
+│       ├── stream_pending.rs
+│       ├── stream_stream_map.rs
+│       ├── stream_timeout.rs
+│       ├── support/
+│       ├── time_throttle.rs
+│       └── watch.rs
+├── tokio-test/
+│   ├── CHANGELOG.md
+│   ├── Cargo.toml
+│   ├── LICENSE
+│   ├── README.md
+│   ├── src/
+│   │   ├── io.rs
+│   │   ├── lib.rs
+│   │   ├── macros.rs
+│   │   ├── stream_mock.rs
+│   │   └── task.rs
+│   └── tests/
+│       ├── block_on.rs
+│       ├── io.rs
+│       ├── macros.rs
+│       ├── stream_mock.rs
+│       └── task.rs
+├── tokio-util/
+│   ├── CHANGELOG.md
+│   ├── Cargo.toml
+│   ├── LICENSE
+│   ├── README.md
+│   ├── src/
+│   │   ├── cfg.rs
+│   │   ├── codec/
+│   │   ├── compat.rs
+│   │   ├── context.rs
+│   │   ├── either.rs
+│   │   ├── future.rs
+│   │   ├── future/
+│   │   ├── io/
+│   │   ├── lib.rs
+│   │   ├── loom.rs
+│   │   ├── net/
+│   │   ├── sync/
+│   │   ├── task/
+│   │   ├── time/
+│   │   ├── tracing.rs
+│   │   ├── udp/
+│   │   └── util/
+│   └── tests/
+│       ├── _require_full.rs
+│       ├── abort_on_drop.rs
+│       ├── codecs.rs
+│       ├── compat.rs
+│       ├── context.rs
+│       ├── framed.rs
+│       ├── framed_read.rs
+│       ├── framed_stream.rs
+│       ├── framed_write.rs
+│       ├── future.rs
+│       ├── io_inspect.rs
+│       ├── io_reader_stream.rs
+│       ├── io_simplex.rs
+│       ├── io_sink_writer.rs
+│       ├── io_stream_reader.rs
+│       ├── io_sync_bridge.rs
+│       ├── io_write_all_vectored.rs
+│       ├── length_delimited.rs
+│       ├── mpsc.rs
+│       ├── panic.rs
+│       ├── poll_semaphore.rs
+│       ├── reusable_box.rs
+│       ├── spawn_pinned.rs
+│       ├── sync_cancellation_token.rs
+│       ├── task_join_map.rs
+│       ├── task_join_queue.rs
+│       ├── task_tracker.rs
+│       ├── time_delay_queue.rs
+│       └── udp.rs
+└── tokio/
+    ├── CHANGELOG.md
+    ├── Cargo.toml
+    ├── LICENSE
+    ├── README.md
+    ├── docs/
+    │   └── reactor-refactor.md
+    ├── fuzz/
+    │   ├── .gitignore
+    │   ├── Cargo.toml
+    │   └── fuzz_targets/
+    ├── src/
+    │   ├── blocking.rs
+    │   ├── doc/
+    │   ├── fs/
+    │   ├── future/
+    │   ├── fuzz.rs
+    │   ├── io/
+    │   ├── lib.rs
+    │   ├── loom/
+    │   ├── macros/
+    │   ├── net/
+    │   ├── process/
+    │   ├── runtime/
+    │   ├── signal/
+    │   ├── sync/
+    │   ├── task/
+    │   ├── time/
+    │   └── util/
+    └── tests/
+        ├── _require_full.rs
+        ├── async_send_sync.rs
+        ├── buffered.rs
+        ├── coop_budget.rs
+        ├── dump.rs
+        ├── duplex_stream.rs
+        ├── fs.rs
+        ├── fs_canonicalize_dir.rs
+        ├── fs_copy.rs
+        ├── fs_dir.rs
+        ├── fs_file.rs
+        ├── fs_link.rs
+        ├── fs_open_options.rs
+        ├── fs_open_options_windows.rs
+        ├── fs_remove_dir_all.rs
+        ├── fs_remove_file.rs
+        ├── fs_rename.rs
+        ├── fs_symlink_dir_windows.rs
+        ├── fs_symlink_file_windows.rs
+        ├── fs_try_exists.rs
+        ├── fs_uring.rs
+        ├── fs_uring_read.rs
+        ├── fs_write.rs
+        ├── io_async_fd.rs
+        ├── io_async_fd_memory_leak.rs
+        ├── io_async_read.rs
+        ├── io_buf_reader.rs
+        ├── io_buf_writer.rs
+        ├── io_chain.rs
+        ├── io_copy.rs
+        ├── io_copy_bidirectional.rs
+        ├── io_driver.rs
+        ├── io_driver_drop.rs
+        ├── io_fill_buf.rs
+        ├── io_join.rs
+        ├── io_lines.rs
+        ├── io_mem_stream.rs
+        ├── io_panic.rs
+        ├── io_poll_aio.rs
+        ├── io_read.rs
+        ├── io_read_buf.rs
+        ├── io_read_exact.rs
+        ├── io_read_line.rs
+        ├── io_read_to_end.rs
+        ├── io_read_to_string.rs
+        ├── io_read_until.rs
+        ├── io_repeat.rs
+        ├── io_sink.rs
+        ├── io_split.rs
+        ├── io_take.rs
+        ├── io_util_empty.rs
+        ├── io_write.rs
+        ├── io_write_all.rs
+        ├── io_write_all_buf.rs
+        ├── io_write_buf.rs
+        ├── io_write_int.rs
+        ├── join_handle_panic.rs
+        ├── macros_join.rs
+        ├── macros_pin.rs
+        ├── macros_rename_test.rs
+        ├── macros_select.rs
+        ├── macros_test.rs
+        ├── macros_try_join.rs
+        ├── net_bind_resource.rs
+        ├── net_lookup_host.rs
+        ├── net_named_pipe.rs
+        ├── net_panic.rs
+        ├── net_quickack.rs
+        ├── net_unix_pipe.rs
+        ├── no_rt.rs
+        ├── process_arg0.rs
+        ├── process_change_of_runtime.rs
+        ├── process_issue_2174.rs
+        ├── process_issue_42.rs
+        ├── process_issue_7144.rs
+        ├── process_kill_after_wait.rs
+        ├── process_kill_on_drop.rs
+        ├── process_raw_handle.rs
+        ├── process_smoke.rs
+        ├── rt_basic.rs
+        ├── rt_common.rs
+        ├── rt_common_before_park.rs
+        ├── rt_handle.rs
+        ├── rt_handle_block_on.rs
+        ├── rt_local.rs
+        ├── rt_metrics.rs
+        ├── rt_panic.rs
+        ├── rt_poll_callbacks.rs
+        ├── rt_shutdown_err.rs
+        ├── rt_threaded.rs
+        ├── rt_time_start_paused.rs
+        ├── rt_unstable_metrics.rs
+        ├── signal_ctrl_c.rs
+        ├── signal_drop_recv.rs
+        ├── signal_drop_rt.rs
+        ├── signal_drop_signal.rs
+        ├── signal_info.rs
+        ├── signal_multi_rt.rs
+        ├── signal_no_rt.rs
+        ├── signal_notify_both.rs
+        ├── signal_panic.rs
+        ├── signal_realtime.rs
+        ├── signal_twice.rs
+        ├── signal_usr1.rs
+        ├── support/
+        ├── sync_barrier.rs
+        ├── sync_broadcast.rs
+        ├── sync_broadcast_weak.rs
+        ├── sync_errors.rs
+        ├── sync_mpsc.rs
+        ├── sync_mpsc_weak.rs
+        ├── sync_mutex.rs
+        ├── sync_mutex_owned.rs
+        ├── sync_notify.rs
+        ├── sync_notify_owned.rs
+        ├── sync_once_cell.rs
+        ├── sync_oneshot.rs
+        ├── sync_panic.rs
+        ├── sync_rwlock.rs
+        ├── sync_semaphore.rs
+        ├── sync_semaphore_owned.rs
+        ├── sync_set_once.rs
+        ├── sync_watch.rs
+        ├── task_abort.rs
+        ├── task_blocking.rs
+        ├── task_builder.rs
+        ├── task_hooks.rs
+        ├── task_id.rs
+        ├── task_join_set.rs
+        ├── task_local.rs
+        ├── task_local_set.rs
+        ├── task_panic.rs
+        ├── task_trace_self.rs
+        ├── task_yield_now.rs
+        ├── tcp_accept.rs
+        ├── tcp_connect.rs
+        ├── tcp_echo.rs
+        ├── tcp_into_split.rs
+        ├── tcp_into_std.rs
+        ├── tcp_peek.rs
+        ├── tcp_shutdown.rs
+        ├── tcp_socket.rs
+        ├── tcp_split.rs
+        ├── tcp_stream.rs
+        ├── test_clock.rs
+        ├── time_alt.rs
+        ├── time_interval.rs
+        ├── time_panic.rs
+        ├── time_pause.rs
+        ├── time_rt.rs
+        ├── time_sleep.rs
+        ├── time_timeout.rs
+        ├── time_wasm.rs
+        ├── tracing_sync.rs
+        ├── tracing_task.rs
+        ├── tracing_time.rs
+        ├── udp.rs
+        ├── uds_cred.rs
+        ├── uds_datagram.rs
+        ├── uds_socket.rs
+        ├── uds_split.rs
+        ├── uds_stream.rs
+        └── unwindsafe.rs

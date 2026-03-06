@@ -1,0 +1,3314 @@
+=====================================
+Repository Analysis: examples
+Type: Infrastructure / DevOps / IaC
+=====================================
+
+--- METADATA ---
+Name: examples
+Description: Infrastructure, containers, and serverless apps to AWS, Azure, GCP, and Kubernetes... all deployed with Pulumi
+Language: TypeScript
+Topics: aws, azure, gcp, kubernetes, serverless
+Stars: 2564
+License: Apache License 2.0
+
+--- README ---
+<p align="center">
+  <a href="https://www.pulumi.com?utm_campaign=pulumi-examples-github-repo&utm_source=github.com&utm_medium=top-logo" title="Pulumi Examples - Build and Deploy Infrastructure as Code Solutions on Any Cloud">
+    <img src="https://www.pulumi.com/images/logo/logo-on-white-box.svg?" width="350">
+  </a>
+</p>
+
+  [![Slack](http://www.pulumi.com/images/docs/badges/slack.svg)](https://slack.pulumi.com?utm_campaign=pulumi-examples-github-repo&utm_source=github.com&utm_medium=slack-badge)
+  [![GitHub Discussions](https://img.shields.io/github/discussions/pulumi/pulumi)](https://github.com/pulumi/pulumi/discussions)
+  [![License](https://img.shields.io/github/license/pulumi/pulumi)](LICENSE)
+
+**Pulumi** is the easiest way to build and deploy infrastructure, for any architecture and on any cloud, using programming languages that you already know and love. Code and ship infrastructure faster with your favorite languages and tools, and embed IaC anywhere with [Automation API](https://www.pulumi.com/docs/guides/automation-api/?utm_campaign=pulumi-examples-github-repo&utm_source=github.com&utm_medium=about-pulumi).
+
+Pulumi is open source under the [Apache 2.0 license](https://github.com/pulumi/pulumi/blob/master/LICENSE), supports many languages and clouds, and is easy to extend.
+
+## Table of contents
+
+- :rocket: [About This Repo](#about-the-pulumi-examples-repo)
+- :toolbox:	[All Pulumi Examples](#all-pulumi-examples)
+- :clap: [Contributors](#contributors)
+- :busts_in_silhouette: [Pulumi Community](#community)
+- :blue_book: [Pulumi Developer Resources](#pulumi-developer-resources)
+- :compass:	[Pulumi Roadmap](#pulumi-roadmap)
+
+# About the Pulumi Examples Repo
+[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/pulumi/examples)
+
+This repository contains examples of using Pulumi to build and deploy cloud applications and infrastructure across major programming languages.
+
+Each example has a two-part prefix, `<cloud>-<language>`, to indicate which `<cloud>` and `<language>` it pertains to. For example, `<cloud>` could be:
+
+- `aws` for [Amazon Web Services](https://github.com/pulumi/pulumi-aws) 
+- `azure` for [Microsoft Azure](https://github.com/pulumi/pulumi-azure)
+- `gcp` for [Google Cloud Platform](https://github.com/pulumi/pulumi-gcp) 
+- `kubernetes` for [Kubernetes](https://github.com/pulumi/pulumi-kubernetes) 
+
+See the [Pulumi documentation](https://www.pulumi.com/docs/?utm_campaign=pulumi-examples-github-repo&utm_source=github.com&utm_medium=pulumi-examples) for more details on getting started with Pulumi.
+
+## Checking out a single example
+
+You can checkout only the example(s) you want by using a [sparse checkout](https://git-scm.com/docs/git-sparse-checkout). The following commands show how checkout only the `aws-go-fargate` example. Replace `aws-go-fargate` with your example of interest.
+
+```bash
+$ mkdir examples && cd examples
+$ git init
+$ git remote add origin -f https://github.com/pulumi/examples/
+$ git config core.sparseCheckout true
+$ echo "aws-go-fargate" >> .git/info/sparse-checkout ## update this
+$ git pull origin master
+```
+
+Don't see an example listed? [Try Pulumi AI](https://www.pulumi.com/ai/?utm_campaign=pulumi-examples-github-repo&utm_source=github.com&utm_medium=pulumi-examples) and use natural-language prompts to generate Pulumi infrastructure-as-code programs in _any_ language.
+
+## PR Preview Validation
+
+When making changes to examples, either individual or in bulk, it's useful to validate those changes before submitting a pull request. This repository includes a `make pr_preview` target that provides preview-only sanity checks for changed examples in pull requests. This helps ensure examples remain functional without requiring full deployments.
+
+```bash
+# Run preview checks on all changed examples
+make pr_preview
+
+# Check what examples would be tested without running previews
+DRY_LIST=1 make pr_preview
+
+# Use a custom base branch for comparison
+BASE_REF=origin/mybranch make pr_preview
+```
+
+The script assumes you have credentials for various providers configured. Examples that fail preview due to missing live resources or complex configuration requirements are expected and don't necessarily indicate problems.
+
+## All Pulumi examples
+
+- [AWS](#aws)
+  - [TypeScript](#typescript)
+  - [Python](#python)
+  - [Go](#go)
+  - [C#](#c)
+  - [F#](#f)
+- [Azure](#azure)
+  - [TypeScript](#typescript-1)
+  - [Python](#python-1)
+  - [Go](#go-1)
+  - [C#](#c-1)
+  - [F#](#f-1)
+- [GCP](#gcp)
+  - [TypeScript](#typescript-2)
+  - [Python](#python-2)
+  - [Go](#go-2)
+  - [C#](#c-2)
+- [Kubernetes](#kubernetes)
+  - [TypeScript](#typescript-3)
+  - [Python](#python-3)
+  - [Go](#go-3)
+  - [C#](#c-3)
+- [Openstack](#openstack)
+- [OVHCloud](#ovhcloud)
+- [DigitalOcean](#digitalocean)
+- [Multicloud](#multicloud)
+- [F5](#f5)
+- [Twilio](#twilio)
+- [Linode](#linode)
+- [Testing](#testing)
+- [Automation API](https://github.com/pulumi/automation-api-examples)
+
+## AWS
+
+### TypeScript
+
+... [TRUNCATED]
+
+--- IAC CONFIG FILES ---
+
+[Makefile]
+all: ensure only_test
+
+ensure: setup_python
+	cd misc/test && go mod tidy
+	cd misc/test && go mod download
+	npm --prefix testing-unit-ts/mocha install
+	npm install --global tslint
+
+only_test:
+	bash -c 'set -o pipefail && cd misc/test && go test -json ./... --timeout 4h -v -count=1 -short -parallel 40 --tags=all | gotestfmt'
+
+specific_test_set:
+	echo "Running $(TestSet) acceptance tests"
+	bash -c 'set -o pipefail && cd misc/test && go test -json . --timeout 4h -v -count=1 -short -parallel 40 --tags=all --run=TestAcc$(TestSet) | gotestfmt'
+
+specific_tag_set:
+	echo "Running $(TagSet)$(TestSet) acceptance tests"
+	bash -c 'set -o pipefail && cd misc/test && go test -json . --timeout 4h -v -count=1 -short -parallel 40 --tags=$(TagSet) --run=TestAcc$(TagSet)$(TestSet) | gotestfmt'
+
+# Run a test of a single example. Example usage:
+#
+#     make test_example.TestAccAwsPyS3Folder
+test_example.%:
+	cd misc/test && go test -test.v -run "^$*$$" -tags all
+
+# Some of the examples double up as performance benchmarks. Run:
+#
+#     make bench_example.TestAccAwsPyS3Folder
+#
+# This will run the example and populate ./traces with performance data.
+# See also https://www.pulumi.com/docs/support/troubleshooting/#performance
+bench_example.%:
+	mkdir -p ./traces
+	cd misc/test && PULUMI_TRACING_DIR=${PWD}/traces go test -test.v -run "^$*$$" -tags all
+
+.PHONY: pr_preview
+# PR-mode: run previews only for examples changed vs BASE_REF (default: origin/main|origin/master)
+pr_preview:
+	bash scripts/pr-preview-changed.sh
+
+.PHONY: format setup_python clean
+
+# Create a virtual environment and install black
+setup_python:
+	@if [ ! -d "venv" ]; then \
+		python3 -m venv venv; \
+		venv/bin/pip install --upgrade pip; \
+		venv/bin/pip install black; \
+		echo "Virtual environment created and black installed."; \
+	else \
+		echo "Virtual environment already exists."; \
+	fi
+
+# Validate that all Python files are properly formatted with Black
+check_python_formatting: setup_python
+	@if find . -name "*.py" -not -path "./venv/*" | xargs venv/bin/black --config black.toml --check; then \
+		echo "All Python files are properly formatted."; \
+	else \
+		echo "Some files are not formatted. Run 'make format' to fix."; \
+		exit 1; \
+	fi
+# Run Black against all Python files in the project, excluding venv
+format: setup_python
+	find . -name "*.py" -not -path "*/venv/*" | xargs venv/bin/black --config black.toml
+
+# Clean up the virtual environment
+clean:
+	rm -rf venv
+
+
+--- TERRAFORM FILES ---
+(None found)
+
+--- KUBERNETES MANIFESTS ---
+  aws-py-django-voting-app/frontend/mysite/polls/templates/polls/detail.html
+  aws-py-django-voting-app/frontend/mysite/polls/templates/polls/index.html
+  aws-py-django-voting-app/frontend/mysite/polls/templates/polls/results.html
+  aws-py-voting-app/frontend/app/templates/index.html
+  aws-ts-voting-app/frontend/app/templates/index.html
+  digitalocean-cs-k8s/.gitignore
+  digitalocean-cs-k8s/Digitalocean.K8s.csproj
+  digitalocean-cs-k8s/KubernetesStack.cs
+  digitalocean-cs-k8s/Program.cs
+  digitalocean-cs-k8s/Pulumi.yaml
+
+--- ANSIBLE FILES ---
+  aws-cs-ansible-wordpress/playbook.yml
+  aws-go-ansible-wordpress/playbook.yml
+  aws-java-ansible-wordpress/playbook.yml
+  aws-py-ansible-wordpress/playbook.yml
+  aws-py-static-website/Pulumi.yaml
+  aws-ts-ansible-wordpress/playbook.yml
+  aws-ts-static-website/Pulumi.yaml
+  aws-yaml-ansible-wordpress/playbook.yml
+  aws-yaml-static-website/Pulumi.yaml
+  azure-cs-static-website/Pulumi.yaml
+
+--- CI/CD PIPELINES ---
+  .github/workflows/add-to-project.yaml
+  .github/workflows/command-dispatch.yml
+  .github/workflows/export-repo-secrets.yml
+  .github/workflows/pr.yml
+  .github/workflows/test-examples.yml
+
+--- DIRECTORY STRUCTURE (depth 2) ---
+├── .devcontainer/
+│   ├── devcontainer.json
+│   └── scripts/
+│       └── post-create.sh
+├── .editorconfig
+├── .github/
+│   ├── CODEOWNERS
+│   ├── actions/
+│   │   └── setup/
+│   └── workflows/
+│       ├── add-to-project.yaml
+│       ├── command-dispatch.yml
+│       ├── export-repo-secrets.yml
+│       ├── pr.yml
+│       └── test-examples.yml
+├── .gitignore
+├── .gitmodules
+├── CODE-OF-CONDUCT.md
+├── CONTRIBUTING.md
+├── LICENSE
+├── Makefile
+├── README.md
+├── alicloud-ts-ecs/
+│   ├── .gitignore
+│   ├── Pulumi.yaml
+│   ├── README.md
+│   ├── index.ts
+│   ├── package.json
+│   └── tsconfig.json
+├── aws-apigateway-go-routes/
+│   ├── Makefile
+│   ├── Pulumi.yaml
+│   ├── README.md
+│   ├── authorizer/
+│   │   └── handler.go
+│   ├── dns.go
+│   ├── go.mod
+│   ├── go.sum
+│   ├── handler/
+│   │   └── handler.go
+│   ├── lambdas.go
+│   ├── main.go
+│   └── www/
+│       └── index.html
+├── aws-apigateway-py-routes/
+│   ├── .gitignore
+│   ├── Pulumi.yaml
+│   ├── README.md
+│   ├── __main__.py
+│   ├── authorizer/
+│   │   └── handler.py
+│   ├── dns.py
+│   ├── handler/
+│   │   └── handler.py
+│   ├── lambdas.py
+│   ├── requirements.txt
+│   └── www/
+│       └── index.html
+├── aws-apigateway-ts-routes/
+│   ├── .gitignore
+│   ├── Pulumi.yaml
+│   ├── README.md
+│   ├── dns.ts
+│   ├── helloHandler.ts
+│   ├── index.ts
+│   ├── lambdaAuthorizer.ts
+│   ├── package.json
+│   ├── tsconfig.json
+│   └── www/
+│       └── index.html
+├── aws-cs-ansible-wordpress/
+│   ├── .gitignore
+│   ├── MyStack.cs
+│   ├── Program.cs
+│   ├── Pulumi.yaml
+│   ├── README.md
+│   ├── files/
+│   │   └── wp-config.php.j2
+│   ├── playbook.yml
+│   ├── pulumi-ansible-wordpress.csproj
+│   └── wordpress.png
+├── aws-cs-assume-role/
+│   ├── README.md
+│   ├── assume-role/
+│   │   ├── .gitignore
+│   │   ├── AssumeRoleStack.cs
+│   │   ├── Program.cs
+│   │   ├── Pulumi.yaml
+│   │   ├── assume-role.csproj
+│   │   └── assume-role.sln
+│   └── create-role/
+│       ├── .gitignore
+│       ├── CreateRoleStack.cs
+│       ├── Program.cs
+│       ├── Pulumi.yaml
+│       └── create-role.csproj
+├── aws-cs-eks/
+│   ├── .gitignore
+│   ├── Aws.EksCluster.csproj
+│   ├── EksStack.cs
+│   ├── Program.cs
+│   ├── Pulumi.yaml
+│   └── README.md
+├── aws-cs-fargate/
+│   ├── App/
+│   │   ├── .dockerignore
+│   │   ├── .gitignore
+│   │   ├── Dockerfile
+│   │   ├── Program.cs
+│   │   ├── Properties/
+│   │   ├── Startup.cs
+│   │   ├── appsettings.json
+│   │   └── aws-cs-fargate.csproj
+│   ├── Infra/
+│   │   ├── .gitignore
+│   │   ├── Aws.Fargate.csproj
+│   │   ├── FargateStack.cs
+│   │   └── Program.cs
+│   ├── Pulumi.yaml
+│   └── README.md
+├── aws-cs-lambda/
+│   ├── .gitignore
+│   ├── DotnetLambda/
+│   │   └── src/
+│   ├── README.md
+│   └── pulumi/
+│       ├── Aws.Lambda.csproj
+│       ├── LambdaStack.cs
+│       ├── Program.cs
+│       └── Pulumi.yaml
+├── aws-cs-langserve/
+│   ├── .dockerignore
+│   ├── .gitignore
+│   ├── Aws.Langserve.csproj
+│   ├── Dockerfile
+│   ├── Program.cs
+│   ├── Pulumi.yaml
+│   ├── README.md
+│   ├── app/
+│   │   ├── __init__.py
+│   │   └── server.py
+│   ├── poetry.lock
+│   └── pyproject.toml
+├── aws-cs-s3-folder/
+│   ├── .gitignore
+│   ├── Program.cs
+│   ├── Pulumi.yaml
+│   ├── README.md
+│   ├── WebsiteStack.cs
+│   ├── aws-cs-s3-folder.csproj
+│   └── wwwroot/
+│       ├── favicon.png
+│       └── index.html
+├── aws-cs-secrets-manager/
+│   ├── .gitignore
+│   ├── MyStack.cs
+│   ├── Program.cs
+│   ├── Pulumi.yaml
+│   ├── README.md
+│   └── aws-cs-secrets-manager.csproj
+├── aws-cs-webserver/
+│   ├── .gitignore
+│   ├── Aws.WebServer.csproj
+│   ├── Program.cs
+│   ├── Pulumi.yaml
+│   ├── README.md
+│   └── WebServerStack.cs
+├── aws-fs-lambda-webserver/
+│   ├── LambdaWebServer/
+│   │   ├── AppHandlers.fs
+│   │   ├── LambdaWebServer.fsproj
+│   │   ├── Readme.md
+│   │   ├── Setup.fs
+│   │   ├── appsettings.json
+│   │   └── web.config
+│   ├── README.md
+│   └── pulumi/
+│       ├── Aws.LambdaWebServer.fsproj
+│       ├── Program.fs
+│       └── Pulumi.yaml
+├── aws-fs-s3-folder/
+│   ├── .gitignore
+│   ├── Program.fs
+│   ├── Pulumi.yaml
+│   ├── README.md
+│   ├── aws-cs-s3-folder.fsproj
+│   └── wwwroot/
+│       ├── favicon.png
+│       └── index.html
+├── aws-go-ansible-wordpress/
+│   ├── .gitignore
+│   ├── Pulumi.yaml
+│   ├── README.md
+│   ├── files/
+│   │   └── wp-config.php.j2
+│   ├── go.mod
+│   ├── go.sum
+│   ├── main.go
+│   ├── playbook.yml
+│   └── wordpress.png
+├── aws-go-appsync/
+│   ├── Pulumi.yaml
+│   ├── README.md
+│   ├── go.mod
+│   ├── go.sum
+│   └── main.go
+├── aws-go-assume-role/
+│   ├── README.md
+│   ├── assume-role/
+│   │   ├── Pulumi.yaml
+│   │   ├── go.mod
+│   │   ├── go.sum
+│   │   └── main.go
+│   └── create-role/
+│       ├── Pulumi.yaml
+│       ├── go.mod
+│       ├── go.sum
+│       └── main.go
+├── aws-go-console-slack-notification/
+│   ├── .gitignore
+│   ├── Makefile
+│   ├── Pulumi.yaml
+│   ├── README.md
+│   ├── go.mod
+│   ├── go.sum
+│   ├── handler/
+│   │   └── handler.go
+│   └── main.go
+├── aws-go-eks/
+│   ├── .gitignore
+│   ├── Pulumi.yaml
+│   ├── README.md
+│   ├── go.mod
+│   ├── go.sum
+│   └── main.go
+├── aws-go-fargate/
+│   ├── .gitignore
+│   ├── Pulumi.yaml
+│   ├── README.md
+│   ├── app/
+│   │   ├── Dockerfile
+│   │   ├── go.mod
+│   │   ├── go.sum
+│   │   └── main.go
+│   ├── go.mod
+│   ├── go.sum
+│   └── main.go
+├── aws-go-lambda-gateway/
+│   ├── Makefile
+│   ├── Pulumi.yaml
+│   ├── README.md
+│   ├── go.mod
+│   ├── go.sum
+│   ├── handler/
+│   │   └── handler.go
+│   └── main.go
+├── aws-go-lambda/
+│   ├── Makefile
+│   ├── Pulumi.yaml
+│   ├── README.md
+│   ├── go.mod
+│   ├── go.sum
+│   ├── handler/
+│   │   ├── bootstrap
+│   │   ├── handler.go
+│   │   └── handler.zip
+│   └── main.go
+├── aws-go-langserve/
+│   ├── .gitignore
+│   ├── Dockerfile
+│   ├── Pulumi.yaml
+│   ├── README.md
+│   ├── app/
+│   │   ├── __init__.py
+│   │   └── server.py
+│   ├── go.mod
+│   ├── go.sum
+│   ├── main.go
+│   ├── packages/
+│   │   └── README.md
+│   ├── poetry.lock
+│   └── pyproject.toml
+├── aws-go-resources/
+│   ├── .gitignore
+│   ├── Pulumi.yaml
+│   ├── README.md
+│   ├── go.mod
+│   ├── go.sum
+│   └── main.go
+├── aws-go-s3-folder-component/
+│   ├── .gitignore
+│   ├── Pulumi.yaml
+│   ├── README.md
+│   ├── go.mod
+│   ├── go.sum
+│   ├── images/
+│   │   └── part2-website.png
+│   ├── main.go
+│   ├── s3folder.go
+│   └── www/
+│       ├── icon/
+│       └── index.html
+├── aws-go-s3-folder/
+│   ├── .gitignore
+│   ├── Pulumi.yaml
+│   ├── README.md
+│   ├── go.mod
+│   ├── go.sum
+│   ├── images/
+│   │   └── part2-website.png
+│   ├── main.go
+│   └── www/
+│       ├── icon/
+│       └── index.html
+├── aws-go-secrets-manager/
+│   ├── Pulumi.yaml
+│   ├── README.md
+│   ├── go.mod
+│   ├── go.sum
+│   └── main.go
+├── aws-go-slackbot/
+│   ├── Makefile
+│   ├── Pulumi.yaml
+│   ├── README.md
+│   ├── go.mod
+│   ├── go.sum
+│   ├── handler/
+│   │   └── handler.go
+│   └── main.go
+├── aws-go-webserver/
+│   ├── .gitignore
+│   ├── Pulumi.yaml
+│   ├── README.md
+│   ├── go.mod
+│   ├── go.sum
+│   └── main.go
+├── aws-java-ansible-wordpress/
+│   ├── .gitignore
+│   ├── Pulumi.yaml
+│   ├── README.md
+│   ├── files/
+│   │   └── wp-config.php.j2
+│   ├── playbook.yml
+│   ├── pom.xml
+│   ├── src/
+│   │   └── main/
+│   └── wordpress.png
+├── aws-java-eks-minimal/
+│   ├── Pulumi.yaml
+│   ├── README.md
+│   ├── pom.xml
+│   └── src/
+│       └── main/
+├── aws-java-webserver/
+│   ├── Pulumi.yaml
+│   ├── README.md
+│   ├── pom.xml
+│   └── src/
+│       └── main/
+├── aws-py-ansible-wordpress/
+│   ├── .gitignore
+│   ├── Pulumi.yaml
+│   ├── README.md
+│   ├── __main__.py
+│   ├── files/
+│   │   └── wp-config.php.j2
+│   ├── playbook.yml
+│   ├── requirements.txt
+│   └── wordpress.png
+├── aws-py-apigateway-lambda-serverless/
+│   ├── .gitignore
+│   ├── Pulumi.yaml
+│   ├── README.md
+│   ├── __main__.py
+│   ├── hello_lambda/
+│   │   └── hello.py
+│   ├── iam.py
+│   └── requirements.txt
+├── aws-py-apigatewayv2-eventbridge/
+│   ├── .gitignore
+│   ├── Pulumi.yaml
+│   ├── README.md
+│   ├── __main__.py
+│   ├── api/
+│   │   └── handlers.py
+│   └── requirements.txt
+├── aws-py-apigatewayv2-http-api-quickcreate/
+│   ├── .gitignore
+│   ├── Pulumi.yaml
+│   ├── README.md
+│   ├── __main__.py
+│   ├── app/
+│   │   └── index.js
+│   └── requirements.txt
+├── aws-py-appsync/
+│   ├── .gitignore
+│   ├── Pulumi.yaml
+│   ├── README.md
+│   ├── __main__.py
+│   └── requirements.txt
+├── aws-py-assume-role/
+│   ├── README.md
+│   ├── assume-role/
+│   │   ├── .gitignore
+│   │   ├── Pulumi.yaml
+│   │   ├── __main__.py
+│   │   └── requirements.txt
+│   └── create-role/
+│       ├── Pulumi.yaml
+│       ├── __main__.py
+│       └── requirements.txt
+├── aws-py-django-voting-app/
+│   ├── .gitignore
+│   ├── Pulumi.yaml
+│   ├── README.md
+│   ├── __main__.py
+│   ├── frontend/
+│   │   ├── Dockerfile
+│   │   ├── mysite/
+│   │   └── requirements.txt
+│   └── requirements.txt
+├── aws-py-dynamicresource/
+│   ├── .gitignore
+│   ├── Pulumi.yaml
+│   ├── README.md
+│   ├── __main__.py
+│   ├── mysql_dynamic_provider.py
+│   └── requirements.txt
+├── aws-py-ec2-provisioners/
+│   ├── .gitignore
+│   ├── Pulumi.yaml
+│   ├── README.md
+│   ├── __main__.py
+│   ├── myapp.conf
+│   └── requirements.txt
+├── aws-py-ecs-instances-autoapi/
+│   ├── .gitignore
+│   ├── README.md
+│   ├── automation/
+│   │   ├── index.ts
+│   │   └── package.json
+│   └── py-ecs-instance/
+│       ├── Pulumi.yaml
+│       ├── __main__.py
+│       └── requirements.txt
+├── aws-py-eks/
+│   ├── .gitignore
+│   ├── Pulumi.yaml
+│   ├── README.md
+│   ├── __main__.py
+│   ├── iam.py
+│   ├── requirements.txt
+│   ├── utils.py
+│   └── vpc.py
+├── aws-py-fargate/
+│   ├── .gitignore
+│   ├── Pulumi.yaml
+│   ├── README.md
+│   ├── __main__.py
+│   └── pyproject.toml
+├── aws-py-hub-and-spoke-network/
+│   ├── .gitignore
+│   ├── Pulumi.yaml
+│   ├── README.md
+│   ├── __main__.py
+│   ├── firewall_rules.py
+│   ├── hub-and-spoke-architecture.png
+│   ├── inspection.py
+│   ├── requirements.txt
+│   ├── spoke.py
+│   └── spoke_workload.py
+├── aws-py-langserve/
+│   ├── .dockerignore
+│   ├── .gitignore
+│   ├── Dockerfile
+│   ├── Pulumi.yaml
+│   ├── README.md
+│   ├── __main__.py
+│   ├── app/
+│   │   ├── __init__.py
+│   │   └── server.py
+│   ├── packages/
+│   │   └── README.md
+│   ├── poetry.lock
+│   ├── pyproject.toml
+│   └── requirements.txt
+├── aws-py-redshift-glue-etl/
+│   ├── .gitignore
+│   ├── Pulumi.yaml
+│   ├── README.md
+│   ├── __main__.py
+│   ├── events-1.txt
+│   ├── glue-job.py
+│   └── requirements.txt
+├── aws-py-resources/
+│   ├── .gitignore
+│   ├── Pulumi.yaml
+│   ├── README.md
+│   ├── __main__.py
+│   └── requirements.txt
+├── aws-py-s3-folder/
+│   ├── .gitignore
+│   ├── Pulumi.yaml
+│   ├── README.md
+│   ├── __main__.py
+│   ├── requirements.txt
+│   └── www/
+│       ├── favicon.png
+│       ├── index.html
+│       └── python.png
+├── aws-py-secrets-manager/
+│   ├── .gitignore
+│   ├── Pulumi.yaml
+│   ├── README.md
+│   ├── __main__.py
+│   └── requirements.txt
+├── aws-py-serverless-raw/
+│   ├── .gitignore
+│   ├── Pulumi.yaml
+│   ├── README.md
+│   ├── __main__.py
+│   ├── app/
+│   │   ├── Functions.cs
+│   │   └── app.csproj
+│   └── requirements.txt
+├── aws-py-slackbot/
+│   ├── .gitignore
+│   ├── Pulumi.yaml
+│   ├── README.md
+│   ├── __main__.py
+│   ├── iam.py
+│   ├── mention_processing_lambda.py
+│   └── requirements.txt
+├── aws-py-stackreference/
+│   ├── README.md
+│   ├── company/
+│   │   ├── .gitignore
+│   │   ├── Pulumi.yaml
+│   │   ├── __main__.py
+│   │   └── requirements.txt
+│   ├── department/
+│   │   ├── .gitignore
+│   │   ├── Pulumi.yaml
+│   │   ├── __main__.py
+│   │   └── requirements.txt
+│   └── team/
+│       ├── .gitignore
+│       ├── Pulumi.yaml
+│       ├── __main__.py
+│       └── requirements.txt
+├── aws-py-static-website/
+│   ├── Pulumi.yaml
+│   ├── README.md
+│   ├── __main__.py
+│   ├── requirements.txt
+│   └── www/
+│       ├── 404.html
+│       └── index.html
+├── aws-py-stepfunctions/
+│   ├── Pulumi.yaml
+│   ├── README.md
+│   ├── __main__.py
+│   ├── iam.py
+│   ├── requirements.txt
+│   └── step_hello/
+│       └── hello.py
+├── aws-py-voting-app/
+│   ├── .gitignore
+│   ├── Pulumi.yaml
+│   ├── README.md
+│   ├── __main__.py
+│   ├── frontend/
+│   │   ├── Dockerfile
+│   │   ├── LICENSE
+│   │   └── app/
+│   └── requirements.txt
+├── aws-py-webserver/
+│   ├── Pulumi.yaml
+│   ├── README.md
+│   ├── __main__.py
+│   └── requirements.txt
+├── aws-py-wordpress-fargate-rds/
+│   ├── .gitignore
+│   ├── Pulumi.yaml
+│   ├── README.md
+│   ├── __main__.py
+│   ├── backend.py
+│   ├── frontend.py
+│   ├── network.py
+│   └── requirements.txt
+├── aws-ts-airflow/
+│   ├── Pulumi.yaml
+│   ├── README.md
+│   ├── airflow-container/
+│   │   ├── Dockerfile
+│   │   └── dags/
+│   ├── index.ts
+│   ├── package.json
+│   └── tsconfig.json
+├── aws-ts-ansible-wordpress/
+│   ├── .gitignore
+│   ├── Pulumi.yaml
+│   ├── README.md
+│   ├── files/
+│   │   └── wp-config.php.j2
+│   ├── index.ts
+│   ├── package.json
+│   ├── playbook.yml
+│   ├── tsconfig.json
+│   └── wordpress.png
+├── aws-ts-apigateway-auth0/
+│   ├── Pulumi.yaml
+│   ├── README.md
+│   ├── index.ts
+│   ├── package.json
+│   └── tsconfig.json
+├── aws-ts-apigateway-eventbridge/
+│   ├── .gitignore
+│   ├── Pulumi.yaml
+│   ├── README.md
+│   ├── index.ts
+│   ├── package.json
+│   └── tsconfig.json
+├── aws-ts-apigateway-lambda-serverless/
+│   ├── .gitignore
+│   ├── Pulumi.yaml
+│   ├── README.md
+│   ├── handler.ts
+│   ├── index.ts
+│   ├── package.json
+│   └── tsconfig.json
+├── aws-ts-apigateway/
+│   ├── Pulumi.yaml
+│   ├── README.md
+│   ├── index.ts
+│   ├── package.json
+│   └── tsconfig.json
+├── aws-ts-apigatewayv2-eventbridge/
+│   ├── .gitignore
+│   ├── Pulumi.yaml
+│   ├── README.md
+│   ├── index.ts
+│   ├── package.json
+│   └── tsconfig.json
+├── aws-ts-apigatewayv2-http-api-quickcreate/
+│   ├── .gitignore
+│   ├── Pulumi.yaml
+│   ├── README.md
+│   ├── app/
+│   │   └── index.js
+│   ├── index.ts
+│   ├── package.json
+│   └── tsconfig.json
+├── aws-ts-apigatewayv2-http-api/
+│   ├── .gitignore
+│   ├── Pulumi.yaml
+│   ├── README.md
+│   ├── app/
+│   │   └── index.js
+│   ├── index.ts
+│   ├── package.json
+│   └── tsconfig.json
+├── aws-ts-appsync/
+│   ├── Pulumi.yaml
+│   ├── README.md
+│   ├── iam.ts
+│   ├── index.ts
+│   ├── package.json
+│   └── tsconfig.json
+├── aws-ts-assume-role/
+│   ├── README.md
+│   ├── assume-role/
+│   │   ├── .gitignore
+│   │   ├── Pulumi.yaml
+│   │   ├── index.ts
+│   │   ├── package.json
+│   │   └── tsconfig.json
+│   └── create-role/
+│       ├── .gitignore
+│       ├── Pulumi.yaml
+│       ├── index.ts
+│       ├── package.json
+│       └── tsconfig.json
+├── aws-ts-containers-dockerbuild/
+│   ├── Pulumi.yaml
+│   ├── README.md
+│   ├── app/
+│   │   ├── Dockerfile
+│   │   └── content/
+│   ├── index.ts
+│   └── package.json
+├── aws-ts-containers-dockerbuildcloud/
+│   ├── Pulumi.yaml
+│   ├── README.md
+│   ├── app/
+│   │   ├── Dockerfile
+│   │   └── content/
+│   ├── index.ts
+│   └── package.json
+├── aws-ts-containers/
+│   ├── Pulumi.yaml
+│   ├── README.md
+│   ├── app/
+│   │   ├── Dockerfile
+│   │   └── content/
+│   ├── index.ts
+│   └── package.json
+├── aws-ts-ec2-provisioners/
+│   ├── .gitignore
+│   ├── Pulumi.yaml
+│   ├── README.md
+│   ├── index.ts
+│   ├── myapp.conf
+│   ├── package.json
+│   ├── tsconfig.json
+│   └── util.ts
+├── aws-ts-ecr-cache/
+│   ├── .gitignore
+│   ├── Pulumi.yaml
+│   ├── README.md
+│   ├── index.ts
+│   ├── package.json
+│   └── tsconfig.json
+├── aws-ts-ecs-anywhere/
+│   ├── .gitignore
+│   ├── Pulumi.yaml
+│   ├── README.md
+│   ├── app/
+│   │   ├── .dockerignore
+│   │   ├── .gitignore
+│   │   ├── Dockerfile
+│   │   ├── index.js
+│   │   └── package.json
+│   ├── index.ts
+│   ├── package.json
+│   └── tsconfig.json
+├── aws-ts-eks-distro/
+│   ├── Pulumi.yaml
+│   ├── README.md
+│   ├── eksdistro/
+│   │   ├── aws-iam-authenticator.yaml
+│   │   ├── cluster.yaml
+│   │   ├── index.ts
+│   │   └── kops.sh
+│   ├── index.ts
+│   ├── package.json
+│   └── tsconfig.json
+├── aws-ts-eks-gpu-dra/
+│   ├── Pulumi.yaml
+│   ├── README.md
+│   ├── index.ts
+│   ├── mig-policy/
+│   │   ├── PulumiPolicy.yaml
+│   │   ├── index.ts
+│   │   ├── package.json
+│   │   └── tsconfig.json
+│   ├── package.json
+│   └── tsconfig.json
+├── aws-ts-eks-hello-world/
+│   ├── Pulumi.yaml
+│   ├── README.md
+│   ├── index.ts
+│   ├── package.json
+│   └── tsconfig.json
+├── aws-ts-eks-migrate-nodegroups/
+│   ├── Pulumi.yaml
+│   ├── README.md
+│   ├── echoserver.ts
+│   ├── iam.ts
+│   ├── index.ts
+│   ├── nginx-ing-cntlr-rbac.ts
+│   ├── nginx-ing-cntlr.ts
+│   ├── nginx.ts
+│   ├── package.json
+│   ├── scripts/
+│   │   ├── delete-t3.2xlarge-nodes.sh
+│   │   ├── drain-t3.2xlarge-nodes.sh
+│   │   └── load-testing.sh
+│   ├── tsconfig.json
+│   └── utils.ts
+├── aws-ts-eks/
+│   ├── .gitignore
+│   ├── Pulumi.yaml
+│   ├── README.md
+│   ├── index.ts
+│   ├── package.json
+│   └── tsconfig.json
+├── aws-ts-esc-external-adapter-lambda/
+│   ├── .gitignore
+│   ├── Pulumi.yaml
+│   ├── README.md
+│   ├── index.ts
+│   ├── package.json
+│   └── tsconfig.json
+├── aws-ts-hello-fargate/
+│   ├── .gitignore
+│   ├── Pulumi.yaml
+│   ├── README.md
+│   ├── app/
+│   │   ├── Dockerfile
+│   │   ├── app.py
+│   │   └── requirements.txt
+│   ├── index.ts
+│   ├── package.json
+│   └── tsconfig.json
+├── aws-ts-k8s-mern-voting-app/
+│   ├── LICENSE
+│   ├── Pulumi.yaml
+│   ├── README.md
+│   ├── clientside/
+│   │   ├── Dockerfile
+│   │   └── client/
+│   ├── databaseside/
+│   │   ├── Dockerfile
+│   │   └── database/
+│   ├── index.ts
+│   ├── package.json
+│   ├── serverside/
+│   │   ├── Dockerfile
+│   │   └── server/
+│   └── tsconfig.json
+├── aws-ts-k8s-voting-app/
+│   ├── LICENSE
+│   ├── Pulumi.yaml
+│   ├── README.md
+│   ├── clientside/
+│   │   ├── Dockerfile
+│   │   └── client/
+│   ├── databaseside/
+│   │   ├── Dockerfile
+│   │   └── database/
+│   ├── index.ts
+│   ├── package.json
+│   ├── serverside/
+│   │   ├── Dockerfile
+│   │   └── server/
+│   └── tsconfig.json
+├── aws-ts-lambda-efs/
+│   ├── Pulumi.yaml
+│   ├── README.md
+│   ├── index.ts
+│   ├── lambdaefs.png
+│   ├── package.json
+│   └── tsconfig.json
+├── aws-ts-lambda-secrets/
+│   ├── .gitignore
+│   ├── Pulumi.yaml
+│   ├── README.md
+│   ├── app/
+│   │   ├── index.js
+│   │   └── package.json
+│   ├── index.ts
+│   ├── package.json
+│   └── tsconfig.json
+├── aws-ts-lambda-slack/
+│   ├── .gitignore
+│   ├── Pulumi.yaml
+│   ├── README.md
+│   ├── index.ts
+│   ├── lambda/
+│   │   └── index.js
+│   ├── package.json
+│   └── tsconfig.json
+├── aws-ts-lambda-thumbnailer/
+│   ├── Pulumi.yaml
+│   ├── README.md
+│   ├── app/
+│   │   ├── Dockerfile
+│   │   ├── ffmpeg.tar.xz
+│   │   └── index.js
+│   ├── index.ts
+│   ├── package.json
+│   └── sample/
+│       └── cat.mp4
+├── aws-ts-langserve/
+│   ├── .dockerignore
+│   ├── .gitignore
+│   ├── Dockerfile
+│   ├── Pulumi.yaml
+│   ├── README.md
+│   ├── app/
+│   │   ├── __init__.py
+│   │   └── server.py
+│   ├── index.ts
+│   ├── package.json
+│   ├── packages/
+│   │   └── README.md
+│   ├── poetry.lock
+│   ├── pyproject.toml
+│   └── tsconfig.json
+├── aws-ts-localai-flowise/
+│   ├── .gitignore
+│   ├── Pulumi.yaml
+│   ├── README.md
+│   ├── index.ts
+│   ├── package.json
+│   └── tsconfig.json
+├── aws-ts-multi-language-lambda/
+│   ├── .gitignore
+│   ├── Pulumi.yaml
+│   ├── README.md
+│   ├── config.ts
+│   ├── dotnet-lambda/
+│   │   ├── Dockerfile
+│   │   ├── DotnetLambda.csproj
+│   │   └── Function.cs
+│   ├── go-lambda/
+│   │   ├── Dockerfile
+│   │   ├── go.mod
+│   │   ├── go.sum
+│   │   └── main.go
+│   ├── index.ts
+│   ├── package.json
+│   ├── python-lambda/
+│   │   ├── Dockerfile
+│   │   ├── lambda.py
+│   │   └── requirements.txt
+│   ├── tsconfig.json
+│   └── typescript-lambda/
+│       ├── Dockerfile
+│       ├── index.ts
+│       ├── package.json
+│       └── tsconfig.json
+├── aws-ts-netlify-cms-and-oauth/
+│   ├── README.md
+│   ├── cms-oauth/
+│   │   ├── .github/
+│   │   ├── .gitignore
+│   │   ├── Dockerfile
+│   │   ├── Makefile
+│   │   ├── README.md
+│   │   ├── go.mod
+│   │   ├── go.sum
+│   │   ├── infrastructure/
+│   │   └── main.go
+│   └── cms/
+│       ├── .github/
+│       ├── .gitignore
+│       ├── README.md
+│       ├── Readme-Screenshots/
+│       ├── infrastructure/
+│       ├── package.json
+│       ├── public/
+│       └── src/
+├── aws-ts-nextjs/
+│   ├── Pulumi.yaml
+│   ├── README.md
+│   ├── demoapp/
+│   │   ├── .eslintrc.json
+│   │   ├── .gitignore
+│   │   ├── README.md
+│   │   ├── app/
+│   │   ├── next.config.js
+│   │   ├── package.json
+│   │   ├── postcss.config.js
+│   │   ├── public/
+│   │   ├── tailwind.config.js
+│   │   └── tsconfig.json
+│   ├── index.ts
+│   ├── nextjs.ts
+│   ├── package.json
+│   ├── screenshot.png
+│   └── tsconfig.json
+├── aws-ts-oidc-provider-pulumi-cloud/
+│   ├── .gitignore
+│   ├── Pulumi.yaml
+│   ├── README.md
+│   ├── index.ts
+│   ├── package.json
+│   └── tsconfig.json
+├── aws-ts-organizations/
+│   ├── .gitignore
+│   ├── Pulumi.yaml
+│   ├── README.md
+│   ├── accountPermissions.ts
+│   ├── backupPolicy.ts
+│   ├── index.ts
+│   ├── package.json
+│   ├── tagPolicy.ts
+│   └── tsconfig.json
+├── aws-ts-pern-voting-app/
+│   ├── LICENSE
+│   ├── PostgreSqlDynamicProvider.ts
+│   ├── Pulumi.yaml
+│   ├── README.md
+│   ├── clientside/
+│   │   ├── Dockerfile
+│   │   └── client/
+│   ├── index.ts
+│   ├── package.json
+│   ├── serverside/
+│   │   ├── Dockerfile
+│   │   └── server/
+│   └── tsconfig.json
+├── aws-ts-pulumi-miniflux/
+│   ├── .gitignore
+│   ├── Pulumi.yaml
+│   ├── README.md
+│   ├── index.ts
+│   ├── package.json
+│   └── tsconfig.json
+├── aws-ts-pulumi-webhooks/
+│   ├── .gitignore
+│   ├── Pulumi.yaml
+│   ├── README.md
+│   ├── index.ts
+│   ├── package.json
+│   ├── tsconfig.json
+│   └── util.ts
+├── aws-ts-redshift-glue-etl/
+│   ├── .gitignore
+│   ├── Pulumi.yaml
+│   ├── README.md
+│   ├── events-1.txt
+│   ├── glue-job.py
+│   ├── index.ts
+│   ├── package.json
+│   └── tsconfig.json
+├── aws-ts-resources/
+│   ├── Pulumi.yaml
+│   ├── README.md
+│   ├── index.ts
+│   ├── package.json
+│   └── tsconfig.json
+├── aws-ts-ruby-on-rails/
+│   ├── Pulumi.yaml
+│   ├── README.md
+│   ├── config.ts
+│   ├── files/
+│   │   ├── database.yml
+│   │   ├── install_application
+│   │   ├── install_ruby
+│   │   ├── setup.mysql
+│   │   └── start_application
+│   ├── index.ts
+│   ├── package.json
+│   └── tsconfig.json
+├── aws-ts-s3-folder/
+│   ├── .gitignore
+│   ├── Pulumi.yaml
+│   ├── README.md
+│   ├── index.ts
+│   ├── package.json
+│   ├── tsconfig.json
+│   └── www/
+│       ├── favicon.png
+│       └── index.html
+├── aws-ts-s3-lambda-copyzip/
+│   ├── .gitignore
+│   ├── Pulumi.yaml
+│   ├── README.md
+│   ├── arch.png
+│   ├── index.ts
+│   ├── package.json
+│   └── tsconfig.json
+├── aws-ts-scheduled-function/
+│   ├── .gitignore
+│   ├── Pulumi.yaml
+│   ├── README.md
+│   ├── index.ts
+│   ├── package.json
+│   └── tsconfig.json
+├── aws-ts-secrets-manager/
+│   ├── .gitignore
+│   ├── Pulumi.yaml
+│   ├── README.md
+│   ├── index.ts
+│   ├── package.json
+│   └── tsconfig.json
+├── aws-ts-serverless-datawarehouse/
+│   ├── .gitignore
+│   ├── Pulumi.yaml
+│   ├── README.md
+│   ├── __tests__/
+│   │   └── serverless.integration.test.ts
+│   ├── architecture.png
+│   ├── datawarehouse/
+│   │   ├── index.ts
+│   │   ├── inputStream/
+│   │   ├── lambdaCron/
+│   │   └── partitionRegistrar/
+│   ├── index.ts
+│   ├── jest.config.js
+│   ├── package.json
+│   ├── testing/
+│   │   ├── eventGenerator/
+│   │   └── integration/
+│   ├── tsconfig.json
+│   └── utils/
+│       └── index.ts
+├── aws-ts-serverless-raw/
+│   ├── .gitignore
+│   ├── Pulumi.yaml
+│   ├── README.md
+│   ├── app/
+│   │   ├── Functions.cs
+│   │   └── app.csproj
+│   ├── index.ts
+│   ├── package.json
+│   └── tsconfig.json
+├── aws-ts-slackbot/
+│   ├── Pulumi.yaml
+│   ├── README.md
+│   ├── index.ts
+│   ├── package.json
+│   └── tsconfig.json
+├── aws-ts-stackreference-architecture/
+│   ├── .gitignore
+│   ├── README.md
+│   ├── application/
+│   │   ├── Pulumi.yaml
+│   │   ├── package.json
+│   │   ├── src/
+│   │   ├── tsconfig.json
+│   │   └── tslint.json
+│   ├── database/
+│   │   ├── Pulumi.yaml
+│   │   ├── package.json
+│   │   ├── src/
+│   │   ├── tsconfig.json
+│   │   └── tslint.json
+│   └── networking/
+│       ├── Pulumi.yaml
+│       ├── package.json
+│       ├── src/
+│       ├── tsconfig.json
+│       └── tslint.json
+├── aws-ts-stackreference/
+│   ├── .gitignore
+│   ├── README.md
+│   ├── company/
+│   │   ├── .gitignore
+│   │   ├── Pulumi.yaml
+│   │   ├── index.ts
+│   │   ├── package.json
+│   │   └── tsconfig.json
+│   ├── department/
+│   │   ├── .gitignore
+│   │   ├── Pulumi.yaml
+│   │   ├── index.ts
+│   │   ├── package.json
+│   │   └── tsconfig.json
+│   └── team/
+│       ├── .gitignore
+│       ├── Pulumi.yaml
+│       ├── index.ts
+│       ├── package.json
+│       └── tsconfig.json
+├── aws-ts-static-website/
+│   ├── .gitignore
+│   ├── Pulumi.yaml
+│   ├── README.md
+│   ├── acl.ts
+│   ├── index.ts
+│   ├── package.json
+│   ├── tsconfig.json
+│   └── www/
+│       ├── 404.html
+│       └── index.html
+├── aws-ts-stepfunctions/
+│   ├── .gitignore
+│   ├── Pulumi.README.md
+│   ├── Pulumi.yaml
+│   ├── README.md
+│   ├── index.ts
+│   ├── package.json
+│   └── tsconfig.json
+├── aws-ts-synthetics-canary/
+│   ├── .gitignore
+│   ├── Pulumi.yaml
+│   ├── README.md
+│   ├── canaries/
+│   │   └── simple-canary/
+│   ├── canaryPolicy.ts
+│   ├── index.ts
+│   ├── package.json
+│   └── tsconfig.json
+├── aws-ts-thumbnailer/
+│   ├── Pulumi.yaml
+│   ├── README.md
+│   ├── docker-ffmpeg-thumb/
+│   │   └── Dockerfile
+│   ├── index.ts
+│   ├── package.json
+│   ├── sample/
+│   │   └── cat.mp4
+│   ├── thumbnailer-diagram.key
+│   └── thumbnailer-diagram.png
+├── aws-ts-twitter-athena/
+│   ├── Pulumi.yaml
+│   ├── README.md
+│   ├── athena-screenshot.png
+│   ├── index.ts
+│   ├── package.json
+│   └── tsconfig.json
+├── aws-ts-voting-app/
+│   ├── Pulumi.yaml
+│   ├── README.md
+│   ├── frontend/
+│   │   ├── Dockerfile
+│   │   ├── LICENSE
+│   │   └── app/
+│   ├── index.ts
+│   ├── package.json
+│   ├── tsconfig.json
+│   └── voting-app-webpage.png
+├── aws-ts-vpc-with-ecs-fargate-py/
+│   ├── README.md
+│   ├── ecs-fargate-python/
+│   │   ├── .gitignore
+│   │   ├── Pulumi.yaml
+│   │   ├── README.md
+│   │   ├── __main__.py
+│   │   └── requirements.txt
+│   └── vpc-crosswalk-ts/
+│       ├── .gitignore
+│       ├── Pulumi.yaml
+│       ├── README.md
+│       ├── index.ts
+│       ├── package.json
+│       └── tsconfig.json
+├── aws-ts-webserver/
+│   ├── .gitignore
+│   ├── Pulumi.yaml
+│   ├── README.md
+│   ├── index.ts
+│   ├── package.json
+│   └── tsconfig.json
+├── aws-ts-wordpress-fargate-rds/
+│   ├── .gitignore
+│   ├── Pulumi.yaml
+│   ├── README.md
+│   ├── backend.ts
+│   ├── frontend.ts
+│   ├── index.ts
+│   ├── network.ts
+│   ├── package.json
+│   └── tsconfig.json
+├── aws-yaml-ansible-wordpress/
+│   ├── .gitignore
+│   ├── Pulumi.yaml
+│   ├── README.md
+│   ├── files/
+│   │   └── wp-config.php.j2
+│   ├── playbook.yml
+│   └── wordpress.png
+├── aws-yaml-cue-eks/
+│   ├── Pulumi.yaml
+│   ├── aws/
+│   │   └── eks.cue
+│   ├── cue.mod/
+│   │   └── module.cue
+│   └── main.cue
+├── aws-yaml-eks/
+│   ├── Pulumi.yaml
+│   └── README.md
+├── aws-yaml-langserve/
+│   ├── .dockerignore
+│   ├── .gitignore
+│   ├── Dockerfile
+│   ├── Pulumi.yaml
+│   ├── README.md
+│   ├── app/
+│   │   ├── __init__.py
+│   │   └── server.py
+│   ├── packages/
+│   │   └── README.md
+│   ├── poetry.lock
+│   └── pyproject.toml
+├── aws-yaml-static-website/
+│   ├── Pulumi.yaml
+│   ├── README.md
+│   └── www/
+│       ├── favicon.png
+│       └── index.html
+├── azure-cs-aci/
+│   ├── .gitignore
+│   ├── Azure.Aci.csproj
+│   ├── MyStack.cs
+│   ├── Program.cs
+│   ├── Pulumi.yaml
+│   └── README.md
+├── azure-cs-aks-cosmos-helm/
+│   ├── .gitignore
+│   ├── AksCluster.cs
+│   ├── AksCosmosStack.csproj
+│   ├── CosmosDBMongoDB.cs
+│   ├── Program.cs
+│   ├── Pulumi.yaml
+│   └── README.md
+├── azure-cs-aks-helm/
+│   ├── .gitignore
+│   ├── MyCluster.cs
+│   ├── MyConfig.cs
+│   ├── MyStack.cs
+│   ├── Program.cs
+│   ├── Pulumi.yaml
+│   ├── README.md
+│   └── azure-cs-aks-helm.csproj
+├── azure-cs-aks-managed-identity/
+│   ├── .gitignore
+│   ├── Program.cs
+│   ├── Pulumi.yaml
+│   ├── README.md
+│   └── azure-cs-aks-managed-identity.csproj
+├── azure-cs-aks-multicluster/
+│   ├── .gitignore
+│   ├── MyStack.cs
+│   ├── Program.cs
+│   ├── Pulumi.yaml
+│   ├── README.md
+│   └── azure-cs-aks-multicluster.csproj
+├── azure-cs-aks/
+│   ├── .gitignore
+│   ├── Azure.Aks.csproj
+│   ├── MyStack.cs
+│   ├── Program.cs
+│   ├── Pulumi.yaml
+│   └── README.md
+├── azure-cs-appservice-docker/
+│   ├── .gitignore
+│   ├── Azure.AppService.Docker.csproj
+│   ├── MyStack.cs
+│   ├── Program.cs
+│   ├── Pulumi.yaml
+│   ├── README.md
+│   └── node-app/
+│       ├── .dockerignore
+│       ├── Dockerfile
+│       └── app/
+├── azure-cs-appservice/
+│   ├── .gitignore
+│   ├── AppServiceStack.cs
+│   ├── Azure.AppService.csproj
+│   ├── Program.cs
+│   ├── Pulumi.yaml
+│   ├── README.md
+│   └── wwwroot/
+│       └── index.html
+├── azure-cs-call-azure-api/
+│   ├── .gitignore
+│   ├── Program.cs
+│   ├── Pulumi.yaml
+│   ├── README.md
+│   └── azure-cs-call-azure-api.csproj
+├── azure-cs-containerapps/
+│   ├── .gitignore
+│   ├── Azure.ContainerApps.csproj
+│   ├── MyStack.cs
+│   ├── Program.cs
+│   ├── Pulumi.yaml
+│   ├── README.md
+│   └── node-app/
+│       ├── .dockerignore
+│       ├── Dockerfile
+│       └── app/
+├── azure-cs-cosmosdb-logicapp/
+│   ├── CosmosDBLogicApp.csproj
+│   ├── MyStack.cs
+│   ├── Program.cs
+│   ├── Pulumi.yaml
+│   └── README.md
+├── azure-cs-credential-rotation-one-set/
+│   ├── .gitignore
+│   ├── AppStack.cs
+│   ├── Azure.CredentialRotation.OneSet.csproj
+│   ├── Program.cs
+│   ├── Pulumi.yaml
+│   └── README.md
+├── azure-cs-functions/
+│   ├── .gitignore
+│   ├── Azure.Functions.csproj
+│   ├── FunctionsStack.cs
+│   ├── Program.cs
+│   ├── Pulumi.yaml
+│   ├── README.md
+│   └── functions/
+│       ├── Hello/
+│       ├── host.json
+│       └── requirements.txt
+├── azure-cs-net5-aks-webapp/
+│   ├── .gitignore
+│   ├── AksCluster.cs
+│   ├── Azure.Dotnet5.csproj
+│   ├── Program.cs
+│   ├── Pulumi.yaml
+│   ├── README.md
+│   ├── ResourceGroup.cs
+│   ├── WebApplication.cs
+│   └── app/
+│       ├── .dockerignore
+│       ├── Dockerfile
+│       └── app/
+├── azure-cs-sqlserver/
+│   ├── Azure.SQLServer.csproj
+│   ├── MyStack.cs
+│   ├── Program.cs
+│   ├── Pulumi.yaml
+│   └── README.md
+├── azure-cs-static-website/
+│   ├── Azure.StaticWebsite.csproj
+│   ├── MyStack.cs
+│   ├── Program.cs
+│   ├── Pulumi.yaml
+│   ├── README.md
+│   └── wwwroot/
+│       ├── 404.html
+│       └── index.html
+├── azure-cs-synapse/
+│   ├── .gitignore
+│   ├── Azure.Synapse.csproj
+│   ├── MyStack.cs
+│   ├── Program.cs
+│   ├── Pulumi.yaml
+│   └── README.md
+├── azure-go-aci/
+│   ├── Pulumi.yaml
+│   ├── README.md
+│   ├── go.mod
+│   ├── go.sum
+│   └── main.go
+├── azure-go-aks-helm/
+│   ├── Pulumi.yaml
+│   ├── README.md
+│   ├── cluster.go
+│   ├── config.go
+│   ├── go.mod
+│   ├── go.sum
+│   └── main.go
+├── azure-go-aks-managed-identity/
+│   ├── Pulumi.yaml
+│   ├── README.md
+│   ├── go.mod
+│   ├── go.sum
+│   └── main.go
+├── azure-go-aks-multicluster/
+│   ├── Pulumi.yaml
+│   ├── README.md
+│   ├── go.mod
+│   ├── go.sum
+│   └── main.go
+├── azure-go-aks/
+│   ├── Pulumi.yaml
+│   ├── README.md
+│   ├── go.mod
+│   ├── go.sum
+│   └── main.go
+├── azure-go-appservice-docker/
+│   ├── Pulumi.yaml
+│   ├── README.md
+│   ├── go.mod
+│   ├── go.sum
+│   ├── main.go
+│   └── node-app/
+│       ├── .dockerignore
+│       ├── Dockerfile
+│       └── app/
+├── azure-go-call-azure-sdk/
+│   ├── Pulumi.yaml
+│   ├── README.md
+│   ├── go.mod
+│   ├── go.sum
+│   └── main.go
+├── azure-go-containerapps/
+│   ├── Pulumi.yaml
+│   ├── README.md
+│   ├── go.mod
+│   ├── go.sum
+│   ├── main.go
+│   └── node-app/
+│       ├── .dockerignore
+│       ├── Dockerfile
+│       └── app/
+├── azure-go-static-website/
+│   ├── Pulumi.yaml
+│   ├── README.md
+│   ├── go.mod
+│   ├── go.sum
+│   ├── main.go
+│   └── wwwroot/
+│       ├── 404.html
+│       └── index.html
+├── azure-java-appservice-sql/
+│   ├── Pulumi.yaml
+│   ├── README.md
+│   ├── pom.xml
+│   ├── src/
+│   │   └── main/
+│   └── wwwroot/
+│       ├── 404.html
+│       └── index.html
+├── azure-java-function-graal-spring/
+│   ├── .gitignore
+│   ├── Pulumi.yaml
+│   ├── README.md
+│   ├── app/
+│   │   ├── build.gradle
+│   │   └── src/
+│   ├── infra/
+│   │   ├── build.gradle
+│   │   └── src/
+│   └── settings.gradle
+├── azure-java-static-website/
+│   ├── Pulumi.yaml
+│   ├── README.md
+│   ├── pom.xml
+│   ├── src/
+│   │   └── main/
+│   └── wwwroot/
+│       ├── 404.html
+│       └── index.html
+├── azure-py-aci/
+│   ├── .gitignore
+│   ├── Pulumi.yaml
+│   ├── README.md
+│   ├── __main__.py
+│   └── requirements.txt
+├── azure-py-aks-helm/
+│   ├── .gitignore
+│   ├── Pulumi.yaml
+│   ├── README.md
+│   ├── __main__.py
+│   ├── cluster.py
+│   ├── config.py
+│   └── requirements.txt
+├── azure-py-aks-managed-identity/
+│   ├── .gitignore
+│   ├── Pulumi.yaml
+│   ├── README.md
+│   ├── __main__.py
+│   └── requirements.txt
+├── azure-py-aks-multicluster/
+│   ├── .gitignore
+│   ├── Pulumi.yaml
+│   ├── README.md
+│   ├── __main__.py
+│   └── requirements.txt
+├── azure-py-aks/
+│   ├── .gitignore
+│   ├── Pulumi.yaml
+│   ├── README.md
+│   ├── __main__.py
+│   └── requirements.txt
+├── azure-py-appservice-docker/
+│   ├── .gitignore
+│   ├── Pulumi.yaml
+│   ├── README.md
+│   ├── __main__.py
+│   ├── node-app/
+│   │   ├── .dockerignore
+│   │   ├── Dockerfile
+│   │   └── app/
+│   └── requirements.txt
+├── azure-py-appservice/
+│   ├── Pulumi.yaml
+│   ├── README.md
+│   ├── __main__.py
+│   ├── requirements.txt
+│   └── wwwroot/
+│       └── index.html
+├── azure-py-call-azure-sdk/
+│   ├── .gitignore
+│   ├── Pulumi.yaml
+│   ├── README.md
+│   ├── __main__.py
+│   └── requirements.txt
+├── azure-py-containerapps/
+│   ├── .gitignore
+│   ├── Pulumi.yaml
+│   ├── README.md
+│   ├── __main__.py
+│   ├── node-app/
+│   │   ├── .dockerignore
+│   │   ├── Dockerfile
+│   │   └── app/
+│   └── requirements.txt
+├── azure-py-cosmosdb-logicapp/
+│   ├── Pulumi.yaml
+│   ├── README.md
+│   ├── __main__.py
+│   └── requirements.txt
+├── azure-py-functions/
+│   ├── .gitignore
+│   ├── .vscode/
+│   │   └── settings.json
+│   ├── Pulumi.yaml
+│   ├── README.md
+│   ├── __main__.py
+│   ├── app/
+│   │   ├── HelloWithPython.zip
+│   │   ├── HelloWithPython/
+│   │   ├── README.md
+│   │   ├── host.json
+│   │   ├── images/
+│   │   ├── local.settings.json
+│   │   └── requirements.txt
+│   └── requirements.txt
+├── azure-py-loadbalancer-vm/
+│   ├── Pulumi.yaml
+│   ├── README.md
+│   ├── __main__.py
+│   ├── requirements.txt
+│   └── utils.py
+├── azure-py-minecraft-server/
+│   ├── .gitignore
+│   ├── .vscode/
+│   │   └── settings.json
+│   ├── Pulumi.yaml
+│   ├── README.md
+│   ├── __main__.py
+│   ├── add_server.png
+│   ├── install.sh
+│   └── requirements.txt
+├── azure-py-static-website/
+│   ├── Pulumi.yaml
+│   ├── README.md
+│   ├── __main__.py
+│   ├── requirements.txt
+│   └── wwwroot/
+│       ├── 404.html
+│       └── index.html
+├── azure-py-synapse/
+│   ├── .gitignore
+│   ├── Pulumi.yaml
+│   ├── README.md
+│   ├── __main__.py
+│   └── requirements.txt
+├── azure-py-virtual-data-center/
+│   ├── .gitignore
+│   ├── Pulumi.yaml
+│   ├── README.md
+│   ├── __main__.py
+│   ├── config.py
+│   ├── hub.py
+│   ├── requirements.txt
+│   ├── spoke.py
+│   └── vdc.py
+├── azure-py-webserver/
+│   ├── Pulumi.yaml
+│   ├── README.md
+│   ├── __main__.py
+│   └── requirements.txt
+├── azure-ts-aci/
+│   ├── Pulumi.yaml
+│   ├── README.md
+│   ├── index.ts
+│   ├── package.json
+│   └── tsconfig.json
+├── azure-ts-aks-helm/
+│   ├── .gitignore
+│   ├── Pulumi.yaml
+│   ├── README.md
+│   ├── cluster.ts
+│   ├── config.ts
+│   ├── index.ts
+│   ├── package.json
+│   └── tsconfig.json
+├── azure-ts-aks-managed-identity/
+│   ├── .gitignore
+│   ├── Pulumi.yaml
+│   ├── README.md
+│   ├── index.ts
+│   ├── package.json
+│   └── tsconfig.json
+├── azure-ts-aks-multicluster/
+│   ├── .gitignore
+│   ├── Pulumi.yaml
+│   ├── README.md
+│   ├── config.ts
+│   ├── index.ts
+│   ├── package.json
+│   └── tsconfig.json
+├── azure-ts-aks/
+│   ├── .gitignore
+│   ├── Pulumi.yaml
+│   ├── README.md
+│   ├── index.ts
+│   ├── package.json
+│   └── tsconfig.json
+├── azure-ts-appservice-docker/
+│   ├── Pulumi.yaml
+│   ├── README.md
+│   ├── index.ts
+│   ├── node-app/
+│   │   ├── .dockerignore
+│   │   ├── Dockerfile
+│   │   └── app/
+│   ├── package.json
+│   └── tsconfig.json
+├── azure-ts-appservice/
+│   ├── Pulumi.yaml
+│   ├── README.md
+│   ├── index.ts
+│   ├── package.json
+│   ├── tsconfig.json
+│   └── wwwroot/
+│       └── index.html
+├── azure-ts-call-azure-sdk/
+│   ├── Pulumi.yaml
+│   ├── README.md
+│   ├── index.ts
+│   ├── package.json
+│   └── tsconfig.json
+├── azure-ts-containerapps/
+│   ├── Pulumi.yaml
+│   ├── README.md
+│   ├── index.ts
+│   ├── node-app/
+│   │   ├── .dockerignore
+│   │   ├── Dockerfile
+│   │   └── app/
+│   ├── package.json
+│   └── tsconfig.json
+├── azure-ts-cosmosdb-logicapp/
+│   ├── .gitignore
+│   ├── Pulumi.yaml
+│   ├── README.md
+│   ├── index.ts
+│   ├── package.json
+│   └── tsconfig.json
+├── azure-ts-functions-many/
+│   ├── Pulumi.yaml
+│   ├── README.md
+│   ├── dotnet/
+│   │   ├── HelloDotnet.cs
+│   │   ├── functionapp-dotnet.csproj
+│   │   └── host.json
+│   ├── index.ts
+│   ├── java/
+│   │   ├── host.json
+│   │   ├── pom.xml
+│   │   ├── src/
+│   │   └── target/
+│   ├── javascript/
+│   │   ├── HelloNode/
+│   │   ├── host.json
+│   │   └── package.json
+│   ├── package.json
+│   ├── powershell/
+│   │   ├── HelloPS/
+│   │   ├── host.json
+│   │   ├── profile.ps1
+│   │   └── requirements.psd1
+│   ├── python/
+│   │   ├── HelloPython/
+│   │   ├── host.json
+│   │   └── requirements.txt
+│   └── tsconfig.json
+├── azure-ts-functions/
+│   ├── Pulumi.yaml
+│   ├── README.md
+│   ├── helpers.ts
+│   ├── index.ts
+│   ├── javascript/
+│   │   ├── HelloNode/
+│   │   ├── host.json
+│   │   └── package.json
+│   ├── package.json
+│   └── tsconfig.json
+├── azure-ts-oidc-provider-pulumi-cloud/
+│   ├── Pulumi.yaml
+│   ├── README.md
+│   ├── index.ts
+│   └── package.json
+├── azure-ts-static-website/
+│   ├── Pulumi.yaml
+│   ├── README.md
+│   ├── index.ts
+│   ├── package.json
+│   ├── tsconfig.json
+│   └── wwwroot/
+│       ├── 404.html
+│       └── index.html
+├── azure-ts-synapse/
+│   ├── Pulumi.yaml
+│   ├── README.md
+│   ├── index.ts
+│   ├── package.json
+│   └── tsconfig.json
+├── azure-ts-webapp-privateendpoint-vnet-injection/
+│   ├── .gitignore
+│   ├── Pulumi.yaml
+│   ├── README.md
+│   ├── index.ts
+│   ├── package.json
+│   └── tsconfig.json
+├── azure-ts-webserver/
+│   ├── Pulumi.yaml
+│   ├── README.md
+│   ├── index.ts
+│   ├── package.json
+│   └── tsconfig.json
+├── azure-yaml-aks-managed-identity/
+│   ├── .gitignore
+│   ├── Pulumi.yaml
+│   └── README.md
+├── azure-yaml-app-service/
+│   ├── Pulumi.yaml
+│   ├── README.md
+│   └── www/
+│       ├── 404.html
+│       ├── favicon.png
+│       └── index.html
+├── azure-yaml-container-apps/
+│   ├── Pulumi.yaml
+│   ├── README.md
+│   └── node-app/
+│       ├── .dockerignore
+│       ├── Dockerfile
+│       └── app/
+├── azure-yaml-cue-static-web-app/
+│   ├── Pulumi.yaml
+│   ├── app.cue
+│   └── website/
+│       ├── 404.html
+│       ├── favicon.png
+│       └── index.html
+├── azure-yaml-static-website/
+│   ├── Pulumi.yaml
+│   ├── README.md
+│   └── www/
+│       ├── 404.html
+│       ├── favicon.png
+│       └── index.html
+├── black.toml
+├── classic-azure-cs-botservice/
+│   ├── .gitignore
+│   ├── Azure.BotService.csproj
+│   ├── BotStack.cs
+│   ├── Program.cs
+│   ├── Pulumi.yaml
+│   ├── README.md
+│   └── bot/
+│       ├── AdapterWithErrorHandler.cs
+│       ├── Controllers/
+│       ├── Program.cs
+│       ├── Properties/
+│       ├── README.md
+│       ├── SimpleBot.cs
+│       ├── SimpleBot.csproj
+│       ├── SimpleBot.sln
+│       ├── Startup.cs
+│       ├── appsettings.Development.json
+│       ├── appsettings.json
+│       └── wwwroot/
+├── classic-azure-cs-msi-keyvault-rbac/
+│   ├── .gitignore
+│   ├── AppStack.cs
+│   ├── Azure.KeyVault.csproj
+│   ├── Program.cs
+│   ├── Pulumi.yaml
+│   ├── README.md
+│   └── webapp/
+│       ├── Program.cs
+│       ├── Reader.cs
+│       ├── Startup.cs
+│       └── webapp.csproj
+├── classic-azure-cs-vm-scaleset/
+│   ├── .gitignore
+│   ├── Azure.VmScaleset.csproj
+│   ├── Program.cs
+│   ├── Pulumi.yaml
+│   ├── README.md
+│   └── VmScalesetStack.cs
+├── classic-azure-cs-webserver/
+│   ├── .gitignore
+│   ├── Azure.WebServer.csproj
+│   ├── Program.cs
+│   ├── Pulumi.yaml
+│   ├── README.md
+│   └── WebServerStack.cs
+├── classic-azure-fs-aci/
+│   ├── .gitignore
+│   ├── Azure.Aci.fsproj
+│   ├── Program.fs
+│   ├── Pulumi.yaml
+│   ├── README.md
+│   └── app/
+│       ├── Dockerfile
+│       └── content/
+├── classic-azure-fs-aks/
+│   ├── Azure.Aks.fsproj
+│   ├── Makefile
+│   ├── Program.fs
+│   ├── Pulumi.yaml
+│   └── README.md
+├── classic-azure-fs-appservice/
+│   ├── .gitignore
+│   ├── Azure.AppService.fsproj
+│   ├── Program.fs
+│   ├── Pulumi.yaml
+│   ├── README.md
+│   └── wwwroot/
+│       └── index.html
+├── classic-azure-go-aks-multicluster/
+│   ├── Pulumi.yaml
+│   ├── README.md
+│   ├── go.mod
+│   ├── go.sum
+│   └── main.go
+├── classic-azure-go-webserver-component/
+│   ├── Pulumi.yaml
+│   ├── README.md
+│   ├── go.mod
+│   ├── go.sum
+│   ├── main.go
+│   └── webserver.go
+├── classic-azure-py-aks-multicluster/
+│   ├── .gitignore
+│   ├── Pulumi.yaml
+│   ├── README.md
+│   ├── __main__.py
+│   └── requirements.txt
+├── classic-azure-py-arm-template/
+│   ├── .gitignore
+│   ├── Pulumi.yaml
+│   ├── README.md
+│   ├── __main__.py
+│   └── requirements.txt
+├── classic-azure-py-hdinsight-spark/
+│   ├── .gitignore
+│   ├── Pulumi.yaml
+│   ├── README.md
+│   ├── __main__.py
+│   └── requirements.txt
+├── classic-azure-py-msi-keyvault-rbac/
+│   ├── .gitignore
+│   ├── Pulumi.yaml
+│   ├── README.md
+│   ├── __main__.py
+│   ├── requirements.txt
+│   └── webapp/
+│       ├── Program.cs
+│       ├── Reader.cs
+│       ├── Startup.cs
+│       └── webapp.csproj
+├── classic-azure-py-vm-scaleset/
+│   ├── .gitignore
+│   ├── Pulumi.yaml
+│   ├── README.md
+│   ├── __main__.py
+│   └── requirements.txt
+├── classic-azure-py-webserver-component/
+│   ├── .gitignore
+│   ├── Pulumi.yaml
+│   ├── README.md
+│   ├── __main__.py
+│   ├── requirements.txt
+│   └── webserver.py
+├── classic-azure-ts-aks-keda/
+│   ├── Pulumi.yaml
+│   ├── README.md
+│   ├── cluster.ts
+│   ├── functionapp/
+│   │   ├── .dockerignore
+│   │   ├── .gitignore
+│   │   ├── Dockerfile
+│   │   ├── host.json
+│   │   ├── queue.cs
+│   │   └── queue.csproj
+│   ├── index.ts
+│   ├── keda.ts
+│   ├── package.json
+│   └── tsconfig.json
+├── classic-azure-ts-aks-mean/
+│   ├── Pulumi.yaml
+│   ├── README.md
+│   ├── cluster.ts
+│   ├── config.ts
+│   ├── index.ts
+│   ├── mongoHelpers.ts
+│   ├── package.json
+│   └── tsconfig.json
+├── classic-azure-ts-api-management/
+│   ├── Pulumi.yaml
+│   ├── README.md
+│   ├── index.ts
+│   ├── package.json
+│   └── tsconfig.json
+├── classic-azure-ts-appservice-devops/
+│   ├── README.md
+│   ├── alternative-pipeline/
+│   │   ├── azure-pipelines.yml
+│   │   └── scripts/
+│   ├── azure-pipelines.yml
+│   ├── infra/
+│   │   ├── Pulumi.yaml
+│   │   ├── index.ts
+│   │   ├── package.json
+│   │   └── tsconfig.json
+│   └── src/
+│       ├── Controllers/
+│       ├── Data/
+│       ├── DotNetCoreSqlDb.csproj
+│       ├── Migrations/
+│       ├── Models/
+│       ├── Program.cs
+│       ├── Properties/
+│       ├── Startup.cs
+│       ├── Views/
+│       ├── appsettings.json
+│       └── wwwroot/
+├── classic-azure-ts-cosmosapp-component/
+│   ├── Pulumi.yaml
+│   ├── README.md
+│   ├── aci.ts
+│   ├── container/
+│   │   ├── .dockerignore
+│   │   ├── Dockerfile
+│   │   └── app/
+│   ├── cosmosApp.ts
+│   ├── functionApp.ts
+│   ├── images/
+│   │   └── globalapp.png
+│   ├── index.ts
+│   ├── package.json
+│   ├── policy/
+│   │   ├── PulumiPolicy.yaml
+│   │   ├── azureRegions.json
+│   │   ├── distance.ts
+│   │   ├── index.ts
+│   │   ├── package.json
+│   │   └── tsconfig.json
+│   ├── tsconfig.json
+│   ├── unittests.ts
+│   ├── vm/
+│   │   └── vmCustomData.yaml
+│   └── vms.ts
+├── classic-azure-ts-hdinsight-spark/
+│   ├── Pulumi.yaml
+│   ├── README.md
+│   ├── index.ts
+│   ├── package.json
+│   └── tsconfig.json
+├── classic-azure-ts-msi-keyvault-rbac/
+│   ├── .gitignore
+│   ├── Pulumi.yaml
+│   ├── README.md
+│   ├── index.ts
+│   ├── package.json
+│   ├── tsconfig.json
+│   └── webapp/
+│       ├── Program.cs
+│       ├── Reader.cs
+│       ├── Startup.cs
+│       └── webapp.csproj
+├── classic-azure-ts-serverless-url-shortener-global/
+│   ├── Pulumi.yaml
+│   ├── README.md
+│   ├── index.ts
+│   ├── package.json
+│   └── tsconfig.json
+├── classic-azure-ts-stream-analytics/
+│   ├── Pulumi.yaml
+│   ├── README.md
+│   ├── index.ts
+│   ├── package.json
+│   ├── token.ts
+│   └── tsconfig.json
+├── classic-azure-ts-vm-provisioners/
+│   ├── .gitignore
+│   ├── Pulumi.yaml
+│   ├── README.md
+│   ├── index.ts
+│   ├── myapp.conf
+│   ├── package.json
+│   ├── tsconfig.json
+│   └── util.ts
+├── classic-azure-ts-vm-scaleset/
+│   ├── Pulumi.yaml
+│   ├── README.md
+│   ├── index.ts
+│   └── package.json
+├── classic-azure-ts-webserver-component/
+│   ├── Pulumi.yaml
+│   ├── README.md
+│   ├── index.ts
+│   ├── package.json
+│   ├── tsconfig.json
+│   └── webserver.ts
+├── crd2pulumi-crontabs/
+│   ├── README.md
+│   ├── crontab.yaml
+│   ├── kubernetes-go-crontabs/
+│   │   ├── .gitignore
+│   │   ├── Pulumi.yaml
+│   │   ├── go.mod
+│   │   ├── go.sum
+│   │   └── main.go
+│   └── kubernetes-ts-crontabs/
+│       ├── .gitignore
+│       ├── Pulumi.yaml
+│       ├── index.ts
+│       ├── package.json
+│       └── tsconfig.json
+├── digitalocean-cs-k8s/
+│   ├── .gitignore
+│   ├── Digitalocean.K8s.csproj
+│   ├── KubernetesStack.cs
+│   ├── Program.cs
+│   └── Pulumi.yaml
+├── digitalocean-cs-loadbalanced-droplets/
+│   ├── .gitignore
+│   ├── Digitalocean.LoadbalancedDroplets.csproj
+│   ├── DropletStack.cs
+│   ├── Program.cs
+│   └── Pulumi.yaml
+├── digitalocean-py-k8s/
+│   ├── .gitignore
+│   ├── Pulumi.yaml
+│   ├── README.md
+│   ├── __main__.py
+│   └── requirements.txt
+├── digitalocean-py-loadbalanced-droplets/
+│   ├── .gitignore
+│   ├── Pulumi.yaml
+│   ├── README.md
+│   ├── __main__.py
+│   └── requirements.txt
+├── digitalocean-ts-k8s/
+│   ├── .gitignore
+│   ├── Pulumi.yaml
+│   ├── README.md
+│   ├── index.ts
+│   ├── package.json
+│   └── tsconfig.json
+├── digitalocean-ts-loadbalanced-droplets/
+│   ├── Pulumi.yaml
+│   ├── README.md
+│   ├── index.ts
+│   ├── package.json
+│   └── tsconfig.json
+├── docker-cs-multi-container-app/
+│   ├── .gitignore
+│   ├── .vscode/
+│   │   ├── launch.json
+│   │   └── tasks.json
+│   ├── App/
+│   │   ├── App.csproj
+│   │   ├── Controllers/
+│   │   ├── Dockerfile
+│   │   ├── Hits.cs
+│   │   ├── Program.cs
+│   │   ├── Properties/
+│   │   ├── Startup.cs
+│   │   ├── appsettings.Development.json
+│   │   └── appsettings.json
+│   ├── Infra/
+│   │   ├── MyStack.cs
+│   │   ├── Program.cs
+│   │   └── docker-cs-multi-container-app.csproj
+│   ├── Pulumi.yaml
+│   └── README.md
+├── docker-py-multi-container-app/
+│   ├── .gitignore
+│   ├── Pulumi.yaml
+│   ├── README.md
+│   ├── __main__.py
+│   ├── app/
+│   │   ├── Dockerfile
+│   │   ├── app.py
+│   │   └── requirements.txt
+│   └── requirements.txt
+├── docker-ts-multi-container-app/
+│   ├── .gitignore
+│   ├── Pulumi.yaml
+│   ├── README.md
+│   ├── app/
+│   │   ├── Dockerfile
+│   │   ├── index.js
+│   │   └── package.json
+│   ├── index.ts
+│   ├── package.json
+│   └── tsconfig.json
+├── dockerbuildcloud-ts/
+│   ├── Pulumi.yaml
+│   ├── README.md
+│   ├── app/
+│   │   ├── Dockerfile
+│   │   └── content/
+│   ├── index.ts
+│   ├── package.json
+│   └── tsconfig.json
+├── example-readme-template.md.txt
+├── f5bigip-ts-ltm-pool/
+│   ├── .gitignore
+│   ├── README.md
+│   ├── f5bigip-ec2-instance/
+│   │   ├── Pulumi.yaml
+│   │   ├── README.md
+│   │   ├── index.ts
+│   │   ├── package.json
+│   │   └── tsconfig.json
+│   ├── f5bigip-pool/
+│   │   ├── Pulumi.yaml
+│   │   ├── README.md
+│   │   ├── index.ts
+│   │   ├── package.json
+│   │   └── tsconfig.json
+│   └── nginx-ec2-instance/
+│       ├── Pulumi.yaml
+│       ├── README.md
+│       ├── index.ts
+│       ├── package.json
+│       └── tsconfig.json
+├── gcp-cs-functions/
+│   ├── .gitignore
+│   ├── FunctionsStack.cs
+│   ├── GCP.Functions.csproj
+│   ├── Program.cs
+│   ├── Pulumi.yaml
+│   ├── README.md
+│   └── pythonfunc/
+│       └── main.py
+├── gcp-cs-gke/
+│   ├── .gitignore
+│   ├── Gcp.Gke.csproj
+│   ├── KubernetesStack.cs
+│   ├── Program.cs
+│   ├── Pulumi.yaml
+│   └── README.md
+├── gcp-go-functions-raw/
+│   ├── Pulumi.yaml
+│   ├── README.md
+│   ├── go.mod
+│   ├── go.sum
+│   ├── main.go
+│   └── pythonfunc/
+│       └── main.py
+├── gcp-go-functions/
+│   ├── Pulumi.yaml
+│   ├── README.md
+│   ├── go.mod
+│   ├── go.sum
+│   ├── gofunc/
+│   │   └── function.go
+│   └── main.go
+├── gcp-go-gke/
+│   ├── Pulumi.yaml
+│   ├── README.md
+│   ├── go.mod
+│   ├── go.sum
+│   └── main.go
+├── gcp-go-instance/
+│   ├── Pulumi.yaml
+│   ├── README.md
+│   ├── go.mod
+│   ├── go.sum
+│   └── main.go
+├── gcp-go-webserver/
+│   ├── Pulumi.yaml
+│   ├── README.md
+│   ├── go.mod
+│   ├── go.sum
+│   └── main.go
+├── gcp-java-gke-hello-world/
+│   ├── Pulumi.yaml
+│   ├── README.md
+│   ├── pom.xml
+│   └── src/
+│       └── main/
+├── gcp-py-cloudrun-cloudsql/
+│   ├── .gitignore
+│   ├── Pulumi.yaml
+│   ├── README.md
+│   ├── __main__.py
+│   └── requirements.txt
+├── gcp-py-functions/
+│   ├── .gitignore
+│   ├── Pulumi.yaml
+│   ├── README.md
+│   ├── __main__.py
+│   ├── functions/
+│   │   ├── main.py
+│   │   └── requirements.txt
+│   └── requirements.txt
+├── gcp-py-gke/
+│   ├── .gitignore
+│   ├── Pulumi.yaml
+│   ├── README.md
+│   ├── __main__.py
+│   └── requirements.txt
+├── gcp-py-instance-nginx/
+│   ├── Pulumi.yaml
+│   ├── README.md
+│   ├── __main__.py
+│   └── requirements.txt
+├── gcp-py-network-component/
+│   ├── .gitignore
+│   ├── Pulumi.yaml
+│   ├── README.md
+│   ├── __main__.py
+│   ├── config.py
+│   ├── instance.py
+│   ├── network.py
+│   └── requirements.txt
+├── gcp-py-serverless-raw/
+│   ├── .gitignore
+│   ├── Pulumi.yaml
+│   ├── README.md
+│   ├── __main__.py
+│   ├── gofunc/
+│   │   └── function.go
+│   ├── pythonfunc/
+│   │   └── main.py
+│   └── requirements.txt
+├── gcp-py-webserver/
+│   ├── .gitignore
+│   ├── Pulumi.yaml
+│   ├── README.md
+│   ├── __main__.py
+│   └── requirements.txt
+├── gcp-ts-cloudrun/
+│   ├── Pulumi.yaml
+│   ├── README.md
+│   ├── app/
+│   │   ├── Dockerfile
+│   │   ├── Gemfile
+│   │   ├── Gemfile.lock
+│   │   └── app.rb
+│   ├── index.ts
+│   ├── package.json
+│   └── tsconfig.json
+├── gcp-ts-docker-gcr-cloudrun/
+│   ├── README.md
+│   ├── cloud-run-deploy/
+│   │   ├── .gitignore
+│   │   ├── Pulumi.yaml
+│   │   ├── index.ts
+│   │   ├── package.json
+│   │   └── tsconfig.json
+│   └── docker-build-push-gcr/
+│       ├── .gitignore
+│       ├── Pulumi.yaml
+│       ├── app/
+│       ├── index.ts
+│       ├── package.json
+│       └── tsconfig.json
+├── gcp-ts-functions/
+│   ├── Pulumi.yaml
+│   ├── README.md
+│   ├── index.ts
+│   ├── package.json
+│   └── tsconfig.json
+├── gcp-ts-gke-hello-world/
+│   ├── Pulumi.yaml
+│   ├── README.md
+│   ├── index.ts
+│   ├── package.json
+│   └── tsconfig.json
+├── gcp-ts-gke-serviceaccount/
+│   ├── Pulumi.yaml
+│   ├── README.md
+│   ├── index.ts
+│   ├── package.json
+│   └── tsconfig.json
+├── gcp-ts-gke/
+│   ├── .gitignore
+│   ├── Pulumi.yaml
+│   ├── README.md
+│   ├── cluster.ts
+│   ├── config.ts
+│   ├── index.ts
+│   ├── package.json
+│   └── tsconfig.json
+├── gcp-ts-k8s-ruby-on-rails-postgresql/
+│   ├── README.md
+│   ├── app/
+│   │   ├── .gitignore
+│   │   ├── .ruby-version
+│   │   ├── Dockerfile
+│   │   ├── Gemfile
+│   │   ├── Gemfile.lock
+│   │   ├── README.md
+│   │   ├── Rakefile
+│   │   ├── app/
+│   │   ├── config.ru
+│   │   ├── config/
+│   │   ├── db/
+│   │   ├── lib/
+│   │   ├── log/
+│   │   ├── package.json
+│   │   ├── public/
+│   │   ├── start
+│   │   ├── storage/
+│   │   ├── test/
+│   │   ├── tmp/
+│   │   └── vendor/
+│   ├── infra/
+│   │   ├── .gitignore
+│   │   ├── Pulumi.yaml
+│   │   ├── cluster.ts
+│   │   ├── config.ts
+│   │   ├── db.ts
+│   │   ├── index.ts
+│   │   ├── package.json
+│   │   └── tsconfig.json
+│   └── scripts/
+│       ├── migrate.sh
+│       └── setup.sh
+├── gcp-ts-oidc-provider-pulumi-cloud/
+│   ├── .gitignore
+│   ├── Pulumi.yaml
+│   ├── README.md
+│   ├── index.ts
+│   ├── package.json
+│   └── tsconfig.json
+├── gcp-ts-serverless-raw/
+│   ├── Pulumi.yaml
+│   ├── README.md
+│   ├── gofunc/
+│   │   └── function.go
+│   ├── index.ts
+│   ├── package.json
+│   ├── pythonfunc/
+│   │   └── main.py
+│   ├── tsconfig.json
+│   └── typescriptfunc/
+│       ├── .gitignore
+│       ├── package.json
+│       ├── src/
+│       └── tsconfig.json
+├── gcp-ts-slackbot/
+│   ├── Pulumi.yaml
+│   ├── README.md
+│   ├── index.ts
+│   ├── package.json
+│   └── tsconfig.json
+├── kubernetes-cs-guestbook/
+│   ├── .gitignore
+│   ├── README.md
+│   ├── components/
+│   │   ├── Guestbook.cs
+│   │   ├── Kubernetes.Guestbook.Components.csproj
+│   │   ├── Program.cs
+│   │   ├── Pulumi.yaml
+│   │   ├── README.md
+│   │   ├── ServiceDeployment.cs
+│   │   └── imgs/
+│   └── simple/
+│       ├── Guestbook.cs
+│       ├── Kubernetes.Guestbook.csproj
+│       ├── Program.cs
+│       ├── Pulumi.yaml
+│       ├── README.md
+│       └── imgs/
+├── kubernetes-cs-helm-release-wordpress/
+│   ├── .gitignore
+│   ├── MyStack.cs
+│   ├── Program.cs
+│   ├── Pulumi.yaml
+│   ├── README.md
+│   ├── images/
+│   │   ├── deploy.cast
+│   │   └── deploy.gif
+│   └── kubernetes-cs-helm-release-wordpress.csproj
+├── kubernetes-go-configmap-rollout/
+│   ├── Pulumi.yaml
+│   ├── README.md
+│   ├── default.conf
+│   ├── go.mod
+│   ├── go.sum
+│   ├── images/
+│   │   ├── rollout.cast
+│   │   └── rollout.gif
+│   └── main.go
+├── kubernetes-go-exposed-deployment/
+│   ├── Pulumi.yaml
+│   ├── README.md
+│   ├── go.mod
+│   ├── go.sum
+│   ├── images/
+│   │   ├── deploy.gif
+│   │   ├── diff.gif
+│   │   └── error.gif
+│   └── main.go
+├── kubernetes-go-guestbook/
+│   ├── .gitignore
+│   ├── README.md
+│   ├── components/
+│   │   ├── Pulumi.yaml
+│   │   ├── README.md
+│   │   ├── go.mod
+│   │   ├── go.sum
+│   │   ├── imgs/
+│   │   ├── main.go
+│   │   └── serviceDeployment.go
+│   └── simple/
+│       ├── Pulumi.yaml
+│       ├── README.md
+│       ├── go.mod
+│       ├── go.sum
+│       ├── imgs/
+│       └── main.go
+├── kubernetes-go-helm-release-wordpress/
+│   ├── Pulumi.yaml
+│   ├── README.md
+│   ├── go.mod
+│   ├── go.sum
+│   ├── images/
+│   │   ├── deploy.cast
+│   │   └── deploy.gif
+│   └── main.go
+├── kubernetes-go-helm-wordpress/
+│   ├── Pulumi.yaml
+│   ├── README.md
+│   ├── go.mod
+│   ├── go.sum
+│   └── main.go
+├── kubernetes-py-exposed-deployment/
+│   ├── .gitignore
+│   ├── Pulumi.yaml
+│   ├── README.md
+│   ├── __main__.py
+│   ├── images/
+│   │   ├── deploy.cast
+│   │   ├── deploy.gif
+│   │   ├── diff.cast
+│   │   ├── diff.gif
+│   │   ├── error.cast
+│   │   └── error.gif
+│   └── requirements.txt
+├── kubernetes-py-guestbook/
+│   ├── .gitignore
+│   ├── README.md
+│   ├── components/
+│   │   ├── Pulumi.yaml
+│   │   ├── README.md
+│   │   ├── __main__.py
+│   │   ├── imgs/
+│   │   ├── requirements.txt
+│   │   └── service_deployment.py
+│   └── simple/
+│       ├── Pulumi.yaml
+│       ├── README.md
+│       ├── __main__.py
+│       ├── imgs/
+│       └── requirements.txt
+├── kubernetes-py-helm-release-wordpress/
+│   ├── .gitignore
+│   ├── Pulumi.yaml
+│   ├── README.md
+│   ├── __main__.py
+│   ├── images/
+│   │   ├── deploy.cast
+│   │   └── deploy.gif
+│   └── requirements.txt
+├── kubernetes-py-jenkins/
+│   ├── Pulumi.yaml
+│   ├── README.md
+│   ├── __main__.py
+│   ├── jenkins.py
+│   └── requirements.txt
+├── kubernetes-py-nginx/
+│   ├── .gitignore
+│   ├── Pulumi.yaml
+│   ├── README.md
+│   ├── __main__.py
+│   └── requirements.txt
+├── kubernetes-ts-configmap-rollout/
+│   ├── Pulumi.yaml
+│   ├── README.md
+│   ├── default.conf
+│   ├── images/
+│   │   ├── rollout.cast
+│   │   └── rollout.gif
+│   ├── index.ts
+│   ├── package.json
+│   └── tsconfig.json
+├── kubernetes-ts-exposed-deployment/
+│   ├── Pulumi.yaml
+│   ├── README.md
+│   ├── images/
+│   │   ├── deploy.cast
+│   │   ├── deploy.gif
+│   │   ├── diff.cast
+│   │   ├── diff.gif
+│   │   ├── error.cast
+│   │   └── error.gif
+│   ├── index.ts
+│   ├── package.json
+│   └── tsconfig.json
+├── kubernetes-ts-guestbook/
+│   ├── README.md
+│   ├── components/
+│   │   ├── Pulumi.yaml
+│   │   ├── README.md
+│   │   ├── imgs/
+│   │   ├── index.ts
+│   │   ├── k8sjs.ts
+│   │   ├── package.json
+│   │   └── tsconfig.json
+│   └── simple/
+│       ├── Pulumi.yaml
+│       ├── README.md
+│       ├── imgs/
+│       ├── index.ts
+│       ├── package.json
+│       └── tsconfig.json
+├── kubernetes-ts-helm-release-wordpress/
+│   ├── Pulumi.yaml
+│   ├── README.md
+│   ├── images/
+│   │   ├── deploy.cast
+│   │   └── deploy.gif
+│   ├── index.ts
+│   ├── package.json
+│   └── tsconfig.json
+├── kubernetes-ts-helm-wordpress/
+│   ├── Pulumi.yaml
+│   ├── README.md
+│   ├── images/
+│   │   ├── deploy.cast
+│   │   └── deploy.gif
+│   ├── index.ts
+│   ├── package.json
+│   └── tsconfig.json
+├── kubernetes-ts-jenkins/
+│   ├── .gitignore
+│   ├── Pulumi.yaml
+│   ├── README.md
+│   ├── index.ts
+│   ├── jenkins.ts
+│   ├── package.json
+│   └── tsconfig.json
+├── kubernetes-ts-multicloud/
+│   ├── .gitignore
+│   ├── Pulumi.yaml
+│   ├── README.md
+│   ├── aks.ts
+│   ├── app.ts
+│   ├── eks.ts
+│   ├── gke.ts
+│   ├── images/
+│   │   ├── appUrls.png
+│   │   └── kuard.png
+│   ├── index.ts
+│   ├── local.ts
+│   ├── package.json
+│   └── tsconfig.json
+├── kubernetes-ts-nginx/
+│   ├── Pulumi.yaml
+│   ├── README.md
+│   ├── index.ts
+│   ├── package.json
+│   └── tsconfig.json
+├── kubernetes-ts-s3-rollout/
+│   ├── Pulumi.yaml
+│   ├── README.md
+│   ├── config.ts
+│   ├── default.conf
+│   ├── images/
+│   │   ├── deploy.cast
+│   │   ├── deploy.gif
+│   │   ├── diff.cast
+│   │   └── diff.gif
+│   ├── index.ts
+│   ├── package.json
+│   ├── s3Helpers.ts
+│   ├── tsconfig.json
+│   └── util.ts
+├── kubernetes-ts-sock-shop/
+│   ├── Pulumi.yaml
+│   ├── README.md
+│   ├── index.ts
+│   ├── package.json
+│   └── tsconfig.json
+├── kubernetes-ts-staged-rollout-with-prometheus/
+│   ├── Pulumi.yaml
+│   ├── README.md
+│   ├── images/
+│   │   ├── deploy.cast
+│   │   └── gatedDeployment.gif
+│   ├── index.ts
+│   ├── package.json
+│   ├── tsconfig.json
+│   └── util.ts
+├── kubernetes-yaml/
+│   └── Pulumi.yaml
+├── libvirt-py-vm/
+│   ├── .gitignore
+│   ├── Pulumi.yaml
+│   ├── README.md
+│   ├── __main__.py
+│   ├── libvirt_host.py
+│   └── requirements.txt
+├── linode-js-webserver/
+│   ├── Pulumi.yaml
+│   ├── README.md
+│   ├── index.ts
+│   └── package.json
+├── misc/
+│   ├── benchmarks/
+│   │   ├── cs-many-resources/
+│   │   ├── go-many-resources/
+│   │   ├── policy-pack/
+│   │   ├── py-many-resources/
+│   │   └── ts-many-resources/
+│   ├── scripts/
+│   │   ├── create-ci-cluster.sh
+│   │   ├── destroy-ci-cluster.sh
+│   │   ├── testinfra/
+│   │   ├── update_aws.py
+│   │   └── update_requirements_txt.py
+│   └── test/
+│       ├── .gitignore
+│       ├── aws_test.go
+│       ├── azure_test.go
+│       ├── definitions/
+│       ├── digitalocean_test.go
+│       ├── examples_test.go
+│       ├── go.mod
+│       ├── go.sum
+│       ├── google_test.go
+│       ├── helpers/
+│       ├── kubernetes_test.go
+│       └── performance_test.go
+├── multicloud-ts-buckets/
+│   ├── .gitignore
+│   ├── Pulumi.yaml
+│   ├── README.md
+│   ├── index.ts
+│   ├── package.json
+│   └── tsconfig.json
+├── nx-monorepo/
+│   ├── .gitignore
+│   ├── README.md
+│   ├── components/
+│   │   ├── s3folder/
+│   │   └── website-deploy/
+│   ├── dependency-graph.png
+│   ├── infra/
+│   │   ├── Pulumi.yaml
+│   │   ├── index.ts
+│   │   ├── package.json
+│   │   └── tsconfig.json
+│   ├── nx.json
+│   ├── package.json
+│   ├── tsconfig.json
+│   └── website/
+│       ├── README.md
+│       ├── astro.config.mjs
+│       ├── package.json
+│       ├── public/
+│       ├── src/
+│       └── tsconfig.json
+├── openclaw/
+│   ├── openclaw-aws-typescript/
+│   │   ├── Pulumi.yaml
+│   │   ├── index.ts
+│   │   ├── package.json
+│   │   └── tsconfig.json
+│   ├── openclaw-azure-typescript/
+│   │   ├── .gitignore
+│   │   ├── Pulumi.dev.yaml.example
+│   │   ├── Pulumi.yaml
+│   │   ├── README.md
+│   │   ├── index.ts
+│   │   ├── package.json
+│   │   └── tsconfig.json
+│   └── openclaw-hetzner-typescript/
+│       ├── Pulumi.yaml
+│       ├── index.ts
+│       ├── package.json
+│       └── tsconfig.json
+├── openstack-py-webserver/
+│   ├── Pulumi.yaml
+│   ├── README.md
+│   ├── __main__.py
+│   └── requirements.txt
+├── ovhcloud-go-kubernetes/
+│   ├── Pulumi.yaml
+│   ├── README.md
+│   ├── config.go
+│   ├── go.mod
+│   ├── go.sum
+│   ├── k8s.go
+│   └── main.go
+├── policy-packs/
+│   ├── README.md
+│   ├── aws-python/
+│   │   ├── .gitignore
+│   │   ├── PulumiPolicy.yaml
+│   │   ├── __main__.py
+│   │   └── requirements.txt
+│   ├── aws-ts-advanced/
+│   │   ├── PulumiPolicy.yaml
+│   │   ├── compute.ts
+│   │   ├── index.ts
+│   │   ├── package.json
+│   │   └── tsconfig.json
+│   ├── aws-ts-finops/
+│   │   ├── .gitignore
+│   │   ├── PulumiPolicy.yaml
+│   │   ├── cloudwatch.ts
+│   │   ├── ec2Compute.ts
+│   │   ├── index.ts
+│   │   ├── package.json
+│   │   ├── rds.ts
+│   │   ├── s3.ts
+│   │   ├── tsconfig.json
+│   │   ├── utils.ts
+│   │   └── vpc.ts
+│   ├── aws-ts/
+│   │   ├── PulumiPolicy.yaml
+│   │   ├── index.ts
+│   │   ├── package.json
+│   │   └── tsconfig.json
+│   ├── azure-python/
+│   │   ├── .gitignore
+│   │   ├── PulumiPolicy.yaml
+│   │   ├── __main__.py
+│   │   └── requirements.txt
+│   ├── azure-ts/
+│   │   ├── PulumiPolicy.yaml
+│   │   ├── index.ts
+│   │   ├── package.json
+│   │   └── tsconfig.json
+│   ├── gcp-python/
+│   │   ├── .gitignore
+│   │   ├── PulumiPolicy.yaml
+│   │   ├── __main__.py
+│   │   └── requirements.txt
+│   ├── gcp-ts/
+│   │   ├── PulumiPolicy.yaml
+│   │   ├── index.ts
+│   │   ├── package.json
+│   │   └── tsconfig.json
+│   ├── kubernetes-python/
+│   │   ├── .gitignore
+│   │   ├── PulumiPolicy.yaml
+│   │   ├── __main__.py
+│   │   └── requirements.txt
+│   ├── kubernetes-ts/
+│   │   ├── PulumiPolicy.yaml
+│   │   ├── index.ts
+│   │   ├── package.json
+│   │   └── tsconfig.json
+│   ├── stackvalidation-python/
+│   │   ├── .gitignore
+│   │   ├── PulumiPolicy.yaml
+│   │   ├── README.md
+│   │   ├── __main__.py
+│   │   └── requirements.txt
+│   └── stackvalidation-ts/
+│       ├── .gitignore
+│       ├── PulumiPolicy.yaml
+│       ├── README.md
+│       ├── index.ts
+│       ├── package.json
+│       └── tsconfig.json
+├── random-yaml-cue/
+│   ├── Pulumi.yaml
+│   └── infra.cue
+├── random-yaml/
+│   ├── Pulumi.yaml
+│   └── README.md
+├── redis-cloud-aws-ts/
+│   ├── .gitignore
+│   ├── Pulumi.yaml
+│   ├── README.md
+│   ├── images/
+│   │   ├── architecture.png
+│   │   ├── ec2-connect.png
+│   │   ├── ec2-console.png
+│   │   ├── redis-console-connect.png
+│   │   ├── redis-console-db.png
+│   │   ├── redis-console.png
+│   │   └── shell-commands.png
+│   ├── index.ts
+│   ├── package.json
+│   └── tsconfig.json
+├── renovate.json5
+├── scripts/
+│   └── pr-preview-changed.sh
+├── secrets-provider/
+│   ├── README.md
+│   ├── aws/
+│   │   ├── .gitignore
+│   │   ├── Pulumi.yaml
+│   │   ├── README.md
+│   │   ├── index.ts
+│   │   ├── package.json
+│   │   └── tsconfig.json
+│   ├── azure/
+│   │   ├── .gitignore
+│   │   ├── Pulumi.yaml
+│   │   ├── README.md
+│   │   ├── index.ts
+│   │   ├── package.json
+│   │   └── tsconfig.json
+│   ├── gcloud/
+│   │   ├── .gitignore
+│   │   ├── Pulumi.yaml
+│   │   ├── README.md
+│   │   ├── index.ts
+│   │   ├── package.json
+│   │   └── tsconfig.json
+│   └── vault/
+│       ├── .gitignore
+│       ├── Pulumi.yaml
+│       ├── README.md
+│       ├── index.ts
+│       ├── package.json
+│       └── tsconfig.json
+├── stack-readme-cs/
+│   ├── .gitignore
+│   ├── MyStack.cs
+│   ├── Program.cs
+│   ├── Pulumi.README.md
+│   ├── Pulumi.yaml
+│   ├── README.md
+│   └── stack-readme-cs.csproj
+├── stack-readme-go/
+│   ├── Pulumi.README.md
+│   ├── Pulumi.yaml
+│   ├── README.md
+│   ├── go.mod
+│   ├── go.sum
+│   └── main.go
+├── stack-readme-java/
+│   ├── .gitignore
+│   ├── Pulumi.README.md
+│   ├── Pulumi.yaml
+│   ├── README.md
+│   ├── pom.xml
+│   └── src/
+│       └── main/
+├── stack-readme-py/
+│   ├── .gitignore
+│   ├── Pulumi.README.md
+│   ├── Pulumi.yaml
+│   ├── README.md
+│   ├── __main__.py
+│   └── requirements.txt
+├── stack-readme-ts/
+│   ├── .gitignore
+│   ├── Pulumi.README.md
+│   ├── Pulumi.yaml
+│   ├── README.md
+│   ├── index.ts
+│   ├── package.json
+│   └── tsconfig.json
+├── stack-readme-yaml/
+│   ├── Pulumi.README.md
+│   ├── Pulumi.yaml
+│   └── README.md
+├── testing-integration-py/
+│   ├── .gitignore
+│   ├── Pulumi.yaml
+│   ├── README.md
+│   ├── __main__.py
+│   ├── requirements.txt
+│   ├── resource_s3.py
+│   └── test_s3_it.py
+├── testing-integration/
+│   ├── .gitignore
+│   ├── README.md
+│   ├── examples_test.go
+│   ├── go.mod
+│   ├── go.sum
+│   └── program/
+│       ├── Pulumi.yaml
+│       ├── index.ts
+│       ├── package.json
+│       ├── tsconfig.json
+│       └── www/
+├── testing-pac-ts/
+│   ├── .gitignore
+│   ├── Pulumi.yaml
+│   ├── README.md
+│   ├── index.ts
+│   ├── package.json
+│   ├── tests/
+│   │   ├── PulumiPolicy.yaml
+│   │   ├── index.ts
+│   │   ├── package.json
+│   │   └── tsconfig.json
+│   └── tsconfig.json
+├── testing-unit-cs-mocks/
+│   ├── .gitignore
+│   ├── Pulumi.yaml
+│   ├── README.md
+│   ├── Testing.cs
+│   ├── UnitTesting.csproj
+│   ├── WebsiteStack.cs
+│   ├── WebsiteStackTests.cs
+│   └── wwwroot/
+│       ├── about.html
+│       └── index.html
+├── testing-unit-cs-top-level-program/
+│   ├── .gitignore
+│   ├── PulumiUnitTesting.sln
+│   ├── README.md
+│   ├── infra/
+│   │   ├── Infra.csproj
+│   │   ├── Program.cs
+│   │   ├── Pulumi.yaml
+│   │   └── wwwroot/
+│   └── tests/
+│       ├── Extensions.cs
+│       ├── InfraTests.cs
+│       ├── Mocks.cs
+│       ├── Tests.csproj
+│       └── Usings.cs
+├── testing-unit-cs/
+│   ├── .gitignore
+│   ├── Pulumi.yaml
+│   ├── README.md
+│   ├── Testing.cs
+│   ├── UnitTesting.csproj
+│   ├── WebserverStack.cs
+│   └── WebserverStackTests.cs
+├── testing-unit-fs-mocks/
+│   ├── .gitignore
+│   ├── Pulumi.yaml
+│   ├── README.md
+│   ├── Testing.fs
+│   ├── UnitTestingFs.fsproj
+│   ├── WebsiteStack.fs
+│   ├── WebsiteStackTests.fs
+│   └── wwwroot/
+│       ├── about.html
+│       └── index.html
+├── testing-unit-go-components/
+│   ├── Pulumi.yaml
+│   ├── README.md
+│   ├── go.mod
+│   ├── go.sum
+│   ├── main.go
+│   └── main_test.go
+├── testing-unit-go/
+│   ├── Pulumi.yaml
+│   ├── README.md
+│   ├── go.mod
+│   ├── go.sum
+│   ├── main.go
+│   └── main_test.go
+├── testing-unit-py/
+│   ├── .gitignore
+│   ├── Pulumi.yaml
+│   ├── README.md
+│   ├── __main__.py
+│   ├── infra.py
+│   ├── requirements.txt
+│   └── test_ec2.py
+├── testing-unit-ts-mocks-jest/
+│   ├── .gitignore
+│   ├── Pulumi.yaml
+│   ├── README.md
+│   ├── index.spec.ts
+│   ├── index.ts
+│   ├── jest.config.ts
+│   ├── package.json
+│   ├── resources.ts
+│   └── tsconfig.json
+├── testing-unit-ts/
+│   ├── .gitignore
+│   └── mocha/
+│       ├── Pulumi.yaml
+│       ├── README.md
+│       ├── bucket_pair.ts
+│       ├── bucket_pair_test.ts
+│       ├── ec2tests.ts
+│       ├── index.ts
+│       ├── package.json
+│       └── tsconfig.json
+├── tslint.json
+├── twilio-ts-component/
+│   ├── Pulumi.yaml
+│   ├── README.md
+│   ├── index.ts
+│   ├── package.json
+│   ├── tsconfig.json
+│   └── twilio.ts
+├── webserver-yaml-json/
+│   ├── Main.json
+│   └── Pulumi.yaml
+├── webserver-yaml/
+│   └── Pulumi.yaml
+└── yaml-math-and-objects/
+    ├── Pulumi.yaml
+    └── README.md

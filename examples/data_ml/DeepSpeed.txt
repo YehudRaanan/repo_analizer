@@ -1,0 +1,1227 @@
+=====================================
+Repository Analysis: DeepSpeed
+Type: Data / ML / AI Project
+=====================================
+
+--- METADATA ---
+Name: DeepSpeed
+Description: DeepSpeed is a deep learning optimization library that makes distributed training and inference easy, efficient, and effective.
+Language: Python
+Topics: billion-parameters, compression, data-parallelism, deep-learning, gpu, inference, machine-learning, mixture-of-experts, model-parallelism, pipeline-parallelism, pytorch, trillion-parameters, zero
+Stars: 41752
+License: Apache License 2.0
+
+--- README ---
+[![License Apache 2.0](https://badgen.net/badge/license/apache2.0/blue)](https://github.com/deepspeedai/DeepSpeed/blob/master/LICENSE)
+[![PyPI version](https://badge.fury.io/py/deepspeed.svg)](https://pypi.org/project/deepspeed/)
+[![Downloads](https://static.pepy.tech/badge/deepspeed)](https://pepy.tech/project/deepspeed)
+[![Build](https://badgen.net/badge/build/check-status/blue)](#build-pipeline-status)
+[![OpenSSF Best Practices](https://www.bestpractices.dev/projects/9530/badge)](https://www.bestpractices.dev/projects/9530)
+[![Twitter](https://img.shields.io/twitter/follow/DeepSpeedAI)](https://twitter.com/intent/follow?screen_name=DeepSpeedAI)
+[![Japanese Twitter](https://img.shields.io/badge/%E6%97%A5%E6%9C%AC%E8%AA%9ETwitter-%40DeepSpeedAI_JP-blue)](https://twitter.com/DeepSpeedAI_JP)
+[![Chinese Zhihu](https://img.shields.io/badge/%E7%9F%A5%E4%B9%8E-%E5%BE%AE%E8%BD%AFDeepSpeed-blue)](https://www.zhihu.com/people/deepspeed)
+[![Slack](https://img.shields.io/badge/Slack-4A154B?style=for-the-badge&logo=slack&logoColor=white)](https://join.slack.com/t/deepspeedworkspace/shared_invite/zt-3a8pjd8dd-PCj2hMvR4Y2syPwVnjEoww)
+
+
+<div align="center">
+ <img src="docs/assets/images/DeepSpeed_light.svg#gh-light-mode-only" width="400px">
+ <img src="docs/assets/images/DeepSpeed_dark_transparent.svg#gh-dark-mode-only" width="400px">
+</div>
+
+## Latest News
+
+* [2025/12] [DeepSpeed Core API updates: PyTorch-style backward and low-precision master states](https://github.com/deepspeedai/DeepSpeed/blob/master/blogs/core_api_update/README.md)
+
+* [2025/11] [DeepSpeed ZeRO++ powers large-scale distillation training of LLMs for Recommendation Systems at LinkedIn](https://aclanthology.org/2025.emnlp-industry.119/)
+
+* [2025/10] We hosted the [Ray x DeepSpeed Meetup](https://luma.com/3wctqteh) at Anyscale. We shared our most recent work on SuperOffload, ZenFlow, Muon Optimizer Support, Arctic Long Sequence Training and DeepCompile. Please find the meetup slides [here](https://docs.google.com/presentation/d/1eM3mY6oW9GYkRy1Xz0iOnbbEr5T1t0JJXOM5BKtR-Ks/edit?slide=id.g38615d6b4c2_0_87#slide=id.g38615d6b4c2_0_87).
+
+* [2025/10] [SuperOffload: Unleashing the Power of Large-Scale LLM Training on Superchips](https://pytorch.org/blog/superoffload-unleashing-the-power-of-large-scale-llm-training-on-superchips/)
+
+* [2025/10] [Study of ZenFlow and ZeRO offload performance with DeepSpeed CPU core binding](https://github.com/deepspeedai/DeepSpeed/blob/master/blogs/zenflow-corebinding/README.md)
+
+* [2025/08] [ZenFlow: Stall-Free Offloading Engine for LLM Training](https://pytorch.org/blog/zenflow-stall-free-offloading-engine-for-llm-training/)
+
+* [2025/06] [Arctic Long Sequence Training (ALST) with DeepSpeed: Scalable And Efficient Training For Multi-Million Token Sequences](https://www.snowflake.com/en/engineering-blog/arctic-long-sequence-training-multi-million-token-ai/)
+
+* [2025/06] [DeepNVMe: Affordable I/O scaling for Deep Learning Applications](https://github.com/deepspeedai/DeepSpeed/blob/master/blogs/deepnvme/06-2025/README.md)
+
+
+<!-- NOTE: we must use html for news items otherwise links will be broken in the 'more news' section -->
+<details>
+<!-- NOTE: Maintain only three items in 'more news' section -->
+ <summary>More news</summary>
+ <ul>
+
+   <li>[2025/04] <a href="https://github.com/deepspeedai/DeepSpeed/blob/master/blogs/deepcompile/README.md">DeepCompile: Unlocking Compiler Optimization for Distributed Training</a></li>
+
+   <li>[2025/03] <a href="https://github.com/deepspeedai/DeepSpeed/blob/master/blogs/huggingface-tp/README.md">DeepSpeed AutoTP: Automatic Tensor Parallel Training of Hugging Face models</a></li>
+
+<li>[2024/12] <a href="https://github.com/deepspeedai/DeepSpeed/blob/master/blogs/ulysses-offload/README.md">Ulysses-Offload: Democratizing Long Context LLM Training</a></li>
+
+ </ul>
+</details>
+
+---
+
+# Extreme Speed and Scale for DL Training
+
+***[DeepSpeed](https://www.deepspeed.ai/) enabled the world's most powerful language models (at the time of this writing) such as [MT-530B](https://www.microsoft.com/en-us/research/blog/using-deepspeed-and-megatron-to-train-megatron-turing-nlg-530b-the-worlds-largest-and-most-powerful-generative-language-model/) and [BLOOM](https://huggingface.co/blog/bloom-megatron-deepspeed)***. DeepSpeed offers a confluence of [system innovations](https://www.deepspeed.ai/training/), that has made large scale DL training effective, and efficient, greatly improved ease of use, and redefined the DL training landscape in terms of scale that is possible. These innovations include ZeRO, ZeRO-Infinity, 3D-Parallelism, Ulysses Sequence Parallelism, DeepSpeed-MoE, etc.
+
+---
+
+# DeepSpeed Adoption
+
+DeepSpeed was an important part of Microsoft’s
+[AI at Scale](https://www.microsoft.com/en-us/research/project/ai-at-scale/)
+initiative to enable next-generation AI capabilities at scale, where you can find more
+information [here](https://innovation.microsoft.com/en-us/exploring-ai-at-scale).
+
+DeepSpeed has been use
+... [TRUNCATED]
+
+--- PACKAGE MANIFEST(S) ---
+
+[setup.py]
+# Copyright (c) Microsoft Corporation.
+# SPDX-License-Identifier: Apache-2.0
+
+# DeepSpeed Team
+"""
+DeepSpeed library
+
+To build wheels on Windows:
+1. Install pytorch, such as pytorch 2.3 + cuda 12.1.
+2. Install visual cpp build tool.
+3. Include cuda toolkit.
+4. Launch cmd console with Administrator privilege for creating required symlink folders.
+
+
+Create a new wheel via the following command:
+build_win.bat
+
+The wheel will be located at: dist/*.whl
+"""
+
+import pathlib
+import os
+import shutil
+import sys
+import subprocess
+from setuptools import setup, find_packages
+from setuptools.command import egg_info
+import time
+import typing
+import shlex
+
+torch_available = True
+try:
+    import torch
+except ImportError:
+    torch_available = False
+    print('[WARNING] Unable to import torch, pre-compiling ops will be disabled. ' \
+        'Please visit https://pytorch.org/ to see how to properly install torch on your system.')
+
+from op_builder import get_default_compute_capabilities, OpBuilder
+from op_builder.all_ops import ALL_OPS, accelerator_name
+from op_builder.builder import installed_cuda_version
+
+from accelerator import get_accelerator
+
+# Fetch rocm state.
+is_rocm_pytorch = OpBuilder.is_rocm_pytorch()
+rocm_version = OpBuilder.installed_rocm_version()
+
+RED_START = '\033[31m'
+RED_END = '\033[0m'
+ERROR = f"{RED_START} [ERROR] {RED_END}"
+
+
+def abort(msg):
+    print(f"{ERROR} {msg}")
+    assert False, msg
+
+
+def fetch_requirements(path):
+    with open(path, 'r') as fd:
+        return [r.strip() for r in fd.readlines()]
+
+
+def is_env_set(key):
+    """
+    Checks if an environment variable is set and not "".
+    """
+    return bool(os.environ.get(key, None))
+
+
+def get_env_if_set(key, default: typing.Any = ""):
+    """
+    Returns an environment variable if it is set and not "",
+    otherwise returns a default value. In contrast, the fallback
+    parameter of os.environ.get() is skipped if the variable is set to "".
+    """
+    return os.environ.get(key, None) or default
+
+
+install_requires = fetch_requirements('requirements/requirements.txt')
+extras_require = {
+    '1bit': [],  # add cupy based on cuda/rocm version
+    '1bit_mpi': fetch_requirements('requirements/requirements-1bit-mpi.txt'),
+    'readthedocs': fetch_requirements('requirements/requirements-readthedocs.txt'),
+    'dev': fetch_requirements('requirements/requirements-dev.txt'),
+    'autotuning': fetch_requirements('requirements/requirements-autotuning.txt'),
+    'autotuning_ml': fetch_requirements('requirements/requirements-autotuning-ml.txt'),
+    'sparse_attn': fetch_requirements('requirements/requirements-sparse_attn.txt'),
+    'sparse': fetch_requirements('requirements/requirements-sparse_pruning.txt'),
+    'inf': fetch_requirements('requirements/requirements-inf.txt'),
+    'sd': fetch_requirements('requirements/requirements-sd.txt'),
+    'triton': fetch_requirements('requirements/requirements-triton.txt'),
+    'deepcompile': fetch_requirements('requirements/requirements-deepcompile.txt'),
+}
+
+# Onl
+... [TRUNCATED]
+
+[setup.cfg]
+[options.entry_points]
+pytest_randomly.random_seeder =
+    deepspeed = deepspeed.runtime.utils:set_random_seed
+
+
+[environment.yml]
+channels:
+  - nvidia/label/cuda-11.8.0
+  - pytorch # or pytorch-nightly
+  - conda-forge
+dependencies:
+  - pytorch
+  - torchvision
+  - torchaudio
+  - cuda
+  - pytorch-cuda=11.8
+  - compilers
+  - sysroot_linux-64==2.17
+  - gcc==11.4
+  - ninja
+  - py-cpuinfo
+  - libaio
+  - ca-certificates
+  - certifi
+  - openssl
+  - python=3.10
+  - pydantic
+
+
+--- REQUIREMENTS FILES ---
+
+[requirements/requirements-1bit-mpi.txt]
+mpi4py
+
+
+[requirements/requirements-autotuning-ml.txt]
+hjson
+tabulate
+xgboost
+
+
+[requirements/requirements-autotuning.txt]
+tabulate
+
+
+[requirements/requirements-deepcompile.txt]
+scipy
+
+
+[requirements/requirements-dev.txt]
+accelerate
+clang-format==18.1.3
+comet_ml>=3.41.0
+deepspeed-kernels ; sys_platform == 'linux'
+docutils<0.18
+future
+importlib-metadata>=4
+mup
+pre-commit>=3.2.0
+pytest>=7.2.0,<8.4.0
+pytest-forked
+pytest-randomly
+pytest-xdist
+qtorch==0.3.0
+recommonmark
+sphinx
+sphinx-rtd-theme
+tensorboard
+torchvision
+transformers>=4.51.3
+wandb
+
+
+[requirements/requirements-inf.txt]
+google
+lm-eval==0.3.0
+protobuf
+qtorch
+safetensors
+sentencepiece
+transformers>=4.32.1
+
+
+[requirements/requirements-readthedocs.txt]
+autodoc_pydantic>=2.0.0
+docutils<0.18
+hjson
+packaging
+psutil
+py-cpuinfo
+pydantic>=2.0.0
+recommonmark
+sphinx_rtd_theme
+torch
+tqdm
+
+
+[requirements/requirements-sd.txt]
+diffusers>=0.25.0
+triton>=2.1.0
+
+
+[requirements/requirements-sparse_attn.txt]
+triton==1.0.0
+
+
+[requirements/requirements-sparse_pruning.txt]
+neural-compressor==2.1.0
+
+
+[requirements/requirements-triton.txt]
+triton==2.1.0
+
+
+[requirements/requirements.txt]
+einops
+hjson
+msgpack
+ninja
+numpy
+packaging>=20.0
+psutil
+py-cpuinfo
+pydantic>=2.0.0
+torch
+tqdm
+
+
+--- ML CONFIG FILES ---
+(No ML config files found)
+
+--- JUPYTER NOTEBOOKS ---
+(No notebooks found)
+
+--- MODEL / TRAINING FILES ---
+  deepspeed/autotuning/tuner/cost_model.py
+  deepspeed/autotuning/tuner/model_based_tuner.py
+  deepspeed/inference/v2/model_implementations/exaone4/model.py
+  deepspeed/inference/v2/model_implementations/falcon/model.py
+  deepspeed/inference/v2/model_implementations/flat_model_helpers.py
+  deepspeed/inference/v2/model_implementations/inference_model_base.py
+  deepspeed/inference/v2/model_implementations/llama_v2/model.py
+  deepspeed/inference/v2/model_implementations/mistral/model.py
+  deepspeed/inference/v2/model_implementations/mixtral/model.py
+  deepspeed/inference/v2/model_implementations/opt/model.py
+
+--- DIRECTORY STRUCTURE (depth 2) ---
+├── .clang-format
+├── .flake8
+├── .github/
+│   ├── ISSUE_TEMPLATE/
+│   │   ├── ci_failure_report.md
+│   │   ├── compression_bug_report.md
+│   │   ├── deepspeed_chat_bug_report.md
+│   │   ├── feature_request.md
+│   │   ├── inference_bug_report.md
+│   │   └── training_bug_report.md
+│   └── workflows/
+│       ├── amd-mi200.yml
+│       ├── aws-accelerate.yml
+│       ├── aws-torch-latest-full.yml
+│       ├── aws-torch-latest.yml
+│       ├── cpu-torch-latest.yml
+│       ├── formatting.yml
+│       ├── hpu-gaudi2-nightly.yml
+│       ├── hpu-gaudi2.yml
+│       ├── modal-accelerate.yml
+│       ├── modal-torch-latest.yml
+│       ├── no-torch.yml
+│       ├── nv-a6000.yml
+│       ├── nv-accelerate-v100.yml
+│       ├── nv-ds-chat.yml
+│       ├── nv-flash-attn.yml
+│       ├── nv-inference.yml
+│       ├── nv-lightning-v100.yml
+│       ├── nv-mii.yml
+│       ├── nv-nightly.yml
+│       ├── nv-pre-compile-ops.yml
+│       ├── nv-sd.yml
+│       ├── nv-torch-latest-v100.yml
+│       ├── nv-torch-nightly-v100.yml
+│       ├── nv-transformers-v100.yml
+│       ├── python.yml
+│       ├── release.yml
+│       ├── setup-venv/
+│       ├── xpu-compile.yml
+│       └── xpu-max1100.yml
+├── .gitignore
+├── .gitmodules
+├── .pre-commit-config.yaml
+├── .pylintrc
+├── .readthedocs.yml
+├── .style.yapf
+├── CODEOWNERS
+├── CODE_OF_CONDUCT.md
+├── COMMITTERS.md
+├── CONTRIBUTING.md
+├── GOVERNANCE.md
+├── LICENSE
+├── MANIFEST.in
+├── MANIFEST_win.in
+├── Makefile
+├── README.md
+├── SECURITY.md
+├── accelerator/
+│   ├── __init__.py
+│   ├── abstract_accelerator.py
+│   ├── cpu_accelerator.py
+│   ├── cuda_accelerator.py
+│   ├── hpu_accelerator.py
+│   ├── mlu_accelerator.py
+│   ├── mps_accelerator.py
+│   ├── npu_accelerator.py
+│   ├── real_accelerator.py
+│   ├── sdaa_accelerator.py
+│   └── xpu_accelerator.py
+├── azure/
+│   └── README.md
+├── benchmarks/
+│   └── README.md
+├── bin/
+│   ├── deepspeed
+│   ├── deepspeed.bat
+│   ├── deepspeed.pt
+│   ├── ds
+│   ├── ds_bench
+│   ├── ds_elastic
+│   ├── ds_io
+│   ├── ds_nvme_tune
+│   ├── ds_report
+│   ├── ds_report.bat
+│   ├── ds_ssh
+│   └── dsr
+├── blogs/
+│   ├── README.md
+│   ├── assets/
+│   │   └── images/
+│   ├── comm-opt/
+│   │   ├── README.md
+│   │   └── assets/
+│   ├── core_api_update/
+│   │   ├── README.md
+│   │   └── assets/
+│   ├── deepcompile/
+│   │   ├── README.md
+│   │   └── media/
+│   ├── deepnvme/
+│   │   ├── 06-2025/
+│   │   └── 08-2024/
+│   ├── deepspeed-chat/
+│   │   ├── README.md
+│   │   ├── assets/
+│   │   ├── chinese/
+│   │   ├── ds-chat-release-8-31/
+│   │   └── japanese/
+│   ├── deepspeed-domino/
+│   │   ├── README.md
+│   │   └── images/
+│   ├── deepspeed-fastgen/
+│   │   ├── 2024-01-19/
+│   │   ├── README.md
+│   │   ├── assets/
+│   │   ├── chinese/
+│   │   └── japanese/
+│   ├── deepspeed-fp6/
+│   │   └── 03-05-2024/
+│   ├── deepspeed-offloadpp/
+│   │   ├── README.md
+│   │   └── images/
+│   ├── deepspeed-superoffload/
+│   │   ├── README.md
+│   │   ├── README_cn.md
+│   │   └── images/
+│   ├── deepspeed-triton/
+│   │   └── README.md
+│   ├── deepspeed-ucp/
+│   │   ├── README.md
+│   │   ├── chinese/
+│   │   ├── japanese/
+│   │   └── media/
+│   ├── deepspeed-ulysses/
+│   │   ├── README.md
+│   │   ├── chinese/
+│   │   ├── japanese/
+│   │   └── media/
+│   ├── deepspeed-visualchat/
+│   │   ├── 10-03-2023/
+│   │   └── assets/
+│   ├── deepspeed-zenflow/
+│   │   ├── README.md
+│   │   └── images/
+│   ├── deepspeed4science/
+│   │   ├── README.md
+│   │   ├── chinese/
+│   │   ├── japanese/
+│   │   └── media/
+│   ├── huggingface-tp/
+│   │   ├── README.md
+│   │   └── media/
+│   ├── intel-inference/
+│   │   ├── README.md
+│   │   └── assets/
+│   ├── ulysses-offload/
+│   │   ├── README.md
+│   │   └── media/
+│   ├── windows/
+│   │   └── 08-2024/
+│   ├── zenflow-corebinding/
+│   │   └── README.md
+│   └── zeropp/
+│       ├── assets/
+│       ├── chinese/
+│       └── japanese/
+├── build_win.bat
+├── ci/
+│   ├── __init__.py
+│   ├── accelerate.py
+│   └── torch_latest.py
+├── csrc/
+│   ├── adagrad/
+│   │   └── cpu_adagrad.cpp
+│   ├── adam/
+│   │   ├── cpu_adam.cpp
+│   │   ├── cpu_adam_impl.cpp
+│   │   ├── fused_adam_frontend.cpp
+│   │   ├── multi_tensor_adam.cu
+│   │   └── multi_tensor_apply.cuh
+│   ├── aio/
+│   │   ├── common/
+│   │   ├── py_lib/
+│   │   ├── py_test/
+│   │   └── utils/
+│   ├── compile/
+│   │   ├── deepcompile.cpp
+│   │   ├── init.cpp
+│   │   ├── util.cpp
+│   │   ├── z1.cpp
+│   │   ├── z1.h
+│   │   ├── z2.cpp
+│   │   ├── z2.h
+│   │   ├── z3.cpp
+│   │   └── z3.h
+│   ├── cpu/
+│   │   ├── adam/
+│   │   ├── comm/
+│   │   └── lion/
+│   ├── deepspeed4science/
+│   │   └── evoformer_attn/
+│   ├── fp_quantizer/
+│   │   ├── fp_quantize.cpp
+│   │   ├── fp_quantize.cu
+│   │   └── includes/
+│   ├── gds/
+│   │   ├── py_lib/
+│   │   └── py_test/
+│   ├── includes/
+│   │   ├── StopWatch.h
+│   │   ├── Timer.h
+│   │   ├── activation_type.h
+│   │   ├── compat.h
+│   │   ├── context.h
+│   │   ├── conversion_utils.h
+│   │   ├── cpu_adagrad.h
+│   │   ├── cpu_adam.h
+│   │   ├── cpu_lion.h
+│   │   ├── cublas_wrappers.h
+│   │   ├── custom_cuda_layers.h
+│   │   ├── deepcompile.h
+│   │   ├── dequantization_utils.h
+│   │   ├── dropout.h
+│   │   ├── ds_kernel_utils.h
+│   │   ├── ds_transformer_cuda.h
+│   │   ├── feed_forward.h
+│   │   ├── gelu.h
+│   │   ├── gemm_test.h
+│   │   ├── general_kernels.h
+│   │   ├── memory_access_utils.h
+│   │   ├── normalize_layer.h
+│   │   ├── quantization.h
+│   │   ├── quantization_utils.h
+│   │   ├── quantizer.h
+│   │   ├── reduction_utils.h
+│   │   ├── simd.h
+│   │   ├── softmax.h
+│   │   ├── strided_batch_gemm.h
+│   │   └── type_shim.h
+│   ├── lamb/
+│   │   ├── fused_lamb_cuda.cpp
+│   │   └── fused_lamb_cuda_kernel.cu
+│   ├── lion/
+│   │   ├── cpu_lion.cpp
+│   │   ├── cpu_lion_impl.cpp
+│   │   ├── fused_lion_frontend.cpp
+│   │   ├── multi_tensor_apply.cuh
+│   │   └── multi_tensor_lion.cu
+│   ├── quantization/
+│   │   ├── dequantize.cu
+│   │   ├── fake_quantizer.cu
+│   │   ├── pt_binding.cpp
+│   │   ├── quant_reduce.cu
+│   │   ├── quantize.cu
+│   │   ├── quantize_intX.cu
+│   │   └── swizzled_quantize.cu
+│   ├── random_ltd/
+│   │   ├── gather_scatter.cu
+│   │   ├── pt_binding.cpp
+│   │   ├── slice_attn_masks.cu
+│   │   └── token_sort.cu
+│   ├── sparse_attention/
+│   │   └── utils.cpp
+│   ├── spatial/
+│   │   ├── csrc/
+│   │   └── includes/
+│   ├── transformer/
+│   │   ├── cublas_wrappers.cu
+│   │   ├── dropout_kernels.cu
+│   │   ├── ds_transformer_cuda.cpp
+│   │   ├── gelu_kernels.cu
+│   │   ├── general_kernels.cu
+│   │   ├── inference/
+│   │   ├── normalize_kernels.cu
+│   │   ├── softmax_kernels.cu
+│   │   └── transform_kernels.cu
+│   ├── utils/
+│   │   ├── py_ds_utils.cpp
+│   │   ├── tensor_cast.cpp
+│   │   └── tensor_cast.h
+│   └── xpu/
+│       ├── adagrad/
+│       ├── adam/
+│       ├── common/
+│       ├── includes/
+│       └── packbits/
+├── deepspeed/
+│   ├── __init__.py
+│   ├── accelerator
+│   ├── autotuning/
+│   │   ├── .gitignore
+│   │   ├── README.md
+│   │   ├── __init__.py
+│   │   ├── autotuner.py
+│   │   ├── config.py
+│   │   ├── config_templates/
+│   │   ├── constants.py
+│   │   ├── scheduler.py
+│   │   ├── tuner/
+│   │   └── utils.py
+│   ├── checkpoint/
+│   │   ├── __init__.py
+│   │   ├── constants.py
+│   │   ├── deepspeed_checkpoint.py
+│   │   ├── ds_to_universal.py
+│   │   ├── reshape_3d_utils.py
+│   │   ├── reshape_meg_2d.py
+│   │   ├── reshape_utils.py
+│   │   ├── universal_checkpoint.py
+│   │   ├── utils.py
+│   │   └── zero_checkpoint.py
+│   ├── comm/
+│   │   ├── __init__.py
+│   │   ├── backend.py
+│   │   ├── ccl.py
+│   │   ├── comm.py
+│   │   ├── config.py
+│   │   ├── constants.py
+│   │   ├── reduce_op.py
+│   │   ├── torch.py
+│   │   └── utils.py
+│   ├── compat.py
+│   ├── compile/
+│   │   ├── __init__.py
+│   │   ├── backend.py
+│   │   ├── config.py
+│   │   ├── fx.py
+│   │   ├── graph_param.py
+│   │   ├── inductor.py
+│   │   ├── init_z1.py
+│   │   ├── init_z3.py
+│   │   ├── input_storage.py
+│   │   ├── list_schedule.py
+│   │   ├── partitioner.py
+│   │   ├── passes/
+│   │   ├── patch_compiled_func.py
+│   │   ├── patch_fake_tensor.py
+│   │   ├── profilers/
+│   │   └── util.py
+│   ├── compression/
+│   │   ├── __init__.py
+│   │   ├── basic_layer.py
+│   │   ├── compress.py
+│   │   ├── config.py
+│   │   ├── constants.py
+│   │   ├── helper.py
+│   │   ├── scheduler.py
+│   │   └── utils.py
+│   ├── constants.py
+│   ├── datastates/
+│   │   ├── README.md
+│   │   ├── __init__.py
+│   │   └── config.py
+│   ├── elasticity/
+│   │   ├── __init__.py
+│   │   ├── config.py
+│   │   ├── constants.py
+│   │   ├── elastic_agent.py
+│   │   ├── elasticity.py
+│   │   └── utils.py
+│   ├── env_report.py
+│   ├── git_version_info.py
+│   ├── inference/
+│   │   ├── __init__.py
+│   │   ├── config.py
+│   │   ├── engine.py
+│   │   ├── quantization/
+│   │   └── v2/
+│   ├── io/
+│   │   ├── __init__.py
+│   │   ├── base_file_writer.py
+│   │   ├── base_io_buffer.py
+│   │   ├── constants.py
+│   │   ├── double_io_buffer.py
+│   │   ├── fast_file_writer.py
+│   │   ├── mock_file_writer.py
+│   │   ├── py_file_writer.py
+│   │   ├── single_io_buffer.py
+│   │   └── utils.py
+│   ├── launcher/
+│   │   ├── __init__.py
+│   │   ├── constants.py
+│   │   ├── launch.py
+│   │   ├── launcher_helper.py
+│   │   ├── multinode_runner.py
+│   │   └── runner.py
+│   ├── linear/
+│   │   ├── __init__.py
+│   │   ├── config.py
+│   │   ├── context_manager.py
+│   │   ├── optimized_linear.py
+│   │   └── quantization.py
+│   ├── model_implementations/
+│   │   ├── __init__.py
+│   │   ├── diffusers/
+│   │   ├── features/
+│   │   └── transformers/
+│   ├── module_inject/
+│   │   ├── __init__.py
+│   │   ├── auto_tp.py
+│   │   ├── auto_tp_model_utils.py
+│   │   ├── autotp_config.py
+│   │   ├── containers/
+│   │   ├── fusedqkv_utils.py
+│   │   ├── inject.py
+│   │   ├── layers.py
+│   │   ├── load_checkpoint.py
+│   │   ├── module_quantize.py
+│   │   ├── policy.py
+│   │   ├── replace_module.py
+│   │   ├── replace_policy.py
+│   │   ├── tp_shard.py
+│   │   └── utils.py
+│   ├── moe/
+│   │   ├── __init__.py
+│   │   ├── experts.py
+│   │   ├── layer.py
+│   │   ├── mappings.py
+│   │   ├── sharded_moe.py
+│   │   └── utils.py
+│   ├── monitor/
+│   │   ├── __init__.py
+│   │   ├── comet.py
+│   │   ├── config.py
+│   │   ├── csv_monitor.py
+│   │   ├── monitor.py
+│   │   ├── tensorboard.py
+│   │   ├── utils.py
+│   │   └── wandb.py
+│   ├── nebula/
+│   │   ├── __init__.py
+│   │   ├── config.py
+│   │   └── constants.py
+│   ├── nvme/
+│   │   ├── __init__.py
+│   │   ├── ds_aio_args.py
+│   │   ├── ds_aio_basic.py
+│   │   ├── ds_aio_constants.py
+│   │   ├── ds_aio_handle.py
+│   │   ├── ds_aio_job.py
+│   │   ├── io_engine.py
+│   │   ├── parse_nvme_stats.py
+│   │   ├── perf_generate_param.py
+│   │   ├── perf_run_sweep.py
+│   │   ├── perf_sweep_utils.py
+│   │   ├── test_ds_aio.py
+│   │   ├── test_ds_aio_utils.py
+│   │   ├── torch_fastio_engine.py
+│   │   ├── torch_io.py
+│   │   └── validate_async_io.py
+│   ├── ops/
+│   │   ├── __init__.py
+│   │   ├── adagrad/
+│   │   ├── adam/
+│   │   ├── aio/
+│   │   ├── compile/
+│   │   ├── csrc
+│   │   ├── deepspeed4science/
+│   │   ├── fp_quantizer/
+│   │   ├── gds/
+│   │   ├── lamb/
+│   │   ├── lion/
+│   │   ├── op_builder
+│   │   ├── quantizer/
+│   │   ├── random_ltd/
+│   │   ├── sparse_attention/
+│   │   └── transformer/
+│   ├── pipe/
+│   │   └── __init__.py
+│   ├── profiling/
+│   │   ├── __init__.py
+│   │   ├── config.py
+│   │   ├── constants.py
+│   │   └── flops_profiler/
+│   ├── runtime/
+│   │   ├── __init__.py
+│   │   ├── activation_checkpointing/
+│   │   ├── base_optimizer.py
+│   │   ├── bf16_optimizer.py
+│   │   ├── checkpoint_engine/
+│   │   ├── comm/
+│   │   ├── compiler.py
+│   │   ├── compression/
+│   │   ├── config.py
+│   │   ├── config_utils.py
+│   │   ├── constants.py
+│   │   ├── data_pipeline/
+│   │   ├── dataloader.py
+│   │   ├── domino/
+│   │   ├── eigenvalue.py
+│   │   ├── engine.py
+│   │   ├── fp16/
+│   │   ├── hybrid_engine.py
+│   │   ├── lr_schedules.py
+│   │   ├── model_checkpointing/
+│   │   ├── pipe/
+│   │   ├── precision_config.py
+│   │   ├── progressive_layer_drop.py
+│   │   ├── quantize.py
+│   │   ├── sequence_parallel/
+│   │   ├── sparse_tensor.py
+│   │   ├── state_dict_factory.py
+│   │   ├── superoffload/
+│   │   ├── swap_tensor/
+│   │   ├── tensor_parallel/
+│   │   ├── torch_autocast.py
+│   │   ├── utils.py
+│   │   ├── weight_quantizer.py
+│   │   ├── zenflow/
+│   │   └── zero/
+│   ├── sequence/
+│   │   ├── __init__.py
+│   │   ├── cross_entropy.py
+│   │   ├── fpdt_layer.py
+│   │   └── layer.py
+│   └── utils/
+│       ├── __init__.py
+│       ├── bwc.py
+│       ├── comms_logging.py
+│       ├── config.py
+│       ├── debug.py
+│       ├── exceptions.py
+│       ├── groups.py
+│       ├── init_on_device.py
+│       ├── logging.py
+│       ├── mixed_precision_linkage.py
+│       ├── numa.py
+│       ├── nvtx.py
+│       ├── tensor_fragment.py
+│       ├── timer.py
+│       ├── torch.py
+│       ├── types.py
+│       ├── z3_leaf_module.py
+│       └── zero_to_fp32.py
+├── docker/
+│   ├── Dockerfile
+│   ├── gh-builder/
+│   │   ├── Dockerfile.py311
+│   │   └── Dockerfile.py312
+│   └── rocm/
+│       └── Dockerfile
+├── docs/
+│   ├── 404.html
+│   ├── CNAME
+│   ├── Gemfile
+│   ├── README.md
+│   ├── _config.yml
+│   ├── _data/
+│   │   └── navigation.yml
+│   ├── _includes/
+│   │   ├── analytics.html
+│   │   ├── archive-single.html
+│   │   ├── author-profile-custom-links.html
+│   │   ├── author-profile.html
+│   │   ├── breadcrumbs.html
+│   │   ├── browser-upgrade.html
+│   │   ├── category-list.html
+│   │   ├── comment.html
+│   │   ├── comments.html
+│   │   ├── documents-collection.html
+│   │   ├── feature_row
+│   │   ├── figure
+│   │   ├── footer.html
+│   │   ├── gallery
+│   │   ├── group-by-array
+│   │   ├── head.html
+│   │   ├── masthead.html
+│   │   ├── nav_list
+│   │   ├── page__date.html
+│   │   ├── page__hero.html
+│   │   ├── page__hero_video.html
+│   │   ├── page__meta.html
+│   │   ├── page__taxonomy.html
+│   │   ├── paginator.html
+│   │   ├── post_pagination.html
+│   │   ├── posts-category.html
+│   │   ├── posts-tag.html
+│   │   ├── scripts.html
+│   │   ├── seo.html
+│   │   ├── sidebar.html
+│   │   ├── skip-links.html
+│   │   ├── social-share.html
+│   │   ├── tag-list.html
+│   │   ├── toc
+│   │   ├── toc.html
+│   │   └── video
+│   ├── _layouts/
+│   │   └── single-full.html
+│   ├── _pages/
+│   │   ├── compression.md
+│   │   ├── config-json.md
+│   │   ├── deepspeed4science.md
+│   │   ├── inference.md
+│   │   ├── posts-landing.md
+│   │   ├── posts_list_landing.md
+│   │   ├── training.md
+│   │   └── tutorials-landing.md
+│   ├── _posts/
+│   │   ├── 2020-02-13-release.md
+│   │   ├── 2020-02-13-turing-nlg.md
+│   │   ├── 2020-03-17-reduce-scatter.md
+│   │   ├── 2020-05-19-bert-record.md
+│   │   ├── 2020-05-19-press-release.md
+│   │   ├── 2020-05-19-zero-stage2.md
+│   │   ├── 2020-05-28-fastest-bert-training.md
+│   │   ├── 2020-07-24-deepspeed-webinar.md
+│   │   ├── 2020-08-07-webinar-on-demand.md
+│   │   ├── 2020-09-08-sparse-attention-news.md
+│   │   ├── 2020-09-09-ZeRO-Offload.md
+│   │   ├── 2020-09-09-onebit-adam-blog-post.md
+│   │   ├── 2020-09-09-onebit-adam-news.md
+│   │   ├── 2020-09-09-pipeline-parallelism.md
+│   │   ├── 2020-09-09-sparse-attention.md
+│   │   ├── 2020-10-28-progressive-layer-dropping-news.md
+│   │   ├── 2021-03-08-zero3-offload.md
+│   │   ├── 2021-05-05-MoQ.md
+│   │   ├── 2021-05-05-inference-kernel-optimization.md
+│   │   ├── 2021-05-14-inference-release.md
+│   │   ├── 2021-08-18-deepspeed-moe.md
+│   │   ├── 2021-11-15-autotuning.md
+│   │   ├── 2021-12-09-deepspeed-moe-nlg.md
+│   │   ├── 2022-01-19-moe-inference.md
+│   │   ├── 2022-03-21-amd-support.md
+│   │   ├── 2022-07-26-deepspeed-azure.md
+│   │   ├── 2022-09-10-zero-inference.md
+│   │   ├── 2022-10-11-mii.md
+│   │   ├── 2022-12-12-data-efficiency.md
+│   │   ├── 2023-03-31-multi-modal.md
+│   │   ├── 2023-04-24-deepspeed-chat-chinese.md
+│   │   ├── 2023-04-24-deepspeed-chat-japanese.md
+│   │   ├── 2023-04-24-deepspeed-chat.md
+│   │   ├── 2023-06-07-deepspeed-overview-japanese.md
+│   │   ├── 2023-06-22-zeropp-chinese.md
+│   │   ├── 2023-06-22-zeropp-japanese.md
+│   │   ├── 2023-06-22-zeropp.md
+│   │   ├── 2023-08-24-ulysses-chinese.md
+│   │   ├── 2023-08-24-ulysses-japanese.md
+│   │   ├── 2023-08-24-ulysses.md
+│   │   ├── 2023-09-12-ZeRO-Inference.md
+│   │   ├── 2023-09-19-deepspeed4science-chinese.md
+│   │   ├── 2023-09-19-deepspeed4science-japanese.md
+│   │   ├── 2023-09-19-deepspeed4science.md
+│   │   ├── 2023-10-04-deepspeed-visualchat-chinese.md
+│   │   ├── 2023-10-04-deepspeed-visualchat-japanese.md
+│   │   ├── 2023-10-04-deepspeed-visualchat.md
+│   │   ├── 2023-11-06-deepspeed-fastgen-chinese.md
+│   │   ├── 2023-11-06-deepspeed-fastgen-japanese.md
+│   │   └── 2023-11-06-deepspeed-fastgen.md
+│   ├── _sass/
+│   │   ├── button-group.scss
+│   │   ├── minimal-mistakes.scss
+│   │   └── minimal-mistakes/
+│   ├── _tutorials/
+│   │   ├── MoQ-tutorial.md
+│   │   ├── accelerator-abstraction-interface.md
+│   │   ├── accelerator-setup-guide.md
+│   │   ├── advanced-install.md
+│   │   ├── automatic-tensor-parallelism.md
+│   │   ├── autotp-training.md
+│   │   ├── autotuning.md
+│   │   ├── azure.md
+│   │   ├── bert-finetuning.md
+│   │   ├── bert-pretraining.md
+│   │   ├── cifar-10.md
+│   │   ├── comms-logging.md
+│   │   ├── curriculum-learning.md
+│   │   ├── data-efficiency.md
+│   │   ├── datastates-async-checkpointing.md
+│   │   ├── deepnvme.md
+│   │   ├── domino.md
+│   │   ├── ds-sequence.md
+│   │   ├── ds4sci_evoformerattention.md
+│   │   ├── flops-profiler.md
+│   │   ├── gan.md
+│   │   ├── getting-started.md
+│   │   ├── inference-tutorial.md
+│   │   ├── large-models-w-deepspeed.md
+│   │   ├── lrrt.md
+│   │   ├── megatron.md
+│   │   ├── mixed_precision_zeropp.md
+│   │   ├── mixture-of-experts-inference.md
+│   │   ├── mixture-of-experts-nlg.md
+│   │   ├── mixture-of-experts.md
+│   │   ├── model-compression.md
+│   │   ├── monitor.md
+│   │   ├── one-cycle.md
+│   │   ├── onebit-adam.md
+│   │   ├── onebit-lamb.md
+│   │   ├── pipeline.md
+│   │   ├── progressive_layer_dropping.md
+│   │   ├── pytorch-profiler.md
+│   │   ├── sparse-attention.md
+│   │   ├── transformer_kernel.md
+│   │   ├── ulysses-alst-sequence-parallelism.md
+│   │   ├── ulysses-offload.md
+│   │   ├── universal-checkpointing.md
+│   │   ├── zenflow.md
+│   │   ├── zero-offload.md
+│   │   ├── zero-one-adam.md
+│   │   ├── zero.md
+│   │   └── zeropp.md
+│   ├── assets/
+│   │   ├── css/
+│   │   ├── files/
+│   │   └── images/
+│   ├── code-docs/
+│   │   ├── Makefile
+│   │   ├── build-api-docs.sh
+│   │   └── source/
+│   ├── contributing.md
+│   └── index.md
+├── environment.yml
+├── examples/
+│   └── README.md
+├── install.sh
+├── op_builder/
+│   ├── __init__.py
+│   ├── all_ops.py
+│   ├── async_io.py
+│   ├── builder.py
+│   ├── cpu/
+│   │   ├── __init__.py
+│   │   ├── async_io.py
+│   │   ├── builder.py
+│   │   ├── comm.py
+│   │   ├── cpu_adam.py
+│   │   ├── fused_adam.py
+│   │   └── no_impl.py
+│   ├── cpu_adagrad.py
+│   ├── cpu_adam.py
+│   ├── cpu_lion.py
+│   ├── dc.py
+│   ├── evoformer_attn.py
+│   ├── fp_quantizer.py
+│   ├── fused_adam.py
+│   ├── fused_lamb.py
+│   ├── fused_lion.py
+│   ├── gds.py
+│   ├── hpu/
+│   │   ├── __init__.py
+│   │   ├── builder.py
+│   │   ├── cpu_adam.py
+│   │   ├── fp_quantizer.py
+│   │   ├── fused_adam.py
+│   │   ├── no_impl.py
+│   │   └── transformer_inference.py
+│   ├── inference_core_ops.py
+│   ├── inference_cutlass_builder.py
+│   ├── mlu/
+│   │   ├── __init__.py
+│   │   ├── builder.py
+│   │   ├── cpu_adagrad.py
+│   │   ├── cpu_adam.py
+│   │   ├── fused_adam.py
+│   │   └── no_impl.py
+│   ├── npu/
+│   │   ├── __init__.py
+│   │   ├── async_io.py
+│   │   ├── builder.py
+│   │   ├── cpu_adagrad.py
+│   │   ├── cpu_adam.py
+│   │   ├── cpu_lion.py
+│   │   ├── fused_adam.py
+│   │   ├── inference.py
+│   │   └── no_impl.py
+│   ├── quantizer.py
+│   ├── ragged_ops.py
+│   ├── ragged_utils.py
+│   ├── random_ltd.py
+│   ├── sdaa/
+│   │   ├── __init__.py
+│   │   ├── builder.py
+│   │   ├── cpu_adam.py
+│   │   ├── fused_adam.py
+│   │   └── no_impl.py
+│   ├── sparse_attn.py
+│   ├── spatial_inference.py
+│   ├── stochastic_transformer.py
+│   ├── transformer.py
+│   ├── transformer_inference.py
+│   ├── utils.py
+│   └── xpu/
+│       ├── __init__.py
+│       ├── async_io.py
+│       ├── builder.py
+│       ├── cpu_adagrad.py
+│       ├── cpu_adam.py
+│       ├── flash_attn.py
+│       ├── fused_adam.py
+│       ├── no_impl.py
+│       └── packbits.py
+├── release/
+│   ├── bump_patch_version.py
+│   ├── check_release_version.py
+│   └── release.sh
+├── requirements/
+│   ├── requirements-1bit-mpi.txt
+│   ├── requirements-autotuning-ml.txt
+│   ├── requirements-autotuning.txt
+│   ├── requirements-cpu.txt
+│   ├── requirements-deepcompile.txt
+│   ├── requirements-dev.txt
+│   ├── requirements-inf.txt
+│   ├── requirements-readthedocs.txt
+│   ├── requirements-sd.txt
+│   ├── requirements-sparse_attn.txt
+│   ├── requirements-sparse_pruning.txt
+│   ├── requirements-triton.txt
+│   └── requirements.txt
+├── scripts/
+│   ├── check-extraindexurl.py
+│   ├── check-license.py
+│   ├── check-torchcuda.py
+│   ├── check-torchdist.py
+│   └── replace_copyright.py
+├── setup.cfg
+├── setup.py
+├── tests/
+│   ├── .coveragerc
+│   ├── accelerator/
+│   │   ├── ds_config.json
+│   │   └── test_ds_init.py
+│   ├── benchmarks/
+│   │   ├── DS4Sci_EvoformerAttention_bench.py
+│   │   ├── flatten_bench.py
+│   │   └── unflatten_bench.py
+│   ├── conftest.py
+│   ├── hybrid_engine/
+│   │   ├── hybrid_engine_config.json
+│   │   └── hybrid_engine_test.py
+│   ├── lightning/
+│   │   └── test_simple.py
+│   ├── model/
+│   │   ├── BingBertSquad/
+│   │   ├── Megatron_GPT2/
+│   │   └── run_sanity_check.py
+│   ├── onebit/
+│   │   ├── README.md
+│   │   ├── test_compressed_backend.py
+│   │   ├── test_compressed_perf.py
+│   │   ├── test_mpi_backend.py
+│   │   ├── test_mpi_perf.py
+│   │   ├── test_nccl_backend.py
+│   │   └── test_nccl_perf.py
+│   ├── perf/
+│   │   ├── adagrad_test.py
+│   │   ├── adam_test.py
+│   │   └── adam_test1.py
+│   ├── pytest.ini
+│   ├── small_model_debugging/
+│   │   ├── partial_offload_test.py
+│   │   ├── stage3_test.py
+│   │   ├── test.py
+│   │   ├── test_mics.sh
+│   │   ├── test_mics_config.py
+│   │   └── test_model.py
+│   ├── torch_compile/
+│   │   ├── ds_config_z2.json
+│   │   ├── ds_config_z3.json
+│   │   └── test_compile.py
+│   └── unit/
+│       ├── __init__.py
+│       ├── accelerator/
+│       ├── alexnet_model.py
+│       ├── autotuning/
+│       ├── checkpoint/
+│       ├── comm/
+│       ├── common.py
+│       ├── compression/
+│       ├── ds_batch_config.json
+│       ├── elasticity/
+│       ├── gpt2-merges.txt
+│       ├── gpt2-vocab.json
+│       ├── hybrid_engine/
+│       ├── inference/
+│       ├── launcher/
+│       ├── linear/
+│       ├── megatron_model.py
+│       ├── model_parallelism/
+│       ├── modeling.py
+│       ├── modelingpreln.py
+│       ├── moe/
+│       ├── monitor/
+│       ├── multi_output_model.py
+│       ├── ops/
+│       ├── pipe/
+│       ├── profiling/
+│       ├── runtime/
+│       ├── sequence_parallelism/
+│       ├── simple_model.py
+│       ├── ulysses_alst/
+│       ├── util.py
+│       ├── utils/
+│       └── v1/
+└── version.txt

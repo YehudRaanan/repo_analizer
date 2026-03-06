@@ -1,0 +1,1515 @@
+=====================================
+Repository Analysis: directus
+Type: Backend / API Service
+=====================================
+
+--- METADATA ---
+Name: directus
+Description: The flexible backend for all your projects 🐰 Turn your DB into a headless CMS, admin panels, or apps with a custom UI, instant APIs, auth & more.
+Language: TypeScript
+Topics: api, app, cms, composable, data-visualization, database, directus, graphql, headless-cms, javascript, mariadb, mssql, mysql, no-code, node, postgresql, sql, sqlite, typescript, vue
+Stars: 34388
+License: Other
+
+--- README ---
+directus/readme.md
+
+--- PACKAGE MANIFEST(S) ---
+
+[package.json]
+{
+	"name": "directus-monorepo",
+	"private": true,
+	"homepage": "https://directus.io",
+	"type": "module",
+	"scripts": {
+		"build": "pnpm --recursive run build",
+		"format": "prettier --cache --check .",
+		"lint": "eslint --cache .",
+		"lint:style": "stylelint '**/*.{css,scss,vue}' --ignore-path .gitignore --cache",
+		"test": "pnpm --recursive --filter '!tests-blackbox' test",
+		"test:blackbox": "rimraf ./dist && pnpm --filter directus deploy --legacy --prod dist && pnpm --filter tests-blackbox test",
+		"test:coverage": "pnpm --recursive --filter '!tests-blackbox' test:coverage"
+	},
+	"devDependencies": {
+		"@changesets/cli": "catalog:",
+		"@directus/release-notes-generator": "workspace:*",
+		"@eslint/js": "catalog:",
+		"eslint": "catalog:",
+		"eslint-config-prettier": "catalog:",
+		"eslint-plugin-import": "catalog:",
+		"eslint-plugin-vue": "catalog:",
+		"globals": "catalog:",
+		"postcss-html": "catalog:",
+		"prettier": "catalog:",
+		"rimraf": "catalog:",
+		"stylelint": "catalog:",
+		"stylelint-config-standard": "catalog:",
+		"stylelint-config-standard-scss": "catalog:",
+		"stylelint-config-standard-vue": "catalog:",
+		"stylelint-use-logical": "catalog:",
+		"typescript": "catalog:",
+		"typescript-eslint": "catalog:"
+	},
+	"pnpm": {
+		"overrides": {
+			"fast-xml-parser": "5.3.8",
+			"@yarnpkg/shell>cross-spawn": "7.0.6",
+			"@rollup/plugin-terser>serialize-javascript": "7.0.3",
+			"tar": "7.5.8",
+			"qs": "6.14.2",
+			"minimatch@10": "10.2.3",
+			"minimatch@9": "9.0.7",
+			"basic-ftp": "5.2.0"
+		}
+	},
+	"packageManager": "pnpm@10.27.0",
+	"engines": {
+		"node": "22",
+		"pnpm": ">=10 <11"
+	}
+}
+
+
+--- BACKEND CONFIG FILES ---
+
+[docker-compose.yml]
+# This compose file is meant to spin up a copy of supported database vendors,
+# Redis, S3 (Minio) and a fake SMTP server (MailDev).
+#
+# ONLY FOR DEBUGGING. THIS IS NOT INTENDED FOR PRODUCTION USE.
+#
+# For production use see the docker compose file example in the docs:
+#     https://docs.directus.io/self-hosted/docker-guide.html#example-docker-compose
+#
+# For receiving emails via MailDev, you'll need to add the following to your env:
+#   EMAIL_FROM=directus@directus.io
+#   EMAIL_TRANSPORT=smtp
+#   EMAIL_SMTP_HOST=0.0.0.0
+#   EMAIL_SMTP_PORT=1025
+#
+# Ports:
+#   Maildev SMTP:    1025
+#   Maildev Web-UI:  1080
+#   Postgres:        5100
+#   MySQL (8):       5101
+#   MariaDB:         5102
+#   MS SQL:          5103
+#   Oracle:          5104
+#   Redis:           5105
+#   Minio (S3):      5106
+#   Azure            5107
+#   MySQL (5.7):     5108
+#   Keycloak:        5110
+#   Postgres (10):   5111
+#   Minio Admin:     5112
+#   CockroachDB:     5113
+#
+# Credentials:
+#   Postgres:
+#     User:          postgres
+#     Password:      secret
+#
+#   MySQL:
+#     User:          root
+#     Password:      secret
+#
+#   MariaDB:
+#     User:          root
+#     Password:      secret
+#
+#   MS SQL:
+#     User:          sa
+#     Password:      Test@123
+#
+#   Oracle DB:
+#     User:          secretsysuser
+#     Password:      secretpassword
+#     Role:          SYSDEFAULT
+#     SID:           XE
+#
+#   Redis:
+#     n/a
+#
+#   Minio:
+#     Key:           minioadmin
+#     Secret:        minioadmin
+#     (Make sure to set S3_FORCE_PATH_STYLE to true)
+#
+#   Azure Blob Storage
+#     Name:          devstoreaccount1
+#     Key:           Eby8vdM02xNOcqFlqUwJPLlmEtlCDXJ1OUzFT50uSRZ6IFsuFq2UVErCz4I6tq/K1SZFPTOtr/KBHBeksoGMGw==
+#     Container:     devstoreaccount1
+#
+#   Keycloak
+#     User:          admin
+#     Password:      secret
+#
+#   CockroachDB
+#     User:          admin
+#     Password:      --
+
+version: '3.8'
+
+services:
+  postgres:
+    image: postgis/postgis:13-3.4-alpine
+    environment:
+      POSTGRES_PASSWORD: secret
+      POSTGRES_DB: directus
+    ports:
+      - 5100:5432
+
+  postgres10:
+    image: postgis/postgis:10-3.2-alpine
+    environment:
+      POSTGRES_PASSWORD: secret
+      POSTGRES_DB: directus
+    ports:
+      - 5111:5432
+
+  mysql:
+    image: mysql:8
+    command: --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+    environment:
+      MYSQL_ROOT_PASSWORD: secret
+      MYSQL_DATABASE: directus
+    ports:
+      - 5101:3306
+
+  mysql5:
+    image: mysql:5
+    environment:
+      MYSQL_ROOT_PASSWORD: secret
+      MYSQL_DATABASE: directus
+    ports:
+      - 5108:3306
+
+  maria:
+    image: mariadb:11.4
+    command: --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+    environment:
+      MYSQL_ROOT_PASSWORD: secret
+      MYSQL_DATABASE: directus
+    ports:
+      - 5102:3306
+
+  mssql:
+    image: mcr.microsoft.com/mssql/server:2019-latest
+    environment:
+      - ACCEPT_EULA=Y
+      - SA_PASSWORD=Test@123
+    ports:
+      - 5103:1433
+
+  oracle
+... [TRUNCATED]
+
+[Dockerfile]
+# syntax=docker/dockerfile:1.4
+
+ARG NODE_VERSION=22
+
+####################################################################################################
+## Build Packages
+
+FROM node:${NODE_VERSION}-alpine AS builder
+
+# Remove again once corepack >= 0.31 made it into base image
+# (see https://github.com/directus/directus/issues/24514)
+RUN npm install --global corepack@latest
+
+RUN apk --no-cache add python3 py3-setuptools build-base
+
+WORKDIR /directus
+
+COPY package.json .
+RUN corepack enable && corepack prepare
+
+# Deploy as 'node' user to match pnpm setups in production image
+# (see https://github.com/directus/directus/issues/23822)
+RUN chown node:node .
+USER node
+
+ENV NODE_OPTIONS=--max-old-space-size=8192
+
+COPY pnpm-lock.yaml .
+RUN pnpm fetch
+
+COPY --chown=node:node . .
+RUN <<EOF
+	set -ex
+	pnpm install --recursive --offline --frozen-lockfile
+	npm_config_workspace_concurrency=2 pnpm run build
+	pnpm --filter directus deploy --legacy --prod dist
+	cd dist
+	# Regenerate package.json file with essential fields only
+	# (see https://github.com/directus/directus/issues/20338)
+	node -e '
+		const f = "package.json", {name, version, type, exports, bin} = require(`./${f}`), {packageManager} = require(`../${f}`);
+		fs.writeFileSync(f, JSON.stringify({name, version, type, exports, bin, packageManager}, null, 2));
+	'
+	mkdir -p database extensions uploads
+EOF
+
+####################################################################################################
+## Create Production Image
+
+FROM node:${NODE_VERSION}-alpine AS runtime
+
+RUN npm install --global \
+	pm2@5 \
+	corepack@latest # Remove again once corepack >= 0.31 made it into base image
+
+USER node
+
+WORKDIR /directus
+
+ENV \
+	DB_CLIENT="sqlite3" \
+	DB_FILENAME="/directus/database/database.sqlite" \
+	NODE_ENV="production" \
+	NPM_CONFIG_UPDATE_NOTIFIER="false"
+
+COPY --from=builder --chown=node:node /directus/ecosystem.config.cjs .
+COPY --from=builder --chown=node:node /directus/dist .
+
+EXPOSE 8055
+
+CMD : \
+	&& node cli.js bootstrap \
+	&& pm2-runtime start ecosystem.config.cjs \
+	;
+
+
+--- API ROUTE / ENDPOINT DEFINITIONS ---
+
+[api/src/ai/chat/controllers/chat.post.test.ts]
+import { ForbiddenError, InvalidPayloadError } from '@directus/errors';
+import { safeValidateUIMessages } from 'ai';
+import type { NextFunction, Request, Response } from 'express';
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
+import { createUiStream } from '../lib/create-ui-stream.js';
+import { chatRequestToolToAiSdkTool } from '../utils/chat-request-tool-to-ai-sdk-tool.js';
+import { aiChatPostHandler } from './chat.post.js';
+
+// Mock dependencies
+vi.mock('ai', () => ({
+	safeValidateUIMessages: vi.fn(),
+}));
+
+vi.mock('../lib/create-ui-stream.js', () => ({
+	createUiStream: vi.fn(),
+}));
+
+vi.mock('../utils/chat-request-tool-to-ai-sdk-tool.js', () => ({
+	chatRequestToolToAiSdkTool: vi.fn(),
+}));
+
+describe('aiChatPostHandler', () => {
+	let mockReq: Partial<Request>;
+	let mockRes: Partial<Response>;
+	let mockNext: NextFunction;
+	let mockStream: { pipeUIMessageStreamToResponse: ReturnType<typeof vi.fn> };
+
+	beforeEach(() => {
+		mockStream = {
+			pipeUIMessageStreamToResponse: vi.fn(),
+		};
+
+		mockNext = vi.fn();
+
+		mockReq = {
+			body: {},
+			accountability: { user: 'test-user', role: 'test-role', app: true } as any,
+			schema: { collections: {}, relations: {} } as any,
+		} as any;
+
+		mockRes = {
+			locals: {
+				ai: {
+					settings: {
+						openaiApiKey: 'test-openai-key',
+						anthropicApiKey: 'test-anthropic-key',
+						googleApiKey: null,
+						openaiCompatibleApiKey: null,
+						openaiCompatibleBaseUrl: null,
+						openaiCompatibleName: null,
+						openaiCompatibleModels: null,
+						openaiCompatibleHeaders: null,
+						openaiAllowedModels: ['gpt-5', 'gpt-5-mini', 'gpt-5-nano', 'any-model-name'],
+						anthropicAllowedModels: ['claude-sonnet-4-5', 'any-model-name'],
+						googleAllowedModels: ['gemini-2.5-pro', 'gemini-2.5-flash'],
+						systemPrompt: null,
+					},
+					systemPrompt: undefined,
+				},
+			},
+		} as any;
+
+		vi.mocked(createUiStream).mockImplementation(() => mockStream as any);
+
+		vi.mocked(chatRequestToolToAiSdkTool).mockImplementation((tool: any) => ({ tool }) as any);
+
+		vi.mocked(safeValidateUIMessages).mockResolvedValue({
+			success: true,
+			data: [{ role: 'user', content: 'test message' }],
+		} as any);
+	});
+
+	afterEach(() => {
+		vi.clearAllMocks();
+	});
+
+	describe('authentication and authorization', () => {
+		it('should throw ForbiddenError when accountability is missing', async () => {
+			delete (mockReq as any).accountability;
+
+			await expect(aiChatPostHandler(mockReq as Request, mockRes as Response, mockNext)).rejects.toThrow(
+				ForbiddenError,
+			);
+		});
+
+		it('should throw ForbiddenError when accountability is null', async () => {
+			mockReq.accountability = null as any;
+
+			await expect(aiChatPostHandler(mockReq as Request, mockRes as Response, mockNext)).rejects.toThrow(
+				ForbiddenError,
+			);
+		});
+	});
+
+	describe('input validation', () => {
+		it('should throw InvalidPayloadError when provider is missing', async () => {
+			mockReq.body = {
+				model: 'gpt-5',
+				messages: [{ role:
+... [TRUNCATED]
+
+[api/src/ai/chat/controllers/chat.post.ts]
+import type { StandardProviderType } from '@directus/ai';
+import { ForbiddenError, InvalidPayloadError } from '@directus/errors';
+import { safeValidateUIMessages, type Tool } from 'ai';
+import type { RequestHandler } from 'express';
+import { fromZodError } from 'zod-validation-error';
+import { createUiStream } from '../lib/create-ui-stream.js';
+import { ChatRequest } from '../models/chat-request.js';
+import { chatRequestToolToAiSdkTool } from '../utils/chat-request-tool-to-ai-sdk-tool.js';
+import { fixErrorToolCalls } from '../utils/fix-error-tool-calls.js';
+
+export const aiChatPostHandler: RequestHandler = async (req, res, _next) => {
+	if (!req.accountability?.app) {
+		throw new ForbiddenError();
+	}
+
+	const parseResult = ChatRequest.safeParse(req.body);
+
+	if (!parseResult.success) {
+		throw new InvalidPayloadError({ reason: fromZodError(parseResult.error).message });
+	}
+
+	const { provider, model, messages: rawMessages, tools: requestedTools, toolApprovals, context } = parseResult.data;
+
+	const aiSettings = res.locals['ai'].settings;
+
+	const allowedModelsMap: Record<StandardProviderType, string[] | null> = {
+		openai: aiSettings.openaiAllowedModels,
+		anthropic: aiSettings.anthropicAllowedModels,
+		google: aiSettings.googleAllowedModels,
+	};
+
+	// For standard providers: null/empty = no models allowed, must be in list
+	// openai-compatible skips validation entirely
+	if (provider !== 'openai-compatible') {
+		const allowedModels = allowedModelsMap[provider];
+
+		if (!allowedModels || allowedModels.length === 0 || !allowedModels.includes(model)) {
+			throw new ForbiddenError({ reason: 'Model not allowed for this provider' });
+		}
+	}
+
+	if (rawMessages.length === 0) {
+		throw new InvalidPayloadError({ reason: `"messages" must not be empty` });
+	}
+
+	const tools = requestedTools.reduce<{ [x: string]: Tool<unknown, unknown> }>((acc, t) => {
+		const name = typeof t === 'string' ? t : t.name;
+
+		const aiTool = chatRequestToolToAiSdkTool({
+			chatRequestTool: t,
+			accountability: req.accountability!,
+			schema: req.schema,
+			...(toolApprovals && { toolApprovals }),
+		}) as Tool<unknown, unknown>;
+
+		acc[name] = aiTool;
+
+		return acc;
+	}, {});
+
+	const fixedMessages = fixErrorToolCalls(rawMessages);
+	const validationResult = await safeValidateUIMessages({ messages: fixedMessages });
+
+	if (validationResult.success === false) {
+		throw new InvalidPayloadError({ reason: validationResult.error.message });
+	}
+
+	const stream = await createUiStream(validationResult.data, {
+		provider,
+		model,
+		tools,
+		aiSettings,
+		systemPrompt: res.locals['ai'].systemPrompt,
+		...(context && { context }),
+		onUsage: (usage) => {
+			res.write(`data: ${JSON.stringify({ type: 'data-usage', data: usage })}\n\n`);
+		},
+	});
+
+	stream.pipeUIMessageStreamToResponse(res);
+};
+
+
+[api/src/ai/files/controllers/upload.test.ts]
+import { Readable } from 'node:stream';
+import { ForbiddenError, InvalidPayloadError } from '@directus/errors';
+import type { NextFunction, Request, Response } from 'express';
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
+import { uploadToProvider } from '../lib/upload-to-provider.js';
+import { aiFileUploadHandler } from './upload.js';
+
+vi.mock('../lib/upload-to-provider.js', () => ({
+	uploadToProvider: vi.fn(),
+}));
+
+function createMockMultipartRequest(
+	fields: Record<string, string>,
+	file?: { name: string; data: Buffer; type: string },
+) {
+	const boundary = '----WebKitFormBoundary7MA4YWxkTrZu0gW';
+	const parts: string[] = [];
+
+	for (const [key, value] of Object.entries(fields)) {
+		parts.push(`--${boundary}\r\nContent-Disposition: form-data; name="${key}"\r\n\r\n${value}`);
+	}
+
+	if (file) {
+		parts.push(
+			`--${boundary}\r\nContent-Disposition: form-data; name="file"; filename="${file.name}"\r\nContent-Type: ${file.type}\r\n\r\n`,
+		);
+	}
+
+	const bodyStart = parts.join('\r\n') + '\r\n';
+	const bodyEnd = `\r\n--${boundary}--\r\n`;
+
+	const chunks: Buffer[] = [Buffer.from(bodyStart)];
+
+	if (file) {
+		chunks.push(file.data);
+	}
+
+	chunks.push(Buffer.from(bodyEnd));
+	const body = Buffer.concat(chunks);
+
+	const stream = new Readable({
+		read() {
+			this.push(body);
+			this.push(null);
+		},
+	});
+
+	return {
+		stream,
+		headers: {
+			'content-type': `multipart/form-data; boundary=${boundary}`,
+			'content-length': String(body.length),
+		},
+	};
+}
+
+describe('aiFileUploadHandler', () => {
+	let mockReq: Partial<Request>;
+	let mockRes: Partial<Response>;
+	let mockNext: NextFunction;
+
+	beforeEach(() => {
+		mockNext = vi.fn();
+
+		mockRes = {
+			locals: {
+				ai: {
+					settings: {
+						openaiApiKey: 'test-openai-key',
+						anthropicApiKey: 'test-anthropic-key',
+						googleApiKey: 'test-google-key',
+						openaiCompatibleApiKey: null,
+						openaiCompatibleBaseUrl: null,
+						openaiCompatibleName: null,
+						openaiCompatibleModels: null,
+						openaiCompatibleHeaders: null,
+						openaiAllowedModels: null,
+						anthropicAllowedModels: null,
+						googleAllowedModels: null,
+						systemPrompt: null,
+					},
+				},
+			},
+			json: vi.fn(),
+		} as any;
+
+		vi.mocked(uploadToProvider).mockResolvedValue({
+			provider: 'openai',
+			fileId: 'file-abc123',
+			filename: 'test.pdf',
+			mimeType: 'application/pdf',
+			sizeBytes: 12,
+			expiresAt: null,
+		});
+	});
+
+	afterEach(() => {
+		vi.clearAllMocks();
+	});
+
+	describe('authentication', () => {
+		it('should throw ForbiddenError when accountability is missing', async () => {
+			const { stream, headers } = createMockMultipartRequest(
+				{ provider: 'openai' },
+				{ name: 'test.pdf', data: Buffer.from('test'), type: 'application/pdf' },
+			);
+
+			mockReq = {
+				headers,
+				accountability: null as any,
+				pipe: stream.pipe.bind(stream),
+			} as any;
+
+			await aiFileUploadHandler(mockReq as Request, mockRes as Response, mockNext);
+
+			expect(mockNext).toHaveBeenCalledWith(expect.any(Forb
+... [TRUNCATED]
+
+[api/src/ai/files/controllers/upload.ts]
+import type { IncomingHttpHeaders } from 'node:http';
+import type { StandardProviderType } from '@directus/ai';
+import { AI_ALLOWED_MIME_TYPES } from '@directus/ai';
+import { ForbiddenError, InvalidPayloadError } from '@directus/errors';
+import Busboy from 'busboy';
+import type { RequestHandler } from 'express';
+import { useLogger } from '../../../logger/index.js';
+import { uploadToProvider } from '../lib/upload-to-provider.js';
+import type { UploadedFile } from '../types.js';
+
+const MAX_FILE_SIZE = 50 * 1024 * 1024; // 50MB
+
+const ALLOWED_MIME_TYPES: Set<string> = new Set(AI_ALLOWED_MIME_TYPES);
+
+const SUPPORTED_PROVIDERS = new Set<StandardProviderType>(['openai', 'anthropic', 'google']);
+
+function isSupportedProvider(provider: string): provider is StandardProviderType {
+	return SUPPORTED_PROVIDERS.has(provider as StandardProviderType);
+}
+
+interface ParsedMultipart {
+	file: UploadedFile | undefined;
+	provider: string | undefined;
+}
+
+async function parseMultipart(headers: IncomingHttpHeaders, stream: NodeJS.ReadableStream): Promise<ParsedMultipart> {
+	const contentType = headers['content-type'];
+
+	if (!contentType || !contentType.toLowerCase().startsWith('multipart/')) {
+		throw new InvalidPayloadError({ reason: 'Expected multipart/form-data content type' });
+	}
+
+	return new Promise((resolve, reject) => {
+		let file: UploadedFile | undefined;
+		let provider: string | undefined;
+		let settled = false;
+
+		const safeReject = (error: unknown) => {
+			if (settled) return;
+			settled = true;
+			reject(error);
+		};
+
+		const bb = Busboy({
+			headers: headers as Record<string, string>,
+			limits: { fileSize: MAX_FILE_SIZE, files: 1 },
+		});
+
+		bb.on('file', (_name, fileStream, info) => {
+			const chunks: Buffer[] = [];
+			let exceeded = false;
+
+			fileStream.on('data', (chunk: Buffer) => chunks.push(chunk));
+
+			fileStream.on('limit', () => {
+				exceeded = true;
+				fileStream.destroy();
+
+				safeReject(
+					new InvalidPayloadError({ reason: `File exceeds maximum size of ${MAX_FILE_SIZE / (1024 * 1024)}MB` }),
+				);
+			});
+
+			fileStream.on('close', () => {
+				if (exceeded) return;
+
+				file = {
+					filename: info.filename || 'file',
+					mimeType: info.mimeType,
+					data: Buffer.concat(chunks),
+				};
+			});
+
+			fileStream.on('error', safeReject);
+		});
+
+		bb.on('field', (name, value) => {
+			if (name === 'provider') provider = value;
+		});
+
+		bb.on('close', () => {
+			if (settled) return;
+			settled = true;
+			resolve({ file, provider });
+		});
+
+		bb.on('error', safeReject);
+
+		stream.pipe(bb);
+	});
+}
+
+export const aiFileUploadHandler: RequestHandler = async (req, res, next) => {
+	const logger = useLogger();
+
+	try {
+		if (!req.accountability?.app) {
+			throw new ForbiddenError();
+		}
+
+		const aiSettings = res.locals['ai']?.settings;
+
+		if (!aiSettings) {
+			throw new InvalidPayloadError({ reason: 'AI settings not loaded' });
+		}
+
+		const { file, provider } = await parseMultipart(req.headers, req);
+
+		if (!file) {
+			throw new InvalidPayloadError({
+... [TRUNCATED]
+
+[api/src/controllers/access.ts]
+import { ErrorCode, isDirectusError } from '@directus/errors';
+import type { PrimaryKey } from '@directus/types';
+import express from 'express';
+import { respond } from '../middleware/respond.js';
+import useCollection from '../middleware/use-collection.js';
+import { validateBatch } from '../middleware/validate-batch.js';
+import { AccessService } from '../services/access.js';
+import { MetaService } from '../services/meta.js';
+import asyncHandler from '../utils/async-handler.js';
+import { sanitizeQuery } from '../utils/sanitize-query.js';
+
+const router = express.Router();
+
+router.use(useCollection('directus_access'));
+
+router.post(
+	'/',
+	asyncHandler(async (req, res, next) => {
+		const service = new AccessService({
+			accountability: req.accountability,
+			schema: req.schema,
+		});
+
+		const savedKeys: PrimaryKey[] = [];
+
+		if (Array.isArray(req.body)) {
+			const keys = await service.createMany(req.body);
+			savedKeys.push(...keys);
+		} else {
+			const key = await service.createOne(req.body);
+			savedKeys.push(key);
+		}
+
+		try {
+			if (Array.isArray(req.body)) {
+				const items = await service.readMany(savedKeys, req.sanitizedQuery);
+				res.locals['payload'] = { data: items };
+			} else {
+				const item = await service.readOne(savedKeys[0]!, req.sanitizedQuery);
+				res.locals['payload'] = { data: item };
+			}
+		} catch (error: any) {
+			if (isDirectusError(error, ErrorCode.Forbidden)) {
+				return next();
+			}
+
+			throw error;
+		}
+
+		return next();
+	}),
+	respond,
+);
+
+const readHandler = asyncHandler(async (req, res, next) => {
+	const service = new AccessService({
+		accountability: req.accountability,
+		schema: req.schema,
+	});
+
+	const metaService = new MetaService({
+		accountability: req.accountability,
+		schema: req.schema,
+	});
+
+	let result;
+
+	if (req.body.keys) {
+		result = await service.readMany(req.body.keys, req.sanitizedQuery);
+	} else {
+		result = await service.readByQuery(req.sanitizedQuery);
+	}
+
+	const meta = await metaService.getMetaForQuery('directus_access', req.sanitizedQuery);
+
+	res.locals['payload'] = { data: result, meta };
+	return next();
+});
+
+router.get('/', validateBatch('read'), readHandler, respond);
+router.search('/', validateBatch('read'), readHandler, respond);
+
+router.get(
+	'/:pk',
+	asyncHandler(async (req, res, next) => {
+		if (req.path.endsWith('me')) return next();
+
+		const service = new AccessService({
+			accountability: req.accountability,
+			schema: req.schema,
+		});
+
+		const record = await service.readOne(req.params['pk']!, req.sanitizedQuery);
+
+		res.locals['payload'] = { data: record };
+		return next();
+	}),
+	respond,
+);
+
+router.patch(
+	'/',
+	validateBatch('update'),
+	asyncHandler(async (req, res, next) => {
+		const service = new AccessService({
+			accountability: req.accountability,
+			schema: req.schema,
+		});
+
+		let keys: PrimaryKey[] = [];
+
+		if (Array.isArray(req.body)) {
+			keys = await service.updateBatch(req.body);
+		} else if (req.body.keys) {
+			keys = await service.updateMany(req.body.keys, req.body.d
+... [TRUNCATED]
+
+[api/src/controllers/activity.ts]
+import express from 'express';
+import { respond } from '../middleware/respond.js';
+import useCollection from '../middleware/use-collection.js';
+import { validateBatch } from '../middleware/validate-batch.js';
+import { ActivityService } from '../services/activity.js';
+import { MetaService } from '../services/meta.js';
+import asyncHandler from '../utils/async-handler.js';
+
+const router = express.Router();
+
+router.use(useCollection('directus_activity'));
+
+const readHandler = asyncHandler(async (req, res, next) => {
+	const service = new ActivityService({
+		accountability: req.accountability,
+		schema: req.schema,
+	});
+
+	const metaService = new MetaService({
+		accountability: req.accountability,
+		schema: req.schema,
+	});
+
+	let result;
+
+	if (req.singleton) {
+		result = await service.readSingleton(req.sanitizedQuery);
+	} else if (req.body.keys) {
+		result = await service.readMany(req.body.keys, req.sanitizedQuery);
+	} else {
+		result = await service.readByQuery(req.sanitizedQuery);
+	}
+
+	const meta = await metaService.getMetaForQuery('directus_activity', req.sanitizedQuery);
+
+	res.locals['payload'] = {
+		data: result,
+		meta,
+	};
+
+	return next();
+});
+
+router.search('/', validateBatch('read'), readHandler, respond);
+router.get('/', readHandler, respond);
+
+router.get(
+	'/:pk',
+	asyncHandler(async (req, res, next) => {
+		const service = new ActivityService({
+			accountability: req.accountability,
+			schema: req.schema,
+		});
+
+		const record = await service.readOne(req.params['pk']!, req.sanitizedQuery);
+
+		res.locals['payload'] = {
+			data: record || null,
+		};
+
+		return next();
+	}),
+	respond,
+);
+
+export default router;
+
+
+[api/src/controllers/assets.ts]
+import { useEnv } from '@directus/env';
+import { InvalidPayloadError, InvalidQueryError, RangeNotSatisfiableError } from '@directus/errors';
+import type { Range, TransformationFormat, TransformationParams } from '@directus/types';
+import { TransformationMethods } from '@directus/types';
+import { getDateTimeFormatted, parseJSON } from '@directus/utils';
+import contentDisposition from 'content-disposition';
+import { Router } from 'express';
+import { merge, pick } from 'lodash-es';
+import * as z from 'zod';
+import { fromZodError } from 'zod-validation-error';
+import { ASSET_TRANSFORM_QUERY_KEYS, SYSTEM_ASSET_ALLOW_LIST } from '../constants.js';
+import getDatabase from '../database/index.js';
+import { useLogger } from '../logger/index.js';
+import useCollection from '../middleware/use-collection.js';
+import { AssetsService } from '../services/assets.js';
+import { PayloadService } from '../services/payload.js';
+import asyncHandler from '../utils/async-handler.js';
+import { getCacheControlHeader } from '../utils/get-cache-headers.js';
+import { getConfigFromEnv } from '../utils/get-config-from-env.js';
+import { getMilliseconds } from '../utils/get-milliseconds.js';
+import { isValidUuid } from '../utils/is-valid-uuid.js';
+
+const router = Router();
+
+const env = useEnv();
+
+router.use(useCollection('directus_files'));
+
+router.post(
+	'/folder/:pk',
+	asyncHandler(async (req, res) => {
+		const service = new AssetsService({
+			accountability: req.accountability,
+			schema: req.schema,
+		});
+
+		const { archive, complete, metadata } = await service.zipFolder(req.params['pk']!);
+
+		res.setHeader('Content-Type', 'application/zip');
+
+		const folderName = `folder-${metadata['name'] ? metadata['name'] : 'unknown'}-${getDateTimeFormatted()}.zip`;
+		res.setHeader('Content-Disposition', contentDisposition(folderName, { type: 'attachment' }));
+
+		archive.pipe(res);
+
+		await complete();
+	}),
+);
+
+router.post(
+	'/files/',
+	asyncHandler(async (req, res) => {
+		const service = new AssetsService({
+			accountability: req.accountability,
+			schema: req.schema,
+		});
+
+		const { error, data } = z
+			.object({
+				ids: z
+					.array(
+						z.string().refine((v) => isValidUuid(v), {
+							error: '"id" must be a uuid',
+						}),
+					)
+					.min(1),
+			})
+			.safeParse(req.body);
+
+		if (error) {
+			throw new InvalidPayloadError({ reason: fromZodError(error).message });
+		}
+
+		const { archive, complete } = await service.zipFiles(data.ids);
+
+		res.setHeader('Content-Type', 'application/zip');
+		res.setHeader('Content-Disposition', `attachment; filename="files-${getDateTimeFormatted()}.zip"`);
+
+		archive.pipe(res);
+
+		await complete();
+	}),
+);
+
+router.get(
+	'/:pk/:filename?',
+	// Validate query params
+	asyncHandler(async (req, res, next) => {
+		const payloadService = new PayloadService('directus_settings', { schema: req.schema });
+		const defaults = { storage_asset_presets: [], storage_asset_transform: 'all' };
+
+		const database = getDatabase();
+
+		const savedAssetSettings = await databa
+... [TRUNCATED]
+
+[api/src/controllers/auth.ts]
+import { useEnv } from '@directus/env';
+import { ErrorCode, InvalidPayloadError, isDirectusError } from '@directus/errors';
+import type { Accountability } from '@directus/types';
+import type { Request } from 'express';
+import { Router } from 'express';
+import {
+	createLDAPAuthRouter,
+	createLocalAuthRouter,
+	createOAuth2AuthRouter,
+	createOpenIDAuthRouter,
+	createSAMLAuthRouter,
+} from '../auth/drivers/index.js';
+import { DEFAULT_AUTH_PROVIDER, REFRESH_COOKIE_OPTIONS, SESSION_COOKIE_OPTIONS } from '../constants.js';
+import { useLogger } from '../logger/index.js';
+import { respond } from '../middleware/respond.js';
+import { createDefaultAccountability } from '../permissions/utils/create-default-accountability.js';
+import { AuthenticationService } from '../services/authentication.js';
+import { UsersService } from '../services/users.js';
+import type { AuthenticationMode } from '../types/auth.js';
+import asyncHandler from '../utils/async-handler.js';
+import { getAuthProviders } from '../utils/get-auth-providers.js';
+import { getIPFromReq } from '../utils/get-ip-from-req.js';
+import { getSecret } from '../utils/get-secret.js';
+import isDirectusJWT from '../utils/is-directus-jwt.js';
+import { verifyAccessJWT } from '../utils/jwt.js';
+
+const router = Router();
+const env = useEnv();
+const logger = useLogger();
+
+const authProviders = getAuthProviders();
+
+for (const authProvider of authProviders) {
+	let authRouter: Router | undefined;
+
+	switch (authProvider.driver) {
+		case 'local':
+			authRouter = createLocalAuthRouter(authProvider.name);
+			break;
+
+		case 'oauth2':
+			authRouter = createOAuth2AuthRouter(authProvider.name);
+			break;
+
+		case 'openid':
+			authRouter = createOpenIDAuthRouter(authProvider.name);
+			break;
+
+		case 'ldap':
+			authRouter = createLDAPAuthRouter(authProvider.name);
+			break;
+
+		case 'saml':
+			authRouter = createSAMLAuthRouter(authProvider.name);
+			break;
+	}
+
+	if (!authRouter) {
+		logger.warn(`Couldn't create login router for auth provider "${authProvider.name}"`);
+		continue;
+	}
+
+	router.use(`/login/${authProvider.name}`, authRouter);
+}
+
+if (!env['AUTH_DISABLE_DEFAULT']) {
+	router.use('/login', createLocalAuthRouter(DEFAULT_AUTH_PROVIDER));
+}
+
+function getCurrentMode(req: Request): AuthenticationMode {
+	if (req.body.mode) {
+		return req.body.mode as AuthenticationMode;
+	}
+
+	if (req.body.refresh_token) {
+		return 'json';
+	}
+
+	return 'cookie';
+}
+
+function getCurrentRefreshToken(req: Request, mode: AuthenticationMode): string | undefined {
+	if (mode === 'json') {
+		return req.body.refresh_token;
+	}
+
+	if (mode === 'cookie') {
+		return req.cookies[env['REFRESH_TOKEN_COOKIE_NAME'] as string];
+	}
+
+	if (mode === 'session') {
+		const token = req.cookies[env['SESSION_COOKIE_NAME'] as string];
+
+		if (isDirectusJWT(token)) {
+			const payload = verifyAccessJWT(token, getSecret());
+			return payload.session;
+		}
+	}
+
+	return undefined;
+}
+
+router.post(
+	'/refresh',
+	asyncHandler(async (req, res, next) => {
+		const accountability: Accountabilit
+... [TRUNCATED]
+
+--- DATABASE SCHEMA / MODEL FILES ---
+  api/src/ai/chat/models/chat-request.ts
+  api/src/ai/chat/models/providers.ts
+  api/src/ai/tools/schema.ts
+  api/src/ai/tools/schema/index.test.ts
+  api/src/ai/tools/schema/index.ts
+
+--- DIRECTORY STRUCTURE (depth 2) ---
+├── .changeset/
+│   ├── config.json
+│   ├── crisp-bobcats-clap.md
+│   └── witty-clowns-rush.md
+├── .claude/
+│   ├── CLAUDE.md
+│   ├── hooks/
+│   │   ├── eslint.sh
+│   │   ├── prettier.sh
+│   │   └── stylelint.sh
+│   └── settings.json
+├── .dockerignore
+├── .editorconfig
+├── .github/
+│   ├── CODEOWNERS
+│   ├── DISCUSSION_TEMPLATE/
+│   │   └── feature-requests.yml
+│   ├── FUNDING.yml
+│   ├── ISSUE_TEMPLATE/
+│   │   ├── bug_report.yml
+│   │   └── config.yml
+│   ├── actions/
+│   │   └── prepare/
+│   ├── codeql/
+│   │   └── codeql-config.yml
+│   ├── copilot-instructions.md
+│   ├── pull_request_template.md
+│   └── workflows/
+│       ├── assign-next-release-milestone.yml
+│       ├── blackbox-pr.yml
+│       ├── blackbox.yml
+│       ├── changeset-check.yml
+│       ├── check.yml
+│       ├── cla.yml
+│       ├── claude-code-review.yml
+│       ├── claude.yml
+│       ├── close-feature-requests.yml
+│       ├── codeql-analysis.yml
+│       ├── lock-threads.yml
+│       ├── prepare-release.yml
+│       ├── release.yml
+│       ├── stale-issues.yml
+│       └── sync-dockerhub-readme.yml
+├── .gitignore
+├── .npmrc
+├── .prettierignore
+├── .prettierrc.json
+├── .stylelintignore
+├── .stylelintrc.json
+├── .vscode/
+│   ├── extensions.json
+│   └── settings.json
+├── AGENTS.md
+├── Dockerfile
+├── api/
+│   ├── license
+│   ├── package.json
+│   ├── src/
+│   │   ├── __setup__/
+│   │   ├── __utils__/
+│   │   ├── ai/
+│   │   ├── app.test.ts
+│   │   ├── app.ts
+│   │   ├── auth.ts
+│   │   ├── auth/
+│   │   ├── bus/
+│   │   ├── cache.ts
+│   │   ├── cli/
+│   │   ├── constants.ts
+│   │   ├── controllers/
+│   │   ├── database/
+│   │   ├── deployment.test.ts
+│   │   ├── deployment.ts
+│   │   ├── deployment/
+│   │   ├── emitter.ts
+│   │   ├── extensions/
+│   │   ├── flows.ts
+│   │   ├── index.ts
+│   │   ├── lock/
+│   │   ├── logger/
+│   │   ├── mailer.test.ts
+│   │   ├── mailer.ts
+│   │   ├── metrics/
+│   │   ├── middleware/
+│   │   ├── operations/
+│   │   ├── permissions/
+│   │   ├── rate-limiter.ts
+│   │   ├── redis/
+│   │   ├── request/
+│   │   ├── schedules/
+│   │   ├── server.ts
+│   │   ├── services/
+│   │   ├── start.ts
+│   │   ├── storage/
+│   │   ├── synchronization.ts
+│   │   ├── telemetry/
+│   │   ├── test-utils/
+│   │   ├── types/
+│   │   ├── utils/
+│   │   └── websocket/
+│   ├── tsconfig.json
+│   ├── tsconfig.prod.json
+│   └── vitest.config.ts
+├── app/
+│   ├── env.d.ts
+│   ├── histoire.config.ts
+│   ├── index.html
+│   ├── license
+│   ├── package.json
+│   ├── public/
+│   │   ├── favicon.ico
+│   │   └── img/
+│   ├── readme.md
+│   ├── src/
+│   │   ├── __histoire__/
+│   │   ├── __utils__/
+│   │   ├── ai/
+│   │   ├── api.ts
+│   │   ├── app-permissions.ts
+│   │   ├── app.vue
+│   │   ├── assets/
+│   │   ├── auth.ts
+│   │   ├── components/
+│   │   ├── composables/
+│   │   ├── constants.ts
+│   │   ├── constants/
+│   │   ├── directives/
+│   │   ├── displays/
+│   │   ├── events.ts
+│   │   ├── extensions.ts
+│   │   ├── hydrate.test.ts
+│   │   ├── hydrate.ts
+│   │   ├── idle.test.ts
+│   │   ├── idle.ts
+│   │   ├── interfaces/
+│   │   ├── lang/
+│   │   ├── layouts/
+│   │   ├── main.ts
+│   │   ├── modules/
+│   │   ├── operations/
+│   │   ├── panels/
+│   │   ├── router.test.ts
+│   │   ├── router.ts
+│   │   ├── routes/
+│   │   ├── sdk.ts
+│   │   ├── shims.d.ts
+│   │   ├── stores/
+│   │   ├── styles/
+│   │   ├── test-utils/
+│   │   ├── themes/
+│   │   ├── types/
+│   │   ├── utils/
+│   │   └── views/
+│   ├── tsconfig.json
+│   └── vite.config.js
+├── cla.md
+├── code_of_conduct.md
+├── codecov.yaml
+├── contributing.md
+├── contributors.yml
+├── crowdin.yml
+├── directus/
+│   ├── cli.js
+│   ├── license
+│   ├── package.json
+│   ├── readme.md
+│   ├── version.d.ts
+│   └── version.js
+├── docker-compose.yml
+├── ecosystem.config.cjs
+├── eslint.config.js
+├── license
+├── package.json
+├── packages/
+│   ├── ai/
+│   │   ├── package.json
+│   │   ├── readme.md
+│   │   ├── src/
+│   │   └── tsconfig.json
+│   ├── composables/
+│   │   ├── license
+│   │   ├── package.json
+│   │   ├── readme.md
+│   │   ├── src/
+│   │   ├── tsconfig.json
+│   │   └── vitest.config.ts
+│   ├── constants/
+│   │   ├── license
+│   │   ├── package.json
+│   │   ├── readme.md
+│   │   ├── src/
+│   │   └── tsconfig.json
+│   ├── create-directus-extension/
+│   │   ├── lib/
+│   │   ├── license
+│   │   ├── package.json
+│   │   ├── readme.md
+│   │   └── vitest.config.js
+│   ├── create-directus-project/
+│   │   ├── lib/
+│   │   ├── license
+│   │   ├── package.json
+│   │   └── readme.md
+│   ├── env/
+│   │   ├── license
+│   │   ├── package.json
+│   │   ├── readme.md
+│   │   ├── src/
+│   │   └── tsconfig.json
+│   ├── errors/
+│   │   ├── license
+│   │   ├── package.json
+│   │   ├── readme.md
+│   │   ├── src/
+│   │   └── tsconfig.json
+│   ├── extensions-registry/
+│   │   ├── license
+│   │   ├── package.json
+│   │   ├── readme.md
+│   │   ├── src/
+│   │   └── tsconfig.json
+│   ├── extensions-sdk/
+│   │   ├── cli.d.ts
+│   │   ├── cli.js
+│   │   ├── directus-extension.test.ts
+│   │   ├── license
+│   │   ├── package.json
+│   │   ├── readme.md
+│   │   ├── src/
+│   │   ├── templates/
+│   │   ├── tsconfig.json
+│   │   └── tsconfig.prod.json
+│   ├── extensions/
+│   │   ├── api.d.ts
+│   │   ├── license
+│   │   ├── package.json
+│   │   ├── readme.md
+│   │   └── src/
+│   ├── format-title/
+│   │   ├── license
+│   │   ├── package.json
+│   │   ├── readme.md
+│   │   ├── src/
+│   │   └── tsconfig.json
+│   ├── memory/
+│   │   ├── license
+│   │   ├── package.json
+│   │   ├── readme.md
+│   │   ├── src/
+│   │   └── tsconfig.json
+│   ├── pressure/
+│   │   ├── license
+│   │   ├── package.json
+│   │   ├── readme.md
+│   │   ├── src/
+│   │   └── tsconfig.json
+│   ├── release-notes-generator/
+│   │   ├── license
+│   │   ├── package.json
+│   │   ├── readme.md
+│   │   ├── src/
+│   │   ├── tsconfig.json
+│   │   └── tsconfig.prod.json
+│   ├── schema-builder/
+│   │   ├── license
+│   │   ├── package.json
+│   │   ├── readme.md
+│   │   ├── src/
+│   │   └── tsconfig.json
+│   ├── schema/
+│   │   ├── license
+│   │   ├── package.json
+│   │   ├── readme.md
+│   │   ├── src/
+│   │   └── tsconfig.json
+│   ├── specs/
+│   │   ├── index.d.ts
+│   │   ├── index.js
+│   │   ├── license
+│   │   ├── package.json
+│   │   └── src/
+│   ├── storage-driver-azure/
+│   │   ├── license
+│   │   ├── package.json
+│   │   ├── readme.md
+│   │   ├── src/
+│   │   └── tsconfig.json
+│   ├── storage-driver-cloudinary/
+│   │   ├── license
+│   │   ├── package.json
+│   │   ├── readme.md
+│   │   ├── src/
+│   │   └── tsconfig.json
+│   ├── storage-driver-gcs/
+│   │   ├── license
+│   │   ├── package.json
+│   │   ├── readme.md
+│   │   ├── src/
+│   │   └── tsconfig.json
+│   ├── storage-driver-local/
+│   │   ├── license
+│   │   ├── package.json
+│   │   ├── readme.md
+│   │   ├── src/
+│   │   └── tsconfig.json
+│   ├── storage-driver-s3/
+│   │   ├── license
+│   │   ├── package.json
+│   │   ├── readme.md
+│   │   ├── src/
+│   │   └── tsconfig.json
+│   ├── storage-driver-supabase/
+│   │   ├── license
+│   │   ├── package.json
+│   │   ├── readme.md
+│   │   ├── src/
+│   │   └── tsconfig.json
+│   ├── storage/
+│   │   ├── license
+│   │   ├── package.json
+│   │   ├── readme.md
+│   │   ├── src/
+│   │   └── tsconfig.json
+│   ├── stores/
+│   │   ├── license
+│   │   ├── package.json
+│   │   ├── readme.md
+│   │   ├── src/
+│   │   └── tsconfig.json
+│   ├── system-data/
+│   │   ├── license
+│   │   ├── package.json
+│   │   ├── readme.md
+│   │   ├── src/
+│   │   ├── tsconfig.json
+│   │   ├── tsdown.config.ts
+│   │   └── vitest.config.ts
+│   ├── themes/
+│   │   ├── license
+│   │   ├── package.json
+│   │   ├── readme.md
+│   │   ├── src/
+│   │   ├── tsconfig.json
+│   │   └── vite.config.ts
+│   ├── types/
+│   │   ├── license
+│   │   ├── package.json
+│   │   ├── readme.md
+│   │   ├── src/
+│   │   └── tsconfig.json
+│   ├── update-check/
+│   │   ├── license
+│   │   ├── package.json
+│   │   ├── readme.md
+│   │   ├── src/
+│   │   └── tsconfig.json
+│   ├── utils/
+│   │   ├── browser/
+│   │   ├── license
+│   │   ├── node/
+│   │   ├── package.json
+│   │   ├── readme.md
+│   │   └── shared/
+│   └── validation/
+│       ├── license
+│       ├── package.json
+│       ├── src/
+│       └── tsconfig.json
+├── pnpm-lock.yaml
+├── pnpm-workspace.yaml
+├── readme.md
+├── sdk/
+│   ├── license
+│   ├── package.json
+│   ├── readme.md
+│   ├── src/
+│   │   ├── auth/
+│   │   ├── client.ts
+│   │   ├── graphql/
+│   │   ├── index.ts
+│   │   ├── realtime/
+│   │   ├── rest/
+│   │   ├── schema/
+│   │   ├── types/
+│   │   └── utils/
+│   ├── tests/
+│   │   ├── exports.test.ts
+│   │   ├── fields.test-d.ts
+│   │   ├── filters.test-d.ts
+│   │   ├── no-schema.test-d.ts
+│   │   ├── relations.test-d.ts
+│   │   └── schema.ts
+│   ├── tsconfig.json
+│   └── tsdown.config.ts
+├── security.md
+└── tests/
+    └── blackbox/
+        ├── assets/
+        ├── common/
+        ├── docker-compose.yml
+        ├── extensions/
+        ├── package.json
+        ├── readme.md
+        ├── setup/
+        ├── tests/
+        ├── todo.md
+        ├── tsconfig.json
+        ├── utils/
+        ├── vitest.config.ts
+        └── vitest.workspace.ts

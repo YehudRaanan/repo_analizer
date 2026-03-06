@@ -1,0 +1,1525 @@
+=====================================
+Repository Analysis: kitty
+Type: CLI Tool
+=====================================
+
+--- METADATA ---
+Name: kitty
+Description: If you live in the terminal, kitty is made for you! Cross-platform, fast, feature-rich, GPU based.
+Language: Python
+Topics: c, go, golang, golang-application, kitty, kitty-terminal, opengl, python, terminal, terminal-emulators, terminfo, vt100
+Stars: 31668
+License: GNU General Public License v3.0
+
+--- README ---
+(No README found)
+
+--- PACKAGE MANIFEST(S) ---
+
+[pyproject.toml]
+[project]
+requires-python = ">=3.10"
+
+[build-system]
+requires = [
+    # Needed for installing pure python packages at build time
+    "installer == 0.7.0",
+    # Needed for some weird reason for glib
+    "packaging == 23.1",
+]
+
+[tool.mypy]
+files = 'kitty,kittens,glfw,*.py,docs/conf.py,gen'
+no_implicit_optional = true
+sqlite_cache = true
+cache_fine_grained = true
+warn_redundant_casts = true
+warn_unused_ignores = true
+warn_return_any = true
+warn_unreachable = true
+warn_unused_configs = true
+check_untyped_defs = true
+disallow_untyped_defs = true
+disallow_untyped_decorators = true
+disallow_untyped_calls = true
+disallow_incomplete_defs = true
+strict = true
+strict_bytes = true
+no_implicit_reexport = true
+
+[tool.pylsp-mypy]
+enabled = true
+dmypy = true
+exclude = ['kitty_tests/*']
+report_progress = true
+
+[tool.ruff]
+line-length = 160
+
+[tool.ruff.lint]
+select = ['E', 'F', 'I', 'RUF100']
+
+[tool.ruff.lint.per-file-ignores]
+"kitty/options/types.py" = ["E501"]
+"kitty/options/parse.py" = ["E501"]
+
+[tool.ruff.lint.isort]
+detect-same-package = true
+
+[tool.ruff.format]
+quote-style = 'single'
+
+
+[setup.py]
+#!/usr/bin/env python
+# License: GPL v3 Copyright: 2016, Kovid Goyal <kovid at kovidgoyal.net>
+
+import argparse
+import glob
+import json
+import os
+import platform
+import re
+import runpy
+import shlex
+import shutil
+import struct
+import subprocess
+import sys
+import sysconfig
+import tempfile
+import textwrap
+import time
+from contextlib import suppress
+from functools import lru_cache, partial
+from pathlib import Path
+from typing import Callable, Dict, FrozenSet, Iterable, Iterator, List, Optional, Sequence, Set, Tuple, Union, cast
+
+from glfw import glfw
+from glfw.glfw import ISA, BinaryArch, Command, CompileKey, CompilerType
+
+src_base = os.path.dirname(os.path.abspath(__file__))
+setattr(sys, 'running_from_setup', True)
+
+def check_version_info() -> None:
+    with open(os.path.join(src_base, 'pyproject.toml')) as f:
+        raw = f.read()
+    m = re.search(r'''^requires-python\s*=\s*['"](.+?)['"]''', raw, flags=re.MULTILINE)
+    assert m is not None
+    minver = m.group(1)
+    match = re.match(r'(>=?)(\d+)\.(\d+)', minver)
+    assert match is not None
+    q = int(match.group(2)), int(match.group(3))
+    if match.group(1) == '>=':
+        is_ok = sys.version_info >= q
+    else:
+        is_ok = sys.version_info > q
+    if not is_ok:
+        exit(f'calibre requires Python {minver}. Current Python version: {".".join(map(str, sys.version_info[:3]))}')
+
+
+check_version_info()
+verbose = False
+build_dir = 'build'
+constants = os.path.join('kitty', 'constants.py')
+with open(constants, 'rb') as f:
+    constants = f.read().decode('utf-8')
+appname = re.search(r"^appname: str = '([^']+)'", constants, re.MULTILINE).group(1)  # type: ignore
+version = tuple(
+    map(
+        int,
+        re.search(  # type: ignore
+            r"^version: Version = Version\((\d+), (\d+), (\d+)\)", constants, re.MULTILINE
+        ).group(1, 2, 3)
+    )
+)
+_plat = sys.platform.lower()
+is_macos = 'darwin' in _plat
+is_openbsd = 'openbsd' in _plat
+is_freebsd = 'freebsd' in _plat
+is_netbsd = 'netbsd' in _plat
+is_dragonflybsd = 'dragonfly' in _plat
+is_bsd = is_freebsd or is_netbsd or is_dragonflybsd or is_openbsd
+is_windows = sys.platform == 'win32'
+is_arm = platform.processor() == 'arm' or platform.machine() in ('arm64', 'aarch64')
+c_std = '' if is_openbsd else '-std=c11'
+Env = glfw.Env
+env = Env()
+PKGCONFIG = os.environ.get('PKGCONFIG_EXE', 'pkg-config')
+link_targets: List[str] = []
+macos_universal_arches = ('arm64', 'x86_64') if is_arm else ('x86_64', 'arm64')
+
+
+def LinkKey(output: str) -> CompileKey:
+    return CompileKey('', output)
+
+
+class CompilationDatabase:
+
+    def __init__(self, incremental: bool = False):
+        self.incremental = incremental
+        self.compile_commands: List[Command] = []
+        self.link_commands: List[Command] = []
+        self.post_link_commands: List[Command] = []
+
+    def add_command(
+        self,
+        desc: str,
+        cmd: List[str],
+        is_newer_func: Callable[[], bool],
+        key: Optional[CompileKey] = None,
+        on_success: Optional[Callabl
+... [TRUNCATED]
+
+[go.mod]
+module github.com/kovidgoyal/kitty
+
+go 1.24.0
+
+toolchain go1.24.13
+
+require (
+	github.com/ALTree/bigfloat v0.2.0
+	github.com/alecthomas/chroma/v2 v2.23.1
+	github.com/bmatcuk/doublestar/v4 v4.10.0
+	github.com/dlclark/regexp2 v1.11.5
+	github.com/google/go-cmp v0.7.0
+	github.com/google/uuid v1.6.0
+	github.com/hako/durafmt v0.0.0-20210608085754-5c1018a4e16b
+	github.com/klauspost/compress v1.18.4
+	github.com/kovidgoyal/dbus v0.0.0-20250519011319-e811c41c0bc1
+	github.com/kovidgoyal/go-parallel v1.1.1
+	github.com/kovidgoyal/go-shm v1.0.0
+	github.com/kovidgoyal/imaging v1.8.20
+	github.com/nwaples/rardecode/v2 v2.2.2
+	github.com/seancfoley/ipaddress-go v1.7.1
+	github.com/shirou/gopsutil/v4 v4.26.1
+	github.com/ulikunitz/xz v0.5.15
+	github.com/zeebo/xxh3 v1.1.0
+	golang.org/x/exp v0.0.0-20230801115018-d63ba01acd4b
+	golang.org/x/image v0.36.0
+	golang.org/x/sys v0.41.0
+	golang.org/x/text v0.34.0
+	howett.net/plist v1.0.1
+)
+
+// Uncomment the following to use a local checkout of dbus
+// replace github.com/kovidgoyal/dbus => ../dbus
+
+// Uncomment the following to use a local checkout of imaging
+// replace github.com/kovidgoyal/imaging => ../imaging
+
+require (
+	github.com/ebitengine/purego v0.9.1 // indirect
+	github.com/go-ole/go-ole v1.2.6 // indirect
+	github.com/klauspost/cpuid/v2 v2.2.10 // indirect
+	github.com/lufia/plan9stats v0.0.0-20230326075908-cb1d2100619a // indirect
+	github.com/power-devops/perfstat v0.0.0-20240221224432-82ca36839d55 // indirect
+	github.com/rwcarlsen/goexif v0.0.0-20190401172101-9e8deecbddbd // indirect
+	github.com/seancfoley/bintree v1.3.1 // indirect
+	github.com/tklauser/go-sysconf v0.3.16 // indirect
+	github.com/tklauser/numcpus v0.11.0 // indirect
+	github.com/yusufpapurcu/wmi v1.2.4 // indirect
+)
+
+
+[Makefile]
+ifdef V
+	VVAL=--verbose
+endif
+ifdef VERBOSE
+	VVAL=--verbose
+endif
+
+ifdef FAIL_WARN
+export FAIL_WARN
+endif
+
+all:
+	python3 setup.py $(VVAL)
+
+test:
+	python3 setup.py $(VVAL) test
+
+clean:
+	python3 setup.py $(VVAL) clean
+
+# A debug build
+debug:
+	python3 setup.py build $(VVAL) --debug
+
+debug-event-loop:
+	python3 setup.py build $(VVAL) --debug --extra-logging=event-loop
+
+# Build with the ASAN and UBSAN sanitizers
+asan:
+	python3 setup.py build $(VVAL) --debug --sanitize
+
+profile:
+	python3 setup.py build $(VVAL) --profile
+
+app:
+	python3 setup.py kitty.app $(VVAL)
+
+linux-package: FORCE
+	rm -rf linux-package
+	python3 setup.py linux-package
+
+FORCE:
+
+man:
+	$(MAKE) -C docs man
+
+html:
+	$(MAKE) -C docs html
+
+dirhtml:
+	$(MAKE) -C docs dirhtml
+
+linkcheck:
+	$(MAKE) -C docs linkcheck
+
+website:
+	./publish.py --only website
+
+docs: man html
+
+
+develop-docs:
+	$(MAKE) -C docs develop-docs
+
+
+prepare-for-cross-compile: clean all
+	python3 setup.py $(VVAL) clean --clean-for-cross-compile
+
+cross-compile:
+	python3 setup.py linux-package --skip-code-generation
+	
+
+
+--- CLI ENTRY POINTS / COMMAND DEFINITIONS ---
+
+[__main__.py]
+#!/usr/bin/env python
+# License: GPL v3 Copyright: 2015, Kovid Goyal <kovid at kovidgoyal.net>
+
+
+if __name__ == '__main__':
+    from kitty.entry_points import main
+    main()
+
+
+[bypy/linux/__main__.py]
+#!/usr/bin/env python
+# vim:fileencoding=utf-8
+# License: GPLv3 Copyright: 2020, Kovid Goyal <kovid at kovidgoyal.net>
+
+import errno
+import os
+import shutil
+import stat
+import subprocess
+import tarfile
+import time
+
+from bypy.constants import OUTPUT_DIR, PREFIX, python_major_minor_version
+from bypy.freeze import extract_extension_modules, freeze_python, path_to_freeze_dir
+from bypy.utils import get_dll_path, mkdtemp, py_compile, walk
+
+j = os.path.join
+machine = (os.uname()[4] or '').lower()
+self_dir = os.path.dirname(os.path.abspath(__file__))
+py_ver = '.'.join(map(str, python_major_minor_version()))
+iv = globals()['init_env']
+kitty_constants = iv['kitty_constants']
+
+
+def binary_includes():
+    return tuple(map(get_dll_path, (
+            'expat', 'sqlite3', 'ffi', 'z', 'lzma', 'png16', 'lcms2', 'ssl', 'crypto', 'crypt',
+            'iconv', 'pcre2-8', 'graphite2', 'glib-2.0', 'freetype', 'xxhash',
+            'pixman-1', 'cairo', 'harfbuzz', 'xkbcommon', 'xkbcommon-x11',
+            # fontconfig is not bundled because in typical brain dead Linux
+            # distro fashion, different distros use different default config
+            # paths for fontconfig.
+            'ncursesw', 'readline', 'brotlicommon', 'brotlienc', 'brotlidec',
+            'wayland-client', 'wayland-cursor',
+        ))) + (
+                get_dll_path('bz2', 2),
+                get_dll_path(f'python{py_ver}', 2),
+        )
+
+
+class Env:
+
+    def __init__(self, package_dir):
+        self.base = package_dir
+        self.lib_dir = j(self.base, 'lib')
+        self.py_dir = j(self.lib_dir, f'python{py_ver}')
+        os.makedirs(self.py_dir)
+        self.bin_dir = j(self.base, 'bin')
+        self.obj_dir = mkdtemp('launchers-')
+
+
+def ignore_in_lib(base, items, ignored_dirs=None):
+    ans = []
+    if ignored_dirs is None:
+        ignored_dirs = {'.svn', '.bzr', '.git', 'test', 'tests', 'testing'}
+    for name in items:
+        path = j(base, name)
+        if os.path.isdir(path):
+            if name in ignored_dirs or not os.path.exists(j(path, '__init__.py')):
+                if name != 'plugins':
+                    ans.append(name)
+        else:
+            if name.rpartition('.')[-1] not in ('so', 'py'):
+                ans.append(name)
+    return ans
+
+
+def import_site_packages(srcdir, dest):
+    if not os.path.exists(dest):
+        os.mkdir(dest)
+    for x in os.listdir(srcdir):
+        ext = x.rpartition('.')[-1]
+        f = j(srcdir, x)
+        if ext in ('py', 'so'):
+            shutil.copy2(f, dest)
+        elif ext == 'pth' and x != 'setuptools.pth':
+            for line in open(f):
+                src = os.path.abspath(j(srcdir, line))
+                if os.path.exists(src) and os.path.isdir(src):
+                    import_site_packages(src, dest)
+        elif os.path.exists(j(f, '__init__.py')):
+            shutil.copytree(f, j(dest, x), ignore=ignore_in_lib)
+
+
+def copy_libs(env):
+    print('Copying libs...')
+
+    for x in binary_includes():
+        dest = env.bin_dir i
+... [TRUNCATED]
+
+[bypy/macos/__main__.py]
+#!/usr/bin/env python
+# vim:fileencoding=utf-8
+# License: GPLv3 Copyright: 2020, Kovid Goyal <kovid at kovidgoyal.net>
+
+import glob
+import json
+import os
+import shutil
+import stat
+import subprocess
+import sys
+import tempfile
+import zipfile
+
+from bypy.constants import PREFIX, PYTHON, SW, python_major_minor_version
+from bypy.freeze import extract_extension_modules, freeze_python, path_to_freeze_dir
+from bypy.macos_sign import codesign, create_entitlements_file, make_certificate_useable, notarize_app, verify_signature
+from bypy.utils import current_dir, mkdtemp, py_compile, run_shell, timeit, walk
+
+iv = globals()['init_env']
+kitty_constants = iv['kitty_constants']
+self_dir = os.path.dirname(os.path.abspath(__file__))
+join = os.path.join
+basename = os.path.basename
+dirname = os.path.dirname
+abspath = os.path.abspath
+APPNAME = kitty_constants['appname']
+VERSION = kitty_constants['version']
+py_ver = '.'.join(map(str, python_major_minor_version()))
+
+
+def flush(func):
+    def ff(*args, **kwargs):
+        sys.stdout.flush()
+        sys.stderr.flush()
+        ret = func(*args, **kwargs)
+        sys.stdout.flush()
+        sys.stderr.flush()
+        return ret
+
+    return ff
+
+
+def flipwritable(fn, mode=None):
+    """
+    Flip the writability of a file and return the old mode. Returns None
+    if the file is already writable.
+    """
+    if os.access(fn, os.W_OK):
+        return None
+    old_mode = os.stat(fn).st_mode
+    os.chmod(fn, stat.S_IWRITE | old_mode)
+    return old_mode
+
+
+STRIPCMD = ('/usr/bin/strip', '-x', '-S', '-')
+
+
+def strip_files(files, argv_max=(256 * 1024)):
+    """
+    Strip a list of files
+    """
+    tostrip = [(fn, flipwritable(fn)) for fn in files if os.path.exists(fn)]
+    while tostrip:
+        cmd = list(STRIPCMD)
+        flips = []
+        pathlen = sum(len(s) + 1 for s in cmd)
+        while pathlen < argv_max:
+            if not tostrip:
+                break
+            added, flip = tostrip.pop()
+            pathlen += len(added) + 1
+            cmd.append(added)
+            flips.append((added, flip))
+        else:
+            cmd.pop()
+            tostrip.append(flips.pop())
+        os.spawnv(os.P_WAIT, cmd[0], cmd)
+        for args in flips:
+            flipwritable(*args)
+
+
+def files_in(folder):
+    for record in os.walk(folder):
+        for f in record[-1]:
+            yield join(record[0], f)
+
+
+def expand_dirs(items, exclude=lambda x: x.endswith('.so')):
+    items = set(items)
+    dirs = set(x for x in items if os.path.isdir(x))
+    items.difference_update(dirs)
+    for x in dirs:
+        items.update({y for y in files_in(x) if not exclude(y)})
+    return items
+
+
+
+def do_sign(app_dir: str) -> None:
+    with current_dir(join(app_dir, 'Contents')):
+        # Sign all .so files
+        so_files = {x for x in files_in('.') if x.endswith('.so')}
+        codesign(so_files)
+        # Sign everything else in Frameworks
+        with current_dir('Frameworks'):
+            fw = set(glob.glob('*.framework'))
+            codesign(fw)
+  
+... [TRUNCATED]
+
+[gen/__main__.py]
+#!/usr/bin/env python
+# License: GPLv3 Copyright: 2023, Kovid Goyal <kovid at kovidgoyal.net>
+
+
+import os
+import sys
+
+
+def main(args: list[str]=sys.argv) -> None:
+    os.chdir(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+    sys.path.insert(0, os.getcwd())
+    if len(args) == 1:
+        raise SystemExit('usage: python gen which')
+    which = args[1]
+    del args[1]
+    if which == 'apc-parsers':
+        from gen.apc_parsers import main
+        main(args)
+    elif which == 'config':
+        from gen.config import main
+        main(args)
+    elif which == 'srgb-lut':
+        from gen.srgb_lut import main
+        main(args)
+    elif which == 'key-constants':
+        from gen.key_constants import main
+        main(args)
+    elif which == 'go-code':
+        from gen.go_code import main
+        main(args)
+    elif which == 'wcwidth':
+        from gen.wcwidth import main
+        main(args)
+    elif which == 'cursors':
+        from gen.cursors import main
+        main(args)
+    elif which == 'color-names':
+        from gen.color_names import main
+        main(args)
+    else:
+        raise SystemExit(f'Unknown which: {which}')
+
+
+if __name__ == '__main__':
+    main()
+
+
+--- SHELL COMPLETIONS & MAN PAGES ---
+  shell-integration/bash/kitty.bash
+  shell-integration/fish/vendor_completions.d/clone-in-kitty.fish
+  shell-integration/fish/vendor_completions.d/kitten.fish
+  shell-integration/fish/vendor_completions.d/kitty.fish
+  shell-integration/fish/vendor_conf.d/kitty-shell-integration.fish
+  shell-integration/zsh/completions/_kitty
+  shell-integration/zsh/kitty.zsh
+  tools/cmd/completion/kitty.go
+
+--- DIRECTORY STRUCTURE (depth 2) ---
+├── .editorconfig
+├── .gitattributes
+├── .github/
+│   ├── FUNDING.yml
+│   ├── ISSUE_TEMPLATE/
+│   │   ├── bug_report.md
+│   │   └── feature_request.md
+│   ├── copilot-instructions.md
+│   ├── dependabot.yml
+│   └── workflows/
+│       ├── ci.py
+│       ├── ci.yml
+│       ├── codeql-analysis.yml
+│       ├── depscan.yml
+│       └── macos_crash_report.py
+├── .gitignore
+├── 3rdparty/
+│   ├── base64/
+│   │   ├── LICENSE
+│   │   ├── README.md
+│   │   ├── config.h
+│   │   ├── include/
+│   │   └── lib/
+│   ├── ringbuf/
+│   │   ├── ringbuf.c
+│   │   └── ringbuf.h
+│   └── verstable.h
+├── Brewfile
+├── CHANGELOG.rst
+├── CONTRIBUTING.md
+├── INSTALL.md
+├── LICENSE
+├── Makefile
+├── README.asciidoc
+├── SECURITY.md
+├── __main__.py
+├── benchmark.py
+├── build-terminfo
+├── bypy/
+│   ├── devenv.go
+│   ├── init_env.py
+│   ├── linux.conf
+│   ├── linux/
+│   │   └── __main__.py
+│   ├── macos.conf
+│   ├── macos/
+│   │   └── __main__.py
+│   ├── rsync.conf
+│   ├── site.py
+│   └── sources.json
+├── count-lines-of-code
+├── dev.sh
+├── docs/
+│   ├── Makefile
+│   ├── _static/
+│   │   ├── custom.css
+│   │   ├── custom.js
+│   │   ├── poster.png
+│   │   ├── timestamps.css
+│   │   └── timestamps.js
+│   ├── _templates/
+│   │   └── base.html
+│   ├── actions.rst
+│   ├── basic.rst
+│   ├── binary.rst
+│   ├── build.rst
+│   ├── changelog.rst
+│   ├── clipboard.rst
+│   ├── color-stack.rst
+│   ├── conf.py
+│   ├── conf.rst
+│   ├── deccara.rst
+│   ├── desktop-notifications.rst
+│   ├── extract-rst-targets.py
+│   ├── faq.rst
+│   ├── file-transfer-protocol.rst
+│   ├── glossary.rst
+│   ├── graphics-protocol.rst
+│   ├── index.rst
+│   ├── installer.sh
+│   ├── integrations.rst
+│   ├── intro_vid.rst
+│   ├── invocation.rst
+│   ├── keyboard-protocol.rst
+│   ├── kittens/
+│   │   ├── broadcast.rst
+│   │   ├── choose-files.rst
+│   │   ├── choose-fonts.rst
+│   │   ├── clipboard.rst
+│   │   ├── custom.rst
+│   │   ├── desktop-ui.rst
+│   │   ├── developing-builtin-kittens.rst
+│   │   ├── diff.rst
+│   │   ├── hints.rst
+│   │   ├── hyperlinked_grep.rst
+│   │   ├── icat.rst
+│   │   ├── notify.rst
+│   │   ├── panel.rst
+│   │   ├── query_terminal.rst
+│   │   ├── quick-access-terminal.rst
+│   │   ├── remote_file.rst
+│   │   ├── ssh.rst
+│   │   ├── themes.rst
+│   │   ├── transfer.rst
+│   │   └── unicode_input.rst
+│   ├── kittens_intro.rst
+│   ├── launch.rst
+│   ├── layouts.rst
+│   ├── mapping.rst
+│   ├── marks.rst
+│   ├── misc-protocol.rst
+│   ├── multiple-cursors-protocol.rst
+│   ├── notifications.py
+│   ├── open_actions.rst
+│   ├── overview.rst
+│   ├── performance.rst
+│   ├── pipe.rst
+│   ├── pointer-shapes.rst
+│   ├── press-mentions.rst
+│   ├── protocol-extensions.rst
+│   ├── quake-screenshots.rst
+│   ├── quickstart.rst
+│   ├── rc_protocol.rst
+│   ├── remote-control.rst
+│   ├── requirements.txt
+│   ├── screenshots/
+│   │   ├── choose-files.webp
+│   │   ├── diff.png
+│   │   ├── family-selection.png
+│   │   ├── font-fine-tune.png
+│   │   ├── hints_mode.png
+│   │   ├── panel.png
+│   │   ├── quake-hypr.webp
+│   │   ├── quake-macos.webp
+│   │   ├── remote_file.png
+│   │   ├── screenshot.png
+│   │   ├── select-window.png
+│   │   ├── splits.png
+│   │   ├── themes.png
+│   │   ├── transfer.png
+│   │   ├── unicode.png
+│   │   └── window-logo.png
+│   ├── sessions.rst
+│   ├── shell-integration.rst
+│   ├── support.html
+│   ├── support.rst
+│   ├── text-sizing-protocol.rst
+│   ├── underlines.rst
+│   ├── unscroll.rst
+│   └── wide-gamut-colors.rst
+├── embeds.go
+├── gen/
+│   ├── README.rst
+│   ├── __init__.py
+│   ├── __main__.py
+│   ├── apc_parsers.py
+│   ├── bitfields.py
+│   ├── color_names.py
+│   ├── config.py
+│   ├── cursors.py
+│   ├── go_code.py
+│   ├── key_constants.py
+│   ├── rowcolumn-diacritics.txt
+│   ├── srgb_lut.py
+│   └── wcwidth.py
+├── glad/
+│   └── generate.py
+├── glfw/
+│   ├── __init__.py
+│   ├── backend_utils.c
+│   ├── backend_utils.h
+│   ├── cocoa_displaylink.m
+│   ├── cocoa_init.m
+│   ├── cocoa_joystick.h
+│   ├── cocoa_joystick.m
+│   ├── cocoa_monitor.m
+│   ├── cocoa_platform.h
+│   ├── cocoa_window.m
+│   ├── context.c
+│   ├── dbus_glfw.c
+│   ├── dbus_glfw.h
+│   ├── egl_context.c
+│   ├── egl_context.h
+│   ├── glfw.py
+│   ├── glfw3.h
+│   ├── glx_context.c
+│   ├── glx_context.h
+│   ├── ibus_glfw.c
+│   ├── ibus_glfw.h
+│   ├── init.c
+│   ├── input.c
+│   ├── internal.h
+│   ├── kwin-blur-v1.xml
+│   ├── linux_desktop_settings.c
+│   ├── linux_desktop_settings.h
+│   ├── linux_joystick.c
+│   ├── linux_joystick.h
+│   ├── linux_notify.c
+│   ├── linux_notify.h
+│   ├── main_loop.h
+│   ├── mappings.h
+│   ├── memfd.h
+│   ├── momentum-scroll.c
+│   ├── monitor.c
+│   ├── monotonic.c
+│   ├── nsgl_context.h
+│   ├── nsgl_context.m
+│   ├── null_init.c
+│   ├── null_joystick.c
+│   ├── null_joystick.h
+│   ├── null_monitor.c
+│   ├── null_platform.h
+│   ├── null_window.c
+│   ├── osmesa_context.c
+│   ├── osmesa_context.h
+│   ├── posix_thread.c
+│   ├── posix_thread.h
+│   ├── source-info.json
+│   ├── vulkan.c
+│   ├── window.c
+│   ├── wl_client_side_decorations.c
+│   ├── wl_client_side_decorations.h
+│   ├── wl_cursors.c
+│   ├── wl_cursors.h
+│   ├── wl_init.c
+│   ├── wl_monitor.c
+│   ├── wl_platform.h
+│   ├── wl_text_input.c
+│   ├── wl_text_input.h
+│   ├── wl_window.c
+│   ├── wlr-layer-shell-unstable-v1.xml
+│   ├── x11_init.c
+│   ├── x11_monitor.c
+│   ├── x11_platform.h
+│   ├── x11_window.c
+│   ├── xkb-compat-shim.h
+│   ├── xkb_glfw.c
+│   └── xkb_glfw.h
+├── go.mod
+├── go.sum
+├── key_encoding.json
+├── kittens/
+│   ├── __init__.py
+│   ├── ask/
+│   │   ├── __init__.py
+│   │   ├── choices.go
+│   │   ├── get_line.go
+│   │   ├── main.go
+│   │   └── main.py
+│   ├── broadcast/
+│   │   ├── __init__.py
+│   │   └── main.py
+│   ├── choose_files/
+│   │   ├── __init__.py
+│   │   ├── archive.go
+│   │   ├── calibre.go
+│   │   ├── cmd_preview.go
+│   │   ├── collection.go
+│   │   ├── ffmpeg.go
+│   │   ├── filters.go
+│   │   ├── footer.go
+│   │   ├── graphics.go
+│   │   ├── image_preview.go
+│   │   ├── main.go
+│   │   ├── main.py
+│   │   ├── preview.go
+│   │   ├── results.go
+│   │   ├── results_test.go
+│   │   ├── save-file.go
+│   │   ├── scan.go
+│   │   ├── scan_test.go
+│   │   └── search-bar.go
+│   ├── choose_fonts/
+│   │   ├── __init__.py
+│   │   ├── backend.go
+│   │   ├── backend.py
+│   │   ├── face.go
+│   │   ├── faces.go
+│   │   ├── family_list.go
+│   │   ├── final.go
+│   │   ├── graphics.go
+│   │   ├── index_feature.go
+│   │   ├── list.go
+│   │   ├── main.go
+│   │   ├── main.py
+│   │   ├── styles.go
+│   │   ├── types.go
+│   │   └── ui.go
+│   ├── clipboard/
+│   │   ├── __init__.py
+│   │   ├── legacy.go
+│   │   ├── main.go
+│   │   ├── main.py
+│   │   ├── read.go
+│   │   └── write.go
+│   ├── command_palette/
+│   │   ├── __init__.py
+│   │   ├── main.go
+│   │   ├── main.py
+│   │   └── main_test.go
+│   ├── desktop_ui/
+│   │   ├── __init__.py
+│   │   ├── main.go
+│   │   ├── main.py
+│   │   └── portal.go
+│   ├── diff/
+│   │   ├── __init__.py
+│   │   ├── collect.go
+│   │   ├── collect_test.go
+│   │   ├── diff.go
+│   │   ├── highlight.go
+│   │   ├── main.go
+│   │   ├── main.py
+│   │   ├── mouse.go
+│   │   ├── patch.go
+│   │   ├── patch_test.go
+│   │   ├── render.go
+│   │   ├── search.go
+│   │   └── ui.go
+│   ├── hints/
+│   │   ├── __init__.py
+│   │   ├── main.go
+│   │   ├── main.py
+│   │   ├── marks.go
+│   │   └── marks_test.go
+│   ├── hyperlinked_grep/
+│   │   ├── __init__.py
+│   │   ├── main.go
+│   │   ├── main.py
+│   │   └── main_test.go
+│   ├── icat/
+│   │   ├── __init__.py
+│   │   ├── detect.go
+│   │   ├── main.go
+│   │   ├── main.py
+│   │   ├── process_images.go
+│   │   ├── scaling_test.go
+│   │   └── transmit.go
+│   ├── notify/
+│   │   ├── __init__.py
+│   │   ├── main.go
+│   │   └── main.py
+│   ├── pager/
+│   │   ├── __init__.py
+│   │   ├── file_input.go
+│   │   ├── main.go
+│   │   └── main.py
+│   ├── panel/
+│   │   ├── __init__.py
+│   │   ├── main.go
+│   │   └── main.py
+│   ├── query_terminal/
+│   │   ├── __init__.py
+│   │   ├── main.go
+│   │   └── main.py
+│   ├── quick_access_terminal/
+│   │   ├── __init__.py
+│   │   ├── main.go
+│   │   └── main.py
+│   ├── remote_file/
+│   │   ├── __init__.py
+│   │   └── main.py
+│   ├── resize_window/
+│   │   ├── __init__.py
+│   │   └── main.py
+│   ├── runner.py
+│   ├── show_key/
+│   │   ├── __init__.py
+│   │   ├── kitty.go
+│   │   ├── legacy.go
+│   │   ├── main.go
+│   │   └── main.py
+│   ├── ssh/
+│   │   ├── __init__.py
+│   │   ├── askpass.go
+│   │   ├── config.go
+│   │   ├── config_test.go
+│   │   ├── main.go
+│   │   ├── main.py
+│   │   ├── main_test.go
+│   │   ├── utils.go
+│   │   ├── utils.py
+│   │   └── utils_test.go
+│   ├── themes/
+│   │   ├── __init__.py
+│   │   ├── list.go
+│   │   ├── main.go
+│   │   ├── main.py
+│   │   └── ui.go
+│   ├── transfer/
+│   │   ├── __init__.py
+│   │   ├── algorithm.c
+│   │   ├── ftc.go
+│   │   ├── ftc_test.go
+│   │   ├── main.go
+│   │   ├── main.py
+│   │   ├── receive.go
+│   │   ├── rsync.pyi
+│   │   ├── send.go
+│   │   ├── send_test.go
+│   │   ├── utils.go
+│   │   └── utils.py
+│   ├── tui/
+│   │   ├── __init__.py
+│   │   ├── dircolors.py
+│   │   ├── handler.py
+│   │   ├── images.py
+│   │   ├── line_edit.py
+│   │   ├── loop.py
+│   │   ├── operations.py
+│   │   ├── operations_stub.py
+│   │   ├── path_completer.py
+│   │   ├── progress.py
+│   │   ├── spinners.py
+│   │   └── utils.py
+│   └── unicode_input/
+│       ├── __init__.py
+│       ├── main.go
+│       ├── main.py
+│       └── table.go
+├── kitty/
+│   ├── __init__.py
+│   ├── actions.py
+│   ├── alpha_blend.glsl
+│   ├── animation.c
+│   ├── animation.h
+│   ├── arches.h
+│   ├── arena.h
+│   ├── backtrace.h
+│   ├── banned.h
+│   ├── base64.h
+│   ├── bash.py
+│   ├── bgimage_fragment.glsl
+│   ├── bgimage_vertex.glsl
+│   ├── binary.h
+│   ├── blit_common.glsl
+│   ├── blit_fragment.glsl
+│   ├── blit_vertex.glsl
+│   ├── border_fragment.glsl
+│   ├── border_vertex.glsl
+│   ├── borders.py
+│   ├── boss.py
+│   ├── cell_defines.glsl
+│   ├── cell_fragment.glsl
+│   ├── cell_vertex.glsl
+│   ├── char-props-data.h
+│   ├── char-props.c
+│   ├── char-props.h
+│   ├── charsets.c
+│   ├── charsets.h
+│   ├── child-monitor.c
+│   ├── child.c
+│   ├── child.py
+│   ├── choose_entry.py
+│   ├── cleanup.c
+│   ├── cleanup.h
+│   ├── cli.py
+│   ├── cli_stub.py
+│   ├── client.py
+│   ├── clipboard.py
+│   ├── cocoa_window.h
+│   ├── cocoa_window.m
+│   ├── color-names.h
+│   ├── colors.c
+│   ├── colors.h
+│   ├── colors.py
+│   ├── conf/
+│   │   ├── __init__.py
+│   │   ├── generate.py
+│   │   ├── types.py
+│   │   └── utils.py
+│   ├── config.py
+│   ├── constants.py
+│   ├── control-codes.h
+│   ├── core_text.m
+│   ├── cross-platform-random.h
+│   ├── crypto.c
+│   ├── cursor.c
+│   ├── cursor_trail.c
+│   ├── data-types.c
+│   ├── data-types.h
+│   ├── debug_config.py
+│   ├── decorations.c
+│   ├── decorations.h
+│   ├── desktop.c
+│   ├── disk-cache.c
+│   ├── disk-cache.h
+│   ├── entry_points.py
+│   ├── fast-file-copy.c
+│   ├── fast-file-copy.h
+│   ├── fast_data_types.pyi
+│   ├── file_transmission.py
+│   ├── fixed_size_deque.h
+│   ├── font-names.c
+│   ├── fontconfig.c
+│   ├── fonts.c
+│   ├── fonts.h
+│   ├── fonts/
+│   │   ├── __init__.py
+│   │   ├── common.py
+│   │   ├── core_text.py
+│   │   ├── features.py
+│   │   ├── fontconfig.py
+│   │   ├── list.py
+│   │   └── render.py
+│   ├── freetype.c
+│   ├── freetype_render_ui_text.c
+│   ├── freetype_render_ui_text.h
+│   ├── gl-wrapper.c
+│   ├── gl-wrapper.h
+│   ├── gl.c
+│   ├── gl.h
+│   ├── glfw-wrapper.c
+│   ├── glfw-wrapper.h
+│   ├── glfw.c
+│   ├── glyph-cache.c
+│   ├── glyph-cache.h
+│   ├── graphics.c
+│   ├── graphics.h
+│   ├── graphics_fragment.glsl
+│   ├── graphics_vertex.glsl
+│   ├── guess_mime_type.py
+│   ├── history.c
+│   ├── history.h
+│   ├── hsluv.glsl
+│   ├── hyperlink.c
+│   ├── hyperlink.h
+│   ├── iqsort.h
+│   ├── key_encoding.c
+│   ├── key_encoding.py
+│   ├── key_names.py
+│   ├── keys.c
+│   ├── keys.h
+│   ├── keys.py
+│   ├── kittens.c
+│   ├── kitty-verstable.h
+│   ├── launch.py
+│   ├── launcher/
+│   │   ├── cli-parser.h
+│   │   ├── cmdline.c
+│   │   ├── launcher.h
+│   │   ├── main.c
+│   │   ├── shlex.h
+│   │   ├── single-instance.c
+│   │   └── utils.h
+│   ├── layout/
+│   │   ├── __init__.py
+│   │   ├── base.py
+│   │   ├── grid.py
+│   │   ├── interface.py
+│   │   ├── splits.py
+│   │   ├── stack.py
+│   │   ├── tall.py
+│   │   └── vertical.py
+│   ├── line-buf.c
+│   ├── line-buf.h
+│   ├── line.c
+│   ├── line.h
+│   ├── linear2srgb.glsl
+│   ├── lineops.h
+│   ├── logging.c
+│   ├── loop-utils.c
+│   ├── loop-utils.h
+│   ├── macos_process_info.c
+│   ├── main.py
+│   ├── marks.py
+│   ├── modes.h
+│   ├── monotonic.c
+│   ├── monotonic.h
+│   ├── mouse.c
+│   ├── multiprocessing.py
+│   ├── notifications.py
+│   ├── open_actions.py
+│   ├── options/
+│   │   ├── __init__.py
+│   │   ├── definition.py
+│   │   ├── parse.py
+│   │   ├── to-c-generated.h
+│   │   ├── to-c.h
+│   │   ├── types.py
+│   │   └── utils.py
+│   ├── os_window_size.py
+│   ├── parse-graphics-command.h
+│   ├── parse-multicell-command.h
+│   ├── png-reader.c
+│   ├── png-reader.h
+│   ├── print-graphics.h
+│   ├── progress.py
+│   ├── rc/
+│   │   ├── __init__.py
+│   │   ├── action.py
+│   │   ├── base.py
+│   │   ├── close_tab.py
+│   │   ├── close_window.py
+│   │   ├── create_marker.py
+│   │   ├── detach_tab.py
+│   │   ├── detach_window.py
+│   │   ├── disable_ligatures.py
+│   │   ├── env.py
+│   │   ├── focus_tab.py
+│   │   ├── focus_window.py
+│   │   ├── get_colors.py
+│   │   ├── get_text.py
+│   │   ├── goto_layout.py
+│   │   ├── kitten.py
+│   │   ├── last_used_layout.py
+│   │   ├── launch.py
+│   │   ├── load_config.py
+│   │   ├── ls.py
+│   │   ├── new_window.py
+│   │   ├── remove_marker.py
+│   │   ├── resize_os_window.py
+│   │   ├── resize_window.py
+│   │   ├── run.py
+│   │   ├── scroll_window.py
+│   │   ├── select_window.py
+│   │   ├── send_key.py
+│   │   ├── send_text.py
+│   │   ├── set_background_image.py
+│   │   ├── set_background_opacity.py
+│   │   ├── set_colors.py
+│   │   ├── set_enabled_layouts.py
+│   │   ├── set_font_size.py
+│   │   ├── set_spacing.py
+│   │   ├── set_tab_color.py
+│   │   ├── set_tab_title.py
+│   │   ├── set_user_vars.py
+│   │   ├── set_window_logo.py
+│   │   ├── set_window_title.py
+│   │   └── signal_child.py
+│   ├── remote_control.py
+│   ├── render_cache.py
+│   ├── resize.c
+│   ├── resize.h
+│   ├── rgb.py
+│   ├── rounded_rect_fragment.glsl
+│   ├── rounded_rect_vertex.glsl
+│   ├── rowcolumn-diacritics.c
+│   ├── safe-wrappers.h
+│   ├── screen.c
+│   ├── screen.h
+│   ├── screenshot_fragment.glsl
+│   ├── screenshot_vertex.glsl
+│   ├── search_query_parser.py
+│   ├── session.py
+│   ├── shaders.c
+│   ├── shaders.py
+│   ├── shell_integration.py
+│   ├── shlex.c
+│   ├── shm.py
+│   ├── short_uuid.py
+│   ├── simd-string-128.c
+│   ├── simd-string-256.c
+│   ├── simd-string-impl.h
+│   ├── simd-string.c
+│   ├── simd-string.h
+│   ├── simple_cli_definitions.py
+│   ├── srgb_gamma.h
+│   ├── state.c
+│   ├── state.h
+│   ├── systemd.c
+│   ├── tab_bar.py
+│   ├── tabs.py
+│   ├── terminfo.h
+│   ├── terminfo.py
+│   ├── text-cache.c
+│   ├── text-cache.h
+│   ├── threading.h
+│   ├── tint_fragment.glsl
+│   ├── tint_vertex.glsl
+│   ├── trail_fragment.glsl
+│   ├── trail_vertex.glsl
+│   ├── types.py
+│   ├── typing_compat.py
+│   ├── typing_compat.pyi
+│   ├── unicode-data.h
+│   ├── update_check.py
+│   ├── utils.glsl
+│   ├── utils.py
+│   ├── utmp.c
+│   ├── vt-parser.c
+│   ├── vt-parser.h
+│   ├── wcswidth.c
+│   ├── wcswidth.h
+│   ├── window.py
+│   ├── window_list.py
+│   ├── window_logo.c
+│   ├── window_logo.h
+│   ├── window_title_bar.py
+│   └── xdg.py
+├── kitty_tests/
+│   ├── CascadiaCode-Regular.otf
+│   ├── FiraCode-Medium.otf
+│   ├── GraphemeBreakTest.json
+│   ├── LiberationMono-Regular.ttf
+│   ├── __init__.py
+│   ├── atexit.py
+│   ├── check_build.py
+│   ├── clipboard.py
+│   ├── command_palette.py
+│   ├── completion.py
+│   ├── crypto.py
+│   ├── datatypes.py
+│   ├── file_transmission.py
+│   ├── fonts.py
+│   ├── glfw.py
+│   ├── gr.py
+│   ├── graphics.py
+│   ├── iosevka-regular.ttf
+│   ├── keys.py
+│   ├── layout.py
+│   ├── main.py
+│   ├── mouse.py
+│   ├── multicell.py
+│   ├── notifications.py
+│   ├── open_actions.py
+│   ├── options.py
+│   ├── panels.py
+│   ├── parser.py
+│   ├── screen.py
+│   ├── search_query_parser.py
+│   ├── shell_integration.py
+│   ├── shm.py
+│   ├── ssh.py
+│   ├── tui.py
+│   ├── twemoji_smiley-cff2_colr_1.otf
+│   └── utmp.py
+├── logo/
+│   ├── attribution.txt
+│   ├── beam-cursor.png
+│   ├── beam-cursor@2x.png
+│   ├── kitty-128.png
+│   ├── kitty-framed.svg
+│   ├── kitty.iconset/
+│   │   ├── icon_128x128.png
+│   │   ├── icon_128x128@2x.png
+│   │   ├── icon_16x16.png
+│   │   ├── icon_16x16@2x.png
+│   │   ├── icon_256x256.png
+│   │   ├── icon_256x256@2x.png
+│   │   ├── icon_32x32.png
+│   │   ├── icon_32x32@2x.png
+│   │   ├── icon_512x512.png
+│   │   └── icon_512x512@2x.png
+│   ├── kitty.png
+│   ├── kitty.svg
+│   └── make.py
+├── publish.py
+├── pyproject.toml
+├── rsync-and-build.sh
+├── session.vim
+├── setup.py
+├── shell-integration/
+│   ├── bash/
+│   │   └── kitty.bash
+│   ├── fish/
+│   │   ├── vendor_completions.d/
+│   │   └── vendor_conf.d/
+│   ├── ssh/
+│   │   ├── bootstrap-utils.sh
+│   │   ├── bootstrap.py
+│   │   ├── bootstrap.sh
+│   │   ├── kitten
+│   │   └── kitty
+│   └── zsh/
+│       ├── .zshenv
+│       ├── completions/
+│       ├── kitty-integration
+│       └── kitty.zsh
+├── shell.nix
+├── staticcheck.conf
+├── terminfo/
+│   ├── 78
+│   ├── kitty.termcap
+│   ├── kitty.terminfo
+│   └── x/
+│       └── xterm-kitty
+├── test.py
+├── tools/
+│   ├── README.rst
+│   ├── cli/
+│   │   ├── bash.go
+│   │   ├── command.go
+│   │   ├── completion-main.go
+│   │   ├── completion-parse-args.go
+│   │   ├── completion.go
+│   │   ├── files.go
+│   │   ├── files_test.go
+│   │   ├── fish.go
+│   │   ├── group.go
+│   │   ├── help.go
+│   │   ├── markup/
+│   │   ├── option-from-string.go
+│   │   ├── option.go
+│   │   ├── parse-args.go
+│   │   ├── types_test.go
+│   │   ├── wcswidth_kitten.go
+│   │   └── zsh.go
+│   ├── cmd/
+│   │   ├── at/
+│   │   ├── atexit/
+│   │   ├── benchmark/
+│   │   ├── completion/
+│   │   ├── edit_in_kitty/
+│   │   ├── main.go
+│   │   ├── mouse_demo/
+│   │   ├── pytest/
+│   │   ├── run_shell/
+│   │   ├── show_error/
+│   │   ├── tool/
+│   │   └── update_self/
+│   ├── config/
+│   │   ├── api.go
+│   │   ├── api_test.go
+│   │   ├── utils.go
+│   │   └── utils_test.go
+│   ├── crypto/
+│   │   └── crypto.go
+│   ├── disk_cache/
+│   │   ├── api.go
+│   │   ├── implementation.go
+│   │   └── implementation_test.go
+│   ├── fzf/
+│   │   ├── algo.go
+│   │   ├── algo_test.go
+│   │   ├── api.go
+│   │   └── types.go
+│   ├── highlight/
+│   │   ├── api.go
+│   │   └── impl.go
+│   ├── icons/
+│   │   └── file-types.go
+│   ├── ignorefiles/
+│   │   ├── api.go
+│   │   ├── gitignore.go
+│   │   └── gitignore_test.go
+│   ├── rsync/
+│   │   ├── algorithm.go
+│   │   ├── api.go
+│   │   └── api_test.go
+│   ├── simdstring/
+│   │   ├── benchmark.sh
+│   │   ├── benchmarks_test.go
+│   │   ├── generate.go
+│   │   ├── generate.sh
+│   │   ├── intrinsics.go
+│   │   ├── intrinsics_test.go
+│   │   ├── scalar.go
+│   │   └── test.sh
+│   ├── themes/
+│   │   ├── collection.go
+│   │   └── collection_test.go
+│   ├── tty/
+│   │   ├── tty.go
+│   │   ├── tty_bsd.go
+│   │   └── tty_linux.go
+│   ├── tui/
+│   │   ├── dcs_to_kitty.go
+│   │   ├── download_with_progress.go
+│   │   ├── graphics/
+│   │   ├── hold.go
+│   │   ├── loop/
+│   │   ├── mouse.go
+│   │   ├── password.go
+│   │   ├── progress-bar.go
+│   │   ├── progress-bar_test.go
+│   │   ├── readline/
+│   │   ├── render_lines.go
+│   │   ├── run.go
+│   │   ├── sgr/
+│   │   ├── shell_integration/
+│   │   ├── shortcuts/
+│   │   ├── spinners.go
+│   │   ├── subseq/
+│   │   ├── tmux.go
+│   │   └── ui_kitten.go
+│   ├── unicode_names/
+│   │   ├── names.txt
+│   │   ├── query.go
+│   │   └── query_test.go
+│   ├── utils/
+│   │   ├── atexit.go
+│   │   ├── atomic-write.go
+│   │   ├── base85/
+│   │   ├── cache.go
+│   │   ├── cached_values.go
+│   │   ├── clock_with_raw.go
+│   │   ├── clock_without_raw.go
+│   │   ├── colors.go
+│   │   ├── download_file.go
+│   │   ├── embed.go
+│   │   ├── filelock.go
+│   │   ├── filelock_test.go
+│   │   ├── hostname.go
+│   │   ├── humanize/
+│   │   ├── images/
+│   │   ├── io.go
+│   │   ├── iso8601.go
+│   │   ├── iso8601_test.go
+│   │   ├── levenshtein.go
+│   │   ├── longest-common.go
+│   │   ├── longest-common_test.go
+│   │   ├── mimetypes.go
+│   │   ├── misc.go
+│   │   ├── passwd.go
+│   │   ├── passwd_test.go
+│   │   ├── paths.go
+│   │   ├── paths/
+│   │   ├── random/
+│   │   ├── regexp.go
+│   │   ├── ring.go
+│   │   ├── ring_test.go
+│   │   ├── secrets/
+│   │   ├── select.go
+│   │   ├── select_posix.go
+│   │   ├── select_without_pselect.go
+│   │   ├── set.go
+│   │   ├── shell.go
+│   │   ├── shlex/
+│   │   ├── short-uuid.go
+│   │   ├── short-uuid_test.go
+│   │   ├── sockets.go
+│   │   ├── sockets_test.go
+│   │   ├── stream_decompressor.go
+│   │   ├── stream_decompressor_test.go
+│   │   ├── strings.go
+│   │   ├── strings_test.go
+│   │   ├── style/
+│   │   ├── tar.go
+│   │   ├── tar_test.go
+│   │   ├── tmpfile_linux.go
+│   │   ├── tmpfile_others.go
+│   │   ├── tpmfile_test.go
+│   │   ├── types.go
+│   │   ├── unsafe.go
+│   │   ├── utf-8.go
+│   │   └── which.go
+│   ├── vt/
+│   │   ├── cell.go
+│   │   ├── line.go
+│   │   └── linebuf.go
+│   └── wcswidth/
+│       ├── char-props-data.go
+│       ├── char-props.go
+│       ├── char-props_test.go
+│       ├── escape-code-parser.go
+│       ├── escape-code-parser_test.go
+│       ├── iter.go
+│       ├── truncate.go
+│       ├── wcswidth.go
+│       └── wcswidth_test.go
+└── update-on-ox

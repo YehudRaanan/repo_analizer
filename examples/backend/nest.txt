@@ -1,0 +1,1058 @@
+=====================================
+Repository Analysis: nest
+Type: Backend / API Service
+=====================================
+
+--- METADATA ---
+Name: nest
+Description: A progressive Node.js framework for building efficient, scalable, and enterprise-grade server-side applications with TypeScript/JavaScript 🚀
+Language: TypeScript
+Topics: framework, hacktoberfest, javascript, javascript-framework, microservices, nest, nestjs, node, nodejs, nodejs-framework, typescript, typescript-framework, websockets
+Stars: 74867
+License: MIT License
+
+--- README ---
+<p align="center">
+  <a href="https://nestjs.com/" target="_blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
+</p>
+
+[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
+[circleci-url]: https://circleci.com/gh/nestjs/nest
+
+  <p align="center">A progressive <a href="https://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
+    <p align="center">
+<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
+<a href="https://github.com/nestjs/nest/blob/master/LICENSE" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
+<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
+<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
+<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
+<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
+<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
+  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg"/></a>
+    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
+  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
+</p>
+  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
+  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+
+## Description
+
+Nest is a framework for building efficient, scalable <a href="https://nodejs.org" target="_blank">Node.js</a> server-side applications. It uses modern JavaScript, is built with <a href="https://www.typescriptlang.org" target="_blank">TypeScript</a> (preserves compatibility with pure JavaScript) and combines elements of OOP (Object Oriented Programming), FP (Functional Programming), and FRP (Functional Reactive Programming).
+
+<p>Under the hood, Nest makes use of <a href="https://expressjs.com/" target="_blank">Express</a>, but also provides compatibility with a wide range of other libraries, like <a href="https://github.com/fastify/fastify" target="_blank">Fastify</a>, allowing for easy use of the myriad of third-party plugins which are available.</p>
+
+## Philosophy
+
+<p>In recent years, thanks to Node.js, JavaScript has become the “lingua franca” of the web for both front and backend applications, giving rise to awesome projects like <a href="https://angular.io/" target="_blank">Angular</a>, <a href="https://github.com/facebook/react" target="_blank">React</a>, and <a href="https://github.com/vuejs/vue" target="_blank">Vue</a>, which improve developer productivity and enable the construction of fast, testable, and extensible frontend applications. However, on the server-side, while there are a lot of superb libraries, helpers, and tools for Node, none of them effectively solve the main problem - the architecture.</p>
+<p>Nest aims to provide an application architecture out of the box which allows for effortless creation of highly testable, scalable, and loosely coupled and easily maintainable applications. The architecture is heavily inspired by Angular.</p>
+
+## Getting started
+
+- To check out the [guide](https://docs.nestjs.com), visit [docs.nestjs.com](https://docs.nestjs.com). :books:
+- 要查看中文 [指南](readme_zh.md), 请访问 [docs.nestjs.cn](https://docs.nestjs.cn). :books:
+- [가이드](readme_kr.md) 문서는 [docs.nestjs.com](https://docs.nestjs.com)에서 확인하실 수 있습니다. :books:
+- [ガイド](readme_jp.md)は [docs.nestjs.com](https://docs.nestjs.com)でご確認ください。 :books:
+
+## Questions
+
+For questions and support please use the official [Discord channel](https://discord.gg/G7Qnnhy). The issue list of this repo is **exclusively** for bug reports and feature requests.
+
+## Issues
+
+Please make sure to read the [Issue Reporting Checklist](https://github.com/nestjs/nest/blob/master/CONTRIBUTING.md#-submitting-an-issue) before opening an issue. Issues not conforming to the guidelines may be closed immediately.
+
+## Consulting
+
+With official support, you can get expert help straight from the Nest core team. We provide dedicated technical support, migration 
+... [TRUNCATED]
+
+--- PACKAGE MANIFEST(S) ---
+
+[package.json]
+{
+  "name": "@nestjs/core",
+  "version": "11.1.10",
+  "description": "Modern, fast, powerful node.js web framework",
+  "homepage": "https://nestjs.com",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/nestjs/nest.git"
+  },
+  "funding": {
+    "type": "opencollective",
+    "url": "https://opencollective.com/nest"
+  },
+  "license": "MIT",
+  "author": "Kamil Mysliwiec",
+  "scripts": {
+    "build": "tsc -b -v packages",
+    "postbuild": "npm run move:node_modules",
+    "build:dev": "tsc -b -v packages --watch",
+    "prebuild:prod": "npm run clean",
+    "build:prod": "tsc -b -v packages",
+    "changelog": "lerna-changelog",
+    "clean": "tsc -b --clean packages",
+    "move:samples": "gulp move:samples",
+    "move:node_modules": "gulp move:node_modules",
+    "build:samples": "gulp install:samples && npm run build && npm run move:samples && gulp build:samples && gulp test:samples && gulp test:e2e:samples",
+    "codechecks:benchmarks": "codechecks ./tools/benchmarks/check-benchmarks.ts",
+    "coverage": "nyc report --reporter=text-lcov | coveralls -v",
+    "format": "prettier \"**/*.ts\" \"packages/**/*.json\" --ignore-path ./.prettierignore --write && git status",
+    "postinstall": "opencollective",
+    "test": "mocha packages/**/*.spec.ts",
+    "test:dev": "mocha -w --watch-files \"packages\" packages/**/*.spec.ts",
+    "pretest:cov": "npm run clean",
+    "test:cov": "nyc mocha packages/**/*.spec.ts --reporter spec",
+    "test:integration": "mocha --reporter-option maxDiffSize=0 \"integration/*/{,!(node_modules)/**/}/*.spec.ts\"",
+    "test:docker:up": "docker-compose -f integration/docker-compose.yml up -d",
+    "test:docker:down": "docker-compose -f integration/docker-compose.yml down",
+    "lint": "concurrently 'npm run lint:packages' 'npm run lint:integration' 'npm run lint:spec'",
+    "lint:fix": "concurrently 'npm run lint:packages -- --fix' 'npm run lint:integration -- --fix' 'npm run lint:spec -- --fix'",
+    "lint:integration": "node --max-old-space-size=4096 ./node_modules/.bin/eslint 'integration/**/*.ts'",
+    "lint:packages": "node --max-old-space-size=4096 ./node_modules/.bin/eslint 'packages/**/**.ts' --ignore-pattern 'packages/**/*.spec.ts'",
+    "lint:spec": "node --max-old-space-size=4096 ./node_modules/.bin/eslint 'packages/**/**.spec.ts'",
+    "lint:ci": "concurrently 'npm run lint:packages' 'npm run lint:spec'",
+    "prerelease": "gulp copy-misc",
+    "publish": "npm run prerelease && npm run build:prod && ./node_modules/.bin/lerna publish --force-publish --exact -m \"chore(release): publish %s release\"",
+    "prepublishOnly": "npm run changelog | pbcopy",
+    "publish:beta": "npm run prerelease && npm run build:prod && ./node_modules/.bin/lerna publish --npm-tag=beta -m \"chore(release): publish %s release\"",
+    "publish:next": "npm run prerelease && npm run build:prod && ./node_modules/.bin/lerna publish --npm-tag=next --skip-git -m \"chore(release): publish %s release\"",
+    "publish:rc": "npm run prerele
+... [TRUNCATED]
+
+--- BACKEND CONFIG FILES ---
+(No backend config files found)
+
+--- API ROUTE / ENDPOINT DEFINITIONS ---
+
+[integration/cors/src/app.controller.ts]
+import { Controller, Get } from '@nestjs/common';
+
+@Controller()
+export class AppController {
+  @Get()
+  getGlobals() {
+    return '';
+  }
+}
+
+
+[integration/hello-world/e2e/middleware-run-match-route.ts]
+import {
+  Controller,
+  Get,
+  INestApplication,
+  Injectable,
+  MiddlewareConsumer,
+  NestMiddleware,
+  Module,
+} from '@nestjs/common';
+import { Test } from '../../../packages/testing';
+import * as request from 'supertest';
+import { expect } from 'chai';
+
+/**
+ * Number of times that the middleware was executed.
+ */
+let triggerCounter = 0;
+@Injectable()
+class Middleware implements NestMiddleware {
+  use(req, res, next) {
+    triggerCounter++;
+    next();
+  }
+}
+
+@Controller()
+class TestController {
+  @Get('/test')
+  testA() {}
+
+  @Get('/:id')
+  testB() {}
+
+  @Get('/static/route')
+  testC() {}
+
+  @Get('/:id/:nested')
+  testD() {}
+}
+
+@Module({
+  controllers: [TestController],
+})
+class TestModule {
+  configure(consumer: MiddlewareConsumer) {
+    consumer.apply(Middleware).forRoutes(TestController);
+  }
+}
+
+describe('Middleware (run on route match)', () => {
+  let app: INestApplication;
+
+  beforeEach(async () => {
+    triggerCounter = 0;
+    app = (
+      await Test.createTestingModule({
+        imports: [TestModule],
+      }).compile()
+    ).createNestApplication();
+
+    await app.init();
+  });
+
+  it(`forRoutes(TestController) should execute middleware once when request url is equal match`, () => {
+    return request(app.getHttpServer())
+      .get('/test')
+      .expect(200)
+      .then(() => {
+        expect(triggerCounter).to.be.eq(1);
+      });
+  });
+
+  it(`forRoutes(TestController) should execute middleware once when request url is not equal match`, () => {
+    return request(app.getHttpServer())
+      .get('/1')
+      .expect(200)
+      .then(() => {
+        expect(triggerCounter).to.be.eq(1);
+      });
+  });
+
+  it(`forRoutes(TestController) should execute middleware once when request url is not of nested params`, () => {
+    return request(app.getHttpServer())
+      .get('/static/route')
+      .expect(200)
+      .then(() => {
+        expect(triggerCounter).to.be.eq(1);
+      });
+  });
+
+  it(`forRoutes(TestController) should execute middleware once when request url is of nested params`, () => {
+    return request(app.getHttpServer())
+      .get('/1/abc')
+      .expect(200)
+      .then(() => {
+        expect(triggerCounter).to.be.eq(1);
+      });
+  });
+
+  afterEach(async () => {
+    await app.close();
+  });
+});
+
+
+[integration/hello-world/src/hello/hello.controller.ts]
+import { Controller, Get, Header, Param } from '@nestjs/common';
+import { Observable, of } from 'rxjs';
+import { HelloService } from './hello.service';
+import { UserByIdPipe } from './users/user-by-id.pipe';
+
+@Controller('hello')
+export class HelloController {
+  constructor(private readonly helloService: HelloService) {}
+
+  @Get()
+  @Header('Authorization', 'Bearer')
+  greeting(): string {
+    return this.helloService.greeting();
+  }
+
+  @Get('async')
+  async asyncGreeting(): Promise<string> {
+    return this.helloService.greeting();
+  }
+
+  @Get('stream')
+  streamGreeting(): Observable<string> {
+    return of(this.helloService.greeting());
+  }
+
+  @Get('local-pipe/:id')
+  localPipe(
+    @Param('id', UserByIdPipe)
+    user: any,
+  ): any {
+    return user;
+  }
+}
+
+
+[integration/hello-world/src/host-array/host-array.controller.ts]
+import { Controller, Get, Header, HostParam, Param } from '@nestjs/common';
+import { Observable, of } from 'rxjs';
+import { HostArrayService } from './host-array.service';
+import { UserByIdPipe } from './users/user-by-id.pipe';
+
+@Controller({
+  path: 'host-array',
+  host: [':tenant.example1.com', ':tenant.example2.com'],
+})
+export class HostArrayController {
+  constructor(private readonly hostService: HostArrayService) {}
+
+  @Get()
+  @Header('Authorization', 'Bearer')
+  greeting(@HostParam('tenant') tenant: string): string {
+    return `${this.hostService.greeting()} tenant=${tenant}`;
+  }
+
+  @Get('async')
+  async asyncGreeting(@HostParam('tenant') tenant: string): Promise<string> {
+    return `${this.hostService.greeting()} tenant=${tenant}`;
+  }
+
+  @Get('stream')
+  streamGreeting(@HostParam('tenant') tenant: string): Observable<string> {
+    return of(`${this.hostService.greeting()} tenant=${tenant}`);
+  }
+
+  @Get('local-pipe/:id')
+  localPipe(
+    @Param('id', UserByIdPipe)
+    user: any,
+    @HostParam('tenant') tenant: string,
+  ): any {
+    return { ...user, tenant };
+  }
+}
+
+
+[integration/hello-world/src/host/host.controller.ts]
+import { Controller, Get, Header, HostParam, Param } from '@nestjs/common';
+import { Observable, of } from 'rxjs';
+import { HostService } from './host.service';
+import { UserByIdPipe } from './users/user-by-id.pipe';
+
+@Controller({
+  path: 'host',
+  host: ':tenant.example.com',
+})
+export class HostController {
+  constructor(private readonly hostService: HostService) {}
+
+  @Get()
+  @Header('Authorization', 'Bearer')
+  greeting(@HostParam('tenant') tenant: string): string {
+    return `${this.hostService.greeting()} tenant=${tenant}`;
+  }
+
+  @Get('async')
+  async asyncGreeting(@HostParam('tenant') tenant: string): Promise<string> {
+    return `${this.hostService.greeting()} tenant=${tenant}`;
+  }
+
+  @Get('stream')
+  streamGreeting(@HostParam('tenant') tenant: string): Observable<string> {
+    return of(`${this.hostService.greeting()} tenant=${tenant}`);
+  }
+
+  @Get('local-pipe/:id')
+  localPipe(
+    @Param('id', UserByIdPipe)
+    user: any,
+    @HostParam('tenant') tenant: string,
+  ): any {
+    return { ...user, tenant };
+  }
+}
+
+
+[integration/injector/src/scoped/scoped.controller.ts]
+import { Controller, Scope } from '@nestjs/common';
+
+@Controller({
+  path: 'test',
+  scope: Scope.REQUEST,
+})
+export class ScopedController {}
+
+
+[integration/inspector/src/app-v1.controller.ts]
+import { Controller, Get } from '@nestjs/common';
+
+@Controller({
+  version: '1',
+})
+export class AppV1Controller {
+  @Get('/')
+  helloWorldV1() {
+    return 'Hello World V1!';
+  }
+
+  @Get('/:param/hello')
+  paramV1() {
+    return 'Parameter V1!';
+  }
+}
+
+
+[integration/inspector/src/app-v2.controller.ts]
+import { Controller, Get, Version } from '@nestjs/common';
+
+@Controller({
+  version: '2',
+})
+export class AppV2Controller {
+  @Get('/')
+  helloWorldV2() {
+    return 'Hello World V2!';
+  }
+
+  @Version('3')
+  @Get('/:param/hello')
+  paramV1() {
+    return 'Parameter V2!';
+  }
+}
+
+
+--- DATABASE SCHEMA / MODEL FILES ---
+  integration/graphql-code-first/src/recipes/models/recipe.ts
+  integration/inspector/src/chat/entities/chat.entity.ts
+  integration/inspector/src/database/entities/database.entity.ts
+  integration/inspector/src/dogs/entities/dog.entity.ts
+  integration/inspector/src/external-svc/entities/external-svc.entity.ts
+
+--- DIRECTORY STRUCTURE (depth 2) ---
+├── .circleci/
+│   └── config.yml
+├── .commitlintrc.json
+├── .gitattributes
+├── .github/
+│   ├── FUNDING.yml
+│   ├── ISSUE_TEMPLATE/
+│   │   ├── Bug_report.yml
+│   │   ├── Feature_request.yml
+│   │   ├── Regression.yml
+│   │   ├── Suggestion_improve_performance.yml
+│   │   └── config.yml
+│   ├── PULL_REQUEST_TEMPLATE.md
+│   ├── dependabot.yml
+│   ├── lock.yml
+│   └── workflows/
+│       └── codeql-analysis.yml
+├── .gitignore
+├── .husky/
+│   ├── commit-msg
+│   └── pre-commit
+├── .npmignore
+├── .prettierignore
+├── .prettierrc
+├── CODE_OF_CONDUCT.md
+├── CONTRIBUTING.md
+├── LICENSE
+├── Readme.md
+├── SECURITY.md
+├── eslint.config.mjs
+├── gulpfile.js
+├── hooks/
+│   └── mocha-init-hook.ts
+├── integration/
+│   ├── auto-mock/
+│   │   ├── src/
+│   │   ├── test/
+│   │   └── tsconfig.json
+│   ├── cors/
+│   │   ├── e2e/
+│   │   ├── src/
+│   │   └── tsconfig.json
+│   ├── discovery/
+│   │   ├── e2e/
+│   │   ├── src/
+│   │   └── tsconfig.json
+│   ├── docker-compose.yml
+│   ├── graphql-code-first/
+│   │   ├── e2e/
+│   │   ├── schema.gql
+│   │   ├── src/
+│   │   └── tsconfig.json
+│   ├── graphql-schema-first/
+│   │   ├── e2e/
+│   │   ├── src/
+│   │   └── tsconfig.json
+│   ├── hello-world/
+│   │   ├── e2e/
+│   │   ├── src/
+│   │   └── tsconfig.json
+│   ├── hooks/
+│   │   ├── e2e/
+│   │   ├── src/
+│   │   └── tsconfig.json
+│   ├── injector/
+│   │   ├── e2e/
+│   │   ├── src/
+│   │   └── tsconfig.json
+│   ├── inspector/
+│   │   ├── e2e/
+│   │   ├── src/
+│   │   └── tsconfig.json
+│   ├── lazy-modules/
+│   │   ├── e2e/
+│   │   ├── src/
+│   │   └── tsconfig.json
+│   ├── microservices/
+│   │   ├── e2e/
+│   │   ├── src/
+│   │   └── tsconfig.json
+│   ├── module-utils/
+│   │   ├── src/
+│   │   ├── test/
+│   │   └── tsconfig.json
+│   ├── mongoose/
+│   │   ├── e2e/
+│   │   ├── src/
+│   │   └── tsconfig.json
+│   ├── mosquitto.conf
+│   ├── nest-application/
+│   │   ├── app-locals/
+│   │   ├── get-url/
+│   │   ├── global-prefix/
+│   │   ├── listen/
+│   │   ├── raw-body/
+│   │   ├── sse/
+│   │   └── use-body-parser/
+│   ├── repl/
+│   │   ├── e2e/
+│   │   ├── src/
+│   │   └── tsconfig.json
+│   ├── scopes/
+│   │   ├── e2e/
+│   │   ├── src/
+│   │   └── tsconfig.json
+│   ├── send-files/
+│   │   ├── e2e/
+│   │   ├── src/
+│   │   └── tsconfig.json
+│   ├── testing-module-override/
+│   │   ├── circular-dependency/
+│   │   ├── e2e/
+│   │   └── tsconfig.json
+│   ├── typeorm/
+│   │   ├── e2e/
+│   │   ├── ormconfig.json
+│   │   ├── src/
+│   │   └── tsconfig.json
+│   ├── versioning/
+│   │   ├── e2e/
+│   │   ├── src/
+│   │   └── tsconfig.json
+│   └── websockets/
+│       ├── e2e/
+│       ├── src/
+│       └── tsconfig.json
+├── lerna.json
+├── package-lock.json
+├── package.json
+├── packages/
+│   ├── common/
+│   │   ├── PACKAGE.md
+│   │   ├── Readme.md
+│   │   ├── constants.ts
+│   │   ├── decorators/
+│   │   ├── enums/
+│   │   ├── exceptions/
+│   │   ├── file-stream/
+│   │   ├── index.ts
+│   │   ├── interfaces/
+│   │   ├── module-utils/
+│   │   ├── package.json
+│   │   ├── pipes/
+│   │   ├── serializer/
+│   │   ├── services/
+│   │   ├── test/
+│   │   ├── tsconfig.build.json
+│   │   ├── tsconfig.json
+│   │   └── utils/
+│   ├── core/
+│   │   ├── PACKAGE.md
+│   │   ├── Readme.md
+│   │   ├── adapters/
+│   │   ├── application-config.ts
+│   │   ├── constants.ts
+│   │   ├── discovery/
+│   │   ├── errors/
+│   │   ├── exceptions/
+│   │   ├── guards/
+│   │   ├── helpers/
+│   │   ├── hooks/
+│   │   ├── index.ts
+│   │   ├── injector/
+│   │   ├── inspector/
+│   │   ├── interceptors/
+│   │   ├── interfaces/
+│   │   ├── metadata-scanner.ts
+│   │   ├── middleware/
+│   │   ├── nest-application-context.ts
+│   │   ├── nest-application.ts
+│   │   ├── nest-factory.ts
+│   │   ├── package.json
+│   │   ├── pipes/
+│   │   ├── repl/
+│   │   ├── router/
+│   │   ├── scanner.ts
+│   │   ├── services/
+│   │   ├── test/
+│   │   ├── tsconfig.build.json
+│   │   └── tsconfig.json
+│   ├── microservices/
+│   │   ├── Readme.md
+│   │   ├── client/
+│   │   ├── constants.ts
+│   │   ├── container.ts
+│   │   ├── context/
+│   │   ├── ctx-host/
+│   │   ├── decorators/
+│   │   ├── deserializers/
+│   │   ├── enums/
+│   │   ├── errors/
+│   │   ├── events/
+│   │   ├── exceptions/
+│   │   ├── external/
+│   │   ├── factories/
+│   │   ├── helpers/
+│   │   ├── index.ts
+│   │   ├── interfaces/
+│   │   ├── listener-metadata-explorer.ts
+│   │   ├── listeners-controller.ts
+│   │   ├── microservices-module.ts
+│   │   ├── module/
+│   │   ├── nest-microservice.ts
+│   │   ├── package.json
+│   │   ├── record-builders/
+│   │   ├── serializers/
+│   │   ├── server/
+│   │   ├── test/
+│   │   ├── tokens.ts
+│   │   ├── tsconfig.build.json
+│   │   ├── tsconfig.json
+│   │   └── utils/
+│   ├── platform-express/
+│   │   ├── Readme.md
+│   │   ├── adapters/
+│   │   ├── index.ts
+│   │   ├── interfaces/
+│   │   ├── multer/
+│   │   ├── package.json
+│   │   ├── test/
+│   │   ├── tsconfig.build.json
+│   │   └── tsconfig.json
+│   ├── platform-fastify/
+│   │   ├── Readme.md
+│   │   ├── adapters/
+│   │   ├── constants.ts
+│   │   ├── decorators/
+│   │   ├── index.ts
+│   │   ├── interfaces/
+│   │   ├── package.json
+│   │   ├── test/
+│   │   ├── tsconfig.build.json
+│   │   └── tsconfig.json
+│   ├── platform-socket.io/
+│   │   ├── Readme.md
+│   │   ├── adapters/
+│   │   ├── index.ts
+│   │   ├── package.json
+│   │   ├── tsconfig.build.json
+│   │   └── tsconfig.json
+│   ├── platform-ws/
+│   │   ├── Readme.md
+│   │   ├── adapters/
+│   │   ├── index.ts
+│   │   ├── package.json
+│   │   ├── tsconfig.build.json
+│   │   └── tsconfig.json
+│   ├── testing/
+│   │   ├── Readme.md
+│   │   ├── index.ts
+│   │   ├── interfaces/
+│   │   ├── package.json
+│   │   ├── services/
+│   │   ├── test.ts
+│   │   ├── testing-injector.ts
+│   │   ├── testing-instance-loader.ts
+│   │   ├── testing-module.builder.ts
+│   │   ├── testing-module.ts
+│   │   ├── tsconfig.build.json
+│   │   └── tsconfig.json
+│   ├── tsconfig.build.json
+│   ├── tsconfig.json
+│   └── websockets/
+│       ├── Readme.md
+│       ├── adapters/
+│       ├── constants.ts
+│       ├── context/
+│       ├── decorators/
+│       ├── enums/
+│       ├── errors/
+│       ├── exceptions/
+│       ├── factories/
+│       ├── gateway-metadata-explorer.ts
+│       ├── index.ts
+│       ├── interfaces/
+│       ├── package.json
+│       ├── socket-module.ts
+│       ├── socket-server-provider.ts
+│       ├── sockets-container.ts
+│       ├── test/
+│       ├── tsconfig.build.json
+│       ├── tsconfig.json
+│       ├── utils/
+│       └── web-sockets-controller.ts
+├── readme_jp.md
+├── readme_kr.md
+├── readme_zh.md
+├── renovate.json
+├── sample/
+│   ├── 01-cats-app/
+│   │   ├── .gitignore
+│   │   ├── e2e/
+│   │   ├── eslint.config.mjs
+│   │   ├── jest.json
+│   │   ├── package.json
+│   │   ├── src/
+│   │   ├── tsconfig.build.json
+│   │   └── tsconfig.json
+│   ├── 02-gateways/
+│   │   ├── .gitignore
+│   │   ├── client/
+│   │   ├── e2e/
+│   │   ├── eslint.config.mjs
+│   │   ├── jest.json
+│   │   ├── package.json
+│   │   ├── src/
+│   │   ├── tsconfig.build.json
+│   │   └── tsconfig.json
+│   ├── 03-microservices/
+│   │   ├── .gitignore
+│   │   ├── eslint.config.mjs
+│   │   ├── package.json
+│   │   ├── src/
+│   │   ├── tsconfig.build.json
+│   │   └── tsconfig.json
+│   ├── 04-grpc/
+│   │   ├── .gitignore
+│   │   ├── eslint.config.mjs
+│   │   ├── nest-cli.json
+│   │   ├── package.json
+│   │   ├── src/
+│   │   ├── tsconfig.build.json
+│   │   └── tsconfig.json
+│   ├── 05-sql-typeorm/
+│   │   ├── .gitignore
+│   │   ├── README.md
+│   │   ├── docker-compose.yml
+│   │   ├── eslint.config.mjs
+│   │   ├── jest.json
+│   │   ├── package.json
+│   │   ├── src/
+│   │   ├── test/
+│   │   ├── tsconfig.build.json
+│   │   └── tsconfig.json
+│   ├── 06-mongoose/
+│   │   ├── .gitignore
+│   │   ├── README.md
+│   │   ├── docker-compose.yml
+│   │   ├── eslint.config.mjs
+│   │   ├── package.json
+│   │   ├── src/
+│   │   ├── tsconfig.build.json
+│   │   └── tsconfig.json
+│   ├── 07-sequelize/
+│   │   ├── .gitignore
+│   │   ├── README.md
+│   │   ├── docker-compose.yml
+│   │   ├── eslint.config.mjs
+│   │   ├── package.json
+│   │   ├── src/
+│   │   ├── tsconfig.build.json
+│   │   └── tsconfig.json
+│   ├── 08-webpack/
+│   │   ├── .gitignore
+│   │   ├── eslint.config.mjs
+│   │   ├── nest-cli.json
+│   │   ├── package.json
+│   │   ├── src/
+│   │   ├── tsconfig.build.json
+│   │   ├── tsconfig.json
+│   │   └── webpack-hmr.config.js
+│   ├── 09-babel-example/
+│   │   ├── .babelrc
+│   │   ├── .gitignore
+│   │   ├── index.js
+│   │   ├── jsconfig.json
+│   │   ├── nodemon.json
+│   │   ├── package.json
+│   │   └── src/
+│   ├── 10-fastify/
+│   │   ├── .gitignore
+│   │   ├── README.md
+│   │   ├── eslint.config.mjs
+│   │   ├── package.json
+│   │   ├── src/
+│   │   ├── tsconfig.build.json
+│   │   └── tsconfig.json
+│   ├── 11-swagger/
+│   │   ├── .gitignore
+│   │   ├── README.md
+│   │   ├── eslint.config.mjs
+│   │   ├── nest-cli.json
+│   │   ├── package.json
+│   │   ├── src/
+│   │   ├── tsconfig.build.json
+│   │   └── tsconfig.json
+│   ├── 12-graphql-schema-first/
+│   │   ├── .gitignore
+│   │   ├── README.md
+│   │   ├── e2e/
+│   │   ├── eslint.config.mjs
+│   │   ├── generate-typings.ts
+│   │   ├── nest-cli.json
+│   │   ├── package.json
+│   │   ├── src/
+│   │   ├── tsconfig.build.json
+│   │   └── tsconfig.json
+│   ├── 13-mongo-typeorm/
+│   │   ├── .gitignore
+│   │   ├── README.md
+│   │   ├── docker-compose.yml
+│   │   ├── eslint.config.mjs
+│   │   ├── package.json
+│   │   ├── src/
+│   │   ├── tsconfig.build.json
+│   │   └── tsconfig.json
+│   ├── 14-mongoose-base/
+│   │   ├── .gitignore
+│   │   ├── README.md
+│   │   ├── docker-compose.yml
+│   │   ├── eslint.config.mjs
+│   │   ├── package.json
+│   │   ├── src/
+│   │   ├── tsconfig.build.json
+│   │   └── tsconfig.json
+│   ├── 15-mvc/
+│   │   ├── .gitignore
+│   │   ├── eslint.config.mjs
+│   │   ├── nodemon.json
+│   │   ├── package.json
+│   │   ├── public/
+│   │   ├── src/
+│   │   ├── tsconfig.build.json
+│   │   ├── tsconfig.json
+│   │   └── views/
+│   ├── 16-gateways-ws/
+│   │   ├── .gitignore
+│   │   ├── client/
+│   │   ├── eslint.config.mjs
+│   │   ├── package.json
+│   │   ├── src/
+│   │   ├── tsconfig.build.json
+│   │   └── tsconfig.json
+│   ├── 17-mvc-fastify/
+│   │   ├── .gitignore
+│   │   ├── README.md
+│   │   ├── eslint.config.mjs
+│   │   ├── nodemon.json
+│   │   ├── package.json
+│   │   ├── public/
+│   │   ├── src/
+│   │   ├── tsconfig.build.json
+│   │   ├── tsconfig.json
+│   │   └── views/
+│   ├── 18-context/
+│   │   ├── .gitignore
+│   │   ├── eslint.config.mjs
+│   │   ├── package.json
+│   │   ├── src/
+│   │   ├── tsconfig.build.json
+│   │   └── tsconfig.json
+│   ├── 19-auth-jwt/
+│   │   ├── .gitignore
+│   │   ├── e2e/
+│   │   ├── eslint.config.mjs
+│   │   ├── nest-cli.json
+│   │   ├── package.json
+│   │   ├── src/
+│   │   ├── tsconfig.build.json
+│   │   └── tsconfig.json
+│   ├── 20-cache/
+│   │   ├── .gitignore
+│   │   ├── eslint.config.mjs
+│   │   ├── jest.json
+│   │   ├── package.json
+│   │   ├── src/
+│   │   ├── tsconfig.build.json
+│   │   └── tsconfig.json
+│   ├── 21-serializer/
+│   │   ├── .gitignore
+│   │   ├── eslint.config.mjs
+│   │   ├── jest.json
+│   │   ├── package.json
+│   │   ├── src/
+│   │   ├── tsconfig.build.json
+│   │   └── tsconfig.json
+│   ├── 22-graphql-prisma/
+│   │   ├── .gitignore
+│   │   ├── README.md
+│   │   ├── eslint.config.mjs
+│   │   ├── generate-typings.ts
+│   │   ├── nest-cli.json
+│   │   ├── package.json
+│   │   ├── prisma.config.ts
+│   │   ├── prisma/
+│   │   ├── src/
+│   │   ├── tsconfig.build.json
+│   │   └── tsconfig.json
+│   ├── 23-graphql-code-first/
+│   │   ├── .gitignore
+│   │   ├── eslint.config.mjs
+│   │   ├── nest-cli.json
+│   │   ├── package.json
+│   │   ├── schema.gql
+│   │   ├── src/
+│   │   ├── tsconfig.build.json
+│   │   └── tsconfig.json
+│   ├── 24-serve-static/
+│   │   ├── .gitignore
+│   │   ├── client/
+│   │   ├── eslint.config.mjs
+│   │   ├── package.json
+│   │   ├── src/
+│   │   ├── tsconfig.build.json
+│   │   └── tsconfig.json
+│   ├── 25-dynamic-modules/
+│   │   ├── .gitignore
+│   │   ├── .prettierrc
+│   │   ├── README.md
+│   │   ├── config/
+│   │   ├── eslint.config.mjs
+│   │   ├── nest-cli.json
+│   │   ├── package.json
+│   │   ├── src/
+│   │   ├── tsconfig.build.json
+│   │   └── tsconfig.json
+│   ├── 26-queues/
+│   │   ├── .gitignore
+│   │   ├── .prettierrc
+│   │   ├── README.md
+│   │   ├── docker-compose.yml
+│   │   ├── e2e/
+│   │   ├── eslint.config.mjs
+│   │   ├── jest.json
+│   │   ├── nest-cli.json
+│   │   ├── package.json
+│   │   ├── src/
+│   │   ├── tsconfig.build.json
+│   │   └── tsconfig.json
+│   ├── 27-scheduling/
+│   │   ├── .gitignore
+│   │   ├── .prettierrc
+│   │   ├── README.md
+│   │   ├── eslint.config.mjs
+│   │   ├── nest-cli.json
+│   │   ├── package.json
+│   │   ├── src/
+│   │   ├── tsconfig.build.json
+│   │   └── tsconfig.json
+│   ├── 28-sse/
+│   │   ├── .gitignore
+│   │   ├── .prettierrc
+│   │   ├── README.md
+│   │   ├── eslint.config.mjs
+│   │   ├── jest.json
+│   │   ├── nest-cli.json
+│   │   ├── package.json
+│   │   ├── src/
+│   │   ├── tsconfig.build.json
+│   │   └── tsconfig.json
+│   ├── 29-file-upload/
+│   │   ├── .gitignore
+│   │   ├── README.md
+│   │   ├── e2e/
+│   │   ├── eslint.config.mjs
+│   │   ├── jest.json
+│   │   ├── package.json
+│   │   ├── resources/
+│   │   ├── src/
+│   │   ├── tsconfig.build.json
+│   │   └── tsconfig.json
+│   ├── 30-event-emitter/
+│   │   ├── .gitignore
+│   │   ├── .prettierrc
+│   │   ├── eslint.config.mjs
+│   │   ├── nest-cli.json
+│   │   ├── package.json
+│   │   ├── src/
+│   │   ├── test/
+│   │   ├── tsconfig.build.json
+│   │   └── tsconfig.json
+│   ├── 31-graphql-federation-code-first/
+│   │   ├── README.md
+│   │   ├── gateway/
+│   │   ├── posts-application/
+│   │   └── users-application/
+│   ├── 32-graphql-federation-schema-first/
+│   │   ├── README.md
+│   │   ├── gateway/
+│   │   ├── posts-application/
+│   │   └── users-application/
+│   ├── 33-graphql-mercurius/
+│   │   ├── .gitignore
+│   │   ├── eslint.config.mjs
+│   │   ├── nest-cli.json
+│   │   ├── package.json
+│   │   ├── schema.gql
+│   │   ├── src/
+│   │   ├── tsconfig.build.json
+│   │   └── tsconfig.json
+│   ├── 34-using-esm-packages/
+│   │   ├── .gitignore
+│   │   ├── .prettierrc
+│   │   ├── README.md
+│   │   ├── eslint.config.mjs
+│   │   ├── nest-cli.json
+│   │   ├── package.json
+│   │   ├── src/
+│   │   ├── test/
+│   │   ├── tsconfig.build.json
+│   │   └── tsconfig.json
+│   ├── 35-use-esm-package-after-node22/
+│   │   ├── .gitignore
+│   │   ├── .prettierrc
+│   │   ├── README.md
+│   │   ├── eslint.config.mjs
+│   │   ├── nest-cli.json
+│   │   ├── package.json
+│   │   ├── src/
+│   │   ├── tsconfig.build.json
+│   │   └── tsconfig.json
+│   └── 36-hmr-esm/
+│       ├── .gitignore
+│       ├── e2e/
+│       ├── eslint.config.mjs
+│       ├── jest.json
+│       ├── package.json
+│       ├── src/
+│       ├── tsconfig.build.json
+│       ├── tsconfig.json
+│       └── webpack-hmr.config.cjs
+├── scripts/
+│   ├── prepare.sh
+│   ├── run-integration.sh
+│   ├── test.sh
+│   └── update-samples.sh
+├── tools/
+│   ├── benchmarks/
+│   │   ├── package-lock.json
+│   │   ├── package.json
+│   │   ├── src/
+│   │   └── tsconfig.json
+│   └── gulp/
+│       ├── config.ts
+│       ├── gulpfile.ts
+│       ├── tasks/
+│       ├── tsconfig.json
+│       └── util/
+├── tsconfig.json
+└── tsconfig.spec.json

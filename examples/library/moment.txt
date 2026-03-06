@@ -1,0 +1,698 @@
+=====================================
+Repository Analysis: moment
+Type: Library / Package / SDK
+=====================================
+
+--- METADATA ---
+Name: moment
+Description: Parse, validate, manipulate, and display dates in javascript.
+Language: JavaScript
+Topics: N/A
+Stars: 48058
+License: MIT License
+
+--- README ---
+# [Moment.js](http://momentjs.com/)
+
+[![NPM version][npm-version-image]][npm-url]
+[![NPM downloads][npm-downloads-image]][npm-downloads-url]
+[![MIT License][license-image]][license-url]
+[![Build Status][travis-image]][travis-url]
+[![Coverage Status][coveralls-image]][coveralls-url]
+[![FOSSA Status][fossa-badge-image]][fossa-badge-url]
+[![SemVer compatibility][semver-image]][semver-url]
+
+A JavaScript date library for parsing, validating, manipulating, and formatting dates.
+
+## Project Status
+
+Moment.js is a legacy project, now in maintenance mode.  In most cases, you should choose a different library.
+
+For more details and recommendations, please see [Project Status](https://momentjs.com/docs/#/-project-status/) in the docs.
+
+*Thank you.*
+
+## Resources
+
+- [Documentation](https://momentjs.com/docs/)
+- [Changelog](CHANGELOG.md)
+- [Stack Overflow](https://stackoverflow.com/questions/tagged/momentjs)
+
+## License
+
+Moment.js is freely distributable under the terms of the [MIT license][license-url].
+
+[![FOSSA Status][fossa-large-image]][fossa-large-url]
+
+[license-image]: https://img.shields.io/badge/license-MIT-blue.svg?style=flat
+[license-url]: LICENSE
+
+[npm-url]: https://npmjs.org/package/moment
+[npm-version-image]: https://img.shields.io/npm/v/moment.svg?style=flat
+
+[npm-downloads-image]: https://img.shields.io/npm/dm/moment.svg?style=flat
+[npm-downloads-url]: https://npmcharts.com/compare/moment?minimal=true
+
+[travis-url]: https://travis-ci.org/moment/moment
+[travis-image]: https://img.shields.io/travis/moment/moment/develop.svg?style=flat
+
+[coveralls-image]: https://coveralls.io/repos/moment/moment/badge.svg?branch=develop
+[coveralls-url]: https://coveralls.io/r/moment/moment?branch=develop
+
+[fossa-badge-image]: https://app.fossa.io/api/projects/git%2Bhttps%3A%2F%2Fgithub.com%2Fmoment%2Fmoment.svg?type=shield
+[fossa-badge-url]: https://app.fossa.io/projects/git%2Bhttps%3A%2F%2Fgithub.com%2Fmoment%2Fmoment?ref=badge_shield
+
+[fossa-large-image]: https://app.fossa.io/api/projects/git%2Bhttps%3A%2F%2Fgithub.com%2Fmoment%2Fmoment.svg?type=large
+[fossa-large-url]: https://app.fossa.io/projects/git%2Bhttps%3A%2F%2Fgithub.com%2Fmoment%2Fmoment?ref=badge_large
+
+[semver-image]: https://api.dependabot.com/badges/compatibility_score?dependency-name=moment&package-manager=npm_and_yarn&version-scheme=semver
+[semver-url]: https://dependabot.com/compatibility-score.html?dependency-name=moment&package-manager=npm_and_yarn&version-scheme=semver
+
+
+--- PACKAGE MANIFEST(S) ---
+
+[package.json]
+{
+    "name": "moment",
+    "version": "2.30.1",
+    "description": "Parse, validate, manipulate, and display dates",
+    "homepage": "https://momentjs.com",
+    "author": "Iskren Ivov Chernev <iskren.chernev@gmail.com> (https://github.com/ichernev)",
+    "contributors": [
+        "Tim Wood <washwithcare@gmail.com> (http://timwoodcreates.com/)",
+        "Rocky Meza (http://rockymeza.com)",
+        "Matt Johnson <mj1856@hotmail.com> (http://codeofmatt.com)",
+        "Isaac Cambron <isaac@isaaccambron.com> (http://isaaccambron.com)",
+        "Andre Polykanine <andre@oire.org> (https://github.com/oire)"
+    ],
+    "keywords": [
+        "moment",
+        "date",
+        "time",
+        "parse",
+        "format",
+        "validate",
+        "i18n",
+        "l10n",
+        "ender"
+    ],
+    "main": "./moment.js",
+    "jsnext:main": "./dist/moment.js",
+    "typings": "./moment.d.ts",
+    "typesVersions": {
+        ">=3.1": {
+            "*": [
+                "ts3.1-typings/*"
+            ],
+            "min/moment-with-locales": [
+                "ts3.1-typings/moment.d.ts"
+            ]
+        }
+    },
+    "engines": {
+        "node": "*"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/moment/moment.git"
+    },
+    "bugs": {
+        "url": "https://github.com/moment/moment/issues"
+    },
+    "license": "MIT",
+    "devDependencies": {
+        "benchmark": "latest",
+        "coveralls": "latest",
+        "cross-env": "^6.0.3",
+        "es6-promise": "latest",
+        "eslint": "latest",
+        "grunt": "latest",
+        "grunt-benchmark": "latest",
+        "grunt-cli": "latest",
+        "grunt-contrib-clean": "latest",
+        "grunt-contrib-concat": "latest",
+        "grunt-contrib-copy": "latest",
+        "grunt-contrib-uglify": "latest",
+        "grunt-contrib-watch": "latest",
+        "grunt-env": "latest",
+        "grunt-exec": "latest",
+        "grunt-karma": "latest",
+        "grunt-nuget": "latest",
+        "grunt-string-replace": "latest",
+        "karma": "latest",
+        "karma-chrome-launcher": "latest",
+        "karma-firefox-launcher": "latest",
+        "karma-qunit": "latest",
+        "karma-sauce-launcher": "4.1.4",
+        "load-grunt-tasks": "latest",
+        "lodash": ">=4.17.19",
+        "node-qunit": "latest",
+        "nyc": "latest",
+        "prettier": "latest",
+        "qunit": "^2.10.0",
+        "rollup": "2.17.1",
+        "typescript": "^1.8.10",
+        "typescript3": "npm:typescript@^3.1.6",
+        "uglify-js": "latest",
+        "@types/node": "17.0.21"
+    },
+    "ender": "./ender.js",
+    "dojoBuild": "package.js",
+    "jspm": {
+        "files": [
+            "moment.js",
+            "moment.d.ts",
+            "locale"
+        ],
+        "map": {
+            "moment": "./moment"
+        },
+        "buildConfig": {
+            "uglify": true
+        }
+    },
+    "scripts": {
+        "ts3.1-typescript-test": "cross-env node_modules/typescript3/bin/tsc --project ts3.1-typing-tests",
+  
+... [TRUNCATED]
+
+--- DIRECTORY STRUCTURE (depth 2) ---
+├── .editorconfig
+├── .eslintrc.json
+├── .gitattributes
+├── .github/
+│   ├── ISSUE_TEMPLATE/
+│   │   ├── bug_report.md
+│   │   └── feature_request.md
+│   └── workflows/
+│       └── npm-grunt.yml
+├── .gitignore
+├── .npmignore
+├── .prettierrc
+├── .spmignore
+├── .travis.yml
+├── CHANGELOG.md
+├── CONTRIBUTING.md
+├── FAQ.md
+├── Gruntfile.js
+├── LICENSE
+├── Moment.js.nuspec
+├── README.md
+├── benchmarks/
+│   ├── add.js
+│   ├── clone.js
+│   ├── compare.js
+│   ├── endOf.js
+│   ├── fromDate.js
+│   ├── fromDateUtc.js
+│   ├── get.js
+│   ├── isObjectEmpty.js
+│   ├── load-missing.js
+│   ├── makeDuration.js
+│   ├── query.js
+│   ├── set.js
+│   ├── startOf.js
+│   ├── subtract.js
+│   └── zeroFill.js
+├── bower.json
+├── component.json
+├── composer.json
+├── dist/
+│   ├── locale/
+│   │   ├── af.js
+│   │   ├── ar-dz.js
+│   │   ├── ar-kw.js
+│   │   ├── ar-ly.js
+│   │   ├── ar-ma.js
+│   │   ├── ar-ps.js
+│   │   ├── ar-sa.js
+│   │   ├── ar-tn.js
+│   │   ├── ar.js
+│   │   ├── az.js
+│   │   ├── be.js
+│   │   ├── bg.js
+│   │   ├── bm.js
+│   │   ├── bn-bd.js
+│   │   ├── bn.js
+│   │   ├── bo.js
+│   │   ├── br.js
+│   │   ├── bs.js
+│   │   ├── ca.js
+│   │   ├── cs.js
+│   │   ├── cv.js
+│   │   ├── cy.js
+│   │   ├── da.js
+│   │   ├── de-at.js
+│   │   ├── de-ch.js
+│   │   ├── de.js
+│   │   ├── dv.js
+│   │   ├── el.js
+│   │   ├── en-au.js
+│   │   ├── en-ca.js
+│   │   ├── en-gb.js
+│   │   ├── en-ie.js
+│   │   ├── en-il.js
+│   │   ├── en-in.js
+│   │   ├── en-nz.js
+│   │   ├── en-sg.js
+│   │   ├── eo.js
+│   │   ├── es-do.js
+│   │   ├── es-mx.js
+│   │   ├── es-us.js
+│   │   ├── es.js
+│   │   ├── et.js
+│   │   ├── eu.js
+│   │   ├── fa.js
+│   │   ├── fi.js
+│   │   ├── fil.js
+│   │   ├── fo.js
+│   │   ├── fr-ca.js
+│   │   ├── fr-ch.js
+│   │   ├── fr.js
+│   │   ├── fy.js
+│   │   ├── ga.js
+│   │   ├── gd.js
+│   │   ├── gl.js
+│   │   ├── gom-deva.js
+│   │   ├── gom-latn.js
+│   │   ├── gu.js
+│   │   ├── he.js
+│   │   ├── hi.js
+│   │   ├── hr.js
+│   │   ├── hu.js
+│   │   ├── hy-am.js
+│   │   ├── id.js
+│   │   ├── is.js
+│   │   ├── it-ch.js
+│   │   ├── it.js
+│   │   ├── ja.js
+│   │   ├── jv.js
+│   │   ├── ka.js
+│   │   ├── kk.js
+│   │   ├── km.js
+│   │   ├── kn.js
+│   │   ├── ko.js
+│   │   ├── ku-kmr.js
+│   │   ├── ku.js
+│   │   ├── ky.js
+│   │   ├── lb.js
+│   │   ├── lo.js
+│   │   ├── lt.js
+│   │   ├── lv.js
+│   │   ├── me.js
+│   │   ├── mi.js
+│   │   ├── mk.js
+│   │   ├── ml.js
+│   │   ├── mn.js
+│   │   ├── mr.js
+│   │   ├── ms-my.js
+│   │   ├── ms.js
+│   │   ├── mt.js
+│   │   ├── my.js
+│   │   ├── nb.js
+│   │   ├── ne.js
+│   │   ├── nl-be.js
+│   │   ├── nl.js
+│   │   ├── nn.js
+│   │   ├── oc-lnc.js
+│   │   ├── pa-in.js
+│   │   ├── pl.js
+│   │   ├── pt-br.js
+│   │   ├── pt.js
+│   │   ├── ro.js
+│   │   ├── ru.js
+│   │   ├── sd.js
+│   │   ├── se.js
+│   │   ├── si.js
+│   │   ├── sk.js
+│   │   ├── sl.js
+│   │   ├── sq.js
+│   │   ├── sr-cyrl.js
+│   │   ├── sr.js
+│   │   ├── ss.js
+│   │   ├── sv.js
+│   │   ├── sw.js
+│   │   ├── ta.js
+│   │   ├── te.js
+│   │   ├── tet.js
+│   │   ├── tg.js
+│   │   ├── th.js
+│   │   ├── tk.js
+│   │   ├── tl-ph.js
+│   │   ├── tlh.js
+│   │   ├── tr.js
+│   │   ├── tzl.js
+│   │   ├── tzm-latn.js
+│   │   ├── tzm.js
+│   │   ├── ug-cn.js
+│   │   ├── uk.js
+│   │   ├── ur.js
+│   │   ├── uz-latn.js
+│   │   ├── uz.js
+│   │   ├── vi.js
+│   │   ├── x-pseudo.js
+│   │   ├── yo.js
+│   │   ├── zh-cn.js
+│   │   ├── zh-hk.js
+│   │   ├── zh-mo.js
+│   │   └── zh-tw.js
+│   └── moment.js
+├── ender.js
+├── locale/
+│   ├── af.js
+│   ├── ar-dz.js
+│   ├── ar-kw.js
+│   ├── ar-ly.js
+│   ├── ar-ma.js
+│   ├── ar-ps.js
+│   ├── ar-sa.js
+│   ├── ar-tn.js
+│   ├── ar.js
+│   ├── az.js
+│   ├── be.js
+│   ├── bg.js
+│   ├── bm.js
+│   ├── bn-bd.js
+│   ├── bn.js
+│   ├── bo.js
+│   ├── br.js
+│   ├── bs.js
+│   ├── ca.js
+│   ├── cs.js
+│   ├── cv.js
+│   ├── cy.js
+│   ├── da.js
+│   ├── de-at.js
+│   ├── de-ch.js
+│   ├── de.js
+│   ├── dv.js
+│   ├── el.js
+│   ├── en-au.js
+│   ├── en-ca.js
+│   ├── en-gb.js
+│   ├── en-ie.js
+│   ├── en-il.js
+│   ├── en-in.js
+│   ├── en-nz.js
+│   ├── en-sg.js
+│   ├── eo.js
+│   ├── es-do.js
+│   ├── es-mx.js
+│   ├── es-us.js
+│   ├── es.js
+│   ├── et.js
+│   ├── eu.js
+│   ├── fa.js
+│   ├── fi.js
+│   ├── fil.js
+│   ├── fo.js
+│   ├── fr-ca.js
+│   ├── fr-ch.js
+│   ├── fr.js
+│   ├── fy.js
+│   ├── ga.js
+│   ├── gd.js
+│   ├── gl.js
+│   ├── gom-deva.js
+│   ├── gom-latn.js
+│   ├── gu.js
+│   ├── he.js
+│   ├── hi.js
+│   ├── hr.js
+│   ├── hu.js
+│   ├── hy-am.js
+│   ├── id.js
+│   ├── is.js
+│   ├── it-ch.js
+│   ├── it.js
+│   ├── ja.js
+│   ├── jv.js
+│   ├── ka.js
+│   ├── kk.js
+│   ├── km.js
+│   ├── kn.js
+│   ├── ko.js
+│   ├── ku-kmr.js
+│   ├── ku.js
+│   ├── ky.js
+│   ├── lb.js
+│   ├── lo.js
+│   ├── lt.js
+│   ├── lv.js
+│   ├── me.js
+│   ├── mi.js
+│   ├── mk.js
+│   ├── ml.js
+│   ├── mn.js
+│   ├── mr.js
+│   ├── ms-my.js
+│   ├── ms.js
+│   ├── mt.js
+│   ├── my.js
+│   ├── nb.js
+│   ├── ne.js
+│   ├── nl-be.js
+│   ├── nl.js
+│   ├── nn.js
+│   ├── oc-lnc.js
+│   ├── pa-in.js
+│   ├── pl.js
+│   ├── pt-br.js
+│   ├── pt.js
+│   ├── ro.js
+│   ├── ru.js
+│   ├── sd.js
+│   ├── se.js
+│   ├── si.js
+│   ├── sk.js
+│   ├── sl.js
+│   ├── sq.js
+│   ├── sr-cyrl.js
+│   ├── sr.js
+│   ├── ss.js
+│   ├── sv.js
+│   ├── sw.js
+│   ├── ta.js
+│   ├── te.js
+│   ├── tet.js
+│   ├── tg.js
+│   ├── th.js
+│   ├── tk.js
+│   ├── tl-ph.js
+│   ├── tlh.js
+│   ├── tr.js
+│   ├── tzl.js
+│   ├── tzm-latn.js
+│   ├── tzm.js
+│   ├── ug-cn.js
+│   ├── uk.js
+│   ├── ur.js
+│   ├── uz-latn.js
+│   ├── uz.js
+│   ├── vi.js
+│   ├── x-pseudo.js
+│   ├── yo.js
+│   ├── zh-cn.js
+│   ├── zh-hk.js
+│   ├── zh-mo.js
+│   └── zh-tw.js
+├── meteor/
+│   ├── README.md
+│   ├── export.js
+│   ├── moment.js
+│   ├── package.js
+│   └── test.js
+├── min/
+│   ├── locales.js
+│   ├── locales.min.js
+│   ├── locales.min.js.map
+│   ├── moment-with-locales.js
+│   ├── moment-with-locales.min.js
+│   ├── moment-with-locales.min.js.map
+│   ├── moment.min.js
+│   ├── moment.min.js.map
+│   └── tests.js
+├── moment.d.ts
+├── moment.js
+├── package-lock.json
+├── package.js
+├── package.json
+├── scripts/
+│   ├── locales.js
+│   └── npm_prepublish.sh
+├── src/
+│   ├── lib/
+│   │   ├── create/
+│   │   ├── duration/
+│   │   ├── format/
+│   │   ├── locale/
+│   │   ├── moment/
+│   │   ├── parse/
+│   │   ├── units/
+│   │   └── utils/
+│   ├── locale/
+│   │   ├── af.js
+│   │   ├── ar-dz.js
+│   │   ├── ar-kw.js
+│   │   ├── ar-ly.js
+│   │   ├── ar-ma.js
+│   │   ├── ar-ps.js
+│   │   ├── ar-sa.js
+│   │   ├── ar-tn.js
+│   │   ├── ar.js
+│   │   ├── az.js
+│   │   ├── be.js
+│   │   ├── bg.js
+│   │   ├── bm.js
+│   │   ├── bn-bd.js
+│   │   ├── bn.js
+│   │   ├── bo.js
+│   │   ├── br.js
+│   │   ├── bs.js
+│   │   ├── ca.js
+│   │   ├── cs.js
+│   │   ├── cv.js
+│   │   ├── cy.js
+│   │   ├── da.js
+│   │   ├── de-at.js
+│   │   ├── de-ch.js
+│   │   ├── de.js
+│   │   ├── dv.js
+│   │   ├── el.js
+│   │   ├── en-au.js
+│   │   ├── en-ca.js
+│   │   ├── en-gb.js
+│   │   ├── en-ie.js
+│   │   ├── en-il.js
+│   │   ├── en-in.js
+│   │   ├── en-nz.js
+│   │   ├── en-sg.js
+│   │   ├── eo.js
+│   │   ├── es-do.js
+│   │   ├── es-mx.js
+│   │   ├── es-us.js
+│   │   ├── es.js
+│   │   ├── et.js
+│   │   ├── eu.js
+│   │   ├── fa.js
+│   │   ├── fi.js
+│   │   ├── fil.js
+│   │   ├── fo.js
+│   │   ├── fr-ca.js
+│   │   ├── fr-ch.js
+│   │   ├── fr.js
+│   │   ├── fy.js
+│   │   ├── ga.js
+│   │   ├── gd.js
+│   │   ├── gl.js
+│   │   ├── gom-deva.js
+│   │   ├── gom-latn.js
+│   │   ├── gu.js
+│   │   ├── he.js
+│   │   ├── hi.js
+│   │   ├── hr.js
+│   │   ├── hu.js
+│   │   ├── hy-am.js
+│   │   ├── id.js
+│   │   ├── is.js
+│   │   ├── it-ch.js
+│   │   ├── it.js
+│   │   ├── ja.js
+│   │   ├── jv.js
+│   │   ├── ka.js
+│   │   ├── kk.js
+│   │   ├── km.js
+│   │   ├── kn.js
+│   │   ├── ko.js
+│   │   ├── ku-kmr.js
+│   │   ├── ku.js
+│   │   ├── ky.js
+│   │   ├── lb.js
+│   │   ├── lo.js
+│   │   ├── lt.js
+│   │   ├── lv.js
+│   │   ├── me.js
+│   │   ├── mi.js
+│   │   ├── mk.js
+│   │   ├── ml.js
+│   │   ├── mn.js
+│   │   ├── mr.js
+│   │   ├── ms-my.js
+│   │   ├── ms.js
+│   │   ├── mt.js
+│   │   ├── my.js
+│   │   ├── nb.js
+│   │   ├── ne.js
+│   │   ├── nl-be.js
+│   │   ├── nl.js
+│   │   ├── nn.js
+│   │   ├── oc-lnc.js
+│   │   ├── pa-in.js
+│   │   ├── pl.js
+│   │   ├── pt-br.js
+│   │   ├── pt.js
+│   │   ├── ro.js
+│   │   ├── ru.js
+│   │   ├── sd.js
+│   │   ├── se.js
+│   │   ├── si.js
+│   │   ├── sk.js
+│   │   ├── sl.js
+│   │   ├── sq.js
+│   │   ├── sr-cyrl.js
+│   │   ├── sr.js
+│   │   ├── ss.js
+│   │   ├── sv.js
+│   │   ├── sw.js
+│   │   ├── ta.js
+│   │   ├── te.js
+│   │   ├── tet.js
+│   │   ├── tg.js
+│   │   ├── th.js
+│   │   ├── tk.js
+│   │   ├── tl-ph.js
+│   │   ├── tlh.js
+│   │   ├── tr.js
+│   │   ├── tzl.js
+│   │   ├── tzm-latn.js
+│   │   ├── tzm.js
+│   │   ├── ug-cn.js
+│   │   ├── uk.js
+│   │   ├── ur.js
+│   │   ├── uz-latn.js
+│   │   ├── uz.js
+│   │   ├── vi.js
+│   │   ├── x-pseudo.js
+│   │   ├── yo.js
+│   │   ├── zh-cn.js
+│   │   ├── zh-hk.js
+│   │   ├── zh-mo.js
+│   │   └── zh-tw.js
+│   ├── moment.js
+│   └── test/
+│       ├── helpers/
+│       ├── locale/
+│       ├── moment/
+│       ├── qunit-locale.js
+│       └── qunit.js
+├── tasks/
+│   ├── bump_version.js
+│   ├── check_sauce_creds.js
+│   ├── component.js
+│   ├── nuget.js
+│   ├── qtest.js
+│   ├── transpile.js
+│   └── update_index.js
+├── templates/
+│   ├── default.js
+│   ├── empty.js
+│   ├── locale-header.js
+│   └── test-header.js
+├── ts3.1-typing-tests/
+│   ├── moment-tests.ts
+│   └── tsconfig.json
+├── ts3.1-typings/
+│   └── moment.d.ts
+└── typing-tests/
+    ├── moment-tests.ts
+    └── tsconfig.json

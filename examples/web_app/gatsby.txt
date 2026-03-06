@@ -1,0 +1,2933 @@
+=====================================
+Repository Analysis: gatsby
+Type: Web Application
+=====================================
+
+--- METADATA ---
+Name: gatsby
+Description: React-based framework with performance, scalability, and security built in.
+Language: JavaScript
+Topics: blog, compiler, gatsby, graphql, react, static-site-generator, web-app
+Stars: 55946
+License: MIT License
+
+--- README ---
+<p align="center">
+  <a href="https://www.gatsbyjs.com">
+    <img alt="Gatsby" src="https://www.gatsbyjs.com/Gatsby-Monogram.svg" width="60" />
+  </a>
+</p>
+<h1 align="center">
+  Gatsby
+</h1>
+
+<p align="center">
+  <strong>
+    The future of web development is here.
+  </strong>
+</p>
+<p align="center">
+  Gatsby is a free and open-source framework based on React that helps developers build blazing fast websites and apps. <br /> It combines the control and scalability of dynamically rendered sites with the speed of static-site generation, creating a whole new web of possibilities.
+</p>
+<p align="center">
+  <a href="https://github.com/gatsbyjs/gatsby/blob/master/LICENSE">
+    <img src="https://img.shields.io/badge/license-MIT-blue.svg" alt="Gatsby is released under the MIT license." />
+  </a>
+  <a href="https://circleci.com/gh/gatsbyjs/gatsby">
+    <img src="https://circleci.com/gh/gatsbyjs/gatsby.svg?style=shield" alt="Current CircleCI build status." />
+  </a>
+  <a href="https://www.npmjs.com/package/gatsby">
+    <img src="https://img.shields.io/npm/v/gatsby.svg" alt="Current npm package version." />
+  </a>
+  <a href="https://npmcharts.com/compare/gatsby?minimal=true">
+    <img src="https://img.shields.io/npm/dm/gatsby.svg" alt="Downloads per month on npm." />
+  </a>
+  <a href="https://npmcharts.com/compare/gatsby?minimal=true">
+    <img src="https://img.shields.io/npm/dt/gatsby.svg" alt="Total downloads on npm." />
+  </a>
+  <a href="https://gatsbyjs.com/contributing/how-to-contribute/">
+    <img src="https://img.shields.io/badge/PRs-welcome-brightgreen.svg" alt="PRs welcome!" />
+  </a>
+</p>
+
+<h2 align="center">
+  <a href="https://www.gatsbyjs.com/docs/quick-start/">Quickstart</a>
+  <span> · </span>
+  <a href="https://www.gatsbyjs.com/docs/tutorial/getting-started/">Tutorial</a>
+  <span> · </span>
+  <a href="https://www.gatsbyjs.com/plugins/">Plugins</a>
+  <span> · </span>
+  <a href="https://www.gatsbyjs.com/starters/">Starters</a>
+  <span> · </span>
+  <a href="https://www.gatsbyjs.com/showcase/">Showcase</a>
+  <span> · </span>
+  <a href="https://www.gatsbyjs.com/contributing/how-to-contribute/">Contribute</a>
+  <br />
+  Support: <a href="https://github.com/gatsbyjs/gatsby/discussions">Discussions</a>
+</h2>
+
+Gatsby helps professional developers efficiently create maintainable, highly-performant, content-rich websites.
+
+- **Load Data From Anywhere.** Gatsby pulls in data from any data source, whether it’s Markdown files, a headless CMS like Contentful or WordPress, or a REST or GraphQL API. Use source plugins to load your data, then develop using Gatsby’s uniform GraphQL interface.
+
+- **Go Beyond Static Websites.** Get all the benefits of static websites with none of the limitations. Gatsby sites are fully functional React apps, so you can create high-quality, dynamic web apps, from blogs to e-commerce sites to user dashboards.
+
+- **Choose your Rendering Options.** You can choose alternative [rendering options](https://gatsbyjs.com/docs/conceptual/rendering-options/), namely Deferred Static Generation (DSG) and Server-Side Rendering (SSR), in addition to Static Site Generation (SSG) — on a per-page basis. This type of granular control allows you to optimize for performance and productivity without sacrificing one for the other.
+
+- **Performance Is Baked In.** Ace your performance audits by default. Gatsby automates code splitting, image optimization, inlining critical styles, lazy-loading, prefetching resources, and more to ensure your site is fast — no manual tuning required.
+
+- **Use a Modern Stack for Every Site.** No matter where the data comes from, Gatsby sites are built using React and GraphQL. Build a uniform workflow for you and your team, regardless of whether the data is coming from the same backend.
+
+- **Host at Scale for Pennies.** Gatsby sites don’t require servers, so you can host your entire site on a CDN for a fraction of the cost of a server-rendered site. Many Gatsby sites can be hosted entirely free on [Netlify](https://www.netlify.com/) and other similar services.
+
+- **Use Gatsby's Centralized Data Layer Everywhere.** With Gatsby's [Valhalla Content Hub](https://www.gatsbyjs.com/products/valhalla-content-hub/) you can bring Gatsby's data layer to any project. Making it accessible via a unified GraphQL API for building content sites, eCommerce platforms, and both native and web applications.
+
+[**Learn how to use Gatsby for your next project.**](https://www.gatsbyjs.com/docs/)
+
+## 🚀 Ship your first Gatsby site in 5 Minutes
+
+Click the link below to quickly try the workflow of developing, building, and deploying websites with Gatsby and Netlify.
+
+[![Deploy to Netlify](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/gatsbyjs/gatsby-starter-blog&utm_source=github&utm_medium=link&utm_campaign=onboarding&utm_content=oss)
+
+At the end of this process, you'll have
+
+1. a site working on Netlify
+2. a new repository that is linked to that n
+... [TRUNCATED]
+
+--- PACKAGE MANIFEST(S) ---
+
+[package.json]
+{
+  "packageManager": "yarn@1.22.19",
+  "devDependencies": {
+    "@babel/core": "^7.20.12",
+    "@babel/eslint-parser": "^7.21.8",
+    "@babel/eslint-plugin": "^7.19.1",
+    "@babel/node": "^7.20.7",
+    "@babel/plugin-transform-typescript": "^7.20.13",
+    "@babel/runtime": "^7.20.13",
+    "@lerna/prompt": "3.18.5",
+    "@types/babel__code-frame": "^7.0.3",
+    "@types/better-queue": "^3.8.3",
+    "@types/bluebird": "^3.5.38",
+    "@types/cache-manager": "^2.10.3",
+    "@types/common-tags": "^1.8.1",
+    "@types/fs-extra": "^9.0.13",
+    "@types/jaeger-client": "^3.18.4",
+    "@types/jest": "^29.5.2",
+    "@types/joi": "^14.3.4",
+    "@types/lodash": "^4.14.195",
+    "@types/node": "^12.20.55",
+    "@types/node-fetch": "^2.6.4",
+    "@types/normalize-path": "^3.0.0",
+    "@types/react": "^18.2.14",
+    "@types/semver": "^7.5.0",
+    "@types/signal-exit": "^3.0.1",
+    "@types/stack-trace": "^0.0.30",
+    "@types/webpack-merge": "^4.1.5",
+    "@typescript-eslint/eslint-plugin": "^5.60.1",
+    "@typescript-eslint/parser": "^5.60.1",
+    "babel-jest": "^29.5.0",
+    "chalk": "^4.1.2",
+    "chokidar": "^3.6.0",
+    "cross-env": "^7.0.3",
+    "danger": "^10.9.0",
+    "date-fns": "^1.30.1",
+    "dictionary-en": "^3.2.0",
+    "eslint": "^8.43.0",
+    "eslint-config-google": "^0.14.0",
+    "eslint-config-prettier": "^8.8.0",
+    "eslint-plugin-filenames": "^1.3.2",
+    "eslint-plugin-flowtype": "^8.0.3",
+    "eslint-plugin-import": "^2.27.5",
+    "eslint-plugin-jsx-a11y": "^6.7.1",
+    "eslint-plugin-prettier": "^4.2.1",
+    "eslint-plugin-react": "^7.32.2",
+    "fs-extra": "^11.2.0",
+    "glob": "^7.2.3",
+    "husky": "3.1.0",
+    "ignore": "^5.2.4",
+    "jest": "^29.5.0",
+    "jest-environment-jsdom": "^29.5.0",
+    "jest-extended": "^3.2.4",
+    "jest-junit": "^15.0.0",
+    "jest-serializer-path": "^0.1.15",
+    "jest-silent-reporter": "^0.5.0",
+    "joi": "^14.3.1",
+    "js-yaml": "^3.14.1",
+    "lerna": "^3.22.1",
+    "lint-staged": "^10.5.4",
+    "markdown-magic": "^0.2.1",
+    "node-notifier": "^10.0.1",
+    "npm-packlist": "^2.2.2",
+    "npm-run-all": "4.1.5",
+    "prettier": "^2.8.8",
+    "rimraf": "^3.0.2",
+    "typescript": "^5.1.6",
+    "unified": "^9.2.2",
+    "yargs": "^15.4.1"
+  },
+  "engines": {
+    "yarn": "^1.17.3",
+    "node": ">=18.0.0 <26",
+    "npm": ">=8.0.0"
+  },
+  "eslintIgnore": [
+    "interfaces",
+    "**/__tests__/fixtures/"
+  ],
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged || node scripts/on-lint-error.js"
+    }
+  },
+  "lint-staged": {
+    "*.{js,jsx,ts,tsx}": "eslint --ext .js,.jsx,.ts,.tsx --fix",
+    "*.{md,css,scss,yaml,yml}": "prettier --write"
+  },
+  "private": true,
+  "scripts": {
+    "bootstrap": "cross-env COMPILER_OPTIONS=\"GATSBY_MAJOR=5\" npm-run-all -s \"lerna-prepare -- --{@}\" --",
+    "check-repo-fields": "node scripts/check-repo-fields.js",
+    "check-versions": "node scripts/check-versions.js",
+    "format": "npm run format:code && npm run format:other",
+    "format:code": "npm run lint:code
+... [TRUNCATED]
+
+--- WEB FRAMEWORK CONFIG ---
+
+[tsconfig.json]
+{
+  "compilerOptions": {
+    "target": "ESNext",
+    "module": "ESNext",
+    "moduleResolution": "node",
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noImplicitReturns": true,
+    "noImplicitThis": true,
+    "skipLibCheck": true,
+    "strictBindCallApply": true,
+    "strictNullChecks": true,
+    "strictFunctionTypes": true,
+    "strictPropertyInitialization": true,
+    "noFallthroughCasesInSwitch": true,
+    "resolveJsonModule": true,
+    "esModuleInterop": true,
+    "jsx": "preserve",
+    "typeRoots": ["./types", "**/node_modules/@types", "node_modules/@types"],
+    "paths": {
+      "@reach/router/*": ["./node_modules/@gatsbyjs/reach-router/*"]
+    }
+  },
+  "exclude": ["peril/*", "examples/*"]
+}
+
+
+--- ROUTE / PAGE DEFINITIONS ---
+
+[benchmarks/create-pages/.gitignore]
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Runtime data
+pids
+*.pid
+*.seed
+*.pid.lock
+
+# Directory for instrumented libs generated by jscoverage/JSCover
+lib-cov
+
+# Coverage directory used by tools like istanbul
+coverage
+
+# Grunt intermediate storage (http://gruntjs.com/creating-plugins#storing-task-files)
+.grunt
+
+# Bower dependency directory (https://bower.io/)
+bower_components
+
+# node-waf configuration
+.lock-wscript
+
+# Compiled binary addons (http://nodejs.org/api/addons.html)
+build/Release
+
+# Dependency directories
+node_modules/
+jspm_packages/
+
+# Typescript v1 declaration files
+typings/
+
+# Optional npm cache directory
+.npm
+
+# Optional eslint cache
+.eslintcache
+
+# Optional REPL history
+.node_repl_history
+
+# Output of 'npm pack'
+*.tgz
+
+# Yarn Integrity file
+.yarn-integrity
+
+# dotenv environment variables file
+.env
+
+.cache/
+public
+yarn-error.log
+
+
+[benchmarks/create-pages/LICENSE]
+MIT License
+
+Copyright (c) 2017 gatsbyjs
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
+
+[benchmarks/create-pages/README.md]
+# createPages benchmark
+
+Stress tests creating lots of tiny pages.
+
+Defaults to building a site with 5k pages. Set the `NUM_PAGES` environment variable to change that e.g. `NUM_PAGES=25000 gatsby build`
+
+# Running the benchmark
+
+First, install node modules required by package.json. This is needed only one time. Then run the build
+
+```shell
+npm install
+npm run build
+```
+
+Alternatively;
+
+```shell
+NUM_PAGES=2000 yarn bench
+```
+
+
+[benchmarks/create-pages/gatsby-config.js]
+module.exports = {
+  siteMetadata: {
+    title: `Gatsby Benchmark Create Pages`,
+    description: `The createPages benchmark`,
+    author: `@gatsbyjs`,
+  },
+  plugins: [`gatsby-plugin-benchmark-reporting`],
+}
+
+
+[benchmarks/create-pages/gatsby-node.js]
+const NUM_PAGES = parseInt(process.env.NUM_PAGES || 5000, 10)
+
+const blankTemplate = require.resolve(`./src/templates/blank.js`)
+exports.createPages = ({ actions: { createPage } }) => {
+  for (let step = 0; step < NUM_PAGES; step++) {
+    createPage({
+      path: `/path/${step}/`,
+      component: blankTemplate,
+      context: {
+        id: step,
+      },
+    })
+  }
+}
+
+
+--- DIRECTORY STRUCTURE (depth 2) ---
+├── .babelrc.js
+├── .circleci/
+│   └── config.yml
+├── .dockerignore
+├── .editorconfig
+├── .eslintignore
+├── .eslintrc.js
+├── .gitattributes
+├── .github/
+│   ├── ISSUE_TEMPLATE/
+│   │   ├── BUG_REPORT.yml
+│   │   ├── DOCUMENTATION.yml
+│   │   └── config.yml
+│   ├── PULL_REQUEST_TEMPLATE.md
+│   ├── actions/
+│   │   ├── format-stale-output/
+│   │   ├── gatsby-site-showcase-validator/
+│   │   └── high-priority-prs/
+│   └── workflows/
+│       └── schedule-stale.yml
+├── .gitignore
+├── .gitpod.Dockerfile
+├── .gitpod.yml
+├── .jestSetup.js
+├── .npmignore
+├── .prettierignore
+├── .prettierrc.js
+├── .yarn/
+│   └── releases/
+│       └── yarn-1.21.0.js
+├── .yarnrc
+├── CHANGELOG.md
+├── CODEOWNERS
+├── CODE_OF_CONDUCT.md
+├── CONTRIBUTING.md
+├── GOVERNANCE.md
+├── LICENSE
+├── README.md
+├── SECURITY.md
+├── benchmarks/
+│   ├── README.md
+│   ├── create-pages/
+│   │   ├── .gitignore
+│   │   ├── LICENSE
+│   │   ├── README.md
+│   │   ├── gatsby-config.js
+│   │   ├── gatsby-node.js
+│   │   ├── package.json
+│   │   └── src/
+│   ├── docker-runner/
+│   │   ├── .dockerignore
+│   │   ├── .gitignore
+│   │   ├── Dockerfile
+│   │   ├── README.md
+│   │   ├── gatsby-config.js
+│   │   ├── gatsby-node.js
+│   │   ├── package.json
+│   │   ├── scripts/
+│   │   └── src/
+│   ├── gabe-csv-markdown/
+│   │   ├── .gitignore
+│   │   ├── LICENSE
+│   │   ├── README.md
+│   │   ├── gatsby-config.js
+│   │   ├── gatsby-node.js
+│   │   ├── gen.js
+│   │   ├── package.json
+│   │   ├── src/
+│   │   └── static/
+│   ├── gabe-csv-text/
+│   │   ├── .gitignore
+│   │   ├── LICENSE
+│   │   ├── README.md
+│   │   ├── gatsby-config.js
+│   │   ├── gatsby-node.js
+│   │   ├── gen.js
+│   │   ├── package.json
+│   │   ├── src/
+│   │   └── static/
+│   ├── gabe-fs-markdown-images/
+│   │   ├── .gitignore
+│   │   ├── LICENSE
+│   │   ├── README.md
+│   │   ├── gatsby-config.js
+│   │   ├── gatsby-node.js
+│   │   ├── gen.js
+│   │   ├── package.json
+│   │   ├── src/
+│   │   └── static/
+│   ├── gabe-fs-markdown-route-api/
+│   │   ├── .gitignore
+│   │   ├── LICENSE
+│   │   ├── README.md
+│   │   ├── gatsby-config.js
+│   │   ├── gen.js
+│   │   ├── package.json
+│   │   ├── src/
+│   │   └── static/
+│   ├── gabe-fs-markdown/
+│   │   ├── .gitignore
+│   │   ├── LICENSE
+│   │   ├── README.md
+│   │   ├── gatsby-config.js
+│   │   ├── gatsby-node.js
+│   │   ├── gen.js
+│   │   ├── package.json
+│   │   ├── src/
+│   │   └── static/
+│   ├── gabe-fs-mdx/
+│   │   ├── .gitattributes
+│   │   ├── .gitignore
+│   │   ├── .prettierrc.js
+│   │   ├── LICENSE
+│   │   ├── README.md
+│   │   ├── gatsby-config.js
+│   │   ├── gatsby-node.js
+│   │   ├── gen.js
+│   │   ├── package.json
+│   │   ├── src/
+│   │   ├── static/
+│   │   └── styles.css
+│   ├── gabe-fs-text/
+│   │   ├── .gitignore
+│   │   ├── LICENSE
+│   │   ├── README.md
+│   │   ├── gatsby-browser.js
+│   │   ├── gatsby-config.js
+│   │   ├── gatsby-node.js
+│   │   ├── gen.js
+│   │   ├── package.json
+│   │   ├── src/
+│   │   └── static/
+│   ├── gabe-json-text/
+│   │   ├── .gitignore
+│   │   ├── LICENSE
+│   │   ├── README.md
+│   │   ├── gatsby-config.js
+│   │   ├── gatsby-node.js
+│   │   ├── gen.js
+│   │   ├── package.json
+│   │   ├── src/
+│   │   └── static/
+│   ├── gabe-yaml-text/
+│   │   ├── .gitignore
+│   │   ├── LICENSE
+│   │   ├── README.md
+│   │   ├── gatsby-config.js
+│   │   ├── gatsby-node.js
+│   │   ├── gen.js
+│   │   ├── package.json
+│   │   ├── src/
+│   │   └── static/
+│   ├── image-processing/
+│   │   ├── .gitignore
+│   │   ├── LICENSE
+│   │   ├── README.md
+│   │   ├── gatsby-browser.js
+│   │   ├── gatsby-config.js
+│   │   ├── gatsby-node.js
+│   │   ├── gatsby-ssr.js
+│   │   ├── package.json
+│   │   ├── plugins/
+│   │   └── src/
+│   ├── markdown_id/
+│   │   ├── .gitignore
+│   │   ├── .nvmrc
+│   │   ├── LICENSE
+│   │   ├── README.md
+│   │   ├── content/
+│   │   ├── gatsby-browser.js
+│   │   ├── gatsby-config.js
+│   │   ├── gatsby-node.js
+│   │   ├── md.generate.js
+│   │   ├── md.tpl.js
+│   │   ├── package.json
+│   │   ├── scripts/
+│   │   ├── src/
+│   │   └── static/
+│   ├── markdown_slug/
+│   │   ├── .gitignore
+│   │   ├── .nvmrc
+│   │   ├── LICENSE
+│   │   ├── README.md
+│   │   ├── content/
+│   │   ├── gatsby-browser.js
+│   │   ├── gatsby-config.js
+│   │   ├── gatsby-node.js
+│   │   ├── md.generate.js
+│   │   ├── md.tpl.js
+│   │   ├── package.json
+│   │   ├── scripts/
+│   │   ├── src/
+│   │   └── static/
+│   ├── markdown_table/
+│   │   ├── .gitignore
+│   │   ├── .nvmrc
+│   │   ├── LICENSE
+│   │   ├── README.md
+│   │   ├── gatsby-config.js
+│   │   ├── gatsby-node.js
+│   │   ├── package.json
+│   │   ├── page-template.js
+│   │   ├── scripts/
+│   │   └── src/
+│   ├── md/
+│   │   ├── .gitattributes
+│   │   ├── .gitignore
+│   │   ├── .nvmrc
+│   │   ├── .prettierrc.js
+│   │   ├── LICENSE
+│   │   ├── README.md
+│   │   ├── gatsby-browser.js
+│   │   ├── gatsby-config.js
+│   │   ├── gatsby-node.js
+│   │   ├── package.json
+│   │   ├── scripts/
+│   │   ├── src/
+│   │   ├── static/
+│   │   └── styles.css
+│   ├── mdx/
+│   │   ├── .gitattributes
+│   │   ├── .gitignore
+│   │   ├── .nvmrc
+│   │   ├── .prettierrc.js
+│   │   ├── LICENSE
+│   │   ├── README.md
+│   │   ├── gatsby-browser.js
+│   │   ├── gatsby-config.js
+│   │   ├── gatsby-node.js
+│   │   ├── package.json
+│   │   ├── scripts/
+│   │   ├── src/
+│   │   ├── static/
+│   │   └── styles.css
+│   ├── plugin-manifest/
+│   │   ├── README.md
+│   │   ├── gatsby-config.js
+│   │   ├── index.js
+│   │   └── package.json
+│   ├── query-filters-sort/
+│   │   ├── README.md
+│   │   ├── gatsby-config.js
+│   │   ├── gatsby-node.js
+│   │   ├── package.json
+│   │   └── src/
+│   ├── query/
+│   │   ├── README.md
+│   │   ├── bin/
+│   │   ├── gatsby-config.js
+│   │   ├── gatsby-node.js
+│   │   ├── package.json
+│   │   ├── recording.md
+│   │   └── src/
+│   ├── source-agilitycms/
+│   │   ├── .env.development.example
+│   │   ├── .env.production.example
+│   │   ├── .gitignore
+│   │   ├── .prettierrc
+│   │   ├── CODE_OF_CONDUCT.md
+│   │   ├── LICENSE
+│   │   ├── README.md
+│   │   ├── bin/
+│   │   ├── gatsby-config.js
+│   │   ├── gatsby-node.js
+│   │   ├── package.json
+│   │   ├── src/
+│   │   └── static/
+│   ├── source-contentful/
+│   │   ├── .env.example
+│   │   ├── .gitignore
+│   │   ├── .nvmrc
+│   │   ├── LICENSE
+│   │   ├── README.md
+│   │   ├── bin/
+│   │   ├── gatsby-config.js
+│   │   ├── gatsby-node.js
+│   │   ├── package.json
+│   │   └── src/
+│   ├── source-cosmicjs/
+│   │   ├── .env.example
+│   │   ├── .gitignore
+│   │   ├── .prettierignore
+│   │   ├── .prettierrc
+│   │   ├── LICENSE
+│   │   ├── README.md
+│   │   ├── gatsby-browser.js
+│   │   ├── gatsby-config.js
+│   │   ├── gatsby-node.js
+│   │   ├── package.json
+│   │   ├── src/
+│   │   ├── static/
+│   │   └── update-post.js
+│   ├── source-datocms/
+│   │   ├── .env.example
+│   │   ├── .gitignore
+│   │   ├── .nvmrc
+│   │   ├── LICENSE
+│   │   ├── README.md
+│   │   ├── gatsby-browser.js
+│   │   ├── gatsby-config.js
+│   │   ├── gatsby-node.js
+│   │   ├── package.json
+│   │   ├── scripts/
+│   │   ├── src/
+│   │   ├── static/
+│   │   ├── styles.css
+│   │   └── tsconfig.json
+│   ├── source-drupal/
+│   │   ├── .env.example
+│   │   ├── .gitignore
+│   │   ├── .nvmrc
+│   │   ├── LICENSE
+│   │   ├── README.md
+│   │   ├── gatsby-browser.js
+│   │   ├── gatsby-config.js
+│   │   ├── gatsby-node.js
+│   │   ├── package.json
+│   │   ├── scripts/
+│   │   ├── src/
+│   │   ├── static/
+│   │   ├── styles.css
+│   │   └── tsconfig.json
+│   ├── source-flotiq/
+│   │   ├── .env.example
+│   │   ├── LICENSE
+│   │   ├── README.md
+│   │   ├── gatsby-config.js
+│   │   ├── gatsby-node.js
+│   │   ├── package.json
+│   │   ├── scripts/
+│   │   ├── src/
+│   │   └── static/
+│   ├── source-kontent/
+│   │   ├── .env.template
+│   │   ├── .gitignore
+│   │   ├── .prettierignore
+│   │   ├── .prettierrc
+│   │   ├── LICENSE
+│   │   ├── README.md
+│   │   ├── gatsby-browser.js
+│   │   ├── gatsby-config.js
+│   │   ├── gatsby-node.js
+│   │   ├── package.json
+│   │   ├── src/
+│   │   ├── styles.css
+│   │   └── update-article.js
+│   ├── source-sanity/
+│   │   ├── .env.example
+│   │   ├── .gitignore
+│   │   ├── .prettierignore
+│   │   ├── .prettierrc
+│   │   ├── LICENSE
+│   │   ├── README.md
+│   │   ├── gatsby-browser.js
+│   │   ├── gatsby-config.js
+│   │   ├── gatsby-node.js
+│   │   ├── package.json
+│   │   ├── src/
+│   │   ├── static/
+│   │   ├── styles.css
+│   │   └── update-post.js
+│   ├── source-strapi/
+│   │   ├── .env.example
+│   │   ├── .gitignore
+│   │   ├── .prettierignore
+│   │   ├── .prettierrc
+│   │   ├── LICENSE
+│   │   ├── README.md
+│   │   ├── gatsby-browser.js
+│   │   ├── gatsby-config.js
+│   │   ├── gatsby-node.js
+│   │   ├── package.json
+│   │   ├── src/
+│   │   └── update-post.js
+│   └── source-wordpress/
+│       ├── .gitattributes
+│       ├── .gitignore
+│       ├── .nvmrc
+│       ├── LICENSE
+│       ├── README.md
+│       ├── gatsby-browser.js
+│       ├── gatsby-config.js
+│       ├── gatsby-node.js
+│       ├── package.json
+│       ├── scripts/
+│       ├── src/
+│       ├── static/
+│       └── styles.css
+├── deprecated-packages/
+│   ├── gatsby-admin/
+│   │   ├── .eslintignore
+│   │   ├── CHANGELOG.md
+│   │   ├── README.md
+│   │   ├── gatsby-browser.js
+│   │   ├── gatsby-config.js
+│   │   ├── gatsby-node.js
+│   │   ├── gatsby-ssr.js
+│   │   ├── index.js
+│   │   ├── package.json
+│   │   ├── src/
+│   │   ├── static/
+│   │   └── tsconfig.json
+│   ├── gatsby-image/
+│   │   ├── .babelrc
+│   │   ├── .eslintrc.yaml
+│   │   ├── .gitignore
+│   │   ├── .npmignore
+│   │   ├── CHANGELOG.md
+│   │   ├── README.md
+│   │   ├── index.d.ts
+│   │   ├── package.json
+│   │   ├── src/
+│   │   ├── tsconfig.json
+│   │   └── withIEPolyfill/
+│   ├── gatsby-plugin-create-client-paths/
+│   │   ├── .babelrc
+│   │   ├── .gitignore
+│   │   ├── .npmignore
+│   │   ├── CHANGELOG.md
+│   │   ├── README.md
+│   │   ├── index.js
+│   │   ├── package.json
+│   │   └── src/
+│   ├── gatsby-plugin-gatsby-cloud/
+│   │   ├── .babelrc
+│   │   ├── .gitignore
+│   │   ├── .npmignore
+│   │   ├── CHANGELOG.md
+│   │   ├── README.md
+│   │   ├── package.json
+│   │   └── src/
+│   ├── gatsby-plugin-glamor/
+│   │   ├── .babelrc
+│   │   ├── .gitignore
+│   │   ├── .npmignore
+│   │   ├── CHANGELOG.md
+│   │   ├── README.md
+│   │   ├── index.js
+│   │   ├── package.json
+│   │   └── src/
+│   ├── gatsby-plugin-graphql-config/
+│   │   ├── .babelrc
+│   │   ├── .gitignore
+│   │   ├── .npmignore
+│   │   ├── CHANGELOG.md
+│   │   ├── README.md
+│   │   ├── package.json
+│   │   ├── src/
+│   │   └── tsconfig.json
+│   ├── gatsby-plugin-guess-js/
+│   │   ├── .babelrc
+│   │   ├── .gitignore
+│   │   ├── .npmignore
+│   │   ├── CHANGELOG.md
+│   │   ├── README.md
+│   │   ├── index.js
+│   │   ├── package.json
+│   │   └── src/
+│   ├── gatsby-plugin-netlify-cms/
+│   │   ├── .babelrc
+│   │   ├── .gitignore
+│   │   ├── .npmignore
+│   │   ├── CHANGELOG.md
+│   │   ├── README.md
+│   │   ├── package.json
+│   │   └── src/
+│   ├── gatsby-plugin-remove-trailing-slashes/
+│   │   ├── .babelrc
+│   │   ├── .gitignore
+│   │   ├── .npmignore
+│   │   ├── CHANGELOG.md
+│   │   ├── README.md
+│   │   ├── index.js
+│   │   ├── package.json
+│   │   └── src/
+│   ├── gatsby-recipes/
+│   │   ├── .gitignore
+│   │   ├── CHANGELOG.md
+│   │   ├── CONTRIBUTING.md
+│   │   ├── README.md
+│   │   ├── babel.config.js
+│   │   ├── components.js
+│   │   ├── package.json
+│   │   ├── recipes/
+│   │   ├── rollup.config.js
+│   │   └── src/
+│   ├── gatsby-telemetry/
+│   │   ├── .babelrc
+│   │   ├── .gitignore
+│   │   ├── CHANGELOG.md
+│   │   ├── README.md
+│   │   ├── package.json
+│   │   ├── src/
+│   │   └── tsconfig.json
+│   ├── gatsby-theme/
+│   │   ├── CHANGELOG.md
+│   │   ├── README.md
+│   │   ├── cli.js
+│   │   ├── gatsby-theme-debug.js
+│   │   ├── gatsby-theme-eject.js
+│   │   ├── gatsby-theme-new.js
+│   │   └── package.json
+│   └── gatsby-transformer-javascript-static-exports/
+│       ├── .babelrc
+│       ├── .gitignore
+│       ├── .npmignore
+│       ├── CHANGELOG.md
+│       ├── README.md
+│       ├── index.js
+│       ├── package.json
+│       └── src/
+├── docs/
+│   ├── README.md
+│   ├── accessibility-statement.md
+│   ├── contributing/
+│   │   ├── code-contributions.md
+│   │   ├── code-of-conduct.md
+│   │   ├── docs-contributions/
+│   │   ├── gatsby-governance-model.md
+│   │   ├── gatsby-style-guide.md
+│   │   ├── how-to-file-an-issue.md
+│   │   ├── how-to-make-a-reproducible-test-case.md
+│   │   ├── how-to-open-a-pull-request.md
+│   │   ├── images/
+│   │   └── index.md
+│   ├── docs/
+│   │   ├── ab-testing.md
+│   │   ├── adding-a-list-of-markdown-blog-posts.md
+│   │   ├── adding-a-shopping-cart-with-snipcart.md
+│   │   ├── adding-app-and-website-functionality.md
+│   │   ├── adding-pagination.md
+│   │   ├── adding-react-components.md
+│   │   ├── adding-redux-store.md
+│   │   ├── adding-search-with-algolia.md
+│   │   ├── adding-search-with-js-search.md
+│   │   ├── adding-tags-and-categories-to-blog-posts.md
+│   │   ├── api-proxy.md
+│   │   ├── build-caching.md
+│   │   ├── building-a-contact-form.md
+│   │   ├── building-an-ecommerce-site-with-shopify.md
+│   │   ├── cheat-sheet.md
+│   │   ├── cli-feedback.md
+│   │   ├── conceptual/
+│   │   ├── content-and-data.md
+│   │   ├── creating-a-local-plugin.md
+│   │   ├── creating-a-starter.md
+│   │   ├── creating-and-modifying-pages.md
+│   │   ├── creating-dynamic-navigation.md
+│   │   ├── creating-plugins.md
+│   │   ├── creating-prefixed-404-pages-for-different-languages.md
+│   │   ├── creating-slugs-for-pages.md
+│   │   ├── css-libraries-and-frameworks.md
+│   │   ├── custom-html.md
+│   │   ├── debugging-async-lifecycles.md
+│   │   ├── debugging-cache-issues.md
+│   │   ├── debugging-html-builds.md
+│   │   ├── debugging-incremental-builds.md
+│   │   ├── debugging-the-build-process.md
+│   │   ├── debugging.md
+│   │   ├── gatsby-internals-terminology.md
+│   │   ├── glossary.md
+│   │   ├── glossary/
+│   │   ├── graphql-reference.md
+│   │   ├── graphql.md
+│   │   ├── guides.md
+│   │   ├── how-code-splitting-works.md
+│   │   ├── how-to/
+│   │   ├── html-generation.md
+│   │   ├── images-and-files.md
+│   │   ├── images/
+│   │   ├── internal-data-bridge.md
+│   │   ├── linking-between-pages.md
+│   │   ├── local-https.md
+│   │   ├── location-data-from-props.md
+│   │   ├── modifying-a-starter.md
+│   │   ├── multi-core-builds.md
+│   │   ├── node-creation.md
+│   │   ├── performance-tracing.md
+│   │   ├── plugins.md
+│   │   ├── porting-an-html-site-to-gatsby.md
+│   │   ├── porting-from-create-react-app-to-gatsby.md
+│   │   ├── porting-to-gatsby.md
+│   │   ├── preoptimizing-images.md
+│   │   ├── production-app.md
+│   │   ├── profiling-site-performance-with-react-profiler.md
+│   │   ├── programmatically-create-pages-from-data.md
+│   │   ├── progressive-web-app.md
+│   │   ├── query-filters.md
+│   │   ├── quick-start.md
+│   │   ├── reach-router-and-gatsby.md
+│   │   ├── reference/
+│   │   ├── refreshing-content.md
+│   │   ├── resource-handling-and-service-workers.md
+│   │   ├── schema-generation.md
+│   │   ├── schema-inference.md
+│   │   ├── schema-sift.md
+│   │   ├── sourcing-from-agilitycms.md
+│   │   ├── sourcing-from-builder-io.md
+│   │   ├── sourcing-from-buttercms.md
+│   │   ├── sourcing-from-contentstack.md
+│   │   ├── sourcing-from-etsy.md
+│   │   ├── sourcing-from-flotiq.md
+│   │   ├── sourcing-from-forestry.md
+│   │   ├── sourcing-from-gentics-mesh.md
+│   │   ├── sourcing-from-ghost.md
+│   │   ├── sourcing-from-graphcms.md
+│   │   ├── sourcing-from-sanity.md
+│   │   ├── sourcing-from-woocommerce.md
+│   │   ├── starters.md
+│   │   ├── styling.md
+│   │   ├── telemetry.md
+│   │   ├── theme-api.md
+│   │   ├── themes.md
+│   │   ├── themes/
+│   │   ├── tutorial/
+│   │   ├── upgrading-node-js.md
+│   │   ├── using-client-side-only-packages.md
+│   │   ├── using-typography-js.md
+│   │   ├── why-gatsby-uses-graphql.md
+│   │   └── write-pages.md
+│   └── tutorial/
+│       ├── authentication-tutorial.md
+│       ├── blog-netlify-cms-tutorial/
+│       ├── building-a-theme.md
+│       ├── e-commerce-with-datocms-and-snipcart/
+│       ├── ecommerce-tutorial/
+│       ├── images/
+│       ├── plugin-and-theme-tutorials.md
+│       ├── prismic-source-graphql-tutorial.md
+│       ├── remark-plugin-tutorial.md
+│       ├── using-a-theme.md
+│       ├── using-multiple-themes-together.md
+│       ├── wordpress-image-tutorial.md
+│       └── wordpress-source-plugin-tutorial.md
+├── e2e-tests/
+│   ├── README.md
+│   ├── adapters/
+│   │   ├── .gitignore
+│   │   ├── README.md
+│   │   ├── constants.ts
+│   │   ├── cypress.config.ts
+│   │   ├── cypress/
+│   │   ├── debug-adapter.ts
+│   │   ├── gatsby-config.ts
+│   │   ├── gatsby-node.ts
+│   │   ├── make-monorepo.sh
+│   │   ├── netlify.toml
+│   │   ├── package.json
+│   │   ├── scripts/
+│   │   ├── smoke-test.mjs
+│   │   ├── src/
+│   │   ├── static/
+│   │   └── utils.ts
+│   ├── contentful/
+│   │   ├── .gitignore
+│   │   ├── LICENSE
+│   │   ├── README.md
+│   │   ├── cypress.config.ts
+│   │   ├── cypress/
+│   │   ├── gatsby-config.js
+│   │   ├── package.json
+│   │   ├── schema.gql
+│   │   ├── snapshots.js
+│   │   └── src/
+│   ├── development-runtime/
+│   │   ├── .eslintignore
+│   │   ├── .eslintrc
+│   │   ├── .gitignore
+│   │   ├── LICENSE
+│   │   ├── README.md
+│   │   ├── SHOULD_NOT_SERVE
+│   │   ├── citrus-fruits-outside-src.jpg
+│   │   ├── content/
+│   │   ├── cypress.config.ts
+│   │   ├── cypress/
+│   │   ├── gatsby-browser.js
+│   │   ├── gatsby-config.js
+│   │   ├── gatsby-node.js
+│   │   ├── gatsby-script-records.js
+│   │   ├── gatsby-script-scripts.js
+│   │   ├── gatsby-ssr.js
+│   │   ├── package.json
+│   │   ├── playwright.config.ts
+│   │   ├── playwright/
+│   │   ├── plugins/
+│   │   ├── scripts/
+│   │   ├── serve-static-files.mjs
+│   │   ├── shared-data/
+│   │   ├── snapshots.js
+│   │   ├── src/
+│   │   ├── static/
+│   │   └── tsconfig.json
+│   ├── mdx/
+│   │   ├── .gitignore
+│   │   ├── cypress/
+│   │   ├── gatsby-browser.js
+│   │   ├── gatsby-config.mjs
+│   │   ├── gatsby-node.mjs
+│   │   ├── gatsby-ssr.js
+│   │   ├── package.json
+│   │   ├── plugins/
+│   │   ├── scripts/
+│   │   └── src/
+│   ├── path-prefix/
+│   │   ├── .gitignore
+│   │   ├── LICENSE
+│   │   ├── README.md
+│   │   ├── cypress.config.ts
+│   │   ├── cypress/
+│   │   ├── gatsby-browser.js
+│   │   ├── gatsby-config.js
+│   │   ├── gatsby-node.js
+│   │   ├── gatsby-ssr.js
+│   │   ├── package.json
+│   │   ├── scripts/
+│   │   └── src/
+│   ├── production-runtime/
+│   │   ├── .env.production
+│   │   ├── .gitignore
+│   │   ├── LICENSE
+│   │   ├── README.md
+│   │   ├── SHOULD_NOT_SERVE
+│   │   ├── __tests__/
+│   │   ├── citrus-fruits-outside-src.jpg
+│   │   ├── cypress.config.ts
+│   │   ├── cypress/
+│   │   ├── gatsby-browser.js
+│   │   ├── gatsby-config.js
+│   │   ├── gatsby-node.ts
+│   │   ├── gatsby-script-records.js
+│   │   ├── gatsby-script-scripts.js
+│   │   ├── gatsby-ssr.js
+│   │   ├── package.json
+│   │   ├── playwright.config.ts
+│   │   ├── playwright/
+│   │   ├── plugins/
+│   │   ├── polyfill-node-protocol-imports.js
+│   │   ├── serve-static-files.mjs
+│   │   ├── shared-data/
+│   │   ├── src/
+│   │   └── static/
+│   ├── react-19/
+│   │   ├── .gitignore
+│   │   ├── README.md
+│   │   ├── cypress.config.ts
+│   │   ├── cypress/
+│   │   ├── gatsby-browser.js
+│   │   ├── gatsby-config.js
+│   │   ├── package.json
+│   │   └── src/
+│   ├── themes/
+│   │   ├── development-runtime/
+│   │   ├── gatsby-theme-about/
+│   │   ├── package.json
+│   │   └── production-runtime/
+│   ├── trailing-slash/
+│   │   ├── .gitignore
+│   │   ├── README.md
+│   │   ├── cypress.config.ts
+│   │   ├── cypress/
+│   │   ├── gatsby-browser.js
+│   │   ├── gatsby-config.js
+│   │   ├── gatsby-node.js
+│   │   ├── global.css
+│   │   ├── package.json
+│   │   ├── src/
+│   │   └── static/
+│   └── visual-regression/
+│       ├── .gitignore
+│       ├── LICENSE
+│       ├── README.md
+│       ├── content/
+│       ├── cypress.config.ts
+│       ├── cypress/
+│       ├── gatsby-config.js
+│       ├── package.json
+│       └── src/
+├── examples/
+│   ├── README.md
+│   ├── build-all-examples.sh
+│   ├── client-only-paths/
+│   │   ├── README.md
+│   │   ├── gatsby-config.js
+│   │   ├── package.json
+│   │   └── src/
+│   ├── creating-source-plugins/
+│   │   ├── README.md
+│   │   ├── api/
+│   │   ├── example-site/
+│   │   ├── package.json
+│   │   └── source-plugin/
+│   ├── data-fetching/
+│   │   ├── .env.example
+│   │   ├── README.md
+│   │   ├── gatsby-config.js
+│   │   ├── package.json
+│   │   └── src/
+│   ├── ecommerce-tutorial-with-stripe/
+│   │   ├── .env.example
+│   │   ├── .gitignore
+│   │   ├── README.md
+│   │   ├── gatsby-config.js
+│   │   ├── netlify.toml
+│   │   ├── package.json
+│   │   └── src/
+│   ├── feed/
+│   │   ├── README.md
+│   │   ├── gatsby-config.js
+│   │   ├── gatsby-node.js
+│   │   ├── package.json
+│   │   ├── posts/
+│   │   └── src/
+│   ├── functions-airtable-form/
+│   │   ├── .env.example
+│   │   ├── README.md
+│   │   ├── gatsby-config.js
+│   │   ├── package.json
+│   │   └── src/
+│   ├── functions-auth0/
+│   │   ├── .env.example
+│   │   ├── README.md
+│   │   ├── gatsby-browser.js
+│   │   ├── gatsby-config.js
+│   │   ├── package.json
+│   │   ├── postcss.config.js
+│   │   ├── src/
+│   │   └── static/
+│   ├── functions-basic-form/
+│   │   ├── README.md
+│   │   ├── gatsby-config.js
+│   │   ├── package.json
+│   │   └── src/
+│   ├── functions-google-gmail/
+│   │   ├── .env.example
+│   │   ├── README.md
+│   │   ├── gatsby-config.js
+│   │   ├── package.json
+│   │   └── src/
+│   ├── functions-google-oauth/
+│   │   ├── .env.example
+│   │   ├── README.md
+│   │   ├── gatsby-config.js
+│   │   ├── localhost_8000.png
+│   │   ├── package.json
+│   │   └── src/
+│   ├── functions-google-sheets/
+│   │   ├── .env.example
+│   │   ├── README.md
+│   │   ├── gatsby-config.js
+│   │   ├── package.json
+│   │   └── src/
+│   ├── functions-hello-world/
+│   │   ├── README.md
+│   │   ├── gatsby-config.js
+│   │   ├── package.json
+│   │   └── src/
+│   ├── functions-sendgrid-email/
+│   │   ├── .env.example
+│   │   ├── README.md
+│   │   ├── gatsby-config.js
+│   │   ├── package.json
+│   │   └── src/
+│   ├── functions-twilio-text/
+│   │   ├── .env.example
+│   │   ├── README.md
+│   │   ├── gatsby-config.js
+│   │   ├── package.json
+│   │   └── src/
+│   ├── gatsbygram/
+│   │   ├── .gitignore
+│   │   ├── README.md
+│   │   ├── cypress.json
+│   │   ├── cypress/
+│   │   ├── data/
+│   │   ├── gatsby-browser.js
+│   │   ├── gatsby-config.js
+│   │   ├── package.json
+│   │   ├── scrape.js
+│   │   ├── src/
+│   │   ├── static/
+│   │   └── utils/
+│   ├── graphql-reference/
+│   │   ├── README.md
+│   │   ├── content/
+│   │   ├── gatsby-browser.js
+│   │   ├── gatsby-config.js
+│   │   ├── gatsby-node.js
+│   │   ├── package.json
+│   │   ├── src/
+│   │   └── static/
+│   ├── hn/
+│   │   ├── .gitignore
+│   │   ├── README.md
+│   │   ├── gatsby-config.js
+│   │   ├── gatsby-node.js
+│   │   ├── package.json
+│   │   └── src/
+│   ├── image-processing/
+│   │   ├── README.md
+│   │   ├── gatsby-config.js
+│   │   ├── package.json
+│   │   └── src/
+│   ├── recipe-createPage/
+│   │   ├── README.md
+│   │   ├── gatsby-config.js
+│   │   ├── gatsby-node.js
+│   │   ├── package.json
+│   │   └── src/
+│   ├── route-api/
+│   │   ├── README.md
+│   │   ├── blog/
+│   │   ├── gatsby-browser.js
+│   │   ├── gatsby-config.js
+│   │   ├── package.json
+│   │   ├── parks/
+│   │   ├── products/
+│   │   ├── src/
+│   │   └── styles.css
+│   ├── simple-auth/
+│   │   ├── README.md
+│   │   ├── gatsby-config.js
+│   │   ├── gatsby-node.js
+│   │   ├── package.json
+│   │   └── src/
+│   ├── sitemap/
+│   │   ├── README.md
+│   │   ├── gatsby-config.js
+│   │   ├── gatsby-node.js
+│   │   ├── package.json
+│   │   ├── posts/
+│   │   └── src/
+│   ├── styleguide/
+│   │   ├── README.md
+│   │   ├── gatsby-config.js
+│   │   ├── gatsby-node.js
+│   │   ├── package.json
+│   │   └── src/
+│   ├── using-asciidoc/
+│   │   ├── README.md
+│   │   ├── gatsby-config.js
+│   │   ├── gatsby-node.js
+│   │   ├── package.json
+│   │   └── src/
+│   ├── using-contentful/
+│   │   ├── README.md
+│   │   ├── gatsby-config.js
+│   │   ├── package.json
+│   │   └── src/
+│   ├── using-css-modules/
+│   │   ├── README.md
+│   │   ├── gatsby-config.js
+│   │   ├── package.json
+│   │   └── src/
+│   ├── using-csv/
+│   │   ├── README.md
+│   │   ├── gatsby-config.js
+│   │   ├── package.json
+│   │   └── src/
+│   ├── using-cypress/
+│   │   ├── README.md
+│   │   ├── cypress.config.ts
+│   │   ├── cypress/
+│   │   ├── gatsby-config.ts
+│   │   ├── package.json
+│   │   └── src/
+│   ├── using-drupal/
+│   │   ├── .gitignore
+│   │   ├── README.md
+│   │   ├── gatsby-config.js
+│   │   ├── package.json
+│   │   └── src/
+│   ├── using-emotion-prismjs/
+│   │   ├── README.md
+│   │   ├── gatsby-config.js
+│   │   ├── gatsby-node.js
+│   │   ├── package.json
+│   │   └── src/
+│   ├── using-emotion/
+│   │   ├── README.md
+│   │   ├── gatsby-config.js
+│   │   ├── package.json
+│   │   └── src/
+│   ├── using-excel/
+│   │   ├── README.md
+│   │   ├── gatsby-config.js
+│   │   ├── package.json
+│   │   └── src/
+│   ├── using-faker/
+│   │   ├── README.md
+│   │   ├── gatsby-config.js
+│   │   ├── package.json
+│   │   └── src/
+│   ├── using-fragments/
+│   │   ├── README.md
+│   │   ├── gatsby-config.js
+│   │   ├── package.json
+│   │   └── src/
+│   ├── using-gatsby-head/
+│   │   ├── README.md
+│   │   ├── gatsby-config.ts
+│   │   ├── gatsby-node.ts
+│   │   ├── package.json
+│   │   ├── src/
+│   │   ├── static/
+│   │   └── tsconfig.json
+│   ├── using-gatsby-image/
+│   │   ├── README.md
+│   │   ├── content/
+│   │   ├── gatsby-config.js
+│   │   ├── package.json
+│   │   ├── plugins/
+│   │   └── src/
+│   ├── using-gatsby-script/
+│   │   ├── README.md
+│   │   ├── gatsby-browser.tsx
+│   │   ├── gatsby-config.ts
+│   │   ├── gatsby-shared.tsx
+│   │   ├── gatsby-ssr.tsx
+│   │   ├── package.json
+│   │   ├── src/
+│   │   ├── static/
+│   │   └── tsconfig.json
+│   ├── using-gatsby-source-graphql/
+│   │   ├── README.md
+│   │   ├── gatsby-config.js
+│   │   ├── gatsby-node.js
+│   │   ├── package.json
+│   │   └── src/
+│   ├── using-gatsby-with-json-yaml/
+│   │   ├── README.md
+│   │   ├── content/
+│   │   ├── gatsby-config.js
+│   │   ├── gatsby-node.js
+│   │   ├── package.json
+│   │   └── src/
+│   ├── using-gatsby-without-graphql/
+│   │   ├── .gitignore
+│   │   ├── README.md
+│   │   ├── gatsby-node.js
+│   │   ├── package.json
+│   │   └── src/
+│   ├── using-graphql-typegen/
+│   │   ├── .eslintrc.js
+│   │   ├── .gitignore
+│   │   ├── README.md
+│   │   ├── gatsby-config.ts
+│   │   ├── gatsby-node.ts
+│   │   ├── graphql.config.js
+│   │   ├── package.json
+│   │   ├── src/
+│   │   └── tsconfig.json
+│   ├── using-hjson/
+│   │   ├── README.md
+│   │   ├── gatsby-config.js
+│   │   ├── package.json
+│   │   └── src/
+│   ├── using-i18n/
+│   │   ├── README.md
+│   │   ├── blog/
+│   │   ├── config/
+│   │   ├── gatsby-browser.js
+│   │   ├── gatsby-config.js
+│   │   ├── gatsby-node.js
+│   │   ├── gatsby-ssr.js
+│   │   ├── package.json
+│   │   ├── src/
+│   │   └── wrapPageElement.js
+│   ├── using-javascript-transforms/
+│   │   ├── README.md
+│   │   ├── font-preload-cache.json
+│   │   ├── gatsby-config.js
+│   │   ├── gatsby-node.js
+│   │   ├── package.json
+│   │   └── src/
+│   ├── using-jest/
+│   │   ├── README.md
+│   │   ├── __mocks__/
+│   │   ├── gatsby-config.js
+│   │   ├── jest-preprocess.js
+│   │   ├── jest.config.js
+│   │   ├── jest.setup.js
+│   │   ├── loadershim.js
+│   │   ├── package.json
+│   │   └── src/
+│   ├── using-js-search/
+│   │   ├── README.md
+│   │   ├── gatsby-node.js
+│   │   ├── package.json
+│   │   ├── src/
+│   │   └── static/
+│   ├── using-jss/
+│   │   ├── README.md
+│   │   ├── gatsby-config.js
+│   │   ├── package.json
+│   │   └── src/
+│   ├── using-loadable-components/
+│   │   ├── README.md
+│   │   ├── gatsby-config.js
+│   │   ├── package.json
+│   │   └── src/
+│   ├── using-local-plugins/
+│   │   ├── README.md
+│   │   ├── gatsby-config.js
+│   │   ├── gatsby-node.js
+│   │   ├── package.json
+│   │   ├── plugins/
+│   │   └── src/
+│   ├── using-markdown-pages/
+│   │   ├── README.md
+│   │   ├── gatsby-browser.js
+│   │   ├── gatsby-config.js
+│   │   ├── gatsby-node.js
+│   │   ├── gatsby-ssr.js
+│   │   ├── package.json
+│   │   └── src/
+│   ├── using-mdx/
+│   │   ├── .prettierignore
+│   │   ├── README.md
+│   │   ├── content/
+│   │   ├── gatsby-browser.jsx
+│   │   ├── gatsby-config.mjs
+│   │   ├── gatsby-node.mjs
+│   │   ├── gatsby-ssr.jsx
+│   │   ├── package.json
+│   │   ├── remark-headings-plugin.mjs
+│   │   └── src/
+│   ├── using-medium/
+│   │   ├── README.md
+│   │   ├── gatsby-config.js
+│   │   ├── package.json
+│   │   └── src/
+│   ├── using-mobx/
+│   │   ├── gatsby-browser.js
+│   │   ├── gatsby-config.js
+│   │   ├── gatsby-ssr.js
+│   │   ├── package.json
+│   │   ├── readme.md
+│   │   ├── src/
+│   │   └── wrap-with-provider.js
+│   ├── using-mongodb/
+│   │   ├── README.md
+│   │   ├── gatsby-config.js
+│   │   ├── gatsby-node.js
+│   │   ├── package.json
+│   │   └── src/
+│   ├── using-multiple-local-plugins/
+│   │   ├── README.md
+│   │   ├── gatsby-plugin-console-log-b/
+│   │   ├── gatsby-plugin-console-log-c/
+│   │   └── gatsby-site-using-local-plugins/
+│   ├── using-multiple-providers/
+│   │   ├── gatsby-config.js
+│   │   ├── package.json
+│   │   ├── plugins/
+│   │   └── src/
+│   ├── using-multiple-themes/
+│   │   ├── README.md
+│   │   ├── content/
+│   │   ├── gatsby-config.js
+│   │   ├── package.json
+│   │   └── src/
+│   ├── using-page-loading-indicator/
+│   │   ├── README.md
+│   │   ├── gatsby-config.js
+│   │   ├── package.json
+│   │   └── src/
+│   ├── using-page-transitions/
+│   │   ├── README.md
+│   │   ├── gatsby-config.js
+│   │   ├── package.json
+│   │   └── src/
+│   ├── using-path-prefix/
+│   │   ├── README.md
+│   │   ├── gatsby-config.js
+│   │   ├── package.json
+│   │   └── src/
+│   ├── using-plugin-options/
+│   │   ├── README.md
+│   │   ├── gatsby-config.js
+│   │   ├── package.json
+│   │   ├── plugins/
+│   │   └── src/
+│   ├── using-prefetching-preloading-modules/
+│   │   ├── README.md
+│   │   ├── gatsby-config.js
+│   │   ├── package.json
+│   │   └── src/
+│   ├── using-reach-skip-nav/
+│   │   ├── README.md
+│   │   ├── cypress.json
+│   │   ├── cypress/
+│   │   ├── gatsby-browser.js
+│   │   ├── gatsby-config.js
+│   │   ├── gatsby-node.js
+│   │   ├── package.json
+│   │   └── src/
+│   ├── using-redirects/
+│   │   ├── README.md
+│   │   ├── gatsby-config.js
+│   │   ├── gatsby-node.js
+│   │   ├── package.json
+│   │   └── src/
+│   ├── using-redux-w-interaction-code-splitting/
+│   │   ├── README.md
+│   │   ├── gatsby-browser.js
+│   │   ├── gatsby-config.js
+│   │   ├── gatsby-node.js
+│   │   ├── gatsby-ssr.js
+│   │   ├── package.json
+│   │   ├── src/
+│   │   └── static/
+│   ├── using-redux-w-page-code-splitting/
+│   │   ├── README.md
+│   │   ├── gatsby-config.js
+│   │   ├── package.json
+│   │   ├── plugins/
+│   │   ├── src/
+│   │   └── static/
+│   ├── using-redux/
+│   │   ├── README.md
+│   │   ├── gatsby-browser.js
+│   │   ├── gatsby-config.js
+│   │   ├── gatsby-ssr.js
+│   │   ├── package.json
+│   │   ├── src/
+│   │   └── wrap-with-provider.js
+│   ├── using-remark-copy-linked-files/
+│   │   ├── README.md
+│   │   ├── gatsby-config.js
+│   │   ├── gatsby-node.js
+│   │   ├── package.json
+│   │   └── src/
+│   ├── using-remark/
+│   │   ├── README.md
+│   │   ├── gatsby-browser.js
+│   │   ├── gatsby-config.js
+│   │   ├── gatsby-node.js
+│   │   ├── package.json
+│   │   └── src/
+│   ├── using-sass/
+│   │   ├── README.md
+│   │   ├── gatsby-config.js
+│   │   ├── package.json
+│   │   └── src/
+│   ├── using-shopify/
+│   │   ├── .env.development
+│   │   ├── .env.production
+│   │   ├── .gitignore
+│   │   ├── README.md
+│   │   ├── gatsby-browser.js
+│   │   ├── gatsby-config.js
+│   │   ├── gatsby-node.js
+│   │   ├── gatsby-ssr.js
+│   │   ├── package.json
+│   │   └── src/
+│   ├── using-sqip/
+│   │   ├── gatsby-config.js
+│   │   ├── package.json
+│   │   └── src/
+│   ├── using-styled-components/
+│   │   ├── README.md
+│   │   ├── gatsby-config.js
+│   │   ├── package.json
+│   │   └── src/
+│   ├── using-styled-jsx/
+│   │   ├── README.md
+│   │   ├── gatsby-config.js
+│   │   ├── package.json
+│   │   └── src/
+│   ├── using-styletron/
+│   │   ├── README.md
+│   │   ├── gatsby-config.js
+│   │   ├── package.json
+│   │   └── src/
+│   ├── using-stylus/
+│   │   ├── README.md
+│   │   ├── gatsby-config.js
+│   │   ├── package.json
+│   │   └── src/
+│   ├── using-type-definitions/
+│   │   ├── README.md
+│   │   ├── gatsby-config.js
+│   │   ├── gatsby-node.js
+│   │   ├── package.json
+│   │   ├── src/
+│   │   └── type-defs.gql
+│   ├── using-typescript/
+│   │   ├── README.md
+│   │   ├── gatsby-browser.tsx
+│   │   ├── gatsby-config.ts
+│   │   ├── gatsby-ssr.tsx
+│   │   ├── package.json
+│   │   ├── src/
+│   │   ├── styles.css
+│   │   └── tsconfig.json
+│   ├── using-vanilla-extract/
+│   │   ├── README.md
+│   │   ├── gatsby-config.ts
+│   │   ├── package.json
+│   │   ├── src/
+│   │   └── tsconfig.json
+│   └── using-video/
+│       ├── README.md
+│       ├── gatsby-config.js
+│       ├── package.json
+│       └── src/
+├── integration-tests/
+│   ├── README.md
+│   ├── artifacts/
+│   │   ├── .gitignore
+│   │   ├── LICENSE
+│   │   ├── README.md
+│   │   ├── __tests__/
+│   │   ├── css-to-inline.css
+│   │   ├── gatsby-browser.js
+│   │   ├── gatsby-config.js
+│   │   ├── gatsby-node.js
+│   │   ├── gatsby-ssr.js
+│   │   ├── imported.css
+│   │   ├── jest.config.js
+│   │   ├── package.json
+│   │   ├── plugins/
+│   │   └── src/
+│   ├── cache-resilience/
+│   │   ├── .gitignore
+│   │   ├── LICENSE
+│   │   ├── __tests__/
+│   │   ├── gatsby-node.js
+│   │   ├── jest.config.js
+│   │   ├── package.json
+│   │   ├── plugins/
+│   │   ├── src/
+│   │   └── utils/
+│   ├── esm-in-gatsby-files/
+│   │   ├── .gitignore
+│   │   ├── __tests__/
+│   │   ├── cjs-default.js
+│   │   ├── cjs-named.js
+│   │   ├── esm-default.mjs
+│   │   ├── esm-named.mjs
+│   │   ├── jest-transformer.js
+│   │   ├── jest.config.js
+│   │   ├── package.json
+│   │   ├── src/
+│   │   └── tsconfig.json
+│   ├── functions/
+│   │   ├── .env.development
+│   │   ├── .env.production
+│   │   ├── .gitignore
+│   │   ├── README.md
+│   │   ├── __tests__/
+│   │   ├── gatsby-config.js
+│   │   ├── jest-transformer.js
+│   │   ├── jest.config.js
+│   │   ├── package.json
+│   │   ├── plugins/
+│   │   ├── src/
+│   │   └── test-helpers.js
+│   ├── gatsby-cli/
+│   │   ├── __tests__/
+│   │   ├── gatsby-sites/
+│   │   ├── jest-transformer.js
+│   │   ├── jest.config.js
+│   │   ├── package.json
+│   │   └── test-helpers/
+│   ├── gatsby-pipeline/
+│   │   ├── LICENSE
+│   │   ├── README.md
+│   │   ├── __tests__/
+│   │   ├── gatsby-config.js
+│   │   ├── gatsby-node.js
+│   │   ├── jest.config.js
+│   │   ├── package.json
+│   │   ├── src/
+│   │   └── utils/
+│   ├── gatsby-source-wordpress/
+│   │   ├── .env.test
+│   │   ├── .gitignore
+│   │   ├── .wordpress-cache/
+│   │   ├── README.md
+│   │   ├── __tests__/
+│   │   ├── docker-compose.yml
+│   │   ├── docker/
+│   │   ├── gatsby-config.js
+│   │   ├── gatsby-node.js
+│   │   ├── jest.config.js
+│   │   ├── package.json
+│   │   ├── src/
+│   │   └── test-fns/
+│   ├── head-function-export/
+│   │   ├── .gitignore
+│   │   ├── README.md
+│   │   ├── __tests__/
+│   │   ├── gatsby-browser.js
+│   │   ├── gatsby-config.js
+│   │   ├── gatsby-ssr.js
+│   │   ├── jest-transformer.js
+│   │   ├── jest.config.js
+│   │   ├── package.json
+│   │   ├── shared-data/
+│   │   └── src/
+│   ├── images/
+│   │   ├── LICENSE
+│   │   ├── README.md
+│   │   ├── __tests__/
+│   │   ├── gatsby-config.js
+│   │   ├── jest-transformer.js
+│   │   ├── jest.config.js
+│   │   ├── package.json
+│   │   └── src/
+│   ├── lmdb-regeneration/
+│   │   ├── .gitignore
+│   │   ├── LICENSE
+│   │   ├── README.md
+│   │   ├── __tests__/
+│   │   ├── gatsby-config.js
+│   │   ├── jest.config.js
+│   │   ├── package.json
+│   │   └── src/
+│   ├── long-term-caching/
+│   │   ├── LICENSE
+│   │   ├── README.md
+│   │   ├── __tests__/
+│   │   ├── jest.config.js
+│   │   ├── package.json
+│   │   └── src/
+│   ├── ssr/
+│   │   ├── .gitignore
+│   │   ├── LICENSE
+│   │   ├── README.md
+│   │   ├── __mocks__/
+│   │   ├── __tests__/
+│   │   ├── gatsby-browser.js
+│   │   ├── gatsby-config.js
+│   │   ├── gatsby-node.js
+│   │   ├── jest.config.js
+│   │   ├── package.json
+│   │   ├── pages-using-engines.js
+│   │   ├── postcss.config.js
+│   │   ├── sample.css
+│   │   ├── src/
+│   │   ├── tailwind.config.js
+│   │   ├── test-output.js
+│   │   └── write-dsg-and-ssr-to-files.js
+│   └── structured-logging/
+│       ├── LICENSE
+│       ├── README.md
+│       ├── __tests__/
+│       ├── gatsby-config.js
+│       ├── gatsby-node.js
+│       ├── jest.config.js
+│       ├── local-plugin-with-path/
+│       ├── package.json
+│       ├── plugins/
+│       └── src/
+├── jest-transformer.js
+├── jest.config.js
+├── jest.environment.ts
+├── lerna.json
+├── markdown.config.js
+├── package.json
+├── packages/
+│   ├── babel-plugin-remove-graphql-queries/
+│   │   ├── .babelrc
+│   │   ├── .gitignore
+│   │   ├── .npmignore
+│   │   ├── CHANGELOG.md
+│   │   ├── package.json
+│   │   ├── src/
+│   │   └── tsconfig.json
+│   ├── babel-preset-gatsby-package/
+│   │   ├── .babelrc
+│   │   ├── .npmignore
+│   │   ├── CHANGELOG.md
+│   │   ├── README.md
+│   │   ├── lib/
+│   │   ├── package.json
+│   │   └── tsconfig.json
+│   ├── babel-preset-gatsby/
+│   │   ├── .babelrc
+│   │   ├── .gitignore
+│   │   ├── .npmignore
+│   │   ├── CHANGELOG.md
+│   │   ├── README.md
+│   │   ├── package.json
+│   │   ├── src/
+│   │   └── tsconfig.json
+│   ├── create-gatsby/
+│   │   ├── .gitignore
+│   │   ├── CHANGELOG.md
+│   │   ├── README.md
+│   │   ├── cli.js
+│   │   ├── package.json
+│   │   ├── scripts/
+│   │   ├── src/
+│   │   ├── stubs/
+│   │   └── tsconfig.json
+│   ├── gatsby-adapter-netlify/
+│   │   ├── .babelrc
+│   │   ├── CHANGELOG.md
+│   │   ├── README.md
+│   │   ├── package.json
+│   │   ├── src/
+│   │   └── tsconfig.json
+│   ├── gatsby-cli/
+│   │   ├── .babelrc
+│   │   ├── .gitignore
+│   │   ├── CHANGELOG.md
+│   │   ├── README.md
+│   │   ├── cli.js
+│   │   ├── package.json
+│   │   ├── rollup.config.js
+│   │   ├── scripts/
+│   │   ├── src/
+│   │   └── tsconfig.json
+│   ├── gatsby-codemods/
+│   │   ├── .babelrc
+│   │   ├── .gitignore
+│   │   ├── .npmignore
+│   │   ├── CHANGELOG.md
+│   │   ├── README.md
+│   │   ├── index.js
+│   │   ├── package.json
+│   │   └── src/
+│   ├── gatsby-core-utils/
+│   │   ├── .babelrc
+│   │   ├── .gitignore
+│   │   ├── CHANGELOG.md
+│   │   ├── README.md
+│   │   ├── package.json
+│   │   ├── src/
+│   │   └── tsconfig.json
+│   ├── gatsby-cypress/
+│   │   ├── .babelrc
+│   │   ├── .gitignore
+│   │   ├── .npmignore
+│   │   ├── CHANGELOG.md
+│   │   ├── README.md
+│   │   ├── index.d.ts
+│   │   ├── package.json
+│   │   └── src/
+│   ├── gatsby-design-tokens/
+│   │   ├── .gitignore
+│   │   ├── CHANGELOG.md
+│   │   ├── README.md
+│   │   ├── package.json
+│   │   └── src/
+│   ├── gatsby-dev-cli/
+│   │   ├── .babelrc
+│   │   ├── .gitignore
+│   │   ├── .npmignore
+│   │   ├── CHANGELOG.md
+│   │   ├── README.md
+│   │   ├── package.json
+│   │   └── src/
+│   ├── gatsby-graphiql-explorer/
+│   │   ├── .gitignore
+│   │   ├── CHANGELOG.md
+│   │   ├── README.md
+│   │   ├── index.js
+│   │   ├── package.json
+│   │   └── src/
+│   ├── gatsby-legacy-polyfills/
+│   │   ├── .gitignore
+│   │   ├── CHANGELOG.md
+│   │   ├── README.md
+│   │   ├── package.json
+│   │   └── src/
+│   ├── gatsby-link/
+│   │   ├── .babelrc
+│   │   ├── .eslintrc.yaml
+│   │   ├── .gitignore
+│   │   ├── .npmignore
+│   │   ├── CHANGELOG.md
+│   │   ├── README.md
+│   │   ├── index.d.ts
+│   │   ├── package.json
+│   │   └── src/
+│   ├── gatsby-page-utils/
+│   │   ├── .babelrc
+│   │   ├── .gitignore
+│   │   ├── CHANGELOG.md
+│   │   ├── README.md
+│   │   ├── package.json
+│   │   ├── src/
+│   │   └── tsconfig.json
+│   ├── gatsby-parcel-config/
+│   │   ├── CHANGELOG.md
+│   │   ├── README.md
+│   │   ├── lib/
+│   │   └── package.json
+│   ├── gatsby-parcel-namer-relative-to-cwd/
+│   │   ├── .babelrc
+│   │   ├── .gitignore
+│   │   ├── CHANGELOG.md
+│   │   ├── README.md
+│   │   ├── package.json
+│   │   └── src/
+│   ├── gatsby-plugin-benchmark-reporting/
+│   │   ├── .babelrc
+│   │   ├── .gitignore
+│   │   ├── .npmignore
+│   │   ├── CHANGELOG.md
+│   │   ├── README.md
+│   │   ├── index.js
+│   │   ├── package.json
+│   │   └── src/
+│   ├── gatsby-plugin-canonical-urls/
+│   │   ├── .babelrc
+│   │   ├── .gitignore
+│   │   ├── .npmignore
+│   │   ├── CHANGELOG.md
+│   │   ├── README.md
+│   │   ├── index.js
+│   │   ├── package.json
+│   │   └── src/
+│   ├── gatsby-plugin-catch-links/
+│   │   ├── .babelrc
+│   │   ├── .eslintrc.yaml
+│   │   ├── .gitignore
+│   │   ├── .npmignore
+│   │   ├── CHANGELOG.md
+│   │   ├── README.md
+│   │   ├── index.js
+│   │   ├── package.json
+│   │   └── src/
+│   ├── gatsby-plugin-coffeescript/
+│   │   ├── .babelrc
+│   │   ├── .gitignore
+│   │   ├── .npmignore
+│   │   ├── .yarnrc
+│   │   ├── CHANGELOG.md
+│   │   ├── README.md
+│   │   ├── package.json
+│   │   └── src/
+│   ├── gatsby-plugin-cxs/
+│   │   ├── .babelrc
+│   │   ├── .gitignore
+│   │   ├── .npmignore
+│   │   ├── CHANGELOG.md
+│   │   ├── README.md
+│   │   ├── index.js
+│   │   ├── package.json
+│   │   └── src/
+│   ├── gatsby-plugin-emotion/
+│   │   ├── .babelrc
+│   │   ├── .gitignore
+│   │   ├── .npmignore
+│   │   ├── CHANGELOG.md
+│   │   ├── README.md
+│   │   ├── index.js
+│   │   ├── package.json
+│   │   └── src/
+│   ├── gatsby-plugin-facebook-analytics/
+│   │   ├── .babelrc
+│   │   ├── .gitignore
+│   │   ├── .npmignore
+│   │   ├── CHANGELOG.md
+│   │   ├── README.md
+│   │   ├── index.js
+│   │   ├── package.json
+│   │   └── src/
+│   ├── gatsby-plugin-feed/
+│   │   ├── .babelrc
+│   │   ├── .gitignore
+│   │   ├── .npmignore
+│   │   ├── CHANGELOG.md
+│   │   ├── README.md
+│   │   ├── index.js
+│   │   ├── package.json
+│   │   └── src/
+│   ├── gatsby-plugin-flow/
+│   │   ├── .babelrc
+│   │   ├── .gitignore
+│   │   ├── .npmignore
+│   │   ├── CHANGELOG.md
+│   │   ├── README.md
+│   │   ├── index.js
+│   │   ├── package.json
+│   │   └── src/
+│   ├── gatsby-plugin-fullstory/
+│   │   ├── .babelrc
+│   │   ├── .gitignore
+│   │   ├── .npmignore
+│   │   ├── CHANGELOG.md
+│   │   ├── README.md
+│   │   ├── index.js
+│   │   ├── package.json
+│   │   └── src/
+│   ├── gatsby-plugin-google-analytics/
+│   │   ├── .babelrc
+│   │   ├── .gitignore
+│   │   ├── .npmignore
+│   │   ├── CHANGELOG.md
+│   │   ├── README.md
+│   │   ├── index.d.ts
+│   │   ├── package.json
+│   │   └── src/
+│   ├── gatsby-plugin-google-gtag/
+│   │   ├── .babelrc
+│   │   ├── .gitignore
+│   │   ├── .npmignore
+│   │   ├── CHANGELOG.md
+│   │   ├── README.md
+│   │   ├── index.d.ts
+│   │   ├── package.json
+│   │   └── src/
+│   ├── gatsby-plugin-google-tagmanager/
+│   │   ├── .babelrc
+│   │   ├── .gitignore
+│   │   ├── .npmignore
+│   │   ├── CHANGELOG.md
+│   │   ├── README.md
+│   │   ├── index.js
+│   │   ├── package.json
+│   │   └── src/
+│   ├── gatsby-plugin-image/
+│   │   ├── .babelrc
+│   │   ├── .gitignore
+│   │   ├── CHANGELOG.md
+│   │   ├── README.md
+│   │   ├── gatsby-node.js
+│   │   ├── graphql-utils.d.ts
+│   │   ├── graphql-utils.js
+│   │   ├── macros/
+│   │   ├── package.json
+│   │   ├── src/
+│   │   └── tsconfig.json
+│   ├── gatsby-plugin-jss/
+│   │   ├── .babelrc
+│   │   ├── .gitignore
+│   │   ├── .npmignore
+│   │   ├── CHANGELOG.md
+│   │   ├── README.md
+│   │   ├── index.js
+│   │   ├── package.json
+│   │   └── src/
+│   ├── gatsby-plugin-layout/
+│   │   ├── .babelrc
+│   │   ├── .gitignore
+│   │   ├── .npmignore
+│   │   ├── CHANGELOG.md
+│   │   ├── README.md
+│   │   ├── index.js
+│   │   ├── package.json
+│   │   └── src/
+│   ├── gatsby-plugin-less/
+│   │   ├── .babelrc
+│   │   ├── .gitignore
+│   │   ├── .npmignore
+│   │   ├── CHANGELOG.md
+│   │   ├── README.md
+│   │   ├── index.js
+│   │   ├── package.json
+│   │   └── src/
+│   ├── gatsby-plugin-lodash/
+│   │   ├── .babelrc
+│   │   ├── .gitignore
+│   │   ├── .npmignore
+│   │   ├── CHANGELOG.md
+│   │   ├── README.md
+│   │   ├── index.js
+│   │   ├── package.json
+│   │   └── src/
+│   ├── gatsby-plugin-manifest/
+│   │   ├── .babelrc
+│   │   ├── .gitignore
+│   │   ├── .npmignore
+│   │   ├── CHANGELOG.md
+│   │   ├── README.md
+│   │   ├── index.js
+│   │   ├── package.json
+│   │   └── src/
+│   ├── gatsby-plugin-mdx/
+│   │   ├── .babelrc.js
+│   │   ├── .gitignore
+│   │   ├── CHANGELOG.md
+│   │   ├── README.md
+│   │   ├── gatsby-node.js
+│   │   ├── package.json
+│   │   ├── src/
+│   │   └── tsconfig.json
+│   ├── gatsby-plugin-no-sourcemaps/
+│   │   ├── CHANGELOG.md
+│   │   ├── README.md
+│   │   ├── gatsby-node.js
+│   │   ├── index.js
+│   │   └── package.json
+│   ├── gatsby-plugin-nprogress/
+│   │   ├── .babelrc
+│   │   ├── .gitignore
+│   │   ├── .npmignore
+│   │   ├── CHANGELOG.md
+│   │   ├── README.md
+│   │   ├── index.js
+│   │   ├── package.json
+│   │   └── src/
+│   ├── gatsby-plugin-offline/
+│   │   ├── .babelrc
+│   │   ├── .gitignore
+│   │   ├── .npmignore
+│   │   ├── CHANGELOG.md
+│   │   ├── README.md
+│   │   ├── index.js
+│   │   ├── package.json
+│   │   └── src/
+│   ├── gatsby-plugin-page-creator/
+│   │   ├── .babelrc
+│   │   ├── .gitignore
+│   │   ├── .npmignore
+│   │   ├── CHANGELOG.md
+│   │   ├── README.md
+│   │   ├── index.js
+│   │   ├── package.json
+│   │   ├── src/
+│   │   └── tsconfig.json
+│   ├── gatsby-plugin-postcss/
+│   │   ├── .babelrc
+│   │   ├── .gitignore
+│   │   ├── .npmignore
+│   │   ├── CHANGELOG.md
+│   │   ├── README.md
+│   │   ├── index.js
+│   │   ├── package.json
+│   │   └── src/
+│   ├── gatsby-plugin-preact/
+│   │   ├── .babelrc
+│   │   ├── .gitignore
+│   │   ├── .npmignore
+│   │   ├── CHANGELOG.md
+│   │   ├── README.md
+│   │   ├── index.js
+│   │   ├── package.json
+│   │   └── src/
+│   ├── gatsby-plugin-preload-fonts/
+│   │   ├── .babelrc.js
+│   │   ├── .gitignore
+│   │   ├── .npmignore
+│   │   ├── CHANGELOG.md
+│   │   ├── README.md
+│   │   ├── package.json
+│   │   └── src/
+│   ├── gatsby-plugin-react-css-modules/
+│   │   ├── .babelrc
+│   │   ├── .gitignore
+│   │   ├── .npmignore
+│   │   ├── CHANGELOG.md
+│   │   ├── README.md
+│   │   ├── index.js
+│   │   ├── package.json
+│   │   └── src/
+│   ├── gatsby-plugin-react-helmet/
+│   │   ├── .babelrc
+│   │   ├── .gitignore
+│   │   ├── .npmignore
+│   │   ├── CHANGELOG.md
+│   │   ├── README.md
+│   │   ├── index.js
+│   │   ├── package.json
+│   │   └── src/
+│   ├── gatsby-plugin-sass/
+│   │   ├── .babelrc
+│   │   ├── .gitignore
+│   │   ├── .npmignore
+│   │   ├── CHANGELOG.md
+│   │   ├── README.md
+│   │   ├── index.js
+│   │   ├── package.json
+│   │   └── src/
+│   ├── gatsby-plugin-schema-snapshot/
+│   │   ├── CHANGELOG.md
+│   │   ├── README.md
+│   │   ├── gatsby-node.js
+│   │   ├── index.js
+│   │   └── package.json
+│   ├── gatsby-plugin-sharp/
+│   │   ├── .babelrc
+│   │   ├── .gitignore
+│   │   ├── .npmignore
+│   │   ├── CHANGELOG.md
+│   │   ├── README.md
+│   │   ├── package.json
+│   │   ├── safe-sharp.d.ts
+│   │   ├── sharp-transform-fit-options.png
+│   │   └── src/
+│   ├── gatsby-plugin-sitemap/
+│   │   ├── .babelrc
+│   │   ├── .gitignore
+│   │   ├── .npmignore
+│   │   ├── CHANGELOG.md
+│   │   ├── README.md
+│   │   ├── index.js
+│   │   ├── package.json
+│   │   └── src/
+│   ├── gatsby-plugin-styled-components/
+│   │   ├── .babelrc
+│   │   ├── .gitignore
+│   │   ├── .npmignore
+│   │   ├── CHANGELOG.md
+│   │   ├── README.md
+│   │   ├── index.js
+│   │   ├── package.json
+│   │   └── src/
+│   ├── gatsby-plugin-styled-jsx/
+│   │   ├── .babelrc
+│   │   ├── .gitignore
+│   │   ├── .npmignore
+│   │   ├── CHANGELOG.md
+│   │   ├── README.md
+│   │   ├── index.js
+│   │   ├── package.json
+│   │   └── src/
+│   ├── gatsby-plugin-styletron/
+│   │   ├── .babelrc
+│   │   ├── .gitignore
+│   │   ├── .npmignore
+│   │   ├── CHANGELOG.md
+│   │   ├── README.md
+│   │   ├── package.json
+│   │   └── src/
+│   ├── gatsby-plugin-stylus/
+│   │   ├── .babelrc
+│   │   ├── .gitignore
+│   │   ├── .npmignore
+│   │   ├── CHANGELOG.md
+│   │   ├── README.md
+│   │   ├── index.js
+│   │   ├── package.json
+│   │   └── src/
+│   ├── gatsby-plugin-subfont/
+│   │   ├── .babelrc
+│   │   ├── .gitignore
+│   │   ├── .npmignore
+│   │   ├── CHANGELOG.md
+│   │   ├── README.md
+│   │   ├── index.js
+│   │   ├── package.json
+│   │   └── src/
+│   ├── gatsby-plugin-twitter/
+│   │   ├── .babelrc
+│   │   ├── .gitignore
+│   │   ├── .npmignore
+│   │   ├── CHANGELOG.md
+│   │   ├── README.md
+│   │   ├── index.js
+│   │   ├── package.json
+│   │   └── src/
+│   ├── gatsby-plugin-typescript/
+│   │   ├── .babelrc
+│   │   ├── .gitignore
+│   │   ├── .npmignore
+│   │   ├── CHANGELOG.md
+│   │   ├── README.md
+│   │   ├── index.js
+│   │   ├── package.json
+│   │   └── src/
+│   ├── gatsby-plugin-typography/
+│   │   ├── .babelrc
+│   │   ├── .gitignore
+│   │   ├── .npmignore
+│   │   ├── CHANGELOG.md
+│   │   ├── README.md
+│   │   ├── index.js
+│   │   ├── package.json
+│   │   └── src/
+│   ├── gatsby-plugin-utils/
+│   │   ├── .babelrc
+│   │   ├── .gitignore
+│   │   ├── CHANGELOG.md
+│   │   ├── README.md
+│   │   ├── package.json
+│   │   ├── src/
+│   │   └── tsconfig.json
+│   ├── gatsby-react-router-scroll/
+│   │   ├── .babelrc
+│   │   ├── .eslintrc.yaml
+│   │   ├── .gitignore
+│   │   ├── .npmignore
+│   │   ├── CHANGELOG.md
+│   │   ├── README.md
+│   │   ├── package.json
+│   │   ├── src/
+│   │   └── tsconfig.json
+│   ├── gatsby-remark-autolink-headers/
+│   │   ├── .babelrc
+│   │   ├── .gitignore
+│   │   ├── .npmignore
+│   │   ├── CHANGELOG.md
+│   │   ├── README.md
+│   │   ├── package.json
+│   │   └── src/
+│   ├── gatsby-remark-code-repls/
+│   │   ├── .babelrc
+│   │   ├── .gitignore
+│   │   ├── .npmignore
+│   │   ├── CHANGELOG.md
+│   │   ├── README.md
+│   │   ├── package.json
+│   │   └── src/
+│   ├── gatsby-remark-copy-linked-files/
+│   │   ├── .babelrc
+│   │   ├── .gitignore
+│   │   ├── .npmignore
+│   │   ├── CHANGELOG.md
+│   │   ├── README.md
+│   │   ├── package.json
+│   │   └── src/
+│   ├── gatsby-remark-custom-blocks/
+│   │   ├── .babelrc
+│   │   ├── .gitignore
+│   │   ├── .npmignore
+│   │   ├── CHANGELOG.md
+│   │   ├── README.md
+│   │   ├── package.json
+│   │   └── src/
+│   ├── gatsby-remark-embed-snippet/
+│   │   ├── .babelrc
+│   │   ├── .gitignore
+│   │   ├── .npmignore
+│   │   ├── CHANGELOG.md
+│   │   ├── README.md
+│   │   ├── package.json
+│   │   └── src/
+│   ├── gatsby-remark-graphviz/
+│   │   ├── .babelrc
+│   │   ├── .gitignore
+│   │   ├── .npmignore
+│   │   ├── CHANGELOG.md
+│   │   ├── README.md
+│   │   ├── demo.gif
+│   │   ├── package.json
+│   │   ├── rendered-graph.svg
+│   │   └── src/
+│   ├── gatsby-remark-images-contentful/
+│   │   ├── .babelrc
+│   │   ├── .gitignore
+│   │   ├── .npmignore
+│   │   ├── CHANGELOG.md
+│   │   ├── README.md
+│   │   ├── package.json
+│   │   └── src/
+│   ├── gatsby-remark-images/
+│   │   ├── .babelrc
+│   │   ├── .gitignore
+│   │   ├── .npmignore
+│   │   ├── CHANGELOG.md
+│   │   ├── README.md
+│   │   ├── package.json
+│   │   └── src/
+│   ├── gatsby-remark-katex/
+│   │   ├── .babelrc
+│   │   ├── .gitignore
+│   │   ├── CHANGELOG.md
+│   │   ├── README.md
+│   │   ├── package.json
+│   │   └── src/
+│   ├── gatsby-remark-prismjs/
+│   │   ├── .babelrc
+│   │   ├── .gitignore
+│   │   ├── .npmignore
+│   │   ├── CHANGELOG.md
+│   │   ├── README.md
+│   │   ├── package.json
+│   │   └── src/
+│   ├── gatsby-remark-responsive-iframe/
+│   │   ├── .babelrc
+│   │   ├── .gitignore
+│   │   ├── .npmignore
+│   │   ├── CHANGELOG.md
+│   │   ├── README.md
+│   │   ├── package.json
+│   │   └── src/
+│   ├── gatsby-remark-smartypants/
+│   │   ├── .babelrc
+│   │   ├── .gitignore
+│   │   ├── .npmignore
+│   │   ├── CHANGELOG.md
+│   │   ├── README.md
+│   │   ├── package.json
+│   │   └── src/
+│   ├── gatsby-script/
+│   │   ├── .babelrc
+│   │   ├── .eslintrc.yaml
+│   │   ├── CHANGELOG.md
+│   │   ├── README.md
+│   │   ├── package.json
+│   │   ├── src/
+│   │   └── tsconfig.json
+│   ├── gatsby-sharp/
+│   │   ├── .babelrc.js
+│   │   ├── CHANGELOG.md
+│   │   ├── package.json
+│   │   ├── src/
+│   │   └── tsconfig.json
+│   ├── gatsby-source-contentful/
+│   │   ├── .babelrc
+│   │   ├── .gitignore
+│   │   ├── .npmignore
+│   │   ├── CHANGELOG.md
+│   │   ├── README.md
+│   │   ├── index.d.ts
+│   │   ├── index.js
+│   │   ├── package.json
+│   │   ├── rich-text.d.ts
+│   │   ├── scripts/
+│   │   └── src/
+│   ├── gatsby-source-drupal/
+│   │   ├── .babelrc
+│   │   ├── .eslintrc
+│   │   ├── .gitignore
+│   │   ├── .npmignore
+│   │   ├── CHANGELOG.md
+│   │   ├── README.md
+│   │   ├── index.js
+│   │   ├── package.json
+│   │   └── src/
+│   ├── gatsby-source-faker/
+│   │   ├── .babelrc
+│   │   ├── .gitignore
+│   │   ├── .npmignore
+│   │   ├── CHANGELOG.md
+│   │   ├── README.md
+│   │   ├── index.js
+│   │   ├── package.json
+│   │   └── src/
+│   ├── gatsby-source-filesystem/
+│   │   ├── .babelrc
+│   │   ├── .gitignore
+│   │   ├── .npmignore
+│   │   ├── CHANGELOG.md
+│   │   ├── README.md
+│   │   ├── index.d.ts
+│   │   ├── package.json
+│   │   └── src/
+│   ├── gatsby-source-graphql/
+│   │   ├── .babelrc
+│   │   ├── .gitignore
+│   │   ├── .npmignore
+│   │   ├── CHANGELOG.md
+│   │   ├── README.md
+│   │   ├── package.json
+│   │   └── src/
+│   ├── gatsby-source-hacker-news/
+│   │   ├── .babelrc
+│   │   ├── .gitignore
+│   │   ├── .npmignore
+│   │   ├── CHANGELOG.md
+│   │   ├── README.md
+│   │   ├── index.js
+│   │   ├── package.json
+│   │   └── src/
+│   ├── gatsby-source-lever/
+│   │   ├── .babelrc
+│   │   ├── .gitignore
+│   │   ├── .npmignore
+│   │   ├── CHANGELOG.md
+│   │   ├── README.md
+│   │   ├── index.js
+│   │   ├── package.json
+│   │   └── src/
+│   ├── gatsby-source-medium/
+│   │   ├── .babelrc
+│   │   ├── .gitignore
+│   │   ├── .npmignore
+│   │   ├── CHANGELOG.md
+│   │   ├── README.md
+│   │   ├── index.js
+│   │   ├── package.json
+│   │   └── src/
+│   ├── gatsby-source-mongodb/
+│   │   ├── .babelrc
+│   │   ├── .gitignore
+│   │   ├── .npmignore
+│   │   ├── CHANGELOG.md
+│   │   ├── README.md
+│   │   ├── index.js
+│   │   ├── package.json
+│   │   └── src/
+│   ├── gatsby-source-npm-package-search/
+│   │   ├── .babelrc
+│   │   ├── .gitignore
+│   │   ├── .npmignore
+│   │   ├── CHANGELOG.md
+│   │   ├── README.md
+│   │   ├── index.js
+│   │   ├── package.json
+│   │   └── src/
+│   ├── gatsby-source-shopify/
+│   │   ├── .babelrc
+│   │   ├── .gitignore
+│   │   ├── .npmignore
+│   │   ├── .prettierignore
+│   │   ├── CHANGELOG.md
+│   │   ├── README.md
+│   │   ├── __tests__/
+│   │   ├── package.json
+│   │   ├── src/
+│   │   ├── tsconfig.json
+│   │   └── types/
+│   ├── gatsby-source-wikipedia/
+│   │   ├── .babelrc
+│   │   ├── .gitignore
+│   │   ├── .npmignore
+│   │   ├── CHANGELOG.md
+│   │   ├── README.md
+│   │   ├── index.js
+│   │   ├── package.json
+│   │   └── src/
+│   ├── gatsby-source-wordpress/
+│   │   ├── .babelrc.js
+│   │   ├── .eslintignore
+│   │   ├── .gitignore
+│   │   ├── .npmignore
+│   │   ├── .prettierignore
+│   │   ├── ARCHITECTURE.md
+│   │   ├── CHANGELOG.md
+│   │   ├── README.md
+│   │   ├── __tests__/
+│   │   ├── docs/
+│   │   ├── gatsby-browser.js
+│   │   ├── gatsby-config.js
+│   │   ├── gatsby-node.js
+│   │   ├── generate-plugin-options-docs.js
+│   │   ├── index.js
+│   │   ├── package.json
+│   │   ├── src/
+│   │   └── tsconfig.json
+│   ├── gatsby-transformer-asciidoc/
+│   │   ├── .babelrc
+│   │   ├── .gitignore
+│   │   ├── .npmignore
+│   │   ├── CHANGELOG.md
+│   │   ├── README.md
+│   │   ├── package.json
+│   │   └── src/
+│   ├── gatsby-transformer-csv/
+│   │   ├── .babelrc
+│   │   ├── .gitignore
+│   │   ├── .npmignore
+│   │   ├── CHANGELOG.md
+│   │   ├── README.md
+│   │   ├── package.json
+│   │   └── src/
+│   ├── gatsby-transformer-documentationjs/
+│   │   ├── .babelrc
+│   │   ├── .gitignore
+│   │   ├── .npmignore
+│   │   ├── CHANGELOG.md
+│   │   ├── README.md
+│   │   ├── index.js
+│   │   ├── package.json
+│   │   └── src/
+│   ├── gatsby-transformer-excel/
+│   │   ├── .babelrc
+│   │   ├── .gitignore
+│   │   ├── .npmignore
+│   │   ├── CHANGELOG.md
+│   │   ├── README.md
+│   │   ├── index.js
+│   │   ├── package.json
+│   │   └── src/
+│   ├── gatsby-transformer-hjson/
+│   │   ├── .babelrc
+│   │   ├── .gitignore
+│   │   ├── .npmignore
+│   │   ├── CHANGELOG.md
+│   │   ├── README.md
+│   │   ├── index.js
+│   │   ├── package.json
+│   │   └── src/
+│   ├── gatsby-transformer-javascript-frontmatter/
+│   │   ├── .babelrc
+│   │   ├── .gitignore
+│   │   ├── .npmignore
+│   │   ├── CHANGELOG.md
+│   │   ├── README.md
+│   │   ├── index.js
+│   │   ├── package.json
+│   │   └── src/
+│   ├── gatsby-transformer-json/
+│   │   ├── .babelrc
+│   │   ├── .gitignore
+│   │   ├── .npmignore
+│   │   ├── CHANGELOG.md
+│   │   ├── README.md
+│   │   ├── index.js
+│   │   ├── package.json
+│   │   └── src/
+│   ├── gatsby-transformer-pdf/
+│   │   ├── .babelrc
+│   │   ├── .gitignore
+│   │   ├── .npmignore
+│   │   ├── CHANGELOG.md
+│   │   ├── README.md
+│   │   ├── index.js
+│   │   ├── package.json
+│   │   └── src/
+│   ├── gatsby-transformer-react-docgen/
+│   │   ├── .babelrc
+│   │   ├── .gitignore
+│   │   ├── .npmignore
+│   │   ├── CHANGELOG.md
+│   │   ├── README.md
+│   │   ├── index.js
+│   │   ├── package.json
+│   │   └── src/
+│   ├── gatsby-transformer-remark/
+│   │   ├── .babelrc
+│   │   ├── .gitignore
+│   │   ├── .npmignore
+│   │   ├── CHANGELOG.md
+│   │   ├── README.md
+│   │   ├── index.js
+│   │   ├── package.json
+│   │   └── src/
+│   ├── gatsby-transformer-screenshot/
+│   │   ├── .babelrc
+│   │   ├── .gitignore
+│   │   ├── .npmignore
+│   │   ├── CHANGELOG.md
+│   │   ├── README.md
+│   │   ├── index.js
+│   │   ├── lambda/
+│   │   ├── package.json
+│   │   ├── placeholder.png
+│   │   └── src/
+│   ├── gatsby-transformer-sharp/
+│   │   ├── .babelrc
+│   │   ├── .gitignore
+│   │   ├── .npmignore
+│   │   ├── CHANGELOG.md
+│   │   ├── README.md
+│   │   ├── index.js
+│   │   ├── package.json
+│   │   └── src/
+│   ├── gatsby-transformer-sqip/
+│   │   ├── .babelrc
+│   │   ├── .gitignore
+│   │   ├── .npmignore
+│   │   ├── CHANGELOG.md
+│   │   ├── README.md
+│   │   ├── demo.gif
+│   │   ├── demo.mp4
+│   │   ├── index.js
+│   │   ├── package.json
+│   │   └── src/
+│   ├── gatsby-transformer-toml/
+│   │   ├── .babelrc
+│   │   ├── .gitignore
+│   │   ├── .npmignore
+│   │   ├── CHANGELOG.md
+│   │   ├── README.md
+│   │   ├── index.js
+│   │   ├── package.json
+│   │   └── src/
+│   ├── gatsby-transformer-xml/
+│   │   ├── .babelrc
+│   │   ├── .gitignore
+│   │   ├── .npmignore
+│   │   ├── CHANGELOG.md
+│   │   ├── README.md
+│   │   ├── index.js
+│   │   ├── package.json
+│   │   └── src/
+│   ├── gatsby-transformer-yaml/
+│   │   ├── .babelrc
+│   │   ├── .gitignore
+│   │   ├── .npmignore
+│   │   ├── CHANGELOG.md
+│   │   ├── README.md
+│   │   ├── index.js
+│   │   ├── package.json
+│   │   └── src/
+│   ├── gatsby-worker/
+│   │   ├── .babelrc
+│   │   ├── .gitignore
+│   │   ├── .npmignore
+│   │   ├── CHANGELOG.md
+│   │   ├── README.md
+│   │   ├── package.json
+│   │   ├── src/
+│   │   └── tsconfig.json
+│   └── gatsby/
+│       ├── .gitignore
+│       ├── CHANGELOG.md
+│       ├── README.md
+│       ├── adapters.js
+│       ├── babel.config.js
+│       ├── cache-dir/
+│       ├── cli.js
+│       ├── graphql.d.ts
+│       ├── graphql.js
+│       ├── index.d.ts
+│       ├── internal.d.ts
+│       ├── internal.js
+│       ├── ipc.json
+│       ├── package.json
+│       ├── reporter.d.ts
+│       ├── reporter.js
+│       ├── scripts/
+│       ├── sharp.d.ts
+│       ├── sharp.js
+│       ├── src/
+│       ├── tsconfig.json
+│       ├── utils.js
+│       ├── webpack.d.ts
+│       └── webpack.js
+├── peril.settings.json
+├── peril/
+│   ├── README.md
+│   ├── package.json
+│   ├── rules/
+│   │   ├── apply-triage-needed.ts
+│   │   ├── emptybody.ts
+│   │   ├── labeler.ts
+│   │   ├── merge-on-green.ts
+│   │   └── pull-request-on-starter.ts
+│   ├── tasks/
+│   │   └── slack-experiment.ts
+│   ├── tests/
+│   │   ├── emptybody.test.ts
+│   │   ├── invite-collaborator.test.ts
+│   │   ├── labeler.test.ts
+│   │   ├── pull-request-on-starter.test.ts
+│   │   └── validate-yaml/
+│   └── tsconfig.json
+├── renovate.json5
+├── scripts/
+│   ├── add-npm-owner/
+│   │   ├── index.js
+│   │   └── package.json
+│   ├── add-packages-to-team/
+│   │   ├── index.js
+│   │   └── package.json
+│   ├── apply-patches.js
+│   ├── assert-changed-files.sh
+│   ├── backport.js
+│   ├── build-examples.sh
+│   ├── check-lockfile.sh
+│   ├── check-publish-access/
+│   │   ├── index.js
+│   │   └── package.json
+│   ├── check-repo-fields.js
+│   ├── check-ts.js
+│   ├── check-versions.js
+│   ├── clear-package-dir.js
+│   ├── create-release-notes.js
+│   ├── create-release-notes.template.md
+│   ├── e2e-test.sh
+│   ├── gatsby-changelog-generator/
+│   │   ├── README.md
+│   │   ├── cli.js
+│   │   ├── generate.js
+│   │   ├── lerna-version-lifecycle.js
+│   │   ├── render.js
+│   │   └── update-and-open-pr.js
+│   ├── get-unowned-packages/
+│   │   ├── index.js
+│   │   └── package.json
+│   ├── on-lint-error.js
+│   ├── pin-version.js
+│   ├── publish-starters.sh
+│   ├── release-next-major.js
+│   ├── upgrade-babel.js
+│   ├── upgrade-deps.js
+│   ├── upgrade-react.js
+│   └── validate-starters.sh
+├── starters/
+│   ├── README-template.md
+│   ├── README.md
+│   ├── blog/
+│   │   ├── .gitignore
+│   │   ├── .prettierignore
+│   │   ├── .prettierrc
+│   │   ├── LICENSE
+│   │   ├── README.md
+│   │   ├── content/
+│   │   ├── gatsby-browser.js
+│   │   ├── gatsby-config.js
+│   │   ├── gatsby-node.js
+│   │   ├── gatsby-ssr.js
+│   │   ├── package-lock.json
+│   │   ├── package.json
+│   │   ├── src/
+│   │   └── static/
+│   ├── default/
+│   │   ├── .gitignore
+│   │   ├── .prettierignore
+│   │   ├── .prettierrc
+│   │   ├── LICENSE
+│   │   ├── README.md
+│   │   ├── gatsby-browser.js
+│   │   ├── gatsby-config.js
+│   │   ├── gatsby-node.js
+│   │   ├── gatsby-ssr.js
+│   │   ├── package-lock.json
+│   │   ├── package.json
+│   │   └── src/
+│   ├── gatsby-starter-minimal-ts/
+│   │   ├── .gitignore
+│   │   ├── LICENSE
+│   │   ├── README.md
+│   │   ├── gatsby-config.ts
+│   │   ├── package-lock.json
+│   │   ├── package.json
+│   │   ├── src/
+│   │   └── tsconfig.json
+│   ├── gatsby-starter-minimal/
+│   │   ├── .gitignore
+│   │   ├── LICENSE
+│   │   ├── README.md
+│   │   ├── gatsby-config.js
+│   │   ├── package-lock.json
+│   │   ├── package.json
+│   │   └── src/
+│   ├── gatsby-starter-plugin/
+│   │   ├── .gitignore
+│   │   ├── LICENSE
+│   │   ├── README.md
+│   │   ├── gatsby-browser.js
+│   │   ├── gatsby-node.js
+│   │   ├── gatsby-ssr.js
+│   │   ├── index.js
+│   │   ├── package-lock.json
+│   │   └── package.json
+│   ├── gatsby-starter-theme-workspace/
+│   │   ├── .gitignore
+│   │   ├── LICENSE
+│   │   ├── README.md
+│   │   ├── example/
+│   │   ├── gatsby-theme-minimal/
+│   │   └── package.json
+│   ├── gatsby-starter-wordpress-blog/
+│   │   ├── .gitignore
+│   │   ├── .npmrc
+│   │   ├── .prettierignore
+│   │   ├── .prettierrc
+│   │   ├── LICENSE
+│   │   ├── README.md
+│   │   ├── content/
+│   │   ├── gatsby-browser.js
+│   │   ├── gatsby-config.js
+│   │   ├── gatsby-node.js
+│   │   ├── gatsby-ssr.js
+│   │   ├── package-lock.json
+│   │   ├── package.json
+│   │   ├── src/
+│   │   └── static/
+│   ├── hello-world/
+│   │   ├── .gitignore
+│   │   ├── LICENSE
+│   │   ├── README.md
+│   │   ├── gatsby-config.js
+│   │   ├── package-lock.json
+│   │   ├── package.json
+│   │   ├── src/
+│   │   └── static/
+│   └── upgrade-starters.sh
+├── tsconfig.json
+├── types/
+│   └── gatsby-monorepo/
+│       ├── global.d.ts
+│       ├── package.json
+│       └── readme.md
+└── yarn.lock

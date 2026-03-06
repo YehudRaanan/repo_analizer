@@ -1,0 +1,70 @@
+=====================================
+REPO CLASSIFICATION SIGNALS
+=====================================
+
+--- METADATA ---
+Name: pytorch
+Description: Tensors and Dynamic neural networks in Python with strong GPU acceleration
+Primary language: Python
+Topics: autograd, deep-learning, gpu, machine-learning, neural-network, numpy, python, tensor
+
+--- ROOT FILES (signal matches) ---
+Web App:     (none)
+Backend:     (none)
+Library:     pyproject.toml, setup.py
+CLI:         (none)
+Data/ML:     (none)
+Infra:       (none)
+
+--- TOP-LEVEL DIRECTORIES (signal matches) ---
+Web App:     (none)
+Backend:     (none)
+Library:     benchmarks, docs, test
+CLI:         (none)
+Data/ML:     (none)
+Infra:       (none)
+
+--- ALL TOP-LEVEL DIRECTORIES ---
+.ci, .circleci, .claude, .ctags.d, .devcontainer, .github, .spin, .vscode, android, aten, benchmarks, binaries, c10, caffe2, cmake, docs, functorch, mypy_plugins, scripts, test, third_party, tools, torch, torchgen
+
+--- TYPE-SPECIFIC EXTENSION COUNTS ---
+Web App extensions (.tsx, .jsx, .vue, .svelte): 0
+Data/ML extensions (.ipynb): 11
+Infra extensions (.tf, .hcl): 0
+Backend extensions (.proto, .graphql): 0
+
+--- TOP FILE EXTENSIONS (by count) ---
+  .py: 4301
+  .h: 2270
+  .cpp: 2066
+  .md: 360
+  .cu: 345
+  .txt: 289
+  .c: 194
+  .sh: 188
+  .yml: 176
+  .mm: 118
+  .glsl: 116
+  .pt: 106
+  .csv: 97
+  .cc: 96
+  .rst: 96
+
+--- BOOLEAN PATTERN CHECKS ---
+  pages or app dir: no
+  components dir: no
+  cmd or bin dir: no
+  src bin: no
+  run train scripts: yes
+  ipynb files: yes
+  model training files: yes
+  tf files: no
+  k8s manifests: no
+  ansible playbooks: no
+  route controller dirs: no
+  db migrations: yes
+  openapi spec: no
+  src and tests: no
+  examples dir: no
+  dockerfile: yes
+  ci cd: yes

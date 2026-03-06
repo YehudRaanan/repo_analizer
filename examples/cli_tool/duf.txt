@@ -1,0 +1,313 @@
+=====================================
+Repository Analysis: duf
+Type: CLI Tool
+=====================================
+
+--- METADATA ---
+Name: duf
+Description: Disk Usage/Free Utility - a better 'df' alternative
+Language: Go
+Topics: cli, df, disk-space, disk-usage, filesystem, freebsd, hacktoberfest, linux, macos, openbsd, terminal, tui, user-friendly, windows
+Stars: 14850
+License: Other
+
+--- README ---
+# duf
+
+[![Latest Release](https://img.shields.io/github/release/muesli/duf.svg?style=for-the-badge)](https://github.com/muesli/duf/releases)
+[![Go Doc](https://img.shields.io/badge/godoc-reference-blue.svg?style=for-the-badge)](https://pkg.go.dev/github.com/muesli/duf)
+[![Software License](https://img.shields.io/badge/license-MIT-blue.svg?style=for-the-badge)](/LICENSE)
+[![Build Status](https://img.shields.io/github/actions/workflow/status/muesli/duf/build.yml?style=for-the-badge&branch=master)](https://github.com/muesli/duf/actions)
+[![Go ReportCard](https://goreportcard.com/badge/github.com/muesli/duf?style=for-the-badge)](https://goreportcard.com/report/muesli/duf)
+
+Disk Usage/Free Utility (Linux, BSD, macOS & Windows)
+
+![duf](/duf.png)
+
+## Features
+
+- [x] User-friendly, colorful output
+- [x] Adjusts to your terminal's theme & width
+- [x] Sort the results according to your needs
+- [x] Groups & filters devices
+- [x] Can conveniently output JSON
+
+## Installation
+
+### Packages
+
+#### Linux
+- Arch Linux: `pacman -S duf`
+- Ubuntu (22.04 and later) / Debian (12 and later): `apt install duf`
+- Fedora Linux: `dnf install duf`
+- Nix: `nix-env -iA nixpkgs.duf`
+- Void Linux: `xbps-install -S duf`
+- Gentoo Linux: `emerge sys-fs/duf`
+- Solus: `eopkg it duf`
+- [Packages](https://github.com/muesli/duf/releases) in Alpine, Debian & RPM formats
+
+#### BSD
+- FreeBSD: `pkg install duf`
+- OpenBSD: `pkg_add duf`
+
+#### macOS
+- with [Homebrew](https://brew.sh/): `brew install duf`
+- with [MacPorts](https://www.macports.org): `sudo port selfupdate && sudo port install duf`
+
+#### Windows
+- with [Chocolatey](https://chocolatey.org/): `choco install duf`
+- with [scoop](https://scoop.sh/): `scoop install duf`
+
+#### Android
+- Android (via termux): `pkg install duf`
+
+### Binaries
+- [Binaries](https://github.com/muesli/duf/releases) for Linux, FreeBSD, OpenBSD, macOS, Windows
+
+### From source
+
+Make sure you have a working Go environment (Go 1.23 or higher is required).
+See the [install instructions](https://golang.org/doc/install.html).
+
+Compiling duf is easy, simply run:
+
+    git clone https://github.com/muesli/duf.git
+    cd duf
+    go build
+
+## Usage
+
+You can simply start duf without any command-line arguments:
+
+    duf
+
+If you supply arguments, duf will only list specific devices & mount points:
+
+    duf /home /some/file
+
+If you want to list everything (including pseudo, duplicate, inaccessible file systems):
+
+    duf --all
+
+### Filtering
+
+You can show and hide specific tables:
+
+    duf --only local,network,fuse,special,loops,binds
+    duf --hide local,network,fuse,special,loops,binds
+
+You can also show and hide specific filesystems:
+
+    duf --only-fs tmpfs,vfat
+    duf --hide-fs tmpfs,vfat
+
+...or specific mount points:
+
+    duf --only-mp /,/home,/dev
+    duf --hide-mp /,/home,/dev
+
+Wildcards inside quotes work:
+
+    duf --only-mp '/sys/*,/dev/*'
+
+### Display options
+
+Sort the output:
+
+    duf --sort size
+
+Valid keys are: `mountpoint`, `size`, `used`, `avail`, `usage`, `inodes`,
+`inodes_used`, `inodes_avail`, `inodes_usage`, `type`, `filesystem`.
+
+Show or hide specific columns:
+
+    duf --output mountpoint,size,usage
+
+Valid keys are: `mountpoint`, `size`, `used`, `avail`, `usage`, `inodes`,
+`inodes_used`, `inodes_avail`, `inodes_usage`, `type`, `filesystem`.
+
+List inode information instead of block usage:
+
+    duf --inodes
+
+If duf doesn't detect your terminal's colors correctly, you can set a theme:
+
+    duf --theme light
+
+### Color-coding & Thresholds
+
+duf highlights the availability & usage columns in red, green, or yellow,
+depending on how much space is still available. You can set your own thresholds:
+
+    duf --avail-threshold="10G,1G"
+    duf --usage-threshold="0.5,0.9"
+
+### Bonus
+
+If you prefer your output as JSON:
+
+    duf --json
+
+## Troubleshooting
+
+Users of `oh-my-zsh` should be aware that it already defines an alias called
+`duf`, which you will have to remove in order to use `duf`:
+
+    unalias duf
+
+## Feedback
+
+Got some feedback or suggestions? Please open an issue or drop me a note!
+
+* [Twitter](https://twitter.com/mueslix)
+* [The Fediverse](https://mastodon.social/@fribbledom)
+
+
+--- PACKAGE MANIFEST(S) ---
+
+[go.mod]
+module github.com/muesli/duf
+
+go 1.23.0
+
+require (
+	github.com/IGLOU-EU/go-wildcard v1.0.3
+	github.com/jedib0t/go-pretty/v6 v6.6.8
+	github.com/mattn/go-runewidth v0.0.19
+	github.com/muesli/mango v0.2.0
+	github.com/muesli/mango-pflag v0.2.0
+	github.com/muesli/roff v0.1.0
+	github.com/muesli/termenv v0.16.0
+	github.com/spf13/pflag v1.0.10
+	golang.org/x/sys v0.35.0
+	golang.org/x/term v0.34.0
+)
+
+require (
+	github.com/aymanbagabas/go-osc52/v2 v2.0.1 // indirect
+	github.com/clipperhouse/uax29/v2 v2.2.0 // indirect
+	github.com/lucasb-eyer/go-colorful v1.2.0 // indirect
+	github.com/mattn/go-isatty v0.0.20 // indirect
+	github.com/rivo/uniseg v0.4.7 // indirect
+	golang.org/x/text v0.22.0 // indirect
+)
+
+
+--- CLI ENTRY POINTS / COMMAND DEFINITIONS ---
+
+[main.go]
+package main
+
+import (
+	"encoding/json"
+	"fmt"
+	"os"
+	"runtime/debug"
+	"strconv"
+	"strings"
+	"time"
+
+	wildcard "github.com/IGLOU-EU/go-wildcard"
+	"github.com/jedib0t/go-pretty/v6/table"
+	"github.com/muesli/termenv"
+	flag "github.com/spf13/pflag"
+	"golang.org/x/term"
+)
+
+var (
+	// Version contains the application version number. It's set via ldflags
+	// when building.
+	Version = ""
+
+	// CommitSHA contains the SHA of the commit that this application was built
+	// against. It's set via ldflags when building.
+	CommitSHA = ""
+
+	env   = termenv.EnvColorProfile()
+	theme Theme
+
+	groups        = []string{localDevice, networkDevice, fuseDevice, specialDevice, loopsDevice, bindsMount}
+	allowedValues = strings.Join(groups, ", ")
+
+	all         = flag.Bool("all", false, "include pseudo, duplicate, inaccessible file systems")
+	hideDevices = flag.String("hide", "", "hide specific devices, separated with commas:\n"+allowedValues)
+	hideFs      = flag.String("hide-fs", "", "hide specific filesystems, separated with commas")
+	hideMp      = flag.String("hide-mp", "", "hide specific mount points, separated with commas (supports wildcards)")
+	onlyDevices = flag.String("only", "", "show only specific devices, separated with commas:\n"+allowedValues)
+	onlyFs      = flag.String("only-fs", "", "only specific filesystems, separated with commas")
+	onlyMp      = flag.String("only-mp", "", "only specific mount points, separated with commas (supports wildcards)")
+
+	output   = flag.String("output", "", "output fields: "+strings.Join(columnIDs(), ", "))
+	sortBy   = flag.String("sort", "mountpoint", "sort output by: "+strings.Join(columnIDs(), ", "))
+	width    = flag.Uint("width", 0, "max output width")
+	themeOpt = flag.String("theme", defaultThemeName(), "color themes: dark, light, ansi")
+	styleOpt = flag.String("style", defaultStyleName(), "style: unicode, ascii")
+
+	availThreshold = flag.String("avail-threshold", "10G,1G", "specifies the coloring threshold (yellow, red) of the avail column, must be integer with optional SI prefixes")
+	usageThreshold = flag.String("usage-threshold", "0.5,0.9", "specifies the coloring threshold (yellow, red) of the usage bars as a floating point number from 0 to 1")
+
+	_          = flag.BoolP("human-readable", "h", false, "ignored, just for df compatibility")
+	inodes     = flag.Bool("inodes", false, "list inode information instead of block usage")
+	jsonOutput = flag.Bool("json", false, "output all devices in JSON format")
+	warns      = flag.Bool("warnings", false, "output all warnings to STDERR")
+	version    = flag.Bool("version", false, "display version")
+)
+
+// renderJSON encodes the JSON output and prints it.
+func renderJSON(m []Mount) error {
+	output, err := json.MarshalIndent(m, "", " ")
+	if err != nil {
+		return fmt.Errorf("error formatting the json output: %s", err)
+	}
+
+	fmt.Println(string(output))
+	return nil
+}
+
+// parseColumns parses the supplied output flag into a slice of column indices.
+func parseColumns(cols string) ([]int, error) {
+	var
+... [TRUNCATED]
+
+--- SHELL COMPLETIONS & MAN PAGES ---
+  duf.1
+
+--- DIRECTORY STRUCTURE (depth 2) ---
+├── .github/
+│   ├── FUNDING.yml
+│   ├── dependabot.yml
+│   └── workflows/
+│       ├── build.yml
+│       ├── goreleaser.yml
+│       ├── lint-soft.yml
+│       ├── lint.yml
+│       └── manpage.yml
+├── .gitignore
+├── .golangci-soft.yml
+├── .golangci.yml
+├── .goreleaser.yml
+├── LICENSE
+├── README.md
+├── duf.1
+├── duf.png
+├── filesystems.go
+├── filesystems_darwin.go
+├── filesystems_freebsd.go
+├── filesystems_linux.go
+├── filesystems_openbsd.go
+├── filesystems_windows.go
+├── go.mod
+├── go.sum
+├── groups.go
+├── main.go
+├── man.go
+├── mounts.go
+├── mounts_darwin.go
+├── mounts_freebsd.go
+├── mounts_linux.go
+├── mounts_linux_test.go
+├── mounts_openbsd.go
+├── mounts_windows.go
+├── style.go
+├── table.go
+└── themes.go

@@ -1,0 +1,518 @@
+=====================================
+Repository Analysis: lsd
+Type: CLI Tool
+=====================================
+
+--- METADATA ---
+Name: lsd
+Description: The next gen ls command
+Language: Rust
+Topics: color, hacktoberfest, icons, ls, nerd-fonts, rust
+Stars: 15517
+License: Apache License 2.0
+
+--- README ---
+<div align="center">
+   <sup>Special thanks to:</sup>
+   <br>
+   <br>
+   <a href="https://go.warp.dev/lsd">
+      <img alt="Warp sponsorship" width="400" src="https://raw.githubusercontent.com/warpdotdev/brand-assets/refs/heads/main/Github/Sponsor/Warp-Github-LG-02.png">
+   </a>
+
+### [Warp, built for coding with multiple AI agents](https://go.warp.dev/lsd)
+[Available for MacOS, Linux, & Windows](https://go.warp.dev/lsd)<br>
+
+&nbsp;&nbsp;&nbsp;&nbsp;
+
+   <sup>Maintained with ❤️ + 🤖 by Pochi</sup>
+   <br>
+   <br>
+   <a href="https://app.getpochi.com">
+      <img alt="Pochi AI Coding Assistant" width="160" src="https://github.com/TabbyML/pochi/blob/main/packages/vscode/assets/icons/logo128.png?raw=true">
+   </a>
+
+### [Pochi is an AI agent designed for software development.](https://app.getpochi.com)
+[It operates within your IDE, using a toolkit of commands to write and refactor code autonomously across your entire project.](https://app.getpochi.com)<br>
+
+</div>
+
+---
+
+> [!IMPORTANT]
+> This is the documentation for the development version of lsd.
+> Please consult the documentation on [the Tags page](https://github.com/lsd-rs/lsd/tags) if you are looking for the documentation of individual releases.
+>
+> The current newest release is: [v1.2.0](https://github.com/lsd-rs/lsd/tree/v1.2.0)
+
+# LSD (LSDeluxe)
+[![license](http://img.shields.io/badge/license-Apache%20v2-blue.svg)](https://raw.githubusercontent.com/lsd-rs/lsd/master/LICENSE)
+[![Latest version](https://img.shields.io/crates/v/lsd.svg)](https://crates.io/crates/lsd)
+[![build](https://github.com/lsd-rs/lsd/workflows/CICD/badge.svg)](https://github.com/lsd-rs/lsd/actions)
+[![codecov](https://codecov.io/gh/lsd-rs/lsd/branch/master/graph/badge.svg)](https://codecov.io/gh/lsd-rs/lsd)
+[![versions](https://img.shields.io/repology/repositories/lsd)](https://repology.org/project/lsd/versions)
+
+![lsd sample output](https://raw.githubusercontent.com/lsd-rs/lsd/assets/screen_lsd.png)
+
+This project is a rewrite of GNU `ls` with lots of added features like colors, icons, tree-view, more formatting options etc.
+The project is heavily inspired by the super [colorls](https://github.com/athityakumar/colorls) project.
+
+## Installation
+### Prerequisites
+>[!TIP]
+> Have a look at the [Nerd Font README](https://github.com/ryanoasis/nerd-fonts/blob/master/readme.md) for help with installing Nerd Fonts
+
+1. In order for icons to work you need to have a patched font like [nerd-font](https://www.nerdfonts.com) or [font-awesome](https://fontawesome.com) installed on your machine and your terminal needs to be configured to use the patched font of your choosing.
+2. If you intend to install `lsd` from source you need to have a working Rust toolchain (obviously) on your machine.
+
+### Installing with a package manager
+<details>
+<summary>Packaging status</summary>
+<a href="https://repology.org/project/lsd/versions">
+    <img src="https://repology.org/badge/vertical-allrepos/lsd.svg?columns=3" alt="Packaging status">
+</a>
+</details>
+
+Please consult the table below for the installation command associated with your package manager.
+
+| OS/Distro                       | Command                                                                                       |
+| ------------------------------- | ----------------------------------------------------------------------------------------------|
+| Archlinux                       | `pacman -S lsd`                                                                               |
+| Fedora                          | `dnf install lsd`                                                                             |
+| Gentoo                          | `sudo emerge sys-apps/lsd`                                                                    |
+| macOS                           | `brew install lsd` or `sudo port install lsd`                                                 |
+| NixOS                           | `nix-env -iA nixos.lsd`                                                                       |
+| FreeBSD                         | `pkg install lsd`                                                                             |
+| NetBSD or any `pkgsrc` platform | `pkgin install lsd` or `cd /usr/pkgsrc/sysutils/lsd && make install`                          |
+| OpenBSD                         | `pkg_add lsd`                                                                                 |
+| Windows                         | `scoop install lsd` or `winget install --id lsd-rs.lsd` or `choco install lsd`                |
+| Android (via Termux)            | `pkg install lsd`                                                                             |
+| Debian sid and bookworm         | `apt install lsd`                                                                             |
+| Ubuntu 23.04 (Lunar Lobster)    | `apt install lsd`                                                                             |
+| Earlier Ubuntu/Debian versions  | **snap disconti
+... [TRUNCATED]
+
+--- PACKAGE MANIFEST(S) ---
+
+[Cargo.toml]
+[package]
+authors = ["Peltoche <dev@halium.fr>"]
+build = "build.rs"
+categories = ["command-line-utilities"]
+description = "An ls command with a lot of pretty colors and some other stuff."
+keywords = ["ls"]
+license = "Apache-2.0"
+name = "lsd"
+readme = "./README.md"
+repository = "https://github.com/lsd-rs/lsd"
+version = "1.2.0"
+edition = "2024"
+rust-version = "1.85"
+
+[[bin]]
+name = "lsd"
+path = "src/main.rs"
+
+[build-dependencies]
+clap = { version = "4.5.*", features = ["derive"] }
+clap_complete = "4.5.*"
+version_check = "0.9.*"
+
+[dependencies]
+crossterm = { version = "0.29.0", features = ["serde"] }
+dirs = "6"
+libc = "0.2.*"
+human-sort = "0.2.2"
+# should stick to 0.1, the 0.2 needs some adaptation
+# check https://github.com/lsd-rs/lsd/issues/1014
+term_grid = "0.1"
+terminal_size = "0.4.*"
+thiserror = "2.0"
+sys-locale = "0.3"
+#once_cell = "1.17.1"
+once_cell = "1.21"
+chrono = { version = "0.4", features = ["unstable-locales"] }
+chrono-humanize = "0.2"
+# incompatible with v0.1.11
+unicode-width = "0.2"
+lscolors = "0.20.0"
+wild = "2.2"
+globset = "0.4.*"
+yaml-rust = "0.4.*"
+serde = { version = "1.0", features = ["derive"] }
+serde_yaml = "0.9"
+url = "2.5.4"
+vsort = "0.2"
+xdg = "2.5"
+
+[target."cfg(not(all(windows, target_arch = \"x86\", target_env = \"gnu\")))".dependencies]
+# if ssl feature is enabled compilation will fail on arm-unknown-linux-gnueabihf and i686-pc-windows-gnu
+git2 = { version = "0.20", optional = true, default-features = false }
+
+[target.'cfg(unix)'.dependencies]
+users = { version = "0.11.3", package = "uzers" }
+xattr = "1"
+
+[target.'cfg(windows)'.dependencies]
+windows = { version = "0.61.3", features = ["Win32_Foundation", "Win32_Security_Authorization", "Win32_Storage_FileSystem", "Win32_System_Memory"] }
+
+[dependencies.clap]
+features = ["derive", "wrap_help"]
+version = "4.5.*"
+
+[dev-dependencies]
+assert_cmd = "2"
+assert_fs = "1"
+predicates = "3"
+tempfile = "3"
+serial_test = "2.0"
+temp-env = "0.3.0"
+
+[features]
+default = ["git2"]
+sudo = []
+no-git = [] # force disabling git even if available by default
+
+[profile.release]
+lto = true
+codegen-units = 1
+strip = true
+debug = false
+
+
+--- CLI ENTRY POINTS / COMMAND DEFINITIONS ---
+
+[src/app.rs]
+use std::path::PathBuf;
+
+use clap::{ArgAction, Parser, ValueHint};
+
+#[derive(Debug, Parser)]
+#[command(about, version, args_override_self = true, disable_help_flag = true)]
+pub struct Cli {
+    #[arg(value_name = "FILE", default_value = ".", value_hint = ValueHint::AnyPath)]
+    pub inputs: Vec<PathBuf>,
+
+    /// Do not ignore entries starting with . .
+    #[arg(short, long, overrides_with = "almost_all")]
+    pub all: bool,
+
+    /// Do not list implied . and ..
+    #[arg(short = 'A', long)]
+    pub almost_all: bool,
+
+    /// When to use terminal colours [default: auto]
+    #[arg(long, value_name = "MODE", value_parser = ["always", "auto", "never"])]
+    pub color: Option<String>,
+
+    /// When to print the icons [default: auto]
+    #[arg(long, value_name = "MODE", value_parser = ["always", "auto", "never"])]
+    pub icon: Option<String>,
+
+    /// Whether to use fancy or unicode icons [default: fancy]
+    #[arg(long, value_name = "THEME", value_parser = ["fancy", "unicode"])]
+    pub icon_theme: Option<String>,
+
+    /// Append indicator (one of */=>@|) at the end of the file names
+    #[arg(short = 'F', long = "classify")]
+    pub indicators: bool,
+
+    /// Display extended file metadata as a table
+    #[arg(short, long)]
+    pub long: bool,
+
+    /// Ignore the configuration file
+    #[arg(long)]
+    pub ignore_config: bool,
+
+    /// Provide a custom lsd configuration file
+    #[arg(long, value_name = "PATH")]
+    pub config_file: Option<PathBuf>,
+
+    /// Generate default configuration file and print to stdout
+    #[arg(long)]
+    pub generate_config: bool,
+
+    /// Display one entry per line
+    #[arg(short = '1', long)]
+    pub oneline: bool,
+
+    /// Recurse into directories
+    #[arg(short = 'R', long, conflicts_with = "tree")]
+    pub recursive: bool,
+
+    /// For ls compatibility purposes ONLY, currently set by default
+    #[arg(short, long)]
+    human_readable: bool,
+
+    /// Recurse into directories and present the result as a tree
+    #[arg(long)]
+    pub tree: bool,
+
+    /// Stop recursing into directories after reaching specified depth
+    #[arg(long, value_name = "NUM")]
+    pub depth: Option<usize>,
+
+    /// Display directories themselves, and not their contents (recursively when used with --tree)
+    #[arg(short, long, conflicts_with = "recursive")]
+    pub directory_only: bool,
+
+    /// How to display permissions [default: rwx for linux, attributes for windows]
+    #[arg(long, value_name = "MODE", value_parser = ["rwx", "octal", "attributes", "disable"])]
+    pub permission: Option<String>,
+
+    /// How to display size [default: default]
+    #[arg(long, value_name = "MODE", value_parser = ["default", "short", "bytes"])]
+    pub size: Option<String>,
+
+    /// Display the total size of directories
+    #[arg(long)]
+    pub total_size: bool,
+
+    /// How to display date [default: date] [possible values: date, locale, relative, +date-time-format]
+    #[arg(long, value_parser = validate_date_argument)]
+    pub date: Option<String>,
+
+   
+... [TRUNCATED]
+
+[src/main.rs]
+#![allow(
+    clippy::cast_precision_loss,
+    clippy::cast_sign_loss,
+    clippy::match_same_arms,
+    clippy::cast_possible_wrap
+)]
+
+extern crate chrono;
+extern crate chrono_humanize;
+extern crate clap;
+extern crate dirs;
+extern crate libc;
+extern crate lscolors;
+#[cfg(test)]
+extern crate tempfile;
+extern crate term_grid;
+extern crate terminal_size;
+extern crate unicode_width;
+extern crate url;
+extern crate wild;
+extern crate yaml_rust;
+
+#[cfg(unix)]
+extern crate users;
+
+#[cfg(windows)]
+extern crate windows;
+
+mod app;
+mod color;
+mod config_file;
+mod core;
+mod display;
+mod flags;
+mod git;
+mod git_theme;
+mod icon;
+mod meta;
+mod sort;
+mod theme;
+
+use clap::Parser;
+
+use crate::app::Cli;
+use crate::config_file::Config;
+use crate::core::Core;
+use crate::flags::Flags;
+
+#[derive(PartialEq, Eq, PartialOrd, Copy, Clone)]
+pub enum ExitCode {
+    OK,
+    MinorIssue,
+    MajorIssue,
+}
+impl ExitCode {
+    pub fn set_if_greater(&mut self, code: ExitCode) {
+        let self_i32 = *self as i32;
+        let code_i32 = code as i32;
+        if self_i32 < code_i32 {
+            *self = code;
+        }
+    }
+}
+/// Macro used to avoid panicking when the lsd method is used with a pipe and
+/// stderr close before our program.
+#[macro_export]
+macro_rules! print_error {
+    ($($arg:tt)*) => {
+        {
+            use std::io::Write;
+
+            let stderr = std::io::stderr();
+
+            {
+                let mut handle = stderr.lock();
+                // We can write on stderr, so we simply ignore the error and don't print
+                // and stop with success.
+                let res = handle.write_all(std::format!("lsd: {}\n\n",
+                                                        std::format!($($arg)*)).as_bytes());
+                if res.is_err() {
+                    std::process::exit(0);
+                }
+            }
+        }
+    };
+}
+
+/// Macro used to avoid panicking when the lsd method is used with a pipe and
+/// stdout close before our program.
+#[macro_export]
+macro_rules! print_output {
+    ($($arg:tt)*) => {
+        use std::io::Write;
+
+        let stderr = std::io::stdout();
+
+
+        {
+            let mut handle = stderr.lock();
+            // We can write on stdout, so we simply ignore the error and don't print
+            // and stop with success.
+            let res = handle.write_all(std::format!($($arg)*).as_bytes());
+            if res.is_err() {
+                std::process::exit(0);
+            }
+        }
+    };
+}
+
+fn main() {
+    let cli = Cli::parse_from(wild::args_os());
+
+    // Handle --generate-config flag
+    if cli.generate_config {
+        generate_default_config();
+        std::process::exit(0);
+    }
+
+    let config = if cli.ignore_config {
+        Config::with_none()
+    } else if let Some(path) = &cli.config_file {
+        Config::from_file(path).expect("Provided file path is invalid")
+    } else {
+        Config::default()
+    };
+    let flags = Flags::configure_from(&cli, &config).unwrap_or_else(|err| err.exit());
+    le
+... [TRUNCATED]
+
+--- SHELL COMPLETIONS & MAN PAGES ---
+  ci/before_deploy.bash
+  ci/before_install.bash
+  ci/script.bash
+
+--- DIRECTORY STRUCTURE (depth 2) ---
+├── .github/
+│   ├── FUNDING.yml
+│   ├── ISSUE_TEMPLATE/
+│   │   ├── bug.yml
+│   │   └── bug_report.md
+│   ├── PULL_REQUEST_TEMPLATE
+│   └── workflows/
+│       └── CICD.yml
+├── .gitignore
+├── .release.toml
+├── CODEOWNERS
+├── Cargo.lock
+├── Cargo.toml
+├── LICENSE
+├── OWNERS
+├── README.md
+├── build.rs
+├── ci/
+│   ├── before_deploy.bash
+│   ├── before_install.bash
+│   └── script.bash
+├── doc/
+│   ├── colors.md
+│   ├── img/
+│   │   ├── 0087ff.svg
+│   │   ├── 00af87.svg
+│   │   ├── 00d700.svg
+│   │   ├── 00d787.svg
+│   │   ├── 00d7d7.svg
+│   │   ├── af0000.svg
+│   │   ├── d75f87.svg
+│   │   ├── d78700.svg
+│   │   ├── d7d7af.svg
+│   │   ├── d7ff87.svg
+│   │   ├── ff00ff.svg
+│   │   ├── ffaf87.svg
+│   │   ├── ffffaf.svg
+│   │   ├── ffffd7.svg
+│   │   └── ffffff.svg
+│   ├── lsd.md
+│   └── samples/
+│       ├── colors-sample.yaml
+│       ├── config-sample.yaml
+│       └── icons-sample.yaml
+├── lsd.spec
+├── rustfmt.toml
+├── src/
+│   ├── app.rs
+│   ├── color.rs
+│   ├── config_file.rs
+│   ├── core.rs
+│   ├── display.rs
+│   ├── flags.rs
+│   ├── flags/
+│   │   ├── blocks.rs
+│   │   ├── color.rs
+│   │   ├── date.rs
+│   │   ├── dereference.rs
+│   │   ├── display.rs
+│   │   ├── header.rs
+│   │   ├── hyperlink.rs
+│   │   ├── icons.rs
+│   │   ├── ignore_globs.rs
+│   │   ├── indicators.rs
+│   │   ├── layout.rs
+│   │   ├── literal.rs
+│   │   ├── permission.rs
+│   │   ├── recursion.rs
+│   │   ├── size.rs
+│   │   ├── sorting.rs
+│   │   ├── symlink_arrow.rs
+│   │   ├── symlinks.rs
+│   │   ├── total_size.rs
+│   │   └── truncate_owner.rs
+│   ├── git.rs
+│   ├── git_theme.rs
+│   ├── icon.rs
+│   ├── main.rs
+│   ├── meta/
+│   │   ├── access_control.rs
+│   │   ├── date.rs
+│   │   ├── filetype.rs
+│   │   ├── git_file_status.rs
+│   │   ├── indicator.rs
+│   │   ├── inode.rs
+│   │   ├── links.rs
+│   │   ├── locale.rs
+│   │   ├── mod.rs
+│   │   ├── name.rs
+│   │   ├── owner.rs
+│   │   ├── permissions.rs
+│   │   ├── permissions_or_attributes.rs
+│   │   ├── size.rs
+│   │   ├── symlink.rs
+│   │   ├── windows_attributes.rs
+│   │   └── windows_utils.rs
+│   ├── sort.rs
+│   ├── theme.rs
+│   └── theme/
+│       ├── color.rs
+│       ├── git.rs
+│       └── icon.rs
+└── tests/
+    └── integration.rs

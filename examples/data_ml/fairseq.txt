@@ -1,0 +1,1122 @@
+=====================================
+Repository Analysis: fairseq
+Type: Data / ML / AI Project
+=====================================
+
+--- METADATA ---
+Name: fairseq
+Description: Facebook AI Research Sequence-to-Sequence Toolkit written in Python.
+Language: Python
+Topics: artificial-intelligence, python, pytorch
+Stars: 32179
+License: MIT License
+
+--- README ---
+<p align="center">
+  <img src="docs/fairseq_logo.png" width="150">
+  <br />
+  <br />
+  <a href="https://opensource.fb.com/support-ukraine"><img alt="Support Ukraine" src="https://img.shields.io/badge/Support-Ukraine-FFD500?style=flat&labelColor=005BBB" /></a>
+  <a href="https://github.com/pytorch/fairseq/blob/main/LICENSE"><img alt="MIT License" src="https://img.shields.io/badge/license-MIT-blue.svg" /></a>
+  <a href="https://github.com/pytorch/fairseq/releases"><img alt="Latest Release" src="https://img.shields.io/github/release/pytorch/fairseq.svg" /></a>
+  <a href="https://github.com/pytorch/fairseq/actions?query=workflow:build"><img alt="Build Status" src="https://github.com/pytorch/fairseq/workflows/build/badge.svg" /></a>
+  <a href="https://fairseq.readthedocs.io/en/latest/?badge=latest"><img alt="Documentation Status" src="https://readthedocs.org/projects/fairseq/badge/?version=latest" /></a>
+  <a href="https://app.circleci.com/pipelines/github/facebookresearch/fairseq/"><img alt="CicleCI Status" src="https://circleci.com/gh/facebookresearch/fairseq.svg?style=shield" /></a>
+</p>
+
+--------------------------------------------------------------------------------
+
+Fairseq(-py) is a sequence modeling toolkit that allows researchers and
+developers to train custom models for translation, summarization, language
+modeling and other text generation tasks.
+
+We provide reference implementations of various sequence modeling papers:
+
+<details><summary>List of implemented papers</summary><p>
+
+* **Convolutional Neural Networks (CNN)**
+  + [Language Modeling with Gated Convolutional Networks (Dauphin et al., 2017)](examples/language_model/conv_lm/README.md)
+  + [Convolutional Sequence to Sequence Learning (Gehring et al., 2017)](examples/conv_seq2seq/README.md)
+  + [Classical Structured Prediction Losses for Sequence to Sequence Learning (Edunov et al., 2018)](https://github.com/pytorch/fairseq/tree/classic_seqlevel)
+  + [Hierarchical Neural Story Generation (Fan et al., 2018)](examples/stories/README.md)
+  + [wav2vec: Unsupervised Pre-training for Speech Recognition (Schneider et al., 2019)](examples/wav2vec/README.md)
+* **LightConv and DynamicConv models**
+  + [Pay Less Attention with Lightweight and Dynamic Convolutions (Wu et al., 2019)](examples/pay_less_attention_paper/README.md)
+* **Long Short-Term Memory (LSTM) networks**
+  + Effective Approaches to Attention-based Neural Machine Translation (Luong et al., 2015)
+* **Transformer (self-attention) networks**
+  + Attention Is All You Need (Vaswani et al., 2017)
+  + [Scaling Neural Machine Translation (Ott et al., 2018)](examples/scaling_nmt/README.md)
+  + [Understanding Back-Translation at Scale (Edunov et al., 2018)](examples/backtranslation/README.md)
+  + [Adaptive Input Representations for Neural Language Modeling (Baevski and Auli, 2018)](examples/language_model/README.adaptive_inputs.md)
+  + [Lexically constrained decoding with dynamic beam allocation (Post & Vilar, 2018)](examples/constrained_decoding/README.md)
+  + [Transformer-XL: Attentive Language Models Beyond a Fixed-Length Context (Dai et al., 2019)](examples/truncated_bptt/README.md)
+  + [Adaptive Attention Span in Transformers (Sukhbaatar et al., 2019)](examples/adaptive_span/README.md)
+  + [Mixture Models for Diverse Machine Translation: Tricks of the Trade (Shen et al., 2019)](examples/translation_moe/README.md)
+  + [RoBERTa: A Robustly Optimized BERT Pretraining Approach (Liu et al., 2019)](examples/roberta/README.md)
+  + [Facebook FAIR's WMT19 News Translation Task Submission (Ng et al., 2019)](examples/wmt19/README.md)
+  + [Jointly Learning to Align and Translate with Transformer Models (Garg et al., 2019)](examples/joint_alignment_translation/README.md )
+  + [Multilingual Denoising Pre-training for Neural Machine Translation (Liu et at., 2020)](examples/mbart/README.md)
+  + [Neural Machine Translation with Byte-Level Subwords (Wang et al., 2020)](examples/byte_level_bpe/README.md)
+  + [Unsupervised Quality Estimation for Neural Machine Translation (Fomicheva et al., 2020)](examples/unsupervised_quality_estimation/README.md)
+  + [wav2vec 2.0: A Framework for Self-Supervised Learning of Speech Representations (Baevski et al., 2020)](examples/wav2vec/README.md)
+  + [Generating Medical Reports from Patient-Doctor Conversations Using Sequence-to-Sequence Models (Enarvi et al., 2020)](examples/pointer_generator/README.md)
+  + [Linformer: Self-Attention with Linear Complexity (Wang et al., 2020)](examples/linformer/README.md)
+  + [Cross-lingual Retrieval for Iterative Self-Supervised Training (Tran et al., 2020)](examples/criss/README.md)
+  + [Deep Transformers with Latent Depth (Li et al., 2020)](examples/latent_depth/README.md)
+  + [Unsupervised Cross-lingual Representation Learning for Speech Recognition (Conneau et al., 2020)](https://arxiv.org/abs/2006.13979)
+  + [Self-training and Pre-training are Complementary for Speech Recognition (Xu et al., 2020)](https://arxiv.org/abs/2010.11430)
+  + [Ro
+... [TRUNCATED]
+
+--- PACKAGE MANIFEST(S) ---
+
+[pyproject.toml]
+[build-system]
+requires = [
+  "setuptools>=18.0",
+  "wheel",
+  "cython",
+  "numpy>=1.21.3",
+  "torch>=1.10",
+]
+build-backend = "setuptools.build_meta"
+
+[tool.black]
+extend-exclude = '''
+(
+^/examples/|
+^/fairseq/model_parallel/megatron|
+^/build/
+)
+'''
+
+[tool.isort]
+profile = "black"
+known_third_party = "_cffi_backend,agg_results,aml,bitarray,boto3,botocore,dump_hubert_feature,dynamicconv_cuda,editdistance,faiss,fasttext,feature_utils,ffmpeg,g2p_en,h5py,hydra,hypothesis,indicnlp,inflect,iopath,joblib,kaldi_io,kenlm,libfb,librosa,lightconv_cuda,matplotlib,misc,mmpt,mmpt_cli,model,nltk,npy_append_array,numpy,omegaconf,pandas,pathbuilder,preprocessing,progressbar,pythainlp,random_sequence_shuffler,regex,sacrebleu,sacremoses,scipy,sentencepiece,setuptools,six,sklearn,soundfile,sweep,sweep_wmt_en2de_transformer_big_common,tabulate,torch,torchaudio,tqdm,unidecode,utils,videoreader,wav2vec_cluster_faiss,wget,yaml"
+skip_gitignore = true
+
+
+[setup.py]
+#!/usr/bin/env python3
+# Copyright (c) Facebook, Inc. and its affiliates.
+#
+# This source code is licensed under the MIT license found in the
+# LICENSE file in the root directory of this source tree.
+
+import os
+import subprocess
+import sys
+
+from setuptools import Extension, find_packages, setup
+from torch.utils import cpp_extension
+
+if sys.version_info < (3, 6):
+    sys.exit("Sorry, Python >= 3.6 is required for fairseq.")
+
+
+def write_version_py():
+    with open(os.path.join("fairseq", "version.txt")) as f:
+        version = f.read().strip()
+
+    # write version info to fairseq/version.py
+    with open(os.path.join("fairseq", "version.py"), "w") as f:
+        f.write('__version__ = "{}"\n'.format(version))
+    return version
+
+
+version = write_version_py()
+
+
+with open("README.md") as f:
+    readme = f.read()
+
+
+if sys.platform == "darwin":
+    extra_compile_args = ["-stdlib=libc++", "-O3"]
+else:
+    extra_compile_args = ["-std=c++11", "-O3"]
+
+
+class NumpyExtension(Extension):
+    """Source: https://stackoverflow.com/a/54128391"""
+
+    def __init__(self, *args, **kwargs):
+        self.__include_dirs = []
+        super().__init__(*args, **kwargs)
+
+    @property
+    def include_dirs(self):
+        import numpy
+
+        return self.__include_dirs + [numpy.get_include()]
+
+    @include_dirs.setter
+    def include_dirs(self, dirs):
+        self.__include_dirs = dirs
+
+
+extensions = [
+    Extension(
+        "fairseq.libbleu",
+        sources=[
+            "fairseq/clib/libbleu/libbleu.cpp",
+            "fairseq/clib/libbleu/module.cpp",
+        ],
+        extra_compile_args=extra_compile_args,
+    ),
+    NumpyExtension(
+        "fairseq.data.data_utils_fast",
+        sources=["fairseq/data/data_utils_fast.pyx"],
+        language="c++",
+        extra_compile_args=extra_compile_args,
+    ),
+    NumpyExtension(
+        "fairseq.data.token_block_utils_fast",
+        sources=["fairseq/data/token_block_utils_fast.pyx"],
+        language="c++",
+        extra_compile_args=extra_compile_args,
+    ),
+]
+
+
+extensions.extend(
+    [
+        cpp_extension.CppExtension(
+            "fairseq.libbase",
+            sources=[
+                "fairseq/clib/libbase/balanced_assignment.cpp",
+            ],
+        ),
+        cpp_extension.CppExtension(
+            "fairseq.libnat",
+            sources=[
+                "fairseq/clib/libnat/edit_dist.cpp",
+            ],
+        ),
+        cpp_extension.CppExtension(
+            "alignment_train_cpu_binding",
+            sources=[
+                "examples/operators/alignment_train_cpu.cpp",
+            ],
+        ),
+    ]
+)
+if "CUDA_HOME" in os.environ:
+    extensions.extend(
+        [
+            cpp_extension.CppExtension(
+                "fairseq.libnat_cuda",
+                sources=[
+                    "fairseq/clib/libnat_cuda/edit_dist.cu",
+                    "fairseq/clib/libnat_cuda/binding.cpp",
+                ],
+            ),
+            cpp_extension.CppExtension(
+                "fairseq.ngram_repeat_block_cuda",
+... [TRUNCATED]
+
+[setup.cfg]
+[flake8]
+max-line-length = 127
+extend-ignore = E203, W503
+extend-exclude = fairseq/model_parallel/megatron
+
+
+--- REQUIREMENTS FILES ---
+
+[examples/emotion_conversion/requirements.txt]
+scipy
+einops
+amfm_decompy
+joblib
+numba
+decorator
+requests
+appdirs
+packaging
+six
+sklearn
+
+
+[examples/mms/lid_rerank/requirements.txt]
+transformers
+peft
+protobuf
+blobfile
+sentencepiece
+fasttext
+numpy<=1.26.4
+librosa
+ninja
+editdistance
+
+[examples/speech_to_speech/asr_bleu/requirements.txt]
+fairseq==0.12.2
+pandas==1.4.3
+sacrebleu==2.2.0
+torch==1.12.1
+torchaudio==0.12.1
+tqdm==4.64.0
+transformers==4.21.1
+
+
+--- ML CONFIG FILES ---
+(No ML config files found)
+
+--- JUPYTER NOTEBOOKS ---
+  examples/mms/asr/tutorial/MMS_ASR_Inference_Colab.ipynb
+  examples/mms/lid/tutorial/MMS_LID_Inference_Colab.ipynb
+  examples/mms/tts/tutorial/MMS_TTS_Inference_Colab.ipynb
+
+--- MODEL / TRAINING FILES ---
+  examples/MMPT/mmpt/datasets/fairseqmmdataset.py
+  examples/MMPT/mmpt/datasets/mmdataset.py
+  examples/MMPT/mmpt/models/fairseqmmmodel.py
+  examples/MMPT/mmpt/models/transformermodel.py
+  examples/MMPT/mmpt_cli/predict.py
+  examples/MMPT/scripts/video_feature_extractor/model.py
+  examples/adaptive_span/adaptive_span_model.py
+  examples/adaptive_span/adaptive_span_model_wrapper.py
+  examples/data2vec/data/add_class_target_dataset.py
+  examples/data2vec/data/image_dataset.py
+
+--- DIRECTORY STRUCTURE (depth 2) ---
+├── .github/
+│   ├── CODEOWNERS
+│   ├── ISSUE_TEMPLATE.md
+│   ├── ISSUE_TEMPLATE/
+│   │   ├── bug_report.md
+│   │   ├── documentation.md
+│   │   ├── feature_request.md
+│   │   └── how-to-question.md
+│   ├── PULL_REQUEST_TEMPLATE.md
+│   ├── stale.yml
+│   └── workflows/
+│       ├── build.yml
+│       ├── depreview.yml
+│       └── release.yml
+├── .gitignore
+├── .gitmodules
+├── .pre-commit-config.yaml
+├── CODE_OF_CONDUCT.md
+├── CONTRIBUTING.md
+├── LICENSE
+├── MANIFEST.in
+├── README.md
+├── RELEASE.md
+├── docs/
+│   ├── Makefile
+│   ├── command_line_tools.rst
+│   ├── conf.py
+│   ├── criterions.rst
+│   ├── data.rst
+│   ├── docutils.conf
+│   ├── fairseq.gif
+│   ├── fairseq_logo.png
+│   ├── getting_started.rst
+│   ├── hydra_integration.md
+│   ├── index.rst
+│   ├── lr_scheduler.rst
+│   ├── make.bat
+│   ├── models.rst
+│   ├── modules.rst
+│   ├── optim.rst
+│   ├── overview.rst
+│   ├── tasks.rst
+│   ├── tutorial_classifying_names.rst
+│   └── tutorial_simple_lstm.rst
+├── examples/
+│   ├── .gitignore
+│   ├── MMPT/
+│   │   ├── .gitignore
+│   │   ├── CONFIG.md
+│   │   ├── DATASET.md
+│   │   ├── README.md
+│   │   ├── endtask.md
+│   │   ├── locallaunch.py
+│   │   ├── mmpt/
+│   │   ├── mmpt_cli/
+│   │   ├── pretraining.md
+│   │   ├── projects/
+│   │   ├── scripts/
+│   │   ├── setup.py
+│   │   ├── videoclip.png
+│   │   └── vlm.png
+│   ├── __init__.py
+│   ├── adaptive_span/
+│   │   ├── README.md
+│   │   ├── __init__.py
+│   │   ├── adagrad_with_grad_clip.py
+│   │   ├── adaptive_span_attention.py
+│   │   ├── adaptive_span_loss.py
+│   │   ├── adaptive_span_model.py
+│   │   ├── adaptive_span_model_wrapper.py
+│   │   └── truncated_bptt_lm_task.py
+│   ├── attention_head_selection/
+│   │   ├── README.md
+│   │   └── src/
+│   ├── audio_nlp/
+│   │   └── nlu/
+│   ├── backtranslation/
+│   │   ├── README.md
+│   │   ├── deduplicate_lines.py
+│   │   ├── extract_bt_data.py
+│   │   ├── prepare-de-monolingual.sh
+│   │   ├── prepare-wmt18en2de.sh
+│   │   ├── sacrebleu.sh
+│   │   └── tokenized_bleu.sh
+│   ├── bart/
+│   │   ├── README.glue.md
+│   │   ├── README.md
+│   │   ├── README.summarization.md
+│   │   └── summarize.py
+│   ├── byte_level_bpe/
+│   │   ├── README.md
+│   │   ├── get_bitext.py
+│   │   ├── get_data.sh
+│   │   └── gru_transformer.py
+│   ├── camembert/
+│   │   └── README.md
+│   ├── constrained_decoding/
+│   │   ├── README.md
+│   │   ├── normalize.py
+│   │   └── tok.py
+│   ├── conv_seq2seq/
+│   │   └── README.md
+│   ├── criss/
+│   │   ├── README.md
+│   │   ├── download_and_preprocess_flores_test.sh
+│   │   ├── download_and_preprocess_tatoeba.sh
+│   │   ├── mining/
+│   │   ├── save_encoder.py
+│   │   ├── sentence_retrieval/
+│   │   └── unsupervised_mt/
+│   ├── cross_lingual_language_model/
+│   │   └── README.md
+│   ├── data2vec/
+│   │   ├── README.md
+│   │   ├── __init__.py
+│   │   ├── config/
+│   │   ├── data/
+│   │   ├── fb_convert_beit_cp.py
+│   │   ├── models/
+│   │   ├── scripts/
+│   │   └── tasks/
+│   ├── discriminative_reranking_nmt/
+│   │   ├── README.md
+│   │   ├── __init__.py
+│   │   ├── config/
+│   │   ├── criterions/
+│   │   ├── drnmt_rerank.py
+│   │   ├── models/
+│   │   ├── scripts/
+│   │   └── tasks/
+│   ├── emotion_conversion/
+│   │   ├── README.md
+│   │   ├── emotion_models/
+│   │   ├── fairseq_models/
+│   │   ├── preprocess/
+│   │   ├── requirements.txt
+│   │   └── synthesize.py
+│   ├── fast_noisy_channel/
+│   │   ├── README.md
+│   │   ├── __init__.py
+│   │   ├── noisy_channel_beam_search.py
+│   │   ├── noisy_channel_sequence_generator.py
+│   │   └── noisy_channel_translation.py
+│   ├── flores101/
+│   │   ├── README.md
+│   │   └── flores_logo.png
+│   ├── fully_sharded_data_parallel/
+│   │   └── README.md
+│   ├── gottbert/
+│   │   └── README.md
+│   ├── hubert/
+│   │   ├── README.md
+│   │   ├── config/
+│   │   ├── measure_teacher_quality.py
+│   │   ├── simple_kmeans/
+│   │   ├── tests/
+│   │   └── update_ckpt.py
+│   ├── joint_alignment_translation/
+│   │   ├── README.md
+│   │   └── prepare-wmt18en2de_no_norm_no_escape_no_agressive.sh
+│   ├── language_model/
+│   │   ├── README.adaptive_inputs.md
+│   │   ├── README.conv.md
+│   │   ├── README.md
+│   │   └── prepare-wikitext-103.sh
+│   ├── laser/
+│   │   ├── README.md
+│   │   └── laser_src/
+│   ├── latent_depth/
+│   │   ├── README.md
+│   │   └── latent_depth_src/
+│   ├── layerdrop/
+│   │   └── README.md
+│   ├── linformer/
+│   │   ├── README.md
+│   │   └── linformer_src/
+│   ├── m2m_100/
+│   │   ├── README.md
+│   │   ├── install_dependecies.sh
+│   │   ├── process_data/
+│   │   ├── tok.sh
+│   │   └── tokenizers/
+│   ├── mbart/
+│   │   └── README.md
+│   ├── megatron_11b/
+│   │   ├── README.md
+│   │   └── detok.py
+│   ├── mms/
+│   │   ├── MODEL_CARD.md
+│   │   ├── README.md
+│   │   ├── asr/
+│   │   ├── data_prep/
+│   │   ├── lid/
+│   │   ├── lid_rerank/
+│   │   ├── misc/
+│   │   ├── tts/
+│   │   └── zero_shot/
+│   ├── moe_lm/
+│   │   ├── README.md
+│   │   ├── data_card.md
+│   │   └── model_card.md
+│   ├── mr_hubert/
+│   │   ├── README.md
+│   │   ├── config/
+│   │   ├── decode.sh
+│   │   ├── finetune.sh
+│   │   ├── simple_kmeans
+│   │   └── train.sh
+│   ├── multilingual/
+│   │   ├── ML50_langs.txt
+│   │   ├── README.md
+│   │   ├── data_scripts/
+│   │   ├── finetune_multilingual_model.sh
+│   │   ├── multilingual_fairseq_gen.sh
+│   │   └── train_multilingual_model.sh
+│   ├── noisychannel/
+│   │   ├── README.md
+│   │   ├── __init__.py
+│   │   ├── rerank.py
+│   │   ├── rerank_generate.py
+│   │   ├── rerank_options.py
+│   │   ├── rerank_score_bw.py
+│   │   ├── rerank_score_lm.py
+│   │   ├── rerank_tune.py
+│   │   └── rerank_utils.py
+│   ├── nonautoregressive_translation/
+│   │   ├── README.md
+│   │   └── scripts.md
+│   ├── normformer/
+│   │   ├── README.md
+│   │   └── train_lm.sh
+│   ├── operators/
+│   │   ├── alignment_train_cpu.cpp
+│   │   ├── alignment_train_cuda.cpp
+│   │   ├── alignment_train_cuda.h
+│   │   ├── alignment_train_kernel.cu
+│   │   └── utils.h
+│   ├── paraphraser/
+│   │   ├── README.md
+│   │   └── paraphrase.py
+│   ├── pay_less_attention_paper/
+│   │   └── README.md
+│   ├── pointer_generator/
+│   │   ├── README.md
+│   │   ├── README.xsum.md
+│   │   ├── pointer_generator_src/
+│   │   ├── postprocess.py
+│   │   └── preprocess.py
+│   ├── quant_noise/
+│   │   ├── README.md
+│   │   └── transformer_quantization_config.yaml
+│   ├── roberta/
+│   │   ├── README.custom_classification.md
+│   │   ├── README.glue.md
+│   │   ├── README.md
+│   │   ├── README.pretraining.md
+│   │   ├── README.race.md
+│   │   ├── commonsense_qa/
+│   │   ├── config/
+│   │   ├── fb_multilingual/
+│   │   ├── multiprocessing_bpe_encoder.py
+│   │   ├── preprocess_GLUE_tasks.sh
+│   │   ├── preprocess_RACE.py
+│   │   ├── preprocess_RACE.sh
+│   │   └── wsc/
+│   ├── rxf/
+│   │   ├── README.md
+│   │   ├── __init__.py
+│   │   └── rxf_src/
+│   ├── scaling_nmt/
+│   │   └── README.md
+│   ├── shuffled_word_order/
+│   │   ├── README.finetuning.md
+│   │   └── README.md
+│   ├── simultaneous_translation/
+│   │   ├── README.md
+│   │   ├── __init__.py
+│   │   ├── docs/
+│   │   ├── eval/
+│   │   ├── models/
+│   │   ├── modules/
+│   │   ├── tests/
+│   │   └── utils/
+│   ├── speech_recognition/
+│   │   ├── README.md
+│   │   ├── __init__.py
+│   │   ├── criterions/
+│   │   ├── data/
+│   │   ├── datasets/
+│   │   ├── infer.py
+│   │   ├── kaldi/
+│   │   ├── models/
+│   │   ├── new/
+│   │   ├── tasks/
+│   │   ├── utils/
+│   │   └── w2l_decoder.py
+│   ├── speech_synthesis/
+│   │   ├── README.md
+│   │   ├── __init__.py
+│   │   ├── data_utils.py
+│   │   ├── docs/
+│   │   ├── evaluation/
+│   │   ├── generate_waveform.py
+│   │   ├── preprocessing/
+│   │   └── utils.py
+│   ├── speech_text_joint_to_text/
+│   │   ├── README.md
+│   │   ├── __init__.py
+│   │   ├── configs/
+│   │   ├── criterions/
+│   │   ├── data/
+│   │   ├── docs/
+│   │   ├── models/
+│   │   ├── scripts/
+│   │   └── tasks/
+│   ├── speech_to_speech/
+│   │   ├── README.md
+│   │   ├── __init__.py
+│   │   ├── asr_bleu/
+│   │   ├── benchmarking/
+│   │   ├── docs/
+│   │   ├── generate_waveform_from_code.py
+│   │   ├── preprocessing/
+│   │   └── unity/
+│   ├── speech_to_text/
+│   │   ├── README.md
+│   │   ├── data_utils.py
+│   │   ├── docs/
+│   │   ├── prep_covost_data.py
+│   │   ├── prep_librispeech_data.py
+│   │   ├── prep_mtedx_data.py
+│   │   ├── prep_mustc_data.py
+│   │   ├── seg_mustc_data.py
+│   │   └── simultaneous_translation/
+│   ├── stories/
+│   │   └── README.md
+│   ├── textless_nlp/
+│   │   ├── dgslm/
+│   │   ├── gslm/
+│   │   ├── pgslm/
+│   │   └── speech-resynth/
+│   ├── translation/
+│   │   ├── README.md
+│   │   ├── prepare-iwslt14.sh
+│   │   ├── prepare-iwslt17-multilingual.sh
+│   │   ├── prepare-wmt14en2de.sh
+│   │   └── prepare-wmt14en2fr.sh
+│   ├── translation_moe/
+│   │   ├── README.md
+│   │   ├── score.py
+│   │   └── translation_moe_src/
+│   ├── truncated_bptt/
+│   │   ├── README.md
+│   │   ├── __init__.py
+│   │   ├── transformer_xl_model.py
+│   │   └── truncated_bptt_lm_task.py
+│   ├── unsupervised_quality_estimation/
+│   │   ├── README.md
+│   │   ├── aggregate_scores.py
+│   │   ├── meteor.py
+│   │   └── repeat_lines.py
+│   ├── wav2vec/
+│   │   ├── README.md
+│   │   ├── __init__.py
+│   │   ├── config/
+│   │   ├── libri_labels.py
+│   │   ├── scripts/
+│   │   ├── unsupervised/
+│   │   ├── vq-wav2vec_featurize.py
+│   │   ├── wav2vec_featurize.py
+│   │   ├── wav2vec_manifest.py
+│   │   └── xlsr/
+│   ├── wmt19/
+│   │   └── README.md
+│   ├── wmt20/
+│   │   └── README.md
+│   ├── wmt21/
+│   │   ├── README.md
+│   │   ├── eval.sh
+│   │   └── scripts/
+│   ├── womens_bios/
+│   │   ├── README.md
+│   │   └── query_occupations_from_wikidata.py
+│   ├── xformers/
+│   │   └── README.md
+│   ├── xglm/
+│   │   ├── README.md
+│   │   ├── XStoryCloze.md
+│   │   └── model_card.md
+│   ├── xlmr/
+│   │   └── README.md
+│   └── xmod/
+│       ├── README.md
+│       └── preprocess_nli.py
+├── fairseq/
+│   ├── __init__.py
+│   ├── benchmark/
+│   │   ├── __init__.py
+│   │   ├── benchmark_multihead_attention.py
+│   │   ├── dummy_dataset.py
+│   │   ├── dummy_lm.py
+│   │   ├── dummy_masked_lm.py
+│   │   ├── dummy_model.py
+│   │   └── dummy_mt.py
+│   ├── binarizer.py
+│   ├── checkpoint_utils.py
+│   ├── clib/
+│   │   ├── cuda/
+│   │   ├── libbase/
+│   │   ├── libbleu/
+│   │   ├── libnat/
+│   │   └── libnat_cuda/
+│   ├── config/
+│   │   ├── __init__.py
+│   │   ├── config.yaml
+│   │   ├── fb_run_config/
+│   │   └── model/
+│   ├── criterions/
+│   │   ├── __init__.py
+│   │   ├── adaptive_loss.py
+│   │   ├── composite_loss.py
+│   │   ├── cross_entropy.py
+│   │   ├── ctc.py
+│   │   ├── fairseq_criterion.py
+│   │   ├── fastspeech2_loss.py
+│   │   ├── hubert_criterion.py
+│   │   ├── label_smoothed_cross_entropy.py
+│   │   ├── label_smoothed_cross_entropy_latency_augmented.py
+│   │   ├── label_smoothed_cross_entropy_with_alignment.py
+│   │   ├── label_smoothed_cross_entropy_with_ctc.py
+│   │   ├── label_smoothed_cross_entropy_with_rdrop.py
+│   │   ├── legacy_masked_lm.py
+│   │   ├── masked_lm.py
+│   │   ├── model_criterion.py
+│   │   ├── nat_loss.py
+│   │   ├── sentence_prediction.py
+│   │   ├── sentence_prediction_adapters.py
+│   │   ├── sentence_ranking.py
+│   │   ├── speech_dlm_criterion.py
+│   │   ├── speech_to_speech_criterion.py
+│   │   ├── speech_ulm_criterion.py
+│   │   ├── tacotron2_loss.py
+│   │   └── wav2vec_criterion.py
+│   ├── data/
+│   │   ├── __init__.py
+│   │   ├── add_class_target_dataset.py
+│   │   ├── add_target_dataset.py
+│   │   ├── append_token_dataset.py
+│   │   ├── audio/
+│   │   ├── backtranslation_dataset.py
+│   │   ├── base_wrapper_dataset.py
+│   │   ├── bucket_pad_length_dataset.py
+│   │   ├── codedataset.py
+│   │   ├── colorize_dataset.py
+│   │   ├── concat_dataset.py
+│   │   ├── concat_sentences_dataset.py
+│   │   ├── data_utils.py
+│   │   ├── data_utils_fast.pyx
+│   │   ├── denoising_dataset.py
+│   │   ├── dictionary.py
+│   │   ├── encoders/
+│   │   ├── fairseq_dataset.py
+│   │   ├── fasta_dataset.py
+│   │   ├── huffman/
+│   │   ├── id_dataset.py
+│   │   ├── indexed_dataset.py
+│   │   ├── iterators.py
+│   │   ├── language_pair_dataset.py
+│   │   ├── legacy/
+│   │   ├── list_dataset.py
+│   │   ├── lm_context_window_dataset.py
+│   │   ├── lru_cache_dataset.py
+│   │   ├── mask_tokens_dataset.py
+│   │   ├── monolingual_dataset.py
+│   │   ├── multi_corpus_dataset.py
+│   │   ├── multi_corpus_sampled_dataset.py
+│   │   ├── multilingual/
+│   │   ├── nested_dictionary_dataset.py
+│   │   ├── noising.py
+│   │   ├── num_samples_dataset.py
+│   │   ├── numel_dataset.py
+│   │   ├── offset_tokens_dataset.py
+│   │   ├── pad_dataset.py
+│   │   ├── padding_mask_dataset.py
+│   │   ├── plasma_utils.py
+│   │   ├── prepend_dataset.py
+│   │   ├── prepend_token_dataset.py
+│   │   ├── raw_label_dataset.py
+│   │   ├── replace_dataset.py
+│   │   ├── resampling_dataset.py
+│   │   ├── roll_dataset.py
+│   │   ├── round_robin_zip_datasets.py
+│   │   ├── shorten_dataset.py
+│   │   ├── sort_dataset.py
+│   │   ├── span_mask_tokens_dataset.py
+│   │   ├── speech_dlm_dataset.py
+│   │   ├── strip_token_dataset.py
+│   │   ├── subsample_dataset.py
+│   │   ├── text_compressor.py
+│   │   ├── token_block_dataset.py
+│   │   ├── token_block_utils_fast.pyx
+│   │   ├── transform_eos_concat_langpair_dataset.py
+│   │   ├── transform_eos_dataset.py
+│   │   └── transform_eos_lang_pair_dataset.py
+│   ├── dataclass/
+│   │   ├── __init__.py
+│   │   ├── configs.py
+│   │   ├── constants.py
+│   │   ├── initialize.py
+│   │   └── utils.py
+│   ├── distributed/
+│   │   ├── __init__.py
+│   │   ├── distributed_timeout_wrapper.py
+│   │   ├── fully_sharded_data_parallel.py
+│   │   ├── legacy_distributed_data_parallel.py
+│   │   ├── module_proxy_wrapper.py
+│   │   ├── tpu_distributed_data_parallel.py
+│   │   └── utils.py
+│   ├── file_chunker_utils.py
+│   ├── file_io.py
+│   ├── file_utils.py
+│   ├── hub_utils.py
+│   ├── incremental_decoding_utils.py
+│   ├── iterative_refinement_generator.py
+│   ├── logging/
+│   │   ├── __init__.py
+│   │   ├── meters.py
+│   │   ├── metrics.py
+│   │   └── progress_bar.py
+│   ├── model_parallel/
+│   │   ├── __init__.py
+│   │   ├── criterions/
+│   │   ├── megatron
+│   │   ├── megatron_trainer.py
+│   │   ├── models/
+│   │   └── modules/
+│   ├── models/
+│   │   ├── __init__.py
+│   │   ├── bart/
+│   │   ├── composite_encoder.py
+│   │   ├── distributed_fairseq_model.py
+│   │   ├── ema/
+│   │   ├── fairseq_decoder.py
+│   │   ├── fairseq_encoder.py
+│   │   ├── fairseq_incremental_decoder.py
+│   │   ├── fairseq_model.py
+│   │   ├── fconv.py
+│   │   ├── fconv_lm.py
+│   │   ├── fconv_self_att.py
+│   │   ├── hubert/
+│   │   ├── huggingface/
+│   │   ├── lightconv.py
+│   │   ├── lightconv_lm.py
+│   │   ├── lstm.py
+│   │   ├── lstm_lm.py
+│   │   ├── masked_lm.py
+│   │   ├── model_utils.py
+│   │   ├── multilingual_transformer.py
+│   │   ├── multires_hubert/
+│   │   ├── nat/
+│   │   ├── roberta/
+│   │   ├── speech_dlm/
+│   │   ├── speech_to_speech/
+│   │   ├── speech_to_text/
+│   │   ├── text_to_speech/
+│   │   ├── transformer/
+│   │   ├── transformer_align.py
+│   │   ├── transformer_from_pretrained_xlm.py
+│   │   ├── transformer_lm.py
+│   │   ├── transformer_ulm.py
+│   │   ├── wav2vec/
+│   │   └── xmod/
+│   ├── modules/
+│   │   ├── __init__.py
+│   │   ├── adaptive_input.py
+│   │   ├── adaptive_softmax.py
+│   │   ├── base_layer.py
+│   │   ├── beamable_mm.py
+│   │   ├── character_token_embedder.py
+│   │   ├── checkpoint_activations.py
+│   │   ├── conformer_layer.py
+│   │   ├── conv_tbc.py
+│   │   ├── cross_entropy.py
+│   │   ├── cuda_utils.cu
+│   │   ├── downsampled_multihead_attention.py
+│   │   ├── dynamic_convolution.py
+│   │   ├── dynamic_crf_layer.py
+│   │   ├── dynamicconv_layer/
+│   │   ├── ema_module.py
+│   │   ├── espnet_multihead_attention.py
+│   │   ├── fairseq_dropout.py
+│   │   ├── fp32_batch_norm.py
+│   │   ├── fp32_group_norm.py
+│   │   ├── fp32_instance_norm.py
+│   │   ├── gelu.py
+│   │   ├── grad_multiply.py
+│   │   ├── gumbel_vector_quantizer.py
+│   │   ├── kmeans_attention.py
+│   │   ├── kmeans_vector_quantizer.py
+│   │   ├── layer_drop.py
+│   │   ├── layer_norm.py
+│   │   ├── learned_positional_embedding.py
+│   │   ├── lightconv_layer/
+│   │   ├── lightweight_convolution.py
+│   │   ├── linearized_convolution.py
+│   │   ├── location_attention.py
+│   │   ├── lstm_cell_with_zoneout.py
+│   │   ├── multihead_attention.py
+│   │   ├── positional_embedding.py
+│   │   ├── positional_encoding.py
+│   │   ├── quant_noise.py
+│   │   ├── quantization/
+│   │   ├── rotary_positional_embedding.py
+│   │   ├── same_pad.py
+│   │   ├── scalar_bias.py
+│   │   ├── sinusoidal_positional_embedding.py
+│   │   ├── sparse_multihead_attention.py
+│   │   ├── sparse_transformer_sentence_encoder.py
+│   │   ├── sparse_transformer_sentence_encoder_layer.py
+│   │   ├── transformer_layer.py
+│   │   ├── transformer_layer_aug.py
+│   │   ├── transformer_sentence_encoder.py
+│   │   ├── transformer_sentence_encoder_layer.py
+│   │   ├── transpose_last.py
+│   │   ├── unfold.py
+│   │   └── vggblock.py
+│   ├── nan_detector.py
+│   ├── ngram_repeat_block.py
+│   ├── optim/
+│   │   ├── __init__.py
+│   │   ├── adadelta.py
+│   │   ├── adafactor.py
+│   │   ├── adagrad.py
+│   │   ├── adam.py
+│   │   ├── adamax.py
+│   │   ├── amp_optimizer.py
+│   │   ├── bmuf.py
+│   │   ├── composite.py
+│   │   ├── cpu_adam.py
+│   │   ├── dynamic_loss_scaler.py
+│   │   ├── fairseq_optimizer.py
+│   │   ├── fp16_optimizer.py
+│   │   ├── fused_adam.py
+│   │   ├── fused_lamb.py
+│   │   ├── lr_scheduler/
+│   │   ├── nag.py
+│   │   ├── sgd.py
+│   │   └── shard.py
+│   ├── options.py
+│   ├── pdb.py
+│   ├── quantization_utils.py
+│   ├── registry.py
+│   ├── scoring/
+│   │   ├── __init__.py
+│   │   ├── bertscore.py
+│   │   ├── bleu.py
+│   │   ├── chrf.py
+│   │   ├── meteor.py
+│   │   ├── tokenizer.py
+│   │   └── wer.py
+│   ├── search.py
+│   ├── sequence_generator.py
+│   ├── sequence_scorer.py
+│   ├── speech_generator.py
+│   ├── tasks/
+│   │   ├── __init__.py
+│   │   ├── audio_classification.py
+│   │   ├── audio_finetuning.py
+│   │   ├── audio_pretraining.py
+│   │   ├── cross_lingual_lm.py
+│   │   ├── denoising.py
+│   │   ├── fairseq_task.py
+│   │   ├── frm_text_to_speech.py
+│   │   ├── hubert_pretraining.py
+│   │   ├── language_modeling.py
+│   │   ├── legacy_masked_lm.py
+│   │   ├── masked_lm.py
+│   │   ├── multilingual_denoising.py
+│   │   ├── multilingual_language_modeling.py
+│   │   ├── multilingual_masked_lm.py
+│   │   ├── multilingual_translation.py
+│   │   ├── multires_hubert_pretraining.py
+│   │   ├── nlu_finetuning.py
+│   │   ├── online_backtranslation.py
+│   │   ├── semisupervised_translation.py
+│   │   ├── sentence_prediction.py
+│   │   ├── sentence_prediction_adapters.py
+│   │   ├── sentence_ranking.py
+│   │   ├── simultaneous_translation.py
+│   │   ├── span_masked_lm.py
+│   │   ├── speech_dlm_task.py
+│   │   ├── speech_to_speech.py
+│   │   ├── speech_to_text.py
+│   │   ├── speech_ulm_task.py
+│   │   ├── text_to_speech.py
+│   │   ├── translation.py
+│   │   ├── translation_from_pretrained_bart.py
+│   │   ├── translation_from_pretrained_xlm.py
+│   │   ├── translation_lev.py
+│   │   └── translation_multi_simple_epoch.py
+│   ├── token_generation_constraints.py
+│   ├── tokenizer.py
+│   ├── trainer.py
+│   ├── utils.py
+│   └── version.txt
+├── fairseq_cli/
+│   ├── __init__.py
+│   ├── eval_lm.py
+│   ├── generate.py
+│   ├── hydra_train.py
+│   ├── hydra_validate.py
+│   ├── interactive.py
+│   ├── preprocess.py
+│   ├── score.py
+│   ├── train.py
+│   └── validate.py
+├── hubconf.py
+├── hydra_plugins/
+│   └── dependency_submitit_launcher/
+│       ├── hydra_plugins/
+│       └── setup.py
+├── pyproject.toml
+├── release_utils.py
+├── scripts/
+│   ├── __init__.py
+│   ├── average_checkpoints.py
+│   ├── build_sym_alignment.py
+│   ├── check_installation.py
+│   ├── compare_namespaces.py
+│   ├── compound_split_bleu.sh
+│   ├── constraints/
+│   │   ├── extract.py
+│   │   └── validate.py
+│   ├── convert_dictionary.lua
+│   ├── convert_model.lua
+│   ├── count_docs.py
+│   ├── read_binarized.py
+│   ├── rm_pt.py
+│   ├── sacrebleu.sh
+│   ├── shard_docs.py
+│   ├── split_train_valid_docs.py
+│   ├── spm_decode.py
+│   ├── spm_encode.py
+│   ├── spm_train.py
+│   └── test_fsdp.sh
+├── setup.cfg
+├── setup.py
+├── tests/
+│   ├── __init__.py
+│   ├── distributed/
+│   │   ├── __init__.py
+│   │   ├── test_bmuf.py
+│   │   ├── test_distributed_timeout_wrapper.py
+│   │   ├── test_module_proxy_wrapper.py
+│   │   ├── test_utils.py
+│   │   └── utils.py
+│   ├── gpu/
+│   │   ├── __init__.py
+│   │   ├── test_binaries_gpu.py
+│   │   ├── test_ema_gpu.py
+│   │   └── transformer_quantization_config.yaml
+│   ├── speech/
+│   │   ├── __init__.py
+│   │   ├── test_convtransformer_simul_trans.py
+│   │   ├── test_dual_input_wav_transformer.py
+│   │   ├── test_dualinput_s2t_transformer.py
+│   │   ├── test_fastspeech2.py
+│   │   ├── test_s2s_transformer.py
+│   │   ├── test_s2t_conformer.py
+│   │   ├── test_s2t_transformer.py
+│   │   ├── test_tts_transformer.py
+│   │   ├── test_wav2vec2.py
+│   │   └── test_xm_transformer.py
+│   ├── speech_recognition/
+│   │   ├── __init__.py
+│   │   ├── asr_test_base.py
+│   │   ├── test_collaters.py
+│   │   ├── test_cross_entropy.py
+│   │   ├── test_data_utils.py
+│   │   └── test_vggtransformer.py
+│   ├── tasks/
+│   │   ├── test_denoising.py
+│   │   ├── test_masked_lm.py
+│   │   ├── test_multilingual_denoising.py
+│   │   └── test_span_masked_lm.py
+│   ├── test_activation_checkpointing.py
+│   ├── test_amp_optimizer.py
+│   ├── test_average_checkpoints.py
+│   ├── test_backtranslation_dataset.py
+│   ├── test_binaries.py
+│   ├── test_binarizer.py
+│   ├── test_character_token_embedder.py
+│   ├── test_checkpoint_utils.py
+│   ├── test_checkpoint_utils_for_task_level_attributes.py
+│   ├── test_concat_dataset.py
+│   ├── test_constraints.py
+│   ├── test_convtbc.py
+│   ├── test_data_utils.py
+│   ├── test_dataclass_utils.py
+│   ├── test_dataset.py
+│   ├── test_dictionary.py
+│   ├── test_ema.py
+│   ├── test_espnet_multihead_attention.py
+│   ├── test_export.py
+│   ├── test_file_chunker_utils.py
+│   ├── test_file_io.py
+│   ├── test_fp16_optimizer.py
+│   ├── test_hf_hub.py
+│   ├── test_huffman.py
+│   ├── test_inference_dropout.py
+│   ├── test_iopath.py
+│   ├── test_iterators.py
+│   ├── test_label_smoothing.py
+│   ├── test_lm_context_window.py
+│   ├── test_lstm_jitable.py
+│   ├── test_memory_efficient_fp16.py
+│   ├── test_metrics.py
+│   ├── test_multi_corpus_dataset.py
+│   ├── test_multi_corpus_sampled_dataset.py
+│   ├── test_multihead_attention.py
+│   ├── test_noising.py
+│   ├── test_online_backtranslation.py
+│   ├── test_plasma_utils.py
+│   ├── test_positional_encoding.py
+│   ├── test_reproducibility.py
+│   ├── test_resampling_dataset.py
+│   ├── test_roberta.py
+│   ├── test_rotary_positional_embedding.py
+│   ├── test_sequence_generator.py
+│   ├── test_sequence_scorer.py
+│   ├── test_sparse_multihead_attention.py
+│   ├── test_token_block_dataset.py
+│   ├── test_train.py
+│   ├── test_transformer.py
+│   ├── test_utils.py
+│   ├── test_valid_subset_checks.py
+│   └── utils.py
+└── train.py

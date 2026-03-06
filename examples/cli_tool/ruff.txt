@@ -1,0 +1,861 @@
+=====================================
+Repository Analysis: ruff
+Type: CLI Tool
+=====================================
+
+--- METADATA ---
+Name: ruff
+Description: An extremely fast Python linter and code formatter, written in Rust.
+Language: Rust
+Topics: linter, pep8, python, python3, ruff, rust, rustpython, static-analysis, static-code-analysis, style-guide, styleguide
+Stars: 46127
+License: MIT License
+
+--- README ---
+<!-- Begin section: Overview -->
+
+# Ruff
+
+[![Ruff](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/ruff/main/assets/badge/v2.json)](https://github.com/astral-sh/ruff)
+[![image](https://img.shields.io/pypi/v/ruff.svg)](https://pypi.python.org/pypi/ruff)
+[![image](https://img.shields.io/pypi/l/ruff.svg)](https://github.com/astral-sh/ruff/blob/main/LICENSE)
+[![image](https://img.shields.io/pypi/pyversions/ruff.svg)](https://pypi.python.org/pypi/ruff)
+[![Actions status](https://github.com/astral-sh/ruff/workflows/CI/badge.svg)](https://github.com/astral-sh/ruff/actions)
+[![Discord](https://img.shields.io/badge/Discord-%235865F2.svg?logo=discord&logoColor=white)](https://discord.com/invite/astral-sh)
+
+[**Docs**](https://docs.astral.sh/ruff/) | [**Playground**](https://play.ruff.rs/)
+
+An extremely fast Python linter and code formatter, written in Rust.
+
+<p align="center">
+  <picture align="center">
+    <source media="(prefers-color-scheme: dark)" srcset="https://user-images.githubusercontent.com/1309177/232603514-c95e9b0f-6b31-43de-9a80-9e844173fd6a.svg">
+    <source media="(prefers-color-scheme: light)" srcset="https://user-images.githubusercontent.com/1309177/232603516-4fb4892d-585c-4b20-b810-3db9161831e4.svg">
+    <img alt="Shows a bar chart with benchmark results." src="https://user-images.githubusercontent.com/1309177/232603516-4fb4892d-585c-4b20-b810-3db9161831e4.svg">
+  </picture>
+</p>
+
+<p align="center">
+  <i>Linting the CPython codebase from scratch.</i>
+</p>
+
+- ⚡️ 10-100x faster than existing linters (like Flake8) and formatters (like Black)
+- 🐍 Installable via `pip`
+- 🛠️ `pyproject.toml` support
+- 🤝 Python 3.14 compatibility
+- ⚖️ Drop-in parity with [Flake8](https://docs.astral.sh/ruff/faq/#how-does-ruffs-linter-compare-to-flake8), isort, and [Black](https://docs.astral.sh/ruff/faq/#how-does-ruffs-formatter-compare-to-black)
+- 📦 Built-in caching, to avoid re-analyzing unchanged files
+- 🔧 Fix support, for automatic error correction (e.g., automatically remove unused imports)
+- 📏 Over [800 built-in rules](https://docs.astral.sh/ruff/rules/), with native re-implementations
+    of popular Flake8 plugins, like flake8-bugbear
+- ⌨️ First-party [editor integrations](https://docs.astral.sh/ruff/editors) for [VS Code](https://github.com/astral-sh/ruff-vscode) and [more](https://docs.astral.sh/ruff/editors/setup)
+- 🌎 Monorepo-friendly, with [hierarchical and cascading configuration](https://docs.astral.sh/ruff/configuration/#config-file-discovery)
+
+Ruff aims to be orders of magnitude faster than alternative tools while integrating more
+functionality behind a single, common interface.
+
+Ruff can be used to replace [Flake8](https://pypi.org/project/flake8/) (plus dozens of plugins),
+[Black](https://github.com/psf/black), [isort](https://pypi.org/project/isort/),
+[pydocstyle](https://pypi.org/project/pydocstyle/), [pyupgrade](https://pypi.org/project/pyupgrade/),
+[autoflake](https://pypi.org/project/autoflake/), and more, all while executing tens or hundreds of
+times faster than any individual tool.
+
+Ruff is extremely actively developed and used in major open-source projects like:
+
+- [Apache Airflow](https://github.com/apache/airflow)
+- [Apache Superset](https://github.com/apache/superset)
+- [FastAPI](https://github.com/tiangolo/fastapi)
+- [Hugging Face](https://github.com/huggingface/transformers)
+- [Pandas](https://github.com/pandas-dev/pandas)
+- [SciPy](https://github.com/scipy/scipy)
+
+...and [many more](#whos-using-ruff).
+
+Ruff is backed by [Astral](https://astral.sh), the creators of
+[uv](https://github.com/astral-sh/uv) and [ty](https://github.com/astral-sh/ty).
+
+Read the [launch
+post](https://astral.sh/blog/announcing-astral-the-company-behind-ruff), or the
+original [project
+announcement](https://notes.crmarsh.com/python-tooling-could-be-much-much-faster).
+
+## Testimonials
+
+[**Sebastián Ramírez**](https://twitter.com/tiangolo/status/1591912354882764802), creator
+of [FastAPI](https://github.com/tiangolo/fastapi):
+
+> Ruff is so fast that sometimes I add an intentional bug in the code just to confirm it's actually
+> running and checking the code.
+
+[**Nick Schrock**](https://twitter.com/schrockn/status/1612615862904827904), founder of [Elementl](https://www.elementl.com/),
+co-creator of [GraphQL](https://graphql.org/):
+
+> Why is Ruff a gamechanger? Primarily because it is nearly 1000x faster. Literally. Not a typo. On
+> our largest module (dagster itself, 250k LOC) pylint takes about 2.5 minutes, parallelized across 4
+> cores on my M1. Running ruff against our _entire_ codebase takes .4 seconds.
+
+[**Bryan Van de Ven**](https://github.com/bokeh/bokeh/pull/12605), co-creator
+of [Bokeh](https://github.com/bokeh/bokeh/), original author
+of [Conda](https://docs.conda.io/en/latest/):
+
+> Ruff is ~150-200x faster than flake8 on my machine, scanning the whole repo takes ~0.2s instead of
+> ~20s. This is an enormous quality of life improvement for local dev. It's fast enough that I added
+> it 
+... [TRUNCATED]
+
+--- PACKAGE MANIFEST(S) ---
+
+[pyproject.toml]
+[build-system]
+requires = ["maturin>=1.9,<2.0"]
+build-backend = "maturin"
+
+[project]
+name = "ruff"
+version = "0.15.5"
+description = "An extremely fast Python linter and code formatter, written in Rust."
+authors = [{ name = "Astral Software Inc.", email = "hey@astral.sh" }]
+readme = "README.md"
+requires-python = ">=3.7"
+license = { file = "LICENSE" }
+keywords = [
+    "automation",
+    "flake8",
+    "pycodestyle",
+    "pyflakes",
+    "pylint",
+    "clippy",
+]
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "Environment :: Console",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",  # for compatibility with tooling such as pip-licenses
+    "Operating System :: OS Independent",
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3.7",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: 3.14",
+    "Programming Language :: Python :: 3 :: Only",
+    "Programming Language :: Rust",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+    "Topic :: Software Development :: Quality Assurance",
+]
+
+[project.urls]
+Repository = "https://github.com/astral-sh/ruff"
+Documentation = "https://docs.astral.sh/ruff/"
+Changelog = "https://github.com/astral-sh/ruff/blob/main/CHANGELOG.md"
+
+[tool.maturin]
+bindings = "bin"
+manifest-path = "crates/ruff/Cargo.toml"
+module-name = "ruff"
+python-source = "python"
+strip = true
+exclude = [
+    "crates/ruff_linter/resources/test/fixtures/**/*",
+    "crates/ruff_linter/src/rules/*/snapshots/**/*"
+]
+
+[tool.ruff]
+target-version = "py38"
+extend-exclude = [
+    "crates/ty_vendored/vendor/",
+    "crates/ruff/resources/",
+    "crates/ruff_linter/resources/",
+    "crates/ruff_python_formatter/resources/",
+    "crates/ruff_python_parser/resources/",
+    "crates/ruff_python_semantic/resources/"
+]
+
+[tool.ruff.lint]
+select = [
+    "E", # pycodestyle (error)
+    "F", # pyflakes
+    "B", # bugbear
+    "B9",
+    "C4", # flake8-comprehensions
+    "SIM", # flake8-simplify
+    "I", # isort
+    "UP", # pyupgrade
+    "PIE", # flake8-pie
+    "PGH", # pygrep-hooks
+    "PYI", # flake8-pyi
+    "RUF",
+]
+
+ignore = [
+    # only relevant if you run a script with `python -0`,
+    # which seems unlikely for any of the scripts in this repo
+    "B011",
+    # Leave it to the formatter to split long lines and
+    # the judgement of all of us.
+    "E501"
+]
+
+[tool.ruff.lint.isort]
+required-imports = ["from __future__ import annotations"]
+combine-as-imports = true
+
+[tool.ruff.per-file-target-version]
+"crates/ty_python_semantic/mdtest.py" = "py310"
+"crates/ty_vendored/ty_extensions/ty_extensions.pyi" = "py312"
+
+[tool.black]
+force-exclude = '''
+/(
+  | crates/ty_vendored/vendor
+  | crates/ruff_linter/resources
+  | cra
+... [TRUNCATED]
+
+[Cargo.toml]
+[workspace]
+members = ["crates/*"]
+resolver = "2"
+
+[workspace.package]
+# Please update rustfmt.toml when bumping the Rust edition
+edition = "2024"
+rust-version = "1.91"
+homepage = "https://docs.astral.sh/ruff"
+documentation = "https://docs.astral.sh/ruff"
+repository = "https://github.com/astral-sh/ruff"
+authors = ["Charlie Marsh <charlie.r.marsh@gmail.com>"]
+license = "MIT"
+
+[workspace.dependencies]
+ruff = { path = "crates/ruff" }
+ruff_annotate_snippets = { path = "crates/ruff_annotate_snippets" }
+ruff_cache = { path = "crates/ruff_cache" }
+ruff_db = { path = "crates/ruff_db", default-features = false }
+ruff_diagnostics = { path = "crates/ruff_diagnostics" }
+ruff_formatter = { path = "crates/ruff_formatter" }
+ruff_graph = { path = "crates/ruff_graph" }
+ruff_index = { path = "crates/ruff_index" }
+ruff_linter = { path = "crates/ruff_linter" }
+ruff_macros = { path = "crates/ruff_macros" }
+ruff_markdown = { path = "crates/ruff_markdown" }
+ruff_memory_usage = { path = "crates/ruff_memory_usage" }
+ruff_notebook = { path = "crates/ruff_notebook" }
+ruff_options_metadata = { path = "crates/ruff_options_metadata" }
+ruff_python_ast = { path = "crates/ruff_python_ast" }
+ruff_python_codegen = { path = "crates/ruff_python_codegen" }
+ruff_python_formatter = { path = "crates/ruff_python_formatter" }
+ruff_python_importer = { path = "crates/ruff_python_importer" }
+ruff_python_index = { path = "crates/ruff_python_index" }
+ruff_python_literal = { path = "crates/ruff_python_literal" }
+ruff_python_parser = { path = "crates/ruff_python_parser" }
+ruff_python_semantic = { path = "crates/ruff_python_semantic" }
+ruff_python_stdlib = { path = "crates/ruff_python_stdlib" }
+ruff_python_trivia = { path = "crates/ruff_python_trivia" }
+ruff_server = { path = "crates/ruff_server" }
+ruff_source_file = { path = "crates/ruff_source_file" }
+ruff_text_size = { path = "crates/ruff_text_size" }
+ruff_workspace = { path = "crates/ruff_workspace" }
+
+ty = { path = "crates/ty" }
+ty_combine = { path = "crates/ty_combine" }
+ty_completion_bench = { path = "crates/ty_completion_bench" }
+ty_completion_eval = { path = "crates/ty_completion_eval" }
+ty_ide = { path = "crates/ty_ide" }
+ty_module_resolver = { path = "crates/ty_module_resolver" }
+ty_project = { path = "crates/ty_project", default-features = false }
+ty_python_semantic = { path = "crates/ty_python_semantic" }
+ty_server = { path = "crates/ty_server" }
+ty_site_packages = { path = "crates/ty_site_packages" }
+ty_static = { path = "crates/ty_static" }
+ty_test = { path = "crates/ty_test" }
+ty_vendored = { path = "crates/ty_vendored" }
+
+aho-corasick = { version = "1.1.3" }
+anstream = { version = "1.0.0" }
+anstyle = { version = "1.0.10" }
+anyhow = { version = "1.0.80" }
+arc-swap = { version = "1.7.1" }
+argfile = { version = "1.0.0" }
+assert_fs = { version = "1.1.0" }
+bincode = { version = "2.0.0" }
+bitflags = { version = "2.5.0" }
+bitvec = { version = "1.0.1", default-features = false, features = [
+    "alloc",
+] }
+bstr = { version = "1.9.1" }
+c
+... [TRUNCATED]
+
+--- CLI ENTRY POINTS / COMMAND DEFINITIONS ---
+
+[crates/ruff_linter/resources/test/fixtures/pylint/import_private_name/submodule/__main__.py]
+# Errors.
+from _a import b
+from c._d import e
+from _f.g import h
+from i import _j
+from k import _l as m
+import _aaa
+import bbb.ccc._ddd as eee  # Panicked in https://github.com/astral-sh/ruff/pull/5920
+
+# Non-errors.
+import n
+import o as _p
+from q import r
+from s import t as _v
+from w.x import y
+from z.aa import bb as _cc
+from .dd import _ee  # Relative import.
+from .ff._gg import hh  # Relative import.
+from ._ii.jj import kk  # Relative import.
+from __future__ import annotations  # __future__ is a special case.
+from __main__ import main  # __main__ is a special case.
+from ll import __version__  # __version__ is a special case.
+from import_private_name import _top_level_secret  # Can import from self.
+from import_private_name.submodule import _submodule_secret  # Can import from self.
+from import_private_name.submodule.subsubmodule import (
+    _subsubmodule_secret,
+)  # Can import from self.
+
+# Non-errors (used for type annotations).
+from mm import _nn
+from oo import _pp as qq
+from _rr import ss
+from tt._uu import vv
+from _ww.xx import yy as zz
+import _ddd as ddd
+
+some_variable: _nn = None
+
+def func(arg: qq) -> ss:
+    pass
+
+class Class:
+    lst: list[ddd]
+
+    def __init__(self, arg: vv) -> "zz":
+        pass
+
+from foo.    _bar import baz
+
+
+[python/ruff-ecosystem/ruff_ecosystem/__main__.py]
+"""
+Enables usage with `python -m ruff_ecosystem`
+"""
+
+import ruff_ecosystem.cli
+
+if __name__ == "__main__":
+    ruff_ecosystem.cli.entrypoint()
+
+
+[python/ruff/__main__.py]
+from __future__ import annotations
+
+import os
+import sys
+
+from ruff import find_ruff_bin
+
+
+def _run() -> None:
+    ruff = find_ruff_bin()
+
+    if sys.platform == "win32":
+        import subprocess
+
+        # Avoid emitting a traceback on interrupt
+        try:
+            completed_process = subprocess.run([ruff, *sys.argv[1:]])
+        except KeyboardInterrupt:
+            sys.exit(2)
+
+        sys.exit(completed_process.returncode)
+    else:
+        os.execvp(ruff, [ruff, *sys.argv[1:]])
+
+
+if __name__ == "__main__":
+    _run()
+
+
+--- SHELL COMPLETIONS & MAN PAGES ---
+  crates/ruff/src/commands/completions/config.rs
+  crates/ruff/src/commands/completions/mod.rs
+  crates/ty_completion_eval/truth/class-arg-completion/completion.toml
+  crates/ty_completion_eval/truth/class-arg-completion/main.py
+  crates/ty_completion_eval/truth/class-arg-completion/pyproject.toml
+  crates/ty_completion_eval/truth/class-arg-completion/uv.lock
+  crates/ty_completion_eval/truth/fstring-completions/completion.toml
+  crates/ty_completion_eval/truth/fstring-completions/main.py
+  crates/ty_completion_eval/truth/fstring-completions/pyproject.toml
+  crates/ty_completion_eval/truth/fstring-completions/uv.lock
+  crates/ty_completion_eval/truth/import-keyword-completion/completion.toml
+  crates/ty_completion_eval/truth/import-keyword-completion/main.py
+  crates/ty_completion_eval/truth/import-keyword-completion/pyproject.toml
+  crates/ty_completion_eval/truth/import-keyword-completion/uv.lock
+  crates/ty_completion_eval/truth/none-completion/completion.toml
+  crates/ty_completion_eval/truth/none-completion/main.py
+  crates/ty_completion_eval/truth/none-completion/pyproject.toml
+  crates/ty_completion_eval/truth/none-completion/uv.lock
+  crates/ty_completion_eval/truth/pass-keyword-completion/completion.toml
+  crates/ty_completion_eval/truth/pass-keyword-completion/main.py
+  crates/ty_completion_eval/truth/pass-keyword-completion/pyproject.toml
+  crates/ty_completion_eval/truth/pass-keyword-completion/uv.lock
+  crates/ty_completion_eval/truth/tstring-completions/completion.toml
+  crates/ty_completion_eval/truth/tstring-completions/main.py
+  crates/ty_completion_eval/truth/tstring-completions/pyproject.toml
+  crates/ty_completion_eval/truth/tstring-completions/uv.lock
+
+--- DIRECTORY STRUCTURE (depth 2) ---
+├── .cargo/
+│   └── config.toml
+├── .claude/
+│   ├── hooks/
+│   │   ├── session-start-web.sh
+│   │   └── session-start.sh
+│   └── settings.json
+├── .config/
+│   └── nextest.toml
+├── .devcontainer/
+│   ├── devcontainer.json
+│   └── post-create.sh
+├── .editorconfig
+├── .gitattributes
+├── .github/
+│   ├── CODEOWNERS
+│   ├── ISSUE_TEMPLATE/
+│   │   ├── 1_bug_report.yaml
+│   │   ├── 2_rule_request.yaml
+│   │   ├── 3_question.yaml
+│   │   └── config.yml
+│   ├── PULL_REQUEST_TEMPLATE.md
+│   ├── actionlint.yaml
+│   ├── mypy-primer-ty.toml
+│   ├── pr-assignee-pools.toml
+│   ├── renovate.json5
+│   └── workflows/
+│       ├── build-binaries.yml
+│       ├── build-docker.yml
+│       ├── build-wasm.yml
+│       ├── ci.yaml
+│       ├── daily_fuzz.yaml
+│       ├── memory_report.yaml
+│       ├── mypy_primer.yaml
+│       ├── notify-dependents.yml
+│       ├── publish-docs.yml
+│       ├── publish-mirror.yml
+│       ├── publish-playground.yml
+│       ├── publish-pypi.yml
+│       ├── publish-ty-playground.yml
+│       ├── publish-versions.yml
+│       ├── publish-wasm.yml
+│       ├── release.yml
+│       ├── sync_typeshed.yaml
+│       ├── ty-ecosystem-analyzer.yaml
+│       ├── ty-ecosystem-report.yaml
+│       └── typing_conformance.yaml
+├── .gitignore
+├── .ignore
+├── .markdownlint.yaml
+├── .pre-commit-config.yaml
+├── .prettierignore
+├── .vscode/
+│   ├── extensions.json
+│   └── settings.json
+├── BREAKING_CHANGES.md
+├── CHANGELOG.md
+├── CLAUDE.md
+├── CODE_OF_CONDUCT.md
+├── CONTRIBUTING.md
+├── Cargo.lock
+├── Cargo.toml
+├── Dockerfile
+├── LICENSE
+├── README.md
+├── SECURITY.md
+├── _typos.toml
+├── assets/
+│   ├── badge/
+│   │   ├── format.json
+│   │   ├── v0.json
+│   │   ├── v1.json
+│   │   └── v2.json
+│   ├── png/
+│   │   └── Astral.png
+│   └── svg/
+│       └── Astral.svg
+├── changelogs/
+│   ├── 0.1.x.md
+│   ├── 0.10.x.md
+│   ├── 0.11.x.md
+│   ├── 0.12.x.md
+│   ├── 0.13.x.md
+│   ├── 0.14.x.md
+│   ├── 0.2.x.md
+│   ├── 0.3.x.md
+│   ├── 0.4.x.md
+│   ├── 0.5.x.md
+│   ├── 0.6.x.md
+│   ├── 0.7.x.md
+│   ├── 0.8.x.md
+│   └── 0.9.x.md
+├── clippy.toml
+├── crates/
+│   ├── ruff/
+│   │   ├── Cargo.toml
+│   │   ├── build.rs
+│   │   ├── resources/
+│   │   ├── src/
+│   │   └── tests/
+│   ├── ruff_annotate_snippets/
+│   │   ├── Cargo.toml
+│   │   ├── LICENSE-APACHE
+│   │   ├── LICENSE-MIT
+│   │   ├── README.md
+│   │   ├── examples/
+│   │   ├── src/
+│   │   └── tests/
+│   ├── ruff_benchmark/
+│   │   ├── Cargo.toml
+│   │   ├── README.md
+│   │   ├── benches/
+│   │   ├── resources/
+│   │   └── src/
+│   ├── ruff_cache/
+│   │   ├── Cargo.toml
+│   │   ├── src/
+│   │   └── tests/
+│   ├── ruff_db/
+│   │   ├── Cargo.toml
+│   │   └── src/
+│   ├── ruff_dev/
+│   │   ├── Cargo.toml
+│   │   └── src/
+│   ├── ruff_diagnostics/
+│   │   ├── Cargo.toml
+│   │   └── src/
+│   ├── ruff_formatter/
+│   │   ├── Cargo.toml
+│   │   ├── shared_traits.rs
+│   │   └── src/
+│   ├── ruff_graph/
+│   │   ├── Cargo.toml
+│   │   └── src/
+│   ├── ruff_index/
+│   │   ├── Cargo.toml
+│   │   └── src/
+│   ├── ruff_linter/
+│   │   ├── Cargo.toml
+│   │   ├── resources/
+│   │   └── src/
+│   ├── ruff_macros/
+│   │   ├── Cargo.toml
+│   │   └── src/
+│   ├── ruff_markdown/
+│   │   ├── Cargo.toml
+│   │   └── src/
+│   ├── ruff_memory_usage/
+│   │   ├── Cargo.toml
+│   │   └── src/
+│   ├── ruff_notebook/
+│   │   ├── Cargo.toml
+│   │   ├── resources/
+│   │   └── src/
+│   ├── ruff_options_metadata/
+│   │   ├── Cargo.toml
+│   │   └── src/
+│   ├── ruff_python_ast/
+│   │   ├── Cargo.toml
+│   │   ├── ast.toml
+│   │   ├── generate.py
+│   │   └── src/
+│   ├── ruff_python_ast_integration_tests/
+│   │   ├── Cargo.toml
+│   │   ├── README.md
+│   │   ├── src/
+│   │   └── tests/
+│   ├── ruff_python_codegen/
+│   │   ├── Cargo.toml
+│   │   └── src/
+│   ├── ruff_python_formatter/
+│   │   ├── CONTRIBUTING.md
+│   │   ├── Cargo.toml
+│   │   ├── README.md
+│   │   ├── generate.py
+│   │   ├── orphan_rules_in_the_formatter.svg
+│   │   ├── resources/
+│   │   ├── src/
+│   │   └── tests/
+│   ├── ruff_python_importer/
+│   │   ├── Cargo.toml
+│   │   └── src/
+│   ├── ruff_python_index/
+│   │   ├── Cargo.toml
+│   │   └── src/
+│   ├── ruff_python_literal/
+│   │   ├── Cargo.toml
+│   │   └── src/
+│   ├── ruff_python_parser/
+│   │   ├── CONTRIBUTING.md
+│   │   ├── Cargo.toml
+│   │   ├── README.md
+│   │   ├── resources/
+│   │   ├── src/
+│   │   └── tests/
+│   ├── ruff_python_semantic/
+│   │   ├── Cargo.toml
+│   │   ├── resources/
+│   │   └── src/
+│   ├── ruff_python_stdlib/
+│   │   ├── Cargo.toml
+│   │   └── src/
+│   ├── ruff_python_trivia/
+│   │   ├── Cargo.toml
+│   │   └── src/
+│   ├── ruff_python_trivia_integration_tests/
+│   │   ├── Cargo.toml
+│   │   ├── README.md
+│   │   ├── src/
+│   │   └── tests/
+│   ├── ruff_server/
+│   │   ├── CONTRIBUTING.md
+│   │   ├── Cargo.toml
+│   │   ├── README.md
+│   │   ├── assets/
+│   │   ├── docs/
+│   │   ├── resources/
+│   │   ├── src/
+│   │   └── tests/
+│   ├── ruff_source_file/
+│   │   ├── Cargo.toml
+│   │   └── src/
+│   ├── ruff_text_size/
+│   │   ├── Cargo.toml
+│   │   ├── src/
+│   │   └── tests/
+│   ├── ruff_wasm/
+│   │   ├── Cargo.toml
+│   │   ├── README.md
+│   │   ├── src/
+│   │   └── tests/
+│   ├── ruff_workspace/
+│   │   ├── Cargo.toml
+│   │   └── src/
+│   ├── ty/
+│   │   ├── CONTRIBUTING.md
+│   │   ├── Cargo.toml
+│   │   ├── README.md
+│   │   ├── build.rs
+│   │   ├── docs/
+│   │   ├── src/
+│   │   └── tests/
+│   ├── ty_combine/
+│   │   ├── Cargo.toml
+│   │   └── src/
+│   ├── ty_completion_bench/
+│   │   ├── Cargo.toml
+│   │   ├── README.md
+│   │   └── src/
+│   ├── ty_completion_eval/
+│   │   ├── Cargo.toml
+│   │   ├── README.md
+│   │   ├── completion-evaluation-tasks.csv
+│   │   ├── src/
+│   │   └── truth/
+│   ├── ty_ide/
+│   │   ├── Cargo.toml
+│   │   └── src/
+│   ├── ty_module_resolver/
+│   │   ├── Cargo.toml
+│   │   ├── import-resolution-diagram.dot
+│   │   ├── import-resolution-diagram.svg
+│   │   └── src/
+│   ├── ty_project/
+│   │   ├── Cargo.toml
+│   │   └── src/
+│   ├── ty_python_semantic/
+│   │   ├── Cargo.toml
+│   │   ├── mdtest.py
+│   │   ├── mdtest.py.lock
+│   │   ├── resources/
+│   │   ├── src/
+│   │   └── tests/
+│   ├── ty_server/
+│   │   ├── Cargo.toml
+│   │   ├── src/
+│   │   └── tests/
+│   ├── ty_site_packages/
+│   │   ├── Cargo.toml
+│   │   └── src/
+│   ├── ty_static/
+│   │   ├── Cargo.toml
+│   │   └── src/
+│   ├── ty_test/
+│   │   ├── Cargo.toml
+│   │   ├── README.md
+│   │   └── src/
+│   ├── ty_vendored/
+│   │   ├── .gitignore
+│   │   ├── Cargo.toml
+│   │   ├── README.md
+│   │   ├── build.rs
+│   │   ├── src/
+│   │   ├── ty_extensions/
+│   │   └── vendor/
+│   └── ty_wasm/
+│       ├── Cargo.toml
+│       ├── build.rs
+│       ├── src/
+│       └── tests/
+├── dist-workspace.toml
+├── docs/
+│   ├── .gitignore
+│   ├── .overrides/
+│   │   ├── main.html
+│   │   └── partials/
+│   ├── assets/
+│   │   ├── bolt.svg
+│   │   ├── favicon.ico
+│   │   └── ruff-favicon.png
+│   ├── configuration.md
+│   ├── editors/
+│   │   ├── features.md
+│   │   ├── index.md
+│   │   ├── migration.md
+│   │   ├── settings.md
+│   │   └── setup.md
+│   ├── faq.md
+│   ├── formatter.md
+│   ├── formatter/
+│   │   └── black.md
+│   ├── installation.md
+│   ├── integrations.md
+│   ├── js/
+│   │   └── extra.js
+│   ├── linter.md
+│   ├── preview.md
+│   ├── requirements.txt
+│   ├── stylesheets/
+│   │   └── extra.css
+│   ├── tutorial.md
+│   └── versioning.md
+├── fuzz/
+│   ├── .gitignore
+│   ├── Cargo.toml
+│   ├── README.md
+│   ├── fuzz_targets/
+│   │   ├── ruff_fix_validity.rs
+│   │   ├── ruff_formatter_idempotency.rs
+│   │   ├── ruff_formatter_validity.rs
+│   │   ├── ruff_parse_idempotency.rs
+│   │   ├── ruff_parse_simple.rs
+│   │   └── ty_check_invalid_syntax.rs
+│   └── init-fuzzer.sh
+├── mkdocs.template.yml
+├── mkdocs.yml
+├── playground/
+│   ├── .gitignore
+│   ├── .prettierignore
+│   ├── README.md
+│   ├── api/
+│   │   ├── .dev.vars
+│   │   ├── README.md
+│   │   ├── package-lock.json
+│   │   ├── package.json
+│   │   ├── src/
+│   │   ├── tsconfig.json
+│   │   └── wrangler.toml
+│   ├── eslint.config.mjs
+│   ├── package-lock.json
+│   ├── package.json
+│   ├── ruff/
+│   │   ├── index.html
+│   │   ├── package.json
+│   │   ├── public/
+│   │   ├── src/
+│   │   └── vite.config.ts
+│   ├── shared/
+│   │   ├── package.json
+│   │   └── src/
+│   ├── tsconfig.json
+│   ├── tsconfig.node.json
+│   └── ty/
+│       ├── index.html
+│       ├── package.json
+│       ├── public/
+│       ├── src/
+│       └── vite.config.ts
+├── pyproject.toml
+├── python/
+│   ├── py-fuzzer/
+│   │   ├── README.md
+│   │   ├── fuzz.py
+│   │   ├── pyproject.toml
+│   │   └── uv.lock
+│   ├── ruff-ecosystem/
+│   │   ├── README.md
+│   │   ├── pyproject.toml
+│   │   └── ruff_ecosystem/
+│   └── ruff/
+│       ├── __init__.py
+│       ├── __main__.py
+│       └── _find_ruff.py
+├── ruff.schema.json
+├── rust-toolchain.toml
+├── rustfmt.toml
+├── scripts/
+│   ├── Dockerfile.ecosystem
+│   ├── _utils.py
+│   ├── add_plugin.py
+│   ├── add_rule.py
+│   ├── benchmarks/
+│   │   ├── README.md
+│   │   ├── dark.svg
+│   │   ├── graph-spec.json
+│   │   ├── light.svg
+│   │   ├── pyproject.toml
+│   │   ├── run.sh
+│   │   ├── run_all.sh
+│   │   ├── run_comparisons.sh
+│   │   ├── run_formatter.sh
+│   │   ├── run_plugins.sh
+│   │   ├── run_silent.sh
+│   │   ├── setup.sh
+│   │   └── uv.lock
+│   ├── check_docs_formatted.py
+│   ├── check_ecosystem.py
+│   ├── codemod_docstrings.sh
+│   ├── conformance.py
+│   ├── ecosystem_all_check.py
+│   ├── ecosystem_all_check.sh
+│   ├── ecosystem_all_check_entrypoint.sh
+│   ├── formatter_ecosystem_checks.sh
+│   ├── generate_builtin_modules.py
+│   ├── generate_known_standard_library.py
+│   ├── generate_mkdocs.py
+│   ├── memory_report.py
+│   ├── mypy_primer.sh
+│   ├── pyproject.toml
+│   ├── release.sh
+│   ├── release/
+│   │   └── bump.sh
+│   ├── setup_primer_project.py
+│   ├── transform_readme.py
+│   ├── ty_benchmark/
+│   │   ├── .gitignore
+│   │   ├── README.md
+│   │   ├── package-lock.json
+│   │   ├── package.json
+│   │   ├── pyproject.toml
+│   │   ├── snapshots/
+│   │   ├── src/
+│   │   └── uv.lock
+│   ├── update_ambiguous_characters.py
+│   └── update_schemastore.py
+└── ty.schema.json

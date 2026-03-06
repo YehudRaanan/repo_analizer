@@ -1,0 +1,299 @@
+=====================================
+Repository Analysis: chalk
+Type: Library / Package / SDK
+=====================================
+
+--- METADATA ---
+Name: chalk
+Description: 🖍 Terminal string styling done right
+Language: JavaScript
+Topics: ansi, ansi-escape-codes, chalk, cli, color, commandline, console, javascript, strip-ansi, terminal, terminal-emulators
+Stars: 23018
+License: MIT License
+
+--- README ---
+<h1 align="center">
+	<br>
+	<br>
+	<img width="320" src="media/logo.svg" alt="Chalk">
+	<br>
+	<br>
+	<br>
+</h1>
+
+> Terminal string styling done right
+
+[![Coverage Status](https://codecov.io/gh/chalk/chalk/branch/main/graph/badge.svg)](https://codecov.io/gh/chalk/chalk)
+[![npm dependents](https://badgen.net/npm/dependents/chalk)](https://www.npmjs.com/package/chalk?activeTab=dependents)
+[![Downloads](https://badgen.net/npm/dt/chalk)](https://www.npmjs.com/package/chalk)
+
+![](media/screenshot.png)
+
+## Info
+
+- [Why not switch to a smaller coloring package?](https://github.com/chalk/chalk?tab=readme-ov-file#why-not-switch-to-a-smaller-coloring-package)
+- See [yoctocolors](https://github.com/sindresorhus/yoctocolors) for a smaller alternative
+
+## Highlights
+
+- Expressive API
+- Highly performant
+- No dependencies
+- Ability to nest styles
+- [256/Truecolor color support](#256-and-truecolor-color-support)
+- Auto-detects color support
+- Doesn't extend `String.prototype`
+- Clean and focused
+- Actively maintained
+- [Used by ~115,000 packages](https://www.npmjs.com/browse/depended/chalk) as of July 4, 2024
+
+## Install
+
+```sh
+npm install chalk
+```
+
+**IMPORTANT:** Chalk 5 is ESM. If you want to use Chalk with TypeScript or a build tool, you will probably want to use Chalk 4 for now. [Read more.](https://github.com/chalk/chalk/releases/tag/v5.0.0)
+
+## Usage
+
+```js
+import chalk from 'chalk';
+
+console.log(chalk.blue('Hello world!'));
+```
+
+Chalk comes with an easy to use composable API where you just chain and nest the styles you want.
+
+```js
+import chalk from 'chalk';
+
+const log = console.log;
+
+// Combine styled and normal strings
+log(chalk.blue('Hello') + ' World' + chalk.red('!'));
+
+// Compose multiple styles using the chainable API
+log(chalk.blue.bgRed.bold('Hello world!'));
+
+// Pass in multiple arguments
+log(chalk.blue('Hello', 'World!', 'Foo', 'bar', 'biz', 'baz'));
+
+// Nest styles
+log(chalk.red('Hello', chalk.underline.bgBlue('world') + '!'));
+
+// Nest styles of the same type even (color, underline, background)
+log(chalk.green(
+	'I am a green line ' +
+	chalk.blue.underline.bold('with a blue substring') +
+	' that becomes green again!'
+));
+
+// ES2015 template literal
+log(`
+CPU: ${chalk.red('90%')}
+RAM: ${chalk.green('40%')}
+DISK: ${chalk.yellow('70%')}
+`);
+
+// Use RGB colors in terminal emulators that support it.
+log(chalk.rgb(123, 45, 67).underline('Underlined reddish color'));
+log(chalk.hex('#DEADED').bold('Bold gray!'));
+```
+
+Easily define your own themes:
+
+```js
+import chalk from 'chalk';
+
+const error = chalk.bold.red;
+const warning = chalk.hex('#FFA500'); // Orange color
+
+console.log(error('Error!'));
+console.log(warning('Warning!'));
+```
+
+Take advantage of console.log [string substitution](https://nodejs.org/docs/latest/api/console.html#console_console_log_data_args):
+
+```js
+import chalk from 'chalk';
+
+const name = 'Sindre';
+console.log(chalk.green('Hello %s'), name);
+//=> 'Hello Sindre'
+```
+
+## API
+
+### chalk.`<style>[.<style>...](string, [string...])`
+
+Example: `chalk.red.bold.underline('Hello', 'world');`
+
+Chain [styles](#styles) and call the last one as a method with a string argument. Order doesn't matter, and later styles take precedent in case of a conflict. This simply means that `chalk.red.yellow.green` is equivalent to `chalk.green`.
+
+Multiple arguments will be separated by space.
+
+### chalk.level
+
+Specifies the level of color support.
+
+Color support is automatically detected, but you can override it by setting the `level` property. You should however only do this in your own code as it applies globally to all Chalk consumers.
+
+If you need to change this in a reusable module, create a new instance:
+
+```js
+import {Chalk} from 'chalk';
+
+const customChalk = new Chalk({level: 0});
+```
+
+| Level | Description |
+| :---: | :--- |
+| `0` | All colors disabled |
+| `1` | Basic color support (16 colors) |
+| `2` | 256 color support |
+| `3` | Truecolor support (16 million colors) |
+
+### supportsColor
+
+Detect whether the terminal [supports color](https://github.com/chalk/supports-color). Used internally and handled for you, but exposed for convenience.
+
+Can be overridden by the user with the flags `--color` and `--no-color`. For situations where using `--color` is not possible, use the environment variable `FORCE_COLOR=1` (level 1), `FORCE_COLOR=2` (level 2), or `FORCE_COLOR=3` (level 3) to forcefully enable color, or `FORCE_COLOR=0` to forcefully disable. The use of `FORCE_COLOR` overrides all other color support checks.
+
+Explicit 256/Truecolor mode can be enabled using the `--color=256` and `--color=16m` flags, respectively.
+
+### chalkStderr and supportsColorStderr
+
+`chalkStderr` contains a separate instance configured with color support detected for `stderr` stream instead of `stdout`. Override rules from `supportsColor` apply to this too. `supportsColorStderr` is exposed for convenience.
+
+### modifierNames, foregroundColorNames, backgroundColorNames, and colorNames
+
+All supported style strings are exposed as an array of 
+... [TRUNCATED]
+
+--- PACKAGE MANIFEST(S) ---
+
+[package.json]
+{
+	"name": "chalk",
+	"version": "5.6.2",
+	"description": "Terminal string styling done right",
+	"license": "MIT",
+	"repository": "chalk/chalk",
+	"funding": "https://github.com/chalk/chalk?sponsor=1",
+	"type": "module",
+	"main": "./source/index.js",
+	"exports": "./source/index.js",
+	"imports": {
+		"#ansi-styles": "./source/vendor/ansi-styles/index.js",
+		"#supports-color": {
+			"node": "./source/vendor/supports-color/index.js",
+			"default": "./source/vendor/supports-color/browser.js"
+		}
+	},
+	"types": "./source/index.d.ts",
+	"sideEffects": false,
+	"engines": {
+		"node": "^12.17.0 || ^14.13 || >=16.0.0"
+	},
+	"scripts": {
+		"test": "xo && c8 ava && tsd",
+		"bench": "matcha benchmark.js"
+	},
+	"files": [
+		"source",
+		"!source/index.test-d.ts"
+	],
+	"keywords": [
+		"color",
+		"colour",
+		"colors",
+		"terminal",
+		"console",
+		"cli",
+		"string",
+		"ansi",
+		"style",
+		"styles",
+		"tty",
+		"formatting",
+		"rgb",
+		"256",
+		"shell",
+		"xterm",
+		"log",
+		"logging",
+		"command-line",
+		"text"
+	],
+	"devDependencies": {
+		"@types/node": "^16.11.10",
+		"ava": "^3.15.0",
+		"c8": "^7.10.0",
+		"color-convert": "^2.0.1",
+		"execa": "^6.0.0",
+		"log-update": "^5.0.0",
+		"matcha": "^0.7.0",
+		"tsd": "^0.19.0",
+		"xo": "^0.57.0",
+		"yoctodelay": "^2.0.0"
+	},
+	"xo": {
+		"rules": {
+			"unicorn/prefer-string-slice": "off",
+			"@typescript-eslint/consistent-type-imports": "off",
+			"@typescript-eslint/consistent-type-exports": "off",
+			"@typescript-eslint/consistent-type-definitions": "off",
+			"unicorn/expiring-todo-comments": "off"
+		}
+	},
+	"c8": {
+		"reporter": [
+			"text",
+			"lcov"
+		],
+		"exclude": [
+			"source/vendor"
+		]
+	}
+}
+
+
+--- DIRECTORY STRUCTURE (depth 2) ---
+├── .editorconfig
+├── .gitattributes
+├── .github/
+│   ├── funding.yml
+│   ├── security.md
+│   └── workflows/
+│       └── main.yml
+├── .gitignore
+├── .npmrc
+├── benchmark.js
+├── code-of-conduct.md
+├── contributing.md
+├── examples/
+│   ├── rainbow.js
+│   └── screenshot.js
+├── license
+├── media/
+│   ├── logo.png
+│   ├── logo.svg
+│   └── screenshot.png
+├── package.json
+├── readme.md
+├── source/
+│   ├── index.d.ts
+│   ├── index.js
+│   ├── index.test-d.ts
+│   ├── utilities.js
+│   └── vendor/
+│       ├── ansi-styles/
+│       └── supports-color/
+└── test/
+    ├── _fixture.js
+    ├── chalk.js
+    ├── instance.js
+    ├── level.js
+    ├── no-color-support.js
+    └── visible.js

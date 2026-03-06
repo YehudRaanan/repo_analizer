@@ -1,0 +1,636 @@
+=====================================
+Repository Analysis: keras
+Type: Data / ML / AI Project
+=====================================
+
+--- METADATA ---
+Name: keras
+Description: Deep Learning for humans
+Language: Python
+Topics: data-science, deep-learning, jax, machine-learning, neural-networks, python, pytorch, tensorflow
+Stars: 63911
+License: Apache License 2.0
+
+--- README ---
+# Keras 3: Deep Learning for Humans
+
+Keras 3 is a multi-backend deep learning framework, with support for JAX, TensorFlow, PyTorch, and OpenVINO (for inference-only).
+Effortlessly build and train models for computer vision, natural language processing, audio processing,
+timeseries forecasting, recommender systems, etc.
+
+- **Accelerated model development**: Ship deep learning solutions faster thanks to the high-level UX of Keras
+and the availability of easy-to-debug runtimes like PyTorch or JAX eager execution.
+- **State-of-the-art performance**: By picking the backend that is the fastest for your model architecture (often JAX!),
+leverage speedups ranging from 20% to 350% compared to other frameworks. [Benchmark here](https://keras.io/getting_started/benchmarks/).
+- **Datacenter-scale training**: Scale confidently from your laptop to large clusters of GPUs or TPUs.
+
+Join nearly three million developers, from burgeoning startups to global enterprises, in harnessing the power of Keras 3.
+
+
+## Installation
+
+### Install with pip
+
+Keras 3 is available on PyPI as `keras`. Note that Keras 2 remains available as the `tf-keras` package.
+
+1. Install `keras`:
+
+```
+pip install keras --upgrade
+```
+
+2. Install backend package(s).
+
+To use `keras`, you should also install the backend of choice: `tensorflow`, `jax`, or `torch`. Additionally,
+The `openvino` backend is available with support for model inference only.
+
+### Local installation
+
+#### Minimal installation
+
+Keras 3 is compatible with Linux and macOS systems. For Windows users, we recommend using WSL2 to run Keras.
+To install a local development version:
+
+1. Install dependencies:
+
+```
+pip install -r requirements.txt
+```
+
+2. Run installation command from the root directory.
+
+```
+python pip_build.py --install
+```
+
+3. Run API generation script when creating PRs that update `keras_export` public APIs:
+
+```
+./shell/api_gen.sh
+```
+
+## Backend Compatibility Table
+
+The following table lists the minimum supported versions of each backend for the latest stable release of Keras (v3.x):
+
+| Backend    | Minimum Supported Version |
+|------------|---------------------------|
+| TensorFlow | 2.16.1                    |
+| JAX        | 0.4.20                    |
+| PyTorch    | 2.1.0                     |
+| OpenVINO   | 2025.3.0                  |
+
+#### Adding GPU support
+
+The `requirements.txt` file will install a CPU-only version of TensorFlow, JAX, and PyTorch. For GPU support, we also
+provide a separate `requirements-{backend}-cuda.txt` for TensorFlow, JAX, and PyTorch. These install all CUDA
+dependencies via `pip` and expect a NVIDIA driver to be pre-installed. We recommend a clean Python environment for each
+backend to avoid CUDA version mismatches. As an example, here is how to create a JAX GPU environment with `conda`:
+
+```shell
+conda create -y -n keras-jax python=3.10
+conda activate keras-jax
+pip install -r requirements-jax-cuda.txt
+python pip_build.py --install
+```
+
+## Configuring your backend
+
+You can export the environment variable `KERAS_BACKEND` or you can edit your local config file at `~/.keras/keras.json`
+to configure your backend. Available backend options are: `"tensorflow"`, `"jax"`, `"torch"`, `"openvino"`. Example:
+
+```
+export KERAS_BACKEND="jax"
+```
+
+In Colab, you can do:
+
+```python
+import os
+os.environ["KERAS_BACKEND"] = "jax"
+
+import keras
+```
+
+**Note:** The backend must be configured before importing `keras`, and the backend cannot be changed after
+the package has been imported.
+
+**Note:** The OpenVINO backend is an inference-only backend, meaning it is designed only for running model
+predictions using `model.predict()` method.
+
+## Backwards compatibility
+
+Keras 3 is intended to work as a drop-in replacement for `tf.keras` (when using the TensorFlow backend). Just take your
+existing `tf.keras` code, make sure that your calls to `model.save()` are using the up-to-date `.keras` format, and you're
+done.
+
+If your `tf.keras` model does not include custom components, you can start running it on top of JAX or PyTorch immediately.
+
+If it does include custom components (e.g. custom layers or a custom `train_step()`), it is usually possible to convert it
+to a backend-agnostic implementation in just a few minutes.
+
+In addition, Keras models can consume datasets in any format, regardless of the backend you're using:
+you can train your models with your existing `tf.data.Dataset` pipelines or PyTorch `DataLoaders`.
+
+## Why use Keras 3?
+
+- Run your high-level Keras workflows on top of any framework -- benefiting at will from the advantages of each framework,
+e.g. the scalability and performance of JAX or the production ecosystem options of TensorFlow.
+- Write custom components (e.g. layers, models, metrics) that you can use in low-level workflows in any framework.
+    - You can take a Keras model and train it in a training loop written from scratch in native TF, JAX, or PyTorch.
+    - You can take a Keras model and use it as part of a PyTorch-native `Module` or as part of a 
+... [TRUNCATED]
+
+--- PACKAGE MANIFEST(S) ---
+
+[pyproject.toml]
+[build-system]
+requires = ["setuptools >=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "keras"
+authors = [
+    {name = "Keras team", email = "keras-users@googlegroups.com"},
+]
+description = "Multi-backend Keras"
+readme = "README.md"
+requires-python = ">=3.11"
+license = {text = "Apache License 2.0"}
+dynamic = ["version"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3 :: Only",
+    "Operating System :: Unix",
+    "Operating System :: MacOS",
+    "Intended Audience :: Science/Research",
+    "Topic :: Scientific/Engineering",
+    "Topic :: Software Development",
+]
+dependencies = [
+    "absl-py",
+    "numpy",
+    "rich",
+    "namex",
+    "h5py",
+    "optree",
+    "ml-dtypes",
+    "packaging",
+]
+# Run also: pip install -r requirements.txt
+
+[project.urls]
+Home = "https://keras.io/"
+Repository = "https://github.com/keras-team/keras"
+
+[tool.setuptools.dynamic]
+version = {attr = "keras.src.version.__version__"}
+
+[tool.setuptools.package-dir]
+"" = "."
+"keras" = "keras/api"  # Remap api/ to the root of the package.
+"keras.src" = "keras/src"
+
+[tool.ruff]
+line-length = 80
+exclude = ["keras/src/namex"]
+
+[tool.ruff.lint]
+select = [
+    "E",  # pycodestyle error
+    "F",  # Pyflakes
+    "I",  # isort
+]
+ignore = [
+    "E722",  # do not use bare 'except'
+    "E741",  # ambiguous variable name
+    "E731",  # do not assign a `lambda` expression, use a `def`
+]
+
+[tool.ruff.lint.per-file-ignores]
+"**/__init__.py" = ["E501", "F401"]  # lines too long; imported but unused
+"**/random.py" = ["F401"]  # imported but unused
+"examples/*" = ["I", "E"]
+"guides/*" = ["I", "E", "F"]
+
+[tool.ruff.lint.isort]
+force-single-line = true
+known-first-party = ["keras"]
+
+[tool.pytest.ini_options]
+filterwarnings = [
+    "error",
+    "ignore::DeprecationWarning",
+    "ignore::ImportWarning",
+    "ignore::RuntimeWarning",
+    "ignore::PendingDeprecationWarning",
+    "ignore::FutureWarning",
+    "ignore::UserWarning",
+    # Ignore a spurious warning on tf-nightly related to save model changes.
+    "ignore:Custom mask layers require a config",
+]
+addopts = "-vv"
+
+# Do not run tests in the `build` folders
+norecursedirs = ["build"]
+
+[tool.coverage.report]
+exclude_lines = [
+    "pragma: no cover",
+    "@abstract",
+    "raise NotImplementedError",
+]
+omit = [
+    "*/*_test.py",
+    "keras/src/legacy/*",
+]
+
+[tool.coverage.run]
+branch = true
+omit = [
+    "*/*_test.py",
+    "keras/src/legacy/*",
+]
+
+
+
+[requirements.txt]
+# Tensorflow.
+# Note: when the version of Tensorflow is changed, the version tf_keras must be
+# changed in .github/workflows/actions.yml (pip install --no-deps tf_keras).
+tensorflow-cpu;sys_platform != 'darwin'
+tensorflow;sys_platform == 'darwin'
+tf2onnx
+# This is the only version which works with TF 2.20.0.
+# TODO(#21914): Update this version when TF is updated.
+ai-edge-litert>=1.3.0;sys_platform != 'win32'
+
+# Torch.
+--extra-index-url https://download.pytorch.org/whl/cpu
+torch
+torch-xla;sys_platform != 'darwin'
+
+# Jax.
+# Pinned to 0.8.0 on CPU for CI compatibility with older backends.
+# Note that we test against the latest JAX on GPU.
+jax[cpu]
+flax
+
+# Common deps.
+-r requirements-common.txt
+
+
+--- REQUIREMENTS FILES ---
+
+[requirements-common.txt]
+pre-commit
+namex>=0.0.8
+ruff
+pytest
+numpy
+scipy
+scikit-learn
+pillow
+pandas
+absl-py
+requests
+h5py
+ml-dtypes
+protobuf
+tensorboard-plugin-profile
+rich
+build
+optree
+pytest-cov
+packaging
+# for tree_test.py
+dm_tree
+coverage
+# for onnx_test.py
+onnxruntime
+# https://github.com/keras-team/keras/issues/21390
+# onnxscript==0.3.2 breaks LSTM model export.
+onnxscript!=0.3.2
+openvino
+grain
+# for orbax_checkpoint_test.py
+orbax-checkpoint
+orbax-export
+
+
+[requirements-jax-cuda.txt]
+# Tensorflow cpu-only version (needed for testing).
+tensorflow-cpu
+tf2onnx
+
+# Torch cpu-only version (needed for testing).
+--extra-index-url https://download.pytorch.org/whl/cpu
+torch
+
+# Jax with cuda support.
+--find-links https://storage.googleapis.com/jax-releases/jax_cuda_releases.html
+jax[cuda12]==0.6.2
+flax
+
+-r requirements-common.txt
+
+
+[requirements-jax-tpu.txt]
+# Tensorflow cpu-only version (needed for testing).
+tensorflow-cpu
+tf2onnx
+
+# Torch cpu-only version (needed for testing).
+--extra-index-url https://download.pytorch.org/whl/cpu
+torch
+
+# Jax with cuda support.
+--find-links https://storage.googleapis.com/jax-releases/libtpu_releases.html
+jax[tpu]
+flax
+
+-r requirements-common.txt
+
+
+[requirements-tensorflow-cuda.txt]
+# Tensorflow with cuda support.
+tensorflow[and-cuda]
+tf2onnx
+ai-edge-litert
+
+# Torch cpu-only version (needed for testing).
+--extra-index-url https://download.pytorch.org/whl/cpu
+torch
+
+# Jax cpu-only version (needed for testing).
+jax[cpu]
+
+-r requirements-common.txt
+
+
+[requirements-tensorflow-tpu.txt]
+# 2.19.1 is the last version of the TensorFlow that supports TPUs.
+--find-links https://storage.googleapis.com/libtpu-tf-releases/index.html
+tensorflow-tpu==2.19.1
+
+tf2onnx
+
+# Torch cpu-only version (needed for testing).
+--extra-index-url https://download.pytorch.org/whl/cpu
+torch
+
+# Jax cpu-only version (needed for testing).
+jax
+
+-r requirements-common.txt
+
+
+[requirements-torch-cuda.txt]
+# Tensorflow cpu-only version (needed for testing).
+tensorflow-cpu
+tf2onnx
+
+# Torch with cuda support.
+# - torch is pinned to a version that is compatible with torch-xla.
+--extra-index-url https://download.pytorch.org/whl/cu126
+torch
+torch-xla;sys_platform != 'darwin'
+
+# Jax cpu-only version (needed for testing).
+jax[cpu]
+
+-r requirements-common.txt
+
+
+[requirements.txt]
+# Tensorflow.
+# Note: when the version of Tensorflow is changed, the version tf_keras must be
+# changed in .github/workflows/actions.yml (pip install --no-deps tf_keras).
+tensorflow-cpu;sys_platform != 'darwin'
+tensorflow;sys_platform == 'darwin'
+tf2onnx
+# This is the only version which works with TF 2.20.0.
+# TODO(#21914): Update this version when TF is updated.
+ai-edge-litert>=1.3.0;sys_platform != 'win32'
+
+# Torch.
+--extra-index-url https://download.pytorch.org/whl/cpu
+torch
+torch-xla;sys_platform != 'darwin'
+
+# Jax.
+# Pinned to 0.8.0 on CPU for CI compatibility with older backends.
+# Note that we test against the latest JAX on GPU.
+jax[cpu]
+flax
+
+# Common deps.
+-r requirements-common.txt
+
+
+--- ML CONFIG FILES ---
+(No ML config files found)
+
+--- JUPYTER NOTEBOOKS ---
+(No notebooks found)
+
+--- MODEL / TRAINING FILES ---
+  benchmarks/torch_ctl_benchmark/conv_model_benchmark.py
+  benchmarks/torch_ctl_benchmark/dense_model_benchmark.py
+  guides/custom_train_step_in_jax.py
+  guides/custom_train_step_in_tensorflow.py
+  guides/custom_train_step_in_torch.py
+  guides/distributed_training_with_jax.py
+  guides/distributed_training_with_tensorflow.py
+  guides/distributed_training_with_torch.py
+  guides/sequential_model.py
+  guides/training_with_built_in_methods.py
+
+--- DIRECTORY STRUCTURE (depth 2) ---
+├── .devcontainer/
+│   ├── README.md
+│   ├── devcontainer.json
+│   └── setup.sh
+├── .gemini/
+│   └── styleguide.md
+├── .github/
+│   ├── dependabot.yml
+│   └── workflows/
+│       ├── actions.yml
+│       ├── auto-assignment.yaml
+│       ├── config/
+│       ├── labeler.yaml
+│       ├── nightly.yml
+│       ├── scorecard.yml
+│       ├── scripts/
+│       ├── stale-issue-pr.yaml
+│       └── tpu_tests.yml
+├── .gitignore
+├── .kokoro/
+│   ├── README.md
+│   └── github/
+│       └── ubuntu/
+├── .pre-commit-config.yaml
+├── CONTRIBUTING.md
+├── LICENSE
+├── README.md
+├── SECURITY.md
+├── api_gen.py
+├── benchmarks/
+│   ├── __init__.py
+│   ├── layer_benchmark/
+│   │   ├── README.md
+│   │   ├── __init__.py
+│   │   ├── activation_benchmark.py
+│   │   ├── attention_benchmark.py
+│   │   ├── base_benchmark.py
+│   │   ├── conv_benchmark.py
+│   │   ├── core_benchmark.py
+│   │   ├── merge_benchmark.py
+│   │   ├── normalization_benchmark.py
+│   │   ├── pooling_benchmark.py
+│   │   ├── random_rotation_benchmark.py
+│   │   ├── regularization_benchmark.py
+│   │   ├── reshaping_benchmark.py
+│   │   └── rnn_benchmark.py
+│   ├── model_benchmark/
+│   │   ├── __init__.py
+│   │   ├── benchmark_utils.py
+│   │   ├── bert_benchmark.py
+│   │   └── image_classification_benchmark.py
+│   └── torch_ctl_benchmark/
+│       ├── README.md
+│       ├── __init__.py
+│       ├── benchmark_utils.py
+│       ├── conv_model_benchmark.py
+│       └── dense_model_benchmark.py
+├── codecov.yml
+├── conftest.py
+├── examples/
+│   ├── demo_custom_jax_workflow.py
+│   ├── demo_custom_layer_backend_agnostic.py
+│   ├── demo_custom_tf_workflow.py
+│   ├── demo_custom_torch_workflow.py
+│   ├── demo_functional.py
+│   ├── demo_jax_distributed.py
+│   ├── demo_mnist_convnet.py
+│   ├── demo_subclass.py
+│   └── demo_torch_multi_gpu.py
+├── guides/
+│   ├── custom_train_step_in_jax.py
+│   ├── custom_train_step_in_tensorflow.py
+│   ├── custom_train_step_in_torch.py
+│   ├── distributed_training_with_jax.py
+│   ├── distributed_training_with_tensorflow.py
+│   ├── distributed_training_with_torch.py
+│   ├── functional_api.py
+│   ├── making_new_layers_and_models_via_subclassing.py
+│   ├── sequential_model.py
+│   ├── training_with_built_in_methods.py
+│   ├── transfer_learning.py
+│   ├── understanding_masking_and_padding.py
+│   ├── writing_a_custom_training_loop_in_jax.py
+│   ├── writing_a_custom_training_loop_in_tensorflow.py
+│   ├── writing_a_custom_training_loop_in_torch.py
+│   └── writing_your_own_callbacks.py
+├── integration_tests/
+│   ├── basic_full_flow.py
+│   ├── dataset_tests/
+│   │   ├── boston_housing_test.py
+│   │   ├── california_housing_test.py
+│   │   ├── cifar100_test.py
+│   │   ├── cifar10_test.py
+│   │   ├── fashion_mnist_test.py
+│   │   ├── imdb_test.py
+│   │   ├── mnist_test.py
+│   │   └── reuters_test.py
+│   ├── import_test.py
+│   ├── jax_custom_fit_test.py
+│   ├── model_visualization_test.py
+│   ├── numerical_test.py
+│   ├── pytorch_export_test.py
+│   ├── tf_custom_fit_test.py
+│   ├── tf_distribute_training_test.py
+│   ├── torch_custom_fit_test.py
+│   └── torch_workflow_test.py
+├── keras/
+│   ├── __init__.py
+│   ├── api/
+│   │   ├── __init__.py
+│   │   ├── _tf_keras/
+│   │   ├── activations/
+│   │   ├── applications/
+│   │   ├── backend/
+│   │   ├── callbacks/
+│   │   ├── config/
+│   │   ├── constraints/
+│   │   ├── datasets/
+│   │   ├── distillation/
+│   │   ├── distribution/
+│   │   ├── dtype_policies/
+│   │   ├── export/
+│   │   ├── initializers/
+│   │   ├── layers/
+│   │   ├── legacy/
+│   │   ├── losses/
+│   │   ├── metrics/
+│   │   ├── mixed_precision/
+│   │   ├── models/
+│   │   ├── ops/
+│   │   ├── optimizers/
+│   │   ├── preprocessing/
+│   │   ├── quantizers/
+│   │   ├── random/
+│   │   ├── regularizers/
+│   │   ├── saving/
+│   │   ├── tree/
+│   │   ├── utils/
+│   │   ├── visualization/
+│   │   └── wrappers/
+│   └── src/
+│       ├── __init__.py
+│       ├── activations/
+│       ├── api_export.py
+│       ├── applications/
+│       ├── backend/
+│       ├── callbacks/
+│       ├── constraints/
+│       ├── datasets/
+│       ├── distillation/
+│       ├── distribution/
+│       ├── dtype_policies/
+│       ├── export/
+│       ├── initializers/
+│       ├── layers/
+│       ├── legacy/
+│       ├── losses/
+│       ├── metrics/
+│       ├── models/
+│       ├── ops/
+│       ├── optimizers/
+│       ├── quantizers/
+│       ├── random/
+│       ├── regularizers/
+│       ├── saving/
+│       ├── testing/
+│       ├── trainers/
+│       ├── tree/
+│       ├── utils/
+│       ├── version.py
+│       ├── visualization/
+│       └── wrappers/
+├── pip_build.py
+├── pyproject.toml
+├── requirements-common.txt
+├── requirements-jax-cuda.txt
+├── requirements-jax-tpu.txt
+├── requirements-tensorflow-cuda.txt
+├── requirements-tensorflow-tpu.txt
+├── requirements-torch-cuda.txt
+├── requirements.txt
+└── shell/
+    ├── api_gen.sh
+    └── format.sh

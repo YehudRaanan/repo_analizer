@@ -1,0 +1,4177 @@
+=====================================
+Repository Analysis: gitea
+Type: Backend / API Service
+=====================================
+
+--- METADATA ---
+Name: gitea
+Description: Git with a cup of tea! Painless self-hosted all-in-one software development service, including Git hosting, code review, team collaboration, package registry and CI/CD
+Language: Go
+Topics: bitbucket, cicd, devops, docker-registry-v2, git, git-gui, git-lfs, git-server, gitea, github, github-actions, gitlab, go, golang, hacktoberfest, maven-server, npm-registry, self-hosted, typescript, vue
+Stars: 54113
+License: MIT License
+
+--- README ---
+# Gitea
+
+[![](https://github.com/go-gitea/gitea/actions/workflows/release-nightly.yml/badge.svg?branch=main)](https://github.com/go-gitea/gitea/actions/workflows/release-nightly.yml?query=branch%3Amain "Release Nightly")
+[![](https://img.shields.io/discord/322538954119184384.svg?logo=discord&logoColor=white&label=Discord&color=5865F2)](https://discord.gg/Gitea "Join the Discord chat at https://discord.gg/Gitea")
+[![](https://goreportcard.com/badge/code.gitea.io/gitea)](https://goreportcard.com/report/code.gitea.io/gitea "Go Report Card")
+[![](https://pkg.go.dev/badge/code.gitea.io/gitea?status.svg)](https://pkg.go.dev/code.gitea.io/gitea "GoDoc")
+[![](https://img.shields.io/github/release/go-gitea/gitea.svg)](https://github.com/go-gitea/gitea/releases/latest "GitHub release")
+[![](https://www.codetriage.com/go-gitea/gitea/badges/users.svg)](https://www.codetriage.com/go-gitea/gitea "Help Contribute to Open Source")
+[![](https://opencollective.com/gitea/tiers/backers/badge.svg?label=backers&color=brightgreen)](https://opencollective.com/gitea "Become a backer/sponsor of gitea")
+[![](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT "License: MIT")
+[![Contribute with Gitpod](https://img.shields.io/badge/Contribute%20with-Gitpod-908a85?logo=gitpod&color=green)](https://gitpod.io/#https://github.com/go-gitea/gitea)
+[![](https://badges.crowdin.net/gitea/localized.svg)](https://translate.gitea.com "Crowdin")
+
+[繁體中文](./README.zh-tw.md) | [简体中文](./README.zh-cn.md)
+
+## Purpose
+
+The goal of this project is to make the easiest, fastest, and most
+painless way of setting up a self-hosted Git service.
+
+As Gitea is written in Go, it works across **all** the platforms and
+architectures that are supported by Go, including Linux, macOS, and
+Windows on x86, amd64, ARM and PowerPC architectures.
+This project has been
+[forked](https://blog.gitea.com/welcome-to-gitea/) from
+[Gogs](https://gogs.io) since November of 2016, but a lot has changed.
+
+For online demonstrations, you can visit [demo.gitea.com](https://demo.gitea.com).
+
+For accessing free Gitea service (with a limited number of repositories), you can visit [gitea.com](https://gitea.com/user/login).
+
+To quickly deploy your own dedicated Gitea instance on Gitea Cloud, you can start a free trial at [cloud.gitea.com](https://cloud.gitea.com).
+
+## Documentation
+
+You can find comprehensive documentation on our official [documentation website](https://docs.gitea.com/).
+
+It includes installation, administration, usage, development, contributing guides, and more to help you get started and explore all features effectively.
+
+If you have any suggestions or would like to contribute to it, you can visit the [documentation repository](https://gitea.com/gitea/docs)
+
+## Building
+
+From the root of the source tree, run:
+
+    TAGS="bindata" make build
+
+or if SQLite support is required:
+
+    TAGS="bindata sqlite sqlite_unlock_notify" make build
+
+The `build` target is split into two sub-targets:
+
+- `make backend` which requires [Go Stable](https://go.dev/dl/), the required version is defined in [go.mod](/go.mod).
+- `make frontend` which requires [Node.js LTS](https://nodejs.org/en/download/) or greater and [pnpm](https://pnpm.io/installation).
+
+Internet connectivity is required to download the go and npm modules. When building from the official source tarballs which include pre-built frontend files, the `frontend` target will not be triggered, making it possible to build without Node.js.
+
+More info: https://docs.gitea.com/installation/install-from-source
+
+## Using
+
+After building, a binary file named `gitea` will be generated in the root of the source tree by default. To run it, use:
+
+    ./gitea web
+
+> [!NOTE]
+> If you're interested in using our APIs, we have experimental support with [documentation](https://docs.gitea.com/api).
+
+## Contributing
+
+Expected workflow is: Fork -> Patch -> Push -> Pull Request
+
+> [!NOTE]
+>
+> 1. **YOU MUST READ THE [CONTRIBUTORS GUIDE](CONTRIBUTING.md) BEFORE STARTING TO WORK ON A PULL REQUEST.**
+> 2. If you have found a vulnerability in the project, please write privately to **security@gitea.io**. Thanks!
+
+## Translating
+
+[![Crowdin](https://badges.crowdin.net/gitea/localized.svg)](https://translate.gitea.com)
+
+Translations are done through [Crowdin](https://translate.gitea.com). If you want to translate to a new language, ask one of the managers in the Crowdin project to add a new language there.
+
+You can also just create an issue for adding a language or ask on Discord on the #translation channel. If you need context or find some translation issues, you can leave a comment on the string or ask on Discord. For general translation questions there is a section in the docs. Currently a bit empty, but we hope to fill it as questions pop up.
+
+Get more information from [documentation](https://docs.gitea.com/contributing/localization).
+
+## Official and Third-Party Projects
+
+We provide an official [go-sdk](https://gitea.com/gitea/go
+... [TRUNCATED]
+
+--- PACKAGE MANIFEST(S) ---
+
+[package.json]
+{
+  "type": "module",
+  "packageManager": "pnpm@10.30.1",
+  "engines": {
+    "node": ">= 22.6.0",
+    "pnpm": ">= 10.0.0"
+  },
+  "dependencies": {
+    "@citation-js/core": "0.7.21",
+    "@citation-js/plugin-bibtex": "0.7.21",
+    "@citation-js/plugin-csl": "0.7.22",
+    "@citation-js/plugin-software-formats": "0.6.2",
+    "@github/markdown-toolbar-element": "2.2.3",
+    "@github/paste-markdown": "1.5.3",
+    "@github/relative-time-element": "5.0.0",
+    "@github/text-expander-element": "2.9.4",
+    "@mcaptcha/vanilla-glue": "0.1.0-alpha-3",
+    "@mermaid-js/layout-elk": "0.2.0",
+    "@primer/octicons": "19.22.0",
+    "@resvg/resvg-wasm": "2.6.2",
+    "@silverwind/vue3-calendar-heatmap": "2.1.1",
+    "@techknowlogick/license-checker-webpack-plugin": "0.3.0",
+    "add-asset-webpack-plugin": "3.1.1",
+    "ansi_up": "6.0.6",
+    "asciinema-player": "3.15.0",
+    "chart.js": "4.5.1",
+    "chartjs-adapter-dayjs-4": "1.0.4",
+    "chartjs-plugin-zoom": "2.2.0",
+    "clippie": "4.1.10",
+    "colord": "2.9.3",
+    "compare-versions": "6.1.1",
+    "cropperjs": "1.6.2",
+    "css-loader": "7.1.4",
+    "dayjs": "1.11.19",
+    "dropzone": "6.0.0-beta.2",
+    "easymde": "2.20.0",
+    "esbuild-loader": "4.4.2",
+    "htmx.org": "2.0.8",
+    "idiomorph": "0.7.4",
+    "jquery": "4.0.0",
+    "js-yaml": "4.1.1",
+    "katex": "0.16.28",
+    "mermaid": "11.12.3",
+    "mini-css-extract-plugin": "2.10.0",
+    "monaco-editor": "0.55.1",
+    "monaco-editor-webpack-plugin": "7.1.1",
+    "online-3d-viewer": "0.18.0",
+    "pdfobject": "2.3.1",
+    "perfect-debounce": "2.1.0",
+    "postcss": "8.5.6",
+    "postcss-loader": "8.2.1",
+    "sortablejs": "1.15.7",
+    "swagger-ui-dist": "5.31.2",
+    "tailwindcss": "3.4.17",
+    "throttle-debounce": "5.0.2",
+    "tippy.js": "6.3.7",
+    "toastify-js": "1.12.0",
+    "tributejs": "5.1.3",
+    "uint8-to-base64": "0.2.1",
+    "vanilla-colorful": "0.7.2",
+    "vue": "3.5.28",
+    "vue-bar-graph": "2.2.0",
+    "vue-chartjs": "5.3.3",
+    "vue-loader": "17.4.2",
+    "webpack": "5.105.2",
+    "webpack-cli": "6.0.1",
+    "wrap-ansi": "10.0.0"
+  },
+  "devDependencies": {
+    "@eslint-community/eslint-plugin-eslint-comments": "4.6.0",
+    "@eslint/json": "0.14.0",
+    "@playwright/test": "1.58.2",
+    "@stylistic/eslint-plugin": "5.9.0",
+    "@stylistic/stylelint-plugin": "5.0.1",
+    "@types/codemirror": "5.60.17",
+    "@types/dropzone": "5.7.9",
+    "@types/jquery": "3.5.33",
+    "@types/js-yaml": "4.0.9",
+    "@types/katex": "0.16.8",
+    "@types/node": "25.3.0",
+    "@types/pdfobject": "2.2.5",
+    "@types/sortablejs": "1.15.9",
+    "@types/swagger-ui-dist": "3.30.6",
+    "@types/throttle-debounce": "5.0.2",
+    "@types/toastify-js": "1.12.4",
+    "@typescript-eslint/parser": "8.56.0",
+    "@vitejs/plugin-vue": "6.0.4",
+    "@vitest/eslint-plugin": "1.6.9",
+    "eslint": "9.39.2",
+    "eslint-import-resolver-typescript": "4.4.4",
+    "eslint-plugin-array-func": "5.1.0",
+    "eslint-plugin-github": "6.0.0",
+    "eslint-plugin-import-x": "4.1
+... [TRUNCATED]
+
+[pyproject.toml]
+[project]
+name = "gitea"
+version = "0.0.0"
+requires-python = ">=3.10"
+
+[dependency-groups]
+dev = [
+  "djlint==1.36.4",
+  "yamllint==1.38.0",
+]
+
+[tool.djlint]
+profile="golang"
+ignore="H005,H006,H013,H016,H020,H021,H030,H031"
+
+
+[go.mod]
+module code.gitea.io/gitea
+
+go 1.26.0
+
+// rfc5280 said: "The serial number is an integer assigned by the CA to each certificate."
+// But some CAs use negative serial number, just relax the check. related:
+// Default TLS cert uses negative serial number #895 https://github.com/microsoft/mssql-docker/issues/895
+godebug x509negativeserial=1
+
+require (
+	code.gitea.io/actions-proto-go v0.4.1
+	code.gitea.io/sdk/gitea v0.23.2
+	codeberg.org/gusted/mcaptcha v0.0.0-20220723083913-4f3072e1d570
+	connectrpc.com/connect v1.19.1
+	gitea.com/go-chi/binding v0.0.0-20240430071103-39a851e106ed
+	gitea.com/go-chi/cache v0.2.1
+	gitea.com/go-chi/captcha v0.0.0-20240315150714-fb487f629098
+	gitea.com/go-chi/session v0.0.0-20251124165456-68e0254e989e
+	gitea.com/lunny/dingtalk_webhook v0.0.0-20171025031554-e3534c89ef96
+	gitea.com/lunny/levelqueue v0.4.2-0.20230414023320-3c0159fe0fe4
+	github.com/42wim/httpsig v1.2.3
+	github.com/42wim/sshsig v0.0.0-20250502153856-5100632e8920
+	github.com/Azure/azure-sdk-for-go/sdk/azcore v1.19.0
+	github.com/Azure/azure-sdk-for-go/sdk/storage/azblob v1.6.2
+	github.com/Azure/go-ntlmssp v0.0.0-20221128193559-754e69321358
+	github.com/ProtonMail/go-crypto v1.3.0
+	github.com/PuerkitoBio/goquery v1.11.0
+	github.com/SaveTheRbtz/zstd-seekable-format-go/pkg v0.8.0
+	github.com/alecthomas/chroma/v2 v2.23.1
+	github.com/aws/aws-sdk-go-v2/credentials v1.19.7
+	github.com/aws/aws-sdk-go-v2/service/codecommit v1.33.8
+	github.com/blakesmith/ar v0.0.0-20190502131153-809d4375e1fb
+	github.com/blevesearch/bleve/v2 v2.5.7
+	github.com/bohde/codel v0.2.0
+	github.com/buildkite/terminal-to-html/v3 v3.16.8
+	github.com/caddyserver/certmagic v0.25.1
+	github.com/charmbracelet/git-lfs-transfer v0.1.1-0.20251013092601-6327009efd21
+	github.com/chi-middleware/proxy v1.1.1
+	github.com/dimiro1/reply v0.0.0-20200315094148-d0136a4c9e21
+	github.com/dsnet/compress v0.0.2-0.20230904184137-39efe44ab707
+	github.com/dustin/go-humanize v1.0.1
+	github.com/editorconfig/editorconfig-core-go/v2 v2.6.4
+	github.com/emersion/go-imap v1.2.1
+	github.com/emirpasic/gods v1.18.1
+	github.com/ethantkoenig/rupture v1.0.1
+	github.com/felixge/fgprof v0.9.5
+	github.com/fsnotify/fsnotify v1.9.0
+	github.com/gliderlabs/ssh v0.3.8
+	github.com/go-chi/chi/v5 v5.2.5
+	github.com/go-chi/cors v1.2.2
+	github.com/go-co-op/gocron v1.37.0
+	github.com/go-enry/go-enry/v2 v2.9.4
+	github.com/go-git/go-billy/v5 v5.7.0
+	github.com/go-git/go-git/v5 v5.16.5
+	github.com/go-ldap/ldap/v3 v3.4.12
+	github.com/go-redsync/redsync/v4 v4.15.0
+	github.com/go-sql-driver/mysql v1.9.3
+	github.com/go-webauthn/webauthn v0.13.4
+	github.com/goccy/go-json v0.10.5
+	github.com/gogs/chardet v0.0.0-20211120154057-b7413eaefb8f
+	github.com/gogs/go-gogs-client v0.0.0-20210131175652-1d7215cd8d85
+	github.com/golang-jwt/jwt/v5 v5.3.1
+	github.com/google/go-github/v74 v74.0.0
+	github.com/google/licenseclassifier/v2 v2.0.0
+	github.com/google/pprof v0.0.0-20260202012954-cb029daf43ef
+	github.com/google/uuid v1.6.0
+	github.com/gorilla/feeds v1.2.0
+	github.com/g
+... [TRUNCATED]
+
+--- BACKEND CONFIG FILES ---
+
+[Dockerfile]
+# syntax=docker/dockerfile:1
+# Build frontend on the native platform to avoid QEMU-related issues with esbuild/webpack
+FROM --platform=$BUILDPLATFORM docker.io/library/golang:1.26-alpine3.23 AS frontend-build
+RUN apk --no-cache add build-base git nodejs pnpm
+WORKDIR /src
+COPY --exclude=.git/ . .
+RUN --mount=type=cache,target=/root/.local/share/pnpm/store make frontend
+
+# Build backend for each target platform
+FROM docker.io/library/golang:1.26-alpine3.23 AS build-env
+
+ARG GOPROXY=direct
+
+ARG GITEA_VERSION
+ARG TAGS="sqlite sqlite_unlock_notify"
+ENV TAGS="bindata timetzdata $TAGS"
+ARG CGO_EXTRA_CFLAGS
+
+# Build deps
+RUN apk --no-cache add \
+    build-base \
+    git
+
+WORKDIR ${GOPATH}/src/code.gitea.io/gitea
+# Use COPY instead of bind mount as read-only one breaks makefile state tracking and read-write one needs binary to be moved as it's discarded.
+# ".git" directory is mounted separately later only for version data extraction.
+COPY --exclude=.git/ . .
+COPY --from=frontend-build /src/public/assets public/assets
+
+# Build gitea, .git mount is required for version data
+RUN --mount=type=cache,target=/go/pkg/mod \
+    --mount=type=cache,target="/root/.cache/go-build" \
+    --mount=type=bind,source=".git/",target=".git/" \
+    make backend
+
+COPY docker/root /tmp/local
+
+# Set permissions for builds that made under windows which strips the executable bit from file
+RUN chmod 755 /tmp/local/usr/bin/entrypoint \
+              /tmp/local/usr/local/bin/* \
+              /tmp/local/etc/s6/gitea/* \
+              /tmp/local/etc/s6/openssh/* \
+              /tmp/local/etc/s6/.s6-svscan/* \
+              /go/src/code.gitea.io/gitea/gitea
+
+FROM docker.io/library/alpine:3.23 AS gitea
+
+EXPOSE 22 3000
+
+RUN apk --no-cache add \
+    bash \
+    ca-certificates \
+    curl \
+    gettext \
+    git \
+    linux-pam \
+    openssh \
+    s6 \
+    sqlite \
+    su-exec \
+    gnupg
+
+RUN addgroup \
+    -S -g 1000 \
+    git && \
+  adduser \
+    -S -H -D \
+    -h /data/git \
+    -s /bin/bash \
+    -u 1000 \
+    -G git \
+    git && \
+  echo "git:*" | chpasswd -e
+
+COPY --from=build-env /tmp/local /
+COPY --from=build-env /go/src/code.gitea.io/gitea/gitea /app/gitea/gitea
+
+ENV USER=git
+ENV GITEA_CUSTOM=/data/gitea
+
+VOLUME ["/data"]
+
+# HINT: HEALTH-CHECK-ENDPOINT: don't use HEALTHCHECK, search this hint keyword for more information
+ENTRYPOINT ["/usr/bin/entrypoint"]
+CMD ["/usr/bin/s6-svscan", "/etc/s6"]
+
+
+--- API ROUTE / ENDPOINT DEFINITIONS ---
+
+[models/issues/review.go]
+// Copyright 2018 The Gitea Authors. All rights reserved.
+// SPDX-License-Identifier: MIT
+
+package issues
+
+import (
+	"context"
+	"errors"
+	"fmt"
+	"slices"
+	"strings"
+
+	"code.gitea.io/gitea/models/db"
+	git_model "code.gitea.io/gitea/models/git"
+	"code.gitea.io/gitea/models/organization"
+	"code.gitea.io/gitea/models/perm"
+	access_model "code.gitea.io/gitea/models/perm/access"
+	"code.gitea.io/gitea/models/unit"
+	user_model "code.gitea.io/gitea/models/user"
+	"code.gitea.io/gitea/modules/structs"
+	"code.gitea.io/gitea/modules/timeutil"
+	"code.gitea.io/gitea/modules/util"
+
+	"xorm.io/builder"
+)
+
+// ErrReviewNotExist represents a "ReviewNotExist" kind of error.
+type ErrReviewNotExist struct {
+	ID int64
+}
+
+// IsErrReviewNotExist checks if an error is a ErrReviewNotExist.
+func IsErrReviewNotExist(err error) bool {
+	_, ok := err.(ErrReviewNotExist)
+	return ok
+}
+
+func (err ErrReviewNotExist) Error() string {
+	return fmt.Sprintf("review does not exist [id: %d]", err.ID)
+}
+
+func (err ErrReviewNotExist) Unwrap() error {
+	return util.ErrNotExist
+}
+
+// ErrNotValidReviewRequest an not allowed review request modify
+type ErrNotValidReviewRequest struct {
+	Reason string
+	UserID int64
+	RepoID int64
+}
+
+// IsErrNotValidReviewRequest checks if an error is a ErrNotValidReviewRequest.
+func IsErrNotValidReviewRequest(err error) bool {
+	_, ok := err.(ErrNotValidReviewRequest)
+	return ok
+}
+
+func (err ErrNotValidReviewRequest) Error() string {
+	return fmt.Sprintf("%s [user_id: %d, repo_id: %d]",
+		err.Reason,
+		err.UserID,
+		err.RepoID)
+}
+
+func (err ErrNotValidReviewRequest) Unwrap() error {
+	return util.ErrInvalidArgument
+}
+
+// ErrReviewRequestOnClosedPR represents an error when an user tries to request a re-review on a closed or merged PR.
+type ErrReviewRequestOnClosedPR struct{}
+
+// IsErrReviewRequestOnClosedPR checks if an error is an ErrReviewRequestOnClosedPR.
+func IsErrReviewRequestOnClosedPR(err error) bool {
+	_, ok := err.(ErrReviewRequestOnClosedPR)
+	return ok
+}
+
+func (err ErrReviewRequestOnClosedPR) Error() string {
+	return "cannot request a re-review on a closed or merged PR"
+}
+
+func (err ErrReviewRequestOnClosedPR) Unwrap() error {
+	return util.ErrPermissionDenied
+}
+
+// ReviewType defines the sort of feedback a review gives
+type ReviewType int
+
+// ReviewTypeUnknown unknown review type
+const ReviewTypeUnknown ReviewType = -1
+
+const (
+	// ReviewTypePending is a review which is not published yet
+	ReviewTypePending ReviewType = iota
+	// ReviewTypeApprove approves changes
+	ReviewTypeApprove
+	// ReviewTypeComment gives general feedback
+	ReviewTypeComment
+	// ReviewTypeReject gives feedback blocking merge
+	ReviewTypeReject
+	// ReviewTypeRequest request review from others
+	ReviewTypeRequest
+)
+
+// Icon returns the corresponding icon for the review type
+func (rt ReviewType) Icon() string {
+	switch rt {
+	case ReviewTypeApprove:
+		return "check"
+	case ReviewTypeReject:
+		return "diff"
+	case ReviewTypeComment:
+		return "comment"
+	case ReviewTypeRequest:
+		return "dot-fill"
+	def
+... [TRUNCATED]
+
+[modules/lfs/endpoint.go]
+// Copyright 2021 The Gitea Authors. All rights reserved.
+// SPDX-License-Identifier: MIT
+
+package lfs
+
+import (
+	"net/url"
+	"os"
+	"path"
+	"path/filepath"
+	"strings"
+
+	"code.gitea.io/gitea/modules/log"
+	"code.gitea.io/gitea/modules/util"
+)
+
+// DetermineEndpoint determines an endpoint from the clone url or uses the specified LFS url.
+func DetermineEndpoint(cloneurl, lfsurl string) *url.URL {
+	if len(lfsurl) > 0 {
+		return endpointFromURL(lfsurl)
+	}
+	return endpointFromCloneURL(cloneurl)
+}
+
+func endpointFromCloneURL(rawurl string) *url.URL {
+	ep := endpointFromURL(rawurl)
+	if ep == nil {
+		return ep
+	}
+
+	ep.Path = strings.TrimSuffix(ep.Path, "/")
+
+	if ep.Scheme == "file" {
+		return ep
+	}
+
+	if path.Ext(ep.Path) == ".git" {
+		ep.Path += "/info/lfs"
+	} else {
+		ep.Path += ".git/info/lfs"
+	}
+
+	return ep
+}
+
+func endpointFromURL(rawurl string) *url.URL {
+	if strings.HasPrefix(rawurl, "/") {
+		return endpointFromLocalPath(rawurl)
+	}
+
+	u, err := url.Parse(rawurl)
+	if err != nil {
+		log.Error("lfs.endpointFromUrl: %v", err)
+		return nil
+	}
+
+	switch u.Scheme {
+	case "http", "https":
+		return u
+	case "git":
+		u.Scheme = "https"
+		return u
+	case "file":
+		return u
+	default:
+		if _, err := os.Stat(rawurl); err == nil {
+			return endpointFromLocalPath(rawurl)
+		}
+
+		log.Error("lfs.endpointFromUrl: unknown url")
+		return nil
+	}
+}
+
+func endpointFromLocalPath(path string) *url.URL {
+	var slash string
+	if abs, err := filepath.Abs(path); err == nil {
+		if !strings.HasPrefix(abs, "/") {
+			slash = "/"
+		}
+		path = abs
+	}
+
+	var gitpath string
+	if filepath.Base(path) == ".git" {
+		gitpath = path
+		path = filepath.Dir(path)
+	} else {
+		gitpath = filepath.Join(path, ".git")
+	}
+
+	if _, err := os.Stat(gitpath); err == nil {
+		path = gitpath
+	} else if _, err := os.Stat(path); err != nil {
+		return nil
+	}
+
+	path = "file://" + slash + util.PathEscapeSegments(filepath.ToSlash(path))
+
+	u, _ := url.Parse(path)
+
+	return u
+}
+
+
+[modules/markup/html_codepreview.go]
+// Copyright 2024 The Gitea Authors. All rights reserved.
+// SPDX-License-Identifier: MIT
+
+package markup
+
+import (
+	"html/template"
+	"net/url"
+	"strconv"
+	"strings"
+
+	"code.gitea.io/gitea/modules/httplib"
+	"code.gitea.io/gitea/modules/log"
+
+	"golang.org/x/net/html"
+)
+
+type RenderCodePreviewOptions struct {
+	FullURL   string
+	OwnerName string
+	RepoName  string
+	CommitID  string
+	FilePath  string
+
+	LineStart, LineStop int
+}
+
+func renderCodeBlock(ctx *RenderContext, node *html.Node) (urlPosStart, urlPosStop int, htm template.HTML, err error) {
+	m := globalVars().codePreviewPattern.FindStringSubmatchIndex(node.Data)
+	if m == nil {
+		return 0, 0, "", nil
+	}
+
+	opts := RenderCodePreviewOptions{
+		FullURL:   node.Data[m[0]:m[1]],
+		OwnerName: node.Data[m[2]:m[3]],
+		RepoName:  node.Data[m[4]:m[5]],
+		CommitID:  node.Data[m[6]:m[7]],
+		FilePath:  node.Data[m[8]:m[9]],
+	}
+	if !httplib.IsCurrentGiteaSiteURL(ctx, opts.FullURL) {
+		return 0, 0, "", nil
+	}
+	u, err := url.Parse(opts.FilePath)
+	if err != nil {
+		return 0, 0, "", err
+	}
+	opts.FilePath = strings.TrimPrefix(u.Path, "/")
+
+	lineStartStr, lineStopStr, _ := strings.Cut(node.Data[m[10]:m[11]], "-")
+	lineStart, _ := strconv.Atoi(strings.TrimPrefix(lineStartStr, "L"))
+	lineStop, _ := strconv.Atoi(strings.TrimPrefix(lineStopStr, "L"))
+	opts.LineStart, opts.LineStop = lineStart, lineStop
+	h, err := DefaultRenderHelperFuncs.RenderRepoFileCodePreview(ctx, opts)
+	return m[0], m[1], h, err
+}
+
+func codePreviewPatternProcessor(ctx *RenderContext, node *html.Node) {
+	nodeStop := node.NextSibling
+	for node != nodeStop {
+		if node.Type != html.TextNode {
+			node = node.NextSibling
+			continue
+		}
+		urlPosStart, urlPosEnd, renderedCodeBlock, err := renderCodeBlock(ctx, node)
+		if err != nil || renderedCodeBlock == "" {
+			if err != nil {
+				log.Error("Unable to render code preview: %v", err)
+			}
+			node = node.NextSibling
+			continue
+		}
+		next := node.NextSibling
+		textBefore := node.Data[:urlPosStart]
+		textAfter := node.Data[urlPosEnd:]
+		// "textBefore" could be empty if there is only a URL in the text node, then an empty node (p, or li) will be left here.
+		// However, the empty node can't be simply removed, because:
+		// 1. the following processors will still try to access it (need to double-check undefined behaviors)
+		// 2. the new node is inserted as "<p>{TextBefore}<div NewNode/>{TextAfter}</p>" (the parent could also be "li")
+		//    then it is resolved as: "<p>{TextBefore}</p><div NewNode/><p>{TextAfter}</p>",
+		//    so unless it could correctly replace the parent "p/li" node, it is very difficult to eliminate the "TextBefore" empty node.
+		node.Data = textBefore
+		renderedCodeNode := &html.Node{Type: html.RawNode, Data: string(ctx.RenderInternal.ProtectSafeAttrs(renderedCodeBlock))}
+		node.Parent.InsertBefore(renderedCodeNode, next)
+		if textAfter != "" {
+			node.Parent.InsertBefore(&html.Node{Type: html.TextNode, Data: textAfter}, next)
+		}
+		node = next
+	}
+}
+
+
+[modules/migration/review.go]
+// Copyright 2019 The Gitea Authors. All rights reserved.
+// SPDX-License-Identifier: MIT
+
+package migration
+
+import "time"
+
+// Reviewable can be reviewed
+type Reviewable interface {
+	GetLocalIndex() int64
+
+	// GetForeignIndex presents the foreign index, which could be misused:
+	// For example, if there are 2 Gitea sites: site-A exports a dataset, then site-B imports it:
+	// * if site-A exports files by using its LocalIndex
+	// * from site-A's view, LocalIndex is site-A's IssueIndex while ForeignIndex is site-B's IssueIndex
+	// * but from site-B's view, LocalIndex is site-B's IssueIndex while ForeignIndex is site-A's IssueIndex
+	//
+	// So the exporting/importing must be paired, but the meaning of them looks confusing then:
+	// * either site-A and site-B both use LocalIndex during dumping/restoring
+	// * or site-A and site-B both use ForeignIndex
+	GetForeignIndex() int64
+}
+
+// enumerate all review states
+const (
+	ReviewStatePending          = "PENDING"
+	ReviewStateApproved         = "APPROVED"
+	ReviewStateChangesRequested = "CHANGES_REQUESTED"
+	ReviewStateCommented        = "COMMENTED"
+	ReviewStateRequestReview    = "REQUEST_REVIEW"
+)
+
+// Review is a standard review information
+type Review struct {
+	ID           int64
+	IssueIndex   int64  `yaml:"issue_index"`
+	ReviewerID   int64  `yaml:"reviewer_id"`
+	ReviewerName string `yaml:"reviewer_name"`
+	Official     bool
+	CommitID     string `yaml:"commit_id"`
+	Content      string
+	CreatedAt    time.Time `yaml:"created_at"`
+	State        string    // PENDING, APPROVED, REQUEST_CHANGES, or COMMENT
+	Comments     []*ReviewComment
+}
+
+// GetExternalName ExternalUserMigrated interface
+func (r *Review) GetExternalName() string { return r.ReviewerName }
+
+// GetExternalID ExternalUserMigrated interface
+func (r *Review) GetExternalID() int64 { return r.ReviewerID }
+
+// ReviewComment represents a review comment
+type ReviewComment struct {
+	ID        int64
+	InReplyTo int64 `yaml:"in_reply_to"`
+	Content   string
+	TreePath  string `yaml:"tree_path"`
+	DiffHunk  string `yaml:"diff_hunk"`
+	Position  int
+	Line      int
+	CommitID  string `yaml:"commit_id"`
+	PosterID  int64  `yaml:"poster_id"`
+	Reactions []*Reaction
+	CreatedAt time.Time `yaml:"created_at"`
+	UpdatedAt time.Time `yaml:"updated_at"`
+}
+
+
+[modules/structs/pull_review.go]
+// Copyright 2020 The Gitea Authors. All rights reserved.
+// SPDX-License-Identifier: MIT
+
+package structs
+
+import (
+	"time"
+)
+
+// ReviewStateType review state type
+type ReviewStateType string
+
+const (
+	// ReviewStateApproved pr is approved
+	ReviewStateApproved ReviewStateType = "APPROVED"
+	// ReviewStatePending pr state is pending
+	ReviewStatePending ReviewStateType = "PENDING"
+	// ReviewStateComment is a comment review
+	ReviewStateComment ReviewStateType = "COMMENT"
+	// ReviewStateRequestChanges changes for pr are requested
+	ReviewStateRequestChanges ReviewStateType = "REQUEST_CHANGES"
+	// ReviewStateRequestReview review is requested from user
+	ReviewStateRequestReview ReviewStateType = "REQUEST_REVIEW"
+	// ReviewStateUnknown state of pr is unknown
+	ReviewStateUnknown ReviewStateType = ""
+)
+
+// PullReview represents a pull request review
+type PullReview struct {
+	ID                int64           `json:"id"`
+	Reviewer          *User           `json:"user"`
+	ReviewerTeam      *Team           `json:"team"`
+	State             ReviewStateType `json:"state"`
+	Body              string          `json:"body"`
+	CommitID          string          `json:"commit_id"`
+	Stale             bool            `json:"stale"`
+	Official          bool            `json:"official"`
+	Dismissed         bool            `json:"dismissed"`
+	CodeCommentsCount int             `json:"comments_count"`
+	// swagger:strfmt date-time
+	Submitted time.Time `json:"submitted_at"`
+	// swagger:strfmt date-time
+	Updated time.Time `json:"updated_at"`
+
+	// HTMLURL is the web URL for viewing the review
+	HTMLURL string `json:"html_url"`
+	// HTMLPullURL is the web URL for the pull request
+	HTMLPullURL string `json:"pull_request_url"`
+}
+
+// PullReviewComment represents a comment on a pull request review
+type PullReviewComment struct {
+	ID       int64  `json:"id"`
+	Body     string `json:"body"`
+	Poster   *User  `json:"user"`
+	Resolver *User  `json:"resolver"`
+	ReviewID int64  `json:"pull_request_review_id"`
+
+	// swagger:strfmt date-time
+	Created time.Time `json:"created_at"`
+	// swagger:strfmt date-time
+	Updated time.Time `json:"updated_at"`
+
+	Path         string `json:"path"`
+	CommitID     string `json:"commit_id"`
+	OrigCommitID string `json:"original_commit_id"`
+	DiffHunk     string `json:"diff_hunk"`
+	LineNum      uint64 `json:"position"`
+	OldLineNum   uint64 `json:"original_position"`
+
+	HTMLURL     string `json:"html_url"`
+	HTMLPullURL string `json:"pull_request_url"`
+}
+
+// CreatePullReviewOptions are options to create a pull request review
+type CreatePullReviewOptions struct {
+	Event    ReviewStateType           `json:"event"`
+	Body     string                    `json:"body"`
+	CommitID string                    `json:"commit_id"`
+	Comments []CreatePullReviewComment `json:"comments"`
+}
+
+// CreatePullReviewComment represent a review comment for creation api
+type CreatePullReviewComment struct {
+	// the tree path
+	Path string `json:"path"`
+	Body string `json:"body"`
+	// if comment to old file li
+... [TRUNCATED]
+
+[routers/api/v1/activitypub/person.go]
+// Copyright 2022 The Gitea Authors. All rights reserved.
+// SPDX-License-Identifier: MIT
+
+package activitypub
+
+import (
+	"net/http"
+
+	"code.gitea.io/gitea/services/context"
+)
+
+func NotImplemented(ctx *context.APIContext) {
+	http.Error(ctx.Resp, "Not implemented", http.StatusNotImplemented)
+}
+
+
+[routers/api/v1/admin/action.go]
+// Copyright 2025 The Gitea Authors. All rights reserved.
+// SPDX-License-Identifier: MIT
+
+package admin
+
+import (
+	"code.gitea.io/gitea/routers/api/v1/shared"
+	"code.gitea.io/gitea/services/context"
+)
+
+// ListWorkflowJobs Lists all jobs
+func ListWorkflowJobs(ctx *context.APIContext) {
+	// swagger:operation GET /admin/actions/jobs admin listAdminWorkflowJobs
+	// ---
+	// summary: Lists all jobs
+	// produces:
+	// - application/json
+	// parameters:
+	// - name: status
+	//   in: query
+	//   description: workflow status (pending, queued, in_progress, failure, success, skipped)
+	//   type: string
+	//   required: false
+	// - name: page
+	//   in: query
+	//   description: page number of results to return (1-based)
+	//   type: integer
+	// - name: limit
+	//   in: query
+	//   description: page size of results
+	//   type: integer
+	// responses:
+	//   "200":
+	//     "$ref": "#/responses/WorkflowJobsList"
+	//   "400":
+	//     "$ref": "#/responses/error"
+	//   "404":
+	//     "$ref": "#/responses/notFound"
+
+	shared.ListJobs(ctx, 0, 0, 0)
+}
+
+// ListWorkflowRuns Lists all runs
+func ListWorkflowRuns(ctx *context.APIContext) {
+	// swagger:operation GET /admin/actions/runs admin listAdminWorkflowRuns
+	// ---
+	// summary: Lists all runs
+	// produces:
+	// - application/json
+	// parameters:
+	// - name: event
+	//   in: query
+	//   description: workflow event name
+	//   type: string
+	//   required: false
+	// - name: branch
+	//   in: query
+	//   description: workflow branch
+	//   type: string
+	//   required: false
+	// - name: status
+	//   in: query
+	//   description: workflow status (pending, queued, in_progress, failure, success, skipped)
+	//   type: string
+	//   required: false
+	// - name: actor
+	//   in: query
+	//   description: triggered by user
+	//   type: string
+	//   required: false
+	// - name: head_sha
+	//   in: query
+	//   description: triggering sha of the workflow run
+	//   type: string
+	//   required: false
+	// - name: page
+	//   in: query
+	//   description: page number of results to return (1-based)
+	//   type: integer
+	// - name: limit
+	//   in: query
+	//   description: page size of results
+	//   type: integer
+	// responses:
+	//   "200":
+	//     "$ref": "#/responses/WorkflowRunsList"
+	//   "400":
+	//     "$ref": "#/responses/error"
+	//   "404":
+	//     "$ref": "#/responses/notFound"
+
+	shared.ListRuns(ctx, 0, 0)
+}
+
+
+[routers/api/v1/admin/adopt.go]
+// Copyright 2020 The Gitea Authors. All rights reserved.
+// SPDX-License-Identifier: MIT
+
+package admin
+
+import (
+	"net/http"
+
+	repo_model "code.gitea.io/gitea/models/repo"
+	user_model "code.gitea.io/gitea/models/user"
+	"code.gitea.io/gitea/modules/gitrepo"
+	"code.gitea.io/gitea/routers/api/v1/utils"
+	"code.gitea.io/gitea/services/context"
+	repo_service "code.gitea.io/gitea/services/repository"
+)
+
+// ListUnadoptedRepositories lists the unadopted repositories that match the provided names
+func ListUnadoptedRepositories(ctx *context.APIContext) {
+	// swagger:operation GET /admin/unadopted admin adminUnadoptedList
+	// ---
+	// summary: List unadopted repositories
+	// produces:
+	// - application/json
+	// parameters:
+	// - name: page
+	//   in: query
+	//   description: page number of results to return (1-based)
+	//   type: integer
+	// - name: limit
+	//   in: query
+	//   description: page size of results
+	//   type: integer
+	// - name: pattern
+	//   in: query
+	//   description: pattern of repositories to search for
+	//   type: string
+	// responses:
+	//   "200":
+	//     "$ref": "#/responses/StringSlice"
+	//   "403":
+	//     "$ref": "#/responses/forbidden"
+
+	listOptions := utils.GetListOptions(ctx)
+	if listOptions.Page == 0 {
+		listOptions.Page = 1
+	}
+	repoNames, count, err := repo_service.ListUnadoptedRepositories(ctx, ctx.FormString("query"), &listOptions)
+	if err != nil {
+		ctx.APIErrorInternal(err)
+		return
+	}
+
+	ctx.SetTotalCountHeader(int64(count))
+
+	ctx.JSON(http.StatusOK, repoNames)
+}
+
+// AdoptRepository will adopt an unadopted repository
+func AdoptRepository(ctx *context.APIContext) {
+	// swagger:operation POST /admin/unadopted/{owner}/{repo} admin adminAdoptRepository
+	// ---
+	// summary: Adopt unadopted files as a repository
+	// produces:
+	// - application/json
+	// parameters:
+	// - name: owner
+	//   in: path
+	//   description: owner of the repo
+	//   type: string
+	//   required: true
+	// - name: repo
+	//   in: path
+	//   description: name of the repo
+	//   type: string
+	//   required: true
+	// responses:
+	//   "204":
+	//     "$ref": "#/responses/empty"
+	//   "404":
+	//     "$ref": "#/responses/notFound"
+	//   "403":
+	//     "$ref": "#/responses/forbidden"
+	ownerName := ctx.PathParam("username")
+	repoName := ctx.PathParam("reponame")
+
+	ctxUser, err := user_model.GetUserByName(ctx, ownerName)
+	if err != nil {
+		if user_model.IsErrUserNotExist(err) {
+			ctx.APIErrorNotFound()
+			return
+		}
+		ctx.APIErrorInternal(err)
+		return
+	}
+
+	// check not a repo
+	has, err := repo_model.IsRepositoryModelExist(ctx, ctxUser, repoName)
+	if err != nil {
+		ctx.APIErrorInternal(err)
+		return
+	}
+	exist, err := gitrepo.IsRepositoryExist(ctx, repo_model.StorageRepo(repo_model.RelativePath(ctxUser.Name, repoName)))
+	if err != nil {
+		ctx.APIErrorInternal(err)
+		return
+	}
+	if has || !exist {
+		ctx.APIErrorNotFound()
+		return
+	}
+	if _, err := repo_service.AdoptRepository(ctx, ctx.Doer, ctxUser, repo_service.CreateRepoOptions{
+		Name:      repoName,
+		IsPrivate: true,
+	});
+... [TRUNCATED]
+
+--- DATABASE SCHEMA / MODEL FILES ---
+  models/db/sql_postgres_with_schema.go
+  models/migrations/migrations.go
+  modules/actions/jobparser/model.go
+  modules/indexer/code/internal/model.go
+  modules/indexer/issues/internal/model.go
+
+--- DIRECTORY STRUCTURE (depth 2) ---
+├── .air.toml
+├── .changelog.yml
+├── .devcontainer/
+│   └── devcontainer.json
+├── .dockerignore
+├── .editorconfig
+├── .envrc
+├── .gitattributes
+├── .gitea/
+│   └── issue_template.md
+├── .github/
+│   ├── FUNDING.yml
+│   ├── ISSUE_TEMPLATE/
+│   │   ├── bug-report.yaml
+│   │   ├── config.yml
+│   │   ├── feature-request.yaml
+│   │   └── ui.bug-report.yaml
+│   ├── actionlint.yaml
+│   ├── dependabot.yml
+│   ├── labeler.yml
+│   ├── pull_request_template.md
+│   └── workflows/
+│       ├── cron-flake-updater.yml
+│       ├── cron-licenses.yml
+│       ├── cron-translations.yml
+│       ├── files-changed.yml
+│       ├── pull-compliance.yml
+│       ├── pull-db-tests.yml
+│       ├── pull-docker-dryrun.yml
+│       ├── pull-e2e-tests.yml
+│       ├── pull-labeler.yml
+│       ├── release-nightly.yml
+│       ├── release-tag-rc.yml
+│       └── release-tag-version.yml
+├── .gitignore
+├── .gitpod.yml
+├── .golangci.yml
+├── .ignore
+├── .mailmap
+├── .markdownlint.yaml
+├── .npmrc
+├── .spectral.yaml
+├── .yamllint.yaml
+├── AGENTS.md
+├── BSDmakefile
+├── CHANGELOG-archived.md
+├── CHANGELOG.md
+├── CLAUDE.md
+├── CODE_OF_CONDUCT.md
+├── CONTRIBUTING.md
+├── DCO
+├── Dockerfile
+├── Dockerfile.rootless
+├── LICENSE
+├── MAINTAINERS
+├── Makefile
+├── README.md
+├── README.zh-cn.md
+├── README.zh-tw.md
+├── SECURITY.md
+├── assets/
+│   ├── emoji.json
+│   ├── favicon.svg
+│   ├── go-licenses.json
+│   ├── logo.svg
+│   └── misspellings.csv
+├── build/
+│   ├── generate-bindata.go
+│   ├── generate-emoji.go
+│   ├── generate-gitignores.go
+│   ├── generate-go-licenses.go
+│   ├── test-env-check.sh
+│   ├── test-env-prepare.sh
+│   └── update-locales.sh
+├── cmd/
+│   ├── actions.go
+│   ├── admin.go
+│   ├── admin_auth.go
+│   ├── admin_auth_ldap.go
+│   ├── admin_auth_ldap_test.go
+│   ├── admin_auth_oauth.go
+│   ├── admin_auth_oauth_test.go
+│   ├── admin_auth_smtp.go
+│   ├── admin_auth_smtp_test.go
+│   ├── admin_regenerate.go
+│   ├── admin_user.go
+│   ├── admin_user_change_password.go
+│   ├── admin_user_change_password_test.go
+│   ├── admin_user_create.go
+│   ├── admin_user_create_test.go
+│   ├── admin_user_delete.go
+│   ├── admin_user_delete_test.go
+│   ├── admin_user_generate_access_token.go
+│   ├── admin_user_list.go
+│   ├── admin_user_must_change_password.go
+│   ├── admin_user_must_change_password_test.go
+│   ├── cert.go
+│   ├── cert_test.go
+│   ├── cmd.go
+│   ├── cmd_test.go
+│   ├── config.go
+│   ├── config_test.go
+│   ├── docs.go
+│   ├── doctor.go
+│   ├── doctor_convert.go
+│   ├── doctor_test.go
+│   ├── dump.go
+│   ├── dump_repo.go
+│   ├── embedded.go
+│   ├── generate.go
+│   ├── hook.go
+│   ├── hook_test.go
+│   ├── keys.go
+│   ├── mailer.go
+│   ├── main.go
+│   ├── main_test.go
+│   ├── manager.go
+│   ├── manager_logging.go
+│   ├── migrate.go
+│   ├── migrate_storage.go
+│   ├── migrate_storage_test.go
+│   ├── restore_repo.go
+│   ├── serv.go
+│   ├── web.go
+│   ├── web_acme.go
+│   ├── web_graceful.go
+│   └── web_https.go
+├── contrib/
+│   ├── README
+│   ├── backport/
+│   │   ├── README
+│   │   └── backport.go
+│   ├── fhs-compliant-script/
+│   │   └── gitea
+│   ├── gitea-monitoring-mixin/
+│   │   ├── .gitignore
+│   │   ├── Makefile
+│   │   ├── README.md
+│   │   ├── config.libsonnet
+│   │   ├── dashboards/
+│   │   ├── jsonnetfile.json
+│   │   ├── jsonnetfile.lock.json
+│   │   ├── lib/
+│   │   └── mixin.libsonnet
+│   ├── ide/
+│   │   ├── README.md
+│   │   └── vscode/
+│   ├── init/
+│   │   ├── centos/
+│   │   ├── debian/
+│   │   ├── freebsd/
+│   │   ├── gentoo/
+│   │   ├── openbsd/
+│   │   ├── openwrt/
+│   │   ├── sunos/
+│   │   ├── suse/
+│   │   └── ubuntu/
+│   ├── launchd/
+│   │   └── io.gitea.web.plist
+│   ├── legal/
+│   │   ├── privacy.html.sample
+│   │   └── tos.html.sample
+│   ├── options/
+│   │   └── label/
+│   ├── supervisor/
+│   │   └── gitea
+│   ├── systemd/
+│   │   └── gitea.service
+│   ├── update_dependencies.sh
+│   └── upgrade.sh
+├── crowdin.yml
+├── custom/
+│   └── conf/
+│       └── app.example.ini
+├── docker/
+│   ├── README.md
+│   ├── manifest.rootless.tmpl
+│   ├── manifest.tmpl
+│   ├── root/
+│   │   ├── etc/
+│   │   └── usr/
+│   └── rootless/
+│       ├── etc/
+│       └── usr/
+├── eslint.config.ts
+├── eslint.json.config.ts
+├── flake.lock
+├── flake.nix
+├── go.mod
+├── go.sum
+├── main.go
+├── main_timezones.go
+├── models/
+│   ├── actions/
+│   │   ├── artifact.go
+│   │   ├── main_test.go
+│   │   ├── run.go
+│   │   ├── run_job.go
+│   │   ├── run_job_list.go
+│   │   ├── run_job_status_test.go
+│   │   ├── run_list.go
+│   │   ├── run_test.go
+│   │   ├── runner.go
+│   │   ├── runner_list.go
+│   │   ├── runner_token.go
+│   │   ├── runner_token_test.go
+│   │   ├── schedule.go
+│   │   ├── schedule_list.go
+│   │   ├── schedule_spec.go
+│   │   ├── schedule_spec_list.go
+│   │   ├── schedule_spec_test.go
+│   │   ├── status.go
+│   │   ├── task.go
+│   │   ├── task_list.go
+│   │   ├── task_output.go
+│   │   ├── task_step.go
+│   │   ├── task_test.go
+│   │   ├── tasks_version.go
+│   │   ├── utils.go
+│   │   ├── utils_test.go
+│   │   └── variable.go
+│   ├── activities/
+│   │   ├── action.go
+│   │   ├── action_list.go
+│   │   ├── action_test.go
+│   │   ├── main_test.go
+│   │   ├── notification.go
+│   │   ├── notification_list.go
+│   │   ├── notification_test.go
+│   │   ├── repo_activity.go
+│   │   ├── statistic.go
+│   │   ├── user_heatmap.go
+│   │   └── user_heatmap_test.go
+│   ├── admin/
+│   │   └── task.go
+│   ├── asymkey/
+│   │   ├── error.go
+│   │   ├── gpg_key.go
+│   │   ├── gpg_key_add.go
+│   │   ├── gpg_key_commit_verification.go
+│   │   ├── gpg_key_common.go
+│   │   ├── gpg_key_import.go
+│   │   ├── gpg_key_list.go
+│   │   ├── gpg_key_test.go
+│   │   ├── gpg_key_verify.go
+│   │   ├── key_display.go
+│   │   ├── main_test.go
+│   │   ├── ssh_key.go
+│   │   ├── ssh_key_authorized_keys.go
+│   │   ├── ssh_key_authorized_keys_test.go
+│   │   ├── ssh_key_deploy.go
+│   │   ├── ssh_key_fingerprint.go
+│   │   ├── ssh_key_parse.go
+│   │   ├── ssh_key_principals.go
+│   │   ├── ssh_key_test.go
+│   │   └── ssh_key_verify.go
+│   ├── auth/
+│   │   ├── access_token.go
+│   │   ├── access_token_scope.go
+│   │   ├── access_token_scope_test.go
+│   │   ├── access_token_test.go
+│   │   ├── auth_token.go
+│   │   ├── main_test.go
+│   │   ├── oauth2.go
+│   │   ├── oauth2_list.go
+│   │   ├── oauth2_test.go
+│   │   ├── session.go
+│   │   ├── source.go
+│   │   ├── source_test.go
+│   │   ├── twofactor.go
+│   │   ├── webauthn.go
+│   │   └── webauthn_test.go
+│   ├── avatars/
+│   │   ├── avatar.go
+│   │   ├── avatar_test.go
+│   │   └── main_test.go
+│   ├── db/
+│   │   ├── collation.go
+│   │   ├── common.go
+│   │   ├── consistency.go
+│   │   ├── context.go
+│   │   ├── context_committer_test.go
+│   │   ├── context_test.go
+│   │   ├── convert.go
+│   │   ├── engine.go
+│   │   ├── engine_dump.go
+│   │   ├── engine_hook.go
+│   │   ├── engine_init.go
+│   │   ├── engine_test.go
+│   │   ├── error.go
+│   │   ├── index.go
+│   │   ├── index_test.go
+│   │   ├── install/
+│   │   ├── iterate.go
+│   │   ├── iterate_test.go
+│   │   ├── list.go
+│   │   ├── list_test.go
+│   │   ├── log.go
+│   │   ├── main_test.go
+│   │   ├── name.go
+│   │   ├── paginator/
+│   │   ├── search.go
+│   │   ├── sequence.go
+│   │   └── sql_postgres_with_schema.go
+│   ├── dbfs/
+│   │   ├── dbfile.go
+│   │   ├── dbfs.go
+│   │   ├── dbfs_test.go
+│   │   └── main_test.go
+│   ├── fixtures/
+│   │   ├── access.yml
+│   │   ├── access_token.yml
+│   │   ├── action.yml
+│   │   ├── action_artifact.yml
+│   │   ├── action_run.yml
+│   │   ├── action_run_job.yml
+│   │   ├── action_runner.yml
+│   │   ├── action_runner_token.yml
+│   │   ├── action_task.yml
+│   │   ├── action_task_output.yml
+│   │   ├── attachment.yml
+│   │   ├── branch.yml
+│   │   ├── collaboration.yml
+│   │   ├── comment.yml
+│   │   ├── commit_status.yml
+│   │   ├── commit_status_index.yml
+│   │   ├── deploy_key.yml
+│   │   ├── email_address.yml
+│   │   ├── external_login_user.yml
+│   │   ├── follow.yml
+│   │   ├── gpg_key.yml
+│   │   ├── gpg_key_import.yml
+│   │   ├── hook_task.yml
+│   │   ├── issue.yml
+│   │   ├── issue_assignees.yml
+│   │   ├── issue_index.yml
+│   │   ├── issue_label.yml
+│   │   ├── issue_pin.yml
+│   │   ├── issue_user.yml
+│   │   ├── issue_watch.yml
+│   │   ├── label.yml
+│   │   ├── lfs_meta_object.yml
+│   │   ├── login_source.yml
+│   │   ├── milestone.yml
+│   │   ├── mirror.yml
+│   │   ├── notice.yml
+│   │   ├── notification.yml
+│   │   ├── oauth2_application.yml
+│   │   ├── oauth2_authorization_code.yml
+│   │   ├── oauth2_grant.yml
+│   │   ├── org_user.yml
+│   │   ├── project.yml
+│   │   ├── project_board.yml
+│   │   ├── project_issue.yml
+│   │   ├── protected_branch.yml
+│   │   ├── protected_tag.yml
+│   │   ├── public_key.yml
+│   │   ├── pull_request.yml
+│   │   ├── reaction.yml
+│   │   ├── release.yml
+│   │   ├── renamed_branch.yml
+│   │   ├── repo_archiver.yml
+│   │   ├── repo_indexer_status.yml
+│   │   ├── repo_license.yml
+│   │   ├── repo_redirect.yml
+│   │   ├── repo_topic.yml
+│   │   ├── repo_transfer.yml
+│   │   ├── repo_unit.yml
+│   │   ├── repository.yml
+│   │   ├── review.yml
+│   │   ├── star.yml
+│   │   ├── stopwatch.yml
+│   │   ├── system_setting.yml
+│   │   ├── team.yml
+│   │   ├── team_repo.yml
+│   │   ├── team_unit.yml
+│   │   ├── team_user.yml
+│   │   ├── topic.yml
+│   │   ├── tracked_time.yml
+│   │   ├── two_factor.yml
+│   │   ├── user.yml
+│   │   ├── user_blocking.yml
+│   │   ├── user_open_id.yml
+│   │   ├── user_redirect.yml
+│   │   ├── watch.yml
+│   │   ├── webauthn_credential.yml
+│   │   └── webhook.yml
+│   ├── git/
+│   │   ├── branch.go
+│   │   ├── branch_list.go
+│   │   ├── branch_test.go
+│   │   ├── commit_status.go
+│   │   ├── commit_status_summary.go
+│   │   ├── commit_status_test.go
+│   │   ├── lfs.go
+│   │   ├── lfs_lock.go
+│   │   ├── lfs_lock_list.go
+│   │   ├── lfs_lock_test.go
+│   │   ├── lfs_test.go
+│   │   ├── main_test.go
+│   │   ├── protected_branch.go
+│   │   ├── protected_branch_list.go
+│   │   ├── protected_branch_list_test.go
+│   │   ├── protected_branch_test.go
+│   │   ├── protected_tag.go
+│   │   └── protected_tag_test.go
+│   ├── issues/
+│   │   ├── assignees.go
+│   │   ├── assignees_test.go
+│   │   ├── comment.go
+│   │   ├── comment_code.go
+│   │   ├── comment_list.go
+│   │   ├── comment_test.go
+│   │   ├── content_history.go
+│   │   ├── content_history_test.go
+│   │   ├── dependency.go
+│   │   ├── dependency_test.go
+│   │   ├── issue.go
+│   │   ├── issue_index.go
+│   │   ├── issue_label.go
+│   │   ├── issue_label_test.go
+│   │   ├── issue_list.go
+│   │   ├── issue_list_test.go
+│   │   ├── issue_lock.go
+│   │   ├── issue_pin.go
+│   │   ├── issue_project.go
+│   │   ├── issue_search.go
+│   │   ├── issue_stats.go
+│   │   ├── issue_test.go
+│   │   ├── issue_update.go
+│   │   ├── issue_user.go
+│   │   ├── issue_user_test.go
+│   │   ├── issue_watch.go
+│   │   ├── issue_watch_test.go
+│   │   ├── issue_xref.go
+│   │   ├── issue_xref_test.go
+│   │   ├── label.go
+│   │   ├── label_test.go
+│   │   ├── main_test.go
+│   │   ├── milestone.go
+│   │   ├── milestone_list.go
+│   │   ├── milestone_test.go
+│   │   ├── pull.go
+│   │   ├── pull_list.go
+│   │   ├── pull_list_test.go
+│   │   ├── pull_test.go
+│   │   ├── reaction.go
+│   │   ├── review.go
+│   │   ├── review_list.go
+│   │   ├── review_test.go
+│   │   ├── stopwatch.go
+│   │   ├── stopwatch_test.go
+│   │   ├── tracked_time.go
+│   │   └── tracked_time_test.go
+│   ├── main_test.go
+│   ├── migrations/
+│   │   ├── base/
+│   │   ├── fixtures/
+│   │   ├── migrations.go
+│   │   ├── migrations_test.go
+│   │   ├── v1_10/
+│   │   ├── v1_11/
+│   │   ├── v1_12/
+│   │   ├── v1_13/
+│   │   ├── v1_14/
+│   │   ├── v1_15/
+│   │   ├── v1_16/
+│   │   ├── v1_17/
+│   │   ├── v1_18/
+│   │   ├── v1_19/
+│   │   ├── v1_20/
+│   │   ├── v1_21/
+│   │   ├── v1_22/
+│   │   ├── v1_23/
+│   │   ├── v1_24/
+│   │   ├── v1_25/
+│   │   ├── v1_26/
+│   │   ├── v1_6/
+│   │   ├── v1_7/
+│   │   ├── v1_8/
+│   │   └── v1_9/
+│   ├── organization/
+│   │   ├── main_test.go
+│   │   ├── org.go
+│   │   ├── org_list.go
+│   │   ├── org_list_test.go
+│   │   ├── org_test.go
+│   │   ├── org_user.go
+│   │   ├── org_user_test.go
+│   │   ├── org_worktime.go
+│   │   ├── team.go
+│   │   ├── team_invite.go
+│   │   ├── team_invite_test.go
+│   │   ├── team_list.go
+│   │   ├── team_list_test.go
+│   │   ├── team_repo.go
+│   │   ├── team_repo_test.go
+│   │   ├── team_test.go
+│   │   ├── team_unit.go
+│   │   └── team_user.go
+│   ├── packages/
+│   │   ├── alpine/
+│   │   ├── arch/
+│   │   ├── conan/
+│   │   ├── conda/
+│   │   ├── container/
+│   │   ├── cran/
+│   │   ├── debian/
+│   │   ├── descriptor.go
+│   │   ├── nuget/
+│   │   ├── package.go
+│   │   ├── package_blob.go
+│   │   ├── package_blob_test.go
+│   │   ├── package_blob_upload.go
+│   │   ├── package_cleanup_rule.go
+│   │   ├── package_file.go
+│   │   ├── package_property.go
+│   │   ├── package_test.go
+│   │   ├── package_version.go
+│   │   └── rpm/
+│   ├── perm/
+│   │   ├── access/
+│   │   ├── access_mode.go
+│   │   └── access_mode_test.go
+│   ├── project/
+│   │   ├── column.go
+│   │   ├── column_test.go
+│   │   ├── issue.go
+│   │   ├── main_test.go
+│   │   ├── project.go
+│   │   ├── project_test.go
+│   │   └── template.go
+│   ├── pull/
+│   │   ├── automerge.go
+│   │   └── review_state.go
+│   ├── renderhelper/
+│   │   ├── commit_checker.go
+│   │   ├── main_test.go
+│   │   ├── repo_comment.go
+│   │   ├── repo_comment_test.go
+│   │   ├── repo_file.go
+│   │   ├── repo_file_test.go
+│   │   ├── repo_wiki.go
+│   │   ├── repo_wiki_test.go
+│   │   ├── simple_document.go
+│   │   └── simple_document_test.go
+│   ├── repo.go
+│   ├── repo/
+│   │   ├── archive_test.go
+│   │   ├── archiver.go
+│   │   ├── attachment.go
+│   │   ├── attachment_test.go
+│   │   ├── avatar.go
+│   │   ├── avatar_test.go
+│   │   ├── collaboration.go
+│   │   ├── collaboration_test.go
+│   │   ├── fork.go
+│   │   ├── fork_test.go
+│   │   ├── git.go
+│   │   ├── issue.go
+│   │   ├── language_stats.go
+│   │   ├── license.go
+│   │   ├── main_test.go
+│   │   ├── mirror.go
+│   │   ├── org_repo.go
+│   │   ├── pull_request_default.go
+│   │   ├── pull_request_default_test.go
+│   │   ├── pushmirror.go
+│   │   ├── pushmirror_test.go
+│   │   ├── redirect.go
+│   │   ├── redirect_test.go
+│   │   ├── release.go
+│   │   ├── release_test.go
+│   │   ├── repo.go
+│   │   ├── repo_indexer.go
+│   │   ├── repo_list.go
+│   │   ├── repo_list_test.go
+│   │   ├── repo_test.go
+│   │   ├── repo_unit.go
+│   │   ├── repo_unit_test.go
+│   │   ├── search.go
+│   │   ├── star.go
+│   │   ├── star_test.go
+│   │   ├── topic.go
+│   │   ├── topic_test.go
+│   │   ├── transfer.go
+│   │   ├── update.go
+│   │   ├── upload.go
+│   │   ├── user_repo.go
+│   │   ├── user_repo_test.go
+│   │   ├── watch.go
+│   │   ├── watch_test.go
+│   │   ├── wiki.go
+│   │   └── wiki_test.go
+│   ├── repo_test.go
+│   ├── secret/
+│   │   └── secret.go
+│   ├── shared/
+│   │   └── types/
+│   ├── system/
+│   │   ├── appstate.go
+│   │   ├── main_test.go
+│   │   ├── notice.go
+│   │   ├── notice_test.go
+│   │   ├── setting.go
+│   │   └── setting_test.go
+│   ├── unit/
+│   │   ├── unit.go
+│   │   └── unit_test.go
+│   ├── unittest/
+│   │   ├── consistency.go
+│   │   ├── fixtures.go
+│   │   ├── fixtures_loader.go
+│   │   ├── fixtures_test.go
+│   │   ├── fscopy.go
+│   │   ├── reflection.go
+│   │   ├── testdb.go
+│   │   └── unit_tests.go
+│   ├── user/
+│   │   ├── avatar.go
+│   │   ├── avatar_test.go
+│   │   ├── badge.go
+│   │   ├── block.go
+│   │   ├── email_address.go
+│   │   ├── email_address_test.go
+│   │   ├── error.go
+│   │   ├── external_login_user.go
+│   │   ├── follow.go
+│   │   ├── follow_test.go
+│   │   ├── list.go
+│   │   ├── main_test.go
+│   │   ├── must_change_password.go
+│   │   ├── openid.go
+│   │   ├── openid_test.go
+│   │   ├── redirect.go
+│   │   ├── redirect_test.go
+│   │   ├── search.go
+│   │   ├── setting.go
+│   │   ├── setting_options.go
+│   │   ├── setting_test.go
+│   │   ├── user.go
+│   │   ├── user_list.go
+│   │   ├── user_system.go
+│   │   ├── user_system_test.go
+│   │   ├── user_test.go
+│   │   └── user_update.go
+│   └── webhook/
+│       ├── hooktask.go
+│       ├── main_test.go
+│       ├── webhook.go
+│       ├── webhook_system.go
+│       ├── webhook_system_test.go
+│       └── webhook_test.go
+├── modules/
+│   ├── actions/
+│   │   ├── artifacts.go
+│   │   ├── github.go
+│   │   ├── github_test.go
+│   │   ├── jobparser/
+│   │   ├── log.go
+│   │   ├── task_state.go
+│   │   ├── task_state_test.go
+│   │   ├── workflows.go
+│   │   └── workflows_test.go
+│   ├── analyze/
+│   │   ├── code_language.go
+│   │   ├── generated.go
+│   │   ├── vendor.go
+│   │   └── vendor_test.go
+│   ├── assetfs/
+│   │   ├── embed.go
+│   │   ├── embed_test.go
+│   │   ├── layered.go
+│   │   └── layered_test.go
+│   ├── auth/
+│   │   ├── common.go
+│   │   ├── httpauth/
+│   │   ├── openid/
+│   │   ├── pam/
+│   │   ├── password/
+│   │   └── webauthn/
+│   ├── avatar/
+│   │   ├── avatar.go
+│   │   ├── avatar_test.go
+│   │   ├── hash.go
+│   │   ├── hash_test.go
+│   │   ├── identicon/
+│   │   └── testdata/
+│   ├── badge/
+│   │   ├── badge.go
+│   │   └── badge_glyph_width.go
+│   ├── base/
+│   │   ├── natural_sort.go
+│   │   ├── natural_sort_test.go
+│   │   ├── tool.go
+│   │   └── tool_test.go
+│   ├── cache/
+│   │   ├── cache.go
+│   │   ├── cache_redis.go
+│   │   ├── cache_test.go
+│   │   ├── cache_twoqueue.go
+│   │   ├── context.go
+│   │   ├── context_test.go
+│   │   ├── ephemeral.go
+│   │   └── string_cache.go
+│   ├── cachegroup/
+│   │   └── cachegroup.go
+│   ├── charset/
+│   │   ├── ambiguous.go
+│   │   ├── ambiguous/
+│   │   ├── ambiguous_gen.go
+│   │   ├── ambiguous_gen_test.go
+│   │   ├── breakwriter.go
+│   │   ├── breakwriter_test.go
+│   │   ├── charset.go
+│   │   ├── charset_test.go
+│   │   ├── escape.go
+│   │   ├── escape_status.go
+│   │   ├── escape_stream.go
+│   │   ├── escape_test.go
+│   │   ├── htmlstream.go
+│   │   ├── invisible/
+│   │   └── invisible_gen.go
+│   ├── commitstatus/
+│   │   ├── commit_status.go
+│   │   └── commit_status_test.go
+│   ├── container/
+│   │   ├── filter.go
+│   │   ├── filter_test.go
+│   │   ├── set.go
+│   │   └── set_test.go
+│   ├── csv/
+│   │   ├── csv.go
+│   │   └── csv_test.go
+│   ├── dump/
+│   │   ├── dumper.go
+│   │   └── dumper_test.go
+│   ├── emoji/
+│   │   ├── emoji.go
+│   │   ├── emoji_data.go
+│   │   └── emoji_test.go
+│   ├── eventsource/
+│   │   ├── event.go
+│   │   ├── event_test.go
+│   │   ├── manager.go
+│   │   ├── manager_run.go
+│   │   └── messenger.go
+│   ├── fileicon/
+│   │   ├── basic.go
+│   │   ├── entry.go
+│   │   ├── material.go
+│   │   ├── material_test.go
+│   │   ├── render.go
+│   │   └── render_test.go
+│   ├── generate/
+│   │   ├── generate.go
+│   │   └── generate_test.go
+│   ├── git/
+│   │   ├── README.md
+│   │   ├── attribute/
+│   │   ├── blob.go
+│   │   ├── blob_gogit.go
+│   │   ├── blob_nogogit.go
+│   │   ├── blob_test.go
+│   │   ├── catfile_batch.go
+│   │   ├── catfile_batch_command.go
+│   │   ├── catfile_batch_legacy.go
+│   │   ├── catfile_batch_reader.go
+│   │   ├── catfile_batch_test.go
+│   │   ├── cmdverb.go
+│   │   ├── commit.go
+│   │   ├── commit_convert_gogit.go
+│   │   ├── commit_info.go
+│   │   ├── commit_info_gogit.go
+│   │   ├── commit_info_nogogit.go
+│   │   ├── commit_info_test.go
+│   │   ├── commit_reader.go
+│   │   ├── commit_sha256_test.go
+│   │   ├── commit_submodule.go
+│   │   ├── commit_submodule_file.go
+│   │   ├── commit_submodule_file_test.go
+│   │   ├── commit_test.go
+│   │   ├── config.go
+│   │   ├── config_submodule.go
+│   │   ├── config_submodule_test.go
+│   │   ├── config_test.go
+│   │   ├── diff.go
+│   │   ├── diff_test.go
+│   │   ├── error.go
+│   │   ├── foreachref/
+│   │   ├── git.go
+│   │   ├── git_test.go
+│   │   ├── gitcmd/
+│   │   ├── gpg.go
+│   │   ├── grep.go
+│   │   ├── grep_test.go
+│   │   ├── hook.go
+│   │   ├── internal/
+│   │   ├── key.go
+│   │   ├── languagestats/
+│   │   ├── last_commit_cache.go
+│   │   ├── last_commit_cache_gogit.go
+│   │   ├── last_commit_cache_nogogit.go
+│   │   ├── log_name_status.go
+│   │   ├── notes.go
+│   │   ├── notes_gogit.go
+│   │   ├── notes_nogogit.go
+│   │   ├── notes_test.go
+│   │   ├── object_format.go
+│   │   ├── object_id.go
+│   │   ├── object_id_gogit.go
+│   │   ├── object_id_test.go
+│   │   ├── parse.go
+│   │   ├── parse_treeentry.go
+│   │   ├── parse_treeentry_test.go
+│   │   ├── pipeline/
+│   │   ├── ref.go
+│   │   ├── ref_test.go
+│   │   ├── remote.go
+│   │   ├── repo.go
+│   │   ├── repo_base_gogit.go
+│   │   ├── repo_base_nogogit.go
+│   │   ├── repo_base_nogogit_test.go
+│   │   ├── repo_blob.go
+│   │   ├── repo_blob_test.go
+│   │   ├── repo_branch.go
+│   │   ├── repo_branch_gogit.go
+│   │   ├── repo_branch_nogogit.go
+│   │   ├── repo_branch_test.go
+│   │   ├── repo_commit.go
+│   │   ├── repo_commit_gogit.go
+│   │   ├── repo_commit_nogogit.go
+│   │   ├── repo_commit_test.go
+│   │   ├── repo_commitgraph.go
+│   │   ├── repo_commitgraph_gogit.go
+│   │   ├── repo_compare.go
+│   │   ├── repo_compare_test.go
+│   │   ├── repo_hook.go
+│   │   ├── repo_index.go
+│   │   ├── repo_object.go
+│   │   ├── repo_ref.go
+│   │   ├── repo_ref_gogit.go
+│   │   ├── repo_ref_nogogit.go
+│   │   ├── repo_ref_test.go
+│   │   ├── repo_stats.go
+│   │   ├── repo_stats_test.go
+│   │   ├── repo_tag.go
+│   │   ├── repo_tag_gogit.go
+│   │   ├── repo_tag_nogogit.go
+│   │   ├── repo_tag_test.go
+│   │   ├── repo_test.go
+│   │   ├── repo_tree.go
+│   │   ├── repo_tree_gogit.go
+│   │   ├── repo_tree_nogogit.go
+│   │   ├── signature.go
+│   │   ├── signature_gogit.go
+│   │   ├── signature_nogogit.go
+│   │   ├── signature_test.go
+│   │   ├── submodule.go
+│   │   ├── submodule_test.go
+│   │   ├── tag.go
+│   │   ├── tag_test.go
+│   │   ├── tests/
+│   │   ├── tree.go
+│   │   ├── tree_blob.go
+│   │   ├── tree_blob_gogit.go
+│   │   ├── tree_blob_nogogit.go
+│   │   ├── tree_entry.go
+│   │   ├── tree_entry_common_test.go
+│   │   ├── tree_entry_gogit.go
+│   │   ├── tree_entry_gogit_test.go
+│   │   ├── tree_entry_mode.go
+│   │   ├── tree_entry_nogogit.go
+│   │   ├── tree_entry_test.go
+│   │   ├── tree_gogit.go
+│   │   ├── tree_nogogit.go
+│   │   ├── tree_test.go
+│   │   ├── url/
+│   │   ├── utils.go
+│   │   └── utils_test.go
+│   ├── gitrepo/
+│   │   ├── archive.go
+│   │   ├── blame.go
+│   │   ├── blame_sha256_test.go
+│   │   ├── blame_test.go
+│   │   ├── branch.go
+│   │   ├── cat_file.go
+│   │   ├── clone.go
+│   │   ├── command.go
+│   │   ├── commit.go
+│   │   ├── commit_file.go
+│   │   ├── commit_file_test.go
+│   │   ├── commit_test.go
+│   │   ├── commitgraph.go
+│   │   ├── compare.go
+│   │   ├── compare_test.go
+│   │   ├── config.go
+│   │   ├── diff.go
+│   │   ├── fetch.go
+│   │   ├── fsck.go
+│   │   ├── gitrepo.go
+│   │   ├── hooks.go
+│   │   ├── main_test.go
+│   │   ├── merge.go
+│   │   ├── merge_tree.go
+│   │   ├── merge_tree_test.go
+│   │   ├── push.go
+│   │   ├── ref.go
+│   │   ├── remote.go
+│   │   ├── repo_lock.go
+│   │   ├── signing.go
+│   │   ├── size.go
+│   │   ├── tag.go
+│   │   ├── url.go
+│   │   ├── walk_gogit.go
+│   │   └── walk_nogogit.go
+│   ├── glob/
+│   │   ├── glob.go
+│   │   └── glob_test.go
+│   ├── globallock/
+│   │   ├── globallock.go
+│   │   ├── globallock_test.go
+│   │   ├── locker.go
+│   │   ├── locker_test.go
+│   │   ├── memory_locker.go
+│   │   └── redis_locker.go
+│   ├── graceful/
+│   │   ├── context.go
+│   │   ├── manager.go
+│   │   ├── manager_common.go
+│   │   ├── manager_unix.go
+│   │   ├── manager_windows.go
+│   │   ├── net_unix.go
+│   │   ├── net_windows.go
+│   │   ├── releasereopen/
+│   │   ├── restart_unix.go
+│   │   ├── server.go
+│   │   ├── server_hooks.go
+│   │   └── server_http.go
+│   ├── gtprof/
+│   │   ├── event.go
+│   │   ├── gtprof.go
+│   │   ├── trace.go
+│   │   ├── trace_builtin.go
+│   │   ├── trace_const.go
+│   │   └── trace_test.go
+│   ├── hcaptcha/
+│   │   ├── error.go
+│   │   ├── hcaptcha.go
+│   │   └── hcaptcha_test.go
+│   ├── highlight/
+│   │   ├── highlight.go
+│   │   ├── highlight_test.go
+│   │   ├── lexerdetect.go
+│   │   └── lexerdetect_test.go
+│   ├── hostmatcher/
+│   │   ├── hostmatcher.go
+│   │   ├── hostmatcher_test.go
+│   │   └── http.go
+│   ├── htmlutil/
+│   │   ├── html.go
+│   │   └── html_test.go
+│   ├── httpcache/
+│   │   ├── httpcache.go
+│   │   └── httpcache_test.go
+│   ├── httplib/
+│   │   ├── request.go
+│   │   ├── serve.go
+│   │   ├── serve_test.go
+│   │   ├── url.go
+│   │   └── url_test.go
+│   ├── indexer/
+│   │   ├── code/
+│   │   ├── indexer.go
+│   │   ├── internal/
+│   │   ├── issues/
+│   │   └── stats/
+│   ├── issue/
+│   │   └── template/
+│   ├── json/
+│   │   ├── json.go
+│   │   ├── json_test.go
+│   │   ├── jsongoccy.go
+│   │   ├── jsonlegacy.go
+│   │   ├── jsonv1.go
+│   │   └── jsonv2.go
+│   ├── label/
+│   │   ├── label.go
+│   │   ├── parser.go
+│   │   └── parser_test.go
+│   ├── lfs/
+│   │   ├── LICENSE
+│   │   ├── client.go
+│   │   ├── client_test.go
+│   │   ├── content_store.go
+│   │   ├── endpoint.go
+│   │   ├── endpoint_test.go
+│   │   ├── filesystem_client.go
+│   │   ├── http_client.go
+│   │   ├── http_client_test.go
+│   │   ├── pointer.go
+│   │   ├── pointer_scanner_gogit.go
+│   │   ├── pointer_scanner_nogogit.go
+│   │   ├── pointer_test.go
+│   │   ├── shared.go
+│   │   ├── transferadapter.go
+│   │   └── transferadapter_test.go
+│   ├── lfstransfer/
+│   │   ├── backend/
+│   │   ├── logger.go
+│   │   └── main.go
+│   ├── log/
+│   │   ├── color.go
+│   │   ├── color_console.go
+│   │   ├── color_console_other.go
+│   │   ├── color_console_windows.go
+│   │   ├── color_router.go
+│   │   ├── event_format.go
+│   │   ├── event_format_test.go
+│   │   ├── event_writer.go
+│   │   ├── event_writer_base.go
+│   │   ├── event_writer_conn.go
+│   │   ├── event_writer_conn_test.go
+│   │   ├── event_writer_console.go
+│   │   ├── event_writer_file.go
+│   │   ├── flags.go
+│   │   ├── flags_test.go
+│   │   ├── init.go
+│   │   ├── level.go
+│   │   ├── level_test.go
+│   │   ├── logger.go
+│   │   ├── logger_global.go
+│   │   ├── logger_impl.go
+│   │   ├── logger_test.go
+│   │   ├── manager.go
+│   │   ├── manager_test.go
+│   │   ├── misc.go
+│   │   └── stack.go
+│   ├── markup/
+│   │   ├── asciicast/
+│   │   ├── camo.go
+│   │   ├── camo_test.go
+│   │   ├── common/
+│   │   ├── console/
+│   │   ├── csv/
+│   │   ├── external/
+│   │   ├── html.go
+│   │   ├── html_codepreview.go
+│   │   ├── html_codepreview_test.go
+│   │   ├── html_commit.go
+│   │   ├── html_email.go
+│   │   ├── html_emoji.go
+│   │   ├── html_internal_test.go
+│   │   ├── html_issue.go
+│   │   ├── html_issue_test.go
+│   │   ├── html_link.go
+│   │   ├── html_mention.go
+│   │   ├── html_node.go
+│   │   ├── html_node_test.go
+│   │   ├── html_test.go
+│   │   ├── html_toc_test.go
+│   │   ├── internal/
+│   │   ├── main_test.go
+│   │   ├── markdown/
+│   │   ├── mdstripper/
+│   │   ├── orgmode/
+│   │   ├── render.go
+│   │   ├── render_helper.go
+│   │   ├── render_link.go
+│   │   ├── render_link_test.go
+│   │   ├── renderer.go
+│   │   ├── sanitizer.go
+│   │   ├── sanitizer_custom.go
+│   │   ├── sanitizer_default.go
+│   │   ├── sanitizer_default_test.go
+│   │   ├── sanitizer_description.go
+│   │   └── sanitizer_description_test.go
+│   ├── mcaptcha/
+│   │   └── mcaptcha.go
+│   ├── metrics/
+│   │   └── collector.go
+│   ├── migration/
+│   │   ├── comment.go
+│   │   ├── downloader.go
+│   │   ├── error.go
+│   │   ├── file_format.go
+│   │   ├── file_format_test.go
+│   │   ├── file_format_testdata/
+│   │   ├── issue.go
+│   │   ├── label.go
+│   │   ├── messenger.go
+│   │   ├── milestone.go
+│   │   ├── null_downloader.go
+│   │   ├── options.go
+│   │   ├── pullrequest.go
+│   │   ├── reaction.go
+│   │   ├── release.go
+│   │   ├── repo.go
+│   │   ├── retry_downloader.go
+│   │   ├── review.go
+│   │   ├── schemas/
+│   │   ├── schemas_bindata.go
+│   │   ├── schemas_dynamic.go
+│   │   └── uploader.go
+│   ├── nosql/
+│   │   ├── leveldb.go
+│   │   ├── manager.go
+│   │   ├── manager_leveldb.go
+│   │   ├── manager_redis.go
+│   │   ├── manager_redis_test.go
+│   │   ├── redis.go
+│   │   └── redis_test.go
+│   ├── optional/
+│   │   ├── option.go
+│   │   ├── option_test.go
+│   │   ├── serialization.go
+│   │   └── serialization_test.go
+│   ├── options/
+│   │   ├── base.go
+│   │   ├── options_bindata.go
+│   │   └── options_dynamic.go
+│   ├── packages/
+│   │   ├── alpine/
+│   │   ├── arch/
+│   │   ├── cargo/
+│   │   ├── chef/
+│   │   ├── composer/
+│   │   ├── conan/
+│   │   ├── conda/
+│   │   ├── container/
+│   │   ├── content_store.go
+│   │   ├── cran/
+│   │   ├── debian/
+│   │   ├── goproxy/
+│   │   ├── hashed_buffer.go
+│   │   ├── hashed_buffer_test.go
+│   │   ├── helm/
+│   │   ├── maven/
+│   │   ├── multi_hasher.go
+│   │   ├── multi_hasher_test.go
+│   │   ├── npm/
+│   │   ├── nuget/
+│   │   ├── pub/
+│   │   ├── pypi/
+│   │   ├── rpm/
+│   │   ├── rubygems/
+│   │   ├── swift/
+│   │   └── vagrant/
+│   ├── paginator/
+│   │   ├── paginator.go
+│   │   └── paginator_test.go
+│   ├── pprof/
+│   │   └── pprof.go
+│   ├── private/
+│   │   ├── actions.go
+│   │   ├── hook.go
+│   │   ├── internal.go
+│   │   ├── key.go
+│   │   ├── mail.go
+│   │   ├── manager.go
+│   │   ├── pushoptions.go
+│   │   ├── pushoptions_test.go
+│   │   ├── request.go
+│   │   ├── restore_repo.go
+│   │   └── serv.go
+│   ├── process/
+│   │   ├── context.go
+│   │   ├── error.go
+│   │   ├── manager.go
+│   │   ├── manager_exec.go
+│   │   ├── manager_stacktraces.go
+│   │   ├── manager_test.go
+│   │   ├── manager_unix.go
+│   │   ├── manager_windows.go
+│   │   └── process.go
+│   ├── proxy/
+│   │   └── proxy.go
+│   ├── proxyprotocol/
+│   │   ├── conn.go
+│   │   ├── errors.go
+│   │   ├── listener.go
+│   │   └── util.go
+│   ├── public/
+│   │   ├── mime_types.go
+│   │   ├── public.go
+│   │   ├── public_bindata.go
+│   │   ├── public_dynamic.go
+│   │   └── public_test.go
+│   ├── queue/
+│   │   ├── backoff.go
+│   │   ├── base.go
+│   │   ├── base_channel.go
+│   │   ├── base_channel_test.go
+│   │   ├── base_dummy.go
+│   │   ├── base_levelqueue.go
+│   │   ├── base_levelqueue_common.go
+│   │   ├── base_levelqueue_test.go
+│   │   ├── base_levelqueue_unique.go
+│   │   ├── base_redis.go
+│   │   ├── base_redis_test.go
+│   │   ├── base_test.go
+│   │   ├── config.go
+│   │   ├── lqinternal/
+│   │   ├── manager.go
+│   │   ├── manager_test.go
+│   │   ├── queue.go
+│   │   ├── testhelper.go
+│   │   ├── workergroup.go
+│   │   ├── workerqueue.go
+│   │   └── workerqueue_test.go
+│   ├── recaptcha/
+│   │   └── recaptcha.go
+│   ├── references/
+│   │   ├── references.go
+│   │   └── references_test.go
+│   ├── regexplru/
+│   │   ├── regexplru.go
+│   │   └── regexplru_test.go
+│   ├── repository/
+│   │   ├── branch.go
+│   │   ├── branch_test.go
+│   │   ├── commits.go
+│   │   ├── commits_test.go
+│   │   ├── create.go
+│   │   ├── create_test.go
+│   │   ├── delete.go
+│   │   ├── env.go
+│   │   ├── fork.go
+│   │   ├── fork_test.go
+│   │   ├── init.go
+│   │   ├── init_test.go
+│   │   ├── license.go
+│   │   ├── license_test.go
+│   │   ├── main_test.go
+│   │   ├── push.go
+│   │   ├── repo.go
+│   │   ├── repo_test.go
+│   │   └── temp.go
+│   ├── reqctx/
+│   │   └── datastore.go
+│   ├── secret/
+│   │   ├── secret.go
+│   │   └── secret_test.go
+│   ├── session/
+│   │   ├── db.go
+│   │   ├── key.go
+│   │   ├── mem.go
+│   │   ├── redis.go
+│   │   ├── store.go
+│   │   └── virtual.go
+│   ├── setting/
+│   │   ├── actions.go
+│   │   ├── actions_test.go
+│   │   ├── admin.go
+│   │   ├── api.go
+│   │   ├── asset_dynamic.go
+│   │   ├── asset_static.go
+│   │   ├── attachment.go
+│   │   ├── attachment_test.go
+│   │   ├── cache.go
+│   │   ├── camo.go
+│   │   ├── config.go
+│   │   ├── config/
+│   │   ├── config_env.go
+│   │   ├── config_env_test.go
+│   │   ├── config_option_instance.go
+│   │   ├── config_provider.go
+│   │   ├── config_provider_test.go
+│   │   ├── cors.go
+│   │   ├── cron.go
+│   │   ├── cron_test.go
+│   │   ├── database.go
+│   │   ├── database_sqlite.go
+│   │   ├── database_test.go
+│   │   ├── federation.go
+│   │   ├── git.go
+│   │   ├── git_test.go
+│   │   ├── gloabl_lock.go
+│   │   ├── glob.go
+│   │   ├── global.go
+│   │   ├── global_lock_test.go
+│   │   ├── highlight.go
+│   │   ├── i18n.go
+│   │   ├── incoming_email.go
+│   │   ├── indexer.go
+│   │   ├── indexer_test.go
+│   │   ├── lfs.go
+│   │   ├── lfs_test.go
+│   │   ├── log.go
+│   │   ├── log_test.go
+│   │   ├── mailer.go
+│   │   ├── mailer_test.go
+│   │   ├── markup.go
+│   │   ├── markup_test.go
+│   │   ├── metrics.go
+│   │   ├── migrations.go
+│   │   ├── mime_type_map.go
+│   │   ├── mirror.go
+│   │   ├── oauth2.go
+│   │   ├── oauth2_test.go
+│   │   ├── other.go
+│   │   ├── packages.go
+│   │   ├── packages_test.go
+│   │   ├── path.go
+│   │   ├── path_test.go
+│   │   ├── picture.go
+│   │   ├── project.go
+│   │   ├── proxy.go
+│   │   ├── queue.go
+│   │   ├── repository.go
+│   │   ├── repository_archive.go
+│   │   ├── repository_archive_test.go
+│   │   ├── security.go
+│   │   ├── server.go
+│   │   ├── service.go
+│   │   ├── service_test.go
+│   │   ├── session.go
+│   │   ├── setting.go
+│   │   ├── setting_test.go
+│   │   ├── ssh.go
+│   │   ├── storage.go
+│   │   ├── storage_test.go
+│   │   ├── task.go
+│   │   ├── testenv.go
+│   │   ├── time.go
+│   │   ├── ui.go
+│   │   └── webhook.go
+│   ├── sitemap/
+│   │   ├── sitemap.go
+│   │   └── sitemap_test.go
+│   ├── ssh/
+│   │   ├── init.go
+│   │   ├── ssh.go
+│   │   └── ssh_graceful.go
+│   ├── storage/
+│   │   ├── azureblob.go
+│   │   ├── azureblob_test.go
+│   │   ├── helper.go
+│   │   ├── helper_test.go
+│   │   ├── local.go
+│   │   ├── local_test.go
+│   │   ├── minio.go
+│   │   ├── minio_test.go
+│   │   ├── storage.go
+│   │   ├── storage_test.go
+│   │   └── testdata/
+│   ├── structs/
+│   │   ├── activity.go
+│   │   ├── admin_user.go
+│   │   ├── attachment.go
+│   │   ├── cron.go
+│   │   ├── doc.go
+│   │   ├── fork.go
+│   │   ├── git_blob.go
+│   │   ├── git_hook.go
+│   │   ├── hook.go
+│   │   ├── issue.go
+│   │   ├── issue_comment.go
+│   │   ├── issue_label.go
+│   │   ├── issue_milestone.go
+│   │   ├── issue_reaction.go
+│   │   ├── issue_stopwatch.go
+│   │   ├── issue_test.go
+│   │   ├── issue_tracked_time.go
+│   │   ├── lfs_lock.go
+│   │   ├── mirror.go
+│   │   ├── miscellaneous.go
+│   │   ├── nodeinfo.go
+│   │   ├── notifications.go
+│   │   ├── org.go
+│   │   ├── org_member.go
+│   │   ├── org_team.go
+│   │   ├── package.go
+│   │   ├── pull.go
+│   │   ├── pull_review.go
+│   │   ├── release.go
+│   │   ├── repo.go
+│   │   ├── repo_actions.go
+│   │   ├── repo_branch.go
+│   │   ├── repo_collaborator.go
+│   │   ├── repo_commit.go
+│   │   ├── repo_compare.go
+│   │   ├── repo_file.go
+│   │   ├── repo_key.go
+│   │   ├── repo_note.go
+│   │   ├── repo_refs.go
+│   │   ├── repo_tag.go
+│   │   ├── repo_topic.go
+│   │   ├── repo_tree.go
+│   │   ├── repo_watch.go
+│   │   ├── repo_wiki.go
+│   │   ├── secret.go
+│   │   ├── settings.go
+│   │   ├── status.go
+│   │   ├── task.go
+│   │   ├── user.go
+│   │   ├── user_app.go
+│   │   ├── user_email.go
+│   │   ├── user_gpgkey.go
+│   │   ├── user_key.go
+│   │   ├── variable.go
+│   │   └── visible_type.go
+│   ├── svg/
+│   │   ├── processor.go
+│   │   ├── processor_test.go
+│   │   └── svg.go
+│   ├── system/
+│   │   ├── appstate.go
+│   │   ├── appstate_test.go
+│   │   ├── db.go
+│   │   └── item_runtime.go
+│   ├── tailmsg/
+│   │   └── talimsg.go
+│   ├── tempdir/
+│   │   ├── tempdir.go
+│   │   └── tempdir_test.go
+│   ├── templates/
+│   │   ├── base.go
+│   │   ├── eval/
+│   │   ├── helper.go
+│   │   ├── helper_test.go
+│   │   ├── htmlrenderer.go
+│   │   ├── htmlrenderer_test.go
+│   │   ├── mail.go
+│   │   ├── page.go
+│   │   ├── scopedtmpl/
+│   │   ├── templates_bindata.go
+│   │   ├── templates_dynamic.go
+│   │   ├── util_avatar.go
+│   │   ├── util_date.go
+│   │   ├── util_date_test.go
+│   │   ├── util_dict.go
+│   │   ├── util_format.go
+│   │   ├── util_format_test.go
+│   │   ├── util_json.go
+│   │   ├── util_misc.go
+│   │   ├── util_render.go
+│   │   ├── util_render_comment.go
+│   │   ├── util_render_comment_test.go
+│   │   ├── util_render_test.go
+│   │   ├── util_slice.go
+│   │   ├── util_string.go
+│   │   ├── util_test.go
+│   │   └── vars/
+│   ├── test/
+│   │   ├── logchecker.go
+│   │   ├── logchecker_test.go
+│   │   └── utils.go
+│   ├── testlogger/
+│   │   └── testlogger.go
+│   ├── timeutil/
+│   │   ├── since.go
+│   │   ├── since_test.go
+│   │   ├── timestamp.go
+│   │   └── timestampnano.go
+│   ├── translation/
+│   │   ├── i18n/
+│   │   ├── mock.go
+│   │   ├── translation.go
+│   │   └── translation_test.go
+│   ├── turnstile/
+│   │   └── turnstile.go
+│   ├── typesniffer/
+│   │   ├── typesniffer.go
+│   │   └── typesniffer_test.go
+│   ├── updatechecker/
+│   │   └── update_checker.go
+│   ├── uri/
+│   │   ├── uri.go
+│   │   └── uri_test.go
+│   ├── user/
+│   │   ├── user.go
+│   │   └── user_test.go
+│   ├── util/
+│   │   ├── buffer.go
+│   │   ├── color.go
+│   │   ├── color_test.go
+│   │   ├── error.go
+│   │   ├── error_test.go
+│   │   ├── file_unix.go
+│   │   ├── file_unix_test.go
+│   │   ├── file_windows.go
+│   │   ├── filebuffer/
+│   │   ├── io.go
+│   │   ├── io_test.go
+│   │   ├── keypair.go
+│   │   ├── keypair_test.go
+│   │   ├── legacy.go
+│   │   ├── legacy_test.go
+│   │   ├── map.go
+│   │   ├── map_test.go
+│   │   ├── pack.go
+│   │   ├── pack_test.go
+│   │   ├── paginate.go
+│   │   ├── paginate_test.go
+│   │   ├── path.go
+│   │   ├── path_test.go
+│   │   ├── remove.go
+│   │   ├── rotatingfilewriter/
+│   │   ├── runtime.go
+│   │   ├── runtime_test.go
+│   │   ├── sanitize.go
+│   │   ├── sanitize_test.go
+│   │   ├── sec_to_time.go
+│   │   ├── sec_to_time_test.go
+│   │   ├── shellquote.go
+│   │   ├── shellquote_test.go
+│   │   ├── slice.go
+│   │   ├── slice_test.go
+│   │   ├── string.go
+│   │   ├── string_test.go
+│   │   ├── time_str.go
+│   │   ├── time_str_test.go
+│   │   ├── timer.go
+│   │   ├── timer_test.go
+│   │   ├── truncate.go
+│   │   ├── truncate_test.go
+│   │   ├── url.go
+│   │   ├── util.go
+│   │   └── util_test.go
+│   ├── validation/
+│   │   ├── binding.go
+│   │   ├── binding_test.go
+│   │   ├── glob_pattern_test.go
+│   │   ├── helpers.go
+│   │   ├── helpers_test.go
+│   │   ├── refname_test.go
+│   │   ├── regex_pattern_test.go
+│   │   ├── validurl_test.go
+│   │   └── validurllist_test.go
+│   ├── web/
+│   │   ├── handler.go
+│   │   ├── middleware/
+│   │   ├── routemock.go
+│   │   ├── routemock_test.go
+│   │   ├── router.go
+│   │   ├── router_combo.go
+│   │   ├── router_path.go
+│   │   ├── router_test.go
+│   │   ├── routing/
+│   │   └── types/
+│   ├── webhook/
+│   │   ├── events.go
+│   │   └── type.go
+│   └── zstd/
+│       ├── option.go
+│       ├── zstd.go
+│       └── zstd_test.go
+├── options/
+│   ├── fileicon/
+│   │   ├── material-icon-rules.json
+│   │   └── material-icon-svgs.json
+│   ├── gitignore/
+│   │   ├── AL
+│   │   ├── Actionscript
+│   │   ├── Ada
+│   │   ├── Agda
+│   │   ├── Alteryx
+│   │   ├── AltiumDesigner
+│   │   ├── Android
+│   │   ├── Anjuta
+│   │   ├── Ansible
+│   │   ├── AppEngine
+│   │   ├── AppceleratorTitanium
+│   │   ├── ArchLinuxPackages
+│   │   ├── Archives
+│   │   ├── AtmelStudio
+│   │   ├── AutoIt
+│   │   ├── AutomationStudio
+│   │   ├── Autotools
+│   │   ├── B4X
+│   │   ├── Backup
+│   │   ├── Ballerina
+│   │   ├── Bazaar
+│   │   ├── Bazel
+│   │   ├── Beef
+│   │   ├── Bitrix
+│   │   ├── BricxCC
+│   │   ├── C
+│   │   ├── C++
+│   │   ├── CDK
+│   │   ├── CFWheels
+│   │   ├── CMake
+│   │   ├── CUDA
+│   │   ├── CVS
+│   │   ├── CakePHP
+│   │   ├── Calabash
+│   │   ├── ChefCookbook
+│   │   ├── Clojure
+│   │   ├── Cloud9
+│   │   ├── CodeIgniter
+│   │   ├── CodeKit
+│   │   ├── CodeSniffer
+│   │   ├── CommonLisp
+│   │   ├── Composer
+│   │   ├── Concrete5
+│   │   ├── Coq
+│   │   ├── Cordova
+│   │   ├── CraftCMS
+│   │   ├── D
+│   │   ├── DM
+│   │   ├── Dart
+│   │   ├── DartEditor
+│   │   ├── Delphi
+│   │   ├── Diff
+│   │   ├── Dreamweaver
+│   │   ├── Dropbox
+│   │   ├── Drupal
+│   │   ├── Drupal7
+│   │   ├── ECU-TEST
+│   │   ├── EPiServer
+│   │   ├── Eagle
+│   │   ├── Eclipse
+│   │   ├── EiffelStudio
+│   │   ├── Elisp
+│   │   ├── Elixir
+│   │   ├── Elm
+│   │   ├── Emacs
+│   │   ├── Ensime
+│   │   ├── Erlang
+│   │   ├── Espresso
+│   │   ├── Exercism
+│   │   ├── ExpressionEngine
+│   │   ├── ExtJs
+│   │   ├── Fancy
+│   │   ├── Finale
+│   │   ├── Firebase
+│   │   ├── FlaxEngine
+│   │   ├── FlexBuilder
+│   │   ├── Flutter
+│   │   ├── ForceDotCom
+│   │   ├── Fortran
+│   │   ├── FuelPHP
+│   │   ├── GNOMEShellExtension
+│   │   ├── GPG
+│   │   ├── GWT
+│   │   ├── Gcov
+│   │   ├── GitBook
+│   │   ├── GitHubPages
+│   │   ├── Go
+│   │   ├── Go.AllowList
+│   │   ├── Godot
+│   │   ├── Gradle
+│   │   ├── Grails
+│   │   ├── Gretl
+│   │   ├── Haskell
+│   │   ├── Hexo
+│   │   ├── Hugo
+│   │   ├── IAR
+│   │   ├── IAR_EWARM
+│   │   ├── IGORPro
+│   │   ├── Idris
+│   │   ├── Images
+│   │   ├── InforCMS
+│   │   ├── JBoss
+│   │   ├── JBoss4
+│   │   ├── JBoss6
+│   │   ├── JDeveloper
+│   │   ├── JENKINS_HOME
+│   │   ├── JEnv
+│   │   ├── Java
+│   │   ├── Jekyll
+│   │   ├── JetBrains
+│   │   ├── Jigsaw
+│   │   ├── Joomla
+│   │   ├── Julia
+│   │   ├── JupyterNotebooks
+│   │   ├── KDevelop4
+│   │   ├── Kate
+│   │   ├── Kentico
+│   │   ├── KiCad
+│   │   ├── Kohana
+│   │   ├── Kotlin
+│   │   ├── LabVIEW
+│   │   ├── Laravel
+│   │   ├── Lazarus
+│   │   ├── Leiningen
+│   │   ├── LemonStand
+│   │   ├── LensStudio
+│   │   ├── LibreOffice
+│   │   ├── Lilypond
+│   │   ├── Linux
+│   │   ├── Lithium
+│   │   ├── Logtalk
+│   │   ├── Lua
+│   │   ├── LyX
+│   │   ├── MATLAB
+│   │   ├── Magento
+│   │   ├── Magento1
+│   │   ├── Magento2
+│   │   ├── Maven
+│   │   ├── Mercurial
+│   │   ├── Mercury
+│   │   ├── MetaProgrammingSystem
+│   │   ├── Metals
+│   │   ├── Meteor
+│   │   ├── MicrosoftOffice
+│   │   ├── ModelSim
+│   │   ├── Modelica
+│   │   ├── Momentics
+│   │   ├── MonoDevelop
+│   │   ├── Move
+│   │   ├── NWjs
+│   │   ├── Nanoc
+│   │   ├── NasaSpecsIntact
+│   │   ├── NetBeans
+│   │   ├── Nikola
+│   │   ├── Nim
+│   │   ├── Ninja
+│   │   ├── Nix
+│   │   ├── Node
+│   │   ├── NotepadPP
+│   │   ├── NotesAndCoreConfiguration
+│   │   ├── NotesAndExtendedConfiguration
+│   │   ├── NotesOnly
+│   │   ├── OCaml
+│   │   ├── Objective-C
+│   │   ├── Octave
+│   │   ├── Opa
+│   │   ├── OpenCart
+│   │   ├── OpenSSL
+│   │   ├── OpenTofu
+│   │   ├── OracleForms
+│   │   ├── Otto
+│   │   ├── PSoCCreator
+│   │   ├── Packer
+│   │   ├── Patch
+│   │   ├── Perl
+│   │   ├── Perl6
+│   │   ├── Phalcon
+│   │   ├── Phoenix
+│   │   ├── Pimcore
+│   │   ├── PlayFramework
+│   │   ├── Plone
+│   │   ├── Prestashop
+│   │   ├── Processing
+│   │   ├── PuTTY
+│   │   ├── Puppet
+│   │   ├── PureScript
+│   │   ├── Python
+│   │   ├── Qooxdoo
+│   │   ├── Qt
+│   │   ├── R
+│   │   ├── ROS
+│   │   ├── ROS2
+│   │   ├── Racket
+│   │   ├── Rails
+│   │   ├── Raku
+│   │   ├── ReScript
+│   │   ├── Red
+│   │   ├── Redcar
+│   │   ├── Redis
+│   │   ├── RhodesRhomobile
+│   │   ├── Ruby
+│   │   ├── Rust
+│   │   ├── SAM
+│   │   ├── SBT
+│   │   ├── SCons
+│   │   ├── SPFx
+│   │   ├── SVN
+│   │   ├── Sass
+│   │   ├── Scala
+│   │   ├── Scheme
+│   │   ├── Scrivener
+│   │   ├── Sdcc
+│   │   ├── SeamGen
+│   │   ├── SketchUp
+│   │   ├── SlickEdit
+│   │   ├── Smalltalk
+│   │   ├── Snap
+│   │   ├── Splunk
+│   │   ├── Stata
+│   │   ├── Stella
+│   │   ├── Strapi
+│   │   ├── SublimeText
+│   │   ├── SugarCRM
+│   │   ├── Swift
+│   │   ├── Symfony
+│   │   ├── SymphonyCMS
+│   │   ├── Syncthing
+│   │   ├── SynopsysVCS
+│   │   ├── Tags
+│   │   ├── TeX
+│   │   ├── Terraform
+│   │   ├── Terragrunt
+│   │   ├── TextMate
+│   │   ├── Textpattern
+│   │   ├── ThinkPHP
+│   │   ├── Toit
+│   │   ├── TortoiseGit
+│   │   ├── TurboGears2
+│   │   ├── TwinCAT3
+│   │   ├── Typo3
+│   │   ├── UiPath
+│   │   ├── Umbraco
+│   │   ├── Unity
+│   │   ├── UnrealEngine
+│   │   ├── V
+│   │   ├── VVVV
+│   │   ├── Vagrant
+│   │   ├── Vim
+│   │   ├── VirtualEnv
+│   │   ├── Virtuoso
+│   │   ├── VisualStudio
+│   │   ├── VisualStudioCode
+│   │   ├── Vue
+│   │   ├── Waf
+│   │   ├── WebMethods
+│   │   ├── Windows
+│   │   ├── WordPress
+│   │   ├── Xcode
+│   │   ├── Xilinx
+│   │   ├── XilinxISE
+│   │   ├── Xojo
+│   │   ├── Yeoman
+│   │   ├── Yii
+│   │   ├── ZendFramework
+│   │   ├── Zephir
+│   │   ├── Zig
+│   │   ├── core
+│   │   ├── esp-idf
+│   │   ├── macOS
+│   │   └── uVision
+│   ├── label/
+│   │   ├── Advanced.yaml
+│   │   └── Default
+│   ├── license/
+│   │   ├── 0BSD
+│   │   ├── AGPL-3.0
+│   │   ├── Apache-2.0
+│   │   ├── BSD-2-Clause
+│   │   ├── BSD-3-Clause
+│   │   ├── BSD-3-Clause-Clear
+│   │   ├── BSL-1.0
+│   │   ├── CC-BY-4.0
+│   │   ├── CC-BY-SA-4.0
+│   │   ├── CC0-1.0
+│   │   ├── EPL-1.0
+│   │   ├── EPL-2.0
+│   │   ├── EUPL-1.2
+│   │   ├── GPL-2.0
+│   │   ├── GPL-3.0
+│   │   ├── ISC
+│   │   ├── LGPL-2.1
+│   │   ├── LGPL-3.0
+│   │   ├── MIT
+│   │   ├── MIT-0
+│   │   ├── MPL-2.0
+│   │   ├── MulanPSL-2.0
+│   │   ├── OFL-1.1
+│   │   ├── OSL-3.0
+│   │   ├── UPL-1.0
+│   │   ├── Unlicense
+│   │   ├── WTFPL
+│   │   └── Zlib
+│   ├── locale/
+│   │   ├── TRANSLATORS
+│   │   ├── locale_cs-CZ.json
+│   │   ├── locale_de-DE.json
+│   │   ├── locale_el-GR.json
+│   │   ├── locale_en-US.json
+│   │   ├── locale_es-ES.json
+│   │   ├── locale_fa-IR.json
+│   │   ├── locale_fi-FI.json
+│   │   ├── locale_fr-FR.json
+│   │   ├── locale_ga-IE.json
+│   │   ├── locale_hu-HU.json
+│   │   ├── locale_id-ID.json
+│   │   ├── locale_is-IS.json
+│   │   ├── locale_it-IT.json
+│   │   ├── locale_ja-JP.json
+│   │   ├── locale_ko-KR.json
+│   │   ├── locale_lv-LV.json
+│   │   ├── locale_nl-NL.json
+│   │   ├── locale_pl-PL.json
+│   │   ├── locale_pt-BR.json
+│   │   ├── locale_pt-PT.json
+│   │   ├── locale_ru-RU.json
+│   │   ├── locale_si-LK.json
+│   │   ├── locale_sk-SK.json
+│   │   ├── locale_sv-SE.json
+│   │   ├── locale_tr-TR.json
+│   │   ├── locale_uk-UA.json
+│   │   ├── locale_zh-CN.json
+│   │   └── locale_zh-TW.json
+│   └── readme/
+│       └── Default
+├── package.json
+├── playwright.config.ts
+├── pnpm-lock.yaml
+├── public/
+│   ├── .well-known/
+│   │   └── security.txt
+│   └── assets/
+│       └── img/
+├── pyproject.toml
+├── routers/
+│   ├── api/
+│   │   ├── actions/
+│   │   ├── packages/
+│   │   └── v1/
+│   ├── common/
+│   │   ├── actions.go
+│   │   ├── auth.go
+│   │   ├── blockexpensive.go
+│   │   ├── blockexpensive_test.go
+│   │   ├── codesearch.go
+│   │   ├── compare.go
+│   │   ├── compare_test.go
+│   │   ├── db.go
+│   │   ├── deadline.go
+│   │   ├── errpage.go
+│   │   ├── errpage_test.go
+│   │   ├── issue_filter.go
+│   │   ├── lfs.go
+│   │   ├── maintenancemode.go
+│   │   ├── markup.go
+│   │   ├── middleware.go
+│   │   ├── pagetmpl.go
+│   │   ├── qos.go
+│   │   ├── qos_test.go
+│   │   ├── redirect.go
+│   │   └── serve.go
+│   ├── init.go
+│   ├── install/
+│   │   ├── install.go
+│   │   ├── routes.go
+│   │   └── routes_test.go
+│   ├── private/
+│   │   ├── actions.go
+│   │   ├── default_branch.go
+│   │   ├── hook_post_receive.go
+│   │   ├── hook_post_receive_test.go
+│   │   ├── hook_pre_receive.go
+│   │   ├── hook_proc_receive.go
+│   │   ├── hook_verification.go
+│   │   ├── hook_verification_test.go
+│   │   ├── internal.go
+│   │   ├── internal_repo.go
+│   │   ├── key.go
+│   │   ├── mail.go
+│   │   ├── main_test.go
+│   │   ├── manager.go
+│   │   ├── manager_process.go
+│   │   ├── manager_unix.go
+│   │   ├── manager_windows.go
+│   │   ├── restore_repo.go
+│   │   ├── serv.go
+│   │   ├── ssh_log.go
+│   │   └── tests/
+│   ├── utils/
+│   │   ├── utils.go
+│   │   └── utils_test.go
+│   └── web/
+│       ├── admin/
+│       ├── auth/
+│       ├── base.go
+│       ├── devtest/
+│       ├── events/
+│       ├── explore/
+│       ├── feed/
+│       ├── githttp.go
+│       ├── goget.go
+│       ├── healthcheck/
+│       ├── home.go
+│       ├── metrics.go
+│       ├── misc/
+│       ├── nodeinfo.go
+│       ├── org/
+│       ├── passkey.go
+│       ├── repo/
+│       ├── shared/
+│       ├── swagger_json.go
+│       ├── user/
+│       ├── web.go
+│       └── webfinger.go
+├── services/
+│   ├── actions/
+│   │   ├── auth.go
+│   │   ├── auth_test.go
+│   │   ├── cleanup.go
+│   │   ├── clear_tasks.go
+│   │   ├── commit_status.go
+│   │   ├── concurrency.go
+│   │   ├── context.go
+│   │   ├── context_test.go
+│   │   ├── init.go
+│   │   ├── init_test.go
+│   │   ├── interface.go
+│   │   ├── job_emitter.go
+│   │   ├── job_emitter_test.go
+│   │   ├── notifier.go
+│   │   ├── notifier_helper.go
+│   │   ├── rerun.go
+│   │   ├── rerun_test.go
+│   │   ├── run.go
+│   │   ├── schedule_tasks.go
+│   │   ├── task.go
+│   │   ├── variables.go
+│   │   └── workflow.go
+│   ├── agit/
+│   │   ├── agit.go
+│   │   └── agit_test.go
+│   ├── asymkey/
+│   │   ├── commit.go
+│   │   ├── commit_test.go
+│   │   ├── deploy_key.go
+│   │   ├── main_test.go
+│   │   ├── sign.go
+│   │   ├── sign_test.go
+│   │   ├── ssh_key.go
+│   │   ├── ssh_key_authorized_keys.go
+│   │   ├── ssh_key_authorized_principals.go
+│   │   ├── ssh_key_principals.go
+│   │   └── ssh_key_test.go
+│   ├── attachment/
+│   │   ├── attachment.go
+│   │   └── attachment_test.go
+│   ├── auth/
+│   │   ├── auth.go
+│   │   ├── auth_test.go
+│   │   ├── auth_token.go
+│   │   ├── auth_token_test.go
+│   │   ├── basic.go
+│   │   ├── group.go
+│   │   ├── httpsign.go
+│   │   ├── interface.go
+│   │   ├── main_test.go
+│   │   ├── oauth2.go
+│   │   ├── oauth2_test.go
+│   │   ├── reverseproxy.go
+│   │   ├── session.go
+│   │   ├── signin.go
+│   │   ├── source.go
+│   │   ├── source/
+│   │   ├── sspi.go
+│   │   ├── sspiauth_posix.go
+│   │   ├── sspiauth_windows.go
+│   │   └── sync.go
+│   ├── automerge/
+│   │   ├── automerge.go
+│   │   └── notify.go
+│   ├── automergequeue/
+│   │   └── automergequeue.go
+│   ├── context/
+│   │   ├── access_log.go
+│   │   ├── access_log_test.go
+│   │   ├── api.go
+│   │   ├── api_org.go
+│   │   ├── api_test.go
+│   │   ├── base.go
+│   │   ├── base_form.go
+│   │   ├── base_path.go
+│   │   ├── base_test.go
+│   │   ├── captcha.go
+│   │   ├── context.go
+│   │   ├── context_cookie.go
+│   │   ├── context_model.go
+│   │   ├── context_request.go
+│   │   ├── context_response.go
+│   │   ├── context_template.go
+│   │   ├── context_test.go
+│   │   ├── org.go
+│   │   ├── package.go
+│   │   ├── pagination.go
+│   │   ├── pagination_test.go
+│   │   ├── permission.go
+│   │   ├── private.go
+│   │   ├── repo.go
+│   │   ├── response.go
+│   │   ├── upload/
+│   │   ├── user.go
+│   │   └── utils.go
+│   ├── contexttest/
+│   │   └── context_tests.go
+│   ├── convert/
+│   │   ├── activity.go
+│   │   ├── attachment.go
+│   │   ├── convert.go
+│   │   ├── git_commit.go
+│   │   ├── git_commit_test.go
+│   │   ├── issue.go
+│   │   ├── issue_comment.go
+│   │   ├── issue_test.go
+│   │   ├── main_test.go
+│   │   ├── mirror.go
+│   │   ├── notification.go
+│   │   ├── notification_test.go
+│   │   ├── package.go
+│   │   ├── pull.go
+│   │   ├── pull_review.go
+│   │   ├── pull_review_test.go
+│   │   ├── pull_test.go
+│   │   ├── release.go
+│   │   ├── release_test.go
+│   │   ├── repository.go
+│   │   ├── secret.go
+│   │   ├── status.go
+│   │   ├── user.go
+│   │   ├── user_test.go
+│   │   ├── utils.go
+│   │   ├── utils_test.go
+│   │   └── wiki.go
+│   ├── cron/
+│   │   ├── cron.go
+│   │   ├── setting.go
+│   │   ├── tasks.go
+│   │   ├── tasks_actions.go
+│   │   ├── tasks_basic.go
+│   │   ├── tasks_extended.go
+│   │   ├── tasks_extended_test.go
+│   │   └── tasks_test.go
+│   ├── doctor/
+│   │   ├── actions.go
+│   │   ├── actions_test.go
+│   │   ├── authorizedkeys.go
+│   │   ├── breaking.go
+│   │   ├── checkOldArchives.go
+│   │   ├── dbconsistency.go
+│   │   ├── dbconsistency_test.go
+│   │   ├── dbversion.go
+│   │   ├── doctor.go
+│   │   ├── fix16961.go
+│   │   ├── fix16961_test.go
+│   │   ├── fix8312.go
+│   │   ├── heads.go
+│   │   ├── lfs.go
+│   │   ├── main_test.go
+│   │   ├── mergebase.go
+│   │   ├── misc.go
+│   │   ├── paths.go
+│   │   ├── repository.go
+│   │   ├── storage.go
+│   │   └── usertype.go
+│   ├── externalaccount/
+│   │   └── user.go
+│   ├── feed/
+│   │   ├── feed.go
+│   │   ├── feed_test.go
+│   │   ├── notifier.go
+│   │   └── notifier_test.go
+│   ├── forms/
+│   │   ├── admin.go
+│   │   ├── auth_form.go
+│   │   ├── org.go
+│   │   ├── package_form.go
+│   │   ├── repo_branch_form.go
+│   │   ├── repo_form.go
+│   │   ├── repo_form_editor.go
+│   │   ├── repo_form_test.go
+│   │   ├── repo_tag_form.go
+│   │   ├── runner.go
+│   │   ├── user_form.go
+│   │   ├── user_form_auth_openid.go
+│   │   ├── user_form_hidden_comments.go
+│   │   └── user_form_test.go
+│   ├── git/
+│   │   ├── commit.go
+│   │   └── compare.go
+│   ├── gitdiff/
+│   │   ├── csv.go
+│   │   ├── csv_test.go
+│   │   ├── git_diff_tree.go
+│   │   ├── git_diff_tree_test.go
+│   │   ├── gitdiff.go
+│   │   ├── gitdiff_excerpt.go
+│   │   ├── gitdiff_excerpt_test.go
+│   │   ├── gitdiff_test.go
+│   │   ├── highlightdiff.go
+│   │   ├── highlightdiff_test.go
+│   │   ├── main_test.go
+│   │   ├── submodule.go
+│   │   └── submodule_test.go
+│   ├── indexer/
+│   │   ├── indexer.go
+│   │   └── notify.go
+│   ├── issue/
+│   │   ├── assignee.go
+│   │   ├── assignee_test.go
+│   │   ├── comments.go
+│   │   ├── commit.go
+│   │   ├── commit_test.go
+│   │   ├── content.go
+│   │   ├── issue.go
+│   │   ├── issue_test.go
+│   │   ├── label.go
+│   │   ├── label_test.go
+│   │   ├── main_test.go
+│   │   ├── milestone.go
+│   │   ├── milestone_test.go
+│   │   ├── pull.go
+│   │   ├── reaction.go
+│   │   ├── reaction_test.go
+│   │   ├── status.go
+│   │   ├── suggestion.go
+│   │   ├── suggestion_test.go
+│   │   └── template.go
+│   ├── lfs/
+│   │   ├── locks.go
+│   │   ├── server.go
+│   │   └── server_test.go
+│   ├── mailer/
+│   │   ├── incoming/
+│   │   ├── mail.go
+│   │   ├── mail_comment.go
+│   │   ├── mail_issue.go
+│   │   ├── mail_issue_common.go
+│   │   ├── mail_release.go
+│   │   ├── mail_release_test.go
+│   │   ├── mail_repo.go
+│   │   ├── mail_team_invite.go
+│   │   ├── mail_test.go
+│   │   ├── mail_user.go
+│   │   ├── mail_workflow_run.go
+│   │   ├── mailer.go
+│   │   ├── main_test.go
+│   │   ├── notify.go
+│   │   ├── sender/
+│   │   └── token/
+│   ├── markup/
+│   │   ├── main_test.go
+│   │   ├── renderhelper.go
+│   │   ├── renderhelper_codepreview.go
+│   │   ├── renderhelper_codepreview_test.go
+│   │   ├── renderhelper_issueicontitle.go
+│   │   ├── renderhelper_issueicontitle_test.go
+│   │   └── renderhelper_mention_test.go
+│   ├── migrations/
+│   │   ├── codebase.go
+│   │   ├── codebase_test.go
+│   │   ├── codecommit.go
+│   │   ├── common.go
+│   │   ├── dump.go
+│   │   ├── error.go
+│   │   ├── git.go
+│   │   ├── gitbucket.go
+│   │   ├── gitea_downloader.go
+│   │   ├── gitea_downloader_test.go
+│   │   ├── gitea_uploader.go
+│   │   ├── gitea_uploader_test.go
+│   │   ├── github.go
+│   │   ├── github_test.go
+│   │   ├── gitlab.go
+│   │   ├── gitlab_test.go
+│   │   ├── gogs.go
+│   │   ├── gogs_test.go
+│   │   ├── http_client.go
+│   │   ├── main_test.go
+│   │   ├── migrate.go
+│   │   ├── migrate_test.go
+│   │   ├── onedev.go
+│   │   ├── onedev_test.go
+│   │   ├── restore.go
+│   │   └── update.go
+│   ├── mirror/
+│   │   ├── mirror.go
+│   │   ├── mirror_pull.go
+│   │   ├── mirror_pull_test.go
+│   │   ├── mirror_push.go
+│   │   ├── notifier.go
+│   │   └── queue.go
+│   ├── notify/
+│   │   ├── notifier.go
+│   │   ├── notify.go
+│   │   └── null.go
+│   ├── oauth2_provider/
+│   │   ├── access_token.go
+│   │   ├── additional_scopes_test.go
+│   │   ├── init.go
+│   │   ├── jwtsigningkey.go
+│   │   ├── jwtsigningkey_test.go
+│   │   └── token.go
+│   ├── org/
+│   │   ├── org.go
+│   │   ├── org_test.go
+│   │   ├── team.go
+│   │   ├── team_invite.go
+│   │   ├── team_test.go
+│   │   ├── user.go
+│   │   └── user_test.go
+│   ├── packages/
+│   │   ├── alpine/
+│   │   ├── arch/
+│   │   ├── auth.go
+│   │   ├── cargo/
+│   │   ├── cleanup/
+│   │   ├── container/
+│   │   ├── debian/
+│   │   ├── package_update.go
+│   │   ├── packages.go
+│   │   └── rpm/
+│   ├── projects/
+│   │   ├── issue.go
+│   │   ├── issue_test.go
+│   │   └── main_test.go
+│   ├── pull/
+│   │   ├── check.go
+│   │   ├── check_test.go
+│   │   ├── comment.go
+│   │   ├── comment_test.go
+│   │   ├── commit_status.go
+│   │   ├── commit_status_test.go
+│   │   ├── edits.go
+│   │   ├── lfs.go
+│   │   ├── main_test.go
+│   │   ├── merge.go
+│   │   ├── merge_ff_only.go
+│   │   ├── merge_merge.go
+│   │   ├── merge_prepare.go
+│   │   ├── merge_rebase.go
+│   │   ├── merge_squash.go
+│   │   ├── merge_test.go
+│   │   ├── merge_tree.go
+│   │   ├── merge_tree_test.go
+│   │   ├── patch.go
+│   │   ├── patch_unmerged.go
+│   │   ├── protected_branch.go
+│   │   ├── pull.go
+│   │   ├── pull_test.go
+│   │   ├── review.go
+│   │   ├── review_test.go
+│   │   ├── reviewer.go
+│   │   ├── reviewer_test.go
+│   │   ├── temp_repo.go
+│   │   ├── update.go
+│   │   ├── update_rebase.go
+│   │   └── update_test.go
+│   ├── release/
+│   │   ├── notes.go
+│   │   ├── notes_test.go
+│   │   ├── release.go
+│   │   ├── release_test.go
+│   │   └── tag.go
+│   ├── repository/
+│   │   ├── adopt.go
+│   │   ├── adopt_test.go
+│   │   ├── archiver/
+│   │   ├── avatar.go
+│   │   ├── avatar_test.go
+│   │   ├── branch.go
+│   │   ├── cache.go
+│   │   ├── check.go
+│   │   ├── collaboration.go
+│   │   ├── collaboration_test.go
+│   │   ├── commit.go
+│   │   ├── commitstatus/
+│   │   ├── contributors_graph.go
+│   │   ├── contributors_graph_test.go
+│   │   ├── create.go
+│   │   ├── create_test.go
+│   │   ├── delete.go
+│   │   ├── delete_test.go
+│   │   ├── files/
+│   │   ├── fork.go
+│   │   ├── fork_test.go
+│   │   ├── generate.go
+│   │   ├── generate_test.go
+│   │   ├── gitgraph/
+│   │   ├── hooks.go
+│   │   ├── init.go
+│   │   ├── lfs.go
+│   │   ├── lfs_test.go
+│   │   ├── license.go
+│   │   ├── license_test.go
+│   │   ├── main_test.go
+│   │   ├── merge_upstream.go
+│   │   ├── migrate.go
+│   │   ├── push.go
+│   │   ├── repo_team.go
+│   │   ├── repo_team_test.go
+│   │   ├── repository.go
+│   │   ├── repository_test.go
+│   │   ├── setting.go
+│   │   ├── template.go
+│   │   ├── transfer.go
+│   │   └── transfer_test.go
+│   ├── secrets/
+│   │   ├── secrets.go
+│   │   ├── validation.go
+│   │   └── validation_test.go
+│   ├── task/
+│   │   ├── migrate.go
+│   │   └── task.go
+│   ├── uinotification/
+│   │   └── notify.go
+│   ├── user/
+│   │   ├── avatar.go
+│   │   ├── block.go
+│   │   ├── block_test.go
+│   │   ├── delete.go
+│   │   ├── email.go
+│   │   ├── email_test.go
+│   │   ├── update.go
+│   │   ├── update_test.go
+│   │   ├── user.go
+│   │   └── user_test.go
+│   ├── versioned_migration/
+│   │   └── migration.go
+│   ├── webhook/
+│   │   ├── deliver.go
+│   │   ├── deliver_test.go
+│   │   ├── dingtalk.go
+│   │   ├── dingtalk_test.go
+│   │   ├── discord.go
+│   │   ├── discord_test.go
+│   │   ├── feishu.go
+│   │   ├── feishu_test.go
+│   │   ├── general.go
+│   │   ├── general_test.go
+│   │   ├── main_test.go
+│   │   ├── matrix.go
+│   │   ├── matrix_test.go
+│   │   ├── msteams.go
+│   │   ├── msteams_test.go
+│   │   ├── notifier.go
+│   │   ├── packagist.go
+│   │   ├── packagist_test.go
+│   │   ├── payloader.go
+│   │   ├── slack.go
+│   │   ├── slack_test.go
+│   │   ├── telegram.go
+│   │   ├── telegram_test.go
+│   │   ├── webhook.go
+│   │   ├── webhook_test.go
+│   │   └── wechatwork.go
+│   ├── webtheme/
+│   │   ├── webtheme.go
+│   │   └── webtheme_test.go
+│   └── wiki/
+│       ├── wiki.go
+│       ├── wiki_path.go
+│       └── wiki_test.go
+├── snap/
+│   └── snapcraft.yaml
+├── stylelint.config.js
+├── tailwind.config.ts
+├── templates/
+│   ├── admin/
+│   │   ├── actions.tmpl
+│   │   ├── applications/
+│   │   ├── auth/
+│   │   ├── config.tmpl
+│   │   ├── config_settings/
+│   │   ├── cron.tmpl
+│   │   ├── dashboard.tmpl
+│   │   ├── emails/
+│   │   ├── hook_new.tmpl
+│   │   ├── hooks.tmpl
+│   │   ├── layout_footer.tmpl
+│   │   ├── layout_head.tmpl
+│   │   ├── navbar.tmpl
+│   │   ├── notice.tmpl
+│   │   ├── org/
+│   │   ├── packages/
+│   │   ├── perftrace.tmpl
+│   │   ├── queue.tmpl
+│   │   ├── queue_manage.tmpl
+│   │   ├── repo/
+│   │   ├── runners/
+│   │   ├── self_check.tmpl
+│   │   ├── stacktrace-row.tmpl
+│   │   ├── stacktrace.tmpl
+│   │   ├── stats.tmpl
+│   │   ├── system_status.tmpl
+│   │   ├── trace_tabs.tmpl
+│   │   └── user/
+│   ├── api/
+│   │   └── packages/
+│   ├── base/
+│   │   ├── alert.tmpl
+│   │   ├── alert_details.tmpl
+│   │   ├── disable_form_autofill.tmpl
+│   │   ├── footer.tmpl
+│   │   ├── footer_content.tmpl
+│   │   ├── head.tmpl
+│   │   ├── head_banner.tmpl
+│   │   ├── head_navbar.tmpl
+│   │   ├── head_navbar_icons.tmpl
+│   │   ├── head_opengraph.tmpl
+│   │   ├── head_script.tmpl
+│   │   ├── head_style.tmpl
+│   │   ├── markup_codepreview.tmpl
+│   │   ├── modal_actions_confirm.tmpl
+│   │   └── paginate.tmpl
+│   ├── custom/
+│   │   ├── body_inner_post.tmpl
+│   │   ├── body_inner_pre.tmpl
+│   │   ├── body_outer_post.tmpl
+│   │   ├── body_outer_pre.tmpl
+│   │   ├── extra_links.tmpl
+│   │   ├── extra_links_footer.tmpl
+│   │   ├── extra_tabs.tmpl
+│   │   ├── footer.tmpl
+│   │   └── header.tmpl
+│   ├── devtest/
+│   │   ├── badge-actions-svg.tmpl
+│   │   ├── badge-commit-sign.tmpl
+│   │   ├── devtest-footer.tmpl
+│   │   ├── devtest-header.tmpl
+│   │   ├── devtest-list.tmpl
+│   │   ├── fetch-action.tmpl
+│   │   ├── flex-list.tmpl
+│   │   ├── fomantic-dropdown.tmpl
+│   │   ├── fomantic-modal.tmpl
+│   │   ├── gitea-ui.tmpl
+│   │   ├── global-button.tmpl
+│   │   ├── keyboard-shortcut.tmpl
+│   │   ├── label.tmpl
+│   │   ├── mail-preview.tmpl
+│   │   ├── markup-render.tmpl
+│   │   ├── repo-action-view.tmpl
+│   │   ├── tmplerr-sub.tmpl
+│   │   ├── tmplerr.tmpl
+│   │   └── toast.tmpl
+│   ├── explore/
+│   │   ├── code.tmpl
+│   │   ├── navbar.tmpl
+│   │   ├── repos.tmpl
+│   │   ├── search.tmpl
+│   │   ├── user_list.tmpl
+│   │   └── users.tmpl
+│   ├── home.tmpl
+│   ├── install.tmpl
+│   ├── mail/
+│   │   ├── org/
+│   │   ├── repo/
+│   │   └── user/
+│   ├── org/
+│   │   ├── create.tmpl
+│   │   ├── follow_unfollow.tmpl
+│   │   ├── header.tmpl
+│   │   ├── home.tmpl
+│   │   ├── member/
+│   │   ├── menu.tmpl
+│   │   ├── projects/
+│   │   ├── settings/
+│   │   ├── team/
+│   │   ├── worktime.tmpl
+│   │   └── worktime/
+│   ├── package/
+│   │   ├── content/
+│   │   ├── metadata/
+│   │   ├── settings.tmpl
+│   │   ├── shared/
+│   │   └── view.tmpl
+│   ├── post-install.tmpl
+│   ├── projects/
+│   │   ├── list.tmpl
+│   │   ├── new.tmpl
+│   │   └── view.tmpl
+│   ├── repo/
+│   │   ├── actions/
+│   │   ├── activity.tmpl
+│   │   ├── blame.tmpl
+│   │   ├── branch/
+│   │   ├── branch_dropdown.tmpl
+│   │   ├── cite/
+│   │   ├── clone_buttons.tmpl
+│   │   ├── clone_panel.tmpl
+│   │   ├── code/
+│   │   ├── code_frequency.tmpl
+│   │   ├── commit_load_branches_and_tags.tmpl
+│   │   ├── commit_page.tmpl
+│   │   ├── commit_sign_badge.tmpl
+│   │   ├── commit_status.tmpl
+│   │   ├── commit_statuses.tmpl
+│   │   ├── commits.tmpl
+│   │   ├── commits_list.tmpl
+│   │   ├── commits_list_small.tmpl
+│   │   ├── commits_ref_name.tmpl
+│   │   ├── commits_search_dropdown.tmpl
+│   │   ├── commits_table.tmpl
+│   │   ├── contributors.tmpl
+│   │   ├── create.tmpl
+│   │   ├── create_helper.tmpl
+│   │   ├── diff/
+│   │   ├── editor/
+│   │   ├── empty.tmpl
+│   │   ├── file_info.tmpl
+│   │   ├── forks.tmpl
+│   │   ├── graph.tmpl
+│   │   ├── graph/
+│   │   ├── header.tmpl
+│   │   ├── home.tmpl
+│   │   ├── home_sidebar_bottom.tmpl
+│   │   ├── home_sidebar_top.tmpl
+│   │   ├── icon.tmpl
+│   │   ├── issue/
+│   │   ├── latest_commit.tmpl
+│   │   ├── migrate/
+│   │   ├── navbar.tmpl
+│   │   ├── packages.tmpl
+│   │   ├── projects/
+│   │   ├── pulls/
+│   │   ├── pulse.tmpl
+│   │   ├── recent_commits.tmpl
+│   │   ├── release/
+│   │   ├── release_tag_header.tmpl
+│   │   ├── search.tmpl
+│   │   ├── search_name.tmpl
+│   │   ├── settings/
+│   │   ├── star_unstar.tmpl
+│   │   ├── sub_menu.tmpl
+│   │   ├── tag/
+│   │   ├── unicode_escape_prompt.tmpl
+│   │   ├── upload.tmpl
+│   │   ├── user_cards.tmpl
+│   │   ├── view.tmpl
+│   │   ├── view_content.tmpl
+│   │   ├── view_file.tmpl
+│   │   ├── view_file_tree.tmpl
+│   │   ├── view_file_tree_toggle_button.tmpl
+│   │   ├── view_list.tmpl
+│   │   ├── watch_unwatch.tmpl
+│   │   ├── watchers.tmpl
+│   │   └── wiki/
+│   ├── shared/
+│   │   ├── actions/
+│   │   ├── avatar_upload_crop.tmpl
+│   │   ├── combomarkdowneditor.tmpl
+│   │   ├── fileisempty.tmpl
+│   │   ├── filetoolarge.tmpl
+│   │   ├── issueicon.tmpl
+│   │   ├── issuelist.tmpl
+│   │   ├── misc/
+│   │   ├── repo/
+│   │   ├── search/
+│   │   ├── searchbottom.tmpl
+│   │   ├── searchfile.tmpl
+│   │   ├── secrets/
+│   │   ├── user/
+│   │   ├── variables/
+│   │   └── webhook/
+│   ├── status/
+│   │   ├── 404.tmpl
+│   │   ├── 500.tmpl
+│   │   └── 503.tmpl
+│   ├── swagger/
+│   │   ├── ui.tmpl
+│   │   ├── v1_input.json
+│   │   └── v1_json.tmpl
+│   ├── user/
+│   │   ├── auth/
+│   │   ├── code.tmpl
+│   │   ├── dashboard/
+│   │   ├── heatmap.tmpl
+│   │   ├── notification/
+│   │   ├── overview/
+│   │   ├── profile.tmpl
+│   │   └── settings/
+│   └── webhook/
+│       └── new.tmpl
+├── tests/
+│   ├── e2e/
+│   │   ├── env.d.ts
+│   │   ├── explore.test.ts
+│   │   ├── login.test.ts
+│   │   ├── milestone.test.ts
+│   │   ├── org.test.ts
+│   │   ├── readme.test.ts
+│   │   ├── register.test.ts
+│   │   ├── repo.test.ts
+│   │   ├── user-settings.test.ts
+│   │   └── utils.ts
+│   ├── fuzz/
+│   │   └── fuzz_test.go
+│   ├── gitea-lfs-meta/
+│   │   ├── 0b/
+│   │   ├── 2e/
+│   │   ├── 7b/
+│   │   └── 9d/
+│   ├── gitea-repositories-meta/
+│   │   ├── limited_org/
+│   │   ├── migration/
+│   │   ├── org26/
+│   │   ├── org3/
+│   │   ├── org41/
+│   │   ├── org42/
+│   │   ├── privated_org/
+│   │   ├── user12/
+│   │   ├── user13/
+│   │   ├── user2/
+│   │   ├── user27/
+│   │   ├── user30/
+│   │   ├── user40/
+│   │   └── user5/
+│   ├── integration/
+│   │   ├── README.md
+│   │   ├── README_ZH.md
+│   │   ├── actions_approve_test.go
+│   │   ├── actions_concurrency_test.go
+│   │   ├── actions_delete_run_test.go
+│   │   ├── actions_inputs_test.go
+│   │   ├── actions_job_test.go
+│   │   ├── actions_job_token_test.go
+│   │   ├── actions_log_test.go
+│   │   ├── actions_rerun_test.go
+│   │   ├── actions_runner_modify_test.go
+│   │   ├── actions_runner_test.go
+│   │   ├── actions_schedule_test.go
+│   │   ├── actions_settings_test.go
+│   │   ├── actions_trigger_test.go
+│   │   ├── actions_variables_test.go
+│   │   ├── admin_config_test.go
+│   │   ├── admin_user_test.go
+│   │   ├── api_actions_artifact_test.go
+│   │   ├── api_actions_artifact_v4_test.go
+│   │   ├── api_actions_permission_test.go
+│   │   ├── api_actions_run_test.go
+│   │   ├── api_actions_runner_test.go
+│   │   ├── api_admin_org_test.go
+│   │   ├── api_admin_test.go
+│   │   ├── api_auth_test.go
+│   │   ├── api_branch_test.go
+│   │   ├── api_comment_attachment_test.go
+│   │   ├── api_comment_test.go
+│   │   ├── api_fork_test.go
+│   │   ├── api_gitignore_templates_test.go
+│   │   ├── api_gpg_keys_test.go
+│   │   ├── api_helper_for_declarative_test.go
+│   │   ├── api_httpsig_test.go
+│   │   ├── api_issue_attachment_test.go
+│   │   ├── api_issue_config_test.go
+│   │   ├── api_issue_dependency_test.go
+│   │   ├── api_issue_label_test.go
+│   │   ├── api_issue_lock_test.go
+│   │   ├── api_issue_milestone_test.go
+│   │   ├── api_issue_pin_test.go
+│   │   ├── api_issue_reaction_test.go
+│   │   ├── api_issue_stopwatch_test.go
+│   │   ├── api_issue_subscription_test.go
+│   │   ├── api_issue_templates_test.go
+│   │   ├── api_issue_test.go
+│   │   ├── api_issue_tracked_time_test.go
+│   │   ├── api_keys_test.go
+│   │   ├── api_label_templates_test.go
+│   │   ├── api_license_templates_test.go
+│   │   ├── api_notification_test.go
+│   │   ├── api_oauth2_apps_test.go
+│   │   ├── api_org_avatar_test.go
+│   │   ├── api_org_test.go
+│   │   ├── api_packages_alpine_test.go
+│   │   ├── api_packages_arch_test.go
+│   │   ├── api_packages_cargo_test.go
+│   │   ├── api_packages_chef_test.go
+│   │   ├── api_packages_composer_test.go
+│   │   ├── api_packages_conan_test.go
+│   │   ├── api_packages_conda_test.go
+│   │   ├── api_packages_container_test.go
+│   │   ├── api_packages_cran_test.go
+│   │   ├── api_packages_debian_test.go
+│   │   ├── api_packages_generic_test.go
+│   │   ├── api_packages_goproxy_test.go
+│   │   ├── api_packages_helm_test.go
+│   │   ├── api_packages_maven_test.go
+│   │   ├── api_packages_npm_test.go
+│   │   ├── api_packages_nuget_test.go
+│   │   ├── api_packages_pub_test.go
+│   │   ├── api_packages_pypi_test.go
+│   │   ├── api_packages_rpm_test.go
+│   │   ├── api_packages_rubygems_test.go
+│   │   ├── api_packages_swift_test.go
+│   │   ├── api_packages_test.go
+│   │   ├── api_packages_vagrant_test.go
+│   │   ├── api_private_serv_test.go
+│   │   ├── api_pull_commits_test.go
+│   │   ├── api_pull_review_test.go
+│   │   ├── api_pull_test.go
+│   │   ├── api_releases_attachment_test.go
+│   │   ├── api_releases_test.go
+│   │   ├── api_repo_archive_test.go
+│   │   ├── api_repo_avatar_test.go
+│   │   ├── api_repo_branch_test.go
+│   │   ├── api_repo_collaborator_test.go
+│   │   ├── api_repo_compare_test.go
+│   │   ├── api_repo_edit_test.go
+│   │   ├── api_repo_file_create_test.go
+│   │   ├── api_repo_file_delete_test.go
+│   │   ├── api_repo_file_diffpatch_test.go
+│   │   ├── api_repo_file_get_test.go
+│   │   ├── api_repo_file_helpers.go
+│   │   ├── api_repo_file_update_test.go
+│   │   ├── api_repo_files_change_test.go
+│   │   ├── api_repo_files_get_test.go
+│   │   ├── api_repo_get_contents_list_test.go
+│   │   ├── api_repo_get_contents_test.go
+│   │   ├── api_repo_git_blobs_test.go
+│   │   ├── api_repo_git_commits_test.go
+│   │   ├── api_repo_git_hook_test.go
+│   │   ├── api_repo_git_notes_test.go
+│   │   ├── api_repo_git_ref_test.go
+│   │   ├── api_repo_git_tags_test.go
+│   │   ├── api_repo_git_trees_test.go
+│   │   ├── api_repo_hook_test.go
+│   │   ├── api_repo_languages_test.go
+│   │   ├── api_repo_lfs_locks_test.go
+│   │   ├── api_repo_lfs_migrate_test.go
+│   │   ├── api_repo_lfs_test.go
+│   │   ├── api_repo_license_test.go
+│   │   ├── api_repo_raw_test.go
+│   │   ├── api_repo_secrets_test.go
+│   │   ├── api_repo_tags_test.go
+│   │   ├── api_repo_teams_test.go
+│   │   ├── api_repo_test.go
+│   │   ├── api_repo_topic_test.go
+│   │   ├── api_repo_variables_test.go
+│   │   ├── api_settings_test.go
+│   │   ├── api_team_test.go
+│   │   ├── api_team_user_test.go
+│   │   ├── api_token_test.go
+│   │   ├── api_twofa_test.go
+│   │   ├── api_user_avatar_test.go
+│   │   ├── api_user_block_test.go
+│   │   ├── api_user_email_test.go
+│   │   ├── api_user_follow_test.go
+│   │   ├── api_user_heatmap_test.go
+│   │   ├── api_user_info_test.go
+│   │   ├── api_user_org_perm_test.go
+│   │   ├── api_user_orgs_test.go
+│   │   ├── api_user_search_test.go
+│   │   ├── api_user_secrets_test.go
+│   │   ├── api_user_star_test.go
+│   │   ├── api_user_update_test.go
+│   │   ├── api_user_variables_test.go
+│   │   ├── api_user_watch_test.go
+│   │   ├── api_wiki_test.go
+│   │   ├── attachment_test.go
+│   │   ├── auth_ldap_test.go
+│   │   ├── avatar.png
+│   │   ├── branches_test.go
+│   │   ├── change_default_branch_test.go
+│   │   ├── cmd_keys_test.go
+│   │   ├── compare_test.go
+│   │   ├── config_instance_test.go
+│   │   ├── cors_test.go
+│   │   ├── create_no_session_test.go
+│   │   ├── db_collation_test.go
+│   │   ├── delete_user_test.go
+│   │   ├── download_test.go
+│   │   ├── dump_restore_test.go
+│   │   ├── editor_test.go
+│   │   ├── empty_repo_test.go
+│   │   ├── ephemeral_actions_runner_deletion_test.go
+│   │   ├── eventsource_test.go
+│   │   ├── explore_repos_test.go
+│   │   ├── explore_user_test.go
+│   │   ├── feed_repo_test.go
+│   │   ├── feed_user_test.go
+│   │   ├── git_general_test.go
+│   │   ├── git_helper_for_declarative_test.go
+│   │   ├── git_lfs_ssh_test.go
+│   │   ├── git_misc_test.go
+│   │   ├── git_push_test.go
+│   │   ├── git_smart_http_test.go
+│   │   ├── git_ssh_redirect_test.go
+│   │   ├── goget_test.go
+│   │   ├── gpg_ssh_git_test.go
+│   │   ├── heatmap_test.go
+│   │   ├── html_helper.go
+│   │   ├── incoming_email_test.go
+│   │   ├── integration_test.go
+│   │   ├── issue_test.go
+│   │   ├── issue_timetrack_test.go
+│   │   ├── lfs_getobject_test.go
+│   │   ├── lfs_local_endpoint_test.go
+│   │   ├── lfs_view_test.go
+│   │   ├── linguist_test.go
+│   │   ├── links_test.go
+│   │   ├── manual_merge_test.go
+│   │   ├── markup_external_test.go
+│   │   ├── migrate_test.go
+│   │   ├── migration-test/
+│   │   ├── mirror_pull_test.go
+│   │   ├── mirror_push_test.go
+│   │   ├── nonascii_branches_test.go
+│   │   ├── oauth_test.go
+│   │   ├── org_count_test.go
+│   │   ├── org_profile_test.go
+│   │   ├── org_project_test.go
+│   │   ├── org_team_invite_test.go
+│   │   ├── org_test.go
+│   │   ├── org_worktime_test.go
+│   │   ├── private-testing.key
+│   │   ├── privateactivity_test.go
+│   │   ├── project_test.go
+│   │   ├── pull_comment_test.go
+│   │   ├── pull_commit_test.go
+│   │   ├── pull_compare_test.go
+│   │   ├── pull_create_test.go
+│   │   ├── pull_diff_test.go
+│   │   ├── pull_merge_test.go
+│   │   ├── pull_review_test.go
+│   │   ├── pull_status_test.go
+│   │   ├── pull_update_test.go
+│   │   ├── release_test.go
+│   │   ├── rename_branch_test.go
+│   │   ├── repo_activity_test.go
+│   │   ├── repo_archive_test.go
+│   │   ├── repo_branch_test.go
+│   │   ├── repo_commits_search_test.go
+│   │   ├── repo_commits_test.go
+│   │   ├── repo_fork_test.go
+│   │   ├── repo_generate_test.go
+│   │   ├── repo_merge_upstream_test.go
+│   │   ├── repo_migrate_test.go
+│   │   ├── repo_search_test.go
+│   │   ├── repo_tag_test.go
+│   │   ├── repo_test.go
+│   │   ├── repo_topic_test.go
+│   │   ├── repo_watch_test.go
+│   │   ├── repo_webhook_test.go
+│   │   ├── repofiles_change_test.go
+│   │   ├── session_test.go
+│   │   ├── setting_test.go
+│   │   ├── signin_test.go
+│   │   ├── signout_test.go
+│   │   ├── signup_test.go
+│   │   ├── ssh_key_test.go
+│   │   ├── timetracking_test.go
+│   │   ├── user_avatar_test.go
+│   │   ├── user_settings_test.go
+│   │   ├── user_test.go
+│   │   ├── version_test.go
+│   │   ├── view_test.go
+│   │   ├── wiki_test.go
+│   │   └── workflow_run_api_check_test.go
+│   ├── mssql.ini.tmpl
+│   ├── mysql.ini.tmpl
+│   ├── pgsql.ini.tmpl
+│   ├── sqlite.ini.tmpl
+│   ├── test_utils.go
+│   └── testdata/
+│       └── data/
+├── tools/
+│   ├── code-batch-process.go
+│   ├── codeformat/
+│   │   ├── formatimports.go
+│   │   └── formatimports_test.go
+│   ├── generate-images.ts
+│   ├── generate-svg-vscode-extensions.json
+│   ├── generate-svg.ts
+│   ├── gocovmerge.go
+│   ├── lint-templates-svg.ts
+│   ├── test-e2e.sh
+│   ├── test-echo.go
+│   └── watch.sh
+├── tsconfig.json
+├── types.d.ts
+├── updates.config.ts
+├── uv.lock
+├── vitest.config.ts
+├── web_src/
+│   ├── css/
+│   │   ├── actions.css
+│   │   ├── admin.css
+│   │   ├── base.css
+│   │   ├── chroma/
+│   │   ├── codemirror/
+│   │   ├── dashboard.css
+│   │   ├── easymde.css
+│   │   ├── editor/
+│   │   ├── explore.css
+│   │   ├── features/
+│   │   ├── font_i18n.css
+│   │   ├── helpers.css
+│   │   ├── home.css
+│   │   ├── index.css
+│   │   ├── install.css
+│   │   ├── markup/
+│   │   ├── modules/
+│   │   ├── org.css
+│   │   ├── repo.css
+│   │   ├── repo/
+│   │   ├── review.css
+│   │   ├── shared/
+│   │   ├── standalone/
+│   │   ├── themes/
+│   │   └── user.css
+│   ├── fomantic/
+│   │   ├── _site/
+│   │   ├── build/
+│   │   ├── semantic.json
+│   │   └── theme.config.less
+│   ├── js/
+│   │   ├── bootstrap.test.ts
+│   │   ├── bootstrap.ts
+│   │   ├── components/
+│   │   ├── features/
+│   │   ├── globals.d.ts
+│   │   ├── globals.ts
+│   │   ├── htmx.ts
+│   │   ├── index-domready.ts
+│   │   ├── index.ts
+│   │   ├── markup/
+│   │   ├── modules/
+│   │   ├── render/
+│   │   ├── standalone/
+│   │   ├── svg.test.ts
+│   │   ├── svg.ts
+│   │   ├── types.ts
+│   │   ├── utils.test.ts
+│   │   ├── utils.ts
+│   │   ├── utils/
+│   │   ├── vendor/
+│   │   ├── vitest.setup.ts
+│   │   └── webcomponents/
+│   └── svg/
+│       ├── fontawesome-openid.svg
+│       ├── fontawesome-save.svg
+│       ├── fontawesome-send.svg
+│       ├── fontawesome-windows.svg
+│       ├── gitea-alpine.svg
+│       ├── gitea-arch.svg
+│       ├── gitea-azuread.svg
+│       ├── gitea-azureadv2.svg
+│       ├── gitea-bitbucket.svg
+│       ├── gitea-cargo.svg
+│       ├── gitea-chef.svg
+│       ├── gitea-codebase.svg
+│       ├── gitea-codecommit.svg
+│       ├── gitea-colorblind-blueyellow.svg
+│       ├── gitea-colorblind-redgreen.svg
+│       ├── gitea-composer.svg
+│       ├── gitea-conan.svg
+│       ├── gitea-conda.svg
+│       ├── gitea-cran.svg
+│       ├── gitea-debian.svg
+│       ├── gitea-discord.svg
+│       ├── gitea-double-chevron-left.svg
+│       ├── gitea-double-chevron-right.svg
+│       ├── gitea-dropbox.svg
+│       ├── gitea-eclipse.svg
+│       ├── gitea-empty-checkbox.svg
+│       ├── gitea-exclamation.svg
+│       ├── gitea-facebook.svg
+│       ├── gitea-feishu.svg
+│       ├── gitea-git.svg
+│       ├── gitea-gitbucket.svg
+│       ├── gitea-gitlab.svg
+│       ├── gitea-go.svg
+│       ├── gitea-gogs.svg
+│       ├── gitea-google.svg
+│       ├── gitea-helm.svg
+│       ├── gitea-jetbrains.svg
+│       ├── gitea-join.svg
+│       ├── gitea-lock-cog.svg
+│       ├── gitea-lock.svg
+│       ├── gitea-mastodon.svg
+│       ├── gitea-matrix.svg
+│       ├── gitea-maven.svg
+│       ├── gitea-microsoftonline.svg
+│       ├── gitea-nextcloud.svg
+│       ├── gitea-npm.svg
+│       ├── gitea-nuget.svg
+│       ├── gitea-onedev.svg
+│       ├── gitea-openid.svg
+│       ├── gitea-pub.svg
+│       ├── gitea-python.svg
+│       ├── gitea-rpm.svg
+│       ├── gitea-rubygems.svg
+│       ├── gitea-running.svg
+│       ├── gitea-split.svg
+│       ├── gitea-swift.svg
+│       ├── gitea-twitter.svg
+│       ├── gitea-unlock.svg
+│       ├── gitea-vagrant.svg
+│       ├── gitea-vscodium.svg
+│       ├── gitea-whitespace.svg
+│       ├── gitea-yandex.svg
+│       ├── material-folder-generic.svg
+│       ├── material-folder-symlink.svg
+│       ├── material-invert-colors.svg
+│       └── material-palette.svg
+└── webpack.config.ts

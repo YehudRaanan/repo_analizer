@@ -1,0 +1,932 @@
+=====================================
+Repository Analysis: spring-framework
+Type: Backend / API Service
+=====================================
+
+--- METADATA ---
+Name: spring-framework
+Description: Spring Framework
+Language: Java
+Topics: framework, spring, spring-framework
+Stars: 59705
+License: Apache License 2.0
+
+--- README ---
+# <img src="framework-docs/src/docs/spring-framework.png" width="80" height="80"> Spring Framework [![Build Status](https://github.com/spring-projects/spring-framework/actions/workflows/build-and-deploy-snapshot.yml/badge.svg?branch=main)](https://github.com/spring-projects/spring-framework/actions/workflows/build-and-deploy-snapshot.yml?query=branch%3Amain) [![Revved up by Develocity](https://img.shields.io/badge/Revved%20up%20by-Develocity-06A0CE?logo=Gradle&labelColor=02303A)](https://ge.spring.io/scans?search.rootProjectNames=spring)
+
+This is the home of the Spring Framework: the foundation for all [Spring projects](https://spring.io/projects). Collectively the Spring Framework and the family of Spring projects are often referred to simply as "Spring". 
+
+Spring provides everything required beyond the Java programming language for creating enterprise applications for a wide range of scenarios and architectures. Please read the [Overview](https://docs.spring.io/spring-framework/reference/overview.html) section of the reference documentation for a more complete introduction.
+
+## Code of Conduct
+
+This project is governed by the [Spring Code of Conduct](https://github.com/spring-projects/spring-framework/?tab=coc-ov-file#contributor-code-of-conduct). By participating, you are expected to uphold this code of conduct. Please report unacceptable behavior to spring-code-of-conduct@spring.io.
+
+## Access to Binaries
+
+For access to artifacts or a distribution zip, see the [Spring Framework Artifacts](https://github.com/spring-projects/spring-framework/wiki/Spring-Framework-Artifacts) wiki page.
+
+## Documentation
+
+The Spring Framework maintains reference documentation ([published](https://docs.spring.io/spring-framework/reference/) and [source](framework-docs/modules/ROOT)), GitHub [wiki pages](https://github.com/spring-projects/spring-framework/wiki), and an
+[API reference](https://docs.spring.io/spring-framework/docs/current/javadoc-api/). There are also [guides and tutorials](https://spring.io/guides) across Spring projects.
+
+## Micro-Benchmarks
+
+See the [Micro-Benchmarks](https://github.com/spring-projects/spring-framework/wiki/Micro-Benchmarks) wiki page.
+
+## Build from Source
+
+See the [Build from Source](https://github.com/spring-projects/spring-framework/wiki/Build-from-Source) wiki page and the [CONTRIBUTING.md](CONTRIBUTING.md) file.
+
+## Continuous Integration Builds
+
+CI builds are defined with [GitHub Actions workflows](.github/workflows).
+
+## Stay in Touch
+
+Follow [@SpringCentral](https://twitter.com/springcentral), [@SpringFramework](https://twitter.com/springframework), and its [team members](https://twitter.com/springframework/lists/team/members) on 𝕏. In-depth articles can be found at [The Spring Blog](https://spring.io/blog/), and releases are announced via our [releases feed](https://spring.io/blog/category/releases).
+
+## License
+
+The Spring Framework is released under version 2.0 of the [Apache License](https://www.apache.org/licenses/LICENSE-2.0).
+
+
+--- PACKAGE MANIFEST(S) ---
+
+[build.gradle]
+plugins {
+	id 'io.freefair.aspectj' version '8.13.1' apply false
+	// kotlinVersion is managed in gradle.properties
+	id 'org.jetbrains.kotlin.plugin.serialization' version "${kotlinVersion}" apply false
+	id 'org.jetbrains.dokka'
+	id 'com.github.bjornvester.xjc' version '1.8.2' apply false
+	id 'com.gradleup.shadow' version "9.2.2" apply false
+	id 'me.champeau.jmh' version '0.7.2' apply false
+	id 'io.spring.nullability' version '0.0.11' apply false
+}
+
+ext {
+	moduleProjects = subprojects.findAll { it.name.startsWith("spring-") }
+	javaProjects = subprojects.findAll { !it.name.startsWith("framework-") }
+}
+
+description = "Spring Framework"
+
+configure(allprojects) { project ->
+	apply plugin: "org.springframework.build.localdev"
+	group = "org.springframework"
+	repositories {
+		mavenCentral()
+		if (version.contains('-')) {
+			maven { url = "https://repo.spring.io/milestone" }
+		}
+		if (version.endsWith('-SNAPSHOT')) {
+			maven { url = "https://repo.spring.io/snapshot" }
+		}
+	}
+	configurations.all {
+		resolutionStrategy {
+			cacheChangingModulesFor 0, "seconds"
+			cacheDynamicVersionsFor 0, "seconds"
+		}
+	}
+}
+
+configure(allprojects - project(":framework-platform")) {
+	configurations {
+		dependencyManagement {
+			canBeConsumed = false
+			canBeResolved = false
+			visible = false
+		}
+		matching { it.name.endsWith("Classpath") }.all { it.extendsFrom(dependencyManagement) }
+	}
+	dependencies {
+		dependencyManagement(enforcedPlatform(dependencies.project(path: ":framework-platform")))
+	}
+}
+
+configure([rootProject] + javaProjects) { project ->
+	apply plugin: "java"
+	apply plugin: "java-test-fixtures"
+	apply plugin: 'org.springframework.build.conventions'
+	apply from: "${rootDir}/gradle/ide.gradle"
+
+	dependencies {
+		testImplementation("org.junit.jupiter:junit-jupiter")
+		testImplementation("org.junit.platform:junit-platform-suite")
+		testImplementation("org.mockito:mockito-core")
+		testImplementation("org.mockito:mockito-junit-jupiter")
+		testImplementation("io.mockk:mockk")
+		testImplementation("org.assertj:assertj-core")
+		testRuntimeOnly("org.junit.platform:junit-platform-launcher")
+		testRuntimeOnly("org.apache.logging.log4j:log4j-core")
+	}
+
+	ext.javadocLinks = [
+		"https://docs.oracle.com/en/java/javase/17/docs/api/",
+		//"https://jakarta.ee/specifications/platform/11/apidocs/",
+		"https://docs.hibernate.org/orm/7.2/javadocs/",
+		"https://www.quartz-scheduler.org/api/2.3.0/",
+		"https://hc.apache.org/httpcomponents-client-5.6.x/current/httpclient5/apidocs/",
+		"https://projectreactor.io/docs/core/release/api/",
+		"https://projectreactor.io/docs/test/release/api/",
+		"https://junit.org/junit4/javadoc/4.13.2/",
+		"https://docs.junit.org/6.0.3/api/",
+		"https://www.reactive-streams.org/reactive-streams-1.0.4-javadoc/",
+		"https://r2dbc.io/spec/1.0.0.RELEASE/api/",
+		"https://jspecify.dev/docs/api/"
+	] as String[]
+}
+
+configure(moduleProjects) { project ->
+	apply from: "${rootDir}/gradle/spring-module.gradle"
+}
+
+
+--- BACKEND CONFIG FILES ---
+(No backend config files found)
+
+--- API ROUTE / ENDPOINT DEFINITIONS ---
+
+[framework-docs/modules/ROOT/pages/web/webflux/controller/ann-advice.adoc]
+[[webflux-ann-controller-advice]]
+= Controller Advice
+
+[.small]#xref:web/webmvc/mvc-controller/ann-advice.adoc[See equivalent in the Servlet stack]#
+
+Typically, the `@ExceptionHandler`, `@InitBinder`, and `@ModelAttribute` methods apply
+within the `@Controller` class (or class hierarchy) in which they are declared. If you
+want such methods to apply more globally (across controllers), you can declare them in a
+class annotated with `@ControllerAdvice` or `@RestControllerAdvice`.
+
+`@ControllerAdvice` is annotated with `@Component`, which means that such classes can be
+registered as Spring beans through xref:core/beans/java/instantiating-container.adoc#beans-java-instantiating-container-scan[component scanning]
+. `@RestControllerAdvice` is a composed annotation that is annotated
+with both `@ControllerAdvice` and `@ResponseBody`, which essentially means
+`@ExceptionHandler` methods are rendered to the response body through message conversion
+(versus view resolution or template rendering).
+
+On startup, the infrastructure classes for `@RequestMapping` and `@ExceptionHandler`
+methods detect Spring beans annotated with `@ControllerAdvice` and then apply their
+methods at runtime. Global `@ExceptionHandler` methods (from a `@ControllerAdvice`) are
+applied _after_ local ones (from the `@Controller`). By contrast, global `@ModelAttribute`
+and `@InitBinder` methods are applied _before_ local ones.
+
+By default, `@ControllerAdvice` methods apply to every request (that is, all controllers),
+but you can narrow that down to a subset of controllers by using attributes on the
+annotation, as the following example shows:
+
+[tabs]
+======
+Java::
++
+[source,java,indent=0,subs="verbatim,quotes"]
+----
+	// Target all Controllers annotated with @RestController
+	@ControllerAdvice(annotations = RestController.class)
+	public class ExampleAdvice1 {}
+
+	// Target all Controllers within specific packages
+	@ControllerAdvice("org.example.controllers")
+	public class ExampleAdvice2 {}
+
+	// Target all Controllers assignable to specific classes
+	@ControllerAdvice(assignableTypes = {ControllerInterface.class, AbstractController.class})
+	public class ExampleAdvice3 {}
+----
+
+Kotlin::
++
+[source,kotlin,indent=0,subs="verbatim,quotes"]
+----
+	// Target all Controllers annotated with @RestController
+	@ControllerAdvice(annotations = [RestController::class])
+	public class ExampleAdvice1 {}
+
+	// Target all Controllers within specific packages
+	@ControllerAdvice("org.example.controllers")
+	public class ExampleAdvice2 {}
+
+	// Target all Controllers assignable to specific classes
+	@ControllerAdvice(assignableTypes = [ControllerInterface::class, AbstractController::class])
+	public class ExampleAdvice3 {}
+----
+======
+
+The selectors in the preceding example are evaluated at runtime and may negatively impact
+performance if used extensively. See the
+{spring-framework-api}/web/bind/annotation/ControllerAdvice.html[`@ControllerAdvice`]
+javadoc for more details.
+
+
+[framework-docs/modules/ROOT/pages/web/webflux/controller/ann-initbinder.adoc]
+[[webflux-ann-initbinder]]
+= `DataBinder`
+
+[.small]#xref:web/webmvc/mvc-controller/ann-initbinder.adoc[See equivalent in the Servlet stack]#
+
+`@Controller` or `@ControllerAdvice` classes can have `@InitBinder` methods to
+initialize `WebDataBinder` instances that in turn can:
+
+* Bind request parameters to a model object.
+* Convert request values from string to object property types.
+* Format model object properties as strings when rendering HTML forms.
+
+In an `@Controller`, `DataBinder` customizations apply locally within the controller,
+or even to a specific model attribute referenced by name through the annotation.
+In an `@ControllerAdvice` customizations can apply to all or a subset of controllers.
+
+You can register `PropertyEditor`, `Converter`, and `Formatter` components in the
+`DataBinder` for type conversion. Alternatively, you can use the
+xref:web/webflux/config.adoc#webflux-config-conversion[WebFlux config] to register
+`Converter` and `Formatter` components  in a globally shared `FormattingConversionService`.
+
+--
+[tabs]
+======
+Java::
++
+[source,java,indent=0,subs="verbatim,quotes"]
+----
+	@Controller
+	public class FormController {
+
+		@InitBinder // <1>
+		public void initBinder(WebDataBinder binder) {
+			SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+			dateFormat.setLenient(false);
+			binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, false));
+		}
+
+		// ...
+	}
+----
+<1> Using the `@InitBinder` annotation.
+
+Kotlin::
++
+[source,kotlin,indent=0,subs="verbatim,quotes"]
+----
+	@Controller
+	class FormController {
+
+		@InitBinder // <1>
+		fun initBinder(binder: WebDataBinder) {
+			val dateFormat = SimpleDateFormat("yyyy-MM-dd")
+			dateFormat.isLenient = false
+			binder.registerCustomEditor(Date::class.java, CustomDateEditor(dateFormat, false))
+		}
+
+		// ...
+	}
+----
+<1> Using the `@InitBinder` annotation.
+======
+--
+
+Alternatively, when using a `Formatter`-based setup through a shared
+`FormattingConversionService`, you could re-use the same approach and register
+controller-specific `Formatter` instances, as the following example shows:
+
+--
+[tabs]
+======
+Java::
++
+[source,java,indent=0,subs="verbatim,quotes"]
+----
+	@Controller
+	public class FormController {
+
+		@InitBinder
+		protected void initBinder(WebDataBinder binder) {
+			binder.addCustomFormatter(new DateFormatter("yyyy-MM-dd")); <1>
+		}
+
+		// ...
+	}
+----
+<1> Adding a custom formatter (a `DateFormatter`, in this case).
+
+Kotlin::
++
+[source,kotlin,indent=0,subs="verbatim,quotes"]
+----
+	@Controller
+	class FormController {
+
+		@InitBinder
+		fun initBinder(binder: WebDataBinder) {
+			binder.addCustomFormatter(DateFormatter("yyyy-MM-dd")) // <1>
+		}
+
+		// ...
+	}
+----
+<1> Adding a custom formatter (a `DateFormatter`, in this case).
+======
+--
+
+
+[[webflux-ann-initbinder-model-design]]
+== Model Design
+[.small]#xref:web/webmvc/mvc-controller/ann-initbinder.adoc#mvc-ann-initbinder-model-design[See equivalent in the Servlet stack]#
+
+include::partial$web/web-data-binding-mod
+... [TRUNCATED]
+
+[framework-docs/modules/ROOT/pages/web/webflux/controller/ann-methods.adoc]
+[[webflux-ann-methods]]
+= Handler Methods
+:page-section-summary-toc: 1
+
+[.small]#xref:web/webmvc/mvc-controller/ann-methods.adoc[See equivalent in the Servlet stack]#
+
+`@RequestMapping` handler methods have a flexible signature and can choose from a range of
+supported controller method arguments and return values.
+
+
+[framework-docs/modules/ROOT/pages/web/webflux/controller/ann-methods/arguments.adoc]
+[[webflux-ann-arguments]]
+= Method Arguments
+
+[.small]#xref:web/webmvc/mvc-controller/ann-methods/arguments.adoc[See equivalent in the Servlet stack]#
+
+The following table shows the supported controller method arguments.
+
+Reactive types (Reactor, RxJava, xref:web/webflux-reactive-libraries.adoc[or other]) are
+supported on arguments that require blocking I/O (for example, reading the request body) to
+be resolved. This is marked in the Description column. Reactive types are not expected
+on arguments that do not require blocking.
+
+JDK 1.8's `java.util.Optional` is supported as a method argument in combination with
+annotations that have a `required` attribute (for example, `@RequestParam`, `@RequestHeader`,
+and others) and is equivalent to `required=false`.
+
+[cols="1,2", options="header"]
+|===
+| Controller method argument | Description
+
+| `ServerWebExchange`
+| Access to the full `ServerWebExchange` -- container for the HTTP request and response,
+  request and session attributes, `checkNotModified` methods, and others.
+
+| `ServerHttpRequest`, `ServerHttpResponse`
+| Access to the HTTP request or response.
+
+| `WebSession`
+| Access to the session. This does not force the start of a new session unless attributes
+  are added. Supports reactive types.
+
+| `java.security.Principal`
+| The currently authenticated user -- possibly a specific `Principal` implementation class if known.
+  Supports reactive types.
+
+| `org.springframework.http.HttpMethod`
+| The HTTP method of the request.
+
+| `java.util.Locale`
+| The current request locale, determined by the most specific `LocaleResolver` available -- in
+  effect, the configured `LocaleResolver`/`LocaleContextResolver`.
+
+| `java.util.TimeZone` + `java.time.ZoneId`
+| The time zone associated with the current request, as determined by a `LocaleContextResolver`.
+
+| `@PathVariable`
+| For access to URI template variables. See xref:web/webflux/controller/ann-requestmapping.adoc#webflux-ann-requestmapping-uri-templates[URI Patterns].
+
+| `@MatrixVariable`
+| For access to name-value pairs in URI path segments. See xref:web/webflux/controller/ann-methods/matrix-variables.adoc[Matrix Variables].
+
+| `@RequestParam`
+| For access to query parameters. Parameter values are converted to the declared method argument
+  type. See xref:web/webflux/controller/ann-methods/requestparam.adoc[`@RequestParam`].
+
+  Note that use of `@RequestParam` is optional -- for example, to set its attributes.
+  See "`Any other argument`" later in this table.
+
+| `@RequestHeader`
+| For access to request headers. Header values are converted to the declared method argument
+  type. See xref:web/webflux/controller/ann-methods/requestheader.adoc[`@RequestHeader`].
+
+| `@CookieValue`
+| For access to cookies. Cookie values are converted to the declared method argument type.
+  See xref:web/webflux/controller/ann-methods/cookievalue.adoc[`@CookieValue`].
+
+| `@RequestBody`
+| For access to the HTTP request body. Body content is converted to the declared method
+  argument
+... [TRUNCATED]
+
+[framework-docs/modules/ROOT/pages/web/webflux/controller/ann-methods/cookievalue.adoc]
+[[webflux-ann-cookievalue]]
+= `@CookieValue`
+
+[.small]#xref:web/webmvc/mvc-controller/ann-methods/cookievalue.adoc[See equivalent in the Servlet stack]#
+
+You can use the `@CookieValue` annotation to bind the value of an HTTP cookie to a method argument
+in a controller.
+
+The following example shows a request with a cookie:
+
+[literal,subs="verbatim,quotes"]
+----
+JSESSIONID=415A4AC178C59DACE0B2C9CA727CDD84
+----
+
+The following code sample demonstrates how to get the cookie value:
+
+[tabs]
+======
+Java::
++
+[source,java,indent=0,subs="verbatim,quotes"]
+----
+	@GetMapping("/demo")
+	public void handle(@CookieValue("JSESSIONID") String cookie) { // <1>
+		//...
+	}
+----
+<1> Get the cookie value.
+
+Kotlin::
++
+[source,kotlin,indent=0,subs="verbatim,quotes"]
+----
+	@GetMapping("/demo")
+	fun handle(@CookieValue("JSESSIONID") cookie: String) { // <1>
+		//...
+	}
+----
+<1> Get the cookie value.
+======
+
+
+Type conversion is applied automatically if the target method parameter type is not
+`String`. See xref:web/webflux/controller/ann-methods/typeconversion.adoc[Type Conversion].
+
+
+[framework-docs/modules/ROOT/pages/web/webflux/controller/ann-methods/httpentity.adoc]
+[[webflux-ann-httpentity]]
+= `HttpEntity`
+
+[.small]#xref:web/webmvc/mvc-controller/ann-methods/httpentity.adoc[See equivalent in the Servlet stack]#
+
+`HttpEntity` is more or less identical to using xref:web/webflux/controller/ann-methods/requestbody.adoc[`@RequestBody`] but is based on a
+container object that exposes request headers and the body. The following example uses an
+`HttpEntity`:
+
+[tabs]
+======
+Java::
++
+[source,java,indent=0,subs="verbatim,quotes"]
+----
+	@PostMapping("/accounts")
+	public void handle(HttpEntity<Account> entity) {
+		// ...
+	}
+----
+
+Kotlin::
++
+[source,kotlin,indent=0,subs="verbatim,quotes"]
+----
+	@PostMapping("/accounts")
+	fun handle(entity: HttpEntity<Account>) {
+		// ...
+	}
+----
+======
+
+
+[framework-docs/modules/ROOT/pages/web/webflux/controller/ann-methods/jackson.adoc]
+[[webflux-ann-jackson]]
+= Jackson JSON
+
+Spring offers support for the Jackson JSON library.
+
+
+[[webflux-ann-jsonview]]
+== JSON Views
+[.small]#xref:web/webmvc/mvc-controller/ann-methods/jackson.adoc[See equivalent in the Servlet stack]#
+
+Spring WebFlux provides built-in support for
+{baeldung-blog}/jackson-json-view-annotation[Jackson's Serialization Views],
+which allows rendering only a subset of all fields in an `Object`. To use it with
+`@ResponseBody` or `ResponseEntity` controller methods, you can use Jackson's
+`@JsonView` annotation to activate a serialization view class, as the following example shows:
+
+[tabs]
+======
+Java::
++
+[source,java,indent=0,subs="verbatim,quotes"]
+----
+	@RestController
+	public class UserController {
+
+		@GetMapping("/user")
+		@JsonView(User.WithoutPasswordView.class)
+		public User getUser() {
+			return new User("eric", "7!jd#h23");
+		}
+	}
+
+	public class User {
+
+		public interface WithoutPasswordView {};
+		public interface WithPasswordView extends WithoutPasswordView {};
+
+		private String username;
+		private String password;
+
+		public User() {
+		}
+
+		public User(String username, String password) {
+			this.username = username;
+			this.password = password;
+		}
+
+		@JsonView(WithoutPasswordView.class)
+		public String getUsername() {
+			return this.username;
+		}
+
+		@JsonView(WithPasswordView.class)
+		public String getPassword() {
+			return this.password;
+		}
+	}
+----
+
+Kotlin::
++
+[source,kotlin,indent=0,subs="verbatim,quotes"]
+----
+	@RestController
+	class UserController {
+
+		@GetMapping("/user")
+		@JsonView(User.WithoutPasswordView::class)
+		fun getUser(): User {
+			return User("eric", "7!jd#h23")
+		}
+	}
+
+	class User(
+			@JsonView(WithoutPasswordView::class) val username: String,
+			@JsonView(WithPasswordView::class) val password: String
+	) {
+		interface WithoutPasswordView
+		interface WithPasswordView : WithoutPasswordView
+	}
+----
+======
+
+NOTE: `@JsonView` allows an array of view classes but you can specify only one per
+controller method. Use a composite interface if you need to activate multiple views.
+
+
+[framework-docs/modules/ROOT/pages/web/webflux/controller/ann-methods/matrix-variables.adoc]
+[[webflux-ann-matrix-variables]]
+= Matrix Variables
+
+[.small]#xref:web/webmvc/mvc-controller/ann-methods/matrix-variables.adoc[See equivalent in the Servlet stack]#
+
+{rfc-site}/rfc3986#section-3.3[RFC 3986] discusses name-value pairs in
+path segments. In Spring WebFlux, we refer to those as "`matrix variables`" based on an
+https://www.w3.org/DesignIssues/MatrixURIs.html["`old post`"] by Tim Berners-Lee, but they
+can be also be referred to as URI path parameters.
+
+Matrix variables can appear in any path segment, with each variable separated by a semicolon and
+multiple values separated by commas -- for example, `"/cars;color=red,green;year=2012"`. Multiple
+values can also be specified through repeated variable names -- for example,
+`"color=red;color=green;color=blue"`.
+
+Unlike Spring MVC, in WebFlux, the presence or absence of matrix variables in a URL does
+not affect request mappings. In other words, you are not required to use a URI variable
+to mask variable content. That said, if you want to access matrix variables from a
+controller method, you need to add a URI variable to the path segment where matrix
+variables are expected. The following example shows how to do so:
+
+[tabs]
+======
+Java::
++
+[source,java,indent=0,subs="verbatim,quotes"]
+----
+	// GET /pets/42;q=11;r=22
+
+	@GetMapping("/pets/{petId}")
+	public void findPet(@PathVariable String petId, @MatrixVariable int q) {
+
+		// petId == 42
+		// q == 11
+	}
+----
+
+Kotlin::
++
+[source,kotlin,indent=0,subs="verbatim,quotes"]
+----
+	// GET /pets/42;q=11;r=22
+
+	@GetMapping("/pets/{petId}")
+	fun findPet(@PathVariable petId: String, @MatrixVariable q: Int) {
+
+		// petId == 42
+		// q == 11
+	}
+----
+======
+
+
+Given that all path segments can contain matrix variables, you may sometimes need to
+disambiguate which path variable the matrix variable is expected to be in,
+as the following example shows:
+
+[tabs]
+======
+Java::
++
+[source,java,indent=0,subs="verbatim,quotes"]
+----
+	// GET /owners/42;q=11/pets/21;q=22
+
+	@GetMapping("/owners/{ownerId}/pets/{petId}")
+	public void findPet(
+			@MatrixVariable(name="q", pathVar="ownerId") int q1,
+			@MatrixVariable(name="q", pathVar="petId") int q2) {
+
+		// q1 == 11
+		// q2 == 22
+	}
+----
+
+Kotlin::
++
+[source,kotlin,indent=0,subs="verbatim,quotes"]
+----
+	@GetMapping("/owners/{ownerId}/pets/{petId}")
+	fun findPet(
+			@MatrixVariable(name = "q", pathVar = "ownerId") q1: Int,
+			@MatrixVariable(name = "q", pathVar = "petId") q2: Int) {
+
+		// q1 == 11
+		// q2 == 22
+	}
+----
+======
+
+You can define a matrix variable may be defined as optional and specify a default value
+as the following example shows:
+
+[tabs]
+======
+Java::
++
+[source,java,indent=0,subs="verbatim,quotes"]
+----
+	// GET /pets/42
+
+	@GetMapping("/pets/{petId}")
+	public void findPet(@MatrixVariable(required=false, defaultValue="1") int q) {
+
+		// q == 1
+	}
+----
+
+Kotlin::
++
+[source,kotlin,indent=0,subs="verbatim,quotes"]
+----
+	// GET /pets/42
+
+	@GetMapping("/pets/{petId}")
+	fun findPet(@MatrixVariable(required = false, default
+... [TRUNCATED]
+
+--- DATABASE SCHEMA / MODEL FILES ---
+  spring-context/src/main/java/org/springframework/ui/ConcurrentModel.java
+  spring-context/src/main/java/org/springframework/ui/Model.java
+  spring-context/src/main/java/org/springframework/validation/support/BindingAwareConcurrentModel.java
+
+--- DIRECTORY STRUCTURE (depth 2) ---
+├── .editorconfig
+├── .gitattributes
+├── .github/
+│   ├── ISSUE_TEMPLATE/
+│   │   ├── config.yml
+│   │   └── issue.md
+│   ├── actions/
+│   │   ├── await-http-resource/
+│   │   ├── build/
+│   │   ├── create-github-release/
+│   │   ├── prepare-gradle-build/
+│   │   ├── print-jvm-thread-dumps/
+│   │   ├── send-notification/
+│   │   └── sync-to-maven-central/
+│   ├── dco.yml
+│   └── workflows/
+│       ├── backport-bot.yml
+│       ├── build-and-deploy-snapshot.yml
+│       ├── build-pull-request.yml
+│       ├── ci.yml
+│       ├── deploy-docs.yml
+│       ├── release-milestone.yml
+│       ├── release.yml
+│       ├── update-antora-ui-spring.yml
+│       └── verify.yml
+├── .gitignore
+├── .idea/
+│   └── icon.svg
+├── .sdkmanrc
+├── CONTRIBUTING.md
+├── LICENSE.txt
+├── README.md
+├── SECURITY.md
+├── build.gradle
+├── buildSrc/
+│   ├── README.md
+│   ├── build.gradle
+│   ├── config/
+│   │   └── checkstyle/
+│   ├── gradle.properties
+│   ├── settings.gradle
+│   └── src/
+│       ├── main/
+│       └── test/
+├── framework-api/
+│   └── framework-api.gradle
+├── framework-bom/
+│   └── framework-bom.gradle
+├── framework-docs/
+│   ├── antora-playbook.yml
+│   ├── antora.yml
+│   ├── framework-docs.gradle
+│   ├── modules/
+│   │   └── ROOT/
+│   ├── package.json
+│   └── src/
+│       ├── docs/
+│       └── main/
+├── framework-platform/
+│   └── framework-platform.gradle
+├── gradle.properties
+├── gradle/
+│   ├── ide.gradle
+│   ├── publications.gradle
+│   ├── spring-module.gradle
+│   └── wrapper/
+│       ├── gradle-wrapper.jar
+│       └── gradle-wrapper.properties
+├── gradlew
+├── gradlew.bat
+├── import-into-eclipse.md
+├── import-into-intellij-idea.md
+├── integration-tests/
+│   ├── integration-tests.gradle
+│   └── src/
+│       └── test/
+├── settings.gradle
+├── spring-aop/
+│   ├── spring-aop.gradle
+│   └── src/
+│       ├── main/
+│       ├── test/
+│       └── testFixtures/
+├── spring-aspects/
+│   ├── spring-aspects.gradle
+│   └── src/
+│       ├── main/
+│       └── test/
+├── spring-beans/
+│   ├── spring-beans.gradle
+│   └── src/
+│       ├── jmh/
+│       ├── main/
+│       ├── test/
+│       └── testFixtures/
+├── spring-context-indexer/
+│   ├── spring-context-indexer.gradle
+│   └── src/
+│       ├── main/
+│       └── test/
+├── spring-context-support/
+│   ├── spring-context-support.gradle
+│   └── src/
+│       ├── main/
+│       ├── test/
+│       └── testFixtures/
+├── spring-context/
+│   ├── .springBeans
+│   ├── spring-context.gradle
+│   └── src/
+│       ├── jmh/
+│       ├── main/
+│       ├── test/
+│       └── testFixtures/
+├── spring-core-test/
+│   ├── spring-core-test.gradle
+│   └── src/
+│       ├── main/
+│       └── test/
+├── spring-core/
+│   ├── spring-core.gradle
+│   └── src/
+│       ├── jmh/
+│       ├── main/
+│       ├── test/
+│       └── testFixtures/
+├── spring-expression/
+│   ├── spring-expression.gradle
+│   └── src/
+│       ├── jmh/
+│       ├── main/
+│       └── test/
+├── spring-instrument/
+│   ├── spring-instrument.gradle
+│   └── src/
+│       └── main/
+├── spring-jdbc/
+│   ├── spring-jdbc.gradle
+│   └── src/
+│       ├── main/
+│       └── test/
+├── spring-jms/
+│   ├── spring-jms.gradle
+│   └── src/
+│       ├── main/
+│       └── test/
+├── spring-messaging/
+│   ├── spring-messaging.gradle
+│   └── src/
+│       ├── jmh/
+│       ├── main/
+│       └── test/
+├── spring-orm/
+│   ├── spring-orm.gradle
+│   └── src/
+│       ├── main/
+│       └── test/
+├── spring-oxm/
+│   ├── spring-oxm.gradle
+│   └── src/
+│       ├── main/
+│       └── test/
+├── spring-r2dbc/
+│   ├── spring-r2dbc.gradle
+│   └── src/
+│       ├── main/
+│       └── test/
+├── spring-test/
+│   ├── .springBeans
+│   ├── spring-test.gradle
+│   └── src/
+│       ├── main/
+│       └── test/
+├── spring-tx/
+│   ├── spring-tx.gradle
+│   └── src/
+│       ├── main/
+│       ├── test/
+│       └── testFixtures/
+├── spring-web/
+│   ├── spring-web.gradle
+│   └── src/
+│       ├── jmh/
+│       ├── main/
+│       ├── test/
+│       └── testFixtures/
+├── spring-webflux/
+│   ├── spring-webflux.gradle
+│   └── src/
+│       ├── main/
+│       └── test/
+├── spring-webmvc/
+│   ├── spring-webmvc.gradle
+│   └── src/
+│       ├── main/
+│       └── test/
+├── spring-websocket/
+│   ├── spring-websocket.gradle
+│   └── src/
+│       ├── main/
+│       └── test/
+└── src/
+    ├── checkstyle/
+    │   ├── checkstyle-suppressions.xml
+    │   └── checkstyle.xml
+    ├── eclipse/
+    │   ├── org.eclipse.core.resources.prefs
+    │   ├── org.eclipse.jdt.core.prefs
+    │   └── org.eclipse.jdt.ui.prefs
+    ├── idea/
+    │   └── spring-framework.xml
+    └── nohttp/
+        ├── allowlist.lines
+        └── checkstyle.xml

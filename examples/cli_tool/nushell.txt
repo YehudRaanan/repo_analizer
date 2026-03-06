@@ -1,0 +1,895 @@
+=====================================
+Repository Analysis: nushell
+Type: CLI Tool
+=====================================
+
+--- METADATA ---
+Name: nushell
+Description: A new type of shell
+Language: Rust
+Topics: nushell, rust, shell
+Stars: 38636
+License: MIT License
+
+--- README ---
+# Nushell <!-- omit in toc -->
+[![Crates.io](https://img.shields.io/crates/v/nu.svg)](https://crates.io/crates/nu)
+[![Build Status](https://img.shields.io/github/actions/workflow/status/nushell/nushell/ci.yml?branch=main)](https://github.com/nushell/nushell/actions)
+[![Nightly Build](https://github.com/nushell/nushell/actions/workflows/nightly-build.yml/badge.svg)](https://github.com/nushell/nushell/actions/workflows/nightly-build.yml)
+[![Discord](https://img.shields.io/discord/601130461678272522.svg?logo=discord)](https://discord.gg/NtAbbGn)
+[![The Changelog #363](https://img.shields.io/badge/The%20Changelog-%23363-61c192.svg)](https://changelog.com/podcast/363)
+[![GitHub commit activity](https://img.shields.io/github/commit-activity/m/nushell/nushell)](https://github.com/nushell/nushell/graphs/commit-activity)
+[![GitHub contributors](https://img.shields.io/github/contributors/nushell/nushell)](https://github.com/nushell/nushell/graphs/contributors)
+
+A new type of shell.
+
+![Example of nushell](assets/nushell-autocomplete6.gif "Example of nushell")
+
+## Table of Contents <!-- omit in toc -->
+
+- [Status](#status)
+- [Learning About Nu](#learning-about-nu)
+- [Installation](#installation)
+- [Configuration](#configuration)
+- [Philosophy](#philosophy)
+  - [Pipelines](#pipelines)
+  - [Opening files](#opening-files)
+  - [Plugins](#plugins)
+- [Goals](#goals)
+- [Officially Supported By](#officially-supported-by)
+- [Contributing](#contributing)
+- [License](#license)
+
+## Status
+
+This project has reached a minimum-viable-product level of quality. Many people use it as their daily driver, but it may be unstable for some commands. Nu's design is subject to change as it matures.
+
+## Learning About Nu
+
+The [Nushell book](https://www.nushell.sh/book/) is the primary source of Nushell documentation. You can find [a full list of Nu commands in the book](https://www.nushell.sh/commands/), and we have many examples of using Nu in our [cookbook](https://www.nushell.sh/cookbook/).
+
+We're also active on [Discord](https://discord.gg/NtAbbGn); come and chat with us!
+
+## Installation
+
+To quickly install Nu:
+
+```bash
+# Linux and macOS
+brew install nushell
+# Windows
+winget install nushell
+```
+
+To use `Nu` in GitHub Action, check [setup-nu](https://github.com/marketplace/actions/setup-nu) for more detail.
+
+Detailed installation instructions can be found in the [installation chapter of the book](https://www.nushell.sh/book/installation.html). Nu is available via many package managers:
+
+[![Packaging status](https://repology.org/badge/vertical-allrepos/nushell.svg?columns=3)](https://repology.org/project/nushell/versions)
+
+For details about which platforms the Nushell team actively supports, see [our platform support policy](devdocs/PLATFORM_SUPPORT.md).
+
+## Configuration
+
+The default configurations can be found at [sample_config](crates/nu-utils/src/default_files)
+which are the configuration files one gets when they startup Nushell for the first time.
+
+It sets all of the default configuration to run Nushell.  From here one can
+then customize this file for their specific needs.
+
+To see where *config.nu* is located on your system simply type this command.
+
+```rust
+$nu.config-path
+```
+
+Please see our [book](https://www.nushell.sh) for all of the Nushell documentation.
+
+
+## Philosophy
+
+Nu draws inspiration from projects like PowerShell, functional programming languages, and modern CLI tools.
+Rather than thinking of files and data as raw streams of text, Nu looks at each input as something with structure.
+For example, when you list the contents of a directory what you get back is a table of rows, where each row represents an item in that directory.
+These values can be piped through a series of steps, in a series of commands called a 'pipeline'.
+
+### Pipelines
+
+In Unix, it's common to pipe between commands to split up a sophisticated command over multiple steps.
+Nu takes this a step further and builds heavily on the idea of _pipelines_.
+As in the Unix philosophy, Nu allows commands to output to stdout and read from stdin.
+Additionally, commands can output structured data (you can think of this as a third kind of stream).
+Commands that work in the pipeline fit into one of three categories:
+
+-   Commands that produce a stream (e.g., `ls`)
+-   Commands that filter a stream (e.g., `where type == "dir"`)
+-   Commands that consume the output of the pipeline (e.g., `table`)
+
+Commands are separated by the pipe symbol (`|`) to denote a pipeline flowing left to right.
+
+```shell
+ls | where type == "dir" | table
+# => ╭────┬──────────┬──────┬─────────┬───────────────╮
+# => │ #  │   name   │ type │  size   │   modified    │
+# => ├────┼──────────┼──────┼─────────┼───────────────┤
+# => │  0 │ .cargo   │ dir  │     0 B │ 9 minutes ago │
+# => │  1 │ assets   │ dir  │     0 B │ 2 weeks ago   │
+# => │  2 │ crates   │ dir  │ 4.0 KiB │ 2 weeks ago   │
+# => │  3 │ docker   │ dir  │     0 B │ 2 weeks ago   │
+# => │  4 │ docs     │ dir  │     0 B │ 2 weeks ago   │
+# => │
+... [TRUNCATED]
+
+--- PACKAGE MANIFEST(S) ---
+
+[Cargo.toml]
+[package]
+authors = ["The Nushell Project Developers"]
+build = "scripts/build.rs"
+default-run = "nu"
+description = "A new type of shell"
+documentation = "https://www.nushell.sh/book/"
+edition = "2024"
+exclude = ["images"]
+homepage = "https://www.nushell.sh"
+license = "MIT"
+name = "nu"
+repository = "https://github.com/nushell/nushell"
+rust-version = "1.91.1"
+version = "0.111.1"
+autotests = false
+
+[[test]]
+name = "tests"
+path = "tests/main.rs"
+harness = false
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[package.metadata.binstall]
+pkg-url = "{ repo }/releases/download/{ version }/{ name }-{ version }-{ target }.{ archive-format }"
+pkg-fmt = "tgz"
+
+[package.metadata.binstall.overrides.x86_64-pc-windows-msvc]
+pkg-fmt = "zip"
+
+[package.metadata.winresource]
+LegalCopyright = "Copyright © 2019-2026 The Nushell Project Developers"
+FileDescription = "A new type of shell"
+FileVersion = "0.111.1"
+ProductVersion = "0.111.1"
+ProductName = "Nushell"
+
+[workspace]
+members = [
+  "crates/nu_plugin_custom_values",
+  "crates/nu_plugin_example",
+  "crates/nu_plugin_formats",
+  "crates/nu_plugin_gstat",
+  "crates/nu_plugin_inc",
+  "crates/nu_plugin_polars",
+  "crates/nu_plugin_query",
+  "crates/nu_plugin_stress_internals",
+  "crates/nu-cli",
+  "crates/nu-cmd-base",
+  "crates/nu-cmd-extra",
+  "crates/nu-cmd-lang",
+  "crates/nu-cmd-plugin",
+  "crates/nu-color-config",
+  "crates/nu-command",
+  "crates/nu-derive-value",
+  "crates/nu-engine",
+  "crates/nu-experimental",
+  "crates/nu-explore",
+  "crates/nu-json",
+  "crates/nu-lsp",
+  "crates/nu-parser",
+  "crates/nu-plugin-core",
+  "crates/nu-plugin-engine",
+  "crates/nu-plugin-protocol",
+  "crates/nu-plugin-test-support",
+  "crates/nu-plugin",
+  "crates/nu-pretty-hex",
+  "crates/nu-protocol",
+  "crates/nu-std",
+  "crates/nu-system",
+  "crates/nu-table",
+  "crates/nu-term-grid",
+  "crates/nu-test-support",
+  "crates/nu-test-support-macros",
+  "crates/nu-utils",
+  "crates/nuon",
+  "crates/nu-mcp",
+]
+
+[workspace.dependencies]
+alphanumeric-sort = "1.5"
+ansi-str = "0.9"
+anyhow = "1.0.100"
+base64 = "0.22.1"
+bracoxide = "0.1.8"
+brotli = "8.0"
+byteorder = "1.5"
+bytes = "1"
+bytesize = "2.3.1"
+byteyarn = "0.5"
+calamine = "0.33"
+chardetng = "0.1.17"
+chrono = { default-features = false, version = "0.4.41" } # polars is requiring <= 0.4.41
+chrono-humanize = "0.2.3"
+chrono-tz = "0.10"
+crossbeam-channel = "0.5.15"
+crossterm = "0.29.0"
+csv = "1.4"
+ctrlc = "3.5"
+devicons = "0.6.12"
+digest = { default-features = false, version = "0.10" }
+dirs = "6.0"
+dirs-sys = "0.5"
+dns-lookup = "3.0.1"
+dtparse = "2.0"
+encoding_rs = "0.8"
+fancy-regex = "0.17"
+filesize = "0.2"
+filetime = "0.2"
+fuzzy-matcher = { version = "^0.3.7" }
+heck = "0.5.0"
+http = "1.4.0"
+human-date-parser = "0.3.1"
+indexmap = "2.13"
+indicatif = "0.18"
+interprocess = "2.3.1"
+is_executable = "1.0"
+itertools = "0.14"
+kitest = "0.5.0"
+lean_string = { version = "0.5", features = ["serde"] }
+lexopt = "0.3.1"
+libc = "=0.2.178" # Pinned t
+... [TRUNCATED]
+
+--- CLI ENTRY POINTS / COMMAND DEFINITIONS ---
+
+[src/main.rs]
+mod command;
+mod command_context;
+mod config_files;
+mod experimental_options;
+mod ide;
+mod logger;
+mod run;
+mod signals;
+#[cfg(unix)]
+mod terminal;
+mod test_bins;
+
+use crate::{
+    command::parse_cli_args_from_env,
+    config_files::set_config_path,
+    logger::{configure, logger},
+};
+use log::{Level, trace};
+use miette::Result;
+use nu_cli::gather_parent_env_vars;
+use nu_engine::{convert_env_values, exit::cleanup_exit};
+use nu_lsp::LanguageServer;
+use nu_path::absolute_with;
+use nu_protocol::{
+    ByteStream, Config, IntoValue, PipelineData, ShellError, Span, Spanned, Type, Value,
+    engine::{EngineState, Stack},
+    record, report_shell_error,
+};
+use nu_std::load_standard_library;
+use nu_utils::perf;
+use run::{run_commands, run_file, run_repl};
+use signals::ctrlc_protection;
+use std::{
+    borrow::Cow,
+    path::{PathBuf, absolute},
+    str::FromStr,
+    sync::Arc,
+};
+
+/// Get the directory where the Nushell executable is located.
+fn current_exe_directory() -> PathBuf {
+    let mut path = std::env::current_exe().expect("current_exe() should succeed");
+    path.pop();
+    path
+}
+
+/// Get the current working directory from the environment.
+fn current_dir_from_environment() -> PathBuf {
+    let cwd = std::env::current_dir();
+    let pwd = std::env::var("PWD");
+    match (cwd, pwd) {
+        // If current_dir and PWD are the same then use PWD
+        // so the path isn't unnecessarily canonicalized on Unix systems.
+        (Ok(cwd), Ok(pwd)) => {
+            if matches!(same_file::is_same_file(&cwd, &pwd), Ok(true)) {
+                pwd.into()
+            } else {
+                cwd
+            }
+        }
+        // Otherwise prefer current_dir in case it has diverged from PWD
+        (Ok(cwd), _) => cwd,
+        (_, Ok(pwd)) => pwd.into(),
+        _ => {
+            if let Some(home) = nu_path::home_dir() {
+                home.into_std_path_buf()
+            } else {
+                current_exe_directory()
+            }
+        }
+    }
+}
+
+fn main() -> Result<()> {
+    let entire_start_time = std::time::Instant::now();
+    let mut start_time = std::time::Instant::now();
+    miette::set_panic_hook();
+    let miette_hook = std::panic::take_hook();
+    std::panic::set_hook(Box::new(move |x| {
+        crossterm::terminal::disable_raw_mode().expect("unable to disable raw mode");
+        miette_hook(x);
+    }));
+
+    let engine_state = EngineState::new();
+
+    // Parse commandline args very early and load experimental options to allow loading different
+    // commands based on experimental options.
+    let parsed = parse_cli_args_from_env().unwrap_or_else(|err| {
+        report_shell_error(None, &engine_state, &err.into());
+        std::process::exit(1)
+    });
+    let parsed_nu_cli_args = parsed.nu;
+    let script_name = parsed.script_name;
+    let args_to_script = parsed.args_to_script;
+
+    experimental_options::load(&engine_state, &parsed_nu_cli_args, !script_name.is_empty());
+
+    let mut engine_state = command_context::add_command_context(engin
+... [TRUNCATED]
+
+--- SHELL COMPLETIONS & MAN PAGES ---
+  crates/nu-cli/src/completions/arg_value_completion.rs
+  crates/nu-cli/src/completions/attribute_completions.rs
+  crates/nu-cli/src/completions/base.rs
+  crates/nu-cli/src/completions/cell_path_completions.rs
+  crates/nu-cli/src/completions/command_completions.rs
+  crates/nu-cli/src/completions/completer.rs
+  crates/nu-cli/src/completions/completion_common.rs
+  crates/nu-cli/src/completions/completion_options.rs
+  crates/nu-cli/src/completions/custom_completions.rs
+  crates/nu-cli/src/completions/directory_completions.rs
+  crates/nu-cli/src/completions/dotnu_completions.rs
+  crates/nu-cli/src/completions/exportable_completions.rs
+  crates/nu-cli/src/completions/file_completions.rs
+  crates/nu-cli/src/completions/flag_completions.rs
+  crates/nu-cli/src/completions/mod.rs
+  crates/nu-cli/src/completions/operator_completions.rs
+  crates/nu-cli/src/completions/static_completions.rs
+  crates/nu-cli/src/completions/variable_completions.rs
+  crates/nu-cli/tests/completions/mod.rs
+  crates/nu-cli/tests/completions/support/completions_helpers.rs
+  crates/nu-cli/tests/completions/support/mod.rs
+  tests/fixtures/completions/.hidden_file
+  tests/fixtures/completions/.hidden_folder/.hidden_subfile
+  tests/fixtures/completions/another/newfile
+  tests/fixtures/completions/custom_completion.nu
+  tests/fixtures/completions/directory_completion/folder_inside_folder/myfile
+  tests/fixtures/completions/directory_completion/mod.nu
+  tests/fixtures/completions/nushell
+  tests/fixtures/completions/test_a/myfile
+  tests/fixtures/completions/test_a_symlink
+  tests/fixtures/completions/test_b/testfile
+  tests/fixtures/dotnu_completions/dir_module/mod.nu
+  tests/fixtures/dotnu_completions/dir_module/plain.txt
+  tests/fixtures/dotnu_completions/dir_module/sub module/sub.nu
+  tests/fixtures/dotnu_completions/foo.nu
+  tests/fixtures/dotnu_completions/lib-dir1/bar.nu
+  tests/fixtures/dotnu_completions/lib-dir1/baz.nu
+  tests/fixtures/dotnu_completions/lib-dir1/xyzzy.nu
+  tests/fixtures/dotnu_completions/lib-dir2/asdf.nu
+  tests/fixtures/dotnu_completions/lib-dir2/bat.nu
+  tests/fixtures/dotnu_completions/lib-dir3/spam.nu
+  tests/fixtures/external_completions/dir with space/bar baz
+  tests/fixtures/external_completions/dir with space/foo
+  tests/fixtures/external_completions/path/script.ps1
+  tests/fixtures/external_completions/path/sleep
+  tests/fixtures/external_completions/path/sleep.exe
+  tests/fixtures/lsp/completion/cell_path.nu
+  tests/fixtures/lsp/completion/command.nu
+  tests/fixtures/lsp/completion/custom.nu
+  tests/fixtures/lsp/completion/external.nu
+  tests/fixtures/lsp/completion/fallback.nu
+  tests/fixtures/lsp/completion/keyword.nu
+  tests/fixtures/lsp/completion/use.nu
+  tests/fixtures/lsp/completion/utf_pipeline.nu
+  tests/fixtures/lsp/completion/var.nu
+  tests/fixtures/partial_completions/final_partial/somefile
+  tests/fixtures/partial_completions/partial-a/anotherfile
+  tests/fixtures/partial_completions/partial-a/have_ext.exe
+  tests/fixtures/partial_completions/partial-a/have_ext.txt
+  tests/fixtures/partial_completions/partial-a/hello
+  tests/fixtures/partial_completions/partial-a/hola/foo.txt
+  tests/fixtures/partial_completions/partial-b/hello_b
+  tests/fixtures/partial_completions/partial-b/hi_b
+  tests/fixtures/partial_completions/partial-c/hello_c
+  tests/fixtures/partial_completions/partial-d(/.gitkeep
+  tests/fixtures/partial_completions/partial/hello.txt
+  tests/fixtures/partial_completions/partial/hol/foo.txt
+  tests/fixtures/quoted_completions/--help
+  tests/fixtures/quoted_completions/-42
+  tests/fixtures/quoted_completions/-inf
+  tests/fixtures/quoted_completions/4.2
+  tests/fixtures/quoted_completions/[a] bc.txt
+  tests/fixtures/quoted_completions/curly-bracket_{.txt
+  tests/fixtures/quoted_completions/double`trouble'.txt
+  tests/fixtures/quoted_completions/semicolon_;.txt
+  tests/fixtures/quoted_completions/square-bracket_[.txt
+  tests/fixtures/quoted_completions/te st.txt
+  tests/fixtures/quoted_completions/te#st.txt
+  tests/fixtures/quoted_completions/te'st.txt
+  tests/fixtures/quoted_completions/te(st).txt
+  tests/fixtures/quoted_completions/test dir/double quote
+  tests/fixtures/quoted_completions/test dir/single quote
+
+--- DIRECTORY STRUCTURE (depth 2) ---
+├── .cargo/
+│   └── config.toml
+├── .gitattributes
+├── .githooks/
+│   ├── pre-commit
+│   └── pre-push
+├── .github/
+│   ├── AUTO_ISSUE_TEMPLATE/
+│   │   ├── README.md
+│   │   └── nightly-build-fail.md
+│   ├── ISSUE_TEMPLATE/
+│   │   ├── bug_report.yml
+│   │   ├── config.yml
+│   │   ├── experimental_option.yml
+│   │   └── feature_request.yml
+│   ├── dependabot.yml
+│   ├── labeler.yml
+│   ├── pull_request_template.md
+│   └── workflows/
+│       ├── audit.yml
+│       ├── beta-test.yml
+│       ├── check-msrv.nu
+│       ├── ci.yml
+│       ├── friendly-config-reminder.yml
+│       ├── labels.yml
+│       ├── milestone.yml
+│       ├── nightly-build.yml
+│       ├── pre-release-checkup.yml
+│       ├── release-msi.nu
+│       ├── release-msi.yml
+│       ├── release-pkg.nu
+│       ├── release.yml
+│       ├── typos.yml
+│       └── winget-submission.yml
+├── .gitignore
+├── CITATION.cff
+├── CODE_OF_CONDUCT.md
+├── CONTRIBUTING.md
+├── Cargo.lock
+├── Cargo.toml
+├── Cross.toml
+├── LICENSE
+├── README.md
+├── SECURITY.md
+├── agents.md
+├── assets/
+│   ├── icons/
+│   │   └── nushell-original.png
+│   ├── nu_logo.ico
+│   └── nushell-autocomplete6.gif
+├── ast-grep/
+│   ├── rules/
+│   │   ├── format-in-nu-macro.yml
+│   │   ├── if-matches-chain.yml
+│   │   ├── if-matches.yml
+│   │   ├── internal_span.yml
+│   │   ├── let-if-let.yml
+│   │   ├── long-string.yml
+│   │   └── span-unknown.yml
+│   ├── tests/
+│   │   ├── __snapshots__/
+│   │   ├── format-in-nu-macro.yml
+│   │   ├── if-matches-chain.yml
+│   │   ├── if-matches.yml
+│   │   ├── internal_span.yml
+│   │   ├── let-if-let.yml
+│   │   └── span-unknown.yml
+│   └── utils/
+│       └── .gitignore
+├── benches/
+│   ├── README.md
+│   └── benchmarks.rs
+├── clippy/
+│   └── wasm/
+│       └── clippy.toml
+├── crates/
+│   ├── README.md
+│   ├── nu-cli/
+│   │   ├── Cargo.toml
+│   │   ├── LICENSE
+│   │   ├── README.md
+│   │   ├── src/
+│   │   └── tests/
+│   ├── nu-cmd-base/
+│   │   ├── Cargo.toml
+│   │   ├── LICENSE
+│   │   ├── README.md
+│   │   └── src/
+│   ├── nu-cmd-extra/
+│   │   ├── Cargo.toml
+│   │   ├── LICENSE
+│   │   ├── README.md
+│   │   ├── assets/
+│   │   ├── build.rs
+│   │   ├── src/
+│   │   └── tests/
+│   ├── nu-cmd-lang/
+│   │   ├── Cargo.toml
+│   │   ├── LICENSE
+│   │   ├── README.md
+│   │   ├── build.rs
+│   │   ├── src/
+│   │   └── tests/
+│   ├── nu-cmd-plugin/
+│   │   ├── Cargo.toml
+│   │   ├── LICENSE
+│   │   ├── README.md
+│   │   └── src/
+│   ├── nu-color-config/
+│   │   ├── Cargo.toml
+│   │   ├── LICENSE
+│   │   ├── README.md
+│   │   └── src/
+│   ├── nu-command/
+│   │   ├── Cargo.toml
+│   │   ├── LICENSE
+│   │   ├── README.md
+│   │   ├── src/
+│   │   └── tests/
+│   ├── nu-derive-value/
+│   │   ├── Cargo.toml
+│   │   ├── LICENSE
+│   │   └── src/
+│   ├── nu-engine/
+│   │   ├── Cargo.toml
+│   │   ├── LICENSE
+│   │   ├── README.md
+│   │   └── src/
+│   ├── nu-experimental/
+│   │   ├── Cargo.toml
+│   │   └── src/
+│   ├── nu-explore/
+│   │   ├── .gitignore
+│   │   ├── Cargo.toml
+│   │   ├── LICENSE
+│   │   ├── README.md
+│   │   └── src/
+│   ├── nu-glob/
+│   │   ├── Cargo.toml
+│   │   ├── LICENSE-APACHE
+│   │   ├── LICENSE-MIT
+│   │   ├── README.md
+│   │   └── src/
+│   ├── nu-json/
+│   │   ├── CHANGELOG.md
+│   │   ├── Cargo.toml
+│   │   ├── LICENSE
+│   │   ├── README.md
+│   │   ├── src/
+│   │   └── tests/
+│   ├── nu-lsp/
+│   │   ├── Cargo.toml
+│   │   ├── LICENSE
+│   │   ├── README.md
+│   │   └── src/
+│   ├── nu-mcp/
+│   │   ├── Cargo.toml
+│   │   ├── README.md
+│   │   └── src/
+│   ├── nu-parser/
+│   │   ├── Cargo.toml
+│   │   ├── LICENSE
+│   │   ├── README.md
+│   │   ├── fuzz/
+│   │   ├── src/
+│   │   └── tests/
+│   ├── nu-path/
+│   │   ├── Cargo.toml
+│   │   ├── LICENSE
+│   │   ├── README.md
+│   │   ├── fuzz/
+│   │   └── src/
+│   ├── nu-plugin-core/
+│   │   ├── Cargo.toml
+│   │   ├── LICENSE
+│   │   ├── README.md
+│   │   └── src/
+│   ├── nu-plugin-engine/
+│   │   ├── Cargo.toml
+│   │   ├── LICENSE
+│   │   ├── README.md
+│   │   └── src/
+│   ├── nu-plugin-protocol/
+│   │   ├── Cargo.toml
+│   │   ├── LICENSE
+│   │   ├── README.md
+│   │   └── src/
+│   ├── nu-plugin-test-support/
+│   │   ├── Cargo.toml
+│   │   ├── LICENSE
+│   │   ├── README.md
+│   │   ├── src/
+│   │   └── tests/
+│   ├── nu-plugin/
+│   │   ├── Cargo.toml
+│   │   ├── LICENSE
+│   │   ├── README.md
+│   │   └── src/
+│   ├── nu-pretty-hex/
+│   │   ├── Cargo.toml
+│   │   ├── LICENSE
+│   │   ├── README.md
+│   │   ├── examples/
+│   │   ├── src/
+│   │   └── tests/
+│   ├── nu-protocol/
+│   │   ├── Cargo.toml
+│   │   ├── LICENSE
+│   │   ├── README.md
+│   │   ├── src/
+│   │   └── tests/
+│   ├── nu-std/
+│   │   ├── CONTRIBUTING.md
+│   │   ├── Cargo.toml
+│   │   ├── LICENSE
+│   │   ├── README.md
+│   │   ├── src/
+│   │   ├── std-rfc/
+│   │   ├── std/
+│   │   ├── testing.nu
+│   │   └── tests/
+│   ├── nu-system/
+│   │   ├── .gitignore
+│   │   ├── Cargo.toml
+│   │   ├── LICENSE
+│   │   ├── README.md
+│   │   ├── examples/
+│   │   └── src/
+│   ├── nu-table/
+│   │   ├── .gitignore
+│   │   ├── Cargo.toml
+│   │   ├── LICENSE
+│   │   ├── README.md
+│   │   ├── examples/
+│   │   ├── src/
+│   │   └── tests/
+│   ├── nu-term-grid/
+│   │   ├── .gitignore
+│   │   ├── Cargo.toml
+│   │   ├── LICENSE
+│   │   ├── README.md
+│   │   ├── examples/
+│   │   └── src/
+│   ├── nu-test-support-macros/
+│   │   ├── Cargo.toml
+│   │   └── src/
+│   ├── nu-test-support/
+│   │   ├── Cargo.toml
+│   │   ├── LICENSE
+│   │   ├── README.md
+│   │   ├── src/
+│   │   └── tests/
+│   ├── nu-utils/
+│   │   ├── .gitignore
+│   │   ├── Cargo.toml
+│   │   ├── LICENSE
+│   │   ├── README.md
+│   │   └── src/
+│   ├── nu_plugin_custom_values/
+│   │   ├── Cargo.toml
+│   │   └── src/
+│   ├── nu_plugin_example/
+│   │   ├── Cargo.toml
+│   │   ├── README.md
+│   │   └── src/
+│   ├── nu_plugin_formats/
+│   │   ├── Cargo.toml
+│   │   ├── README.md
+│   │   └── src/
+│   ├── nu_plugin_gstat/
+│   │   ├── Cargo.toml
+│   │   ├── README.md
+│   │   └── src/
+│   ├── nu_plugin_inc/
+│   │   ├── Cargo.toml
+│   │   ├── README.md
+│   │   └── src/
+│   ├── nu_plugin_javascript/
+│   │   └── nu_plugin_node_example.js
+│   ├── nu_plugin_nu_example/
+│   │   └── nu_plugin_nu_example.nu
+│   ├── nu_plugin_polars/
+│   │   ├── Cargo.toml
+│   │   ├── LICENSE
+│   │   └── src/
+│   ├── nu_plugin_python/
+│   │   └── nu_plugin_python_example.py
+│   ├── nu_plugin_query/
+│   │   ├── Cargo.toml
+│   │   ├── README.md
+│   │   └── src/
+│   ├── nu_plugin_stress_internals/
+│   │   ├── Cargo.toml
+│   │   ├── LICENSE
+│   │   └── src/
+│   └── nuon/
+│       ├── Cargo.toml
+│       ├── LICENSE
+│       ├── README.md
+│       └── src/
+├── devdocs/
+│   ├── FAQ.md
+│   ├── HOWTOS.md
+│   ├── PLATFORM_SUPPORT.md
+│   ├── README.md
+│   ├── release_notes_generation.md
+│   └── rust_style.md
+├── docker/
+│   ├── Dockerfile
+│   ├── debian.Dockerfile
+│   └── test_docker.nu
+├── rust-toolchain.toml
+├── scripts/
+│   ├── README.md
+│   ├── build-all-maclin.sh
+│   ├── build-all-windows.cmd
+│   ├── build-all.nu
+│   ├── build.rs
+│   ├── coverage-local.nu
+│   ├── coverage-local.sh
+│   ├── install-all.ps1
+│   ├── install-all.sh
+│   ├── nix/
+│   │   ├── README.md
+│   │   ├── default.nix
+│   │   ├── flake.lock
+│   │   └── flake.nix
+│   ├── test_virtualenv.nu
+│   └── uninstall-all.sh
+├── sgconfig.yml
+├── src/
+│   ├── README.md
+│   ├── command.rs
+│   ├── command_context.rs
+│   ├── config_files.rs
+│   ├── experimental_options.rs
+│   ├── ide.rs
+│   ├── logger.rs
+│   ├── main.rs
+│   ├── run.rs
+│   ├── signals.rs
+│   ├── terminal.rs
+│   └── test_bins.rs
+├── test.json
+├── tests/
+│   ├── assets/
+│   │   └── nu_json/
+│   ├── const_/
+│   │   └── mod.rs
+│   ├── eval/
+│   │   └── mod.rs
+│   ├── fixtures/
+│   │   ├── completions/
+│   │   ├── cp/
+│   │   ├── dotnu_completions/
+│   │   ├── eval/
+│   │   ├── external_completions/
+│   │   ├── formats/
+│   │   ├── lsp/
+│   │   ├── partial_completions/
+│   │   └── quoted_completions/
+│   ├── hooks/
+│   │   ├── mod.rs
+│   │   └── samples/
+│   ├── integration/
+│   │   ├── README.md
+│   │   ├── cli.rs
+│   │   ├── mod.rs
+│   │   └── shell_integration.rs
+│   ├── main.rs
+│   ├── modules/
+│   │   ├── mod.rs
+│   │   └── samples/
+│   ├── overlays/
+│   │   ├── mod.rs
+│   │   └── samples/
+│   ├── parsing/
+│   │   ├── mod.rs
+│   │   └── samples/
+│   ├── path/
+│   │   ├── absolute.rs
+│   │   ├── canonicalize.rs
+│   │   ├── expand_path.rs
+│   │   └── mod.rs
+│   ├── plugin_persistence/
+│   │   └── mod.rs
+│   ├── plugins/
+│   │   ├── call_decl.rs
+│   │   ├── config.rs
+│   │   ├── core_inc.rs
+│   │   ├── custom_values.rs
+│   │   ├── env.rs
+│   │   ├── formats/
+│   │   ├── mod.rs
+│   │   ├── nu_plugin_nu_example.rs
+│   │   ├── register.rs
+│   │   ├── registry_file.rs
+│   │   ├── stream.rs
+│   │   └── stress_internals.rs
+│   ├── repl/
+│   │   ├── mod.rs
+│   │   ├── test_alias.rs
+│   │   ├── test_bits.rs
+│   │   ├── test_cell_path.rs
+│   │   ├── test_commandline.rs
+│   │   ├── test_conditionals.rs
+│   │   ├── test_config.rs
+│   │   ├── test_config_path.rs
+│   │   ├── test_converters.rs
+│   │   ├── test_custom_commands.rs
+│   │   ├── test_engine.rs
+│   │   ├── test_env.rs
+│   │   ├── test_help.rs
+│   │   ├── test_hiding.rs
+│   │   ├── test_ide.rs
+│   │   ├── test_iteration.rs
+│   │   ├── test_known_external.rs
+│   │   ├── test_math.rs
+│   │   ├── test_modules.rs
+│   │   ├── test_parser.rs
+│   │   ├── test_ranges.rs
+│   │   ├── test_regex.rs
+│   │   ├── test_signatures.rs
+│   │   ├── test_spread.rs
+│   │   ├── test_stdlib.rs
+│   │   ├── test_strings.rs
+│   │   ├── test_table_operations.rs
+│   │   ├── test_type_check.rs
+│   │   └── tests.rs
+│   ├── scope/
+│   │   └── mod.rs
+│   └── shell/
+│       ├── environment/
+│       ├── mod.rs
+│       ├── pipeline/
+│       └── repl.rs
+├── toolkit.nu
+├── toolkit/
+│   ├── artifact/
+│   │   ├── api.nu
+│   │   ├── mod.nu
+│   │   └── unzip.nu
+│   ├── benchmark.nu
+│   ├── checks.nu
+│   ├── coverage.nu
+│   ├── git-hooks.nu
+│   ├── mod.nu
+│   ├── package.nu
+│   ├── plugins.nu
+│   ├── wasm.nu
+│   └── wrappers.nu
+├── typos.toml
+└── wix/
+    ├── License.rtf
+    ├── main.wixproj
+    ├── main.wxs
+    ├── nu.ico
+    └── windows-terminal-profile.json

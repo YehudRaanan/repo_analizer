@@ -1,0 +1,70 @@
+=====================================
+REPO CLASSIFICATION SIGNALS
+=====================================
+
+--- METADATA ---
+Name: bat
+Description: A cat(1) clone with wings.
+Primary language: Rust
+Topics: cli, command-line, git, hacktoberfest, rust, syntax-highlighting, terminal, tool
+
+--- ROOT FILES (signal matches) ---
+Web App:     (none)
+Backend:     (none)
+Library:     Cargo.toml
+CLI:         (none)
+Data/ML:     (none)
+Infra:       (none)
+
+--- TOP-LEVEL DIRECTORIES (signal matches) ---
+Web App:     (none)
+Backend:     (none)
+Library:     examples, src, tests
+CLI:         (none)
+Data/ML:     (none)
+Infra:       (none)
+
+--- ALL TOP-LEVEL DIRECTORIES ---
+.cargo, .github, assets, build, diagnostics, doc, examples, src, tests
+
+--- TYPE-SPECIFIC EXTENSION COUNTS ---
+Web App extensions (.tsx, .jsx, .vue, .svelte): 7
+Data/ML extensions (.ipynb): 0
+Infra extensions (.tf, .hcl): 2
+Backend extensions (.proto, .graphql): 4
+
+--- TOP FILE EXTENSIONS (by count) ---
+  .txt: 169
+  .md: 67
+  .rs: 67
+  .sublime-syntax: 53
+  .toml: 46
+  .patch: 17
+  .man: 12
+  .sh: 11
+  .conf: 10
+  .in: 9
+  .csv: 9
+  .py: 7
+  .yml: 6
+  .gitkeep: 6
+  .gitattributes: 5
+
+--- BOOLEAN PATTERN CHECKS ---
+  pages or app dir: no
+  components dir: no
+  cmd or bin dir: no
+  src bin: yes
+  run train scripts: no
+  ipynb files: no
+  model training files: no
+  tf files: yes
+  k8s manifests: no
+  ansible playbooks: no
+  route controller dirs: no
+  db migrations: no
+  openapi spec: no
+  src and tests: yes
+  examples dir: yes
+  dockerfile: no
+  ci cd: yes

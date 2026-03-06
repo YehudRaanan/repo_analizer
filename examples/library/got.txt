@@ -1,0 +1,438 @@
+=====================================
+Repository Analysis: got
+Type: Library / Package / SDK
+=====================================
+
+--- METADATA ---
+Name: got
+Description: 🌐 Human-friendly and powerful HTTP request library for Node.js
+Language: TypeScript
+Topics: http, http-client, http-request, https, nodejs, npm-package
+Stars: 14875
+License: MIT License
+
+--- README ---
+<div align="center">
+	<br>
+	<br>
+	<img width="360" src="media/logo.svg" alt="Got">
+	<br>
+	<br>
+	<br>
+	<br>
+	<hr>
+	<p>
+		<p>
+			<sup>
+				Sindre's open source work is supported by the community.<br>Special thanks to:
+			</sup>
+		</p>
+		<br>
+		<br>
+		<a href="https://www.fame.fi#gh-light-mode-only">
+			<img src="https://sindresorhus.com/assets/thanks/fame-logo-light.svg" width="200" alt="Fame Helsinki">
+		</a>
+		<a href="https://www.fame.fi#gh-dark-mode-only">
+			<img src="https://sindresorhus.com/assets/thanks/fame-logo-dark.svg" width="200" alt="Fame Helsinki">
+		</a>
+		<br>
+		<br>
+		<br>
+		<br>
+		<a href="https://depot.dev?utm_source=github&utm_medium=sindresorhus">
+			<div>
+				<picture>
+					<source width="180" media="(prefers-color-scheme: dark)" srcset="https://sindresorhus.com/assets/thanks/depot-logo-dark.svg">
+					<source width="180" media="(prefers-color-scheme: light)" srcset="https://sindresorhus.com/assets/thanks/depot-logo-light.svg">
+					<img width="180" src="https://sindresorhus.com/assets/thanks/depot-logo-light.svg" alt="Depot logo">
+				</picture>
+			</div>
+			<b>Fast remote container builds and GitHub Actions runners.</b>
+		</a>
+		<br>
+		<br>
+		<br>
+	</p>
+	<hr>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+</div>
+
+> Human-friendly and powerful HTTP request library for Node.js
+
+<!-- [![Coverage Status](https://codecov.io/gh/sindresorhus/got/branch/main/graph/badge.svg)](https://codecov.io/gh/sindresorhus/got/branch/main) -->
+[![Downloads](https://img.shields.io/npm/dm/got.svg)](https://npmjs.com/got)
+[![Install size](https://packagephobia.com/badge?p=got)](https://packagephobia.com/result?p=got)
+
+[See how Got compares to other HTTP libraries](#comparison)
+
+---
+
+**You probably want [Ky](https://github.com/sindresorhus/ky) instead, by the same people. It's smaller, works in the browser too, and is more stable since it's built on [`Fetch`](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API). Or [fetch-extras](https://github.com/sindresorhus/fetch-extras) for simple needs.**
+
+---
+
+**Support questions should be asked [here](https://github.com/sindresorhus/got/discussions).**
+
+## Install
+
+```sh
+npm install got
+```
+
+**Warning:** This package is native [ESM](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Modules) and no longer provides a CommonJS export. If your project uses CommonJS, you will have to [convert to ESM](https://gist.github.com/sindresorhus/a39789f98801d908bbc7ff3ecc99d99c). Please don't open issues for questions regarding CommonJS / ESM.
+
+**Got v11 is no longer maintained and we will not accept any backport requests.**
+
+## Take a peek
+
+**A [quick start](documentation/quick-start.md) guide is available.**
+
+### JSON mode
+
+Got has a dedicated option for handling JSON payload.\
+Furthermore, the promise exposes a `.json<T>()` function that returns `Promise<T>`.
+
+```js
+import got from 'got';
+
+const {data} = await got.post('https://httpbin.org/anything', {
+	json: {
+		hello: 'world'
+	}
+}).json();
+
+console.log(data);
+//=> {"hello": "world"}
+```
+
+For advanced JSON usage, check out the [`parseJson`](documentation/2-options.md#parsejson) and [`stringifyJson`](documentation/2-options.md#stringifyjson) options.
+
+**For more useful tips like this, visit the [Tips](documentation/tips.md) page.**
+
+## Highlights
+
+- [Used by 10K+ packages and 5M+ repos](https://github.com/sindresorhus/got/network/dependents)
+- [Actively maintained](https://github.com/sindresorhus/got/graphs/contributors)
+- [Trusted by many companies](#widely-used)
+
+## Documentation
+
+By default, Got will retry on failure. To disable this option, set [`options.retry.limit`](documentation/7-retry.md#retry) to 0.
+
+#### Main API
+
+- [x] [Promise API](documentation/1-promise.md)
+- [x] [Options](documentation/2-options.md)
+- [x] [Stream API](documentation/3-streams.md)
+- [x] [Pagination API](documentation/4-pagination.md)
+- [x] [Advanced HTTPS API](documentation/5-https.md)
+- [x] [HTTP/2 support](documentation/2-options.md#http2)
+- [x] [`Response` class](documentation/3-streams.md#response-2)
+
+#### Timeouts and retries
+
+- [x] [Advanced timeout handling](documentation/6-timeout.md)
+- [x] [Retries on failure](documentation/7-retry.md)
+- [x] [Errors with metadata](documentation/8-errors.md)
+
+#### Advanced creation
+
+- [x] [Hooks](documentation/9-hooks.md)
+- [x] [Instances](documentation/10-instances.md)
+- [x] [Progress events & other events](documentation/3-streams.md#events)
+- [x] [Plugins](documentation/lets-make-a-plugin.md)
+- [x] [Compose](documentation/examples/advanced-creation.js)
+
+#### Cache, Proxy and UNIX sockets
+
+- [x] [RFC compliant caching](documentation/cache.md)
+- [x] [Proxy support](documentation/tips.md#proxying)
+- [x] [Unix Domain Sockets](documentation/2-options.md#enableunixsockets)
+
+#### Integration
+
+- [x] [Diagnostics Channel](documentation/diagnostics-channel.md)
+- [x] [TypeScript support](documentation/typescript.md)
+- [x] [AWS](documentation/tips.md#aws)
+- [x] [Testing](documentation/tips.md#testing)
+
+
+... [TRUNCATED]
+
+--- PACKAGE MANIFEST(S) ---
+
+[package.json]
+{
+	"name": "got",
+	"version": "14.6.6",
+	"description": "Human-friendly and powerful HTTP request library for Node.js",
+	"license": "MIT",
+	"repository": "sindresorhus/got",
+	"funding": "https://github.com/sindresorhus/got?sponsor=1",
+	"type": "module",
+	"exports": {
+		"types": "./dist/source/index.d.ts",
+		"default": "./dist/source/index.js"
+	},
+	"sideEffects": false,
+	"engines": {
+		"node": ">=22"
+	},
+	"scripts": {
+		"test": "xo && tsc --noEmit && NODE_OPTIONS='--import=tsx/esm' ava",
+		"test:coverage": "xo && tsc --noEmit && NODE_OPTIONS='--import=tsx/esm' c8 ava",
+		"release": "np",
+		"build": "del-cli dist && tsc",
+		"prepare": "npm run build"
+	},
+	"files": [
+		"dist/source"
+	],
+	"keywords": [
+		"http",
+		"https",
+		"http2",
+		"get",
+		"got",
+		"url",
+		"uri",
+		"request",
+		"simple",
+		"curl",
+		"wget",
+		"fetch",
+		"net",
+		"network",
+		"gzip",
+		"brotli",
+		"zstd",
+		"zstandard",
+		"requests",
+		"human-friendly",
+		"axios",
+		"superagent",
+		"node-fetch",
+		"ky"
+	],
+	"dependencies": {
+		"@sindresorhus/is": "^7.2.0",
+		"byte-counter": "^0.1.0",
+		"cacheable-lookup": "^7.0.0",
+		"cacheable-request": "^13.0.18",
+		"chunk-data": "^0.1.0",
+		"decompress-response": "^10.0.0",
+		"http2-wrapper": "^2.2.1",
+		"keyv": "^5.6.0",
+		"lowercase-keys": "^4.0.1",
+		"responselike": "^4.0.2",
+		"type-fest": "^5.4.4"
+	},
+	"devDependencies": {
+		"@hapi/bourne": "^3.0.0",
+		"@sindresorhus/tsconfig": "^8.1.0",
+		"@sinonjs/fake-timers": "^15.1.0",
+		"@types/benchmark": "^2.1.5",
+		"@types/express": "^5.0.6",
+		"@types/node": "^25.3.0",
+		"@types/pem": "^1.14.4",
+		"@types/readable-stream": "^4.0.23",
+		"@types/request": "^2.48.13",
+		"@types/sinon": "^21.0.0",
+		"@types/sinonjs__fake-timers": "^15.0.1",
+		"ava": "^6.4.1",
+		"axios": "^1.13.5",
+		"benchmark": "^2.1.4",
+		"bluebird": "^3.7.2",
+		"body-parser": "^2.2.2",
+		"c8": "^10.1.3",
+		"create-cert": "^1.0.6",
+		"create-test-server": "^3.0.1",
+		"del-cli": "^7.0.0",
+		"delay": "^7.0.0",
+		"expect-type": "^1.3.0",
+		"express": "^5.2.1",
+		"get-stream": "^9.0.1",
+		"node-fetch": "^3.3.2",
+		"np": "^11.0.2",
+		"p-event": "^7.1.0",
+		"pem": "^1.14.8",
+		"pify": "^6.1.0",
+		"quick-lru": "^7.3.0",
+		"readable-stream": "^4.7.0",
+		"request": "^2.88.2",
+		"sinon": "^21.0.1",
+		"slow-stream": "0.0.4",
+		"tempy": "^3.2.0",
+		"then-busboy": "^5.2.1",
+		"tough-cookie": "^6.0.0",
+		"tsx": "^4.21.0",
+		"typescript": "^5.9.3",
+		"xo": "^1.2.3"
+	},
+	"ava": {
+		"files": [
+			"test/*",
+			"!test/*.types.ts"
+		],
+		"timeout": "10m",
+		"extensions": {
+			"ts": "module"
+		},
+		"workerThreads": false
+	},
+	"c8": {
+		"reporter": [
+			"text",
+			"html",
+			"lcov"
+		],
+		"exclude": [
+			"test/**",
+			"dist/**"
+		]
+	},
+	"xo": {
+		"ignores": [
+			"documentation/examples/*"
+		],
+		"rules": {
+			"@typescript-eslint/no-empty-function": "off",
+			"n/no-deprecated-api": "off",
+			"@typescript-eslint/no-implicit-any-catch": "off",
+			"ava/assertion-arguments": "off",
+			"@typescript-eslint/no-unsafe-member-access": "off",
+			"@typescript-esl
+... [TRUNCATED]
+
+--- DIRECTORY STRUCTURE (depth 2) ---
+├── .editorconfig
+├── .gitattributes
+├── .github/
+│   ├── ISSUE_TEMPLATE/
+│   │   ├── 1-bug-report.md
+│   │   ├── 2-feature-request.md
+│   │   └── 3-question.md
+│   ├── PULL_REQUEST_TEMPLATE.md
+│   ├── funding.yml
+│   ├── security.md
+│   └── workflows/
+│       └── main.yml
+├── .gitignore
+├── .npmrc
+├── benchmark/
+│   ├── index.ts
+│   └── server.ts
+├── documentation/
+│   ├── 1-promise.md
+│   ├── 10-instances.md
+│   ├── 2-options.md
+│   ├── 3-streams.md
+│   ├── 4-pagination.md
+│   ├── 5-https.md
+│   ├── 6-timeout.md
+│   ├── 7-retry.md
+│   ├── 8-errors.md
+│   ├── 9-hooks.md
+│   ├── async-stack-traces.md
+│   ├── cache.md
+│   ├── diagnostics-channel.md
+│   ├── examples/
+│   │   ├── advanced-creation.js
+│   │   ├── gh-got.js
+│   │   ├── h2c.js
+│   │   ├── pagination.js
+│   │   ├── runkit-example.js
+│   │   └── uppercase-headers.js
+│   ├── lets-make-a-plugin.md
+│   ├── migration-guides/
+│   │   ├── axios.md
+│   │   ├── nodejs.md
+│   │   └── request.md
+│   ├── quick-start.md
+│   ├── tips.md
+│   └── typescript.md
+├── license
+├── maintainer.md
+├── media/
+│   ├── logo.ai
+│   ├── logo.png
+│   ├── logo.sketch
+│   └── logo.svg
+├── package.json
+├── readme.md
+├── source/
+│   ├── as-promise/
+│   │   ├── index.ts
+│   │   └── types.ts
+│   ├── core/
+│   │   ├── calculate-retry-delay.ts
+│   │   ├── diagnostics-channel.ts
+│   │   ├── errors.ts
+│   │   ├── index.ts
+│   │   ├── options.ts
+│   │   ├── parse-link-header.ts
+│   │   ├── response.ts
+│   │   ├── timed-out.ts
+│   │   └── utils/
+│   ├── create.ts
+│   ├── index.ts
+│   └── types.ts
+├── test/
+│   ├── abort.ts
+│   ├── agent.ts
+│   ├── arguments.ts
+│   ├── cache.ts
+│   ├── cookies.ts
+│   ├── create.ts
+│   ├── diagnostics-channel.ts
+│   ├── early-307-redirects.ts
+│   ├── encoding.ts
+│   ├── error.ts
+│   ├── extend.types.ts
+│   ├── fixtures/
+│   │   ├── ok
+│   │   └── stream-content-length
+│   ├── get-unix-socket-path.ts
+│   ├── gzip.ts
+│   ├── headers.ts
+│   ├── helpers.ts
+│   ├── helpers/
+│   │   ├── create-http-test-server.ts
+│   │   ├── create-https-test-server.ts
+│   │   ├── invalid-url.ts
+│   │   ├── slow-data-stream.ts
+│   │   ├── types.ts
+│   │   └── with-server.ts
+│   ├── hooks.ts
+│   ├── http.ts
+│   ├── https.ts
+│   ├── infinite-loop-issue.ts
+│   ├── merge-instances.ts
+│   ├── no-body-status-codes.ts
+│   ├── normalize-arguments.ts
+│   ├── pagination.ts
+│   ├── parse-link-header.ts
+│   ├── post.ts
+│   ├── progress.ts
+│   ├── promise.ts
+│   ├── redirects.ts
+│   ├── response-parse.ts
+│   ├── retry.ts
+│   ├── stream.ts
+│   ├── timeout.ts
+│   ├── timer-utils.ts
+│   ├── timings.ts
+│   ├── types/
+│   │   ├── create-test-server/
+│   │   ├── pem.ts
+│   │   └── slow-stream/
+│   ├── unix-socket.ts
+│   ├── weakable-map.ts
+│   └── zstd.ts
+└── tsconfig.json

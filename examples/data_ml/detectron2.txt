@@ -1,0 +1,771 @@
+=====================================
+Repository Analysis: detectron2
+Type: Data / ML / AI Project
+=====================================
+
+--- METADATA ---
+Name: detectron2
+Description: Detectron2 is a platform for object detection, segmentation and other visual recognition tasks.
+Language: Python
+Topics: N/A
+Stars: 34172
+License: Apache License 2.0
+
+--- README ---
+<img src=".github/Detectron2-Logo-Horz.svg" width="300" >
+
+Detectron2 is Facebook AI Research's next generation library
+that provides state-of-the-art detection and segmentation algorithms.
+It is the successor of
+[Detectron](https://github.com/facebookresearch/Detectron/)
+and [maskrcnn-benchmark](https://github.com/facebookresearch/maskrcnn-benchmark/).
+It supports a number of computer vision research projects and production applications in Facebook.
+
+<div align="center">
+  <img src="https://user-images.githubusercontent.com/1381301/66535560-d3422200-eace-11e9-9123-5535d469db19.png"/>
+</div>
+<br>
+
+## Learn More about Detectron2
+
+* Includes new capabilities such as panoptic segmentation, Densepose, Cascade R-CNN, rotated bounding boxes, PointRend,
+  DeepLab, ViTDet, MViTv2 etc.
+* Used as a library to support building [research projects](projects/) on top of it.
+* Models can be exported to TorchScript format or Caffe2 format for deployment.
+* It [trains much faster](https://detectron2.readthedocs.io/notes/benchmarks.html).
+
+See our [blog post](https://ai.meta.com/blog/-detectron2-a-pytorch-based-modular-object-detection-library-/)
+to see more demos.
+See this [interview](https://ai.meta.com/blog/detectron-everingham-prize/) to learn more about the stories behind detectron2.
+
+## Installation
+
+See [installation instructions](https://detectron2.readthedocs.io/tutorials/install.html).
+
+## Getting Started
+
+See [Getting Started with Detectron2](https://detectron2.readthedocs.io/tutorials/getting_started.html),
+and the [Colab Notebook](https://colab.research.google.com/drive/16jcaJoc6bCFAQ96jDe2HwtXj7BMD_-m5)
+to learn about basic usage.
+
+Learn more at our [documentation](https://detectron2.readthedocs.org).
+And see [projects/](projects/) for some projects that are built on top of detectron2.
+
+## Model Zoo and Baselines
+
+We provide a large set of baseline results and trained models available for download in the [Detectron2 Model Zoo](MODEL_ZOO.md).
+
+## License
+
+Detectron2 is released under the [Apache 2.0 license](LICENSE).
+
+## Citing Detectron2
+
+If you use Detectron2 in your research or wish to refer to the baseline results published in the [Model Zoo](MODEL_ZOO.md), please use the following BibTeX entry.
+
+```BibTeX
+@misc{wu2019detectron2,
+  author =       {Yuxin Wu and Alexander Kirillov and Francisco Massa and
+                  Wan-Yen Lo and Ross Girshick},
+  title =        {Detectron2},
+  howpublished = {\url{https://github.com/facebookresearch/detectron2}},
+  year =         {2019}
+}
+```
+
+
+--- PACKAGE MANIFEST(S) ---
+
+[setup.py]
+#!/usr/bin/env python
+# Copyright (c) Facebook, Inc. and its affiliates.
+
+import glob
+import os
+import shutil
+from os import path
+from setuptools import find_packages, setup
+from typing import List
+import torch
+from torch.utils.cpp_extension import CUDA_HOME, CppExtension, CUDAExtension
+
+torch_ver = [int(x) for x in torch.__version__.split(".")[:2]]
+assert torch_ver >= [1, 8], "Requires PyTorch >= 1.8"
+
+
+def get_version():
+    init_py_path = path.join(path.abspath(path.dirname(__file__)), "detectron2", "__init__.py")
+    init_py = open(init_py_path, "r").readlines()
+    version_line = [l.strip() for l in init_py if l.startswith("__version__")][0]
+    version = version_line.split("=")[-1].strip().strip("'\"")
+
+    # The following is used to build release packages.
+    # Users should never use it.
+    suffix = os.getenv("D2_VERSION_SUFFIX", "")
+    version = version + suffix
+    if os.getenv("BUILD_NIGHTLY", "0") == "1":
+        from datetime import datetime
+
+        date_str = datetime.today().strftime("%y%m%d")
+        version = version + ".dev" + date_str
+
+        new_init_py = [l for l in init_py if not l.startswith("__version__")]
+        new_init_py.append('__version__ = "{}"\n'.format(version))
+        with open(init_py_path, "w") as f:
+            f.write("".join(new_init_py))
+    return version
+
+
+def get_extensions():
+    this_dir = path.dirname(path.abspath(__file__))
+    extensions_dir = path.join(this_dir, "detectron2", "layers", "csrc")
+
+    main_source = path.join(extensions_dir, "vision.cpp")
+    sources = glob.glob(path.join(extensions_dir, "**", "*.cpp"))
+
+    from torch.utils.cpp_extension import ROCM_HOME
+
+    is_rocm_pytorch = (
+        True if ((torch.version.hip is not None) and (ROCM_HOME is not None)) else False
+    )
+    if is_rocm_pytorch:
+        assert torch_ver >= [1, 8], "ROCM support requires PyTorch >= 1.8!"
+
+    # common code between cuda and rocm platforms, for hipify version [1,0,0] and later.
+    source_cuda = glob.glob(path.join(extensions_dir, "**", "*.cu")) + glob.glob(
+        path.join(extensions_dir, "*.cu")
+    )
+    sources = [main_source] + sources
+
+    extension = CppExtension
+
+    extra_compile_args = {"cxx": []}
+    define_macros = []
+
+    if (torch.cuda.is_available() and ((CUDA_HOME is not None) or is_rocm_pytorch)) or os.getenv(
+        "FORCE_CUDA", "0"
+    ) == "1":
+        extension = CUDAExtension
+        sources += source_cuda
+
+        if not is_rocm_pytorch:
+            define_macros += [("WITH_CUDA", None)]
+            extra_compile_args["nvcc"] = [
+                "-O3",
+                "-DCUDA_HAS_FP16=1",
+                "-D__CUDA_NO_HALF_OPERATORS__",
+                "-D__CUDA_NO_HALF_CONVERSIONS__",
+                "-D__CUDA_NO_HALF2_OPERATORS__",
+            ]
+        else:
+            define_macros += [("WITH_HIP", None)]
+            extra_compile_args["nvcc"] = []
+
+        nvcc_flags_env = os.getenv("NVCC_FLAGS", "")
+        if nvcc_flags_env != "":
+            extra_compile_args["nv
+... [TRUNCATED]
+
+[setup.cfg]
+[isort]
+line_length=100
+multi_line_output=3
+include_trailing_comma=True
+known_standard_library=numpy,setuptools,mock
+skip=./datasets,docs
+skip_glob=*/__init__.py,**/configs/**,**/tests/config/**
+known_myself=detectron2
+known_third_party=fvcore,matplotlib,cv2,torch,torchvision,PIL,pycocotools,yacs,termcolor,cityscapesscripts,tabulate,tqdm,scipy,lvis,psutil,pkg_resources,caffe2,onnx,panopticapi,black,isort,av,iopath,omegaconf,hydra,yaml,pydoc,submitit,cloudpickle,packaging,timm,pandas,fairscale,pytorch3d,pytorch_lightning
+no_lines_before=STDLIB,THIRDPARTY
+sections=FUTURE,STDLIB,THIRDPARTY,myself,FIRSTPARTY,LOCALFOLDER
+default_section=FIRSTPARTY
+
+[mypy]
+python_version=3.7
+ignore_missing_imports = True
+warn_unused_configs = True
+disallow_untyped_defs = True
+check_untyped_defs = True
+warn_unused_ignores = True
+warn_redundant_casts = True
+show_column_numbers = True
+follow_imports = silent
+allow_redefinition = True
+; Require all functions to be annotated
+disallow_incomplete_defs = True
+
+
+--- REQUIREMENTS FILES ---
+
+[docs/requirements.txt]
+docutils==0.16
+# https://github.com/sphinx-doc/sphinx/commit/7acd3ada3f38076af7b2b5c9f3b60bb9c2587a3d
+sphinx==3.2.0
+recommonmark==0.6.0
+sphinx_rtd_theme
+# Dependencies here are only those required by import
+termcolor
+numpy
+tqdm
+matplotlib
+termcolor
+yacs
+tabulate
+cloudpickle
+Pillow
+future
+git+https://github.com/facebookresearch/fvcore.git
+https://download.pytorch.org/whl/cpu/torch-1.8.1%2Bcpu-cp37-cp37m-linux_x86_64.whl
+https://download.pytorch.org/whl/cpu/torchvision-0.9.1%2Bcpu-cp37-cp37m-linux_x86_64.whl
+omegaconf>=2.1.0.dev24
+hydra-core>=1.1.0.dev5
+scipy
+timm
+
+
+--- ML CONFIG FILES ---
+(No ML config files found)
+
+--- JUPYTER NOTEBOOKS ---
+(No notebooks found)
+
+--- MODEL / TRAINING FILES ---
+  configs/common/train.py
+  detectron2/checkpoint/c2_model_loading.py
+  detectron2/engine/train_loop.py
+  detectron2/evaluation/fast_eval_api.py
+  detectron2/export/caffe2_inference.py
+  detectron2/model_zoo/model_zoo.py
+  projects/DeepLab/train_net.py
+  projects/DensePose/densepose/data/image_list_dataset.py
+  projects/DensePose/densepose/data/video/video_keyframe_dataset.py
+  projects/DensePose/densepose/engine/trainer.py
+
+--- DIRECTORY STRUCTURE (depth 2) ---
+├── .clang-format
+├── .flake8
+├── .github/
+│   ├── CODE_OF_CONDUCT.md
+│   ├── CONTRIBUTING.md
+│   ├── Detectron2-Logo-Horz.svg
+│   ├── ISSUE_TEMPLATE.md
+│   ├── ISSUE_TEMPLATE/
+│   │   ├── bugs.md
+│   │   ├── config.yml
+│   │   ├── documentation.md
+│   │   ├── feature-request.md
+│   │   └── unexpected-problems-bugs.md
+│   ├── actions/
+│   │   ├── install_detectron2/
+│   │   ├── install_detectron2_win/
+│   │   ├── install_linux_dep/
+│   │   ├── install_linux_gpu_dep/
+│   │   ├── install_windows_dep/
+│   │   ├── run_unittests/
+│   │   ├── run_unittests_win/
+│   │   └── uninstall_tests/
+│   ├── import-tests.sh
+│   ├── pull_request_template.md
+│   └── workflows/
+│       ├── check-template.yml
+│       ├── levenshtein.js
+│       ├── needs-reply.yml
+│       ├── remove-needs-reply.yml
+│       └── workflow.yml
+├── .gitignore
+├── GETTING_STARTED.md
+├── INSTALL.md
+├── LICENSE
+├── MODEL_ZOO.md
+├── README.md
+├── configs/
+│   ├── Base-RCNN-C4.yaml
+│   ├── Base-RCNN-DilatedC5.yaml
+│   ├── Base-RCNN-FPN.yaml
+│   ├── Base-RetinaNet.yaml
+│   ├── COCO-Detection/
+│   │   ├── fast_rcnn_R_50_FPN_1x.yaml
+│   │   ├── faster_rcnn_R_101_C4_3x.yaml
+│   │   ├── faster_rcnn_R_101_DC5_3x.yaml
+│   │   ├── faster_rcnn_R_101_FPN_3x.yaml
+│   │   ├── faster_rcnn_R_50_C4_1x.yaml
+│   │   ├── faster_rcnn_R_50_C4_3x.yaml
+│   │   ├── faster_rcnn_R_50_DC5_1x.yaml
+│   │   ├── faster_rcnn_R_50_DC5_3x.yaml
+│   │   ├── faster_rcnn_R_50_FPN_1x.yaml
+│   │   ├── faster_rcnn_R_50_FPN_3x.yaml
+│   │   ├── faster_rcnn_X_101_32x8d_FPN_3x.yaml
+│   │   ├── fcos_R_50_FPN_1x.py
+│   │   ├── retinanet_R_101_FPN_3x.yaml
+│   │   ├── retinanet_R_50_FPN_1x.py
+│   │   ├── retinanet_R_50_FPN_1x.yaml
+│   │   ├── retinanet_R_50_FPN_3x.yaml
+│   │   ├── rpn_R_50_C4_1x.yaml
+│   │   └── rpn_R_50_FPN_1x.yaml
+│   ├── COCO-InstanceSegmentation/
+│   │   ├── mask_rcnn_R_101_C4_3x.yaml
+│   │   ├── mask_rcnn_R_101_DC5_3x.yaml
+│   │   ├── mask_rcnn_R_101_FPN_3x.yaml
+│   │   ├── mask_rcnn_R_50_C4_1x.py
+│   │   ├── mask_rcnn_R_50_C4_1x.yaml
+│   │   ├── mask_rcnn_R_50_C4_3x.yaml
+│   │   ├── mask_rcnn_R_50_DC5_1x.yaml
+│   │   ├── mask_rcnn_R_50_DC5_3x.yaml
+│   │   ├── mask_rcnn_R_50_FPN_1x.py
+│   │   ├── mask_rcnn_R_50_FPN_1x.yaml
+│   │   ├── mask_rcnn_R_50_FPN_1x_giou.yaml
+│   │   ├── mask_rcnn_R_50_FPN_3x.yaml
+│   │   ├── mask_rcnn_X_101_32x8d_FPN_3x.yaml
+│   │   ├── mask_rcnn_regnetx_4gf_dds_fpn_1x.py
+│   │   └── mask_rcnn_regnety_4gf_dds_fpn_1x.py
+│   ├── COCO-Keypoints/
+│   │   ├── Base-Keypoint-RCNN-FPN.yaml
+│   │   ├── keypoint_rcnn_R_101_FPN_3x.yaml
+│   │   ├── keypoint_rcnn_R_50_FPN_1x.py
+│   │   ├── keypoint_rcnn_R_50_FPN_1x.yaml
+│   │   ├── keypoint_rcnn_R_50_FPN_3x.yaml
+│   │   └── keypoint_rcnn_X_101_32x8d_FPN_3x.yaml
+│   ├── COCO-PanopticSegmentation/
+│   │   ├── Base-Panoptic-FPN.yaml
+│   │   ├── panoptic_fpn_R_101_3x.yaml
+│   │   ├── panoptic_fpn_R_50_1x.py
+│   │   ├── panoptic_fpn_R_50_1x.yaml
+│   │   └── panoptic_fpn_R_50_3x.yaml
+│   ├── Cityscapes/
+│   │   └── mask_rcnn_R_50_FPN.yaml
+│   ├── Detectron1-Comparisons/
+│   │   ├── README.md
+│   │   ├── faster_rcnn_R_50_FPN_noaug_1x.yaml
+│   │   ├── keypoint_rcnn_R_50_FPN_1x.yaml
+│   │   └── mask_rcnn_R_50_FPN_noaug_1x.yaml
+│   ├── LVISv0.5-InstanceSegmentation/
+│   │   ├── mask_rcnn_R_101_FPN_1x.yaml
+│   │   ├── mask_rcnn_R_50_FPN_1x.yaml
+│   │   └── mask_rcnn_X_101_32x8d_FPN_1x.yaml
+│   ├── LVISv1-InstanceSegmentation/
+│   │   ├── mask_rcnn_R_101_FPN_1x.yaml
+│   │   ├── mask_rcnn_R_50_FPN_1x.yaml
+│   │   └── mask_rcnn_X_101_32x8d_FPN_1x.yaml
+│   ├── Misc/
+│   │   ├── cascade_mask_rcnn_R_50_FPN_1x.yaml
+│   │   ├── cascade_mask_rcnn_R_50_FPN_3x.yaml
+│   │   ├── cascade_mask_rcnn_X_152_32x8d_FPN_IN5k_gn_dconv.yaml
+│   │   ├── mask_rcnn_R_50_FPN_1x_cls_agnostic.yaml
+│   │   ├── mask_rcnn_R_50_FPN_1x_dconv_c3-c5.yaml
+│   │   ├── mask_rcnn_R_50_FPN_3x_dconv_c3-c5.yaml
+│   │   ├── mask_rcnn_R_50_FPN_3x_gn.yaml
+│   │   ├── mask_rcnn_R_50_FPN_3x_syncbn.yaml
+│   │   ├── mmdet_mask_rcnn_R_50_FPN_1x.py
+│   │   ├── panoptic_fpn_R_101_dconv_cascade_gn_3x.yaml
+│   │   ├── scratch_mask_rcnn_R_50_FPN_3x_gn.yaml
+│   │   ├── scratch_mask_rcnn_R_50_FPN_9x_gn.yaml
+│   │   ├── scratch_mask_rcnn_R_50_FPN_9x_syncbn.yaml
+│   │   ├── semantic_R_50_FPN_1x.yaml
+│   │   └── torchvision_imagenet_R_50.py
+│   ├── PascalVOC-Detection/
+│   │   ├── faster_rcnn_R_50_C4.yaml
+│   │   └── faster_rcnn_R_50_FPN.yaml
+│   ├── common/
+│   │   ├── README.md
+│   │   ├── coco_schedule.py
+│   │   ├── data/
+│   │   ├── models/
+│   │   ├── optim.py
+│   │   └── train.py
+│   ├── new_baselines/
+│   │   ├── mask_rcnn_R_101_FPN_100ep_LSJ.py
+│   │   ├── mask_rcnn_R_101_FPN_200ep_LSJ.py
+│   │   ├── mask_rcnn_R_101_FPN_400ep_LSJ.py
+│   │   ├── mask_rcnn_R_50_FPN_100ep_LSJ.py
+│   │   ├── mask_rcnn_R_50_FPN_200ep_LSJ.py
+│   │   ├── mask_rcnn_R_50_FPN_400ep_LSJ.py
+│   │   ├── mask_rcnn_R_50_FPN_50ep_LSJ.py
+│   │   ├── mask_rcnn_regnetx_4gf_dds_FPN_100ep_LSJ.py
+│   │   ├── mask_rcnn_regnetx_4gf_dds_FPN_200ep_LSJ.py
+│   │   ├── mask_rcnn_regnetx_4gf_dds_FPN_400ep_LSJ.py
+│   │   ├── mask_rcnn_regnety_4gf_dds_FPN_100ep_LSJ.py
+│   │   ├── mask_rcnn_regnety_4gf_dds_FPN_200ep_LSJ.py
+│   │   └── mask_rcnn_regnety_4gf_dds_FPN_400ep_LSJ.py
+│   └── quick_schedules/
+│       ├── README.md
+│       ├── cascade_mask_rcnn_R_50_FPN_inference_acc_test.yaml
+│       ├── cascade_mask_rcnn_R_50_FPN_instant_test.yaml
+│       ├── fast_rcnn_R_50_FPN_inference_acc_test.yaml
+│       ├── fast_rcnn_R_50_FPN_instant_test.yaml
+│       ├── keypoint_rcnn_R_50_FPN_inference_acc_test.yaml
+│       ├── keypoint_rcnn_R_50_FPN_instant_test.yaml
+│       ├── keypoint_rcnn_R_50_FPN_normalized_training_acc_test.yaml
+│       ├── keypoint_rcnn_R_50_FPN_training_acc_test.yaml
+│       ├── mask_rcnn_R_50_C4_GCV_instant_test.yaml
+│       ├── mask_rcnn_R_50_C4_inference_acc_test.yaml
+│       ├── mask_rcnn_R_50_C4_instant_test.yaml
+│       ├── mask_rcnn_R_50_C4_training_acc_test.yaml
+│       ├── mask_rcnn_R_50_DC5_inference_acc_test.yaml
+│       ├── mask_rcnn_R_50_FPN_inference_acc_test.yaml
+│       ├── mask_rcnn_R_50_FPN_instant_test.yaml
+│       ├── mask_rcnn_R_50_FPN_pred_boxes_training_acc_test.yaml
+│       ├── mask_rcnn_R_50_FPN_training_acc_test.yaml
+│       ├── panoptic_fpn_R_50_inference_acc_test.yaml
+│       ├── panoptic_fpn_R_50_instant_test.yaml
+│       ├── panoptic_fpn_R_50_training_acc_test.yaml
+│       ├── retinanet_R_50_FPN_inference_acc_test.yaml
+│       ├── retinanet_R_50_FPN_instant_test.yaml
+│       ├── rpn_R_50_FPN_inference_acc_test.yaml
+│       ├── rpn_R_50_FPN_instant_test.yaml
+│       ├── semantic_R_50_FPN_inference_acc_test.yaml
+│       ├── semantic_R_50_FPN_instant_test.yaml
+│       └── semantic_R_50_FPN_training_acc_test.yaml
+├── datasets/
+│   ├── README.md
+│   ├── prepare_ade20k_sem_seg.py
+│   ├── prepare_cocofied_lvis.py
+│   ├── prepare_for_tests.sh
+│   └── prepare_panoptic_fpn.py
+├── demo/
+│   ├── README.md
+│   ├── demo.py
+│   └── predictor.py
+├── detectron2/
+│   ├── __init__.py
+│   ├── checkpoint/
+│   │   ├── __init__.py
+│   │   ├── c2_model_loading.py
+│   │   ├── catalog.py
+│   │   └── detection_checkpoint.py
+│   ├── config/
+│   │   ├── __init__.py
+│   │   ├── compat.py
+│   │   ├── config.py
+│   │   ├── defaults.py
+│   │   ├── instantiate.py
+│   │   └── lazy.py
+│   ├── data/
+│   │   ├── __init__.py
+│   │   ├── benchmark.py
+│   │   ├── build.py
+│   │   ├── catalog.py
+│   │   ├── common.py
+│   │   ├── dataset_mapper.py
+│   │   ├── datasets/
+│   │   ├── detection_utils.py
+│   │   ├── samplers/
+│   │   └── transforms/
+│   ├── engine/
+│   │   ├── __init__.py
+│   │   ├── defaults.py
+│   │   ├── hooks.py
+│   │   ├── launch.py
+│   │   └── train_loop.py
+│   ├── evaluation/
+│   │   ├── __init__.py
+│   │   ├── cityscapes_evaluation.py
+│   │   ├── coco_evaluation.py
+│   │   ├── evaluator.py
+│   │   ├── fast_eval_api.py
+│   │   ├── lvis_evaluation.py
+│   │   ├── panoptic_evaluation.py
+│   │   ├── pascal_voc_evaluation.py
+│   │   ├── rotated_coco_evaluation.py
+│   │   ├── sem_seg_evaluation.py
+│   │   └── testing.py
+│   ├── export/
+│   │   ├── README.md
+│   │   ├── __init__.py
+│   │   ├── api.py
+│   │   ├── c10.py
+│   │   ├── caffe2_export.py
+│   │   ├── caffe2_inference.py
+│   │   ├── caffe2_modeling.py
+│   │   ├── caffe2_patch.py
+│   │   ├── flatten.py
+│   │   ├── shared.py
+│   │   ├── torchscript.py
+│   │   └── torchscript_patch.py
+│   ├── layers/
+│   │   ├── __init__.py
+│   │   ├── aspp.py
+│   │   ├── batch_norm.py
+│   │   ├── blocks.py
+│   │   ├── csrc/
+│   │   ├── deform_conv.py
+│   │   ├── losses.py
+│   │   ├── mask_ops.py
+│   │   ├── nms.py
+│   │   ├── roi_align.py
+│   │   ├── roi_align_rotated.py
+│   │   ├── rotated_boxes.py
+│   │   ├── shape_spec.py
+│   │   └── wrappers.py
+│   ├── model_zoo/
+│   │   ├── __init__.py
+│   │   └── model_zoo.py
+│   ├── modeling/
+│   │   ├── __init__.py
+│   │   ├── anchor_generator.py
+│   │   ├── backbone/
+│   │   ├── box_regression.py
+│   │   ├── matcher.py
+│   │   ├── meta_arch/
+│   │   ├── mmdet_wrapper.py
+│   │   ├── poolers.py
+│   │   ├── postprocessing.py
+│   │   ├── proposal_generator/
+│   │   ├── roi_heads/
+│   │   ├── sampling.py
+│   │   └── test_time_augmentation.py
+│   ├── projects/
+│   │   ├── README.md
+│   │   └── __init__.py
+│   ├── solver/
+│   │   ├── __init__.py
+│   │   ├── build.py
+│   │   └── lr_scheduler.py
+│   ├── structures/
+│   │   ├── __init__.py
+│   │   ├── boxes.py
+│   │   ├── image_list.py
+│   │   ├── instances.py
+│   │   ├── keypoints.py
+│   │   ├── masks.py
+│   │   └── rotated_boxes.py
+│   ├── tracking/
+│   │   ├── __init__.py
+│   │   ├── base_tracker.py
+│   │   ├── bbox_iou_tracker.py
+│   │   ├── hungarian_tracker.py
+│   │   ├── iou_weighted_hungarian_bbox_iou_tracker.py
+│   │   ├── utils.py
+│   │   └── vanilla_hungarian_bbox_iou_tracker.py
+│   └── utils/
+│       ├── README.md
+│       ├── __init__.py
+│       ├── analysis.py
+│       ├── collect_env.py
+│       ├── colormap.py
+│       ├── comm.py
+│       ├── develop.py
+│       ├── env.py
+│       ├── events.py
+│       ├── file_io.py
+│       ├── logger.py
+│       ├── memory.py
+│       ├── registry.py
+│       ├── serialize.py
+│       ├── testing.py
+│       ├── torch_version_utils.py
+│       ├── tracing.py
+│       ├── video_visualizer.py
+│       └── visualizer.py
+├── dev/
+│   ├── README.md
+│   ├── linter.sh
+│   ├── packaging/
+│   │   ├── README.md
+│   │   ├── build_all_wheels.sh
+│   │   ├── build_wheel.sh
+│   │   ├── gen_install_table.py
+│   │   ├── gen_wheel_index.sh
+│   │   └── pkg_helpers.bash
+│   ├── parse_results.sh
+│   ├── run_inference_tests.sh
+│   └── run_instant_tests.sh
+├── docker/
+│   ├── Dockerfile
+│   ├── README.md
+│   ├── deploy.Dockerfile
+│   └── docker-compose.yml
+├── docs/
+│   ├── .gitignore
+│   ├── Makefile
+│   ├── README.md
+│   ├── _static/
+│   │   └── css/
+│   ├── conf.py
+│   ├── index.rst
+│   ├── modules/
+│   │   ├── checkpoint.rst
+│   │   ├── config.rst
+│   │   ├── data.rst
+│   │   ├── data_transforms.rst
+│   │   ├── engine.rst
+│   │   ├── evaluation.rst
+│   │   ├── export.rst
+│   │   ├── fvcore.rst
+│   │   ├── index.rst
+│   │   ├── layers.rst
+│   │   ├── model_zoo.rst
+│   │   ├── modeling.rst
+│   │   ├── solver.rst
+│   │   ├── structures.rst
+│   │   └── utils.rst
+│   ├── notes/
+│   │   ├── benchmarks.md
+│   │   ├── changelog.md
+│   │   ├── compatibility.md
+│   │   ├── contributing.md
+│   │   └── index.rst
+│   ├── requirements.txt
+│   └── tutorials/
+│       ├── README.md
+│       ├── augmentation.md
+│       ├── builtin_datasets.md
+│       ├── configs.md
+│       ├── data_loading.md
+│       ├── datasets.md
+│       ├── deployment.md
+│       ├── evaluation.md
+│       ├── extend.md
+│       ├── getting_started.md
+│       ├── index.rst
+│       ├── install.md
+│       ├── lazyconfig.jpg
+│       ├── lazyconfigs.md
+│       ├── models.md
+│       ├── training.md
+│       └── write-models.md
+├── projects/
+│   ├── DeepLab/
+│   │   ├── README.md
+│   │   ├── configs/
+│   │   ├── deeplab/
+│   │   └── train_net.py
+│   ├── DensePose/
+│   │   ├── README.md
+│   │   ├── apply_net.py
+│   │   ├── configs/
+│   │   ├── densepose/
+│   │   ├── dev/
+│   │   ├── doc/
+│   │   ├── query_db.py
+│   │   ├── setup.py
+│   │   ├── tests/
+│   │   └── train_net.py
+│   ├── MViTv2/
+│   │   ├── README.md
+│   │   └── configs/
+│   ├── Panoptic-DeepLab/
+│   │   ├── README.md
+│   │   ├── configs/
+│   │   ├── panoptic_deeplab/
+│   │   └── train_net.py
+│   ├── PointRend/
+│   │   ├── README.md
+│   │   ├── configs/
+│   │   ├── point_rend/
+│   │   └── train_net.py
+│   ├── PointSup/
+│   │   ├── README.md
+│   │   ├── configs/
+│   │   ├── point_sup/
+│   │   ├── tools/
+│   │   └── train_net.py
+│   ├── README.md
+│   ├── Rethinking-BatchNorm/
+│   │   ├── README.md
+│   │   ├── configs/
+│   │   └── retinanet-eval-domain-specific.py
+│   ├── TensorMask/
+│   │   ├── README.md
+│   │   ├── configs/
+│   │   ├── setup.py
+│   │   ├── tensormask/
+│   │   ├── tests/
+│   │   └── train_net.py
+│   ├── TridentNet/
+│   │   ├── README.md
+│   │   ├── configs/
+│   │   ├── train_net.py
+│   │   └── tridentnet/
+│   └── ViTDet/
+│       ├── README.md
+│       └── configs/
+├── setup.cfg
+├── setup.py
+├── tests/
+│   ├── README.md
+│   ├── __init__.py
+│   ├── config/
+│   │   ├── dir1/
+│   │   ├── root_cfg.py
+│   │   ├── test_instantiate_config.py
+│   │   ├── test_lazy_config.py
+│   │   └── test_yacs_config.py
+│   ├── data/
+│   │   ├── __init__.py
+│   │   ├── test_coco.py
+│   │   ├── test_coco_evaluation.py
+│   │   ├── test_dataset.py
+│   │   ├── test_detection_utils.py
+│   │   ├── test_rotation_transform.py
+│   │   ├── test_sampler.py
+│   │   └── test_transforms.py
+│   ├── export/
+│   │   └── test_c10.py
+│   ├── layers/
+│   │   ├── __init__.py
+│   │   ├── test_blocks.py
+│   │   ├── test_deformable.py
+│   │   ├── test_losses.py
+│   │   ├── test_mask_ops.py
+│   │   ├── test_nms.py
+│   │   ├── test_nms_rotated.py
+│   │   ├── test_roi_align.py
+│   │   └── test_roi_align_rotated.py
+│   ├── modeling/
+│   │   ├── __init__.py
+│   │   ├── test_anchor_generator.py
+│   │   ├── test_backbone.py
+│   │   ├── test_box2box_transform.py
+│   │   ├── test_fast_rcnn.py
+│   │   ├── test_matcher.py
+│   │   ├── test_mmdet.py
+│   │   ├── test_model_e2e.py
+│   │   ├── test_roi_heads.py
+│   │   ├── test_roi_pooler.py
+│   │   └── test_rpn.py
+│   ├── structures/
+│   │   ├── __init__.py
+│   │   ├── test_boxes.py
+│   │   ├── test_imagelist.py
+│   │   ├── test_instances.py
+│   │   ├── test_keypoints.py
+│   │   ├── test_masks.py
+│   │   └── test_rotated_boxes.py
+│   ├── test_checkpoint.py
+│   ├── test_engine.py
+│   ├── test_events.py
+│   ├── test_export_caffe2.py
+│   ├── test_export_onnx.py
+│   ├── test_export_torchscript.py
+│   ├── test_model_analysis.py
+│   ├── test_model_zoo.py
+│   ├── test_packaging.py
+│   ├── test_registry.py
+│   ├── test_scheduler.py
+│   ├── test_solver.py
+│   ├── test_visualizer.py
+│   ├── tracking/
+│   │   ├── __init__.py
+│   │   ├── test_bbox_iou_tracker.py
+│   │   ├── test_hungarian_tracker.py
+│   │   ├── test_iou_weighted_hungarian_bbox_iou_tracker.py
+│   │   └── test_vanilla_hungarian_bbox_iou_tracker.py
+│   └── utils/
+│       └── test_tensorboardx.py
+└── tools/
+    ├── README.md
+    ├── __init__.py
+    ├── analyze_model.py
+    ├── benchmark.py
+    ├── convert-torchvision-to-d2.py
+    ├── deploy/
+    │   ├── CMakeLists.txt
+    │   ├── README.md
+    │   ├── export_model.py
+    │   └── torchscript_mask_rcnn.cpp
+    ├── lazyconfig_train_net.py
+    ├── lightning_train_net.py
+    ├── plain_train_net.py
+    ├── train_net.py
+    ├── visualize_data.py
+    └── visualize_json_results.py

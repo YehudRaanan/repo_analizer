@@ -1,0 +1,639 @@
+=====================================
+Repository Analysis: stable-diffusion-webui
+Type: Data / ML / AI Project
+=====================================
+
+--- METADATA ---
+Name: stable-diffusion-webui
+Description: Stable Diffusion web UI
+Language: Python
+Topics: ai, ai-art, deep-learning, diffusion, gradio, image-generation, image2image, img2img, pytorch, stable-diffusion, text2image, torch, txt2img, unstable, upscaling, web
+Stars: 161512
+License: GNU Affero General Public License v3.0
+
+--- README ---
+# Stable Diffusion web UI
+A web interface for Stable Diffusion, implemented using Gradio library.
+
+![](screenshot.png)
+
+## Features
+[Detailed feature showcase with images](https://github.com/AUTOMATIC1111/stable-diffusion-webui/wiki/Features):
+- Original txt2img and img2img modes
+- One click install and run script (but you still must install python and git)
+- Outpainting
+- Inpainting
+- Color Sketch
+- Prompt Matrix
+- Stable Diffusion Upscale
+- Attention, specify parts of text that the model should pay more attention to
+    - a man in a `((tuxedo))` - will pay more attention to tuxedo
+    - a man in a `(tuxedo:1.21)` - alternative syntax
+    - select text and press `Ctrl+Up` or `Ctrl+Down` (or `Command+Up` or `Command+Down` if you're on a MacOS) to automatically adjust attention to selected text (code contributed by anonymous user)
+- Loopback, run img2img processing multiple times
+- X/Y/Z plot, a way to draw a 3 dimensional plot of images with different parameters
+- Textual Inversion
+    - have as many embeddings as you want and use any names you like for them
+    - use multiple embeddings with different numbers of vectors per token
+    - works with half precision floating point numbers
+    - train embeddings on 8GB (also reports of 6GB working)
+- Extras tab with:
+    - GFPGAN, neural network that fixes faces
+    - CodeFormer, face restoration tool as an alternative to GFPGAN
+    - RealESRGAN, neural network upscaler
+    - ESRGAN, neural network upscaler with a lot of third party models
+    - SwinIR and Swin2SR ([see here](https://github.com/AUTOMATIC1111/stable-diffusion-webui/pull/2092)), neural network upscalers
+    - LDSR, Latent diffusion super resolution upscaling
+- Resizing aspect ratio options
+- Sampling method selection
+    - Adjust sampler eta values (noise multiplier)
+    - More advanced noise setting options
+- Interrupt processing at any time
+- 4GB video card support (also reports of 2GB working)
+- Correct seeds for batches
+- Live prompt token length validation
+- Generation parameters
+     - parameters you used to generate images are saved with that image
+     - in PNG chunks for PNG, in EXIF for JPEG
+     - can drag the image to PNG info tab to restore generation parameters and automatically copy them into UI
+     - can be disabled in settings
+     - drag and drop an image/text-parameters to promptbox
+- Read Generation Parameters Button, loads parameters in promptbox to UI
+- Settings page
+- Running arbitrary python code from UI (must run with `--allow-code` to enable)
+- Mouseover hints for most UI elements
+- Possible to change defaults/mix/max/step values for UI elements via text config
+- Tiling support, a checkbox to create images that can be tiled like textures
+- Progress bar and live image generation preview
+    - Can use a separate neural network to produce previews with almost none VRAM or compute requirement
+- Negative prompt, an extra text field that allows you to list what you don't want to see in generated image
+- Styles, a way to save part of prompt and easily apply them via dropdown later
+- Variations, a way to generate same image but with tiny differences
+- Seed resizing, a way to generate same image but at slightly different resolution
+- CLIP interrogator, a button that tries to guess prompt from an image
+- Prompt Editing, a way to change prompt mid-generation, say to start making a watermelon and switch to anime girl midway
+- Batch Processing, process a group of files using img2img
+- Img2img Alternative, reverse Euler method of cross attention control
+- Highres Fix, a convenience option to produce high resolution pictures in one click without usual distortions
+- Reloading checkpoints on the fly
+- Checkpoint Merger, a tab that allows you to merge up to 3 checkpoints into one
+- [Custom scripts](https://github.com/AUTOMATIC1111/stable-diffusion-webui/wiki/Custom-Scripts) with many extensions from community
+- [Composable-Diffusion](https://energy-based-model.github.io/Compositional-Visual-Generation-with-Composable-Diffusion-Models/), a way to use multiple prompts at once
+     - separate prompts using uppercase `AND`
+     - also supports weights for prompts: `a cat :1.2 AND a dog AND a penguin :2.2`
+- No token limit for prompts (original stable diffusion lets you use up to 75 tokens)
+- DeepDanbooru integration, creates danbooru style tags for anime prompts
+- [xformers](https://github.com/AUTOMATIC1111/stable-diffusion-webui/wiki/Xformers), major speed increase for select cards: (add `--xformers` to commandline args)
+- via extension: [History tab](https://github.com/yfszzx/stable-diffusion-webui-images-browser): view, direct and delete images conveniently within the UI
+- Generate forever option
+- Training tab
+     - hypernetworks and embeddings options
+     - Preprocessing images: cropping, mirroring, autotagging using BLIP or deepdanbooru (for anime)
+- Clip skip
+- Hypernetworks
+- Loras (same as Hypernetworks 
+... [TRUNCATED]
+
+--- PACKAGE MANIFEST(S) ---
+
+[pyproject.toml]
+[tool.ruff]
+
+target-version = "py39"
+
+[tool.ruff.lint]
+
+extend-select = [
+  "B",
+  "C",
+  "I",
+  "W",
+]
+
+exclude = [
+	"extensions",
+	"extensions-disabled",
+]
+
+ignore = [
+	"E501", # Line too long
+	"E721", # Do not compare types, use `isinstance`
+	"E731", # Do not assign a `lambda` expression, use a `def`
+	
+	"I001", # Import block is un-sorted or un-formatted
+	"C901", # Function is too complex
+	"C408", # Rewrite as a literal
+	"W605", # invalid escape sequence, messes with some docstrings
+]
+
+[tool.ruff.lint.per-file-ignores]
+"webui.py" = ["E402"]  # Module level import not at top of file
+
+[tool.ruff.lint.flake8-bugbear]
+# Allow default arguments like, e.g., `data: List[str] = fastapi.Query(None)`.
+extend-immutable-calls = ["fastapi.Depends", "fastapi.security.HTTPBasic"]
+
+[tool.pytest.ini_options]
+base_url = "http://127.0.0.1:7860"
+
+
+[requirements.txt]
+GitPython
+Pillow
+accelerate
+
+blendmodes
+clean-fid
+diskcache
+einops
+facexlib
+fastapi>=0.90.1
+gradio==3.41.2
+inflection
+jsonmerge
+kornia
+lark
+numpy
+omegaconf
+open-clip-torch
+
+piexif
+protobuf==3.20.0
+psutil
+pytorch_lightning
+requests
+resize-right
+
+safetensors
+scikit-image>=0.19
+tomesd
+torch
+torchdiffeq
+torchsde
+transformers==4.30.2
+pillow-avif-plugin==1.4.3
+
+[package.json]
+{
+  "name": "stable-diffusion-webui",
+  "version": "0.0.0",
+  "devDependencies": {
+    "eslint": "^8.40.0"
+  },
+  "scripts": {
+    "lint": "eslint .",
+    "fix": "eslint --fix ."
+  }
+}
+
+
+--- REQUIREMENTS FILES ---
+
+[requirements-test.txt]
+pytest-base-url~=2.0
+pytest-cov~=4.0
+pytest~=7.3
+
+
+[requirements.txt]
+GitPython
+Pillow
+accelerate
+
+blendmodes
+clean-fid
+diskcache
+einops
+facexlib
+fastapi>=0.90.1
+gradio==3.41.2
+inflection
+jsonmerge
+kornia
+lark
+numpy
+omegaconf
+open-clip-torch
+
+piexif
+protobuf==3.20.0
+psutil
+pytorch_lightning
+requests
+resize-right
+
+safetensors
+scikit-image>=0.19
+tomesd
+torch
+torchdiffeq
+torchsde
+transformers==4.30.2
+pillow-avif-plugin==1.4.3
+
+[requirements_npu.txt]
+cloudpickle
+decorator
+synr==0.5.0
+tornado
+
+
+[requirements_versions.txt]
+setuptools==69.5.1  # temp fix for compatibility with some old packages
+GitPython==3.1.32
+Pillow==9.5.0
+accelerate==0.21.0
+blendmodes==2022
+clean-fid==0.1.35
+diskcache==5.6.3
+einops==0.4.1
+facexlib==0.3.0
+fastapi==0.94.0
+gradio==3.41.2
+httpcore==0.15
+inflection==0.5.1
+jsonmerge==1.8.0
+kornia==0.6.7
+lark==1.1.2
+numpy==1.26.2
+omegaconf==2.2.3
+open-clip-torch==2.20.0
+piexif==1.1.3
+protobuf==3.20.0
+psutil==5.9.5
+pytorch_lightning==1.9.4
+resize-right==0.0.2
+safetensors==0.4.2
+scikit-image==0.21.0
+spandrel==0.3.4
+spandrel-extra-arches==0.1.1
+tomesd==0.1.3
+torch
+torchdiffeq==0.2.3
+torchsde==0.2.6
+transformers==4.30.2
+httpx==0.24.1
+pillow-avif-plugin==1.4.3
+
+
+--- ML CONFIG FILES ---
+(No ML config files found)
+
+--- JUPYTER NOTEBOOKS ---
+(No notebooks found)
+
+--- MODEL / TRAINING FILES ---
+  extensions-builtin/LDSR/ldsr_model_arch.py
+  extensions-builtin/LDSR/scripts/ldsr_model.py
+  extensions-builtin/ScuNET/scripts/scunet_model.py
+  extensions-builtin/SwinIR/scripts/swinir_model.py
+  modules/api/models.py
+  modules/codeformer_model.py
+  modules/dat_model.py
+  modules/deepbooru_model.py
+  modules/esrgan_model.py
+  modules/gfpgan_model.py
+
+--- DIRECTORY STRUCTURE (depth 2) ---
+├── .eslintignore
+├── .eslintrc.js
+├── .git-blame-ignore-revs
+├── .github/
+│   ├── ISSUE_TEMPLATE/
+│   │   ├── bug_report.yml
+│   │   ├── config.yml
+│   │   └── feature_request.yml
+│   ├── pull_request_template.md
+│   └── workflows/
+│       ├── on_pull_request.yaml
+│       ├── run_tests.yaml
+│       └── warns_merge_master.yml
+├── .gitignore
+├── .pylintrc
+├── CHANGELOG.md
+├── CITATION.cff
+├── CODEOWNERS
+├── LICENSE.txt
+├── README.md
+├── _typos.toml
+├── configs/
+│   ├── alt-diffusion-inference.yaml
+│   ├── alt-diffusion-m18-inference.yaml
+│   ├── instruct-pix2pix.yaml
+│   ├── sd3-inference.yaml
+│   ├── sd_xl_inpaint.yaml
+│   ├── v1-inference.yaml
+│   └── v1-inpainting-inference.yaml
+├── embeddings/
+│   └── Place Textual Inversion embeddings here.txt
+├── environment-wsl2.yaml
+├── extensions-builtin/
+│   ├── LDSR/
+│   │   ├── ldsr_model_arch.py
+│   │   ├── preload.py
+│   │   ├── scripts/
+│   │   ├── sd_hijack_autoencoder.py
+│   │   ├── sd_hijack_ddpm_v1.py
+│   │   └── vqvae_quantize.py
+│   ├── Lora/
+│   │   ├── extra_networks_lora.py
+│   │   ├── lora.py
+│   │   ├── lora_logger.py
+│   │   ├── lora_patches.py
+│   │   ├── lyco_helpers.py
+│   │   ├── network.py
+│   │   ├── network_full.py
+│   │   ├── network_glora.py
+│   │   ├── network_hada.py
+│   │   ├── network_ia3.py
+│   │   ├── network_lokr.py
+│   │   ├── network_lora.py
+│   │   ├── network_norm.py
+│   │   ├── network_oft.py
+│   │   ├── networks.py
+│   │   ├── preload.py
+│   │   ├── scripts/
+│   │   ├── ui_edit_user_metadata.py
+│   │   └── ui_extra_networks_lora.py
+│   ├── ScuNET/
+│   │   ├── preload.py
+│   │   └── scripts/
+│   ├── SwinIR/
+│   │   ├── preload.py
+│   │   └── scripts/
+│   ├── canvas-zoom-and-pan/
+│   │   ├── javascript/
+│   │   ├── scripts/
+│   │   └── style.css
+│   ├── extra-options-section/
+│   │   └── scripts/
+│   ├── hypertile/
+│   │   ├── hypertile.py
+│   │   └── scripts/
+│   ├── mobile/
+│   │   └── javascript/
+│   ├── postprocessing-for-training/
+│   │   └── scripts/
+│   ├── prompt-bracket-checker/
+│   │   └── javascript/
+│   └── soft-inpainting/
+│       └── scripts/
+├── extensions/
+│   └── put extensions here.txt
+├── html/
+│   ├── card-no-preview.png
+│   ├── extra-networks-card.html
+│   ├── extra-networks-copy-path-button.html
+│   ├── extra-networks-edit-item-button.html
+│   ├── extra-networks-metadata-button.html
+│   ├── extra-networks-no-cards.html
+│   ├── extra-networks-pane-dirs.html
+│   ├── extra-networks-pane-tree.html
+│   ├── extra-networks-pane.html
+│   ├── extra-networks-tree-button.html
+│   ├── footer.html
+│   └── licenses.html
+├── javascript/
+│   ├── aspectRatioOverlay.js
+│   ├── contextMenus.js
+│   ├── dragdrop.js
+│   ├── edit-attention.js
+│   ├── edit-order.js
+│   ├── extensions.js
+│   ├── extraNetworks.js
+│   ├── generationParams.js
+│   ├── hints.js
+│   ├── hires_fix.js
+│   ├── imageMaskFix.js
+│   ├── imageviewer.js
+│   ├── imageviewerGamepad.js
+│   ├── inputAccordion.js
+│   ├── localStorage.js
+│   ├── localization.js
+│   ├── notification.js
+│   ├── profilerVisualization.js
+│   ├── progressbar.js
+│   ├── resizeHandle.js
+│   ├── settings.js
+│   ├── textualInversion.js
+│   ├── token-counters.js
+│   ├── ui.js
+│   └── ui_settings_hints.js
+├── launch.py
+├── localizations/
+│   └── Put localization files here.txt
+├── models/
+│   ├── Stable-diffusion/
+│   │   └── Put Stable Diffusion checkpoints here.txt
+│   ├── VAE-approx/
+│   │   └── model.pt
+│   ├── VAE/
+│   │   └── Put VAE here.txt
+│   ├── deepbooru/
+│   │   └── Put your deepbooru release project folder here.txt
+│   └── karlo/
+│       └── ViT-L-14_stats.th
+├── modules/
+│   ├── Roboto-Regular.ttf
+│   ├── api/
+│   │   ├── api.py
+│   │   └── models.py
+│   ├── cache.py
+│   ├── call_queue.py
+│   ├── cmd_args.py
+│   ├── codeformer_model.py
+│   ├── config_states.py
+│   ├── dat_model.py
+│   ├── deepbooru.py
+│   ├── deepbooru_model.py
+│   ├── devices.py
+│   ├── errors.py
+│   ├── esrgan_model.py
+│   ├── extensions.py
+│   ├── extra_networks.py
+│   ├── extra_networks_hypernet.py
+│   ├── extras.py
+│   ├── face_restoration.py
+│   ├── face_restoration_utils.py
+│   ├── fifo_lock.py
+│   ├── gfpgan_model.py
+│   ├── gitpython_hack.py
+│   ├── gradio_extensons.py
+│   ├── hashes.py
+│   ├── hat_model.py
+│   ├── hypernetworks/
+│   │   ├── hypernetwork.py
+│   │   └── ui.py
+│   ├── images.py
+│   ├── img2img.py
+│   ├── import_hook.py
+│   ├── infotext_utils.py
+│   ├── infotext_versions.py
+│   ├── initialize.py
+│   ├── initialize_util.py
+│   ├── interrogate.py
+│   ├── launch_utils.py
+│   ├── localization.py
+│   ├── logging_config.py
+│   ├── lowvram.py
+│   ├── mac_specific.py
+│   ├── masking.py
+│   ├── memmon.py
+│   ├── modelloader.py
+│   ├── models/
+│   │   ├── diffusion/
+│   │   └── sd3/
+│   ├── ngrok.py
+│   ├── npu_specific.py
+│   ├── options.py
+│   ├── patches.py
+│   ├── paths.py
+│   ├── paths_internal.py
+│   ├── postprocessing.py
+│   ├── processing.py
+│   ├── processing_scripts/
+│   │   ├── comments.py
+│   │   ├── refiner.py
+│   │   ├── sampler.py
+│   │   └── seed.py
+│   ├── profiling.py
+│   ├── progress.py
+│   ├── prompt_parser.py
+│   ├── realesrgan_model.py
+│   ├── restart.py
+│   ├── rng.py
+│   ├── rng_philox.py
+│   ├── safe.py
+│   ├── script_callbacks.py
+│   ├── script_loading.py
+│   ├── scripts.py
+│   ├── scripts_auto_postprocessing.py
+│   ├── scripts_postprocessing.py
+│   ├── sd_disable_initialization.py
+│   ├── sd_emphasis.py
+│   ├── sd_hijack.py
+│   ├── sd_hijack_checkpoint.py
+│   ├── sd_hijack_clip.py
+│   ├── sd_hijack_clip_old.py
+│   ├── sd_hijack_ip2p.py
+│   ├── sd_hijack_open_clip.py
+│   ├── sd_hijack_optimizations.py
+│   ├── sd_hijack_unet.py
+│   ├── sd_hijack_utils.py
+│   ├── sd_hijack_xlmr.py
+│   ├── sd_models.py
+│   ├── sd_models_config.py
+│   ├── sd_models_types.py
+│   ├── sd_models_xl.py
+│   ├── sd_samplers.py
+│   ├── sd_samplers_cfg_denoiser.py
+│   ├── sd_samplers_common.py
+│   ├── sd_samplers_compvis.py
+│   ├── sd_samplers_extra.py
+│   ├── sd_samplers_kdiffusion.py
+│   ├── sd_samplers_lcm.py
+│   ├── sd_samplers_timesteps.py
+│   ├── sd_samplers_timesteps_impl.py
+│   ├── sd_schedulers.py
+│   ├── sd_unet.py
+│   ├── sd_vae.py
+│   ├── sd_vae_approx.py
+│   ├── sd_vae_taesd.py
+│   ├── shared.py
+│   ├── shared_cmd_options.py
+│   ├── shared_gradio_themes.py
+│   ├── shared_init.py
+│   ├── shared_items.py
+│   ├── shared_options.py
+│   ├── shared_state.py
+│   ├── shared_total_tqdm.py
+│   ├── styles.py
+│   ├── sub_quadratic_attention.py
+│   ├── sysinfo.py
+│   ├── textual_inversion/
+│   │   ├── autocrop.py
+│   │   ├── dataset.py
+│   │   ├── image_embedding.py
+│   │   ├── learn_schedule.py
+│   │   ├── saving_settings.py
+│   │   ├── test_embedding.png
+│   │   ├── textual_inversion.py
+│   │   └── ui.py
+│   ├── timer.py
+│   ├── torch_utils.py
+│   ├── txt2img.py
+│   ├── ui.py
+│   ├── ui_checkpoint_merger.py
+│   ├── ui_common.py
+│   ├── ui_components.py
+│   ├── ui_extensions.py
+│   ├── ui_extra_networks.py
+│   ├── ui_extra_networks_checkpoints.py
+│   ├── ui_extra_networks_checkpoints_user_metadata.py
+│   ├── ui_extra_networks_hypernets.py
+│   ├── ui_extra_networks_textual_inversion.py
+│   ├── ui_extra_networks_user_metadata.py
+│   ├── ui_gradio_extensions.py
+│   ├── ui_loadsave.py
+│   ├── ui_postprocessing.py
+│   ├── ui_prompt_styles.py
+│   ├── ui_settings.py
+│   ├── ui_tempdir.py
+│   ├── ui_toprow.py
+│   ├── upscaler.py
+│   ├── upscaler_utils.py
+│   ├── util.py
+│   ├── xlmr.py
+│   ├── xlmr_m18.py
+│   └── xpu_specific.py
+├── package.json
+├── pyproject.toml
+├── requirements-test.txt
+├── requirements.txt
+├── requirements_npu.txt
+├── requirements_versions.txt
+├── screenshot.png
+├── script.js
+├── scripts/
+│   ├── custom_code.py
+│   ├── img2imgalt.py
+│   ├── loopback.py
+│   ├── outpainting_mk_2.py
+│   ├── poor_mans_outpainting.py
+│   ├── postprocessing_codeformer.py
+│   ├── postprocessing_gfpgan.py
+│   ├── postprocessing_upscale.py
+│   ├── prompt_matrix.py
+│   ├── prompts_from_file.py
+│   ├── sd_upscale.py
+│   └── xyz_grid.py
+├── style.css
+├── test/
+│   ├── __init__.py
+│   ├── conftest.py
+│   ├── test_extras.py
+│   ├── test_face_restorers.py
+│   ├── test_files/
+│   │   ├── empty.pt
+│   │   ├── img2img_basic.png
+│   │   ├── mask_basic.png
+│   │   └── two-faces.jpg
+│   ├── test_img2img.py
+│   ├── test_outputs/
+│   │   └── .gitkeep
+│   ├── test_torch_utils.py
+│   ├── test_txt2img.py
+│   └── test_utils.py
+├── textual_inversion_templates/
+│   ├── hypernetwork.txt
+│   ├── none.txt
+│   ├── style.txt
+│   ├── style_filewords.txt
+│   ├── subject.txt
+│   └── subject_filewords.txt
+├── webui-macos-env.sh
+├── webui-user.bat
+├── webui-user.sh
+├── webui.bat
+├── webui.py
+└── webui.sh

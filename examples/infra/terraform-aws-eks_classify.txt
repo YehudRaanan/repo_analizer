@@ -1,0 +1,70 @@
+=====================================
+REPO CLASSIFICATION SIGNALS
+=====================================
+
+--- METADATA ---
+Name: terraform-aws-eks
+Description: Terraform module to create Amazon Elastic Kubernetes (EKS) resources 🇺🇦
+Primary language: HCL
+Topics: aws, aws-eks, aws-eks-cluster, eks, elastic-kubernetes-service, kubernetes, terraform, terraform-module
+
+--- ROOT FILES (signal matches) ---
+Web App:     (none)
+Backend:     (none)
+Library:     (none)
+CLI:         (none)
+Data/ML:     (none)
+Infra:       main.tf, outputs.tf, variables.tf, versions.tf
+
+--- TOP-LEVEL DIRECTORIES (signal matches) ---
+Web App:     (none)
+Backend:     (none)
+Library:     docs, examples, tests
+CLI:         (none)
+Data/ML:     (none)
+Infra:       modules
+
+--- ALL TOP-LEVEL DIRECTORIES ---
+.github, docs, examples, modules, templates, tests
+
+--- TYPE-SPECIFIC EXTENSION COUNTS ---
+Web App extensions (.tsx, .jsx, .vue, .svelte): 0
+Data/ML extensions (.ipynb): 0
+Infra extensions (.tf, .hcl): 90
+Backend extensions (.proto, .graphql): 0
+
+--- TOP FILE EXTENSIONS (by count) ---
+  .tf: 87
+  .md: 34
+  .tpl: 8
+  .txt: 8
+  .sh: 8
+  .toml: 7
+  .ps1: 7
+  .yml: 6
+  .yaml: 5
+  .png: 3
+  .hcl: 3
+  .svg: 2
+  .gitignore: 2
+  .editorconfig: 1
+  .gitattributes: 1
+
+--- BOOLEAN PATTERN CHECKS ---
+  pages or app dir: no
+  components dir: no
+  cmd or bin dir: no
+  src bin: no
+  run train scripts: no
+  ipynb files: no
+  model training files: no
+  tf files: yes
+  k8s manifests: yes
+  ansible playbooks: no
+  route controller dirs: no
+  db migrations: no
+  openapi spec: no
+  src and tests: no
+  examples dir: yes
+  dockerfile: no
+  ci cd: yes

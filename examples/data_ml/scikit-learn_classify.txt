@@ -1,0 +1,70 @@
+=====================================
+REPO CLASSIFICATION SIGNALS
+=====================================
+
+--- METADATA ---
+Name: scikit-learn
+Description: scikit-learn: machine learning in Python
+Primary language: Python
+Topics: data-analysis, data-science, machine-learning, python, statistics
+
+--- ROOT FILES (signal matches) ---
+Web App:     (none)
+Backend:     (none)
+Library:     pyproject.toml
+CLI:         (none)
+Data/ML:     (none)
+Infra:       (none)
+
+--- TOP-LEVEL DIRECTORIES (signal matches) ---
+Web App:     (none)
+Backend:     (none)
+Library:     benchmarks, examples
+CLI:         (none)
+Data/ML:     (none)
+Infra:       (none)
+
+--- ALL TOP-LEVEL DIRECTORIES ---
+.binder, .circleci, .devcontainer, .github, .spin, asv_benchmarks, benchmarks, build_tools, doc, examples, maint_tools, sklearn
+
+--- TYPE-SPECIFIC EXTENSION COUNTS ---
+Web App extensions (.tsx, .jsx, .vue, .svelte): 0
+Data/ML extensions (.ipynb): 0
+Infra extensions (.tf, .hcl): 0
+Backend extensions (.proto, .graphql): 0
+
+--- TOP FILE EXTENSIONS (by count) ---
+  .py: 989
+  .rst: 194
+  .png: 96
+  .gz: 82
+  .pyx: 53
+  .txt: 51
+  .gitkeep: 46
+  .yml: 45
+  .sh: 26
+  .tp: 24
+  .pxd: 23
+  .build: 21
+  .lock: 13
+  .md: 10
+  .template: 7
+
+--- BOOLEAN PATTERN CHECKS ---
+  pages or app dir: no
+  components dir: no
+  cmd or bin dir: no
+  src bin: no
+  run train scripts: yes
+  ipynb files: no
+  model training files: yes
+  tf files: no
+  k8s manifests: no
+  ansible playbooks: no
+  route controller dirs: no
+  db migrations: no
+  openapi spec: no
+  src and tests: no
+  examples dir: yes
+  dockerfile: no
+  ci cd: yes

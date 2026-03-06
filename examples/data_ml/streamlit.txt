@@ -1,0 +1,1203 @@
+=====================================
+Repository Analysis: streamlit
+Type: Web Application
+=====================================
+
+--- METADATA ---
+Name: streamlit
+Description: Streamlit — A faster way to build and share data apps.
+Language: Python
+Topics: data-analysis, data-science, data-visualization, deep-learning, developer-tools, machine-learning, python, streamlit
+Stars: 43757
+License: Apache License 2.0
+
+--- README ---
+<br>
+
+<img src="https://user-images.githubusercontent.com/7164864/217935870-c0bc60a3-6fc0-4047-b011-7b4c59488c91.png" alt="Streamlit logo" style="margin-top:50px"></img>
+
+# Welcome to Streamlit 👋
+
+**A faster way to build and share data apps.**
+
+## What is Streamlit?
+
+Streamlit lets you transform Python scripts into interactive web apps in minutes, instead of weeks. Build dashboards, generate reports, or create chat apps. Once you’ve created an app, you can use our [Community Cloud platform](https://streamlit.io/cloud) to deploy, manage, and share your app.
+
+### Why choose Streamlit?
+
+- **Simple and Pythonic:** Write beautiful, easy-to-read code.
+- **Fast, interactive prototyping:** Let others interact with your data and provide feedback quickly.
+- **Live editing:** See your app update instantly as you edit your script.
+- **Open-source and free:** Join a vibrant community and contribute to Streamlit's future.
+
+## Installation
+
+Open a terminal and run:
+
+```bash
+$ pip install streamlit
+$ streamlit hello
+```
+
+If this opens our sweet _Streamlit Hello_ app in your browser, you're all set! If not, head over to [our docs](https://docs.streamlit.io/get-started) for specific installs.
+
+The app features a bunch of examples of what you can do with Streamlit. Jump to the [quickstart](#quickstart) section to understand how that all works.
+
+<img src="https://user-images.githubusercontent.com/7164864/217936487-1017784e-68ec-4e0d-a7f6-6b97525ddf88.gif" alt="Streamlit Hello" width=500 href="none"></img>
+
+## Quickstart
+
+### A little example
+
+Create a new file named `streamlit_app.py` in your project directory with the following code:
+```python
+import streamlit as st
+x = st.slider("Select a value")
+st.write(x, "squared is", x * x)
+```
+
+Now run it to open the app!
+```
+$ streamlit run streamlit_app.py
+```
+
+<img src="https://user-images.githubusercontent.com/7164864/215172915-cf087c56-e7ae-449a-83a4-b5fa0328d954.gif" width=300 alt="Little example"></img>
+
+### Give me more!
+
+Streamlit comes in with [a ton of additional powerful elements](https://docs.streamlit.io/develop/api-reference) to spice up your data apps and delight your viewers. Some examples:
+
+<table border="0">
+  <tr>
+    <td>
+      <a target="_blank" href="https://docs.streamlit.io/develop/api-reference/widgets">
+        <img src="https://user-images.githubusercontent.com/7164864/217936099-12c16f8c-7fe4-44b1-889a-1ac9ee6a1b44.png" style="max-height:150px; width:auto; display:block;">
+      </a>
+    </td>
+    <td>
+      <a target="_blank" href="https://docs.streamlit.io/develop/api-reference/data/st.dataframe">
+        <img src="https://user-images.githubusercontent.com/7164864/215110064-5eb4e294-8f30-4933-9563-0275230e52b5.gif" style="max-height:150px; width:auto; display:block;">
+      </a>
+    </td>
+    <td>
+      <a target="_blank" href="https://docs.streamlit.io/develop/api-reference/charts">
+        <img src="https://user-images.githubusercontent.com/7164864/215174472-bca8a0d7-cf4b-4268-9c3b-8c03dad50bcd.gif" style="max-height:150px; width:auto; display:block;">
+      </a>
+    </td>
+    <td>
+      <a target="_blank" href="https://docs.streamlit.io/develop/api-reference/layout">
+        <img src="https://user-images.githubusercontent.com/7164864/217936149-a35c35be-0d96-4c63-8c6a-1c4b52aa8f60.png" style="max-height:150px; width:auto; display:block;">
+      </a>
+    </td>
+    <td>
+      <a target="_blank" href="https://docs.streamlit.io/develop/concepts/multipage-apps">
+        <img src="https://user-images.githubusercontent.com/7164864/215173883-eae0de69-7c1d-4d78-97d0-3bc1ab865e5b.gif" style="max-height:150px; width:auto; display:block;">
+      </a>
+    </td>
+    <td>
+      <a target="_blank" href="https://streamlit.io/gallery">
+        <img src="https://user-images.githubusercontent.com/7164864/215109229-6ae9111f-e5c1-4f0b-b3a2-87a79268ccc9.gif" style="max-height:150px; width:auto; display:block;">
+      </a>
+    </td>
+  </tr>
+  <tr>
+    <td>Input widgets</td>
+    <td>Dataframes</td>
+    <td>Charts</td>
+    <td>Layout</td>
+    <td>Multi-page apps</td>
+    <td>Fun</td>
+  </tr>
+</table>
+
+
+Our vibrant creators community also extends Streamlit capabilities using  🧩 [Streamlit Components](https://streamlit.io/components).
+
+## Get inspired
+
+There's so much you can build with Streamlit:
+- 🤖  [LLMs & chatbot apps](https://streamlit.io/gallery?category=llms)
+- 🧬  [Science & technology apps](https://streamlit.io/gallery?category=science-technology)
+- 💬  [NLP & language apps](https://streamlit.io/gallery?category=nlp-language)
+- 🏦  [Finance & business apps](https://streamlit.io/gallery?category=finance-business)
+- 🗺  [Geography & society apps](https://streamlit.io/gallery?category=geography-society)
+- and more!
+
+**Check out [our gallery!](https://streamlit.io/gallery)** 🎈
+
+## Community Cloud
+
+Deploy, manage and share your apps for free using our [Community Cloud](https://streamlit.io/cloud)! Sign-up [here](https://share.streamlit.io/signup). <br><br>
+<img src="https://user-i
+... [TRUNCATED]
+
+--- PACKAGE MANIFEST(S) ---
+
+[pyproject.toml]
+# Copyright (c) Streamlit Inc. (2018-2022) Snowflake Inc. (2022-2026)
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+# =============================================================================
+# Root pyproject.toml - Development environment configuration
+# =============================================================================
+# This file defines:
+# - Tool configurations (ruff, mypy, ty)
+# - Development dependency groups
+#
+# The streamlit package itself is defined in lib/pyproject.toml.
+# Test-specific configs are in lib/pyproject.toml and e2e_playwright/pytest.ini.
+# =============================================================================
+
+[project]
+name = "streamlit-dev"
+version = "0.0.0"
+description = "Development environment for Streamlit"
+requires-python = ">=3.10"
+# Empty dependencies - the actual package is installed via [tool.uv.sources]
+dependencies = []
+
+[tool.uv]
+# Minimum uv version required for this project
+required-version = ">=0.9.0"
+
+[tool.uv.sources]
+streamlit = { path = "lib", editable = true }
+
+# =============================================================================
+# Dependency Groups (PEP 735)
+# =============================================================================
+
+[dependency-groups]
+# Development dependencies - includes test group
+dev = [
+  { include-group = "test" },
+  "streamlit",
+  "pre-commit",
+  # We fix ty to a version since its still in beta and likely breaks our CI on updates:
+  "ty==0.0.19",
+  # We fix ruff to a version to be in sync with the pre-commit hook:
+  "ruff==0.15.4",
+  # We are pinning the upper version to not break our CI on updates,
+  # and have dependabot handle the updates instead.
+  "mypy>=1.16.1,<1.20",
+  "mypy-protobuf>=3.2",
+  "semver>=3",
+  "setuptools>=65.5.1",
+  "build",
+  "twine",
+  "wheel",
+  "pytz",
+  # Used for updating emojis via: scripts/update_emojis.py
+  "emoji",
+  # mypy type stubs
+  "types-protobuf",
+  "types-pytz",
+  "types-requests",
+  "types-setuptools",
+  "types-toml",
+  "types-cachetools",
+  "types-Authlib",
+  # pandas-stubs have caused a couple of CI breaks, so we pin to a specific version.
+  # We need to pin 2.3.3.260113 since higher versions require a min Python 3.11 support.
+  "pandas-stubs==2.3.3.260113",
+]
+
+# Test dependencies
+test = [
+  "streamlit",
+  # Testing infrastructure dependencies:
+  "pytest>=8.3.5",
+  "pytest-cov",
+  "hypothesis>=6.17.4",
+  "parameterized",
+  "requests-mock",
+  "testfixtures",
+  # tomli is the backport of tomllib for Python <3.
+... [TRUNCATED]
+
+--- WEB FRAMEWORK CONFIG ---
+(No web config files found)
+
+--- ROUTE / PAGE DEFINITIONS ---
+
+[e2e_playwright/multipage_apps/pages/.dotfile.py]
+# Copyright (c) Streamlit Inc. (2018-2022) Snowflake Inc. (2022-2026)
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+
+[e2e_playwright/multipage_apps/pages/02_page2.py]
+# Copyright (c) Streamlit Inc. (2018-2022) Snowflake Inc. (2022-2026)
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+import streamlit as st
+
+st.header("Page 2")
+
+st.write("Query Params:", st.query_params)
+
+page_6 = st.button("`pages/06_page_6.py`")
+if page_6:
+    st.switch_page("pages/06_page_6.py")
+
+
+[e2e_playwright/multipage_apps/pages/03_page3.py]
+# Copyright (c) Streamlit Inc. (2018-2022) Snowflake Inc. (2022-2026)
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+import streamlit as st
+
+st.header("Page 3")
+x = st.slider("x")
+st.markdown(f"x is {x}")
+
+
+[e2e_playwright/multipage_apps/pages/04_page_with_duplicate_name.py]
+# Copyright (c) Streamlit Inc. (2018-2022) Snowflake Inc. (2022-2026)
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+import streamlit as st
+
+st.header("Page 4")
+
+with st.sidebar:
+    st.page_link("mpa_configure_sidebar.py", label="Home", icon="🏠")
+    st.page_link("pages/02_page2.py", label="Page 2", icon=":material/article:")
+    st.page_link("pages/03_page3.py", label="Page 3", icon="📈")
+    st.page_link("pages/04_page_with_duplicate_name.py", label="Page 4", icon="🧪")
+
+
+[e2e_playwright/multipage_apps/pages/05_page_5.py]
+# Copyright (c) Streamlit Inc. (2018-2022) Snowflake Inc. (2022-2026)
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+import streamlit as st
+
+st.header("Page 5")
+
+
+--- DIRECTORY STRUCTURE (depth 2) ---
+├── .claude/
+│   ├── .gitignore
+│   ├── agents/
+│   │   ├── fixing-pr.md
+│   │   ├── reviewing-local-changes.md
+│   │   └── simplifying-local-changes.md
+│   ├── commands/
+│   │   ├── fixing-pr.md
+│   │   ├── reviewing-local-changes.md
+│   │   └── simplifying-local-changes.md
+│   ├── hooks/
+│   │   ├── post_edit_autofix.sh
+│   │   ├── pre_bash_redirect.py
+│   │   └── stop_check.sh
+│   ├── settings.json
+│   └── skills/
+│       ├── AGENTS.md
+│       ├── CLAUDE.md
+│       ├── addressing-pr-review-comments/
+│       ├── assessing-external-test-risk/
+│       ├── checking-changes/
+│       ├── creating-pull-requests/
+│       ├── debugging-streamlit/
+│       ├── discovering-make-commands/
+│       ├── finalizing-pr/
+│       ├── fixing-streamlit-ci/
+│       ├── implementing-new-features/
+│       ├── understanding-streamlit-architecture/
+│       └── updating-internal-docs/
+├── .codex/
+│   ├── .gitignore
+│   └── skills
+├── .cursor/
+│   ├── .gitignore
+│   ├── commands/
+│   │   └── py-docstring-fix.md
+│   ├── hooks.json
+│   ├── rules/
+│   │   ├── e2e_playwright.mdc
+│   │   ├── overview.mdc
+│   │   ├── protobuf.mdc
+│   │   ├── python.mdc
+│   │   ├── python_lib.mdc
+│   │   ├── python_tests.mdc
+│   │   ├── scripts.mdc
+│   │   ├── skills.mdc
+│   │   ├── typescript.mdc
+│   │   └── workflows.mdc
+│   └── worktrees.json
+├── .devcontainer/
+│   ├── Dockerfile
+│   └── devcontainer.json
+├── .editorconfig
+├── .gitattributes
+├── .github/
+│   ├── .gitignore
+│   ├── CODEOWNERS
+│   ├── ISSUE_TEMPLATE/
+│   │   ├── bug_report.yml
+│   │   ├── config.yml
+│   │   ├── feature_request.yml
+│   │   └── thank_streamlit_team.yml
+│   ├── actions/
+│   │   ├── apt_mirror_fix/
+│   │   ├── build_info/
+│   │   ├── make_init/
+│   │   ├── playwright_install/
+│   │   └── preview_branch/
+│   ├── codeql-config.yml
+│   ├── copilot-instructions.md
+│   ├── dependabot.yml
+│   ├── instructions/
+│   │   ├── e2e_playwright.instructions.md
+│   │   ├── protobuf.instructions.md
+│   │   ├── python.instructions.md
+│   │   ├── python_lib.instructions.md
+│   │   ├── python_tests.instructions.md
+│   │   ├── scripts.instructions.md
+│   │   ├── skills.instructions.md
+│   │   ├── typescript.instructions.md
+│   │   └── workflows.instructions.md
+│   ├── pull_request_template.md
+│   ├── release.yml
+│   ├── repo_meta.yaml
+│   └── workflows/
+│       ├── AGENTS.md
+│       ├── CLAUDE.md
+│       ├── ai-issue-triage.yml
+│       ├── ai-pr-review.yml
+│       ├── ai-update-docs.yml
+│       ├── autofix.yml
+│       ├── bump-component-v2-lib.yml
+│       ├── cherry-pick-to-release-branch.yml
+│       ├── cli-regression.yml
+│       ├── codeql-analysis.yml
+│       ├── community-voting.yml
+│       ├── component-template-e2e-tests.yml
+│       ├── copilot-setup-steps.yml
+│       ├── enforce-pre-commit.yml
+│       ├── ensure-relative-imports.yml
+│       ├── flaky-js-test-verification.yml
+│       ├── flaky-test-verification.yml
+│       ├── fork-pr-welcome.yml
+│       ├── js-tests.yml
+│       ├── js-unit-tests.yml
+│       ├── nightly.yml
+│       ├── patch-release-branch-creation.yml
+│       ├── performance.yml
+│       ├── playwright-changed-files.yml
+│       ├── playwright-custom-components.yml
+│       ├── playwright-starlette.yml
+│       ├── playwright.yml
+│       ├── pr-preview.yml
+│       ├── publish-component-v2-lib.yml
+│       ├── python-bare-executions.yml
+│       ├── python-tests.yml
+│       ├── release-branch-creation.yml
+│       ├── release-tag-and-pr-creation.yml
+│       ├── release.yml
+│       ├── require-labels.yml
+│       ├── semgrep.yml
+│       ├── snapshot-autofix.yml
+│       ├── snapshot-hygiene.yml
+│       ├── spec-validation.yml
+│       ├── stale-prs.yml
+│       ├── static-deploy.yml
+│       ├── update-browserslist-db.yml
+│       └── update-emojis-material-icons.yml
+├── .gitignore
+├── .nvmrc
+├── .pre-commit-config.yaml
+├── .vscode/
+│   ├── extensions.json
+│   ├── launch.json
+│   └── settings.json
+├── AGENTS.md
+├── CLAUDE.md
+├── CODE_OF_CONDUCT.md
+├── CONTRIBUTING.md
+├── LICENSE
+├── Makefile
+├── NOTICES
+├── README.md
+├── SECURITY.md
+├── agent-knowledge/
+│   ├── .gitignore
+│   ├── INDEX.md
+│   ├── README.md
+│   └── references/
+│       └── guides/
+├── component-lib/
+│   ├── .yarnrc.yml
+│   ├── README.md
+│   ├── RELEASE_NOTES.md
+│   ├── babel.config.js
+│   ├── jest.config.ts
+│   ├── package.json
+│   ├── src/
+│   │   ├── ArrowTable.test.ts
+│   │   ├── ArrowTable.ts
+│   │   ├── StreamlitReact.test.tsx
+│   │   ├── StreamlitReact.tsx
+│   │   ├── index.ts
+│   │   ├── mock_data.ts
+│   │   ├── setupTests.ts
+│   │   ├── streamlit.test.ts
+│   │   ├── streamlit.ts
+│   │   └── test_utils.ts
+│   ├── tsconfig.json
+│   └── yarn.lock
+├── e2e_playwright/
+│   ├── .coveragerc
+│   ├── .gitignore
+│   ├── .streamlit/
+│   │   └── secrets.toml
+│   ├── AGENTS.md
+│   ├── CLAUDE.md
+│   ├── README.md
+│   ├── __init__.py
+│   ├── __snapshots__/
+│   │   └── linux/
+│   ├── app_hotkeys.py
+│   ├── app_hotkeys_test.py
+│   ├── appnode_hierarchy.py
+│   ├── appnode_hierarchy_test.py
+│   ├── asgi_app.py
+│   ├── asgi_app_test.py
+│   ├── auth.py
+│   ├── auth_test.py
+│   ├── basic_app.py
+│   ├── basic_app_test.py
+│   ├── bidi_components/
+│   │   ├── __init__.py
+│   │   ├── basics.py
+│   │   ├── basics_test.py
+│   │   ├── error_handling.py
+│   │   ├── error_handling_test.py
+│   │   ├── session_state_interactions.py
+│   │   └── session_state_interactions_test.py
+│   ├── compilation_error_dialog.py
+│   ├── compilation_error_dialog_test.py
+│   ├── config/
+│   │   ├── .gitignore
+│   │   ├── .streamlit/
+│   │   ├── __init__.py
+│   │   ├── script_level_config.py
+│   │   └── script_level_config_test.py
+│   ├── config_arrow_truncation.py
+│   ├── config_arrow_truncation_test.py
+│   ├── config_static_serving.py
+│   ├── config_static_serving_test.py
+│   ├── conftest.py
+│   ├── custom_components/
+│   │   ├── __init__.py
+│   │   ├── component_errors.py
+│   │   ├── component_errors_test.py
+│   │   ├── components-e2e-requirements.txt
+│   │   ├── pdf_component.py
+│   │   ├── pdf_component_test.py
+│   │   ├── popular_components.py
+│   │   └── popular_components_test.py
+│   ├── deploy_dialog.py
+│   ├── deploy_dialog_test.py
+│   ├── fast_rerun_safety.py
+│   ├── fast_rerun_safety_test.py
+│   ├── forward_msg_cache.py
+│   ├── forward_msg_cache_test.py
+│   ├── hello_app.py
+│   ├── hello_app_test.py
+│   ├── help_tooltip.py
+│   ├── help_tooltip_test.py
+│   ├── host_config.py
+│   ├── host_config_bypass.py
+│   ├── host_config_bypass_test.py
+│   ├── host_config_test.py
+│   ├── hostframe_app.py
+│   ├── hostframe_app_test.py
+│   ├── i18n.py
+│   ├── i18n_test.py
+│   ├── iframe_resizer.py
+│   ├── iframe_resizer_test.py
+│   ├── lazy_loaded_modules.py
+│   ├── lazy_loaded_modules_test.py
+│   ├── main_menu.py
+│   ├── main_menu_test.py
+│   ├── markdown_features.py
+│   ├── markdown_features_test.py
+│   ├── mega_tester_app.py
+│   ├── mega_tester_app_test.py
+│   ├── multipage_apps/
+│   │   ├── __init__.py
+│   │   ├── full-streamlit.png
+│   │   ├── mpa_basics.py
+│   │   ├── mpa_basics_test.py
+│   │   ├── mpa_configure_sidebar.py
+│   │   ├── mpa_configure_sidebar_test.py
+│   │   ├── mpa_v2_custom_theme.py
+│   │   ├── mpa_v2_custom_theme_test.py
+│   │   ├── mpa_v2_transition.py
+│   │   ├── mpa_v2_transition_test.py
+│   │   ├── pages/
+│   │   └── small-streamlit.png
+│   ├── multipage_apps_v2/
+│   │   ├── __init__.py
+│   │   ├── mpa_v2_anchors.py
+│   │   ├── mpa_v2_anchors_test.py
+│   │   ├── mpa_v2_basics.py
+│   │   ├── mpa_v2_basics_test.py
+│   │   ├── mpa_v2_initial_load.py
+│   │   ├── mpa_v2_initial_load_test.py
+│   │   ├── mpa_v2_page_visibility.py
+│   │   ├── mpa_v2_page_visibility_test.py
+│   │   ├── mpa_v2_title.py
+│   │   ├── mpa_v2_title_test.py
+│   │   ├── mpa_v2_top_nav.py
+│   │   ├── mpa_v2_top_nav_test.py
+│   │   ├── page_2.py
+│   │   ├── page_3.py
+│   │   ├── page_5.py
+│   │   ├── page_6_slow_page.py
+│   │   └── 🦒_page_4.py
+│   ├── pytest.ini
+│   ├── shared/
+│   │   ├── __init__.py
+│   │   ├── animation_utils.py
+│   │   ├── app_target.py
+│   │   ├── app_utils.py
+│   │   ├── data_mocks.py
+│   │   ├── dataframe_utils.py
+│   │   ├── git_utils.py
+│   │   ├── input_utils.py
+│   │   ├── oidc_mock_server.py
+│   │   ├── performance.py
+│   │   ├── pydeck_utils.py
+│   │   ├── react18_utils.py
+│   │   ├── stats_reporter.py
+│   │   ├── theme_utils.py
+│   │   ├── toolbar_utils.py
+│   │   └── vega_utils.py
+│   ├── st_add_rows.py
+│   ├── st_add_rows_test.py
+│   ├── st_alert.py
+│   ├── st_alert_test.py
+│   ├── st_altair_chart.py
+│   ├── st_altair_chart_basic_select.py
+│   ├── st_altair_chart_basic_select_test.py
+│   ├── st_altair_chart_multiview_select.py
+│   ├── st_altair_chart_multiview_select_test.py
+│   ├── st_altair_chart_test.py
+│   ├── st_altair_chart_title.py
+│   ├── st_altair_chart_title_test.py
+│   ├── st_area_chart.py
+│   ├── st_area_chart_test.py
+│   ├── st_audio.py
+│   ├── st_audio_input.py
+│   ├── st_audio_input_test.py
+│   ├── st_audio_test.py
+│   ├── st_balloons.py
+│   ├── st_balloons_test.py
+│   ├── st_bar_chart.py
+│   ├── st_bar_chart_test.py
+│   ├── st_button.py
+│   ├── st_button_test.py
+│   ├── st_cache_data.py
+│   ├── st_cache_data_test.py
+│   ├── st_cache_resource.py
+│   ├── st_cache_resource_test.py
+│   ├── st_camera_input.py
+│   ├── st_camera_input_test.py
+│   ├── st_caption.py
+│   ├── st_caption_test.py
+│   ├── st_chart_builtin_colors.py
+│   ├── st_chart_builtin_colors_test.py
+│   ├── st_chat_input.py
+│   ├── st_chat_input_file_uploader_regression.py
+│   ├── st_chat_input_file_uploader_regression_test.py
+│   ├── st_chat_input_test.py
+│   ├── st_chat_message.py
+│   ├── st_chat_message_test.py
+│   ├── st_checkbox.py
+│   ├── st_checkbox_test.py
+│   ├── st_code.py
+│   ├── st_code_test.py
+│   ├── st_color_picker.py
+│   ├── st_color_picker_test.py
+│   ├── st_columns.py
+│   ├── st_columns_test.py
+│   ├── st_components_v1.py
+│   ├── st_components_v1_import_legacy_file.py
+│   ├── st_components_v1_import_legacy_file_test.py
+│   ├── st_components_v1_import_via_st.py
+│   ├── st_components_v1_import_via_st_test.py
+│   ├── st_components_v1_test.py
+│   ├── st_container.py
+│   ├── st_container_test.py
+│   ├── st_context.py
+│   ├── st_context_test.py
+│   ├── st_data_editor_column_types.py
+│   ├── st_data_editor_column_types_test.py
+│   ├── st_data_editor_config.py
+│   ├── st_data_editor_config_test.py
+│   ├── st_data_editor_index_types.py
+│   ├── st_data_editor_index_types_test.py
+│   ├── st_data_editor_input_data.py
+│   ├── st_data_editor_input_data_test.py
+│   ├── st_dataframe_column_types.py
+│   ├── st_dataframe_column_types_test.py
+│   ├── st_dataframe_config.py
+│   ├── st_dataframe_config_test.py
+│   ├── st_dataframe_dimensions.py
+│   ├── st_dataframe_dimensions_test.py
+│   ├── st_dataframe_index_types.py
+│   ├── st_dataframe_index_types_test.py
+│   ├── st_dataframe_input_data.py
+│   ├── st_dataframe_input_data_test.py
+│   ├── st_dataframe_interactions.py
+│   ├── st_dataframe_interactions_test.py
+│   ├── st_dataframe_selections.py
+│   ├── st_dataframe_selections_test.py
+│   ├── st_dataframe_stable_rendering.py
+│   ├── st_dataframe_stable_rendering_test.py
+│   ├── st_dataframe_styler_support.py
+│   ├── st_dataframe_styler_support_test.py
+│   ├── st_date_input.py
+│   ├── st_date_input_test.py
+│   ├── st_datetime_input.py
+│   ├── st_datetime_input_test.py
+│   ├── st_dialog.py
+│   ├── st_dialog_test.py
+│   ├── st_divider.py
+│   ├── st_divider_test.py
+│   ├── st_download_button.py
+│   ├── st_download_button_deferred.py
+│   ├── st_download_button_deferred_test.py
+│   ├── st_download_button_test.py
+│   ├── st_echo.py
+│   ├── st_echo_test.py
+│   ├── st_effects_with_fragment_interactions.py
+│   ├── st_effects_with_fragment_interactions_test.py
+│   ├── st_empty.py
+│   ├── st_empty_test.py
+│   ├── st_exception.py
+│   ├── st_exception_test.py
+│   ├── st_expander.py
+│   ├── st_expander_state.py
+│   ├── st_expander_state_test.py
+│   ├── st_expander_test.py
+│   ├── st_feedback.py
+│   ├── st_feedback_test.py
+│   ├── st_file_uploader.py
+│   ├── st_file_uploader_test.py
+│   ├── st_form.py
+│   ├── st_form_container_association.py
+│   ├── st_form_container_association_test.py
+│   ├── st_form_test.py
+│   ├── st_fragment_basics.py
+│   ├── st_fragment_basics_test.py
+│   ├── st_fragment_chat_response.py
+│   ├── st_fragment_chat_response_test.py
+│   ├── st_fragment_dynamic_containers.py
+│   ├── st_fragment_dynamic_containers_test.py
+│   ├── st_fragment_dynamic_form.py
+│   ├── st_fragment_dynamic_form_test.py
+│   ├── st_fragment_mixed_execution_flow.py
+│   ├── st_fragment_mixed_execution_flow_test.py
+│   ├── st_fragment_multiple_fragments.py
+│   ├── st_fragment_multiple_fragments_test.py
+│   ├── st_fragment_queue.py
+│   ├── st_fragment_queue_test.py
+│   ├── st_fragment_run_every.py
+│   ├── st_fragment_run_every_test.py
+│   ├── st_fragments_nested.py
+│   ├── st_fragments_nested_test.py
+│   ├── st_graphviz_chart.py
+│   ├── st_graphviz_chart_test.py
+│   ├── st_heading.py
+│   ├── st_heading_test.py
+│   ├── st_help.py
+│   ├── st_help_test.py
+│   ├── st_html.py
+│   ├── st_html_test.py
+│   ├── st_html_wide_mode.py
+│   ├── st_html_wide_mode_test.py
+│   ├── st_image.py
+│   ├── st_image_test.py
+│   ├── st_json.py
+│   ├── st_json_test.py
+│   ├── st_layouts_container_alignment.py
+│   ├── st_layouts_container_alignment_test.py
+│   ├── st_layouts_container_directions.py
+│   ├── st_layouts_container_directions_fullscreen_elements.py
+│   ├── st_layouts_container_directions_fullscreen_elements_test.py
+│   ├── st_layouts_container_directions_test.py
+│   ├── st_layouts_container_gap_size.py
+│   ├── st_layouts_container_gap_size_test.py
+│   ├── st_layouts_container_min_width.py
+│   ├── st_layouts_container_min_width_test.py
+│   ├── st_layouts_container_various_elements.py
+│   ├── st_layouts_container_various_elements_test.py
+│   ├── st_line_chart.py
+│   ├── st_line_chart_test.py
+│   ├── st_link_button.py
+│   ├── st_link_button_test.py
+│   ├── st_logo.py
+│   ├── st_logo_test.py
+│   ├── st_magic.py
+│   ├── st_magic_test.py
+│   ├── st_main_layout.py
+│   ├── st_main_layout_test.py
+│   ├── st_map.py
+│   ├── st_map_ensure_no_stale_maps.py
+│   ├── st_map_ensure_no_stale_maps_test.py
+│   ├── st_map_test.py
+│   ├── st_markdown.py
+│   ├── st_markdown_test.py
+│   ├── st_metric.py
+│   ├── st_metric_test.py
+│   ├── st_multiselect.py
+│   ├── st_multiselect_test.py
+│   ├── st_navigation.py
+│   ├── st_navigation_expanded.py
+│   ├── st_navigation_expanded_test.py
+│   ├── st_navigation_external_links.py
+│   ├── st_navigation_external_links_test.py
+│   ├── st_navigation_test.py
+│   ├── st_number_input.py
+│   ├── st_number_input_test.py
+│   ├── st_page_link.py
+│   ├── st_page_link_test.py
+│   ├── st_pills.py
+│   ├── st_pills_test.py
+│   ├── st_plotly_chart.py
+│   ├── st_plotly_chart_dimensions.py
+│   ├── st_plotly_chart_dimensions_test.py
+│   ├── st_plotly_chart_select.py
+│   ├── st_plotly_chart_select_test.py
+│   ├── st_plotly_chart_test.py
+│   ├── st_popover.py
+│   ├── st_popover_test.py
+│   ├── st_progress.py
+│   ├── st_progress_test.py
+│   ├── st_pydeck_chart.py
+│   ├── st_pydeck_chart_select.py
+│   ├── st_pydeck_chart_select_test.py
+│   ├── st_pydeck_chart_test.py
+│   ├── st_pyplot.py
+│   ├── st_pyplot_test.py
+│   ├── st_query_params.py
+│   ├── st_query_params_test.py
+│   ├── st_radio.py
+│   ├── st_radio_test.py
+│   ├── st_rerun.py
+│   ├── st_rerun_test.py
+│   ├── st_scatter_chart.py
+│   ├── st_scatter_chart_test.py
+│   ├── st_secrets.py
+│   ├── st_secrets_test.py
+│   ├── st_segmented_control.py
+│   ├── st_segmented_control_test.py
+│   ├── st_select_slider.py
+│   ├── st_select_slider_test.py
+│   ├── st_selectbox.py
+│   ├── st_selectbox_test.py
+│   ├── st_session_state.py
+│   ├── st_session_state_test.py
+│   ├── st_set_page_config.py
+│   ├── st_set_page_config_test.py
+│   ├── st_sidebar.py
+│   ├── st_sidebar_flicker.py
+│   ├── st_sidebar_flicker_test.py
+│   ├── st_sidebar_test.py
+│   ├── st_slider.py
+│   ├── st_slider_test.py
+│   ├── st_snow.py
+│   ├── st_snow_test.py
+│   ├── st_space.py
+│   ├── st_space_test.py
+│   ├── st_spinner.py
+│   ├── st_spinner_test.py
+│   ├── st_status.py
+│   ├── st_status_test.py
+│   ├── st_stop.py
+│   ├── st_stop_test.py
+│   ├── st_table.py
+│   ├── st_table_test.py
+│   ├── st_tabs.py
+│   ├── st_tabs_selection.py
+│   ├── st_tabs_selection_test.py
+│   ├── st_tabs_test.py
+│   ├── st_text.py
+│   ├── st_text_area.py
+│   ├── st_text_area_test.py
+│   ├── st_text_input.py
+│   ├── st_text_input_test.py
+│   ├── st_text_test.py
+│   ├── st_time_input.py
+│   ├── st_time_input_test.py
+│   ├── st_toast.py
+│   ├── st_toast_test.py
+│   ├── st_toggle.py
+│   ├── st_toggle_test.py
+│   ├── st_vega_charts_height.py
+│   ├── st_vega_charts_height_test.py
+│   ├── st_vega_charts_width.py
+│   ├── st_vega_charts_width_test.py
+│   ├── st_vega_lite_chart.py
+│   ├── st_vega_lite_chart_test.py
+│   ├── st_video.py
+│   ├── st_video_test.py
+│   ├── st_write_charts.py
+│   ├── st_write_charts_test.py
+│   ├── st_write_images.py
+│   ├── st_write_images_test.py
+│   ├── st_write_markdown.py
+│   ├── st_write_markdown_test.py
+│   ├── st_write_objects.py
+│   ├── st_write_objects_test.py
+│   ├── st_write_stream.py
+│   ├── st_write_stream_test.py
+│   ├── static/
+│   │   ├── alt_secrets.toml
+│   │   ├── alt_secrets2.toml
+│   │   ├── cat-purr.mp3
+│   │   ├── cat.jpg
+│   │   ├── favicon.ico
+│   │   ├── flower.webm
+│   │   ├── hostframe.html
+│   │   ├── iframerResizer.min.js
+│   │   ├── sample.pdf
+│   │   ├── sintel-de.vtt
+│   │   ├── sintel-en.vtt
+│   │   ├── sintel-short.mp4
+│   │   ├── sintel-short.webm
+│   │   ├── streamlit-logo-small.png
+│   │   ├── streamlit-logo.png
+│   │   ├── streamlit-mark.png
+│   │   ├── test-cat.jpg
+│   │   ├── test-streamlit-logo.png
+│   │   ├── test.css
+│   │   └── test_div.html
+│   ├── theming/
+│   │   ├── __init__.py
+│   │   ├── custom_background_colors.py
+│   │   ├── custom_background_colors_test.py
+│   │   ├── custom_dark_sidebar_theme.py
+│   │   ├── custom_dark_sidebar_theme_test.py
+│   │   ├── custom_dark_theme.py
+│   │   ├── custom_dark_theme_test.py
+│   │   ├── custom_light_sidebar_theme.py
+│   │   ├── custom_light_sidebar_theme_test.py
+│   │   ├── custom_light_theme.py
+│   │   ├── custom_light_theme_test.py
+│   │   ├── custom_main_colors.py
+│   │   ├── custom_main_colors_test.py
+│   │   ├── custom_text_colors.py
+│   │   ├── custom_text_colors_test.py
+│   │   ├── custom_theme.py
+│   │   ├── custom_theme_fonts.py
+│   │   ├── custom_theme_fonts_test.py
+│   │   ├── custom_theme_test.py
+│   │   ├── custom_url_base.py
+│   │   ├── custom_url_base_test.py
+│   │   ├── font_style.py
+│   │   ├── font_style_test.py
+│   │   ├── font_unicode_range.py
+│   │   ├── font_unicode_range_test.py
+│   │   ├── font_weight.py
+│   │   ├── font_weight_test.py
+│   │   ├── sidebar_custom_theme.py
+│   │   ├── sidebar_custom_theme_test.py
+│   │   ├── size_and_weight_test_app.py
+│   │   ├── snowflake_dark_theme.py
+│   │   ├── snowflake_dark_theme_test.py
+│   │   ├── snowflake_light_theme.py
+│   │   ├── snowflake_light_theme_test.py
+│   │   ├── static/
+│   │   ├── theme_chart_colors.py
+│   │   ├── theme_chart_colors_app.py
+│   │   ├── theme_chart_colors_test.py
+│   │   ├── theme_font_weights.py
+│   │   ├── theme_font_weights_test.py
+│   │   ├── theme_from_window.py
+│   │   ├── theme_from_window_test.py
+│   │   ├── theme_header_sizes.py
+│   │   ├── theme_header_sizes_test.py
+│   │   ├── theme_metric_value_style.py
+│   │   ├── theme_metric_value_style_test.py
+│   │   └── theme_tester_app.py
+│   ├── web_server.py
+│   ├── web_server_test.py
+│   ├── websocket_disconnect.py
+│   ├── websocket_disconnect_test.py
+│   ├── websocket_reconnects.py
+│   ├── websocket_reconnects_test.py
+│   ├── widget_state.py
+│   ├── widget_state_test.py
+│   ├── window_config.py
+│   └── window_config_test.py
+├── frontend/
+│   ├── .prettierignore
+│   ├── .prettierrc
+│   ├── .yarn/
+│   │   ├── patches/
+│   │   └── plugins/
+│   ├── .yarnrc.yml
+│   ├── AGENTS.md
+│   ├── CLAUDE.md
+│   ├── README.md
+│   ├── app/
+│   │   ├── eslint.config.mjs
+│   │   ├── index.html
+│   │   ├── package.json
+│   │   ├── performance/
+│   │   ├── public/
+│   │   ├── src/
+│   │   ├── tsconfig.json
+│   │   └── vite.config.ts
+│   ├── component-v2-lib/
+│   │   ├── .gitignore
+│   │   ├── LICENSE
+│   │   ├── README.md
+│   │   ├── package.json
+│   │   ├── src/
+│   │   ├── tsconfig.json
+│   │   └── vite.config.ts
+│   ├── connection/
+│   │   ├── package.json
+│   │   ├── src/
+│   │   ├── tsconfig.json
+│   │   └── vite.config.ts
+│   ├── eslint-plugin-streamlit-custom/
+│   │   ├── README.md
+│   │   ├── package.json
+│   │   ├── src/
+│   │   ├── tsconfig.json
+│   │   └── vitest.config.ts
+│   ├── eslint.config.mjs
+│   ├── lib/
+│   │   ├── declarations.d.ts
+│   │   ├── emotion.d.ts
+│   │   ├── package.json
+│   │   ├── src/
+│   │   ├── tsconfig.json
+│   │   └── vite.config.ts
+│   ├── package.json
+│   ├── protobuf/
+│   │   ├── index.js
+│   │   ├── package.json
+│   │   └── scripts/
+│   ├── test-globals.d.ts
+│   ├── tsconfig.json
+│   ├── typescript-config/
+│   │   ├── base.tsconfig.json
+│   │   ├── package.json
+│   │   └── react.tsconfig.json
+│   ├── utils/
+│   │   ├── package.json
+│   │   ├── src/
+│   │   ├── tsconfig.json
+│   │   └── vite.config.ts
+│   ├── vitest.config.ts
+│   ├── vitest.setup.ts
+│   └── yarn.lock
+├── lib/
+│   ├── AGENTS.md
+│   ├── CLAUDE.md
+│   ├── MANIFEST.in
+│   ├── pyproject.toml
+│   ├── streamlit/
+│   │   ├── AGENTS.md
+│   │   ├── CLAUDE.md
+│   │   ├── __init__.py
+│   │   ├── __main__.py
+│   │   ├── auth_util.py
+│   │   ├── cli_util.py
+│   │   ├── column_config.py
+│   │   ├── commands/
+│   │   ├── components/
+│   │   ├── config.py
+│   │   ├── config_option.py
+│   │   ├── config_util.py
+│   │   ├── connections/
+│   │   ├── cursor.py
+│   │   ├── dataframe_util.py
+│   │   ├── delta_generator.py
+│   │   ├── delta_generator_singletons.py
+│   │   ├── deprecation_util.py
+│   │   ├── development.py
+│   │   ├── elements/
+│   │   ├── emojis.py
+│   │   ├── env_util.py
+│   │   ├── error_util.py
+│   │   ├── errors.py
+│   │   ├── external/
+│   │   ├── file_util.py
+│   │   ├── git_util.py
+│   │   ├── hello/
+│   │   ├── logger.py
+│   │   ├── material_icon_names.py
+│   │   ├── navigation/
+│   │   ├── net_util.py
+│   │   ├── path_security.py
+│   │   ├── platform.py
+│   │   ├── proto/
+│   │   ├── py.typed
+│   │   ├── runtime/
+│   │   ├── source_util.py
+│   │   ├── starlette.py
+│   │   ├── string_util.py
+│   │   ├── temporary_directory.py
+│   │   ├── testing/
+│   │   ├── time_util.py
+│   │   ├── type_util.py
+│   │   ├── url_util.py
+│   │   ├── user_info.py
+│   │   ├── util.py
+│   │   ├── vendor/
+│   │   ├── version.py
+│   │   ├── watcher/
+│   │   └── web/
+│   └── tests/
+│       ├── AGENTS.md
+│       ├── CLAUDE.md
+│       ├── __init__.py
+│       ├── conftest.py
+│       ├── delta_generator_test_case.py
+│       ├── exception_capturing_thread.py
+│       ├── streamlit/
+│       └── testutil.py
+├── proto/
+│   ├── buf.yaml
+│   └── streamlit/
+│       └── proto/
+├── pyproject.toml
+├── scripts/
+│   ├── AGENTS.md
+│   ├── CLAUDE.md
+│   ├── append_license.sh
+│   ├── assets/
+│   │   ├── code-review-instructions.md
+│   │   ├── license-template.txt
+│   │   └── min-constraints-gen.txt
+│   ├── audit_frontend_licenses.py
+│   ├── check_license_headers.py
+│   ├── check_yarn_dedupe.sh
+│   ├── cli_regression_tests.py
+│   ├── cli_smoke_tests.py
+│   ├── create_release.py
+│   ├── create_release_branch.sh
+│   ├── ensure_relative_imports.sh
+│   ├── generate_agent_rules.py
+│   ├── get_changed_files.py
+│   ├── get_min_versions.py
+│   ├── get_release_branch.py
+│   ├── log_agent_metrics.py
+│   ├── pypi_nightly_create_tag.py
+│   ├── run_bare_execution_tests.py
+│   ├── run_in_subdirectory.py
+│   ├── slack_notifications.py
+│   ├── snapshot_cleanup.py
+│   ├── sync_ruff_version.py
+│   ├── sync_vscode_devcontainer.py
+│   ├── update_e2e_snapshots.py
+│   ├── update_emojis.py
+│   ├── update_material_icon_font_and_names.py
+│   ├── update_name.py
+│   ├── update_version.py
+│   └── verify_version.py
+├── specs/
+│   ├── 2025-11-18-session-scoped-connections-and-rcr/
+│   │   └── product-spec.md
+│   ├── 2025-11-19-auth-oidc-tokens/
+│   │   └── product-spec.md
+│   ├── 2025-12-01-link-button-on-click/
+│   │   └── product-spec.md
+│   ├── 2025-12-02-table-hide-index-header/
+│   │   └── product-spec.md
+│   ├── 2025-12-03-container-autoscroll/
+│   │   └── product-spec.md
+│   ├── 2025-12-10-sprintf-thousand-separator/
+│   │   ├── follow-up-python-format-spec.md
+│   │   └── product-spec.md
+│   ├── 2025-12-12-menu-button/
+│   │   ├── menu-button.png
+│   │   └── product-spec.md
+│   ├── 2026-01-06-query-param-binding-state-persistence/
+│   │   └── product-spec.md
+│   ├── 2026-01-14-dynamic-tabs-expander/
+│   │   └── product-spec.md
+│   ├── README.md
+│   └── YYYY-MM-DD-template/
+│       ├── product-spec.md
+│       └── tech-spec.md
+└── wiki/
+    ├── README.md
+    ├── code-style-guide.md
+    ├── pull-requests.md
+    └── running-e2e-tests.md

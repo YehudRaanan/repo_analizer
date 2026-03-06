@@ -1,0 +1,70 @@
+=====================================
+REPO CLASSIFICATION SIGNALS
+=====================================
+
+--- METADATA ---
+Name: remix
+Description: Build Better Websites. Create modern, resilient user experiences with web fundamentals.
+Primary language: TypeScript
+Topics: N/A
+
+--- ROOT FILES (signal matches) ---
+Web App:     (none)
+Backend:     (none)
+Library:     package.json
+CLI:         (none)
+Data/ML:     (none)
+Infra:       (none)
+
+--- TOP-LEVEL DIRECTORIES (signal matches) ---
+Web App:     (none)
+Backend:     (none)
+Library:     docs
+CLI:         (none)
+Data/ML:     (none)
+Infra:       (none)
+
+--- ALL TOP-LEVEL DIRECTORIES ---
+.github, .vscode, decisions, demos, docs, packages, scripts, skills
+
+--- TYPE-SPECIFIC EXTENSION COUNTS ---
+Web App extensions (.tsx, .jsx, .vue, .svelte): 122
+Data/ML extensions (.ipynb): 0
+Infra extensions (.tf, .hcl): 0
+Backend extensions (.proto, .graphql): 0
+
+--- TOP FILE EXTENSIONS (by count) ---
+  .ts: 520
+  .md: 162
+  .json: 154
+  .tsx: 122
+  .tar: 16
+  .yaml: 15
+  .html: 13
+  .gitignore: 11
+  .png: 9
+  .js: 6
+  .tgz: 4
+  .yml: 3
+  .css: 3
+  .ico: 3
+  .example: 1
+
+--- BOOLEAN PATTERN CHECKS ---
+  pages or app dir: no
+  components dir: no
+  cmd or bin dir: no
+  src bin: no
+  run train scripts: no
+  ipynb files: no
+  model training files: no
+  tf files: no
+  k8s manifests: no
+  ansible playbooks: no
+  route controller dirs: no
+  db migrations: yes
+  openapi spec: no
+  src and tests: no
+  examples dir: no
+  dockerfile: no
+  ci cd: yes

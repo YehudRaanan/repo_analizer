@@ -1,0 +1,337 @@
+=====================================
+Repository Analysis: validator.js
+Type: Library / Package / SDK
+=====================================
+
+--- METADATA ---
+Name: validator.js
+Description: String validation
+Language: JavaScript
+Topics: hacktoberfest, input, javascript, node, sanitization, sanitize, validate, validation, validations, validator
+Stars: 23759
+License: MIT License
+
+--- README ---
+# validator.js
+[![NPM version][npm-image]][npm-url]
+[![CI][ci-image]][ci-url]
+[![Coverage][codecov-image]][codecov-url]
+[![Downloads][downloads-image]][npm-url]
+[![Backers on Open Collective](https://opencollective.com/validatorjs/backers/badge.svg)](#backers)
+[![Sponsors on Open Collective](https://opencollective.com/validatorjs/sponsors/badge.svg)](#sponsors)
+[![License](https://img.shields.io/badge/License-MIT-red.svg)](https://github.com/alguerocode/validator.js/blob/master/LICENSE)
+[![Gitter][gitter-image]][gitter-url]
+
+A library of string validators and sanitizers.
+
+## Strings only
+
+**This library validates and sanitizes strings only.**
+
+If you're not sure if your input is a string, coerce it using `input + ''`.
+Passing anything other than a string will result in an error.
+
+## Installation and Usage
+
+### Server-side usage
+
+Install the `validator` package as:
+
+```sh
+npm i validator
+yarn add validator
+pnpm i validator
+```
+
+#### No ES6
+
+```javascript
+var validator = require('validator');
+
+validator.isEmail('foo@bar.com'); //=> true
+```
+
+#### ES6
+
+```javascript
+import validator from 'validator';
+```
+
+Or, import only a subset of the library:
+
+```javascript
+import isEmail from 'validator/lib/isEmail';
+```
+
+#### Tree-shakeable ES imports
+
+```javascript
+import isEmail from 'validator/es/lib/isEmail';
+```
+
+### Client-side usage
+
+The library can be loaded either as a standalone script, or through an [AMD][amd]-compatible loader
+
+```html
+<script type="text/javascript" src="validator.min.js"></script>
+<script type="text/javascript">
+  validator.isEmail('foo@bar.com'); //=> true
+</script>
+```
+
+The library can also be installed through [bower][bower]
+
+```bash
+$ bower install validator-js
+```
+
+CDN
+
+```html
+<script src="https://unpkg.com/validator@latest/validator.min.js"></script>
+```
+
+## Validators
+
+Here is a list of the validators currently available.
+
+Validator                               | Description
+--------------------------------------- | --------------------------------------
+**contains(str, seed [, options])**    | check if the string contains the seed.<br/><br/>`options` is an object that defaults to `{ ignoreCase: false, minOccurrences: 1 }`.<br />Options: <br/> `ignoreCase`: Ignore case when doing comparison, default false.<br/>`minOccurrences`: Minimum number of occurrences for the seed in the string. Defaults to 1.
+**equals(str, comparison)**             | check if the string matches the comparison.
+**isAbaRouting(str)**               | check if the string is an ABA routing number for US bank account / cheque.
+**isAfter(str [, options])**            | check if the string is a date that is after the specified date.<br/><br/>`options` is an object that defaults to `{ comparisonDate: Date().toString() }`.<br/>**Options:**<br/>`comparisonDate`: Date to compare to. Defaults to `Date().toString()` (now).
+**isAlpha(str [, locale, options])**    | check if the string contains only letters (a-zA-Z).<br/><br/>`locale` is one of `['ar', 'ar-AE', 'ar-BH', 'ar-DZ', 'ar-EG', 'ar-IQ', 'ar-JO', 'ar-KW', 'ar-LB', 'ar-LY', 'ar-MA', 'ar-QA', 'ar-QM', 'ar-SA', 'ar-SD', 'ar-SY', 'ar-TN', 'ar-YE', 'bg-BG', 'bn', 'bn-IN', 'cs-CZ', 'da-DK', 'de-DE', 'el-GR', 'en-AU', 'en-GB', 'en-HK', 'en-IN', 'en-NZ', 'en-US', 'en-ZA', 'en-ZM', 'eo', 'es-ES', 'fa-IR', 'fi-FI', 'fr-CA', 'fr-FR', 'gu-IN', 'he', 'hi-IN', 'hu-HU', 'it-IT', 'ja-JP', 'kk-KZ', 'kn-IN', 'ko-KR', 'ku-IQ', 'ml-IN', 'nb-NO', 'nl-NL', 'nn-NO', 'or-IN', 'pa-IN', 'pl-PL', 'pt-BR', 'pt-PT', 'ru-RU', 'si-LK', 'sk-SK', 'sl-SI', 'sr-RS', 'sr-RS@latin', 'sv-SE', 'ta-IN', 'te-IN', 'th-TH', 'tr-TR', 'uk-UA']` and defaults to `en-US`. Locale list is `validator.isAlphaLocales`. `options` is an optional object that can be supplied with the following key(s): `ignore` which can either be a String or RegExp of characters to be ignored e.g. " -" will ignore spaces and -'s.
+**isAlphanumeric(str [, locale, options])**      | check if the string contains only letters and numbers (a-zA-Z0-9).<br/><br/>`locale` is one of `['ar', 'ar-AE', 'ar-BH', 'ar-DZ', 'ar-EG', 'ar-IQ', 'ar-JO', 'ar-KW', 'ar-LB', 'ar-LY', 'ar-MA', 'ar-QA', 'ar-QM', 'ar-SA', 'ar-SD', 'ar-SY', 'ar-TN', 'ar-YE', 'bg-BG', 'bn', 'bn-IN', 'cs-CZ', 'da-DK', 'de-DE', 'el-GR', 'en-AU', 'en-GB', 'en-HK', 'en-IN', 'en-NZ', 'en-US', 'en-ZA', 'en-ZM', 'eo', 'es-ES', 'fa-IR', 'fi-FI', 'fr-CA', 'fr-FR', 'gu-IN', 'he', 'hi-IN', 'hu-HU', 'it-IT', 'ja-JP', 'kk-KZ', 'kn-IN', 'ko-KR', 'ku-IQ', 'ml-IN', 'nb-NO', 'nl-NL', 'nn-NO', 'or-IN', 'pa-IN', 'pl-PL', 'pt-BR', 'pt-PT', 'ru-RU', 'si-LK', 'sk-SK', 'sl-SI', 'sr-RS', 'sr-RS@latin', 'sv-SE', 'ta-IN', 'te-IN', 'th-TH', 'tr-TR', 'uk-UA']`) and defaults to `en-US`. Locale list is `validator.isAlphanumericLocales`. `options` is an optional object that can be supplied with the following key(s): `ignore` which can either be a String or RegExp of characters to be ignored e.g. " -" will ignore spaces and -'s.
+**isAscii(str)**                        | check if the string contains ASCII chars only.
+... [TRUNCATED]
+
+--- PACKAGE MANIFEST(S) ---
+
+[package.json]
+{
+  "name": "validator",
+  "description": "String validation and sanitization",
+  "version": "13.15.26",
+  "sideEffects": false,
+  "homepage": "https://github.com/validatorjs/validator.js",
+  "files": [
+    "index.js",
+    "es",
+    "lib",
+    "README.md",
+    "LICENSE",
+    "validator.js",
+    "validator.min.js"
+  ],
+  "keywords": [
+    "validator",
+    "validation",
+    "validate",
+    "sanitization",
+    "sanitize",
+    "sanitisation",
+    "sanitise",
+    "assert"
+  ],
+  "author": "Chris O'Hara <cohara87@gmail.com>",
+  "contributors": [
+    "Anthony Nandaa (https://github.com/profnandaa)"
+  ],
+  "main": "index.js",
+  "bugs": {
+    "url": "https://github.com/validatorjs/validator.js/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/validatorjs/validator.js.git"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.0.0",
+    "@babel/core": "^7.0.0",
+    "@babel/preset-env": "^7.0.0",
+    "@babel/register": "^7.0.0",
+    "babel-eslint": "^10.0.1",
+    "babel-plugin-add-module-exports": "^1.0.0",
+    "eslint": "^4.19.1",
+    "eslint-config-airbnb-base": "^12.1.0",
+    "eslint-plugin-import": "^2.11.0",
+    "mocha": "^6.2.3",
+    "npm-run-all": "^4.1.5",
+    "nyc": "^14.1.0",
+    "rimraf": "^3.0.0",
+    "rollup": "^0.47.0",
+    "rollup-plugin-babel": "^4.0.1",
+    "timezone-mock": "^1.3.6",
+    "uglify-js": "^3.0.19"
+  },
+  "scripts": {
+    "lint": "eslint src test",
+    "lint:fix": "eslint --fix src test",
+    "clean:node": "rimraf index.js lib",
+    "clean:es": "rimraf es",
+    "clean:browser": "rimraf validator*.js",
+    "clean": "run-p clean:*",
+    "minify": "uglifyjs validator.js -o validator.min.js  --compress --mangle --comments /Copyright/",
+    "build:browser": "node --require @babel/register build-browser && npm run minify",
+    "build:es": "babel src -d es --env-name=es",
+    "build:node": "babel src -d .",
+    "build": "run-p build:*",
+    "pretest": "npm run build && npm run lint",
+    "test": "nyc --reporter=cobertura --reporter=text-summary mocha --require @babel/register --reporter dot --recursive"
+  },
+  "engines": {
+    "node": ">= 0.10"
+  },
+  "license": "MIT"
+}
+
+
+--- DIRECTORY STRUCTURE (depth 2) ---
+├── .babelrc
+├── .eslintrc.json
+├── .github/
+│   ├── FUNDING.yml
+│   ├── ISSUE_TEMPLATE/
+│   │   └── bug_report.md
+│   ├── pull_request_template.md
+│   └── workflows/
+│       ├── ci.yml
+│       ├── codeql-analysis.yml
+│       └── npm-publish.yml
+├── .gitignore
+├── .nycrc
+├── CHANGELOG.md
+├── CONTRIBUTING.md
+├── LICENSE
+├── README.md
+├── SECURITY.md
+├── bower.json
+├── build-browser.js
+├── jsconfig.json
+├── package.json
+├── src/
+│   ├── index.js
+│   └── lib/
+│       ├── alpha.js
+│       ├── blacklist.js
+│       ├── contains.js
+│       ├── equals.js
+│       ├── escape.js
+│       ├── isAbaRouting.js
+│       ├── isAfter.js
+│       ├── isAlpha.js
+│       ├── isAlphanumeric.js
+│       ├── isAscii.js
+│       ├── isBIC.js
+│       ├── isBase32.js
+│       ├── isBase58.js
+│       ├── isBase64.js
+│       ├── isBefore.js
+│       ├── isBoolean.js
+│       ├── isBtcAddress.js
+│       ├── isByteLength.js
+│       ├── isCreditCard.js
+│       ├── isCurrency.js
+│       ├── isDataURI.js
+│       ├── isDate.js
+│       ├── isDecimal.js
+│       ├── isDivisibleBy.js
+│       ├── isEAN.js
+│       ├── isEmail.js
+│       ├── isEmpty.js
+│       ├── isEthereumAddress.js
+│       ├── isFQDN.js
+│       ├── isFloat.js
+│       ├── isFullWidth.js
+│       ├── isHSL.js
+│       ├── isHalfWidth.js
+│       ├── isHash.js
+│       ├── isHexColor.js
+│       ├── isHexadecimal.js
+│       ├── isIBAN.js
+│       ├── isIMEI.js
+│       ├── isIP.js
+│       ├── isIPRange.js
+│       ├── isISBN.js
+│       ├── isISIN.js
+│       ├── isISO15924.js
+│       ├── isISO31661Alpha2.js
+│       ├── isISO31661Alpha3.js
+│       ├── isISO31661Numeric.js
+│       ├── isISO4217.js
+│       ├── isISO6346.js
+│       ├── isISO6391.js
+│       ├── isISO8601.js
+│       ├── isISRC.js
+│       ├── isISSN.js
+│       ├── isIdentityCard.js
+│       ├── isIn.js
+│       ├── isInt.js
+│       ├── isJSON.js
+│       ├── isJWT.js
+│       ├── isLatLong.js
+│       ├── isLength.js
+│       ├── isLicensePlate.js
+│       ├── isLocale.js
+│       ├── isLowercase.js
+│       ├── isLuhnNumber.js
+│       ├── isMACAddress.js
+│       ├── isMD5.js
+│       ├── isMagnetURI.js
+│       ├── isMailtoURI.js
+│       ├── isMimeType.js
+│       ├── isMobilePhone.js
+│       ├── isMongoId.js
+│       ├── isMultibyte.js
+│       ├── isNumeric.js
+│       ├── isOctal.js
+│       ├── isPassportNumber.js
+│       ├── isPort.js
+│       ├── isPostalCode.js
+│       ├── isRFC3339.js
+│       ├── isRgbColor.js
+│       ├── isSemVer.js
+│       ├── isSlug.js
+│       ├── isStrongPassword.js
+│       ├── isSurrogatePair.js
+│       ├── isTaxID.js
+│       ├── isTime.js
+│       ├── isULID.js
+│       ├── isURL.js
+│       ├── isUUID.js
+│       ├── isUppercase.js
+│       ├── isVAT.js
+│       ├── isVariableWidth.js
+│       ├── isWhitelisted.js
+│       ├── ltrim.js
+│       ├── matches.js
+│       ├── normalizeEmail.js
+│       ├── rtrim.js
+│       ├── stripLow.js
+│       ├── toBoolean.js
+│       ├── toDate.js
+│       ├── toFloat.js
+│       ├── toInt.js
+│       ├── trim.js
+│       ├── unescape.js
+│       ├── util/
+│       └── whitelist.js
+└── test/
+    ├── clientSide.test.js
+    ├── exports.test.js
+    ├── sanitizers.test.js
+    ├── testFunctions.js
+    ├── util.test.js
+    ├── validators.test.js
+    └── validators/
+        ├── isAfter.test.js
+        ├── isBase64.test.js
+        ├── isBefore.test.js
+        ├── isFQDN.test.js
+        ├── isIP.test.js
+        ├── isISBN.test.js
+        ├── isISO31661Alpha2.test.js
+        ├── isISO31661Alpha3.test.js
+        └── isLength.test.js

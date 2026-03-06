@@ -1,0 +1,389 @@
+=====================================
+REPO CLASSIFICATION SIGNALS
+=====================================
+
+--- METADATA ---
+Name: bat
+Description: A cat(1) clone with wings.
+Primary language: Rust
+Topics: cli, command-line, git, hacktoberfest, rust, syntax-highlighting, terminal, tool
+
+--- ROOT FILES (signal matches) ---
+Web App:     (none)
+Backend:     (none)
+Library:     Cargo.toml
+CLI:         (none)
+Data/ML:     (none)
+Infra:       (none)
+
+--- TOP-LEVEL DIRECTORIES (signal matches) ---
+Web App:     (none)
+Backend:     (none)
+Library:     (none)
+CLI:         (none)
+Data/ML:     (none)
+Infra:       (none)
+
+--- ALL TOP-LEVEL DIRECTORIES ---
+.cargo, .github, assets, build, diagnostics, doc, examples, src, tests
+
+--- TYPE-SPECIFIC EXTENSION COUNTS ---
+Web App extensions (.tsx, .jsx, .vue, .svelte): 0
+Data/ML extensions (.ipynb): 0
+Infra extensions (.tf, .hcl): 0
+Backend extensions (.proto, .graphql): 0
+
+--- TOP FILE EXTENSIONS (by count) ---
+  .txt: 114
+  .rs: 53
+  .sublime-syntax: 52
+  .toml: 44
+  .md: 19
+  .patch: 17
+  .yml: 6
+  .gitkeep: 6
+  .in: 5
+  .tmtheme: 4
+  .conf: 4
+  .gitattributes: 3
+  .bin: 3
+  .sh: 3
+  .gitignore: 2
+
+--- BOOLEAN PATTERN CHECKS ---
+  pages or app dir: no
+  components dir: no
+  cmd or bin dir: no
+  src bin: yes
+  run train scripts: no
+  ipynb files: no
+  model training files: no
+  tf files: no
+  k8s manifests: no
+  ansible playbooks: no
+  route controller dirs: no
+  db migrations: no
+  openapi spec: no
+  src and tests: yes
+  examples dir: yes
+  dockerfile: no
+  ci cd: yes
+  completions or manpages: yes
+
+
+[get_dependencies('')]
+[Cargo.toml]
+[package]
+authors = ["David Peter <mail@david-peter.de>"]
+categories = ["command-line-utilities"]
+description = "A cat(1) clone with wings."
+homepage = "https://github.com/sharkdp/bat"
+license = "MIT OR Apache-2.0"
+name = "bat"
+repository = "https://github.com/sharkdp/bat"
+version = "0.26.1"
+exclude = ["assets/syntaxes/*", "assets/themes/*"]
+build = "build/main.rs"
+edition = '2021'
+# You are free to bump MSRV as soon as a reason for bumping emerges.
+rust-version = "1.88"
+
+[features]
+default = ["application", "git"]
+# Feature required for bat the application. Should be disabled when depending on
+# bat as a library.
+application = [
+    "bugreport",
+    "build-assets",
+    "minimal-application",
+]
+# Mainly for developers that want to iterate quickly
+# Be aware that the included features might change in the future
+minimal-application = [
+    "clap",
+    "etcetera",
+    "paging",
+    "regex-onig",
+    "wild",
+]
+git = ["git2"] # Support indicating git modifications
+vendored-libgit2 = ["git2/vendored-libgit2"]
+paging = [ "shell-words", "grep-cli", "minus"] # Support applying a pager on the output
+lessopen = ["execute"] # Support $LESSOPEN preprocessor
+build-assets = ["syntect/yaml-load", "syntect/plist-load", "regex", "walkdir"]
+
+# You need to use one of these if you depend on bat as a library:
+regex-onig = ["syntect/regex-onig"] # Use the "oniguruma" regex engine
+regex-fancy = ["syntect/regex-fancy"] # Use the rust-only "fancy-regex" engine
+
+[dependencies]
+nu-ansi-term = "0.50.3"
+ansi_colours = "^1.2"
+bincode = "1.0"
+console = "0.16.2"
+flate2 = "1.1"
+once_cell = "1.20"
+thiserror = "2.0"
+wild = { version = "2.2", optional = true }
+content_inspector = "0.2.4"
+shell-words = { version = "1.1.1", optional = true }
+minus = { version = "5.6", optional = true, features = [
+  "dynamic_output",
+  "search",
+] }
+unicode-width = "0.2.1"
+globset = "0.4"
+serde = "1.0"
+serde_derive = "1.0"
+serde_yaml = "0.9.28"
+semver = "1.0"
+path_abs = { version = "0.5", default-features = false }
+clircle = { version = "0.6.1", default-features = false }
+bugreport = { version = "0.5.0", optional = true }
+etcetera = { version = "0.11.0", optional = true }
+grep-cli = { version = "0.1.12", optional = true }
+regex = { version = "1.12.2", optional = true }
+walkdir = { version = "2.5", optional = true }
+bytesize = { version = "2.3.1" }
+encoding_rs = "0.8.35"
+execute = { version = "0.2.15", optional = true }
+terminal-colorsaurus = "1.0"
+unicode-segmentation = "1.12.0"
+itertools = "0.14.0"
+
+[dependencies.git2]
+version = "0.20"
+optional = true
+default-features = false
+
+[dependencies.syntect]
+version = "5.3.0"
+default-features = false
+features = ["parsing"]
+
+[dependencies.clap]
+version = "4.5.60"
+optional = true
+features = ["wrap_help", "cargo"]
+
+[target.'cfg(target_os = "macos")'.dependencies]
+plist = "1.7.0"
+
+[dev-dependencies]
+assert_cmd = "2.0.16"
+expect-test = "1.5.0"
+serial_test = { version = "2.0.0", default-features = false }
+predicates = "3.1.3"
+wait-timeout = "0.2.1"
+tempfile = "3.23.0"
+serde = { version = "1.0", features = ["derive"] }
+
+[target.'cfg(unix)'.dev-dependencies]
+nix = { version = "0.31", default-features = false, features = ["term"] }
+
+[build-dependencies]
+anyhow = "1.0.97"
+indexmap = { version = "2.13.0", features = ["serde"] }
+itertools = "0.14.0"
+once_cell = "1.20"
+prettyplease = "0.2.37"
+proc-macro2 = "1.0.106"
+quote = "1.0.40"
+regex = "1.12.2"
+serde = "1.0"
+serde_derive = "1.0"
+serde_with = { version = "3.17.0", default-features = false, features = ["macros"] }
+syn = { version = "2.0.104", features = ["full"] }
+toml = { version = "0.9.8", features = ["preserve_order"] }
+walkdir = "2.5"
+
+[build-dependencies.clap]
+version = "4.5.60"
+optional = true
+features = ["wrap_help", "cargo"]
+
+[profile.release]
+lto = true
+strip = true
+codegen-units = 1
+
+
+---
+
+[get_directory('src')]
+Contents of /src:
+  [dir] assets
+  [dir] bin
+  [dir] syntax_mapping
+  [file] assets.rs
+  [file] config.rs
+  [file] controller.rs
+  [file] decorations.rs
+  [file] diff.rs
+  [file] error.rs
+  [file] input.rs
+  [file] less.rs
+  [file] lessopen.rs
+  [file] lib.rs
+  [file] line_range.rs
+  [file] macros.rs
+  [file] nonprintable_notation.rs
+  [file] output.rs
+  [file] pager.rs
+  [file] paging.rs
+  [file] preprocessor.rs
+  [file] pretty_printer.rs
+  [file] printer.rs
+  [file] style.rs
+  [file] syntax_mapping.rs
+  [file] terminal.rs
+  [file] theme.rs
+  [file] vscreen.rs
+  [file] wrapping.rs
+
+---
+
+[get_file('src/main.rs')]
+(file not found: 'src/main.rs')
+
+---
+
+[get_directory('src/bin')]
+Contents of /src/bin:
+  [dir] bat
+
+---
+
+[get_file('src/bin/bat/main.rs')]
+#![deny(unsafe_code)]
+
+mod app;
+mod assets;
+mod clap_app;
+#[cfg(feature = "application")]
+mod completions;
+mod config;
+mod directories;
+mod input;
+
+use std::collections::{HashMap, HashSet};
+use std::fmt::Write as _;
+use std::io;
+use std::io::{BufReader, Write};
+use std::path::Path;
+use std::process;
+
+use bat::output::{OutputHandle, OutputType};
+use bat::theme::DetectColorScheme;
+use nu_ansi_term::Color::Green;
+use nu_ansi_term::Style;
+
+use crate::{
+    app::App,
+    config::{config_file, generate_config_file},
+};
+
+#[cfg(feature = "bugreport")]
+use crate::config::system_config_file;
+
+use assets::{assets_from_cache_or_binary, clear_assets};
+use directories::PROJECT_DIRS;
+use globset::GlobMatcher;
+
+use bat::{
+    config::Config,
+    controller::Controller,
+    error::*,
+    input::Input,
+    style::{StyleComponent, StyleComponents},
+    theme::{color_scheme, default_theme, ColorScheme},
+    MappingTarget, PagingMode,
+};
+
+const THEME_PREVIEW_DATA: &[u8] = include_bytes!("../../../assets/theme_preview.rs");
+
+#[cfg(feature = "build-assets")]
+fn build_assets(matches: &clap::ArgMatches, config_dir: &Path, cache_dir: &Path) -> Result<()> {
+    let source_dir = matches
+        .get_one::<String>("source")
+        .map(Path::new)
+        .unwrap_or_else(|| config_dir);
+
+    bat::assets::build(
+        source_dir,
+        !matches.get_flag("blank"),
+        matches.get_flag("acknowledgements"),
+        cache_dir,
+        clap::crate_version!(),
+    )
+}
+
+fn run_cache_subcommand(
+    matches: &clap::ArgMatches,
+    #[cfg(feature = "build-assets")] config_dir: &Path,
+    default_cache_dir: &Path,
+) -> Result<()> {
+    let cache_dir = matches
+        .get_one::<String>("target")
+        .map(Path::new)
+        .unwrap_or_else(|| default_cache_dir);
+
+    if matches.get_flag("build") {
+        #[cfg(feature = "build-assets")]
+        build_assets(matches, config_dir, cache_dir)?;
+        #[cfg(not(feature = "build-assets"))]
+        println!("bat has been built without the 'build-assets' feature. The 'cache --build' option is not available.");
+    } else if matches.get_flag("clear") {
+        clear_assets(cache_dir);
+    }
+
+    Ok(())
+}
+
+fn get_syntax_mapping_to_paths<'r, 't, I>(mappings: I) -> HashMap<&'t str, Vec<String>>
+where
+    I: IntoIterator<Item = (&'r GlobMatcher, &'r MappingTarget<'t>)>,
+    't: 'r, // target text outlives rule
+{
+    let mut map = HashMap::new();
+    for mapping in mappings {
+        if let (matcher, MappingTarget::MapTo(s)) = mapping {
+            let globs = map.entry(*s).or_insert_with(Vec::new);
+            globs.push(matcher.glob().glob().into());
+        }
+    }
+    map
+}
+
+pub fn get_languages(config: &Config, cache_dir: &Path) -> Result<String> {
+    let mut result: String = String::new();
+
+    let assets = assets_from_cache_or_binary(config.use_custom_assets, cache_dir)?;
+    let mut languages = assets
+        .get_syntaxes()?
+        .iter()
+        .filter(|syntax| !syntax.hidden && !syntax.file_extensions.is_empty())
+        .cloned()
+        .collect::<Vec<_>>();
+
+    // Handling of file-extension conflicts, see issue #1076
+    for lang in &mut languages {
+        let lang_name = lang.name.clone();
+        lang.file_extensions.retain(|extension| {
+            // The 'extension' variable is not certainly a real extension.
+            //
+            // Skip if 'extension' starts with '.', likely a hidden file like '.vimrc'
+            // Also skip if the 'extension' contains another real extension, likely
+            // that is a full match file name like 'CMakeLists.txt' and 'Cargo.lock'
+            if extension.starts_with('.') || Path::new(extension).extension().is_some() {
+                return true;
+            }
+
+            let test_file = Path::new("test").with_extension(extension);
+            let syntax_in_set = assets.get_syntax_for_path(test_file, &config.syntax_mapping);
+            matches!(syntax_in_set, Ok(syntax_in_set) if syntax_in_set.syntax.name == lang_name)
+        });
+    }
+
+    lang
+... [TRUNCATED — showing first 4000 chars]

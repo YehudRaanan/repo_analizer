@@ -1,0 +1,592 @@
+=====================================
+Repository Analysis: crossplane
+Type: Infrastructure / DevOps / IaC
+=====================================
+
+--- METADATA ---
+Name: crossplane
+Description: The Cloud Native Control Plane
+Language: Go
+Topics: cloud-computing, cloud-management, cloud-native, cncf, containers, control-plane, infrastructure, infrastructure-as-code, kubernetes, multicloud, serverless
+Stars: 11470
+License: Apache License 2.0
+
+--- README ---
+[![OpenSSF Best Practices](https://www.bestpractices.dev/projects/3260/badge)](https://www.bestpractices.dev/projects/3260) ![CI](https://github.com/crossplane/crossplane/workflows/CI/badge.svg) [![Go Report Card](https://goreportcard.com/badge/github.com/crossplane/crossplane)](https://goreportcard.com/report/github.com/crossplane/crossplane)
+
+![Crossplane](banner.png)
+
+Crossplane is a framework for building cloud native control planes without
+needing to write code. It has a highly extensible backend that enables you to
+build a control plane that can orchestrate applications and infrastructure no
+matter where they run, and a highly configurable frontend that puts you in
+control of the schema of the declarative API it offers.
+
+Crossplane is a [Cloud Native Computing Foundation][cncf] project.
+
+## Get Started
+
+Crossplane's [Get Started Docs] covers install and resource quickstarts.
+
+## Releases
+
+[![GitHub release](https://img.shields.io/github/release/crossplane/crossplane/all.svg)](https://github.com/crossplane/crossplane/releases) [![Artifact Hub](https://img.shields.io/endpoint?url=https://artifacthub.io/badge/repository/crossplane)](https://artifacthub.io/packages/helm/crossplane/crossplane)
+
+Currently maintained releases, as well as the next few upcoming releases are
+listed below. For more information take a look at the Crossplane [release cycle
+documentation].
+
+| Release | Release Date  |   EOL    |
+|:-------:|:-------------:|:--------:|
+|  v1.20  | May 21, 2025  | TBD      |
+|  v2.0   |  Aug 8, 2025  | May 2026 |
+|  v2.1   |  Nov 5, 2025  | Aug 2026 |
+|  v2.2   | Early Feb '26 | Nov 2026 |
+|  v2.3   | Early May '26 | Feb 2027 |
+|  v2.4   | Early Aug '26 | May 2027 |
+
+You can subscribe to the [community calendar] to track all release dates, and
+find the most recent releases on the [releases] page.
+
+The release process is fully documented in the [`crossplane/release`] repo.
+
+### Extended v1.20 Support
+
+Crossplane v1.20 is receiving extended support as the final minor release of the
+v1 major version. Its EOL date is yet to be determined. Until that time, it will
+continue to receive critical fixes only.
+
+## Roadmap
+
+The public roadmap for Crossplane is published as a GitHub project board. Issues
+added to the roadmap have been triaged and identified as valuable to the
+community, and therefore a priority for the project that we expect to invest in.
+
+The maintainer team regularly triages requests from the community to identify
+features and issues of suitable scope and impact to include in this roadmap. The
+community is encouraged to show their support for potential roadmap issues by
+adding a :+1: reaction, leaving descriptive comments, and attending the
+[regular community meetings] to discuss their requirements and use cases.
+
+The maintainer team updates the roadmap on an as needed basis, in response to
+demand, priority, and available resources. The public roadmap can be updated at
+any time.
+
+Milestones assigned to any issues in the roadmap are intended to give a sense of
+overall priority and the expected order of delivery. They should be considered
+approximate estimations and are **not** a strict commitment to a specific
+delivery timeline.
+
+[Crossplane Roadmap]
+
+## Get Involved
+
+[![Slack](https://img.shields.io/badge/slack-crossplane-red?logo=slack)](https://slack.crossplane.io) [![Bluesky Follow](https://img.shields.io/badge/bluesky-Follow-blue?logo=bluesky)](https://bsky.app/profile/crossplane.io) [![Twitter Follow](https://img.shields.io/twitter/follow/crossplane_io?logo=X&label=Follow&style=flat)](https://twitter.com/intent/follow?screen_name=crossplane_io&user_id=788180534543339520) [![YouTube Channel Subscribers](https://img.shields.io/youtube/channel/subscribers/UC19FgzMBMqBro361HbE46Fw)](https://www.youtube.com/@Crossplane)
+
+Crossplane is a community driven project; we welcome your contribution. To file
+a bug, suggest an improvement, or request a new feature please open an [issue
+against Crossplane] or the relevant provider. Refer to our [contributing guide]
+for more information on how you can help.
+
+* Discuss Crossplane on [Slack].
+* Follow us on [Bluesky], [Twitter], or [LinkedIn].
+* Contact us via [Email].
+* Join our regular community meetings.
+* Provide feedback on our [roadmap and releases board].
+
+The Crossplane community meeting takes place every 4 weeks on [Thursday at
+10:00am Pacific Time][community meeting time]. You can find the up to date
+meeting schedule on the [Community Calendar][community calendar].
+
+Anyone who wants to discuss the direction of the project, design and
+implementation reviews, or raise general questions with the broader community is
+encouraged to join.
+
+* Meeting link: <https://zoom-lfx.platform.linuxfoundation.org/meeting/98901510164?password=c60c41ae-1e1e-42d0-9a74-16de2fbb66f9>
+* [Current agenda and past meeting notes]
+* [Past meeting recordings]
+* [Community Calendar][community calendar]
+
+### Special Interest Groups (SIG)
+
+The Crossplane project supports SIGs as di
+... [TRUNCATED]
+
+--- IAC CONFIG FILES ---
+(No IaC config files found)
+
+--- TERRAFORM FILES ---
+(None found)
+
+--- KUBERNETES MANIFESTS ---
+  cluster/charts/crossplane/.gitignore
+  cluster/charts/crossplane/.helmignore
+  cluster/charts/crossplane/Chart.yaml
+  cluster/charts/crossplane/LICENSE
+  cluster/charts/crossplane/README.md
+  cluster/charts/crossplane/README.md.gotmpl
+  cluster/charts/crossplane/templates/NOTES.txt
+  cluster/charts/crossplane/templates/_helpers.tpl
+  cluster/charts/crossplane/templates/clusterrole.yaml
+  cluster/charts/crossplane/templates/clusterrolebinding.yaml
+
+--- ANSIBLE FILES ---
+  cluster/crds/apiextensions.crossplane.io_compositeresourcedefinitions.yaml
+
+--- CI/CD PIPELINES ---
+  .github/workflows/backport.yml
+  .github/workflows/ci.yml
+  .github/workflows/commands.yml
+  .github/workflows/pr.yml
+  .github/workflows/promote.yml
+  .github/workflows/renovate.yml
+  .github/workflows/scan.yaml
+  .github/workflows/stale.yml
+  .github/workflows/tag.yml
+
+--- DIRECTORY STRUCTURE (depth 2) ---
+├── .coderabbit.yaml
+├── .github/
+│   ├── ISSUE_TEMPLATE/
+│   │   ├── bug_report.md
+│   │   ├── config.yml
+│   │   └── feature_request.md
+│   ├── PULL_REQUEST_TEMPLATE.md
+│   ├── renovate-base.json5
+│   ├── renovate-earthly.json5
+│   ├── renovate-entrypoint.sh
+│   ├── renovate-nix.json5
+│   ├── renovate.json5
+│   └── workflows/
+│       ├── backport.yml
+│       ├── ci.yml
+│       ├── commands.yml
+│       ├── pr.yml
+│       ├── promote.yml
+│       ├── renovate.yml
+│       ├── scan.yaml
+│       ├── stale.yml
+│       └── tag.yml
+├── .gitignore
+├── .gitmodules
+├── .golangci.yml
+├── ADOPTERS.md
+├── CHARTER.md
+├── CODEOWNERS
+├── CODE_OF_CONDUCT.md
+├── CONTRIBUTING.md
+├── DCO
+├── GOVERNANCE.md
+├── LICENSE
+├── OWNERS.md
+├── PROJECT
+├── README.md
+├── RELEASE.md
+├── ROADMAP.md
+├── SECURITY.md
+├── apis/
+│   ├── apiextensions/
+│   │   ├── apiextensions.go
+│   │   ├── v1/
+│   │   ├── v1alpha1/
+│   │   ├── v1beta1/
+│   │   └── v2/
+│   ├── apis.go
+│   ├── core/
+│   │   ├── condition.go
+│   │   ├── condition_test.go
+│   │   ├── doc.go
+│   │   ├── observation.go
+│   │   ├── policies.go
+│   │   ├── resource.go
+│   │   ├── resource_cluster.go
+│   │   ├── resource_namespace.go
+│   │   └── zz_generated.deepcopy.go
+│   ├── generate.go
+│   ├── go.mod
+│   ├── go.sum
+│   ├── gomod2nix.toml
+│   ├── hack/
+│   │   ├── boilerplate.go.txt
+│   │   └── duplicate_api_type.sh
+│   ├── ops/
+│   │   ├── ops.go
+│   │   └── v1alpha1/
+│   ├── pkg/
+│   │   ├── meta/
+│   │   ├── pkg.go
+│   │   ├── v1/
+│   │   └── v1beta1/
+│   └── protection/
+│       ├── protection.go
+│       └── v1beta1/
+├── banner.png
+├── buf.gen.yaml
+├── buf.yaml
+├── cluster/
+│   ├── charts/
+│   │   └── crossplane/
+│   ├── composition/
+│   │   ├── bucket.yaml
+│   │   ├── kubernetescluster.yaml
+│   │   ├── kustomization.yaml
+│   │   ├── machineinstance.yaml
+│   │   ├── mysqlinstance.yaml
+│   │   ├── nosqlinstance.yaml
+│   │   ├── postgresqlinstance.yaml
+│   │   └── rediscluster.yaml
+│   ├── crd-patches/
+│   │   └── pkg.crossplane.io_deploymentruntimeconfigs.yaml
+│   ├── crds/
+│   │   ├── apiextensions.crossplane.io_compositeresourcedefinitions.yaml
+│   │   ├── apiextensions.crossplane.io_compositionrevisions.yaml
+│   │   ├── apiextensions.crossplane.io_compositions.yaml
+│   │   ├── apiextensions.crossplane.io_environmentconfigs.yaml
+│   │   ├── apiextensions.crossplane.io_managedresourceactivationpolicies.yaml
+│   │   ├── apiextensions.crossplane.io_managedresourcedefinitions.yaml
+│   │   ├── apiextensions.crossplane.io_usages.yaml
+│   │   ├── ops.crossplane.io_cronoperations.yaml
+│   │   ├── ops.crossplane.io_operations.yaml
+│   │   ├── ops.crossplane.io_watchoperations.yaml
+│   │   ├── pkg.crossplane.io_configurationrevisions.yaml
+│   │   ├── pkg.crossplane.io_configurations.yaml
+│   │   ├── pkg.crossplane.io_deploymentruntimeconfigs.yaml
+│   │   ├── pkg.crossplane.io_functionrevisions.yaml
+│   │   ├── pkg.crossplane.io_functions.yaml
+│   │   ├── pkg.crossplane.io_imageconfigs.yaml
+│   │   ├── pkg.crossplane.io_locks.yaml
+│   │   ├── pkg.crossplane.io_providerrevisions.yaml
+│   │   ├── pkg.crossplane.io_providers.yaml
+│   │   ├── protection.crossplane.io_clusterusages.yaml
+│   │   └── protection.crossplane.io_usages.yaml
+│   ├── meta/
+│   │   ├── meta.pkg.crossplane.io_configurations.yaml
+│   │   ├── meta.pkg.crossplane.io_functions.yaml
+│   │   └── meta.pkg.crossplane.io_providers.yaml
+│   └── webhookconfigurations/
+│       ├── README.md
+│       └── usage.yaml
+├── cmd/
+│   ├── crank/
+│   │   ├── alpha/
+│   │   ├── beta/
+│   │   ├── common/
+│   │   ├── completion/
+│   │   ├── internal/
+│   │   ├── main.go
+│   │   ├── render/
+│   │   ├── version/
+│   │   └── xpkg/
+│   └── crossplane/
+│       ├── core/
+│       ├── main.go
+│       └── rbac/
+├── contributing/
+│   ├── README.md
+│   ├── guide-adding-fuzz-test-cases.md
+│   ├── guide-api-promotion.md
+│   ├── guide-observability.md
+│   ├── guide-provider-development.md
+│   └── specifications/
+│       ├── functions.md
+│       └── xpkg.md
+├── design/
+│   ├── README.md
+│   ├── assets/
+│   │   ├── design-doc-composition-functions/
+│   │   ├── design-doc-provider-strategy/
+│   │   └── one-pager-composition-environment-beta/
+│   ├── defunct/
+│   │   ├── design-doc-agent.md
+│   │   ├── design-doc-complex-workloads.md
+│   │   ├── design-doc-composition-functions.md
+│   │   ├── design-doc-integration-tests.md
+│   │   ├── design-doc-packages.md
+│   │   ├── design-doc-reconciler-patterns.md
+│   │   ├── design-doc-template-stacks-experience.md
+│   │   ├── design-doc-workload-scheduler.md
+│   │   ├── one-pager-consuming-k8s-clusters.md
+│   │   ├── one-pager-custom-secret-definitions.md
+│   │   ├── one-pager-default-resource-class.md
+│   │   ├── one-pager-developer-experience-mindset.md
+│   │   ├── one-pager-host-aware-stack-manager.md
+│   │   ├── one-pager-oam-workflow.md
+│   │   ├── one-pager-package-annotations.md
+│   │   ├── one-pager-packages-security-isolation.md
+│   │   ├── one-pager-release-process.md
+│   │   ├── one-pager-resource-packs.md
+│   │   ├── one-pager-resource-reclaim-policy.md
+│   │   ├── one-pager-resource-status.md
+│   │   ├── one-pager-simple-class-selection.md
+│   │   ├── one-pager-stack-cli.md
+│   │   ├── one-pager-stack-relationship-labels.md
+│   │   ├── one-pager-strongly-typed-class.md
+│   │   └── one-pager-template-stacks.md
+│   ├── design-doc-composition-functions-extra-resources.md
+│   ├── design-doc-composition-functions.md
+│   ├── design-doc-composition-validating-webhook.md
+│   ├── design-doc-composition.md
+│   ├── design-doc-external-secret-stores.md
+│   ├── design-doc-foreground-deletion.md
+│   ├── design-doc-observe-only-resources.md
+│   ├── design-doc-operations.md
+│   ├── design-doc-packages-v2.md
+│   ├── design-doc-provider-strategy.md
+│   ├── design-doc-rbac-manager.md
+│   ├── design-doc-smaller-providers.md
+│   ├── design-doc-terraform-provider-runtime.md
+│   ├── design-doc-terrajet.md
+│   ├── design-doc-webhooks.md
+│   ├── images/
+│   │   ├── Reconciler-Patterns-Create.png
+│   │   ├── Reconciler-Patterns-Creds.png
+│   │   ├── Reconciler-Patterns-Delete.png
+│   │   ├── Reconciler-Patterns-Recncile.png
+│   │   ├── Reconciler-Patterns-Sync.png
+│   │   ├── Reconciler-Patterns-Update.png
+│   │   ├── agent-diagram.png
+│   │   ├── change-logs-architecture.png
+│   │   ├── cluster-package-installed.png
+│   │   ├── composition-how-it-works.svg
+│   │   ├── composition.png
+│   │   ├── host-aware-stack-manager.png
+│   │   ├── k8s-native-providers.png
+│   │   ├── kube-apiserver-cpu-usage.png
+│   │   ├── kube-apiserver-goroutines.png
+│   │   ├── kube-apiserver-heap-profile-5000-props.pdf
+│   │   ├── kube-apiserver-heap-profile.pdf
+│   │   ├── kube-apiserver-mem-metrics.png
+│   │   ├── namespace-package-installed.png
+│   │   ├── observe-only-query-resource.png
+│   │   ├── package-manager.png
+│   │   ├── packagesv2.jpg
+│   │   ├── scheduler-funnel.png
+│   │   ├── secret-store-plugin.png
+│   │   ├── secret-store-runtime-example.png
+│   │   ├── secret-store-runtime.png
+│   │   ├── usage-owner-ref.png
+│   │   ├── xr-to-composition.svg
+│   │   └── xr-to-revision.svg
+│   ├── one-pager-automatic-dependency-downgrades.md
+│   ├── one-pager-build-with-earthly.md
+│   ├── one-pager-build-with-nix.md
+│   ├── one-pager-change-logs.md
+│   ├── one-pager-composition-environment-beta.md
+│   ├── one-pager-composition-environment.md
+│   ├── one-pager-composition-function-build-tooling.md
+│   ├── one-pager-composition-revisions.md
+│   ├── one-pager-controlled-rollout-of-composition-functions.md
+│   ├── one-pager-crd-scaling.md
+│   ├── one-pager-cross-resource-referencing.md
+│   ├── one-pager-e2e-tests.md
+│   ├── one-pager-fn-claim-conditions.md
+│   ├── one-pager-function-capabilities.md
+│   ├── one-pager-function-go-templating.md
+│   ├── one-pager-generic-usage-type.md
+│   ├── one-pager-helm-provider.md
+│   ├── one-pager-ignore-changes.md
+│   ├── one-pager-k8s-native-providers.md
+│   ├── one-pager-managed-resource-api-design.md
+│   ├── one-pager-mrds.md
+│   ├── one-pager-namespace-restricted-mode.md
+│   ├── one-pager-package-format-v2.md
+│   ├── one-pager-package-image-config.md
+│   ├── one-pager-package-runtime-config.md
+│   ├── one-pager-performance-characteristics-of-providers.md
+│   ├── one-pager-pipeline-inspector.md
+│   ├── one-pager-pluggable-secret-stores.md
+│   ├── one-pager-rate-limiting.md
+│   ├── one-pager-required-schemas.md
+│   ├── one-pager-resource-connectivity-mvp.md
+│   ├── proposal-controller-code-generation.md
+│   └── proposal-crossplane-v2.md
+├── flake.lock
+├── flake.nix
+├── generate.go
+├── go.mod
+├── go.sum
+├── gomod2nix.toml
+├── hack/
+│   ├── boilerplate.go.txt
+│   ├── duplicate_api_type.sh
+│   └── duplicate_proto_type.sh
+├── install.sh
+├── internal/
+│   ├── circuit/
+│   │   ├── breaker.go
+│   │   ├── circuit_metrics.go
+│   │   ├── mapfunc.go
+│   │   ├── token_bucket.go
+│   │   └── token_bucket_test.go
+│   ├── controller/
+│   │   ├── apiextensions/
+│   │   ├── ops/
+│   │   ├── pkg/
+│   │   ├── protection/
+│   │   └── rbac/
+│   ├── converter/
+│   │   ├── custom_to_managed.go
+│   │   └── custom_to_managed_test.go
+│   ├── dag/
+│   │   ├── dag.go
+│   │   ├── dag_test.go
+│   │   ├── fake/
+│   │   ├── fuzz_test.go
+│   │   ├── pkg.go
+│   │   ├── upgrading_dag.go
+│   │   └── upgrading_dag_test.go
+│   ├── engine/
+│   │   ├── cache.go
+│   │   ├── cache_test.go
+│   │   ├── engine.go
+│   │   ├── engine_metrics.go
+│   │   ├── engine_test.go
+│   │   ├── source.go
+│   │   └── source_test.go
+│   ├── features/
+│   │   └── features.go
+│   ├── initializer/
+│   │   ├── cert_generator.go
+│   │   ├── cert_generator_test.go
+│   │   ├── crds.go
+│   │   ├── crds_migrator.go
+│   │   ├── crds_test.go
+│   │   ├── deployment_runtime_config.go
+│   │   ├── deployment_runtime_config_test.go
+│   │   ├── initializer.go
+│   │   ├── installer.go
+│   │   ├── installer_test.go
+│   │   ├── lock.go
+│   │   ├── lock_test.go
+│   │   ├── managed_resource_activation_policy.go
+│   │   ├── managed_resource_activation_policy_test.go
+│   │   ├── tls.go
+│   │   ├── tls_test.go
+│   │   ├── waiter.go
+│   │   ├── waiter_test.go
+│   │   ├── webhook_configurations.go
+│   │   └── webhook_configurations_test.go
+│   ├── metrics/
+│   │   └── metrics.go
+│   ├── names/
+│   │   ├── generate.go
+│   │   ├── generate_test.go
+│   │   ├── names.go
+│   │   ├── names_test.go
+│   │   ├── validate.go
+│   │   └── validate_test.go
+│   ├── ops/
+│   │   └── lifecycle/
+│   ├── protection/
+│   │   ├── conversion.go
+│   │   ├── conversion_legacy.go
+│   │   ├── usage.go
+│   │   ├── usage/
+│   │   ├── wrappers.go
+│   │   ├── wrappers_test.go
+│   │   ├── zz_generated.conversion.go
+│   │   └── zz_generated.conversion_legacy.go
+│   ├── proto/
+│   │   └── fn/
+│   ├── ssa/
+│   │   ├── managed_fields.go
+│   │   └── managed_fields_test.go
+│   ├── transport/
+│   │   ├── transport.go
+│   │   └── transport_test.go
+│   ├── version/
+│   │   ├── fake/
+│   │   ├── version.go
+│   │   └── version_test.go
+│   ├── webhook/
+│   │   └── protection/
+│   ├── xcrd/
+│   │   ├── composite.go
+│   │   ├── crd.go
+│   │   ├── crd_test.go
+│   │   ├── fuzz_test.go
+│   │   └── schemas.go
+│   ├── xerrors/
+│   │   ├── composed_resources.go
+│   │   ├── composed_resources_test.go
+│   │   ├── docs.go
+│   │   ├── subject_access_review.go
+│   │   └── subject_access_review_test.go
+│   ├── xfn/
+│   │   ├── cached/
+│   │   ├── cached_discovery.go
+│   │   ├── capabilities.go
+│   │   ├── capabilities_test.go
+│   │   ├── function_runner.go
+│   │   ├── function_runner_metrics.go
+│   │   ├── function_runner_test.go
+│   │   ├── inspected/
+│   │   ├── required_resources.go
+│   │   ├── required_resources_test.go
+│   │   ├── required_schemas.go
+│   │   ├── required_schemas_test.go
+│   │   ├── selector.go
+│   │   ├── selector_test.go
+│   │   ├── utils.go
+│   │   └── utils_test.go
+│   └── xpkg/
+│       ├── build.go
+│       ├── build_test.go
+│       ├── cache.go
+│       ├── cache_test.go
+│       ├── client.go
+│       ├── client_test.go
+│       ├── config.go
+│       ├── config_test.go
+│       ├── doc.go
+│       ├── fake/
+│       ├── fetch.go
+│       ├── find.go
+│       ├── find_test.go
+│       ├── fuzz_test.go
+│       ├── layers.go
+│       ├── lint.go
+│       ├── lint_test.go
+│       ├── name.go
+│       ├── name_test.go
+│       ├── parser/
+│       ├── reader.go
+│       ├── scheme.go
+│       ├── scheme_test.go
+│       ├── signature/
+│       ├── testdata/
+│       └── validate.go
+├── nix.sh
+├── nix/
+│   ├── apps.nix
+│   ├── build.nix
+│   └── checks.nix
+├── proto/
+│   └── fn/
+│       ├── v1/
+│       └── v1beta1/
+├── security/
+│   ├── ADA-fuzzing-audit-22.pdf
+│   ├── ADA-security-audit-23.pdf
+│   └── self-assessment.md
+└── test/
+    ├── e2e/
+    │   ├── README.md
+    │   ├── apiextensions_activation_policy_test.go
+    │   ├── apiextensions_compositions_legacy_test.go
+    │   ├── apiextensions_compositions_test.go
+    │   ├── apiextensions_mrds_test.go
+    │   ├── apiextensions_xrds_test.go
+    │   ├── certificate/
+    │   ├── config/
+    │   ├── consts.go
+    │   ├── funcs/
+    │   ├── install_test.go
+    │   ├── main_test.go
+    │   ├── manifests/
+    │   ├── ops_operations_test.go
+    │   ├── pkg_test.go
+    │   ├── protection_usage_legacy_test.go
+    │   └── protection_usage_test.go
+    └── fuzz/
+        └── oss_fuzz_build.sh

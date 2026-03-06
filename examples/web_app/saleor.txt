@@ -1,0 +1,1408 @@
+=====================================
+Repository Analysis: saleor
+Type: Backend / API Service
+=====================================
+
+--- METADATA ---
+Name: saleor
+Description: Saleor Core: the high performance, composable, headless commerce API.
+Language: Python
+Topics: cart, checkout, commerce, composable, e-commerce, ecommerce, graphql, headless, headless-commerce, multichannel, oms, order-management, payments, pim, python, shop, shopping-cart, store
+Stars: 22662
+License: BSD 3-Clause "New" or "Revised" License
+
+--- README ---
+<div align="center" width="100px">
+
+ <picture>
+   <source media="(prefers-color-scheme: dark)" srcset="https://github.com/user-attachments/assets/76e3079f-696a-4fcd-8658-89739647090b">
+   <source media="(prefers-color-scheme: light)" srcset="https://github.com/user-attachments/assets/8477d643-a905-4c63-8ed3-03d0976f6fc3">
+   <img width="200" alt="saleor-commerce-logo" src="https://user-images.githubusercontent.com/4006792/214636328-8e4f83e8-66cb-4114-a3d8-473eb908b9c3.png">
+
+ </picture>
+</div>
+
+<div align="center">
+  <strong>Commerce that works with your language and stack</strong>
+</div>
+
+<div align="center">
+  GraphQL native, API-only platform for scalable composable commerce.
+</div>
+
+<br>
+
+<div align="center">
+ Get to know Saleor: <br>
+  <a href="https://saleor.io/cloud/talk-to-us?utm_source=github&utm_medium=readme&utm_campaign=repo_saleor">Talk to a human</a>
+  <span> | </span>
+  <a href="https://cloud.saleor.io/signup?utm_source=github&utm_medium=readme&utm_campaign=repo_saleor">Talk to the API</a>
+</div>
+
+<br>
+
+<div align="center">
+  Join our community: <br>
+  <a href="https://saleor.io/">Website</a>
+  <span> | </span>
+  <a href="https://twitter.com/getsaleor">Twitter</a>
+  <span> | </span>
+  <a href="https://saleor.io/discord">Discord</a>
+</div>
+
+<div align="center">
+   <a href="https://saleor.io/blog">Blog</a>
+  <span> | </span>
+  <a href="https://saleor.typeform.com/to/JTJK0Nou">Subscribe to newsletter</a>
+</div>
+
+<br>
+
+<div align="center">
+  <a href="https://codecov.io/gh/saleor/saleor" >
+    <img src="https://codecov.io/gh/saleor/saleor/graph/badge.svg?token=qkNcTJ4TmI" alt="Coverage"/>
+  </a>
+  <a href="https://docs.saleor.io/">
+    <img src="https://img.shields.io/badge/docs-docs.saleor.io-brightgreen.svg" alt="Documentation" />
+  </a>
+  <a href="https://github.com/astral-sh/ruff">
+    <img src="https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/ruff/main/assets/badge/v2.json" alt="Linted by Ruff">
+  </a>
+ <a href="https://saleor.io/discord">
+   <img src="https://img.shields.io/discord/864066819866624010"  alt="Discord" >
+ </a>
+</div>
+
+## Table of Contents
+
+- [What makes Saleor special?](#what-makes-saleor-special)
+- [Why API-only Architecture?](#why-api-only-architecture)
+- [Features](#features)
+- [Installation](#installation)
+- [Documentation](#documentation)
+- [Saleor Platform](#saleor-platform)
+- [Storefront](#storefront)
+- [Dashboard](#dashboard)
+- [Contributing](#contributing)
+- [License](#license)
+
+## What makes Saleor special?
+
+- **Technology-agnostic** - no monolithic plugin architecture or technology lock-in.
+
+- **GraphQL only** - Not afterthought API design or fragmentation across different styles of API.
+
+- **Headless and API only** - APIs are the only way to interact, configure, or extend the backend.
+
+- **Open source** -  a single version of Saleor without feature fragmentation or commercial limitations.
+
+- **Cloud native** - battle tested on global brands.
+
+- **Native-multichannel** - Per [channel](https://docs.saleor.io/developer/channels/overview) control of pricing, currencies, stock, product, and more.
+
+## Why API-only Architecture?
+
+Saleor's API-first extensibility provides powerful tools for developers to extend backend using [webhooks](https://docs.saleor.io/developer/extending/webhooks/overview), attributes, [metadata](https://docs.saleor.io/api-usage/metadata), [apps](https://docs.saleor.io/developer/extending/apps/overview), [subscription queries](https://docs.saleor.io/developer/extending/webhooks/subscription-webhook-payloads), [API extensions](https://docs.saleor.io/developer/extending/webhooks/synchronous-events/overview), [dashboard iframes](https://docs.saleor.io/developer/extending/apps/overview).
+
+Compared to traditional plugin architectures (monoliths) it provides the following benefits:
+
+- There is less downtime as apps are deployed independently.
+- Reliability and performance - custom logic is separated from the core.
+- Simplified upgrade paths - eliminates incompatibility conflicts between extensions.
+- Technology-agnostic - works with any technology, stack, or language.
+- Parallel development - easier to collaborate than with a monolithic core.
+- Simplified debugging - easier to narrow down bugs in independent services.
+- Scalability - extensions and apps can be scaled independently.
+
+### What are the tradeoffs?
+
+If you are a single developer working with a small business that doesn't have high traffic or a critical need for 24/7 availability, using a service-oriented approach might feel more complex compared to the traditional WordPress or Magento approach that provides a language-specific framework, runtime, database schema, aspect-oriented programming, and other tools to a quick start.
+
+However, if you deploy on a daily basis, reliability and uptime is critical,
+you need to collaborate with other developers, or you have non-trivial requirements you might be in the right place.
+
+## Features
+
+- **Enterprise ready**: Secure, sc
+... [TRUNCATED]
+
+--- PACKAGE MANIFEST(S) ---
+
+[package.json]
+{
+  "name": "saleor",
+  "version": "3.23.0-a.0",
+  "engines": {
+    "node": ">=20 <22",
+    "npm": ">=7"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/saleor/saleor.git"
+  },
+  "author": "Saleor Commerce",
+  "license": "BSD-3-Clause",
+  "bugs": {
+    "url": "https://github.com/saleor/saleor/issues"
+  },
+  "homepage": "http://saleor.io/",
+  "devDependencies": {
+    "@release-it/bumper": "^7.0.5",
+    "release-it": "^19.0.4"
+  },
+  "scripts": {
+    "release": "release-it"
+  }
+}
+
+
+[pyproject.toml]
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "saleor"
+version = "3.23.0-a.0"
+description = "A modular, high performance, headless e-commerce platform built with Python, GraphQL, Django, and React."
+authors = [{ name = "Saleor Commerce", email = "hello@saleor.io" }]
+requires-python = ">=3.12,<3.13"
+readme = "README.md"
+license = "BSD-3-Clause"
+dependencies = [
+    "Adyen>=4.0.0,<5",
+    "asgiref>=3.7.2,<4",
+    "authlib>=1.6.9,<2",
+    "authorizenet>=1.1.5,<2",
+    "azure-common>=1.1.28,<2",
+    "azure-storage-blob>=12.23.1,<13",
+    "azure-storage-common>=2.1.0,<3",
+    "babel>=2.8,<2.18",
+    "boto3~=1.28",
+    "botocore~=1.37",
+    "braintree>=4.2,<4.32",
+    "cryptography>=44.0.2,<47",
+    "dj-database-url>=2,<3",
+    "dj-email-url>=1,<2",
+    "django[bcrypt]~=5.2.11",
+    "django-cache-url>=3.1.2,<4",
+    "django-celery-beat>=2.8.1,<3",
+    "django-countries~=7.2",
+    "django-filter~=25.1",
+    "django-measurement~=3.0",
+    "django-mptt>=0,<1",
+    "django-phonenumber-field>=4,<9",
+    "django-stubs-ext>=5.1.3,<6",
+    "faker>=26.0.0,<27.0",
+    "google-cloud-pubsub>=1.7,<3.0",
+    "google-cloud-storage>=2.0.0,<3",
+    "google-i18n-address>=3.1.0,<4",
+    "graphene<3.0",
+    "graphql-core>=2.3.2,<3",
+    "graphql-relay>=2.0.1,<3",
+    "lxml>=4.9.3,<5",
+    "markdown>=3.1.1,<4",
+    "measurement>=3.2.2,<4",
+    "micawber>=0.5.5,<0.6",
+    "oauthlib~=3.1",
+    "petl==1.7.17",
+    "phonenumberslite>=9.0.7,<10",
+    "pillow>=12.1.1,<13",
+    "posuto>=2025.1.0,<2026",
+    "prices~=1.0",
+    "promise~=2.3",
+    "pybars3>=0.9.7,<0.10",
+    "pyjwt>=2.10.1,<3",
+    "python-dateutil>=2.8.2,<3",
+    "python-http-client>=3.3.7,<4",
+    "python-json-logger>=0.1.11,<3.3.0",
+    "pytimeparse>=1.1.8,<2",
+    "razorpay~=1.2",
+    "redis>=5.0.1,<6",
+    "requests~=2.32",
+    "requests-hardened>=1.0.0,<2.0.0",
+    "Rx>=1.6.3,<2",
+    "semantic-version>=2.10.0,<3",
+    "sendgrid>=6.7.1,<7",
+    "sentry-sdk~=2.12",
+    "stripe>=3.0.0,<4",
+    "text-unidecode~=1.2",
+    "urllib3>=2.4.0,<3",
+    "uvicorn[standard]>=0.32.0,<0.33",
+    "psycopg[binary]>=3.2.9,<4",
+    "pydantic>=2.11.0,<3",
+    "pydantic-core>=2.33.0,<3",
+    "opentelemetry-api>=1.32.1,<2",
+    "opentelemetry-sdk>=1.32.1,<2",
+    "opentelemetry-semantic-conventions>=0.53b1,<0.54",
+    "opentelemetry-distro[otlp]>=0.53b1,<0.54",
+    "celery[redis, sqs]>=4.4.5,<6.0.0",
+    "kombu[sqs]>=4.6.11,<6.0.0",
+    "django-storages[google]~=1.11",
+    "python-magic>=0.4.27,<0.5 ; sys_platform != 'win32'",
+    "python-magic-bin>=0.4.14,<0.5 ; sys_platform == 'win32'",
+    "nh3>=0.2.20",
+    "idna>=3.10",
+    "orjson>=3.11.4",
+]
+
+[project.urls]
+Homepage = "https://saleor.io/"
+Repository = "https://github.com/saleor/saleor"
+Documentation = "https://docs.saleor.io/"
+
+[dependency-groups]
+dev = [
+    "coverage~=7.6",
+    "deptry>=0.23.0,<0.24",
+    "django-extensions~=4.1",
+    "django-stubs[compatible-mypy]>=5.1.3,<6",
+    "fakeredis~=2.26",
+    "freezegun>=1,<2",
+    
+... [TRUNCATED]
+
+--- BACKEND CONFIG FILES ---
+
+[Dockerfile]
+### Build and install packages
+FROM python:3.12 AS build-python
+
+RUN apt-get -y update \
+  && apt-get install -y gettext \
+  # Cleanup apt cache
+  && apt-get clean \
+  && rm -rf /var/lib/apt/lists/*
+
+# Install Python dependencies
+WORKDIR /app
+COPY --from=ghcr.io/astral-sh/uv:0.8 /uv /uvx /bin/
+ENV UV_COMPILE_BYTECODE=1 UV_SYSTEM_PYTHON=1 UV_PROJECT_ENVIRONMENT=/usr/local
+RUN --mount=type=cache,target=/root/.cache/uv \
+    --mount=type=bind,source=uv.lock,target=uv.lock \
+    --mount=type=bind,source=pyproject.toml,target=pyproject.toml \
+    uv sync --locked --no-install-project --no-editable
+
+### Final image
+FROM python:3.12-slim
+
+RUN groupadd -r saleor && useradd -r -g saleor saleor
+
+# Pillow dependencies
+RUN apt-get update \
+  && apt-get install -y \
+  libffi8 \
+  libgdk-pixbuf-2.0-0 \
+  liblcms2-2 \
+  libopenjp2-7 \
+  libssl3 \
+  libtiff6 \
+  libwebp7 \
+  libpq5 \
+  libmagic1 \
+  # Required by celery[sqs] which uses pycurl for AWS SQS support
+  libcurl4 \
+  # Required to allows to identify file types when handling file uploads
+  media-types \
+  && apt-get clean \
+  && rm -rf /var/lib/apt/lists/*
+
+RUN mkdir -p /app/media /app/static \
+  && chown -R saleor:saleor /app/
+
+COPY --from=build-python /usr/local/lib/python3.12/site-packages/ /usr/local/lib/python3.12/site-packages/
+COPY --from=build-python /usr/local/bin/ /usr/local/bin/
+COPY . /app
+WORKDIR /app
+
+ARG STATIC_URL
+ENV STATIC_URL=${STATIC_URL:-/static/}
+RUN SECRET_KEY=dummy STATIC_URL=${STATIC_URL} python3 manage.py collectstatic --no-input
+
+EXPOSE 8000
+ENV PYTHONUNBUFFERED=1
+
+LABEL org.opencontainers.image.title="saleor/saleor" \
+  org.opencontainers.image.description="The commerce engine for modern software development teams." \
+  org.opencontainers.image.url="https://saleor.io/" \
+  org.opencontainers.image.source="https://github.com/saleor/saleor" \
+  org.opencontainers.image.authors="Saleor Commerce (https://saleor.io)" \
+  org.opencontainers.image.licenses="BSD-3-Clause"
+
+CMD ["uvicorn", "saleor.asgi:application", "--host=0.0.0.0", "--port=8000", "--workers=2", "--lifespan=on", "--ws=none", "--no-server-header", "--no-access-log", "--timeout-keep-alive=35", "--timeout-graceful-shutdown=30", "--limit-max-requests=10000"]
+
+
+[.env.example]
+CACHE_URL=redis://localhost:6379/0
+CELERY_BROKER_URL=redis://localhost:6379/1
+DEFAULT_FROM_EMAIL=noreply@example.com
+EMAIL_URL=smtp://localhost:1025
+SECRET_KEY=changeme
+HTTP_IP_FILTER_ALLOW_LOOPBACK_IPS=True
+DASHBOARD_URL=http://localhost:9000/
+
+
+[manage.py]
+#!/usr/bin/env python3
+import os
+import sys
+
+if __name__ == "__main__":
+    os.environ.setdefault("DJANGO_SETTINGS_MODULE", "saleor.settings")
+
+    from django.core.management import execute_from_command_line
+
+    execute_from_command_line(sys.argv)
+
+
+--- API ROUTE / ENDPOINT DEFINITIONS ---
+
+[saleor/attribute/management/commands/update_attribute_file_urls.py]
+import logging
+import re
+from urllib.parse import urlparse
+
+from botocore.exceptions import ClientError
+from django.conf import settings
+from django.core.management.base import BaseCommand, CommandError
+
+from ....core.storages import S3MediaStorage
+from ...models import AttributeValue
+
+logger = logging.getLogger(__name__)
+
+
+class Command(BaseCommand):
+    help = "Move all attributes file to `file_upload` directory on s3 storage."
+
+    def handle(self, *args, **options):
+        storage = S3MediaStorage()
+
+        if not storage.bucket_name:
+            raise CommandError("No s3 bucket detected.")
+
+        values = AttributeValue.objects.filter(file_url__isnull=False)
+        directory = "file_upload"
+        for value in values:
+            file_url = value.file_url
+            if not file_url or file_url.startswith(directory):
+                continue
+            file_name = re.sub(f"^{settings.MEDIA_URL}", "", urlparse(file_url).path)
+            new_file_name = storage._clean_name(rf"{directory}/{file_name}")
+            new_file_url = storage._normalize_name(new_file_name)
+            old_file_url = storage._normalize_name(storage._clean_name(file_name))
+            try:
+                storage.bucket.Object(new_file_url).copy_from(
+                    CopySource={
+                        "Bucket": storage.bucket_name,
+                        "Key": old_file_url,
+                    }
+                )
+            except ClientError as exc:
+                if exc.response["Error"]["Code"] == "NoSuchKey":
+                    logger.info("No object found: %s", old_file_url)
+                else:
+                    raise
+            else:
+                storage.bucket.Object(old_file_url).delete()
+                logger.info("File %s moved to %s.", old_file_url, new_file_url)
+
+                value.file_url = new_file_name
+                value.save(update_fields=["file_url"])
+                logger.info(
+                    "File URL for AttributeValue %s with ID %s has been updated.",
+                    value,
+                    value.id,
+                )
+
+
+[saleor/attribute/migrations/0011_update_values_file_urls.py]
+# Generated by Django 3.2.2 on 2021-05-27 08:41
+import re
+from urllib.parse import urlparse
+
+from django.conf import settings
+from django.db import migrations
+
+
+def update_file_urls(apps, schema_editor):
+    AttributeValue = apps.get_model("attribute", "AttributeValue")
+    values = AttributeValue.objects.filter(file_url__isnull=False)
+    for value in values.iterator():
+        value.file_url = re.sub(
+            f"^{settings.MEDIA_URL}", "", urlparse(value.file_url).path
+        )
+        value.save(update_fields=["file_url"])
+
+
+class Migration(migrations.Migration):
+    dependencies = [
+        ("attribute", "0010_auto_20210412_0736"),
+    ]
+
+    operations = [
+        migrations.RunPython(update_file_urls, reverse_code=migrations.RunPython.noop),
+    ]
+
+
+[saleor/core/cleaners/urls.py]
+import ipaddress
+import urllib.parse
+from typing import Protocol
+
+import idna
+
+MAILTO_SAFE_CHARS = ".-_+,"
+
+
+class UrlCleaner(Protocol):
+    def __call__(self, dirty_url: str) -> str: ...
+
+
+class URLCleanerError(ValueError):
+    """Base exception class for all URL cleaner-related exceptions."""
+
+
+class InvalidHostname(URLCleanerError):
+    """Raised when an invalid domain or hostname is provided."""
+
+
+class InvalidURL(URLCleanerError):
+    """Raised when the URL syntax is wrong."""
+
+
+class InvalidUsage(RuntimeError):
+    """Raised when a cleaner function wasn't used properly, indicates a code bug."""
+
+
+def normalize_host(dirty_domain: str) -> str:
+    """Normalize a hostname/domain field."""
+
+    dirty_domain = dirty_domain.lower()
+
+    # If it's an IPv6 address, then try to parse it and return the normalized
+    # value from Python's ipaddress module
+    if dirty_domain.startswith("["):
+        dirty_domain = dirty_domain.strip("[]")
+        try:
+            clean_ip = str(ipaddress.IPv6Address(dirty_domain))
+            return f"[{clean_ip}]"
+        except ipaddress.AddressValueError as exc:
+            raise InvalidHostname("Invalid IPv6 address") from exc
+
+    # If it's not IPv6, then we use idna to validate & to normalize
+    try:
+        parts = [
+            idna.encode(
+                part,
+                strict=True,
+                std3_rules=True,  # Follows RFC 1123 for the hostname
+            ).decode("utf-8")
+            for part in dirty_domain.split(".")
+        ]
+    except idna.IDNAError as exc:
+        raise InvalidHostname("Invalid characters found in hostname") from exc
+
+    return ".".join(parts)
+
+
+def clean_tel(dirty_url: str) -> str:
+    """Clean a 'tel' URL (e.g., 'tel:+3312345678')."""
+
+    scheme, _, dirty_tel = dirty_url.partition(":")
+
+    # This should never happen, as a safeguard we are raising
+    if scheme != "tel":
+        raise InvalidUsage(f"Expected url scheme to be 'tel', found {scheme} instead")
+    # Keeps special characters listed by RFC 3966 as is, and encodes anything else
+    # (such as dangerous characters like "<>)
+    cleaned_path = urllib.parse.quote(dirty_tel, safe="+-.()*#;=%")
+    return f"tel:{cleaned_path}"
+
+
+def clean_mailto(
+    dirty_url: str,
+    *,
+    max_address_count: int = 10,
+    max_header_count: int = 10,
+) -> str:
+    """Clean a mailto URL based on RFC 6068 (leniently)."""
+
+    scheme, _, dirty_url = dirty_url.partition(":")
+
+    if scheme != "mailto":
+        raise InvalidUsage(
+            f"Expected url scheme to be 'mailto', found {scheme} instead"
+        )
+
+    # raw_dirty_addr_list is the address list before the '?' character, e.g., from:
+    # `foo@example.com?body=text`
+    raw_dirty_addr_list, _, raw_dirty_qs = dirty_url.partition("?")
+
+    # Retrieves the list of email addresses before the '?' delimiter (if any)
+    #
+    # Note: an empty list of addresses is allowed (per RFC 6068), i.e.,
+    #       the user can do `mailto:?<headers>` instead of
+    #       `mailto:
+... [TRUNCATED]
+
+[saleor/core/views.py]
+import logging
+import os
+
+from django.conf import settings
+from django.http import FileResponse, Http404, HttpRequest, HttpResponse, JsonResponse
+from django.template.response import TemplateResponse
+from django.views.static import serve
+
+from .jwt_manager import get_jwt_manager
+
+logger = logging.getLogger(__name__)
+
+
+def home(request):
+    storefront_url = os.environ.get("STOREFRONT_URL", "")
+    dashboard_url = os.environ.get("DASHBOARD_URL", "")
+    return TemplateResponse(
+        request,
+        "home/index.html",
+        {"storefront_url": storefront_url, "dashboard_url": dashboard_url},
+    )
+
+
+def jwks(request):
+    return JsonResponse(get_jwt_manager().get_jwks())
+
+
+def serve_media_view(
+    request: HttpRequest, *args, **kwargs
+) -> HttpResponse | FileResponse:
+    """Serve media files and other user-uploaded media files from local storage.
+
+    WARNING: just like Django's built-in ``django.views.static.serve()`` view:
+             this view is not suitable for production use. This view is only meant
+             for development purposes and convenience, as well as to show how
+             production workloads are expected to behave.
+
+             Learn more about static views: https://docs.djangoproject.com/en/5.2/howto/static-files/#serving-static-files-during-development
+
+    This view wraps ``django.views.static.serve()`` in order to add
+    a ``Content-Disposition: attachment`` header due to not exposing a setting to
+    control the response headers.
+
+    This is not intended to protect users in production workloads, instead users
+    should configure their servers (CDN or reverse-proxy) to host the media files
+    and to return the ``Content-Disposition: attachment`` header; this only for
+    demonstrating the expected behavior.
+    """
+
+    # Not allowed when DEBUG=False
+    if not settings.DEBUG:
+        raise Http404
+
+    response: HttpResponse | FileResponse = serve(request, *args, **kwargs)
+
+    # When serving files, force clients to download the file instead of Django's
+    # default value 'Content-Disposition: inline' which indicates to the clients
+    # that they can display the value.
+    if isinstance(response, FileResponse):
+        response.headers["Content-Disposition"] = "attachment"
+    return response
+
+
+[saleor/graphql/views.py]
+import decimal
+import hashlib
+import importlib
+from inspect import isclass
+from typing import Any, cast
+from urllib.parse import urljoin
+
+import orjson
+from django.conf import settings
+from django.core.cache import cache
+from django.http import HttpRequest, HttpResponse, HttpResponseNotAllowed
+from django.shortcuts import render
+from django.views.generic import View
+from graphql import GraphQLBackend, GraphQLDocument, GraphQLSchema
+from graphql.error import GraphQLError, GraphQLSyntaxError
+from graphql.execution import ExecutionResult
+from jwt.exceptions import PyJWTError
+from opentelemetry.semconv._incubating.attributes import graphql_attributes
+from opentelemetry.semconv._incubating.attributes import (
+    http_attributes as incubating_http_attributes,
+)
+from opentelemetry.semconv.attributes import (
+    error_attributes,
+    http_attributes,
+    url_attributes,
+    user_agent_attributes,
+)
+from opentelemetry.trace import StatusCode
+from requests_hardened.ip_filter import InvalidIPAddress
+
+from .. import __version__ as saleor_version
+from ..core.exceptions import PermissionDenied
+from ..core.telemetry import Scope, SpanKind, saleor_attributes, tracer
+from ..webhook import observability
+from . import GraphQLOperationResult
+from .api import API_PATH, schema
+from .context import clear_context, get_context_value
+from .core.validators.query_cost import validate_query_cost
+from .error import clear_errors
+from .metrics import (
+    record_graphql_query_cost,
+    record_graphql_query_count,
+    record_graphql_query_duration,
+    record_request_count,
+    record_request_duration,
+)
+from .query_cost_map import COST_MAP, QUERY_COST_FAILED_OPERATION
+from .utils import (
+    format_error,
+    get_source_service_name_value,
+    query_fingerprint,
+    query_identifier,
+)
+from .utils.validators import check_if_query_contains_only_schema
+
+INT_ERROR_MSG = "Int cannot represent non 32-bit signed integer value"
+
+
+def default_serializer(obj):
+    if isinstance(obj, decimal.Decimal):
+        return str(obj)
+    raise TypeError
+
+
+class JsonResponse(HttpResponse):
+    def __init__(
+        self,
+        data,
+        safe=True,
+        **kwargs,
+    ):
+        if safe and not isinstance(data, dict):
+            raise TypeError(
+                "In order to allow non-dict objects to be serialized set the "
+                "safe parameter to False."
+            )
+        kwargs.setdefault("content_type", "application/json")
+        data = orjson.dumps(data, option=orjson.OPT_UTC_Z, default=default_serializer)
+        super().__init__(content=data, **kwargs)
+
+
+class GraphQLView(View):
+    # This class is our implementation of `graphene_django.views.GraphQLView`,
+    # which was extended to support the following features:
+    # - Playground as default the API explorer (see
+    # https://github.com/prisma/graphql-playground)
+    # - file upload (https://github.com/lmcgartland/graphene-file-upload)
+    # - query batching
+
+    schema: GraphQLSchema = None  # type: ignore[ass
+... [TRUNCATED]
+
+[saleor/plugins/views.py]
+from django.http import HttpResponse
+
+from ..core.db.connection import allow_writer
+from ..graphql.core import SaleorContext
+from .manager import get_plugins_manager
+
+
+@allow_writer()
+def handle_plugin_webhook(request: SaleorContext, plugin_id: str) -> HttpResponse:
+    manager = get_plugins_manager(allow_replica=False)
+    return manager.webhook_endpoint_without_channel(request, plugin_id)
+
+
+@allow_writer()
+def handle_global_plugin_webhook(
+    request: SaleorContext, plugin_id: str
+) -> HttpResponse:
+    manager = get_plugins_manager(allow_replica=False)
+    return manager.webhook(request, plugin_id, channel_slug=None)
+
+
+@allow_writer()
+def handle_plugin_per_channel_webhook(
+    request: SaleorContext, plugin_id: str, channel_slug: str
+) -> HttpResponse:
+    manager = get_plugins_manager(allow_replica=False)
+    return manager.webhook(request, plugin_id, channel_slug=channel_slug)
+
+
+[saleor/product/views.py]
+import mimetypes
+import os
+
+from django.conf import settings
+from django.http import FileResponse, HttpResponseNotFound
+from django.shortcuts import get_object_or_404
+
+from .deprecations import deprecated_digital_content
+from .models import DigitalContentUrl
+from .utils.digital_products import (
+    digital_content_url_is_valid,
+    increment_download_count,
+)
+
+
+@deprecated_digital_content
+def digital_product(request, token: str) -> FileResponse | HttpResponseNotFound:
+    """Return the direct download link to content if given token is still valid."""
+
+    qs = DigitalContentUrl.objects.using(
+        settings.DATABASE_CONNECTION_REPLICA_NAME
+    ).prefetch_related("line__order__user")
+    content_url = get_object_or_404(qs, token=token)  # type: DigitalContentUrl
+    if not digital_content_url_is_valid(content_url):
+        return HttpResponseNotFound("Url is not valid anymore")
+
+    digital_content = content_url.content
+    digital_content.content_file.open()
+    opened_file = digital_content.content_file.file
+    filename = os.path.basename(digital_content.content_file.name)
+    file_expr = f'filename="{filename}"'
+
+    content_type = mimetypes.guess_type(str(filename))[0]
+    response = FileResponse(opened_file)
+    response["Content-Length"] = digital_content.content_file.size
+
+    response["Content-Type"] = str(content_type)
+    response["Content-Disposition"] = f"attachment; {file_expr}"
+
+    increment_download_count(content_url)
+    return response
+
+
+[saleor/thumbnail/views.py]
+import logging
+from typing import NamedTuple
+
+from django.conf import settings
+from django.core.exceptions import ObjectDoesNotExist
+from django.http import (
+    HttpResponseBadRequest,
+    HttpResponseNotFound,
+    HttpResponseRedirect,
+)
+from graphql.error import GraphQLError
+
+from ..account.models import User
+from ..app.models import App, AppInstallation
+from ..core.db.connection import allow_writer
+from ..core.utils.events import call_event
+from ..graphql.core.utils import from_global_id_or_error
+from ..plugins.manager import get_plugins_manager
+from ..product.models import Category, Collection, ProductMedia
+from ..thumbnail.models import Thumbnail
+from . import ALLOWED_ICON_THUMBNAIL_FORMATS, ALLOWED_THUMBNAIL_FORMATS
+from .utils import (
+    ProcessedIconImage,
+    ProcessedImage,
+    get_thumbnail_size,
+    prepare_thumbnail_file_name,
+)
+
+logger = logging.getLogger(__name__)
+
+
+class ModelData(NamedTuple):
+    model: type[App | AppInstallation | Category | Collection | ProductMedia | User]
+    image_field: str
+    thumbnail_field: str
+
+
+ICON_TYPE_TO_MODEL_DATA_MAPPING = {
+    "App": ModelData(App, "brand_logo_default", "app"),
+    "AppInstallation": ModelData(
+        AppInstallation, "brand_logo_default", "app_installation"
+    ),
+}
+TYPE_TO_MODEL_DATA_MAPPING = {
+    "User": ModelData(User, "avatar", "user"),
+    "Category": ModelData(Category, "background_image", "category"),
+    "Collection": ModelData(Collection, "background_image", "collection"),
+    "ProductMedia": ModelData(ProductMedia, "image", "product_media"),
+    **ICON_TYPE_TO_MODEL_DATA_MAPPING,
+}
+UUID_IDENTIFIABLE_TYPES = ["User", "App", "AppInstallation"]
+
+
+def handle_thumbnail(request, instance_id: str, size: str, format: str | None = None):
+    """Create and return thumbnail for given instance in provided size and format.
+
+    If the provided size is not in the available resolution list, the thumbnail with
+    the closest available size is created and returned, if it does not exist.
+    """
+    # try to find corresponding instance based on given instance_id
+    try:
+        object_type, pk = from_global_id_or_error(instance_id, raise_error=True)
+    except GraphQLError:
+        return HttpResponseNotFound("Cannot found instance with the given id.")
+
+    if object_type not in TYPE_TO_MODEL_DATA_MAPPING.keys():
+        return HttpResponseNotFound("Invalid instance type.")
+
+    # check formats
+    format = format.lower() if format else None
+    if object_type in ICON_TYPE_TO_MODEL_DATA_MAPPING:
+        if format and format not in ALLOWED_ICON_THUMBNAIL_FORMATS:
+            return HttpResponseNotFound("Unsupported icon image format.")
+    elif format and format not in ALLOWED_THUMBNAIL_FORMATS:
+        return HttpResponseNotFound("Unsupported image format.")
+
+    try:
+        size_px = get_thumbnail_size(int(size))
+    except ValueError:
+        return HttpResponseNotFound("Invalid size.")
+
+    # return the thumbnail if it's already exist
+    model_data = TYPE_TO_MODEL_DATA_M
+... [TRUNCATED]
+
+--- DATABASE SCHEMA / MODEL FILES ---
+  saleor/account/migrations/0001_initial.py
+  saleor/account/migrations/0002_auto_20150907_0602.py
+  saleor/account/migrations/0003_auto_20151104_1102.py
+  saleor/account/migrations/0004_auto_20160114_0419.py
+  saleor/account/migrations/0005_auto_20160205_0651.py
+
+--- DIRECTORY STRUCTURE (depth 2) ---
+├── .claude/
+│   └── skills/
+│       ├── pytest-runner/
+│       ├── saleor-commit/
+│       └── saleor-django-migration/
+├── .devcontainer/
+│   ├── Dockerfile
+│   ├── backend.env
+│   ├── common.env
+│   ├── devcontainer.json
+│   └── docker-compose.yml
+├── .dockerignore
+├── .editorconfig
+├── .env.example
+├── .gitattributes
+├── .github/
+│   ├── CODEOWNERS
+│   ├── DISCUSSION_TEMPLATE/
+│   │   └── RFC.yml
+│   ├── ISSUE_TEMPLATE/
+│   │   ├── bug_report.yaml
+│   │   ├── config.yml
+│   │   └── feature_request.yaml
+│   ├── PULL_REQUEST_TEMPLATE.md
+│   ├── badges/
+│   │   └── twitter.svg
+│   ├── dependabot.yml
+│   ├── graphql-inspector.yaml
+│   ├── stale.yml
+│   └── workflows/
+│       ├── bump-dependencies.yml
+│       ├── changelog-check.yml
+│       ├── check-licenses.yaml
+│       ├── check-migration-tasks.yml
+│       ├── create-tag-with-release-pr.yml
+│       ├── e2e.yml
+│       ├── github-releases-to-discord.yml
+│       ├── graphql-inspector.yml
+│       ├── help-wanted-issues-to-discord.yml
+│       ├── migrations-perf-test-check.yml
+│       ├── migrations-perf-test.yml
+│       ├── publish-containers.yml
+│       ├── publish-load-test.yml
+│       ├── publish-main.yml
+│       ├── test-env-cleanup-cron.yml
+│       ├── test-env-cleanup.yml
+│       ├── test-env-deploy.yml
+│       ├── test-migrations-compatibility.yml
+│       ├── test-semgrep-rules.yml
+│       └── tests-and-linters.yml
+├── .gitignore
+├── .pre-commit-config.yaml
+├── .release-it.json
+├── .semgrep/
+│   ├── Makefile
+│   ├── best-practice/
+│   │   ├── add-index-concurrently.py
+│   │   └── add-index-concurrently.yaml
+│   ├── correctness/
+│   │   ├── celery/
+│   │   └── django/
+│   └── security/
+│       ├── logging/
+│       └── requests/
+├── .vscode/
+│   ├── extensions.json
+│   ├── launch.json
+│   └── settings.json
+├── AGENTS.md
+├── CHANGELOG.md
+├── CLAUDE.md
+├── CONTRIBUTING.md
+├── Dockerfile
+├── LICENSE
+├── README.md
+├── SECURITY.md
+├── conftest.py
+├── deployment/
+│   └── elasticbeanstalk/
+│       └── Dockerrun.aws.json
+├── manage.py
+├── package-lock.json
+├── package.json
+├── pyproject.toml
+├── saleor/
+│   ├── __init__.py
+│   ├── __main__.py
+│   ├── account/
+│   │   ├── __init__.py
+│   │   ├── apps.py
+│   │   ├── error_codes.py
+│   │   ├── events.py
+│   │   ├── forms.py
+│   │   ├── i18n.py
+│   │   ├── i18n_rules_override.py
+│   │   ├── i18n_valid_address_extension.py
+│   │   ├── lock_objects.py
+│   │   ├── management/
+│   │   ├── migrations/
+│   │   ├── models.py
+│   │   ├── notifications.py
+│   │   ├── search.py
+│   │   ├── signals.py
+│   │   ├── tasks.py
+│   │   ├── tests/
+│   │   ├── throttling.py
+│   │   ├── utils.py
+│   │   ├── validators.py
+│   │   └── widgets.py
+│   ├── app/
+│   │   ├── __init__.py
+│   │   ├── app_manifest_sample.json
+│   │   ├── apps.py
+│   │   ├── error_codes.py
+│   │   ├── headers.py
+│   │   ├── installation_utils.py
+│   │   ├── lock_objects.py
+│   │   ├── management/
+│   │   ├── manifest_schema.py
+│   │   ├── manifest_validations.py
+│   │   ├── migrations/
+│   │   ├── models.py
+│   │   ├── signals.py
+│   │   ├── tasks.py
+│   │   ├── tests/
+│   │   ├── types.py
+│   │   ├── utils.py
+│   │   └── validators.py
+│   ├── asgi/
+│   │   ├── __init__.py
+│   │   ├── asgi_handler.py
+│   │   ├── cors_handler.py
+│   │   ├── gzip_compression.py
+│   │   ├── health_check.py
+│   │   ├── telemetry.py
+│   │   ├── tests/
+│   │   └── usage_telemetry.py
+│   ├── attribute/
+│   │   ├── __init__.py
+│   │   ├── error_codes.py
+│   │   ├── lock_objects.py
+│   │   ├── management/
+│   │   ├── migrations/
+│   │   ├── models/
+│   │   ├── search.py
+│   │   ├── tests/
+│   │   └── utils.py
+│   ├── auth/
+│   │   ├── __init__.py
+│   │   └── migrations/
+│   ├── celeryconf.py
+│   ├── channel/
+│   │   ├── __init__.py
+│   │   ├── error_codes.py
+│   │   ├── exceptions.py
+│   │   ├── migrations/
+│   │   ├── models.py
+│   │   ├── tasks/
+│   │   ├── tests/
+│   │   └── utils.py
+│   ├── checkout/
+│   │   ├── __init__.py
+│   │   ├── actions.py
+│   │   ├── base_calculations.py
+│   │   ├── calculations.py
+│   │   ├── checkout_cleaner.py
+│   │   ├── complete_checkout.py
+│   │   ├── delivery_context.py
+│   │   ├── error_codes.py
+│   │   ├── fetch.py
+│   │   ├── lock_objects.py
+│   │   ├── migrations/
+│   │   ├── models.py
+│   │   ├── payment_utils.py
+│   │   ├── problems.py
+│   │   ├── search/
+│   │   ├── tasks.py
+│   │   ├── tests/
+│   │   ├── utils.py
+│   │   └── webhooks/
+│   ├── core/
+│   │   ├── __init__.py
+│   │   ├── anonymize.py
+│   │   ├── apps.py
+│   │   ├── auth.py
+│   │   ├── auth_backend.py
+│   │   ├── cleaners/
+│   │   ├── context.py
+│   │   ├── db/
+│   │   ├── db_routers.py
+│   │   ├── deprecations.py
+│   │   ├── error_codes.py
+│   │   ├── exceptions.py
+│   │   ├── hashers.py
+│   │   ├── http_client.py
+│   │   ├── jwt.py
+│   │   ├── jwt_manager.py
+│   │   ├── languages.py
+│   │   ├── logging.py
+│   │   ├── management/
+│   │   ├── middleware.py
+│   │   ├── migrations/
+│   │   ├── models.py
+│   │   ├── notification/
+│   │   ├── notify.py
+│   │   ├── payments.py
+│   │   ├── postgres.py
+│   │   ├── prices.py
+│   │   ├── pricing/
+│   │   ├── rlimit.py
+│   │   ├── schedules.py
+│   │   ├── search.py
+│   │   ├── search_tasks.py
+│   │   ├── sqs.py
+│   │   ├── storages.py
+│   │   ├── tasks.py
+│   │   ├── taxes.py
+│   │   ├── telemetry/
+│   │   ├── templatetags/
+│   │   ├── tests/
+│   │   ├── tokens.py
+│   │   ├── tracing.py
+│   │   ├── transactions.py
+│   │   ├── units.py
+│   │   ├── utils/
+│   │   ├── views.py
+│   │   └── weight.py
+│   ├── csv/
+│   │   ├── __init__.py
+│   │   ├── error_codes.py
+│   │   ├── events.py
+│   │   ├── migrations/
+│   │   ├── models.py
+│   │   ├── notifications.py
+│   │   ├── tasks.py
+│   │   ├── tests/
+│   │   └── utils/
+│   ├── discount/
+│   │   ├── __init__.py
+│   │   ├── error_codes.py
+│   │   ├── events.py
+│   │   ├── interface.py
+│   │   ├── migrations/
+│   │   ├── models.py
+│   │   ├── tasks.py
+│   │   ├── tests/
+│   │   └── utils/
+│   ├── giftcard/
+│   │   ├── __init__.py
+│   │   ├── const.py
+│   │   ├── error_codes.py
+│   │   ├── events.py
+│   │   ├── gateway.py
+│   │   ├── migrations/
+│   │   ├── models.py
+│   │   ├── notifications.py
+│   │   ├── search.py
+│   │   ├── tasks.py
+│   │   ├── tests/
+│   │   └── utils.py
+│   ├── graphql/
+│   │   ├── AGENTS.md
+│   │   ├── CLAUDE.md
+│   │   ├── __init__.py
+│   │   ├── account/
+│   │   ├── api.py
+│   │   ├── app/
+│   │   ├── attribute/
+│   │   ├── channel/
+│   │   ├── checkout/
+│   │   ├── context.py
+│   │   ├── core/
+│   │   ├── csv/
+│   │   ├── decorators.py
+│   │   ├── discount/
+│   │   ├── error.py
+│   │   ├── giftcard/
+│   │   ├── graphql_core.py
+│   │   ├── invoice/
+│   │   ├── management/
+│   │   ├── menu/
+│   │   ├── meta/
+│   │   ├── metrics.py
+│   │   ├── middleware.py
+│   │   ├── notifications/
+│   │   ├── order/
+│   │   ├── page/
+│   │   ├── payment/
+│   │   ├── plugins/
+│   │   ├── product/
+│   │   ├── promise.py
+│   │   ├── query_cost_map.py
+│   │   ├── schema.graphql
+│   │   ├── schema_printer.py
+│   │   ├── shipping/
+│   │   ├── shop/
+│   │   ├── site/
+│   │   ├── tax/
+│   │   ├── tests/
+│   │   ├── translations/
+│   │   ├── utils/
+│   │   ├── views.py
+│   │   ├── warehouse/
+│   │   └── webhook/
+│   ├── invoice/
+│   │   ├── __init__.py
+│   │   ├── error_codes.py
+│   │   ├── events.py
+│   │   ├── migrations/
+│   │   ├── models.py
+│   │   ├── notifications.py
+│   │   └── tests/
+│   ├── json_schemas/
+│   │   ├── CheckoutCalculateTaxes.json
+│   │   ├── CheckoutFilterShippingMethods.json
+│   │   ├── ListStoredPaymentMethods.json
+│   │   ├── OrderCalculateTaxes.json
+│   │   ├── OrderFilterShippingMethods.json
+│   │   ├── PaymentGatewayInitializeSession.json
+│   │   ├── PaymentGatewayInitializeTokenizationSession.json
+│   │   ├── ShippingListMethodsForCheckout.json
+│   │   ├── ShippingListMethodsForOrder.json
+│   │   ├── StoredPaymentMethodDeleteRequested.json
+│   │   ├── TransactionCancelationRequested.json
+│   │   ├── TransactionChargeRequested.json
+│   │   ├── TransactionInitializeSession.json
+│   │   ├── TransactionProcessSession.json
+│   │   └── TransactionRefundRequested.json
+│   ├── menu/
+│   │   ├── __init__.py
+│   │   ├── error_codes.py
+│   │   ├── migrations/
+│   │   ├── models.py
+│   │   └── tests/
+│   ├── order/
+│   │   ├── __init__.py
+│   │   ├── actions.py
+│   │   ├── base_calculations.py
+│   │   ├── calculations.py
+│   │   ├── delivery_context.py
+│   │   ├── error_codes.py
+│   │   ├── events.py
+│   │   ├── fetch.py
+│   │   ├── interface.py
+│   │   ├── lock_objects.py
+│   │   ├── migrations/
+│   │   ├── models.py
+│   │   ├── notifications.py
+│   │   ├── search.py
+│   │   ├── tasks.py
+│   │   ├── tests/
+│   │   ├── utils.py
+│   │   └── webhooks/
+│   ├── page/
+│   │   ├── __init__.py
+│   │   ├── error_codes.py
+│   │   ├── lock_objects.py
+│   │   ├── migrations/
+│   │   ├── models.py
+│   │   ├── search.py
+│   │   ├── tasks.py
+│   │   ├── tests/
+│   │   └── utils.py
+│   ├── patch_local.py
+│   ├── payment/
+│   │   ├── __init__.py
+│   │   ├── dataloaders.py
+│   │   ├── error_codes.py
+│   │   ├── gateway.py
+│   │   ├── gateways/
+│   │   ├── interface.py
+│   │   ├── lock_objects.py
+│   │   ├── migrations/
+│   │   ├── model_helpers.py
+│   │   ├── models.py
+│   │   ├── tasks.py
+│   │   ├── tests/
+│   │   ├── transaction_item_calculations.py
+│   │   └── utils.py
+│   ├── permission/
+│   │   ├── __init__.py
+│   │   ├── apps.py
+│   │   ├── auth_filters.py
+│   │   ├── enums.py
+│   │   ├── management.py
+│   │   ├── migrations/
+│   │   ├── models.py
+│   │   ├── tests/
+│   │   └── utils.py
+│   ├── plugins/
+│   │   ├── __init__.py
+│   │   ├── admin_email/
+│   │   ├── apps.py
+│   │   ├── avatax/
+│   │   ├── base_plugin.py
+│   │   ├── const.py
+│   │   ├── email_common.py
+│   │   ├── error_codes.py
+│   │   ├── manager.py
+│   │   ├── migrations/
+│   │   ├── models.py
+│   │   ├── openid_connect/
+│   │   ├── sendgrid/
+│   │   ├── tests/
+│   │   ├── user_email/
+│   │   ├── views.py
+│   │   └── webhook/
+│   ├── product/
+│   │   ├── __init__.py
+│   │   ├── apps.py
+│   │   ├── deprecations.py
+│   │   ├── error_codes.py
+│   │   ├── lock_objects.py
+│   │   ├── management/
+│   │   ├── managers.py
+│   │   ├── migrations/
+│   │   ├── models.py
+│   │   ├── product_images.py
+│   │   ├── search.py
+│   │   ├── signals.py
+│   │   ├── tasks.py
+│   │   ├── tests/
+│   │   ├── utils/
+│   │   └── views.py
+│   ├── schedulers/
+│   │   ├── __init__.py
+│   │   ├── customschedule.py
+│   │   ├── migrations/
+│   │   ├── models.py
+│   │   └── schedulers.py
+│   ├── seo/
+│   │   ├── __init__.py
+│   │   └── models.py
+│   ├── settings.py
+│   ├── shipping/
+│   │   ├── __init__.py
+│   │   ├── error_codes.py
+│   │   ├── interface.py
+│   │   ├── migrations/
+│   │   ├── models.py
+│   │   ├── postal_codes.py
+│   │   ├── tasks.py
+│   │   ├── tests/
+│   │   ├── utils.py
+│   │   └── webhooks/
+│   ├── site/
+│   │   ├── __init__.py
+│   │   ├── context_processors.py
+│   │   ├── error_codes.py
+│   │   ├── migrations/
+│   │   ├── models.py
+│   │   ├── patch_sites.py
+│   │   └── tests/
+│   ├── static/
+│   │   ├── images/
+│   │   ├── placeholders/
+│   │   └── populatedb_data.json
+│   ├── tax/
+│   │   ├── __init__.py
+│   │   ├── calculations/
+│   │   ├── error_codes.py
+│   │   ├── migrations/
+│   │   ├── models.py
+│   │   ├── tests/
+│   │   ├── utils.py
+│   │   └── webhooks/
+│   ├── tests/
+│   │   ├── __init__.py
+│   │   ├── dummy_password_hasher.py
+│   │   ├── e2e/
+│   │   ├── fixtures.py
+│   │   ├── migrations/
+│   │   ├── models.py
+│   │   ├── race_condition.py
+│   │   ├── runner.py
+│   │   ├── settings.py
+│   │   ├── storages.py
+│   │   ├── test_cache_key_warning.py
+│   │   ├── test_db_connections.py
+│   │   └── utils.py
+│   ├── thumbnail/
+│   │   ├── __init__.py
+│   │   ├── apps.py
+│   │   ├── migrations/
+│   │   ├── models.py
+│   │   ├── signals.py
+│   │   ├── tests/
+│   │   ├── utils.py
+│   │   ├── validators.py
+│   │   └── views.py
+│   ├── translations/
+│   │   ├── __init__.py
+│   │   └── error_codes.py
+│   ├── urls.py
+│   ├── warehouse/
+│   │   ├── __init__.py
+│   │   ├── availability.py
+│   │   ├── error_codes.py
+│   │   ├── lock_objects.py
+│   │   ├── management.py
+│   │   ├── migrations/
+│   │   ├── models.py
+│   │   ├── reservations.py
+│   │   ├── tasks.py
+│   │   ├── tests/
+│   │   └── validation.py
+│   └── webhook/
+│       ├── __init__.py
+│       ├── circuit_breaker/
+│       ├── const.py
+│       ├── deprecated_event_types.py
+│       ├── error_codes.py
+│       ├── event_types.py
+│       ├── migrations/
+│       ├── models.py
+│       ├── observability/
+│       ├── payload_serializers.py
+│       ├── payloads.py
+│       ├── response_schemas/
+│       ├── serializers.py
+│       ├── tests/
+│       ├── transport/
+│       ├── utils.py
+│       └── validators.py
+├── scripts/
+│   └── push_static.sh
+├── setup.cfg
+├── templates/
+│   ├── graphql/
+│   │   └── playground.html
+│   ├── home/
+│   │   ├── images/
+│   │   └── index.html
+│   └── price.html
+└── uv.lock

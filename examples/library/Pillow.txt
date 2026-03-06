@@ -1,0 +1,1893 @@
+=====================================
+Repository Analysis: Pillow
+Type: Library / Package / SDK
+=====================================
+
+--- METADATA ---
+Name: Pillow
+Description: Python Imaging Library (Fork)
+Language: Python
+Topics: c, cross-platform, image, image-processing, pil, pillow, python, python-3
+Stars: 13419
+License: Other
+
+--- README ---
+<p align="center">
+    <img width="248" height="250" src="https://raw.githubusercontent.com/python-pillow/pillow-logo/main/pillow-logo-248x250.png" alt="Pillow logo">
+</p>
+
+# Pillow
+
+## Python Imaging Library (Fork)
+
+Pillow is the friendly PIL fork by [Jeffrey A. Clark and
+contributors](https://github.com/python-pillow/Pillow/graphs/contributors).
+PIL is the Python Imaging Library by Fredrik Lundh and contributors.
+As of 2019, Pillow development is
+[supported by Tidelift](https://tidelift.com/subscription/pkg/pypi-pillow?utm_source=pypi-pillow&utm_medium=readme&utm_campaign=enterprise).
+
+<table>
+    <tr>
+        <th>docs</th>
+        <td>
+            <a href="https://pillow.readthedocs.io/?badge=latest"><img
+                alt="Documentation Status"
+                src="https://readthedocs.org/projects/pillow/badge/?version=latest"></a>
+        </td>
+    </tr>
+    <tr>
+        <th>tests</th>
+        <td>
+            <a href="https://github.com/python-pillow/Pillow/actions/workflows/lint.yml"><img
+                alt="GitHub Actions build status (Lint)"
+                src="https://github.com/python-pillow/Pillow/workflows/Lint/badge.svg"></a>
+            <a href="https://github.com/python-pillow/Pillow/actions/workflows/test.yml"><img
+                alt="GitHub Actions build status (Test Linux and macOS)"
+                src="https://github.com/python-pillow/Pillow/workflows/Test/badge.svg"></a>
+            <a href="https://github.com/python-pillow/Pillow/actions/workflows/test-windows.yml"><img
+                alt="GitHub Actions build status (Test Windows)"
+                src="https://github.com/python-pillow/Pillow/workflows/Test%20Windows/badge.svg"></a>
+            <a href="https://github.com/python-pillow/Pillow/actions/workflows/test-mingw.yml"><img
+                alt="GitHub Actions build status (Test MinGW)"
+                src="https://github.com/python-pillow/Pillow/workflows/Test%20MinGW/badge.svg"></a>
+            <a href="https://github.com/python-pillow/Pillow/actions/workflows/test-docker.yml"><img
+                alt="GitHub Actions build status (Test Docker)"
+                src="https://github.com/python-pillow/Pillow/workflows/Test%20Docker/badge.svg"></a>
+            <a href="https://github.com/python-pillow/Pillow/actions/workflows/wheels.yml"><img
+                alt="GitHub Actions build status (Wheels)"
+                src="https://github.com/python-pillow/Pillow/workflows/Wheels/badge.svg"></a>
+            <a href="https://app.codecov.io/gh/python-pillow/Pillow"><img
+                alt="Code coverage"
+                src="https://codecov.io/gh/python-pillow/Pillow/branch/main/graph/badge.svg"></a>
+            <a href="https://issues.oss-fuzz.com/issues?q=title:pillow"><img
+                alt="Fuzzing Status"
+                src="https://oss-fuzz-build-logs.storage.googleapis.com/badges/pillow.svg"></a>
+        </td>
+    </tr>
+    <tr>
+        <th>package</th>
+        <td>
+            <a href="https://zenodo.org/badge/latestdoi/17549/python-pillow/Pillow"><img
+                alt="Zenodo"
+                src="https://zenodo.org/badge/17549/python-pillow/Pillow.svg"></a>
+            <a href="https://tidelift.com/subscription/pkg/pypi-pillow?utm_source=pypi-pillow&utm_medium=badge"><img
+                alt="Tidelift"
+                src="https://tidelift.com/badges/package/pypi/pillow?style=flat"></a>
+            <a href="https://pypi.org/project/pillow/"><img
+                alt="Newest PyPI version"
+                src="https://img.shields.io/pypi/v/pillow.svg"></a>
+            <a href="https://pypi.org/project/pillow/"><img
+                alt="Number of PyPI downloads"
+                src="https://img.shields.io/pypi/dm/pillow.svg"></a>
+            <a href="https://www.bestpractices.dev/projects/6331"><img
+                alt="OpenSSF Best Practices"
+                src="https://www.bestpractices.dev/projects/6331/badge"></a>
+        </td>
+    </tr>
+    <tr>
+        <th>social</th>
+        <td>
+            <a href="https://gitter.im/python-pillow/Pillow?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge"><img
+                alt="Join the chat at https://gitter.im/python-pillow/Pillow"
+                src="https://badges.gitter.im/python-pillow/Pillow.svg"></a>
+            <a href="https://fosstodon.org/@pillow"><img
+                alt="Follow on https://fosstodon.org/@pillow"
+                src="https://img.shields.io/badge/publish-on%20Mastodon-595aff.svg"
+                rel="me"></a>
+        </td>
+    </tr>
+</table>
+
+## Overview
+
+The Python Imaging Library adds image processing capabilities to your Python interpreter.
+
+This library provides extensive file format support, an efficient internal representation, and fairly powerful image processing capabilities.
+
+The core image library is designed for fast access to data stored in a few basic pixel formats. It should provide a solid foundation for a general image processing tool.
+
+## More information
+... [TRUNCATED]
+
+--- PACKAGE MANIFEST(S) ---
+
+[pyproject.toml]
+[build-system]
+build-backend = "backend"
+requires = [
+  "pybind11",
+  "setuptools>=77",
+]
+backend-path = [
+  "_custom_build",
+]
+
+[project]
+name = "pillow"
+description = "Python Imaging Library (fork)"
+readme = "README.md"
+keywords = [
+  "Imaging",
+]
+license = "MIT-CMU"
+license-files = [ "LICENSE" ]
+authors = [
+  { name = "Jeffrey A. Clark", email = "aclark@aclark.net" },
+]
+requires-python = ">=3.10"
+classifiers = [
+  "Development Status :: 6 - Mature",
+  "Programming Language :: Python :: 3 :: Only",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: 3.13",
+  "Programming Language :: Python :: 3.14",
+  "Programming Language :: Python :: Implementation :: CPython",
+  "Programming Language :: Python :: Implementation :: PyPy",
+  "Topic :: Multimedia :: Graphics",
+  "Topic :: Multimedia :: Graphics :: Capture :: Digital Camera",
+  "Topic :: Multimedia :: Graphics :: Capture :: Screen Capture",
+  "Topic :: Multimedia :: Graphics :: Graphics Conversion",
+  "Topic :: Multimedia :: Graphics :: Viewers",
+  "Typing :: Typed",
+]
+dynamic = [
+  "version",
+]
+optional-dependencies.docs = [
+  "furo",
+  "olefile",
+  "sphinx>=8.2",
+  "sphinx-autobuild",
+  "sphinx-copybutton",
+  "sphinx-inline-tabs",
+  "sphinxext-opengraph",
+]
+optional-dependencies.fpx = [
+  "olefile",
+]
+optional-dependencies.mic = [
+  "olefile",
+]
+optional-dependencies.test-arrow = [
+  "arro3-compute",
+  "arro3-core",
+  "nanoarrow",
+  "pyarrow",
+]
+optional-dependencies.tests = [
+  "check-manifest",
+  "coverage>=7.4.2",
+  "defusedxml",
+  "markdown2",
+  "olefile",
+  "packaging",
+  "pyroma>=5",
+  "pytest",
+  "pytest-cov",
+  "pytest-timeout",
+  "pytest-xdist",
+  "trove-classifiers>=2024.10.12",
+]
+optional-dependencies.xmp = [
+  "defusedxml",
+]
+urls."Release notes" = "https://pillow.readthedocs.io/en/stable/releasenotes/index.html"
+urls.Changelog = "https://github.com/python-pillow/Pillow/releases"
+urls.Documentation = "https://pillow.readthedocs.io"
+urls.Funding = "https://tidelift.com/subscription/pkg/pypi-pillow?utm_source=pypi-pillow&utm_medium=pypi"
+urls.Homepage = "https://python-pillow.github.io"
+urls.Mastodon = "https://fosstodon.org/@pillow"
+urls.Source = "https://github.com/python-pillow/Pillow"
+
+[tool.setuptools]
+packages = [
+  "PIL",
+]
+include-package-data = true
+package-dir = { "" = "src" }
+dynamic.version = { attr = "PIL.__version__" }
+
+[tool.cibuildwheel]
+before-all = ".github/workflows/wheels-dependencies.sh"
+build-verbosity = 1
+config-settings = "raqm=enable raqm=vendor fribidi=vendor imagequant=disable"
+test-command = "cd {project} && .github/workflows/wheels-test.sh"
+test-extras = "tests"
+test-requires = [
+  "numpy",
+]
+xbuild-tools = []
+# Disable platform guessing on iOS, and disable raqm (since there won't be a
+# vendor version, and we can't distribute it due to licensing)
+ios.config-settings = "raqm=disable imagequant=disable platform-guessing=disable"
+# iOS needs 
+... [TRUNCATED]
+
+[setup.py]
+# > pyroma .
+# ------------------------------
+# Checking .
+# Found Pillow
+# ------------------------------
+# Final rating: 10/10
+# Your cheese is so fresh most people think it's a cream: Mascarpone
+# ------------------------------
+from __future__ import annotations
+
+import os
+import re
+import shutil
+import struct
+import subprocess
+import sys
+import warnings
+from collections.abc import Iterator
+
+from pybind11.setup_helpers import ParallelCompile
+from setuptools import Extension, setup
+from setuptools.command.build_ext import build_ext
+
+TYPE_CHECKING = False
+if TYPE_CHECKING:
+    from setuptools import _BuildInfo
+
+configuration: dict[str, list[str]] = {}
+
+# parse configuration from _custom_build/backend.py
+while sys.argv[-1].startswith("--pillow-configuration="):
+    _, key, value = sys.argv.pop().split("=", 2)
+    configuration.setdefault(key, []).append(value)
+
+default = int(configuration.get("parallel", ["0"])[-1])
+ParallelCompile("MAX_CONCURRENCY", default).install()
+
+
+def get_version() -> str:
+    version_file = "src/PIL/_version.py"
+    with open(version_file, encoding="utf-8") as f:
+        return f.read().split('"')[1]
+
+
+PILLOW_VERSION = get_version()
+AVIF_ROOT = None
+FREETYPE_ROOT = None
+HARFBUZZ_ROOT = None
+FRIBIDI_ROOT = None
+IMAGEQUANT_ROOT = None
+JPEG2K_ROOT = None
+JPEG_ROOT = None
+LCMS_ROOT = None
+RAQM_ROOT = None
+TIFF_ROOT = None
+WEBP_ROOT = None
+ZLIB_ROOT = None
+FUZZING_BUILD = "LIB_FUZZING_ENGINE" in os.environ
+
+if sys.platform == "win32" and sys.version_info >= (3, 15):
+    import atexit
+
+    atexit.register(
+        lambda: warnings.warn(
+            f"Pillow {PILLOW_VERSION} does not support Python "
+            f"{sys.version_info.major}.{sys.version_info.minor} and does not provide "
+            "prebuilt Windows binaries. We do not recommend building from source on "
+            "Windows.",
+            RuntimeWarning,
+        )
+    )
+
+
+_IMAGING = ("decode", "encode", "map", "display", "outline", "path")
+
+_LIB_IMAGING = (
+    "Access",
+    "AlphaComposite",
+    "Arrow",
+    "Resample",
+    "Reduce",
+    "Bands",
+    "BcnDecode",
+    "BcnEncode",
+    "BitDecode",
+    "Blend",
+    "Chops",
+    "ColorLUT",
+    "Convert",
+    "ConvertYCbCr",
+    "Copy",
+    "Crop",
+    "Dib",
+    "Draw",
+    "Effects",
+    "EpsEncode",
+    "File",
+    "Fill",
+    "Filter",
+    "FliDecode",
+    "Geometry",
+    "GetBBox",
+    "GifDecode",
+    "GifEncode",
+    "HexDecode",
+    "Histo",
+    "JpegDecode",
+    "JpegEncode",
+    "Matrix",
+    "ModeFilter",
+    "Negative",
+    "Offset",
+    "Pack",
+    "PackDecode",
+    "Palette",
+    "Paste",
+    "Quant",
+    "QuantOctree",
+    "QuantHash",
+    "QuantHeap",
+    "PcdDecode",
+    "PcxDecode",
+    "PcxEncode",
+    "Point",
+    "RankFilter",
+    "RawDecode",
+    "RawEncode",
+    "Storage",
+    "SgiRleDecode",
+    "SunRleDecode",
+    "TgaRleDecode",
+    "TgaRleEncode",
+    "Unpack",
+    "UnpackYCC",
+    "UnsharpMask",
+    "XbmDecode",
+    "XbmEncode",
+    "ZipDecode",
+    "ZipEncode",
+    "TiffDecode",
+    "J
+... [TRUNCATED]
+
+--- DIRECTORY STRUCTURE (depth 2) ---
+├── .ci/
+│   ├── after_success.sh
+│   ├── build.sh
+│   ├── install.sh
+│   ├── requirements-cibw.txt
+│   ├── requirements-mypy.txt
+│   ├── test.cmd
+│   └── test.sh
+├── .clang-format
+├── .coveragerc
+├── .editorconfig
+├── .git-blame-ignore-revs
+├── .gitattributes
+├── .github/
+│   ├── CONTRIBUTING.md
+│   ├── FUNDING.yml
+│   ├── ISSUE_TEMPLATE/
+│   │   ├── ISSUE_REPORT.md
+│   │   └── RELEASE.md
+│   ├── PULL_REQUEST_TEMPLATE.md
+│   ├── SECURITY.md
+│   ├── mergify.yml
+│   ├── problem-matchers/
+│   │   └── gcc.json
+│   ├── release-drafter.yml
+│   ├── renovate.json
+│   ├── workflows/
+│   │   ├── cifuzz.yml
+│   │   ├── docs.yml
+│   │   ├── lint.yml
+│   │   ├── macos-install.sh
+│   │   ├── release-drafter.yml
+│   │   ├── stale.yml
+│   │   ├── system-info.py
+│   │   ├── test-docker.yml
+│   │   ├── test-mingw.yml
+│   │   ├── test-valgrind-memory.yml
+│   │   ├── test-valgrind.yml
+│   │   ├── test-windows.yml
+│   │   ├── test.yml
+│   │   ├── wheels-dependencies.sh
+│   │   ├── wheels-test.ps1
+│   │   ├── wheels-test.sh
+│   │   └── wheels.yml
+│   └── zizmor.yml
+├── .gitignore
+├── .gitmodules
+├── .pre-commit-config.yaml
+├── .readthedocs.yml
+├── CHANGES.rst
+├── LICENSE
+├── MANIFEST.in
+├── Makefile
+├── README.md
+├── RELEASING.md
+├── Tests/
+│   ├── README.rst
+│   ├── __init__.py
+│   ├── conftest.py
+│   ├── createfontdatachunk.py
+│   ├── fonts/
+│   │   ├── 10x20-ISO8859-1-fewer-characters.pcf
+│   │   ├── 10x20-ISO8859-1.pcf
+│   │   ├── 10x20.pbm
+│   │   ├── 10x20.pil
+│   │   ├── AdobeVFPrototype.ttf
+│   │   ├── AdobeVFPrototypeDuplicates.ttf
+│   │   ├── ArefRuqaa-Regular.ttf
+│   │   ├── BungeeColor-Regular_colr_Windows.ttf
+│   │   ├── CBDTTestFont.ttf
+│   │   ├── DejaVuSans/
+│   │   ├── EBDTTestFont.ttf
+│   │   ├── FreeMono.ttf
+│   │   ├── KhmerOSBattambang-Regular.ttf
+│   │   ├── LICENSE.txt
+│   │   ├── NotoNastaliqUrdu-Regular.ttf
+│   │   ├── NotoSans-Regular.ttf
+│   │   ├── NotoSansJP-Regular.otf
+│   │   ├── NotoSansSymbols-Regular.ttf
+│   │   ├── OpenSans.woff2
+│   │   ├── OpenSansCondensed-LightItalic.ttf
+│   │   ├── TINY5x3GX.ttf
+│   │   ├── chromacheck-sbix.woff
+│   │   ├── fuzz_font-5203009437302784
+│   │   ├── oom-4da0210eb7081b0bf15bf16cc4c52ce02c1e1bbc.ttf
+│   │   ├── oom-e8e927ba6c0d38274a37c1567560eb33baf74627.ttf
+│   │   ├── ter-x20b-cp1250.pbm
+│   │   ├── ter-x20b-cp1250.pil
+│   │   ├── ter-x20b-iso8859-1.pbm
+│   │   ├── ter-x20b-iso8859-1.pil
+│   │   ├── ter-x20b-iso8859-2.pbm
+│   │   ├── ter-x20b-iso8859-2.pil
+│   │   └── ter-x20b.pcf
+│   ├── helper.py
+│   ├── icc/
+│   │   ├── LICENSE.txt
+│   │   ├── sGrey-v2-nano.icc
+│   │   ├── sRGB_IEC61966-2-1_black_scaled.icc
+│   │   └── sRGB_v4_ICC_preference.icc
+│   ├── images/
+│   │   ├── 00r0_gray_l.jp2
+│   │   ├── 00r1_graya_la.jp2
+│   │   ├── 01r_00.pcx
+│   │   ├── 10ct_32bit_128.tiff
+│   │   ├── 12bit.cropped.tif
+│   │   ├── 12in16bit.tif
+│   │   ├── 16_bit_binary.pgm
+│   │   ├── 16_bit_binary_pgm.tiff
+│   │   ├── 16_bit_noise.tif
+│   │   ├── 16bit.MM.cropped.tif
+│   │   ├── 16bit.MM.deflate.tif
+│   │   ├── 16bit.cropped.j2k
+│   │   ├── 16bit.cropped.jp2
+│   │   ├── 16bit.cropped.tif
+│   │   ├── 16bit.deflate.tif
+│   │   ├── 16bit.r.tif
+│   │   ├── 16bit.s.tif
+│   │   ├── 1_trns.png
+│   │   ├── 200x32_p_bl_raw_origin.tga
+│   │   ├── 2422.flc
+│   │   ├── 7x13.png
+│   │   ├── 8bit.s.tif
+│   │   ├── 9bit.j2k
+│   │   ├── DXGI_FORMAT_BC7_UNORM_SRGB.dds
+│   │   ├── DXGI_FORMAT_BC7_UNORM_SRGB.png
+│   │   ├── DXGI_FORMAT_R8G8B8A8_UNORM_SRGB.dds
+│   │   ├── DXGI_FORMAT_R8G8B8A8_UNORM_SRGB.png
+│   │   ├── WAlaska.wind.7days.grb
+│   │   ├── a.fli
+│   │   ├── a_fli.png
+│   │   ├── anim_frame1.webp
+│   │   ├── anim_frame2.webp
+│   │   ├── apng/
+│   │   ├── app13-multiple.jpg
+│   │   ├── app13.jpg
+│   │   ├── argb-32bpp_MipMaps-1.dds
+│   │   ├── argb-32bpp_MipMaps-1.png
+│   │   ├── ati1.dds
+│   │   ├── ati1.png
+│   │   ├── ati2.dds
+│   │   ├── avif/
+│   │   ├── background_outside_palette.gif
+│   │   ├── bad_palette_entry.gpl
+│   │   ├── bad_palette_file.gpl
+│   │   ├── balloon.jpf
+│   │   ├── balloon_eciRGBv2_aware.jp2
+│   │   ├── bc1.dds
+│   │   ├── bc1_typeless.dds
+│   │   ├── bc4_typeless.dds
+│   │   ├── bc4_unorm.dds
+│   │   ├── bc4_unorm.png
+│   │   ├── bc4u.dds
+│   │   ├── bc5_snorm.dds
+│   │   ├── bc5_typeless.dds
+│   │   ├── bc5_unorm.dds
+│   │   ├── bc5_unorm.png
+│   │   ├── bc5s.dds
+│   │   ├── bc5s.png
+│   │   ├── bc5u.dds
+│   │   ├── bc6h.dds
+│   │   ├── bc6h.png
+│   │   ├── bc6h_sf.dds
+│   │   ├── bc6h_sf.png
+│   │   ├── bc7-argb-8bpp_MipMaps-1.dds
+│   │   ├── bc7-argb-8bpp_MipMaps-1.png
+│   │   ├── bgr15.dds
+│   │   ├── bgr15.png
+│   │   ├── bitmap_font_1_basic.png
+│   │   ├── bitmap_font_1_raqm.png
+│   │   ├── bitmap_font_2_basic.png
+│   │   ├── bitmap_font_2_raqm.png
+│   │   ├── bitmap_font_4_basic.png
+│   │   ├── bitmap_font_4_raqm.png
+│   │   ├── bitmap_font_8_basic.png
+│   │   ├── bitmap_font_8_raqm.png
+│   │   ├── bitmap_font_blend.png
+│   │   ├── bitmap_font_stroke_basic.png
+│   │   ├── bitmap_font_stroke_raqm.png
+│   │   ├── black_and_white.ico
+│   │   ├── blend_transparency.png
+│   │   ├── blp/
+│   │   ├── bmp/
+│   │   ├── broken.png
+│   │   ├── broken_data_stream.png
+│   │   ├── broken_exif_dpi.jpg
+│   │   ├── bw_gradient.imt
+│   │   ├── bw_gradient.png
+│   │   ├── caption_6_33_22.png
+│   │   ├── cbdt.png
+│   │   ├── cbdt_mask.png
+│   │   ├── chi.gif
+│   │   ├── child_ifd.tiff
+│   │   ├── child_ifd_jpeg.tiff
+│   │   ├── chromacheck-sbix.png
+│   │   ├── chromacheck-sbix_mask.png
+│   │   ├── clipboard.dib
+│   │   ├── clipboard_target.png
+│   │   ├── cmx3g8_wv_1998.260_0745_mcidas.ara
+│   │   ├── cmx3g8_wv_1998.260_0745_mcidas.tiff
+│   │   ├── color_snakes.png
+│   │   ├── colr_bungee.png
+│   │   ├── colr_bungee_mask.png
+│   │   ├── colr_bungee_older.png
+│   │   ├── combined_larger_than_size.psd
+│   │   ├── comment.jp2
+│   │   ├── comment_after_last_frame.gif
+│   │   ├── comment_after_only_frame.gif
+│   │   ├── compression.tif
+│   │   ├── copyleft.png
+│   │   ├── copyleft.tiff
+│   │   ├── corner.lut
+│   │   ├── courB08.bdf
+│   │   ├── courB08.pbm
+│   │   ├── courB08.pil
+│   │   ├── crash-0c7e0e8e11ce787078f00b5b0ca409a167f070e0.tif
+│   │   ├── crash-0da013a13571cc8eb457a39fee8db18f8a3c7127.tif
+│   │   ├── crash-0e16d3bfb83be87356d026d66919deaefca44dac.tif
+│   │   ├── crash-1152ec2d1a1a71395b6f2ce6721c38924d025bf3.tif
+│   │   ├── crash-1185209cf7655b5aed8ae5e77784dfdd18ab59e9.tif
+│   │   ├── crash-2020-10-test.tif
+│   │   ├── crash-338516dbd2f0e83caddb8ce256c22db3bd6dc40f.tif
+│   │   ├── crash-465703f71a0f0094873a3e0e82c9f798161171b8.sgi
+│   │   ├── crash-4f085cc12ece8cde18758d42608bed6a2a2cfb1c.tif
+│   │   ├── crash-4fb027452e6988530aa5dabee76eecacb3b79f8a.j2k
+│   │   ├── crash-5762152299364352.fli
+│   │   ├── crash-63b1dffefc8c075ddc606c0a2f5fdc15ece78863.tif
+│   │   ├── crash-64834657ee604b8797bf99eac6a194c124a9a8ba.sgi
+│   │   ├── crash-6b7f2244da6d0ae297ee0754a424213444e92778.sgi
+│   │   ├── crash-74d2a78403a5a59db1fb0a2b8735ac068a75f6e3.tif
+│   │   ├── crash-754d9c7ec485ffb76a90eeaab191ef69a2a3a3cd.sgi
+│   │   ├── crash-7d4c83eb92150fb8f1653a697703ae06ae7c4998.j2k
+│   │   ├── crash-86214e58da443d2b80820cff9677a38a33dcbbca.tif
+│   │   ├── crash-abcf1c97b8fe42a6c68f1fb0b978530c98d57ced.sgi
+│   │   ├── crash-b82e64d4f3f76d7465b6af535283029eda211259.sgi
+│   │   ├── crash-c1b2595b8b0b92cc5f38b6635e98e3a119ade807.sgi
+│   │   ├── crash-ccca68ff40171fdae983d924e127a721cab2bd50.j2k
+│   │   ├── crash-d2c93af851d3ab9a19e34503626368b2ecde9c03.j2k
+│   │   ├── crash-db8bfa78b19721225425530c5946217720d7df4e.sgi
+│   │   ├── crash-f46f5b2f43c370fe65706c11449f567ecc345e74.tif
+│   │   ├── cross_scan_line.png
+│   │   ├── cross_scan_line.tga
+│   │   ├── cross_scan_line_truncated.tga
+│   │   ├── custom_gimp_palette.gpl
+│   │   ├── decompression_bomb.gif
+│   │   ├── decompression_bomb.ico
+│   │   ├── decompression_bomb_extents.gif
+│   │   ├── deerstalker.cur
+│   │   ├── default_font.png
+│   │   ├── default_font_freetype.png
+│   │   ├── different_transparency.gif
+│   │   ├── different_transparency_merged.png
+│   │   ├── dilation4.lut
+│   │   ├── dilation8.lut
+│   │   ├── dispose_bgnd.gif
+│   │   ├── dispose_bgnd_rgba.gif
+│   │   ├── dispose_bgnd_transparency.gif
+│   │   ├── dispose_none.gif
+│   │   ├── dispose_none_load_end.gif
+│   │   ├── dispose_none_load_end_second.png
+│   │   ├── dispose_prev.gif
+│   │   ├── dispose_prev_first_frame.gif
+│   │   ├── dispose_prev_first_frame_seeked.png
+│   │   ├── drawing.emf
+│   │   ├── drawing.wmf
+│   │   ├── drawing_emf_ref.png
+│   │   ├── drawing_emf_ref_72_144.png
+│   │   ├── drawing_wmf_ref.png
+│   │   ├── drawing_wmf_ref_144.png
+│   │   ├── dummy.container
+│   │   ├── duplicate_frame.gif
+│   │   ├── duplicate_number_of_loops.gif
+│   │   ├── duplicate_xref_entry.pdf
+│   │   ├── dxt1-rgb-4bbp-noalpha_MipMaps-1.dds
+│   │   ├── dxt1-rgb-4bbp-noalpha_MipMaps-1.png
+│   │   ├── dxt3-argb-8bbp-explicitalpha_MipMaps-1.dds
+│   │   ├── dxt3-argb-8bbp-explicitalpha_MipMaps-1.png
+│   │   ├── dxt5-argb-8bbp-interpolatedalpha_MipMaps-1.dds
+│   │   ├── dxt5-argb-8bbp-interpolatedalpha_MipMaps-1.png
+│   │   ├── dxt5-colorblock-alpha-issue-4142.dds
+│   │   ├── edge.lut
+│   │   ├── effect_mandelbrot.png
+│   │   ├── effect_spread.png
+│   │   ├── empty_gps_ifd.jpg
+│   │   ├── eps/
+│   │   ├── erosion4.lut
+│   │   ├── erosion8.lut
+│   │   ├── exif-200dpcm.jpg
+│   │   ├── exif-72dpi-int.jpg
+│   │   ├── exif-dpi-zerodivision.jpg
+│   │   ├── exif-ifd-offset.jpg
+│   │   ├── exif.png
+│   │   ├── exif_gps.jpg
+│   │   ├── exif_gps_typeerror.jpg
+│   │   ├── exif_imagemagick.png
+│   │   ├── exif_imagemagick_orientation.png
+│   │   ├── exif_text.png
+│   │   ├── exif_typeerror.jpg
+│   │   ├── expected_to_read.jp2
+│   │   ├── first_frame_transparency.gif
+│   │   ├── five_channels.psd
+│   │   ├── fli_oob/
+│   │   ├── fli_overflow.fli
+│   │   ├── fli_overrun.bin
+│   │   ├── fli_overrun2.bin
+│   │   ├── flower.jpg
+│   │   ├── flower.webp
+│   │   ├── flower2.jpg
+│   │   ├── flower2.webp
+│   │   ├── flower_thumbnail.png
+│   │   ├── frame_size.mpo
+│   │   ├── frozenpond.mpo
+│   │   ├── ftex_dxt1.ftc
+│   │   ├── ftex_dxt1.png
+│   │   ├── ftex_uncompressed.ftu
+│   │   ├── ftex_uncompressed.png
+│   │   ├── fujifilm.mpo
+│   │   ├── full_gimp_palette.gpl
+│   │   ├── g4-fillorder-test.png
+│   │   ├── g4-fillorder-test.tif
+│   │   ├── g4-multi.tiff
+│   │   ├── g4_orientation_1.tif
+│   │   ├── g4_orientation_2.tif
+│   │   ├── g4_orientation_3.tif
+│   │   ├── g4_orientation_4.tif
+│   │   ├── g4_orientation_5.tif
+│   │   ├── g4_orientation_6.tif
+│   │   ├── g4_orientation_7.tif
+│   │   ├── g4_orientation_8.tif
+│   │   ├── gbr.gbr
+│   │   ├── gbr.png
+│   │   ├── gfs.t06z.rassda.tm00.bufr_d
+│   │   ├── gif_header_data.pkl
+│   │   ├── gimp_gradient.ggr
+│   │   ├── gimp_gradient_with_name.ggr
+│   │   ├── hdf5.h5
+│   │   ├── high_ascii_chars.png
+│   │   ├── hopper-XYZ.png
+│   │   ├── hopper.Lab.tif
+│   │   ├── hopper.bmp
+│   │   ├── hopper.bw
+│   │   ├── hopper.dcx
+│   │   ├── hopper.dds
+│   │   ├── hopper.fits
+│   │   ├── hopper.fli
+│   │   ├── hopper.gd
+│   │   ├── hopper.gif
+│   │   ├── hopper.iccprofile.tif
+│   │   ├── hopper.iccprofile_binary.tif
+│   │   ├── hopper.ico
+│   │   ├── hopper.im
+│   │   ├── hopper.jpg
+│   │   ├── hopper.mic
+│   │   ├── hopper.msp
+│   │   ├── hopper.p7
+│   │   ├── hopper.pcd
+│   │   ├── hopper.pfm
+│   │   ├── hopper.png
+│   │   ├── hopper.pnm
+│   │   ├── hopper.ppm
+│   │   ├── hopper.psd
+│   │   ├── hopper.pxr
+│   │   ├── hopper.qoi
+│   │   ├── hopper.ras
+│   │   ├── hopper.rgb
+│   │   ├── hopper.sgi
+│   │   ├── hopper.spider
+│   │   ├── hopper.tar
+│   │   ├── hopper.tif
+│   │   ├── hopper.wal
+│   │   ├── hopper.webp
+│   │   ├── hopper.xbm
+│   │   ├── hopper.xpm
+│   │   ├── hopper16.rgb
+│   │   ├── hopper_16bit.pgm
+│   │   ├── hopper_16bit_plain.pgm
+│   │   ├── hopper_16bit_qtables.jpg
+│   │   ├── hopper_1bit.pbm
+│   │   ├── hopper_1bit_plain.pbm
+│   │   ├── hopper_256x256.ico
+│   │   ├── hopper_45.png
+│   │   ├── hopper_8bit.pgm
+│   │   ├── hopper_8bit.ppm
+│   │   ├── hopper_8bit_plain.pgm
+│   │   ├── hopper_8bit_plain.ppm
+│   │   ├── hopper_bad.p7
+│   │   ├── hopper_bad_checksum.msp
+│   │   ├── hopper_bad_exif.jpg
+│   │   ├── hopper_be.pfm
+│   │   ├── hopper_bigtiff.tif
+│   │   ├── hopper_bpp2.xpm
+│   │   ├── hopper_bw_500.png
+│   │   ├── hopper_draw.ico
+│   │   ├── hopper_emboss.bmp
+│   │   ├── hopper_emboss_more.bmp
+│   │   ├── hopper_float_dpi_2.tif
+│   │   ├── hopper_float_dpi_3.tif
+│   │   ├── hopper_float_dpi_None.tif
+│   │   ├── hopper_g4.tif
+│   │   ├── hopper_g4_500.tif
+│   │   ├── hopper_gray.jpg
+│   │   ├── hopper_gray_4bpp.tif
+│   │   ├── hopper_idat_after_image_end.png
+│   │   ├── hopper_jpg.tif
+│   │   ├── hopper_long_name.im
+│   │   ├── hopper_lzma.tif
+│   │   ├── hopper_lzw.tif
+│   │   ├── hopper_mask.ico
+│   │   ├── hopper_mask.png
+│   │   ├── hopper_merged.psd
+│   │   ├── hopper_naxis_zero.fits
+│   │   ├── hopper_orientation_2.jpg
+│   │   ├── hopper_orientation_2.webp
+│   │   ├── hopper_orientation_3.jpg
+│   │   ├── hopper_orientation_3.webp
+│   │   ├── hopper_orientation_4.jpg
+│   │   ├── hopper_orientation_4.webp
+│   │   ├── hopper_orientation_5.jpg
+│   │   ├── hopper_orientation_5.webp
+│   │   ├── hopper_orientation_6.jpg
+│   │   ├── hopper_orientation_6.webp
+│   │   ├── hopper_orientation_7.jpg
+│   │   ├── hopper_orientation_7.webp
+│   │   ├── hopper_orientation_8.jpg
+│   │   ├── hopper_orientation_8.webp
+│   │   ├── hopper_palette_chunk_second.fli
+│   │   ├── hopper_resized.gif
+│   │   ├── hopper_rgb.xpm
+│   │   ├── hopper_rle8.bmp
+│   │   ├── hopper_rle8_grayscale.bmp
+│   │   ├── hopper_rle8_row_overflow.bmp
+│   │   ├── hopper_underscore.xbm
+│   │   ├── hopper_unexpected.ico
+│   │   ├── hopper_unknown_pixel_mode.tif
+│   │   ├── hopper_wal.png
+│   │   ├── hopper_webp.png
+│   │   ├── hopper_webp.tif
+│   │   ├── hopper_webp_bits.ppm
+│   │   ├── hopper_webp_write.ppm
+│   │   ├── hopper_zero_comment_subblocks.gif
+│   │   ├── i_trns.png
+│   │   ├── icc-after-SOF.jpg
+│   │   ├── icc_profile.png
+│   │   ├── icc_profile_big.jpg
+│   │   ├── icc_profile_none.png
+│   │   ├── ifd_tag_type.tiff
+│   │   ├── ignore_frame_size.mpo
+│   │   ├── imagedraw/
+│   │   ├── imagedraw2_text.png
+│   │   ├── imagedraw_arc.png
+│   │   ├── imagedraw_arc_end_le_start.png
+│   │   ├── imagedraw_arc_high.png
+│   │   ├── imagedraw_arc_no_loops.png
+│   │   ├── imagedraw_arc_width.png
+│   │   ├── imagedraw_arc_width_fill.png
+│   │   ├── imagedraw_arc_width_non_whole_angle.png
+│   │   ├── imagedraw_arc_width_pieslice.png
+│   │   ├── imagedraw_big_rectangle.png
+│   │   ├── imagedraw_bitmap.png
+│   │   ├── imagedraw_chord_L.png
+│   │   ├── imagedraw_chord_RGB.png
+│   │   ├── imagedraw_chord_too_fat.png
+│   │   ├── imagedraw_chord_width.png
+│   │   ├── imagedraw_chord_width_fill.png
+│   │   ├── imagedraw_chord_zero_width.png
+│   │   ├── imagedraw_default_font_size.png
+│   │   ├── imagedraw_ellipse_L.png
+│   │   ├── imagedraw_ellipse_RGB.png
+│   │   ├── imagedraw_ellipse_edge.png
+│   │   ├── imagedraw_ellipse_translucent.png
+│   │   ├── imagedraw_ellipse_various_sizes.png
+│   │   ├── imagedraw_ellipse_various_sizes_filled.png
+│   │   ├── imagedraw_ellipse_width.png
+│   │   ├── imagedraw_ellipse_width_fill.png
+│   │   ├── imagedraw_ellipse_width_large.png
+│   │   ├── imagedraw_ellipse_zero_width.png
+│   │   ├── imagedraw_floodfill2.png
+│   │   ├── imagedraw_floodfill_L.png
+│   │   ├── imagedraw_floodfill_RGB.png
+│   │   ├── imagedraw_floodfill_RGBA.png
+│   │   ├── imagedraw_floodfill_not_negative.png
+│   │   ├── imagedraw_line.png
+│   │   ├── imagedraw_line_joint_curve.png
+│   │   ├── imagedraw_outline_chord_L.png
+│   │   ├── imagedraw_outline_chord_RGB.png
+│   │   ├── imagedraw_outline_ellipse_L.png
+│   │   ├── imagedraw_outline_ellipse_RGB.png
+│   │   ├── imagedraw_outline_pieslice_L.png
+│   │   ├── imagedraw_outline_pieslice_RGB.png
+│   │   ├── imagedraw_outline_polygon_L.png
+│   │   ├── imagedraw_outline_polygon_RGB.png
+│   │   ├── imagedraw_outline_rectangle_L.png
+│   │   ├── imagedraw_outline_rectangle_RGB.png
+│   │   ├── imagedraw_outline_shape_L.png
+│   │   ├── imagedraw_outline_shape_RGB.png
+│   │   ├── imagedraw_pieslice.png
+│   │   ├── imagedraw_pieslice_wide.png
+│   │   ├── imagedraw_pieslice_width.png
+│   │   ├── imagedraw_pieslice_width_fill.png
+│   │   ├── imagedraw_pieslice_zero_width.png
+│   │   ├── imagedraw_point.png
+│   │   ├── imagedraw_polygon.png
+│   │   ├── imagedraw_polygon_1px_high.png
+│   │   ├── imagedraw_polygon_1px_high_translucent.png
+│   │   ├── imagedraw_polygon_kite_L.png
+│   │   ├── imagedraw_polygon_kite_RGB.png
+│   │   ├── imagedraw_polygon_translucent.png
+│   │   ├── imagedraw_polygon_width_I.tiff
+│   │   ├── imagedraw_rectangle.png
+│   │   ├── imagedraw_rectangle_I.tiff
+│   │   ├── imagedraw_rectangle_translucent_outline.png
+│   │   ├── imagedraw_rectangle_width.png
+│   │   ├── imagedraw_rectangle_width_fill.png
+│   │   ├── imagedraw_rectangle_zero_width.png
+│   │   ├── imagedraw_regular_octagon.png
+│   │   ├── imagedraw_rounded_rectangle.png
+│   │   ├── imagedraw_rounded_rectangle_both.png
+│   │   ├── imagedraw_rounded_rectangle_corners_nnnn.png
+│   │   ├── imagedraw_rounded_rectangle_corners_nnny.png
+│   │   ├── imagedraw_rounded_rectangle_corners_nnyn.png
+│   │   ├── imagedraw_rounded_rectangle_corners_nnyy.png
+│   │   ├── imagedraw_rounded_rectangle_corners_nynn.png
+│   │   ├── imagedraw_rounded_rectangle_corners_nyny.png
+│   │   ├── imagedraw_rounded_rectangle_corners_nyyn.png
+│   │   ├── imagedraw_rounded_rectangle_corners_nyyy.png
+│   │   ├── imagedraw_rounded_rectangle_corners_ynnn.png
+│   │   ├── imagedraw_rounded_rectangle_corners_ynny.png
+│   │   ├── imagedraw_rounded_rectangle_corners_ynyn.png
+│   │   ├── imagedraw_rounded_rectangle_corners_ynyy.png
+│   │   ├── imagedraw_rounded_rectangle_corners_yynn.png
+│   │   ├── imagedraw_rounded_rectangle_corners_yyny.png
+│   │   ├── imagedraw_rounded_rectangle_corners_yyyn.png
+│   │   ├── imagedraw_rounded_rectangle_corners_yyyy.png
+│   │   ├── imagedraw_rounded_rectangle_joined_x_different_corners.png
+│   │   ├── imagedraw_rounded_rectangle_non_integer_radius_given.png
+│   │   ├── imagedraw_rounded_rectangle_non_integer_radius_height.png
+│   │   ├── imagedraw_rounded_rectangle_non_integer_radius_width.png
+│   │   ├── imagedraw_rounded_rectangle_radius.png
+│   │   ├── imagedraw_rounded_rectangle_x.png
+│   │   ├── imagedraw_rounded_rectangle_x_odd.png
+│   │   ├── imagedraw_rounded_rectangle_y.png
+│   │   ├── imagedraw_rounded_rectangle_y_odd.png
+│   │   ├── imagedraw_shape1.png
+│   │   ├── imagedraw_shape2.png
+│   │   ├── imagedraw_square.png
+│   │   ├── imagedraw_square_rotate_45.png
+│   │   ├── imagedraw_stroke_descender.png
+│   │   ├── imagedraw_stroke_different.png
+│   │   ├── imagedraw_stroke_float.png
+│   │   ├── imagedraw_stroke_multiline.png
+│   │   ├── imagedraw_stroke_same.png
+│   │   ├── imagedraw_triangle_width.png
+│   │   ├── imagedraw_wide_line_dot.png
+│   │   ├── imagedraw_wide_line_larger_than_int.png
+│   │   ├── imageops_pad_h_0.jpg
+│   │   ├── imageops_pad_h_1.jpg
+│   │   ├── imageops_pad_h_2.jpg
+│   │   ├── imageops_pad_v_0.jpg
+│   │   ├── imageops_pad_v_1.jpg
+│   │   ├── imageops_pad_v_2.jpg
+│   │   ├── input_bw_five_bands.fpx
+│   │   ├── input_bw_one_band.fpx
+│   │   ├── input_bw_one_band.png
+│   │   ├── invalid-exif-without-x-resolution.jpg
+│   │   ├── invalid-exif.jpg
+│   │   ├── invalid.spider
+│   │   ├── invalid_header_length.jp2
+│   │   ├── iptc.jpg
+│   │   ├── iptc_roundUp.jpg
+│   │   ├── iss634.apng
+│   │   ├── iss634.gif
+│   │   ├── iss634.webp
+│   │   ├── issue_2278.tif
+│   │   ├── issue_2811.gif
+│   │   ├── issue_6194.j2k
+│   │   ├── itxt_chunks.png
+│   │   ├── jfif_unit_cm.jpg
+│   │   ├── jpeg_ff00_header.jpg
+│   │   ├── junk_jpeg_header.jpg
+│   │   ├── l2rgb_read.bmp
+│   │   ├── l_trns.png
+│   │   ├── la.tga
+│   │   ├── lab-green.tif
+│   │   ├── lab-red.tif
+│   │   ├── lab.tif
+│   │   ├── libtiff_segfault.tif
+│   │   ├── linear_gradient.png
+│   │   ├── m13.fits
+│   │   ├── m13_gzip.fits
+│   │   ├── missing_background.gif
+│   │   ├── missing_background_first_frame.png
+│   │   ├── mmap_error.bmp
+│   │   ├── morph_a.png
+│   │   ├── multiline_text.png
+│   │   ├── multiline_text_center.png
+│   │   ├── multiline_text_justify.png
+│   │   ├── multiline_text_justify_anchor.png
+│   │   ├── multiline_text_right.png
+│   │   ├── multiline_text_spacing.png
+│   │   ├── multipage-lastframe.tif
+│   │   ├── multipage-mmap.tiff
+│   │   ├── multipage.tiff
+│   │   ├── multipage_multiple_frame_loop.tiff
+│   │   ├── multipage_out_of_order.tiff
+│   │   ├── multipage_single_frame_loop.tiff
+│   │   ├── multiple_comments.gif
+│   │   ├── multiple_exif.jpg
+│   │   ├── negative_layer_count.psd
+│   │   ├── negative_size.ppm
+│   │   ├── negative_top_left_layer.psd
+│   │   ├── no-dpi-in-exif.jpg
+│   │   ├── no_cursors.cur
+│   │   ├── no_palette.gif
+│   │   ├── no_palette_after_rgb.gif
+│   │   ├── no_palette_with_background.gif
+│   │   ├── no_palette_with_transparency.gif
+│   │   ├── no_palette_with_transparency_after_rgb.gif
+│   │   ├── no_rows_per_strip.tif
+│   │   ├── not_enough_data.jp2
+│   │   ├── odd_stride.pcx
+│   │   ├── old-style-jpeg-compression-no-samplesperpixel.tif
+│   │   ├── old-style-jpeg-compression.png
+│   │   ├── old-style-jpeg-compression.tif
+│   │   ├── oom-225817ca0f8c663be7ab4b9e717b02c661e66834.tif
+│   │   ├── oom-8ed3316a4109213ca96fb8a256a0bfefdece1461.icns
+│   │   ├── op_index.qoi
+│   │   ├── orientation_rectangle.jpg
+│   │   ├── ossfuzz-4836216264589312.pcx
+│   │   ├── ossfuzz-5730089102868480.sgi
+│   │   ├── p_16.png
+│   │   ├── p_16.tga
+│   │   ├── p_4_planes.pcx
+│   │   ├── p_8.tga
+│   │   ├── p_trns_single.png
+│   │   ├── padded_idat.png
+│   │   ├── pal8_offset.bmp
+│   │   ├── pal8rletrns.png
+│   │   ├── palette.dds
+│   │   ├── palette_negative.png
+│   │   ├── palette_not_needed_for_second_frame.gif
+│   │   ├── palette_sepia.png
+│   │   ├── palette_wedge.png
+│   │   ├── pcx_overrun.bin
+│   │   ├── pcx_overrun2.bin
+│   │   ├── photoshop-200dpi-broken.jpg
+│   │   ├── photoshop-200dpi.jpg
+│   │   ├── pil123p.png
+│   │   ├── pil123rgba.png
+│   │   ├── pil123rgba.qoi
+│   │   ├── pil136.png
+│   │   ├── pil136.tiff
+│   │   ├── pil168.png
+│   │   ├── pil168.tif
+│   │   ├── pil184.pcx
+│   │   ├── pil_sample_cmyk.jpg
+│   │   ├── pil_sample_rgb.jpg
+│   │   ├── pillow.icns
+│   │   ├── pillow.ico
+│   │   ├── pillow2.icns
+│   │   ├── pillow3.icns
+│   │   ├── png_decompression_dos.png
+│   │   ├── pngtest_bad.png.bin
+│   │   ├── pport_g4.tif
+│   │   ├── psd-oob-write-x.psd
+│   │   ├── psd-oob-write-y.psd
+│   │   ├── psd-oob-write.psd
+│   │   ├── python.ico
+│   │   ├── radial_gradient.png
+│   │   ├── radial_gradients.png
+│   │   ├── raw_negative_stride.bin
+│   │   ├── rdf.tif
+│   │   ├── rectangle_surrounding_text.png
+│   │   ├── rgb.jpg
+│   │   ├── rgb32bf-abgr.bmp
+│   │   ├── rgb32bf-rgba.bmp
+│   │   ├── rgb32rle.tga
+│   │   ├── rgb32rle_bottom_right.tga
+│   │   ├── rgb32rle_top_right.tga
+│   │   ├── rgb_trns.png
+│   │   ├── rgb_trns_ycbc.j2k
+│   │   ├── rgb_trns_ycbc.jp2
+│   │   ├── rgba.psd
+│   │   ├── rgba16.tga
+│   │   ├── rotate_45_no_fill.png
+│   │   ├── rotate_45_with_fill.png
+│   │   ├── second_frame_comment.gif
+│   │   ├── seek_too_large.tif
+│   │   ├── sgi_crash.bin
+│   │   ├── sgi_overrun.bin
+│   │   ├── sgi_overrun_expandrow.bin
+│   │   ├── sgi_overrun_expandrow2.bin
+│   │   ├── sgi_overrun_expandrowF04.bin
+│   │   ├── standard_embedded.png
+│   │   ├── sugarshack.mpo
+│   │   ├── sugarshack_bad_mpo_header.jpg
+│   │   ├── sugarshack_ifd_offset.mpo
+│   │   ├── sugarshack_no_data.mpo
+│   │   ├── sunraster.im1
+│   │   ├── sunraster.im1.png
+│   │   ├── tRNS_null_1x1.png
+│   │   ├── test-card-lossless.jp2
+│   │   ├── test-card-lossy-tiled.jp2
+│   │   ├── test-card.png
+│   │   ├── test-ole-file.doc
+│   │   ├── test.colors.gif
+│   │   ├── test.gpl
+│   │   ├── test_Nastalifont_text.png
+│   │   ├── test_anchor_multiline_lm_center.png
+│   │   ├── test_anchor_multiline_lm_left.png
+│   │   ├── test_anchor_multiline_lm_right.png
+│   │   ├── test_anchor_multiline_ma_center.png
+│   │   ├── test_anchor_multiline_md_center.png
+│   │   ├── test_anchor_multiline_mm_center.png
+│   │   ├── test_anchor_multiline_mm_left.png
+│   │   ├── test_anchor_multiline_mm_right.png
+│   │   ├── test_anchor_multiline_rm_center.png
+│   │   ├── test_anchor_multiline_rm_left.png
+│   │   ├── test_anchor_multiline_rm_right.png
+│   │   ├── test_anchor_quick_ls.png
+│   │   ├── test_anchor_quick_ma.png
+│   │   ├── test_anchor_quick_mb.png
+│   │   ├── test_anchor_quick_md.png
+│   │   ├── test_anchor_quick_mm.png
+│   │   ├── test_anchor_quick_ms.png
+│   │   ├── test_anchor_quick_mt.png
+│   │   ├── test_anchor_quick_rs.png
+│   │   ├── test_anchor_ttb_f_lt.png
+│   │   ├── test_anchor_ttb_f_mm.png
+│   │   ├── test_anchor_ttb_f_rb.png
+│   │   ├── test_anchor_ttb_f_sm.png
+│   │   ├── test_arabictext_features.png
+│   │   ├── test_combine_caron.png
+│   │   ├── test_combine_caron_below.png
+│   │   ├── test_combine_caron_below_lb.png
+│   │   ├── test_combine_caron_below_ld.png
+│   │   ├── test_combine_caron_below_ls.png
+│   │   ├── test_combine_caron_below_ttb.png
+│   │   ├── test_combine_caron_below_ttb_lb.png
+│   │   ├── test_combine_caron_la.png
+│   │   ├── test_combine_caron_ls.png
+│   │   ├── test_combine_caron_lt.png
+│   │   ├── test_combine_caron_ttb.png
+│   │   ├── test_combine_caron_ttb_lt.png
+│   │   ├── test_combine_double_breve_below.png
+│   │   ├── test_combine_double_breve_below_ma.png
+│   │   ├── test_combine_double_breve_below_ra.png
+│   │   ├── test_combine_double_breve_below_ttb.png
+│   │   ├── test_combine_double_breve_below_ttb_mt.png
+│   │   ├── test_combine_double_breve_below_ttb_rt.png
+│   │   ├── test_combine_double_breve_below_ttb_st.png
+│   │   ├── test_combine_multiline_lm_center.png
+│   │   ├── test_combine_multiline_lm_left.png
+│   │   ├── test_combine_multiline_lm_right.png
+│   │   ├── test_combine_multiline_mm_center.png
+│   │   ├── test_combine_multiline_mm_left.png
+│   │   ├── test_combine_multiline_mm_right.png
+│   │   ├── test_combine_multiline_rm_center.png
+│   │   ├── test_combine_multiline_rm_left.png
+│   │   ├── test_combine_multiline_rm_right.png
+│   │   ├── test_combine_multiline_ttb.png
+│   │   ├── test_combine_overline.png
+│   │   ├── test_combine_overline_la.png
+│   │   ├── test_combine_overline_ra.png
+│   │   ├── test_combine_overline_ttb.png
+│   │   ├── test_combine_overline_ttb_mt.png
+│   │   ├── test_combine_overline_ttb_rt.png
+│   │   ├── test_combine_overline_ttb_st.png
+│   │   ├── test_complex_unicode_text.png
+│   │   ├── test_complex_unicode_text2.png
+│   │   ├── test_direction_ltr.png
+│   │   ├── test_direction_rtl.png
+│   │   ├── test_direction_ttb.png
+│   │   ├── test_direction_ttb_stroke.png
+│   │   ├── test_draw_pbm_target.png
+│   │   ├── test_draw_pbm_ter_en_target.png
+│   │   ├── test_draw_pbm_ter_pl_target.png
+│   │   ├── test_extents.gif
+│   │   ├── test_extents_transparency.gif
+│   │   ├── test_kerning_features.png
+│   │   ├── test_language.png
+│   │   ├── test_ligature_features.png
+│   │   ├── test_text.png
+│   │   ├── test_woff2.png
+│   │   ├── test_x_max_and_y_offset.png
+│   │   ├── test_y_offset.png
+│   │   ├── text_float_coord.png
+│   │   ├── text_float_coord_1_alt.png
+│   │   ├── text_mono.gif
+│   │   ├── tga/
+│   │   ├── tga_id_field.tga
+│   │   ├── tiff_16bit_RGB.tiff
+│   │   ├── tiff_16bit_RGB_target.png
+│   │   ├── tiff_16bit_RGBa.tiff
+│   │   ├── tiff_16bit_RGBa_target.png
+│   │   ├── tiff_adobe_deflate.png
+│   │   ├── tiff_adobe_deflate.tif
+│   │   ├── tiff_gray_2_4_bpp/
+│   │   ├── tiff_overflow_rows_per_strip.tif
+│   │   ├── tiff_strip_cmyk_16l_jpeg.tif
+│   │   ├── tiff_strip_cmyk_jpeg.tif
+│   │   ├── tiff_strip_planar_16bit_RGB.tiff
+│   │   ├── tiff_strip_planar_16bit_RGBa.tiff
+│   │   ├── tiff_strip_planar_lzw.tiff
+│   │   ├── tiff_strip_planar_raw.tif
+│   │   ├── tiff_strip_planar_raw_with_overviews.tif
+│   │   ├── tiff_strip_raw.tif
+│   │   ├── tiff_strip_ycbcr_jpeg_1x1_sampling.tif
+│   │   ├── tiff_strip_ycbcr_jpeg_2x2_sampling.tif
+│   │   ├── tiff_tiled_cmyk_jpeg.tif
+│   │   ├── tiff_tiled_planar_16bit_RGB.tiff
+│   │   ├── tiff_tiled_planar_16bit_RGBa.tiff
+│   │   ├── tiff_tiled_planar_lzw.tiff
+│   │   ├── tiff_tiled_planar_raw.tif
+│   │   ├── tiff_tiled_raw.tif
+│   │   ├── tiff_tiled_ycbcr_jpeg_1x1_sampling.tif
+│   │   ├── tiff_tiled_ycbcr_jpeg_2x2_sampling.tif
+│   │   ├── tiff_wrong_bits_per_sample.tiff
+│   │   ├── tiff_wrong_bits_per_sample_2.tiff
+│   │   ├── tiff_wrong_bits_per_sample_3.tiff
+│   │   ├── timeout-060745d3f534ad6e4128c51d336ea5489182c69d.blp
+│   │   ├── timeout-1ee28a249896e05b83840ae8140622de8e648ba9.psd
+│   │   ├── timeout-31c8f86233ea728339c6e586be7af661a09b5b98.blp
+│   │   ├── timeout-598843abc37fc080ec36a2699ebbd44f795d3a6f.psd
+│   │   ├── timeout-60d8b7c8469d59fc9ffff6b3a3dc0faeae6ea8ee.blp
+│   │   ├── timeout-6646305047838720
+│   │   ├── timeout-8073b430977660cdd48d96f6406ddfd4114e69c7.blp
+│   │   ├── timeout-9139147ce93e20eb14088fe238e541443ffd64b3.fli
+│   │   ├── timeout-bba4f2e026b5786529370e5dfe9a11b1bf991f07.blp
+│   │   ├── timeout-bff0a9dc7243a8e6ede2408d2ffa6a9964698b87.fli
+│   │   ├── timeout-c8efc3fded6426986ba867a399791bae544f59bc.psd
+│   │   ├── timeout-d6ec061c4afdef39d3edf6da8927240bb07fe9b7.blp
+│   │   ├── timeout-dedc7a4ebd856d79b4359bbcc79e8ef231ce38f6.psd
+│   │   ├── timeout-ef9112a065e7183fa7faa2e18929b03e44ee16bf.blp
+│   │   ├── tiny.png
+│   │   ├── total-pages-zero.tif
+│   │   ├── transparent.gif
+│   │   ├── transparent.png
+│   │   ├── transparent.sgi
+│   │   ├── transparent.webp
+│   │   ├── transparent_background_text.png
+│   │   ├── transparent_background_text_L.png
+│   │   ├── transparent_dispose.gif
+│   │   ├── truncated_app14.jpg
+│   │   ├── truncated_end_chunk.png
+│   │   ├── truncated_exif_dpi.jpg
+│   │   ├── truncated_image.png
+│   │   ├── truncated_jpeg.jpg
+│   │   ├── tv.rgb
+│   │   ├── tv16.sgi
+│   │   ├── uint16_1_4660.tif
+│   │   ├── ultrahdr.jpg
+│   │   ├── unbound_variable.jp2
+│   │   ├── uncompressed_l.dds
+│   │   ├── uncompressed_l.png
+│   │   ├── uncompressed_la.dds
+│   │   ├── uncompressed_la.png
+│   │   ├── uncompressed_rgb.dds
+│   │   ├── uncompressed_rgb.png
+│   │   ├── unicode_extended.png
+│   │   ├── unimplemented_dxgi_format.dds
+│   │   ├── unimplemented_pfflags.dds
+│   │   ├── unimplemented_pixel_format.dds
+│   │   ├── unknown_compression_method.png
+│   │   ├── unknown_mode.j2k
+│   │   ├── unsupported_bitcount.dds
+│   │   ├── variation_adobe.png
+│   │   ├── variation_adobe_axes.png
+│   │   ├── variation_adobe_name.png
+│   │   ├── variation_adobe_older_harfbuzz.png
+│   │   ├── variation_adobe_older_harfbuzz_axes.png
+│   │   ├── variation_adobe_older_harfbuzz_name.png
+│   │   ├── variation_tiny.png
+│   │   ├── variation_tiny_axes.png
+│   │   ├── variation_tiny_name.png
+│   │   ├── xmp_no_prefix.jpg
+│   │   ├── xmp_padded.jpg
+│   │   ├── xmp_tags_orientation.png
+│   │   ├── xmp_tags_orientation_exiftool.png
+│   │   ├── xmp_test.jpg
+│   │   ├── zero_dpi.jp2
+│   │   ├── zero_height.j2k
+│   │   ├── zero_mask_totals.dds
+│   │   └── zero_width.gif
+│   ├── oss-fuzz/
+│   │   ├── build.sh
+│   │   ├── build_dictionaries.sh
+│   │   ├── fuzz_font.py
+│   │   ├── fuzz_pillow.py
+│   │   ├── fuzzers.py
+│   │   ├── python.supp
+│   │   └── test_fuzzers.py
+│   ├── test_000_sanity.py
+│   ├── test_arro3.py
+│   ├── test_arrow.py
+│   ├── test_binary.py
+│   ├── test_bmp_reference.py
+│   ├── test_box_blur.py
+│   ├── test_color_lut.py
+│   ├── test_core_resources.py
+│   ├── test_decompression_bomb.py
+│   ├── test_deprecate.py
+│   ├── test_features.py
+│   ├── test_file_apng.py
+│   ├── test_file_avif.py
+│   ├── test_file_blp.py
+│   ├── test_file_bmp.py
+│   ├── test_file_bufrstub.py
+│   ├── test_file_container.py
+│   ├── test_file_cur.py
+│   ├── test_file_dcx.py
+│   ├── test_file_dds.py
+│   ├── test_file_eps.py
+│   ├── test_file_fits.py
+│   ├── test_file_fli.py
+│   ├── test_file_fpx.py
+│   ├── test_file_ftex.py
+│   ├── test_file_gbr.py
+│   ├── test_file_gd.py
+│   ├── test_file_gif.py
+│   ├── test_file_gimpgradient.py
+│   ├── test_file_gimppalette.py
+│   ├── test_file_gribstub.py
+│   ├── test_file_hdf5stub.py
+│   ├── test_file_icns.py
+│   ├── test_file_ico.py
+│   ├── test_file_im.py
+│   ├── test_file_imt.py
+│   ├── test_file_iptc.py
+│   ├── test_file_jpeg.py
+│   ├── test_file_jpeg2k.py
+│   ├── test_file_libtiff.py
+│   ├── test_file_libtiff_small.py
+│   ├── test_file_mcidas.py
+│   ├── test_file_mic.py
+│   ├── test_file_mpeg.py
+│   ├── test_file_mpo.py
+│   ├── test_file_msp.py
+│   ├── test_file_palm.py
+│   ├── test_file_pcd.py
+│   ├── test_file_pcx.py
+│   ├── test_file_pdf.py
+│   ├── test_file_pixar.py
+│   ├── test_file_png.py
+│   ├── test_file_ppm.py
+│   ├── test_file_psd.py
+│   ├── test_file_qoi.py
+│   ├── test_file_sgi.py
+│   ├── test_file_spider.py
+│   ├── test_file_sun.py
+│   ├── test_file_tar.py
+│   ├── test_file_tga.py
+│   ├── test_file_tiff.py
+│   ├── test_file_tiff_metadata.py
+│   ├── test_file_wal.py
+│   ├── test_file_webp.py
+│   ├── test_file_webp_alpha.py
+│   ├── test_file_webp_animated.py
+│   ├── test_file_webp_lossless.py
+│   ├── test_file_webp_metadata.py
+│   ├── test_file_wmf.py
+│   ├── test_file_xbm.py
+│   ├── test_file_xpm.py
+│   ├── test_file_xvthumb.py
+│   ├── test_font_bdf.py
+│   ├── test_font_crash.py
+│   ├── test_font_leaks.py
+│   ├── test_font_pcf.py
+│   ├── test_font_pcf_charsets.py
+│   ├── test_fontfile.py
+│   ├── test_format_hsv.py
+│   ├── test_format_lab.py
+│   ├── test_image.py
+│   ├── test_image_access.py
+│   ├── test_image_array.py
+│   ├── test_image_convert.py
+│   ├── test_image_copy.py
+│   ├── test_image_crop.py
+│   ├── test_image_draft.py
+│   ├── test_image_entropy.py
+│   ├── test_image_filter.py
+│   ├── test_image_frombytes.py
+│   ├── test_image_fromqimage.py
+│   ├── test_image_getbands.py
+│   ├── test_image_getbbox.py
+│   ├── test_image_getcolors.py
+│   ├── test_image_getdata.py
+│   ├── test_image_getextrema.py
+│   ├── test_image_getim.py
+│   ├── test_image_getpalette.py
+│   ├── test_image_getprojection.py
+│   ├── test_image_histogram.py
+│   ├── test_image_load.py
+│   ├── test_image_mode.py
+│   ├── test_image_paste.py
+│   ├── test_image_point.py
+│   ├── test_image_putalpha.py
+│   ├── test_image_putdata.py
+│   ├── test_image_putpalette.py
+│   ├── test_image_quantize.py
+│   ├── test_image_reduce.py
+│   ├── test_image_resample.py
+│   ├── test_image_resize.py
+│   ├── test_image_rotate.py
+│   ├── test_image_split.py
+│   ├── test_image_thumbnail.py
+│   ├── test_image_tobitmap.py
+│   ├── test_image_tobytes.py
+│   ├── test_image_transform.py
+│   ├── test_image_transpose.py
+│   ├── test_imagechops.py
+│   ├── test_imagecms.py
+│   ├── test_imagecolor.py
+│   ├── test_imagedraw.py
+│   ├── test_imagedraw2.py
+│   ├── test_imageenhance.py
+│   ├── test_imagefile.py
+│   ├── test_imagefont.py
+│   ├── test_imagefontctl.py
+│   ├── test_imagefontpil.py
+│   ├── test_imagegrab.py
+│   ├── test_imagemath_lambda_eval.py
+│   ├── test_imagemath_unsafe_eval.py
+│   ├── test_imagemorph.py
+│   ├── test_imageops.py
+│   ├── test_imageops_usm.py
+│   ├── test_imagepalette.py
+│   ├── test_imagepath.py
+│   ├── test_imageqt.py
+│   ├── test_imagesequence.py
+│   ├── test_imageshow.py
+│   ├── test_imagestat.py
+│   ├── test_imagetext.py
+│   ├── test_imagetk.py
+│   ├── test_imagewin.py
+│   ├── test_imagewin_pointers.py
+│   ├── test_lib_image.py
+│   ├── test_lib_pack.py
+│   ├── test_locale.py
+│   ├── test_main.py
+│   ├── test_map.py
+│   ├── test_mode_i16.py
+│   ├── test_nanoarrow.py
+│   ├── test_numpy.py
+│   ├── test_pdfparser.py
+│   ├── test_pickle.py
+│   ├── test_psdraw.py
+│   ├── test_pyarrow.py
+│   ├── test_pyroma.py
+│   ├── test_qt_image_qapplication.py
+│   ├── test_qt_image_toqimage.py
+│   ├── test_sgi_crash.py
+│   ├── test_shell_injection.py
+│   ├── test_tiff_crashes.py
+│   ├── test_tiff_ifdrational.py
+│   ├── test_uploader.py
+│   ├── test_util.py
+│   └── test_webp_leaks.py
+├── _custom_build/
+│   └── backend.py
+├── checks/
+│   ├── 32bit_segfault_check.py
+│   ├── check_fli_oob.py
+│   ├── check_fli_overflow.py
+│   ├── check_icns_dos.py
+│   ├── check_imaging_leaks.py
+│   ├── check_j2k_dos.py
+│   ├── check_j2k_leaks.py
+│   ├── check_j2k_overflow.py
+│   ├── check_jp2_overflow.py
+│   ├── check_jpeg_leaks.py
+│   ├── check_large_memory.py
+│   ├── check_large_memory_numpy.py
+│   ├── check_libtiff_segfault.py
+│   ├── check_png_dos.py
+│   ├── check_release_notes.py
+│   └── check_wheel.py
+├── codecov.yml
+├── conftest.py
+├── depends/
+│   ├── README.rst
+│   ├── docker-test-valgrind-memory.sh
+│   ├── download-and-extract.sh
+│   ├── install_extra_test_images.sh
+│   ├── install_imagequant.sh
+│   ├── install_libavif.sh
+│   ├── install_openjpeg.sh
+│   ├── install_raqm.sh
+│   ├── install_raqm_cmake.sh
+│   ├── install_webp.sh
+│   ├── libavif-svt4.patch
+│   └── termux.sh
+├── docs/
+│   ├── COPYING
+│   ├── Makefile
+│   ├── PIL.rst
+│   ├── about.rst
+│   ├── conf.py
+│   ├── dater.py
+│   ├── deprecations.rst
+│   ├── example/
+│   │   ├── DdsImagePlugin.py
+│   │   ├── anchors.py
+│   │   ├── anchors.webp
+│   │   ├── image_thumbnail.webp
+│   │   ├── imageops_contain.webp
+│   │   ├── imageops_cover.webp
+│   │   ├── imageops_fit.webp
+│   │   ├── imageops_pad.webp
+│   │   └── size_vs_bbox.webp
+│   ├── handbook/
+│   │   ├── animated_hopper.gif
+│   │   ├── appendices.rst
+│   │   ├── concepts.rst
+│   │   ├── contrasted_hopper.jpg
+│   │   ├── cropped_hopper.webp
+│   │   ├── enhanced_hopper.webp
+│   │   ├── flip_left_right_hopper.webp
+│   │   ├── flip_top_bottom_hopper.webp
+│   │   ├── hopper_ps.webp
+│   │   ├── image-file-formats.rst
+│   │   ├── index.rst
+│   │   ├── masked_hopper.webp
+│   │   ├── merged_hopper.webp
+│   │   ├── overview.rst
+│   │   ├── pasted_hopper.webp
+│   │   ├── rebanded_hopper.webp
+│   │   ├── rolled_hopper.webp
+│   │   ├── rotated_hopper_180.webp
+│   │   ├── rotated_hopper_270.webp
+│   │   ├── rotated_hopper_90.webp
+│   │   ├── show_hopper.webp
+│   │   ├── text-anchors.rst
+│   │   ├── third-party-plugins.rst
+│   │   ├── thumbnail_hopper.jpg
+│   │   ├── transformed_hopper.webp
+│   │   ├── tutorial.rst
+│   │   └── writing-your-own-image-plugin.rst
+│   ├── index.rst
+│   ├── installation.rst
+│   ├── installation/
+│   │   ├── basic-installation.rst
+│   │   ├── building-from-source.rst
+│   │   ├── index.rst
+│   │   ├── newer-versions.csv
+│   │   ├── older-versions.csv
+│   │   ├── platform-support.rst
+│   │   └── python-support.rst
+│   ├── make.bat
+│   ├── porting.rst
+│   ├── reference/
+│   │   ├── ExifTags.rst
+│   │   ├── Image.rst
+│   │   ├── ImageChops.rst
+│   │   ├── ImageCms.rst
+│   │   ├── ImageColor.rst
+│   │   ├── ImageDraw.rst
+│   │   ├── ImageEnhance.rst
+│   │   ├── ImageFile.rst
+│   │   ├── ImageFilter.rst
+│   │   ├── ImageFont.rst
+│   │   ├── ImageGrab.rst
+│   │   ├── ImageMath.rst
+│   │   ├── ImageMorph.rst
+│   │   ├── ImageOps.rst
+│   │   ├── ImagePalette.rst
+│   │   ├── ImagePath.rst
+│   │   ├── ImageQt.rst
+│   │   ├── ImageSequence.rst
+│   │   ├── ImageShow.rst
+│   │   ├── ImageStat.rst
+│   │   ├── ImageText.rst
+│   │   ├── ImageTk.rst
+│   │   ├── ImageTransform.rst
+│   │   ├── ImageWin.rst
+│   │   ├── JpegPresets.rst
+│   │   ├── PSDraw.rst
+│   │   ├── PixelAccess.rst
+│   │   ├── TiffTags.rst
+│   │   ├── arrow_support.rst
+│   │   ├── block_allocator.rst
+│   │   ├── c_extension_debugging.rst
+│   │   ├── features.rst
+│   │   ├── index.rst
+│   │   ├── internal_design.rst
+│   │   ├── internal_modules.rst
+│   │   ├── limits.rst
+│   │   ├── open_files.rst
+│   │   └── plugins.rst
+│   ├── releasenotes/
+│   │   ├── 10.0.0.rst
+│   │   ├── 10.0.1.rst
+│   │   ├── 10.1.0.rst
+│   │   ├── 10.2.0.rst
+│   │   ├── 10.3.0.rst
+│   │   ├── 10.4.0.rst
+│   │   ├── 11.0.0.rst
+│   │   ├── 11.1.0.rst
+│   │   ├── 11.2.1.rst
+│   │   ├── 11.3.0.rst
+│   │   ├── 12.0.0.rst
+│   │   ├── 12.1.0.rst
+│   │   ├── 12.1.1.rst
+│   │   ├── 2.3.1.rst
+│   │   ├── 2.3.2.rst
+│   │   ├── 2.5.2.rst
+│   │   ├── 2.6.0.rst
+│   │   ├── 2.7.0.rst
+│   │   ├── 2.8.0.rst
+│   │   ├── 3.0.0.rst
+│   │   ├── 3.1.0.rst
+│   │   ├── 3.1.1.rst
+│   │   ├── 3.1.2.rst
+│   │   ├── 3.2.0.rst
+│   │   ├── 3.3.0.rst
+│   │   ├── 3.3.2.rst
+│   │   ├── 3.4.0.rst
+│   │   ├── 4.0.0.rst
+│   │   ├── 4.1.0.rst
+│   │   ├── 4.1.1.rst
+│   │   ├── 4.2.0.rst
+│   │   ├── 4.2.1.rst
+│   │   ├── 4.3.0.rst
+│   │   ├── 5.0.0.rst
+│   │   ├── 5.1.0.rst
+│   │   ├── 5.2.0.rst
+│   │   ├── 5.3.0.rst
+│   │   ├── 5.4.0.rst
+│   │   ├── 5.4.1.rst
+│   │   ├── 6.0.0.rst
+│   │   ├── 6.1.0.rst
+│   │   ├── 6.2.0.rst
+│   │   ├── 6.2.1.rst
+│   │   ├── 6.2.2.rst
+│   │   ├── 7.0.0.rst
+│   │   ├── 7.1.0.rst
+│   │   ├── 7.1.1.rst
+│   │   ├── 7.1.2.rst
+│   │   ├── 7.2.0.rst
+│   │   ├── 8.0.0.rst
+│   │   ├── 8.0.1.rst
+│   │   ├── 8.1.0.rst
+│   │   ├── 8.1.1.rst
+│   │   ├── 8.1.2.rst
+│   │   ├── 8.2.0.rst
+│   │   ├── 8.3.0.rst
+│   │   ├── 8.3.1.rst
+│   │   ├── 8.3.2.rst
+│   │   ├── 8.4.0.rst
+│   │   ├── 9.0.0.rst
+│   │   ├── 9.0.1.rst
+│   │   ├── 9.1.0.rst
+│   │   ├── 9.1.1.rst
+│   │   ├── 9.2.0.rst
+│   │   ├── 9.3.0.rst
+│   │   ├── 9.4.0.rst
+│   │   ├── 9.5.0.rst
+│   │   ├── index.rst
+│   │   ├── template.rst
+│   │   └── versioning.rst
+│   └── resources/
+│       ├── anchor_horizontal.svg
+│       ├── anchor_vertical.svg
+│       ├── css/
+│       ├── favicon.ico
+│       ├── js/
+│       ├── pillow-logo-dark-text.png
+│       └── pillow-logo.png
+├── pyproject.toml
+├── selftest.py
+├── setup.py
+├── src/
+│   ├── PIL/
+│   │   ├── AvifImagePlugin.py
+│   │   ├── BdfFontFile.py
+│   │   ├── BlpImagePlugin.py
+│   │   ├── BmpImagePlugin.py
+│   │   ├── BufrStubImagePlugin.py
+│   │   ├── ContainerIO.py
+│   │   ├── CurImagePlugin.py
+│   │   ├── DcxImagePlugin.py
+│   │   ├── DdsImagePlugin.py
+│   │   ├── EpsImagePlugin.py
+│   │   ├── ExifTags.py
+│   │   ├── FitsImagePlugin.py
+│   │   ├── FliImagePlugin.py
+│   │   ├── FontFile.py
+│   │   ├── FpxImagePlugin.py
+│   │   ├── FtexImagePlugin.py
+│   │   ├── GbrImagePlugin.py
+│   │   ├── GdImageFile.py
+│   │   ├── GifImagePlugin.py
+│   │   ├── GimpGradientFile.py
+│   │   ├── GimpPaletteFile.py
+│   │   ├── GribStubImagePlugin.py
+│   │   ├── Hdf5StubImagePlugin.py
+│   │   ├── IcnsImagePlugin.py
+│   │   ├── IcoImagePlugin.py
+│   │   ├── ImImagePlugin.py
+│   │   ├── Image.py
+│   │   ├── ImageChops.py
+│   │   ├── ImageCms.py
+│   │   ├── ImageColor.py
+│   │   ├── ImageDraw.py
+│   │   ├── ImageDraw2.py
+│   │   ├── ImageEnhance.py
+│   │   ├── ImageFile.py
+│   │   ├── ImageFilter.py
+│   │   ├── ImageFont.py
+│   │   ├── ImageGrab.py
+│   │   ├── ImageMath.py
+│   │   ├── ImageMode.py
+│   │   ├── ImageMorph.py
+│   │   ├── ImageOps.py
+│   │   ├── ImagePalette.py
+│   │   ├── ImagePath.py
+│   │   ├── ImageQt.py
+│   │   ├── ImageSequence.py
+│   │   ├── ImageShow.py
+│   │   ├── ImageStat.py
+│   │   ├── ImageText.py
+│   │   ├── ImageTk.py
+│   │   ├── ImageTransform.py
+│   │   ├── ImageWin.py
+│   │   ├── ImtImagePlugin.py
+│   │   ├── IptcImagePlugin.py
+│   │   ├── Jpeg2KImagePlugin.py
+│   │   ├── JpegImagePlugin.py
+│   │   ├── JpegPresets.py
+│   │   ├── McIdasImagePlugin.py
+│   │   ├── MicImagePlugin.py
+│   │   ├── MpegImagePlugin.py
+│   │   ├── MpoImagePlugin.py
+│   │   ├── MspImagePlugin.py
+│   │   ├── PSDraw.py
+│   │   ├── PaletteFile.py
+│   │   ├── PalmImagePlugin.py
+│   │   ├── PcdImagePlugin.py
+│   │   ├── PcfFontFile.py
+│   │   ├── PcxImagePlugin.py
+│   │   ├── PdfImagePlugin.py
+│   │   ├── PdfParser.py
+│   │   ├── PixarImagePlugin.py
+│   │   ├── PngImagePlugin.py
+│   │   ├── PpmImagePlugin.py
+│   │   ├── PsdImagePlugin.py
+│   │   ├── QoiImagePlugin.py
+│   │   ├── SgiImagePlugin.py
+│   │   ├── SpiderImagePlugin.py
+│   │   ├── SunImagePlugin.py
+│   │   ├── TarIO.py
+│   │   ├── TgaImagePlugin.py
+│   │   ├── TiffImagePlugin.py
+│   │   ├── TiffTags.py
+│   │   ├── WalImageFile.py
+│   │   ├── WebPImagePlugin.py
+│   │   ├── WmfImagePlugin.py
+│   │   ├── XVThumbImagePlugin.py
+│   │   ├── XbmImagePlugin.py
+│   │   ├── XpmImagePlugin.py
+│   │   ├── __init__.py
+│   │   ├── __main__.py
+│   │   ├── _avif.pyi
+│   │   ├── _binary.py
+│   │   ├── _deprecate.py
+│   │   ├── _imaging.pyi
+│   │   ├── _imagingcms.pyi
+│   │   ├── _imagingft.pyi
+│   │   ├── _imagingmath.pyi
+│   │   ├── _imagingmorph.pyi
+│   │   ├── _imagingtk.pyi
+│   │   ├── _tkinter_finder.py
+│   │   ├── _typing.py
+│   │   ├── _util.py
+│   │   ├── _version.py
+│   │   ├── _webp.pyi
+│   │   ├── features.py
+│   │   ├── py.typed
+│   │   └── report.py
+│   ├── Tk/
+│   │   ├── _tkmini.h
+│   │   └── tkImaging.c
+│   ├── _avif.c
+│   ├── _imaging.c
+│   ├── _imagingcms.c
+│   ├── _imagingft.c
+│   ├── _imagingmath.c
+│   ├── _imagingmorph.c
+│   ├── _imagingtk.c
+│   ├── _webp.c
+│   ├── decode.c
+│   ├── display.c
+│   ├── encode.c
+│   ├── libImaging/
+│   │   ├── Access.c
+│   │   ├── AlphaComposite.c
+│   │   ├── Arrow.c
+│   │   ├── Arrow.h
+│   │   ├── Bands.c
+│   │   ├── Bcn.h
+│   │   ├── BcnDecode.c
+│   │   ├── BcnEncode.c
+│   │   ├── Bit.h
+│   │   ├── BitDecode.c
+│   │   ├── Blend.c
+│   │   ├── BoxBlur.c
+│   │   ├── Chops.c
+│   │   ├── ColorLUT.c
+│   │   ├── Convert.c
+│   │   ├── Convert.h
+│   │   ├── ConvertYCbCr.c
+│   │   ├── Copy.c
+│   │   ├── Crop.c
+│   │   ├── Dib.c
+│   │   ├── Draw.c
+│   │   ├── Effects.c
+│   │   ├── EpsEncode.c
+│   │   ├── File.c
+│   │   ├── Fill.c
+│   │   ├── Filter.c
+│   │   ├── FliDecode.c
+│   │   ├── Geometry.c
+│   │   ├── GetBBox.c
+│   │   ├── Gif.h
+│   │   ├── GifDecode.c
+│   │   ├── GifEncode.c
+│   │   ├── HexDecode.c
+│   │   ├── Histo.c
+│   │   ├── ImDib.h
+│   │   ├── ImPlatform.h
+│   │   ├── Imaging.h
+│   │   ├── ImagingUtils.h
+│   │   ├── Jpeg.h
+│   │   ├── Jpeg2K.h
+│   │   ├── Jpeg2KDecode.c
+│   │   ├── Jpeg2KEncode.c
+│   │   ├── JpegDecode.c
+│   │   ├── JpegEncode.c
+│   │   ├── Matrix.c
+│   │   ├── Mode.c
+│   │   ├── Mode.h
+│   │   ├── ModeFilter.c
+│   │   ├── Negative.c
+│   │   ├── Offset.c
+│   │   ├── Pack.c
+│   │   ├── PackDecode.c
+│   │   ├── Palette.c
+│   │   ├── Paste.c
+│   │   ├── PcdDecode.c
+│   │   ├── PcxDecode.c
+│   │   ├── PcxEncode.c
+│   │   ├── Point.c
+│   │   ├── Quant.c
+│   │   ├── QuantHash.c
+│   │   ├── QuantHash.h
+│   │   ├── QuantHeap.c
+│   │   ├── QuantHeap.h
+│   │   ├── QuantOctree.c
+│   │   ├── QuantOctree.h
+│   │   ├── QuantPngQuant.c
+│   │   ├── QuantPngQuant.h
+│   │   ├── QuantTypes.h
+│   │   ├── RankFilter.c
+│   │   ├── Raw.h
+│   │   ├── RawDecode.c
+│   │   ├── RawEncode.c
+│   │   ├── Reduce.c
+│   │   ├── Resample.c
+│   │   ├── Sgi.h
+│   │   ├── SgiRleDecode.c
+│   │   ├── Storage.c
+│   │   ├── SunRleDecode.c
+│   │   ├── TgaRleDecode.c
+│   │   ├── TgaRleEncode.c
+│   │   ├── TiffDecode.c
+│   │   ├── TiffDecode.h
+│   │   ├── Unpack.c
+│   │   ├── UnpackYCC.c
+│   │   ├── UnsharpMask.c
+│   │   ├── XbmDecode.c
+│   │   ├── XbmEncode.c
+│   │   ├── ZipCodecs.h
+│   │   ├── ZipDecode.c
+│   │   ├── ZipEncode.c
+│   │   └── codec_fd.c
+│   ├── map.c
+│   ├── outline.c
+│   ├── path.c
+│   └── thirdparty/
+│       ├── fribidi-shim/
+│       ├── pythoncapi_compat.h
+│       └── raqm/
+├── tox.ini
+├── wheels/
+│   ├── README.md
+│   ├── dependency_licenses/
+│   │   ├── AOM.txt
+│   │   ├── BROTLI.txt
+│   │   ├── BZIP2.txt
+│   │   ├── DAV1D.txt
+│   │   ├── FREETYPE2.txt
+│   │   ├── HARFBUZZ.txt
+│   │   ├── LCMS2.txt
+│   │   ├── LIBAVIF.txt
+│   │   ├── LIBJPEG.txt
+│   │   ├── LIBLZMA.txt
+│   │   ├── LIBPNG.txt
+│   │   ├── LIBTIFF.txt
+│   │   ├── LIBWEBP.txt
+│   │   ├── LIBYUV.txt
+│   │   ├── OPENJPEG.txt
+│   │   ├── RAQM.txt
+│   │   ├── XAU.txt
+│   │   ├── XCB.txt
+│   │   ├── XDMCP.txt
+│   │   ├── ZLIB.txt
+│   │   └── ZSTD.txt
+│   └── multibuild
+└── winbuild/
+    ├── README.md
+    ├── build.rst
+    ├── build_prepare.py
+    └── fribidi.cmake

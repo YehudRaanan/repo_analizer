@@ -1,0 +1,400 @@
+=====================================
+Repository Analysis: cheerio
+Type: Library / Package / SDK
+=====================================
+
+--- METADATA ---
+Name: cheerio
+Description: The fast, flexible, and elegant library for parsing and manipulating HTML and XML.
+Language: TypeScript
+Topics: cheerio, dom, hacktoberfest, html, htmlparser, htmlparser2, jquery, parser, scraper, selector
+Stars: 30147
+License: MIT License
+
+--- README ---
+<h1 align="center">cheerio</h1>
+
+<h5 align="center">The fast, flexible, and elegant library for parsing and manipulating HTML and XML.</h5>
+
+<div align="center">
+  <a href="https://github.com/cheeriojs/cheerio/actions/workflows/ci.yml">
+    <img src="https://github.com/cheeriojs/cheerio/actions/workflows/ci.yml/badge.svg" alt="Build Status">
+  </a>
+  <a href="https://coveralls.io/github/cheeriojs/cheerio">
+    <img src="https://img.shields.io/coveralls/github/cheeriojs/cheerio/main" alt="Coverage">
+  </a>
+  <a href="#backers">
+    <img src="https://img.shields.io/opencollective/backers/cheerio" alt="OpenCollective backers">
+  </a>
+  <a href="#sponsors">
+    <img src="https://img.shields.io/opencollective/sponsors/cheerio" alt="OpenCollective sponsors">
+  </a>
+</div>
+
+<br>
+
+[中文文档 (Chinese Readme)](https://github.com/cheeriojs/cheerio/wiki/Chinese-README)
+
+```js
+import * as cheerio from 'cheerio';
+const $ = cheerio.load('<h2 class="title">Hello world</h2>');
+
+$('h2.title').text('Hello there!');
+$('h2').addClass('welcome');
+
+$.html();
+//=> <html><head></head><body><h2 class="title welcome">Hello there!</h2></body></html>
+```
+
+## Installation
+
+Install Cheerio using a package manager like npm, yarn, or bun.
+
+```bash
+npm install cheerio
+# or
+bun add cheerio
+```
+
+## Features
+
+**&#10084; Proven syntax:** Cheerio implements a subset of core jQuery. Cheerio
+removes all the DOM inconsistencies and browser cruft from the jQuery library,
+revealing its truly gorgeous API.
+
+**&#991; Blazingly fast:** Cheerio works with a very simple, consistent DOM
+model. As a result parsing, manipulating, and rendering are incredibly
+efficient.
+
+**&#10049; Incredibly flexible:** Cheerio wraps around
+[parse5](https://github.com/inikulin/parse5) for parsing HTML and can optionally
+use the forgiving [htmlparser2](https://github.com/fb55/htmlparser2/). Cheerio
+can parse nearly any HTML or XML document. Cheerio works in both browser and
+server environments.
+
+## API
+
+### Loading
+
+First you need to load in the HTML. This step in jQuery is implicit, since
+jQuery operates on the one, baked-in DOM. With Cheerio, we need to pass in the
+HTML document.
+
+```js
+// ESM or TypeScript:
+import * as cheerio from 'cheerio';
+
+// In other environments:
+const cheerio = require('cheerio');
+
+const $ = cheerio.load('<ul id="fruits">...</ul>');
+
+$.html();
+//=> <html><head></head><body><ul id="fruits">...</ul></body></html>
+```
+
+### Selectors
+
+Once you've loaded the HTML, you can use jQuery-style selectors to find elements
+within the document.
+
+#### \$( selector, [context], [root] )
+
+`selector` searches within the `context` scope which searches within the `root`
+scope. `selector` and `context` can be a string expression, DOM Element, array
+of DOM elements, or cheerio object. `root`, if provided, is typically the HTML
+document string.
+
+This selector method is the starting point for traversing and manipulating the
+document. Like in jQuery, it's the primary method for selecting elements in the
+document.
+
+```js
+$('.apple', '#fruits').text();
+//=> Apple
+
+$('ul .pear').attr('class');
+//=> pear
+
+$('li[class=orange]').html();
+//=> Orange
+```
+
+### Rendering
+
+When you're ready to render the document, you can call the `html` method on the
+"root" selection:
+
+```js
+$.root().html();
+//=>  <html>
+//      <head></head>
+//      <body>
+//        <ul id="fruits">
+//          <li class="apple">Apple</li>
+//          <li class="orange">Orange</li>
+//          <li class="pear">Pear</li>
+//        </ul>
+//      </body>
+//    </html>
+```
+
+If you want to render the
+[`outerHTML`](https://developer.mozilla.org/en-US/docs/Web/API/Element/outerHTML)
+of a selection, you can use the `outerHTML` prop:
+
+```js
+$('.pear').prop('outerHTML');
+//=> <li class="pear">Pear</li>
+```
+
+You may also render the text content of a Cheerio object using the `text`
+method:
+
+```js
+const $ = cheerio.load('This is <em>content</em>.');
+$('body').text();
+//=> This is content.
+```
+
+### The "DOM Node" object
+
+Cheerio collections are made up of objects that bear some resemblance to
+[browser-based DOM nodes](https://developer.mozilla.org/en-US/docs/Web/API/Node).
+You can expect them to define the following properties:
+
+- `tagName`
+- `parentNode`
+- `previousSibling`
+- `nextSibling`
+- `nodeValue`
+- `firstChild`
+- `childNodes`
+- `lastChild`
+
+## Screencasts
+
+[https://vimeo.com/31950192](https://vimeo.com/31950192)
+
+> This video tutorial is a follow-up to Nettut's "How to Scrape Web Pages with
+> Node.js and jQuery", using cheerio instead of JSDOM + jQuery. This video shows
+> how easy it is to use cheerio and how much faster cheerio is than JSDOM +
+> jQuery.
+
+## Cheerio in the real world
+
+Are you using cheerio in production? Add it to the
+[wiki](https://github.com/cheeriojs/cheerio/wiki/Cheerio-in-Production)!
+
+## Sponsors
+
+Does your company use Cheerio in production? Please consider
+[sponsoring this project](https://github.com/cheeriojs/cheerio?sponsor=1)! Your
+help will allow maintainers to dedicate more time and resources to it
+... [TRUNCATED]
+
+--- PACKAGE MANIFEST(S) ---
+
+[package.json]
+{
+  "name": "cheerio",
+  "version": "1.2.0",
+  "description": "The fast, flexible & elegant library for parsing and manipulating HTML and XML.",
+  "keywords": [
+    "htmlparser",
+    "jquery",
+    "selector",
+    "scraper",
+    "parser",
+    "dom",
+    "xml",
+    "html"
+  ],
+  "homepage": "https://cheerio.js.org/",
+  "bugs": {
+    "url": "https://github.com/cheeriojs/cheerio/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/cheeriojs/cheerio.git"
+  },
+  "funding": "https://github.com/cheeriojs/cheerio?sponsor=1",
+  "license": "MIT",
+  "author": "Matt Mueller <mattmuelle@gmail.com>",
+  "maintainers": [
+    "Felix Boehm <me@feedic.com>"
+  ],
+  "type": "module",
+  "exports": {
+    ".": {
+      "browser": {
+        "types": "./dist/browser/index.d.ts",
+        "default": "./dist/browser/index.js"
+      },
+      "import": {
+        "types": "./dist/esm/index.d.ts",
+        "default": "./dist/esm/index.js"
+      },
+      "require": {
+        "types": "./dist/commonjs/index.d.ts",
+        "default": "./dist/commonjs/index.js"
+      }
+    },
+    "./slim": {
+      "browser": {
+        "types": "./dist/browser/slim.d.ts",
+        "default": "./dist/browser/slim.js"
+      },
+      "import": {
+        "types": "./dist/esm/slim.d.ts",
+        "default": "./dist/esm/slim.js"
+      },
+      "require": {
+        "types": "./dist/commonjs/slim.d.ts",
+        "default": "./dist/commonjs/slim.js"
+      }
+    },
+    "./utils": {
+      "browser": {
+        "types": "./dist/browser/utils.d.ts",
+        "default": "./dist/browser/utils.js"
+      },
+      "import": {
+        "types": "./dist/esm/utils.d.ts",
+        "default": "./dist/esm/utils.js"
+      },
+      "require": {
+        "types": "./dist/commonjs/utils.d.ts",
+        "default": "./dist/commonjs/utils.js"
+      }
+    },
+    "./package.json": "./package.json"
+  },
+  "main": "./dist/commonjs/index.js",
+  "module": "./dist/esm/index.js",
+  "browser": "./dist/browser/index.js",
+  "types": "./dist/commonjs/index.d.ts",
+  "files": [
+    "dist",
+    "src",
+    "!**/*.spec.{t,j}s",
+    "!**/__tests__/*",
+    "!**/__fixtures__/*"
+  ],
+  "scripts": {
+    "benchmark": "node --import=tsx benchmark/benchmark.ts",
+    "build": "tshy",
+    "format": "npm run format:es && npm run format:prettier",
+    "format:es": "eslint . --fix",
+    "format:prettier": "npm run format:prettier:raw -- --write",
+    "format:prettier:raw": "prettier \"**/*.{{m,c,}{j,t}s{x,},md{x,},json,y{a,}ml}\" --ignore-path .gitignore",
+    "lint": "npm run lint:es && npm run lint:prettier && npm run lint:ts",
+    "lint:es": "eslint .",
+    "lint:prettier": "npm run format:prettier:raw -- --check",
+    "lint:ts": "tsc --noEmit",
+    "prepare": "husky",
+    "prepublishOnly": "npm run build",
+    "test": "npm run lint && npm run test:vi",
+    "test:vi": "vitest run",
+    "update-sponsors": "tsx scripts/fetch-sponsors.mts"
+  },
+  "lint-staged": {
+    "*.js": [
+      "prettier --write",
+      "eslint --fix"
+    ],
+    "*.{json,md,
+... [TRUNCATED]
+
+--- DIRECTORY STRUCTURE (depth 2) ---
+├── .gitattributes
+├── .github/
+│   ├── FUNDING.yml
+│   ├── dependabot.yml
+│   ├── issue_template.md
+│   └── workflows/
+│       ├── benchmark.yml
+│       ├── ci.yml
+│       ├── codeql.yml
+│       ├── dependabot-automerge.yml
+│       ├── lint.yml
+│       ├── site.yml
+│       └── sponsors.yml
+├── .gitignore
+├── .husky/
+│   ├── .gitignore
+│   └── pre-commit
+├── CONTRIBUTING.md
+├── LICENSE
+├── Readme.md
+├── SECURITY.md
+├── benchmark/
+│   ├── benchmark.ts
+│   └── documents/
+│       └── jquery.html
+├── eslint.config.js
+├── package-lock.json
+├── package.json
+├── scripts/
+│   └── fetch-sponsors.mts
+├── src/
+│   ├── __fixtures__/
+│   │   └── fixtures.ts
+│   ├── __tests__/
+│   │   ├── deprecated.spec.ts
+│   │   └── xml.spec.ts
+│   ├── api/
+│   │   ├── attributes.spec.ts
+│   │   ├── attributes.ts
+│   │   ├── css.spec.ts
+│   │   ├── css.ts
+│   │   ├── extract.spec.ts
+│   │   ├── extract.ts
+│   │   ├── forms.spec.ts
+│   │   ├── forms.ts
+│   │   ├── manipulation.spec.ts
+│   │   ├── manipulation.ts
+│   │   ├── traversing.spec.ts
+│   │   └── traversing.ts
+│   ├── cheerio.spec.ts
+│   ├── cheerio.ts
+│   ├── index-browser.mts
+│   ├── index.spec.ts
+│   ├── index.ts
+│   ├── load-parse.ts
+│   ├── load.spec.ts
+│   ├── load.ts
+│   ├── options.ts
+│   ├── parse.spec.ts
+│   ├── parse.ts
+│   ├── parsers/
+│   │   └── parse5-adapter.ts
+│   ├── slim.ts
+│   ├── static.spec.ts
+│   ├── static.ts
+│   ├── types.ts
+│   ├── utils.spec.ts
+│   └── utils.ts
+├── tsconfig.json
+├── tsconfig.typedoc.json
+├── vitest.config.ts
+└── website/
+    ├── README.md
+    ├── astro.config.mjs
+    ├── package-lock.json
+    ├── package.json
+    ├── public/
+    │   ├── fonts/
+    │   └── img/
+    ├── sponsors.json
+    ├── src/
+    │   ├── assets/
+    │   ├── components/
+    │   ├── content/
+    │   ├── env.d.ts
+    │   ├── layouts/
+    │   ├── pages/
+    │   ├── plugins/
+    │   └── styles/
+    ├── tsconfig.json
+    └── typedoc.json

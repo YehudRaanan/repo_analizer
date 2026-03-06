@@ -1,0 +1,2812 @@
+=====================================
+Repository Analysis: ray
+Type: Data / ML / AI Project
+=====================================
+
+--- METADATA ---
+Name: ray
+Description: Ray is an AI compute engine. Ray consists of a core distributed runtime and a set of AI Libraries for accelerating ML workloads.
+Language: Python
+Topics: data-science, deep-learning, deployment, distributed, hyperparameter-optimization, hyperparameter-search, large-language-models, llm, llm-inference, llm-serving, machine-learning, optimization, parallel, python, pytorch, ray, reinforcement-learning, rllib, serving, tensorflow
+Stars: 41605
+License: Apache License 2.0
+
+--- README ---
+.. image:: https://github.com/ray-project/ray/raw/master/doc/source/images/ray_header_logo.png
+
+.. image:: https://readthedocs.org/projects/ray/badge/?version=master
+    :target: http://docs.ray.io/en/master/?badge=master
+
+.. image:: https://img.shields.io/badge/Ray-Join%20Slack-blue
+    :target: https://www.ray.io/join-slack
+
+.. image:: https://img.shields.io/badge/Discuss-Ask%20Questions-blue
+    :target: https://discuss.ray.io/
+
+.. image:: https://img.shields.io/twitter/follow/raydistributed.svg?style=social&logo=twitter
+    :target: https://x.com/raydistributed
+
+.. image:: https://img.shields.io/badge/Get_started_for_free-3C8AE9?logo=data%3Aimage%2Fpng%3Bbase64%2CiVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8%2F9hAAAAAXNSR0IArs4c6QAAAERlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAA6ABAAMAAAABAAEAAKACAAQAAAABAAAAEKADAAQAAAABAAAAEAAAAAA0VXHyAAABKElEQVQ4Ea2TvWoCQRRGnWCVWChIIlikC9hpJdikSbGgaONbpAoY8gKBdAGfwkfwKQypLQ1sEGyMYhN1Pd%2B6A8PqwBZeOHt%2FvsvMnd3ZXBRFPQjBZ9K6OY8ZxF%2B0IYw9PW3qz8aY6lk92bZ%2BVqSI3oC9T7%2FyCVnrF1ngj93us%2B540sf5BrCDfw9b6jJ5lx%2FyjtGKBBXc3cnqx0INN4ImbI%2Bl%2BPnI8zWfFEr4chLLrWHCp9OO9j19Kbc91HX0zzzBO8EbLK2Iv4ZvNO3is3h6jb%2BCwO0iL8AaWqB7ILPTxq3kDypqvBuYuwswqo6wgYJbT8XxBPZ8KS1TepkFdC79TAHHce%2F7LbVioi3wEfTpmeKtPRGEeoldSP%2FOeoEftpP4BRbgXrYZefsAI%2BP9JU7ImyEAAAAASUVORK5CYII%3D
+   :target: https://www.anyscale.com/ray-on-anyscale?utm_source=github&utm_medium=ray_readme&utm_campaign=get_started_badge
+
+Ray is a unified framework for scaling AI and Python applications. Ray consists of a core distributed runtime and a set of AI libraries for simplifying ML compute:
+
+.. image:: https://github.com/ray-project/ray/raw/master/doc/source/images/what-is-ray-padded.svg
+
+..
+  https://docs.google.com/drawings/d/1Pl8aCYOsZCo61cmp57c7Sja6HhIygGCvSZLi_AuBuqo/edit
+
+Learn more about `Ray AI Libraries`_:
+
+- `Data`_: Scalable Datasets for ML
+- `Train`_: Distributed Training
+- `Tune`_: Scalable Hyperparameter Tuning
+- `RLlib`_: Scalable Reinforcement Learning
+- `Serve`_: Scalable and Programmable Serving
+
+Or more about `Ray Core`_ and its key abstractions:
+
+- `Tasks`_: Stateless functions executed in the cluster.
+- `Actors`_: Stateful worker processes created in the cluster.
+- `Objects`_: Immutable values accessible across the cluster.
+
+Learn more about Monitoring and Debugging:
+
+- Monitor Ray apps and clusters with the `Ray Dashboard <https://docs.ray.io/en/latest/ray-core/ray-dashboard.html>`__.
+- Debug Ray apps with the `Ray Distributed Debugger <https://docs.ray.io/en/latest/ray-observability/ray-distributed-debugger.html>`__.
+
+Ray runs on any machine, cluster, cloud provider, and Kubernetes, and features a growing
+`ecosystem of community integrations`_.
+
+Install Ray with: ``pip install ray``. For nightly wheels, see the
+`Installation page <https://docs.ray.io/en/latest/ray-overview/installation.html>`__.
+
+.. _`Serve`: https://docs.ray.io/en/latest/serve/index.html
+.. _`Data`: https://docs.ray.io/en/latest/data/dataset.html
+.. _`Workflow`: https://docs.ray.io/en/latest/workflows/
+.. _`Train`: https://docs.ray.io/en/latest/train/train.html
+.. _`Tune`: https://docs.ray.io/en/latest/tune/index.html
+.. _`RLlib`: https://docs.ray.io/en/latest/rllib/index.html
+.. _`ecosystem of community integrations`: https://docs.ray.io/en/latest/ray-overview/ray-libraries.html
+
+
+Why Ray?
+--------
+
+Today's ML workloads are increasingly compute-intensive. As convenient as they are, single-node development environments such as your laptop cannot scale to meet these demands.
+
+Ray is a unified way to scale Python and AI applications from a laptop to a cluster.
+
+With Ray, you can seamlessly scale the same code from a laptop to a cluster. Ray is designed to be general-purpose, meaning that it can performantly run any kind of workload. If your application is written in Python, you can scale it with Ray, no other infrastructure required.
+
+More Information
+----------------
+
+- `Documentation`_
+- `Ray Architecture whitepaper`_
+- `Exoshuffle: large-scale data shuffle in Ray`_
+- `Ownership: a distributed futures system for fine-grained tasks`_
+- `RLlib paper`_
+- `Tune paper`_
+
+*Older documents:*
+
+- `Ray paper`_
+- `Ray HotOS paper`_
+- `Ray Architecture v1 whitepaper`_
+
+.. _`Ray AI Libraries`: https://docs.ray.io/en/latest/ray-air/getting-started.html
+.. _`Ray Core`: https://docs.ray.io/en/latest/ray-core/walkthrough.html
+.. _`Tasks`: https://docs.ray.io/en/latest/ray-core/tasks.html
+.. _`Actors`: https://docs.ray.io/en/latest/ray-core/actors.html
+.. _`Objects`: https://docs.ray.io/en/latest/ray-core/objects.html
+.. _`Documentation`: http://docs.ray.io/en/latest/index.html
+.. _`Ray Architecture v1 whitepaper`: https://docs.google.com/document/d/1lAy0Owi-vPz2jEqBSaHNQcy2IBSDEHyXNOQZlGuj93c/preview
+.. _`Ray Architecture whitepaper`: https://docs.google.com/document/d/1tBw9A4j62ruI5omIJbMxly-la5w4q_TjyJgJL_jN2fI/preview
+.. _`Exoshuffle: large-scale data shuffle in Ray`: https://arxiv.org/abs/2203.05072
+.. _`Ownership: a distributed futures system for fine-gr
+... [TRUNCATED]
+
+--- PACKAGE MANIFEST(S) ---
+
+[pyproject.toml]
+[project]
+requires-python = ">=3.9"
+
+[tool.ruff]
+line-length = 88
+extend-exclude = [
+    "python/ray/thirdparty_files/",
+    "python/ray/_private/thirdparty/",
+    "python/ray/_private/runtime_env/agent/thirdparty_files/",
+    "python/build/",
+    "python/ray/workflow/tests/mock_server.py",
+    "python/ray/serve/tests/test_config_files/syntax_error.py",
+    "rllib/examples/envs/classes/multi_agent/footsies/game/proto/footsies_service_pb2.py",
+    "rllib/examples/envs/classes/multi_agent/footsies/game/proto/footsies_service_pb2_grpc.py",
+]
+
+[tool.ruff.lint]
+extend-select = ["I", "B", "Q", "C4", "W"]
+ignore = [
+    "B003",
+    "B005",
+    "B007",
+    "B008",
+    "B011",
+    "B012",
+    "B015",
+    "B017",
+    "B028",
+    "C408",
+    "C417",
+    "E741",
+    # TODO(MortalHappiness): Remove the following rules from the ignore list
+    # The above are rules ignored originally in flake8
+    # The following are rules ignored in ruff
+    "B023",
+    "B024",
+    "B026",
+    "B027",
+    "B904",
+    "C419",
+    # Below are auto-fixable rules
+    "I001",
+]
+
+[tool.ruff.lint.flake8-quotes]
+avoid-escape = false
+
+[tool.ruff.lint.isort]
+combine-as-imports = true
+section-order = ["future", "standard-library", "third-party", "first-party", "local-folder", "afterray"]
+known-local-folder = ["ray", "ray_release"]
+known-third-party = ["grpc"]
+
+[tool.ruff.lint.isort.sections]
+afterray = ["psutil", "setproctitle"]
+
+# Some of the directories need to be kept in the blacklist for isort ("I" rule):
+# python/ray/cloudpickle/*
+# doc/*
+# python/ray/__init__.py
+# For the rest we will gradually remove them from the blacklist as we
+# reformat the code to follow the style guide.
+[tool.ruff.lint.per-file-ignores]
+"doc/*" = ["I"]
+"python/ray/__init__.py" = ["I"]
+"python/ray/dag/__init__.py" = ["I"]
+"python/ray/air/__init__.py" = ["I"]
+"release/*_tests/*.py" = ["I"]
+
+# TODO(matthewdeng): Remove this line
+"python/ray/tune/__init__.py" = ["I"]
+
+
+--- REQUIREMENTS FILES ---
+
+[ci/raydepsets/tests/test_data/requirements_compiled_large_test.txt]
+--index-url https://pypi.org/simple
+--extra-index-url https://download.pytorch.org/whl/cu128
+
+absl-py==1.4.0 \
+    --hash=sha256:0d3fe606adfa4f7db64792dd4c7aee4ee0c38ab75dfd353b7a83ed3e957fcb47 \
+    --hash=sha256:d2c244d01048ba476e7c080bd2c6df5e141d211de80223460d5b3b8a2a58433d
+    # via
+    #   dm-tree
+aiohappyeyeballs==2.6.1 \
+    --hash=sha256:c3f9d0113123803ccadfdf3f0faa505bc78e6a72d1cc4806cbd719826e943558 \
+    --hash=sha256:f349ba8f4b75cb25c99c5c2d84e997e485204d2902a9597802b0371f09331fb8
+    # via
+    #   aiohttp
+aiohttp==3.13.3 \
+    --hash=sha256:01ad2529d4b5035578f5081606a465f3b814c542882804e2e8cda61adf5c71bf \
+    --hash=sha256:042e9e0bcb5fba81886c8b4fbb9a09d6b8a00245fd8d88e4d989c1f96c74164c \
+    --hash=sha256:05861afbbec40650d8a07ea324367cb93e9e8cc7762e04dd4405df99fa65159c \
+    --hash=sha256:084911a532763e9d3dd95adf78a78f4096cd5f58cdc18e6fdbc1b58417a45423 \
+    --hash=sha256:0add0900ff220d1d5c5ebbf99ed88b0c1bbf87aa7e4262300ed1376a6b13414f \
+    --hash=sha256:0db318f7a6f065d84cb1e02662c526294450b314a02bd9e2a8e67f0d8564ce40 \
+    --hash=sha256:10b47b7ba335d2e9b1239fa571131a87e2d8ec96b333e68b2a305e7a98b0bae2 \
+    --hash=sha256:1449ceddcdbcf2e0446957863af03ebaaa03f94c090f945411b61269e2cb5daf \
+    --hash=sha256:147e422fd1223005c22b4fe080f5d93ced44460f5f9c105406b753612b587821 \
+    --hash=sha256:1cb93e166e6c28716c8c6aeb5f99dfb6d5ccf482d29fe9bf9a794110e6d0ab64
+    # via
+    #   aiohttp-cors
+    #   ray
+aiohttp-cors==0.7.0 \
+    --hash=sha256:0451ba59fdf6909d0e2cd21e4c0a43752bc0703d33571f752e1ad67b75f7ea81 \
+    --hash=sha256:4d39c6d7f24c56b0b0a20f5a5c3e5e7d4c0b3e0f1a2b3c4d5e6f7890123456a
+    # via
+    #   ray
+aiosignal==1.3.2 \
+    --hash=sha256:45cde58e409a301715980c2b01d0c28bdded45363a96c90c89bcfd1bc2a8d2f6 \
+    --hash=sha256:54cd96e15e1649b75d6c87526a6ff0b6c1b0dd3459f43d9b9aa5b7e5f4a91e94
+    # via
+    #   aiohttp
+attrs==25.3.0 \
+    --hash=sha256:427318ce031701fea540783410126f03899a97ffc6f61596ad581ac2e40e3bc3 \
+    --hash=sha256:75d7cefc7fb576747b2c81b4442d4d4a1ce0900973527c011d1030fd3bf4af1b
+    # via
+    #   aiohttp
+cachetools==5.3.3 \
+    --hash=sha256:0aeee63788e3a3b2d9873e36c6a6e86e5d52b2a5d3e66b1e20b34e19fa0b2e78 \
+    --hash=sha256:ba800f6e8b4048becb089eadd35a0a71c79c3d82c9cfe3a9d8b67a90d97f4b5a
+    # via
+    #   google-auth
+certifi==2025.1.31 \
+    --hash=sha256:3d5da6925056f6f18f119200434f4bfa01a57ce7e0a8d331441e68d8c9e227e2 \
+    --hash=sha256:3f2c14e06c9ed2f4a422c71b16f37bfa8a453ade8bf011aee76cf3db0ed138c4
+    # via
+    #   requests
+charset-normalizer==3.4.1 \
+    --hash=sha256:0167ddc8ab6508fe81860a57dd472b2ef4060e8d378f0cc555707126830f2537 \
+    --hash=sha256:04e57ab9fbf9607b77f7d057974694b4f6b142da9ed4a199859d9d4d5c63fe96 \
+    --hash=sha256:09393e1b2a9461950b1c9a45d5fd251dc7c6f228acab64da1c9c0165d9c7765c \
+    --hash=sha256:0b87549028f680ca955556e3bd57013ab47474c3124dc069faa0b6545b6c9710
+    # via
+    #   requests
+click==8.1.8 \
+    --hash=sha256:63c132bbbed01578a06712a2d1f497571e971570ec6b2e0e4e5e09bc3daa3a05 \
+    -
+... [TRUNCATED]
+
+[ci/raydepsets/tests/test_data/requirements_compiled_test.txt]
+--index-url https://pypi.org/simple
+
+emoji==2.9.0 \
+    --hash=sha256:17b0d53e1d9f787307a4c65aa19badb0a1ffdbc89b3a3cd851fc77821cdaced2 \
+    --hash=sha256:5f4a15b7caa9c67fc11be9d90a822e3fa26aeb4e5b7bd2ded754b394d9c47869
+pyperclip==1.6.0 \
+    --hash=sha256:ce829433a9af640e08ee89b20f7c62132714bcc5d77df114044d0fccb8c3b3b8
+
+
+[ci/raydepsets/tests/test_data/requirements_compiled_test_expand.txt]
+--index-url https://pypi.org/simple
+
+emoji==2.9.0 \
+    --hash=sha256:17b0d53e1d9f787307a4c65aa19badb0a1ffdbc89b3a3cd851fc77821cdaced2 \
+    --hash=sha256:5f4a15b7caa9c67fc11be9d90a822e3fa26aeb4e5b7bd2ded754b394d9c47869
+pyperclip==1.6.0 \
+    --hash=sha256:ce829433a9af640e08ee89b20f7c62132714bcc5d77df114044d0fccb8c3b3b8
+six==1.17.0 \
+    --hash=sha256:4721f391ed90541fddacab5acf947aa0d3dc7d27b2e1e8eda2be8970586c3274 \
+    --hash=sha256:ff70335d468e7eb6ec65b95b99d3a2836546063f63acc5171de367e834932a81
+
+
+[ci/raydepsets/tests/test_data/requirements_compiled_test_update.txt]
+--index-url https://pypi.org/simple
+
+emoji==2.10.0 \
+    --hash=sha256:7e68435eecd2c428c3b4aaa5f72d61a5b1a36c81a5138681cba13d19d94aa3a0 \
+    --hash=sha256:aed4332caa23553a7218f032c08b0a325ae53b010f7fb98ad272c0f7841bc1d3
+pyperclip==1.6.0 \
+    --hash=sha256:ce829433a9af640e08ee89b20f7c62132714bcc5d77df114044d0fccb8c3b3b8
+
+
+[ci/raydepsets/tests/test_data/requirements_test.txt]
+emoji
+pyperclip
+
+
+[ci/repro-ci-requirements.txt]
+# Dependencies for running repro-ci.py
+boto3
+click
+paramiko
+pyyaml
+pybuildkite
+
+
+[doc/requirements-doc.lock.txt]
+../python/deplocks/docs/docbuild_depset_py3.10.lock
+
+[doc/requirements-doc.txt]
+# Production requirements. This is what readthedocs.com picks up
+
+# Required to build the docs on 3.12 due to pkg_resources deprecation
+setuptools==80.9.0
+
+# Syntax highlighting
+Pygments==2.16.1
+
+# Sphinx
+sphinx==7.3.7
+sphinx-click==5.1.0
+sphinx-copybutton==0.5.2
+sphinxemoji>=0.3.2
+sphinx-jsonschema==1.19.1
+sphinx-sitemap==2.5.1
+sphinxcontrib-redoc==1.6.0
+sphinx-remove-toctrees==0.0.3
+sphinx_design==0.5.0
+sphinx-autobuild==2024.4.16
+pydata-sphinx-theme==0.14.1
+autodoc_pydantic==2.2.0
+appnope
+sphinx-docsearch==0.0.7
+
+pydantic==2.5.0
+
+# MyST
+myst-parser==2.0.0 # Needed to parse markdown
+myst-nb==1.0.0rc0 # Most recent version of myst-nb; pin when new release is made
+# Jupyter conversion
+jupytext==1.15.2
+
+# Pin urllib to avoid downstream ssl incompatibility issues
+urllib3 < 1.27
+
+# External dependencies such as ML libraries should be mocked out, not added here.
+# See doc/source/conf.py for examples of how to mock out external dependencies.
+click==8.1.7
+boto3==1.34.69
+requests==2.32.5
+
+
+[doc/source/ray-overview/examples/e2e-audio/requirements.txt]
+# This file is autogenerated by pip-compile with Python 3.10
+# by the following command:
+#
+#    pip-compile --constraint=python/deplocks/llm/rayllm_py311_cu128.lock --no-annotate --no-emit-index-url --no-emit-trusted-host --output-file=requirements.txt --strip-extras doc/source/ray-overview/examples/e2e-audio/requirements.in
+#
+# ... and then slimmed down by Ricardo
+accelerate==1.7.0
+datasets[audio]==2.2.1
+flashinfer-python==0.2.2.post1
+huggingface-hub[hf_xet]==0.32.6
+pydantic==2.9.2
+transformers==4.52.4
+xgrammar==0.1.19
+
+
+[doc/source/ray-overview/examples/e2e-audio/requirements_dev.txt]
+pre-commit>=4.2.0
+pytest>=8.3.5
+ruff>=0.11.5
+nbconvert
+jupyter
+ipykernel
+ipywidgets
+
+
+[doc/source/ray-overview/examples/e2e-multimodal-ai-workloads/requirements.txt]
+ipywidgets==8.1.3
+matplotlib==3.10.0
+mlflow==2.19.0
+torch==2.7.1
+transformers==4.52.3
+scikit-learn==1.6.0
+
+[doc/source/ray-overview/examples/e2e-timeseries/requirements.txt]
+--find-links https://data.pyg.org/whl/torch-2.3.0+cpu.html
+aiohttp==3.11.16
+nbformat==5.9.2
+numpy==1.26.4
+pandas==2.3.0
+pyyaml==6.0.1
+s3fs==2023.5.0
+scikit-learn==1.3.2
+torch==2.3.0
+
+
+[doc/source/ray-overview/examples/e2e-timeseries/requirements_dev.txt]
+ipykernel
+ipywidgets
+
+
+[doc/source/ray-overview/examples/e2e-xgboost/requirements.txt]
+ipykernel>=6.29.5
+ipywidgets>=8.1.6
+matplotlib==3.10.0
+mlflow==2.19.0
+# ray[data,serve,train]>=2.44.1  # Provided by Anyscale's base image.
+scikit-learn==1.6.0
+xgboost>=3.0.0
+
+
+[doc/source/ray-overview/examples/e2e-xgboost/requirements_dev.txt]
+ruff
+mypy
+nbformat>=5.10.4
+pre-commit==4.1.0
+jupytext
+
+
+[doc/source/ray-overview/examples/langchain_agent_ray_serve/content/requirements.txt]
+# Core dependencies
+fastapi==0.115.12
+langchain==1.0.5
+langchain-mcp-adapters==0.1.12
+langchain-openai==1.0.2
+langgraph==1.0.3
+openai==2.7.2
+uvicorn==0.38.0
+httpx==0.27.1
+mcp==1.22.0
+
+
+
+[doc/source/ray-overview/examples/mcp-ray-serve/build-mcp-docker-image/requirements.txt]
+mcp[cli]>=1.2.0
+httpx>=0.24.0
+pydantic==2.9.2
+
+[doc/source/ray-overview/examples/multi_agent_a2a/content/requirements.txt]
+# Core dependencies
+fastapi==0.115.12
+langchain==1.0.5
+langchain-mcp-adapters==0.1.12
+langchain-openai==1.0.2
+langgraph==1.0.3
+openai==2.7.2
+uvicorn==0.38.0
+a2a-sdk[http-server]==0.3.22
+httpx==0.28.1
+mcp==1.22.0
+
+# Web search + fetch helpers
+protego==0.5.0
+readabilipy==0.3.0
+markdownify==0.14.1
+pytest==9.0.2
+
+
+[doc/source/serve/tutorials/asynchronous-inference/content/requirements.txt]
+# Ray Serve with async inference dependencies (includes Celery and Redis)
+ray[serve-async-inference]>=2.52.0
+
+# HTTP client for examples
+requests>=2.31.0
+
+# PDF processing
+PyPDF2>=3.0.0
+
+# Celery dependencies
+celery[redis]
+
+
+[doc/source/templates/02_many_model_training/requirements.txt]
+statsforecast==1.5.0
+
+
+[doc/source/templates/05_dreambooth_finetuning/dreambooth/requirements.txt]
+accelerate==0.20.3
+bitsandbytes==0.39.1
+diffusers==0.19.3
+flax==0.6.11
+ipywidgets
+huggingface_hub==0.27.0
+jax==0.4.13
+jaxlib==0.4.13
+numpy==1.24.4
+torch==2.0.1
+torchvision==0.15.2
+transformers==4.30.2
+
+
+[doc/source/templates/testing/docker/03_serving_stable_diffusion/requirements.txt]
+accelerate==0.20.3
+diffusers==0.17.1
+fastapi==0.97.0
+ipywidgets
+matplotlib==3.7.1
+numpy==1.24.3
+torch==2.0.1
+transformers==4.30.1
+
+
+[doc/source/templates/testing/docker/04_finetuning_llms_with_deepspeed/requirements.txt]
+deepspeed==0.10.2
+fairscale
+transformers>=4.36.2
+dataset
+accelerate
+evaluate
+wandb
+pytorch-lightning
+protobuf
+torchmetrics
+sentencepiece
+peft==0.7.0
+
+
+[doc/source/train/tutorials/content/requirements.txt]
+matplotlib==3.10.6
+torch==2.8.0
+torchvision==0.23.0
+pyarrow==14.0.2
+torchmetrics==1.8.2
+xgboost==3.0.5
+seaborn==0.13.2
+scikit-learn==1.7.2
+lightning==2.5.5
+datasets==2.19.2
+
+
+[doc/source/tune/examples/tune_pytorch_asha/content/requirements.txt]
+torch==2.8.0
+torchvision==0.23.0
+
+
+[python/ray/tests/project_files/session-tests/git-repo-pass/ray-project/requirements.txt]
+ray
+
+
+[python/ray/tests/project_files/session-tests/invalid-config-fail/ray-project/requirements.txt]
+ray
+
+
+[python/ray/tests/project_files/session-tests/project-pass/ray-project/requirements.txt]
+ray
+
+
+[python/ray/tune/requirements-dev.txt]
+gym>=0.21.0,<0.24.0
+scikit-image
+pandas
+requests
+tensorflow
+black==22.10.0
+yq
+
+
+[python/ray/util/collective/requirements.txt]
+cupy-cuda100
+
+
+[python/requirements.txt]
+# These are mirrored in setup.py as install_requires,a
+# which is what the users of the ray package will install. The rest of this file
+# sets up all the packages necessary for a /developer/ of Ray.
+#
+# In short, if you change it here, PLEASE also change it in setup.py.
+
+# You can obtain this list from the ray.egg-info/requires.txt
+
+## setup.py install_requires
+click>=7.0
+cupy-cuda12x; sys_platform != 'darwin'
+filelock
+jsonschema
+msgpack<2.0.0,>=1.0.0
+packaging>=24.2
+protobuf>=3.20.3
+pyyaml
+requests
+watchfiles
+
+# Python version-specific requirements
+grpcio>=1.42.0
+
+pyarrow >= 9.0.0
+
+# ray[all]
+smart_open
+lz4
+numpy>=1.20
+aiorwlock
+scipy
+colorful
+rich
+opentelemetry-sdk>=1.30.0
+opentelemetry-api
+opentelemetry-exporter-prometheus
+opentelemetry-proto
+fastapi
+ormsgpack>=1.7.0
+gymnasium==1.2.2
+virtualenv!=20.21.1,>=20.0.24
+opencensus
+aiohttp_cors
+dm_tree
+uvicorn
+prometheus_client>=0.7.1
+pandas>=1.3
+tensorboardX
+aiohttp>=3.13.3
+starlette
+typer
+fsspec
+pydantic!=2.0.*,!=2.1.*,!=2.2.*,!=2.3.*,!=2.4.*,!=2.5.*,!=2.6.*,!=2.7.*,!=2.8.*,!=2.9.*,!=2.10.*,!=2.11.*,<3  # Serve users can use pydantic<2
+py-spy>=0.2.0; python_version < '3.12'
+py-spy>=0.4.0; python_version >= '3.12'
+memray; sys_platform != "win32" # memray is not supported on Windows
+pyOpenSSL
+celery
+taskiq
+
+
+[python/requirements/base-test-requirements.txt]
+pytest
+pytest-asyncio
+pytest-aiohttp
+
+
+[python/requirements/cloud-requirements.txt]
+jupyterlab>=4.2.7
+ipywidgets
+google-cloud-storage
+grpcio>=1.66.1
+grpcio-tools>=1.62.3
+pyyaml
+pyopenssl
+certifi
+pycurl
+azure-identity
+smart_open[s3,gcs,azure,http]
+adlfs[abfs]
+openlineage-python>=1.36.0
+
+# Anyscale CLI requirements
+boto3==1.29.7
+botocore==1.32.7
+aiohttp>=3.7.4.post0
+certifi>=2024.8.30
+Click>=7.0
+colorama
+GitPython
+google-auth
+jsonpatch
+jsonschema
+oauth2client
+packaging
+pathspec>=0.8.1
+python-dateutil
+requests
+rich
+six>=1.10
+tabulate
+urllib3>=1.26.17
+wrapt
+pyyaml
+smart_open
+halo
+tqdm
+tzlocal
+humanize
+
+
+[python/requirements/docker/ray-docker-requirements.txt]
+# Todo: Fix conflicts with pinned boto3/botocore
+# awscli
+gsutil
+
+# Requirements that are shipped in the ML docker image.
+ipython==8.12.3
+
+# Needed for rich visualization for Ray Train and Ray Data.
+# Todo: Pin to >=8 when myst-parser is upgraded
+# ipywidgets>=8
+ipywidgets
+
+# Needed for Ray Client error message serialization/deserialization.
+tblib
+
+
+[python/requirements/lint-requirements.txt]
+clang-format==12.0.1
+docutils
+pre-commit==3.5.0
+mypy==1.7.0
+mypy-extensions==1.0.0
+types-PyYAML==6.0.12.2
+black==22.10.0
+semgrep==1.32.0
+shellcheck-py==0.7.1.1
+yq
+types-pycurl==7.45.3.20240421
+types-requests==2.31.0.6
+types-setuptools==80.9.0.20250822
+
+
+[python/requirements/llm/llm-requirements.txt]
+# Keep this in sync with the definition in setup.py for ray[llm], unless
+# constraining to a maximum version (i.e. <=) to temporarily work around a bug.
+# Those pins for the sake of workarounds should not be advertised as constraints
+# on future releases in setup.py.
+vllm[audio]>=0.16.0
+nixl>=0.6.1
+anyio>=4.5.0
+# For json mode
+jsonref>=1.1.0
+jsonschema
+ninja
+# async-timeout is a backport of asyncio.timeout for python < 3.11
+async-timeout; python_version < '3.11'
+typer
+meson
+pybind11
+hf_transfer
+
+
+[python/requirements/llm/llm-test-requirements.txt]
+pytest
+aiohttp
+pillow
+httpx>=0.27.2
+pynvml>=12.0.0
+jupytext>1.13.6
+sphinx==6.2.1
+backoff
+datasets
+
+
+[python/requirements/ml/core-requirements.txt]
+# ML tracking integrations
+comet-ml==3.44.1
+mlflow>=2.22.0
+wandb>=0.23.1
+
+# ML training frameworks
+xgboost==2.1.0
+lightgbm==4.6.0
+
+# Huggingface
+transformers==4.36.2
+accelerate==0.28.0
+
+# Cloud storage tools
+s3fs==2023.12.1
+
+
+[python/requirements/ml/data-requirements.txt]
+# Used by CI for datasets and docs.
+# https://github.com/ray-project/ray/pull/29448#discussion_r1006256498
+
+getdaft==0.4.3
+dask[complete]==2023.6.1; python_version < '3.12'
+distributed==2023.6.1; python_version < '3.12'
+dask[complete]==2025.5.0; python_version >= '3.12'
+distributed==2025.5.0; python_version >= '3.12'
+aioboto3==12.1.0
+crc32c==2.3
+flask_cors
+bokeh==2.4.3; python_version < '3.12'
+modin==0.22.2; python_version < '3.12'
+pandas==1.5.3; python_version < '3.12'
+modin==0.31.0; python_version >= '3.12'
+pandas==2.2.2; python_version >= '3.12'
+responses>=0.15.0
+pymars>=0.8.3; python_version < "3.12"
+
+
+[python/requirements/ml/data-test-requirements.txt]
+# Used by CI for datasets tests.
+# https://github.com/ray-project/ray/pull/29448#discussion_r1006256498
+
+python-snappy
+tensorflow-datasets==4.9.3
+datasets>=3.0.2
+pytest-repeat
+soundfile
+fastavro
+google-cloud-bigquery
+google-cloud-core
+google-cloud-bigquery-storage
+google-api-core
+webdataset
+raydp==1.7.0b20250423.dev0
+pylance==0.22
+delta-sharing
+deltalake==0.9.0
+pytest-mock
+decord
+snowflake-connector-python>=3.15.0
+pyiceberg[sql-sqlite]==0.11.0
+clickhouse-connect
+confluent-kafka
+pybase64
+hudi==0.4.0
+datasketches
+testcontainers[kafka]
+
+
+[python/requirements/ml/dl-cpu-requirements.txt]
+# These requirements are used for the CI and CPU-only Docker images so we install CPU only versions of torch.
+# For GPU Docker images, you should install dl-gpu-requirements.txt afterwards.
+
+tensorflow==2.15.1; python_version < '3.12' and (sys_platform != 'darwin' or platform_machine != 'arm64')
+tensorflow-macos==2.15.1; python_version < '3.12' and sys_platform == 'darwin' and platform_machine == 'arm64'
+tensorflow-probability==0.23.0; python_version < '3.12'
+tensorflow-io-gcs-filesystem==0.31.0; python_version < '3.12'
+tensorflow-datasets; python_version < '3.12'
+array-record==0.5.1; python_version < '3.12' and sys_platform != 'darwin' and platform_system != 'Windows'
+etils==1.5.2; python_version < '3.12'
+
+# If you make changes below this line, please also make the corresponding changes to `dl-gpu-requirements.txt`
+# and to `install-dependencies.sh`!
+
+--extra-index-url https://download.pytorch.org/whl/cpu  # for CPU versions of torch, torchvision
+--find-links https://data.pyg.org/whl/torch-2.3.0+cpu.html  # for CPU versions of torch-scatter, torch-sparse, torch-cluster, torch-spline-conv
+
+torch==2.3.0
+torchmetrics==0.10.3
+torchtext==0.18.0
+torchvision==0.18.0
+
+torch-scatter==2.1.2
+torch-sparse==0.6.18
+torch-cluster==1.6.3
+torch-spline-conv==1.2.2
+torch-geometric==2.5.3
+
+cupy-cuda12x>=13.4.0; sys_platform != 'darwin'
+
+# Keep JAX version consistent with dl-gpu-requirements.txt
+jax==0.4.22; python_version < '3.12' and sys_platform != 'darwin'
+jaxlib==0.4.22; python_version < '3.12' and sys_platform != 'darwin'
+
+
+[python/requirements/ml/dl-gpu-requirements.txt]
+# If you make changes below this line, please also make the corresponding changes to `dl-cpu-requirements.txt`!
+
+tensorflow==2.15.1; python_version < '3.12' and (sys_platform != 'darwin' or platform_machine != 'arm64')
+tensorflow-macos==2.15.1; python_version < '3.12' and sys_platform == 'darwin' and platform_machine == 'arm64'
+tensorflow-probability==0.23.0; python_version < '3.12'
+tensorflow-datasets; python_version < '3.12'
+
+--extra-index-url https://download.pytorch.org/whl/cu121  # for GPU versions of torch, torchvision
+--find-links https://data.pyg.org/whl/torch-2.3.0+cu121.html  # for GPU versions of torch-scatter, torch-sparse, torch-cluster, torch-spline-conv
+# specifying explicit plus-notation below so pip overwrites the existing cpu verisons
+torch==2.3.0+cu121
+torchvision==0.18.0+cu121
+torch-scatter==2.1.2+pt23cu121
+torch-sparse==0.6.18+pt23cu121
+torch-cluster==1.6.3+pt23cu121
+torch-spline-conv==1.2.2+pt23cu121
+
+cupy-cuda12x>=13.4.0; sys_platform != 'darwin'
+nixl==0.4.0; sys_platform != 'darwin'
+
+--find-links https://storage.googleapis.com/jax-releases/jax_cuda_releases.html
+jaxlib==0.4.22+cuda12.cudnn89; python_version < '3.12' and sys_platform != 'darwin'
+
+
+[python/requirements/ml/rllib-requirements.txt]
+# For auto-generating an env-rendering Window.
+pyglet==1.5.15
+imageio-ffmpeg==0.4.5
+onnx==1.15.0; sys_platform != 'darwin' or platform_machine != 'arm64'
+onnxruntime==1.18.0; sys_platform != 'darwin' or platform_machine != 'arm64'
+rich==13.7.1
+# Msgpack checkpoint stuff.
+msgpack
+msgpack-numpy
+ormsgpack
+
+
+[python/requirements/ml/rllib-test-requirements.txt]
+# Environment adapters.
+# ---------------------
+# Atari
+ale_py==0.10.1
+imageio==2.34.2
+opencv-python-headless==4.9.0.80
+
+# For testing MuJoCo envs with gymnasium.
+mujoco==3.2.4
+dm_control==1.0.12; python_version < "3.12"
+
+# For tests on PettingZoo's multi-agent envs.
+pettingzoo==1.24.3
+pymunk==6.2.1
+tinyscaler==1.2.8
+shimmy==2.0.0
+supersuit==3.9.3
+
+# For tests on minigrid.
+minigrid==2.3.1
+tensorflow_estimator
+
+# DeepMind's OpenSpiel
+open-spiel==1.4
+
+# Requires libtorrent which is unavailable for arm64
+h5py==3.12.1
+
+# Requirements for rendering.
+moviepy
+
+
+[python/requirements/ml/train-requirements.txt]
+deepspeed==0.12.3
+datasets
+huggingface-hub>=0.24.0
+
+
+[python/requirements/ml/train-test-requirements.txt]
+evaluate==0.4.3
+mosaicml; python_version < "3.12"
+sentencepiece==0.1.96
+s3torchconnector==1.4.3
+
+
+[python/requirements/ml/tune-requirements.txt]
+# Searchers
+ax-platform==0.3.2
+
+bayesian-optimization==1.4.3
+
+# BOHB
+ConfigSpace==0.7.1; python_version < "3.12"
+hpbandster==0.7.4; python_version < "3.12"
+
+hyperopt @ git+https://github.com/hyperopt/hyperopt.git@2504ee61419737e814e2dec2961b15d12775529c
+future
+nevergrad==0.4.3.post7
+optuna==4.1.0
+
+
+[python/requirements/ml/tune-test-requirements.txt]
+aim==3.23.0; python_version < "3.12"
+
+jupyterlab
+matplotlib!=3.4.3
+
+pytest-remotedata==0.3.2
+pytorch-lightning==1.8.6
+fairscale==0.4.6
+shortuuid==1.0.1
+timm==0.9.2
+
+zoopt==0.4.1
+
+# timeseries lib
+statsforecast==1.7.0
+prophet==1.1.5
+holidays==0.39
+
+
+[python/requirements/security-requirements.txt]
+# Requirement constraints for security.
+#
+# Only for constraining version ranges. Packages listed might not be installed,
+# might not be ray requirements. They are only used in compiling the
+# constraint file
+
+idna>=3.7
+certifi>=2025.1.31
+
+
+[python/requirements/serve/pydantic-reqs.txt]
+pydantic==1.10.12
+
+
+[python/requirements/serve/serve-overrides.txt]
+# uvloop is excluded from the serve depset because uvloop's Cython event loop
+# does not expose _default_executor as a Python-accessible attribute, which
+# breaks tests that inspect the asyncio event loop internals. Ray gracefully
+# falls back to the standard asyncio event loop when uvloop is not installed.
+uvloop ; python_version < "0"
+
+
+[python/requirements/serve/serve-requirements.txt]
+aiohttp
+anyio
+click
+fastapi
+gradio
+grpcio
+httpx
+numpy
+packaging
+pandas
+protobuf
+pydantic
+pymysql
+pytest
+pytest_asyncio
+PyYAML
+redis
+requests
+SQLAlchemy
+starlette
+typing_extensions
+# TODO(elliot-barn): might need to add vllm for tests
+# vllm
+websockets
+tensorflow
+tensorflow-probability
+torch
+torchvision
+transformers
+aioboto3
+tf_keras
+numexpr
+taskiq-redis
+
+
+[python/requirements/serve/tracing-reqs.txt]
+opentelemetry-exporter-otlp==1.34.1
+
+
+[python/requirements/test-requirements.txt]
+## Requirements for running tests
+
+# General test requirements
+async-exit-stack==1.0.1
+async-generator==1.10
+azure-cli-core==2.62.0
+azure-identity==1.17.1
+azure-mgmt-compute==31.0.0
+azure-mgmt-network==25.4.0
+azure-mgmt-resource==23.1.1
+msrestazure==0.6.4
+beautifulsoup4==4.11.1
+boto3==1.29.7
+# Todo: investigate if we can get rid of this and exchange for ray.cloudpickle
+cloudpickle==2.2.0 ; python_version < "3.12"
+cloudpickle==3.0.0 ; python_version >= "3.12"
+tornado>=6.2.0
+cython==0.29.37
+fastapi>=0.115.12
+feather-format==0.4.1
+# Keep compatible with Werkzeug
+flask==2.1.3
+freezegun==1.1.0
+google-api-python-client==2.111.0
+google-cloud-storage==2.14.0
+gradio==3.50.2; platform_system != "Windows"
+graphviz==0.20.3
+websockets==11.0.3
+joblib==1.2.0
+jsonpatch==1.32
+kubernetes==24.2.0
+llvmlite==0.42.0
+lxml>=6.0.2
+moto[s3,server]==5.1.18
+mypy==1.7.0
+pyright==1.1.408
+numba==0.59.1
+openpyxl==3.0.10
+opentelemetry-api
+opentelemetry-sdk
+pexpect==4.8.0
+Pillow>=10.4.0; platform_system != "Windows"
+proxy.py==2.4.3
+pydantic>=2.10.0
+pydot==1.4.2
+pygame==2.5.2
+Pygments==2.18.0
+pymongo==4.3.2
+pyspark==3.4.1
+pytest==7.4.4
+pytest-asyncio==0.17.2
+pytest-aiohttp==1.1.0
+pytest-httpserver==1.1.3
+pytest-rerunfailures==11.1.2
+pytest-sugar==0.9.5
+pytest-lazy-fixtures==1.1.2
+pytest-timeout==2.1.0
+pytest-virtualenv==1.8.1; python_version < "3.12"
+pytest-sphinx @ git+https://github.com/ray-project/pytest-sphinx
+pytest-mock==3.14.0
+redis
+scikit-learn>=1.5.2
+smart_open[s3]==6.2.0
+tqdm==4.67.1
+trustme==0.9.0
+testfixtures==7.0.0
+uv==0.8.9
+uvicorn==0.22.0
+vsphere-automation-sdk @ git+https://github.com/vmware/vsphere-automation-sdk-python.git@v8.0.1.0
+werkzeug==2.3.8
+xlrd==2.0.1
+yq==3.2.2
+memray; platform_system != "Windows" and sys_platform != "darwin" and platform_machine != 'aarch64'
+numpy==1.26.4
+ipywidgets==8.1.3
+pyzmq>=27.1.0
+colorama
+
+# For doc tests
+myst-parser==1.0.0
+myst-nb==1.1.0
+sphinx==6.2.1
+jupytext>1.13.6
+jinja2>=3.1.6
+pytest-docker-tools==3.1.3
+pytest-forked==1.4.0
+opentelemetry-instrumentation-fastapi==0.55b1
+mlflow>=3.0.0
+
+# For dataset tests
+polars>=1.36.0,<2.0.0
+
+importlib-metadata==6.11.0
+
+# Some packages have downstream dependencies that we have to specify here to resolve conflicts.
+# Feel free to add (or remove!) packages here liberally.
+tensorboardX
+tensorboard
+tensorboard-data-server==0.7.2
+h11>=0.16.0
+markdown-it-py
+pytz==2022.7.1
+# Aim requires segment-analytics-python, which requires backoff~=2.10,
+# which conflicts with the opentelemetry-api 1.1.0.
+segment-analytics-python==2.2.0
+httpcore>=1.0.9
+httpx>=0.28.1
+backoff==1.10
+
+# For test_basic.py::test_omp_threads_set
+threadpoolctl==3.1.0
+numexpr==2.8.4
+
+# For test_rdt_gloo.py
+tensordict==0.8.3 ; sys_platform != "darwin"
+
+# For `serve run --reload` CLI.
+watchfiles==0.19.0
+
+# Upgrades
+typing-extensions>=4.10
+filelock>=3.16.1
+virtualenv>=20.29
+jsonschema>=4.23.0
+attrs>=22.2.0
+openapi-schema-validator>=0.6.3
+wheel>=0.45.1
+aiohttp>=3.13.3
+cryptography>=44.0.3
+pyopenssl>=25.0.0
+starlette>=0.40.0
+requests>=2.32.3
+... [TRUNCATED]
+
+[python/requirements_compiled.txt]
+--extra-index-url https://download.pytorch.org/whl/cpu
+--find-links https://data.pyg.org/whl/torch-2.3.0+cpu.html
+
+absl-py==1.4.0
+    # via
+    #   array-record
+    #   dm-control
+    #   dm-env
+    #   etils
+    #   labmaze
+    #   ml-collections
+    #   mujoco
+    #   open-spiel
+    #   tensorboard
+    #   tensorflow
+    #   tensorflow-datasets
+    #   tensorflow-metadata
+    #   tensorflow-probability
+accelerate==0.28.0
+    # via -r python/requirements/ml/core-requirements.txt
+adagio==0.2.4
+    # via
+    #   fugue
+    #   qpd
+adal==1.2.7
+    # via msrestazure
+adlfs==2023.8.0
+    # via -r python/requirements/cloud-requirements.txt
+aim==3.23.0 ; python_version < "3.12"
+    # via -r python/requirements/ml/tune-test-requirements.txt
+aim-ui==3.23.0
+    # via aim
+aimrecords==0.0.7
+    # via aim
+aimrocks==0.5.2
+    # via aim
+aioboto3==12.1.0
+    # via -r python/requirements/ml/data-requirements.txt
+aiobotocore==2.8.0
+    # via
+    #   aioboto3
+    #   s3fs
+aiofiles==22.1.0
+    # via
+    #   aim
+    #   gradio
+aiohappyeyeballs==2.6.1
+    # via aiohttp
+aiohttp==3.13.3
+    # via
+    #   -r python/requirements.txt
+    #   -r python/requirements/cloud-requirements.txt
+    #   -r python/requirements/test-requirements.txt
+    #   adlfs
+    #   aiobotocore
+    #   aiohttp-cors
+    #   delta-sharing
+    #   fsspec
+    #   google-auth
+    #   pytest-aiohttp
+    #   s3fs
+    #   taskiq
+    #   torch-geometric
+aiohttp-cors==0.7.0
+    # via -r python/requirements.txt
+aioitertools==0.11.0
+    # via aiobotocore
+aiorwlock==1.3.0
+    # via -r python/requirements.txt
+aiosignal==1.4.0
+    # via aiohttp
+alabaster==0.7.13
+    # via sphinx
+ale-py==0.10.1
+    # via -r python/requirements/ml/rllib-test-requirements.txt
+alembic==1.12.1
+    # via
+    #   aim
+    #   mlflow
+    #   optuna
+altair==5.1.2
+    # via gradio
+amqp==5.3.1
+    # via kombu
+annotated-doc==0.0.4
+    # via fastapi
+annotated-types==0.6.0
+    # via pydantic
+antlr4-python3-runtime==4.11.1
+    # via
+    #   fugue-sql-antlr
+    #   moto
+    #   qpd
+anyio==4.12.0
+    # via
+    #   httpx
+    #   jupyter-server
+    #   starlette
+    #   taskiq
+    #   watchfiles
+appdirs==1.4.4
+    # via fs
+applicationinsights==0.11.10
+    # via azure-cli-telemetry
+argcomplete==3.3.0
+    # via
+    #   azure-cli-core
+    #   gsutil
+    #   knack
+    #   yq
+argon2-cffi==23.1.0
+    # via jupyter-server
+argon2-cffi-bindings==21.2.0
+    # via argon2-cffi
+argparse==1.4.0
+    # via mosaicml
+array-record==0.5.1 ; python_version < "3.12" and sys_platform != "darwin" and platform_system != "Windows"
+    # via
+    #   -r python/requirements/ml/dl-cpu-requirements.txt
+    #   tensorflow-datasets
+arrow==1.3.0
+    # via isoduration
+asgiref==3.9.2
+    # via opentelemetry-instrumentation-asgi
+asn1crypto==1.5.1
+    # via snowflake-connector-python
+asttokens==2.4.1
+    # via stack-data
+astunparse==1.6.3
+    # via tensorflow
+async-exit-stack==1.0.1
+    # via -r python/requirements/test-requirements.txt
+async-generator==1.10
+    # via -r python/requir
+... [TRUNCATED]
+
+[python/requirements_compiled_py3.10.txt]
+requirements_compiled.txt
+
+[python/requirements_compiled_py3.11.txt]
+requirements_compiled.txt
+
+[python/requirements_compiled_py3.12.txt]
+requirements_compiled.txt
+
+[python/requirements_compiled_py3.13.txt]
+--extra-index-url https://download.pytorch.org/whl/cpu
+--find-links https://data.pyg.org/whl/torch-2.3.0+cpu.html
+
+about-time==4.2.1
+    # via alive-progress
+absl-py==1.4.0
+    # via
+    #   array-record
+    #   dm-control
+    #   dm-env
+    #   dm-tree
+    #   keras
+    #   labmaze
+    #   ml-collections
+    #   mujoco
+    #   open-spiel
+    #   tensorboard
+    #   tensorflow
+    #   tensorflow-probability
+accelerate==0.28.0
+    # via -r python/requirements/ml/core-requirements.txt
+adagio==0.2.4
+    # via
+    #   fugue
+    #   qpd
+adal==1.2.7
+    # via msrestazure
+adlfs==2023.8.0
+    # via -r python/requirements/cloud-requirements.txt
+aim==3.23.0 ; python_version < "3.12"
+    # via -r python/requirements/ml/tune-test-requirements.txt
+aim-ui==3.23.0
+    # via aim
+aimrecords==0.0.7
+    # via aim
+aimrocks==0.5.2
+    # via aim
+aioboto3==12.1.0
+    # via -r python/requirements/ml/data-requirements.txt
+aiobotocore==2.8.0
+    # via
+    #   aioboto3
+    #   s3fs
+aiofiles==22.1.0
+    # via
+    #   aim
+    #   gradio
+aiohappyeyeballs==2.6.1
+    # via aiohttp
+aiohttp==3.13.3
+    # via
+    #   -r python/requirements.txt
+    #   -r python/requirements/cloud-requirements.txt
+    #   -r python/requirements/test-requirements.txt
+    #   adlfs
+    #   aiobotocore
+    #   aiohttp-cors
+    #   delta-sharing
+    #   fsspec
+    #   google-auth
+    #   pytest-aiohttp
+    #   s3fs
+    #   torch-geometric
+aiohttp-cors==0.7.0
+    # via -r python/requirements.txt
+aioitertools==0.11.0
+    # via aiobotocore
+aiorwlock==1.3.0
+    # via -r python/requirements.txt
+aiosignal==1.4.0
+    # via aiohttp
+alabaster==0.7.13
+    # via sphinx
+ale-py==0.10.1
+    # via -r python/requirements/ml/rllib-test-requirements.txt
+alembic==1.12.1
+    # via
+    #   aim
+    #   mlflow
+    #   optuna
+alive-progress==3.3.0
+    # via pymoo
+amqp==5.3.1
+    # via kombu
+annotated-doc==0.0.4
+    # via fastapi
+annotated-types==0.6.0
+    # via pydantic
+antlr4-python3-runtime==4.11.1
+    # via
+    #   fugue-sql-antlr
+    #   qpd
+anyio==4.5.0
+    # via
+    #   gradio
+    #   httpx
+    #   jupyter-server
+    #   starlette
+    #   watchfiles
+appdirs==1.4.4
+    # via fs
+applicationinsights==0.11.10
+    # via azure-cli-telemetry
+argcomplete==3.3.0
+    # via
+    #   azure-cli-core
+    #   gsutil
+    #   knack
+    #   yq
+argon2-cffi==23.1.0
+    # via jupyter-server
+argon2-cffi-bindings==21.2.0
+    # via argon2-cffi
+argparse==1.4.0
+    # via mosaicml
+array-record==0.5.1 ; python_version < "3.12" and sys_platform != "darwin" and platform_system != "Windows"
+    # via -r python/requirements/ml/dl-cpu-requirements.txt
+arrow==1.3.0
+    # via isoduration
+asgiref==3.9.2
+    # via opentelemetry-instrumentation-asgi
+asn1crypto==1.5.1
+    # via snowflake-connector-python
+asttokens==2.4.1
+    # via stack-data
+astunparse==1.6.3
+    # via tensorflow
+async-exit-stack==1.0.1
+    # via -r python/requirements/test-requirements.txt
+async-generator==1.10
+    # via -r python/requirements/test-requirements.txt
+async-lru==2.0.5
+    # via
+... [TRUNCATED]
+
+[release/ml_user_tests/horovod/driver_requirements.txt]
+# Make sure the driver versions are the same as cluster versions.
+# The cluster uses ray-ml Docker image.
+# ray-ml Docker image installs dependencies from ray/python/requirements/ml/ directory.
+# We constrain on these requirements file so that the same versions are installed.
+-c ../../../python/requirements/ml/dl-cpu-requirements.txt
+
+torch
+torchvision
+
+
+[release/ml_user_tests/train/driver_requirements.txt]
+# Make sure the driver versions are the same as cluster versions.
+# The cluster uses ray-ml Docker image.
+# ray-ml Docker image installs dependencies from ray/python/requirements/ml/ directory.
+# We constrain on these requirements file so that the same versions are installed.
+-c ../../../python/requirements/ml/dl-cpu-requirements.txt
+
+torch
+tensorflow
+
+
+[release/ray_release/byod/requirements_byod_3.11.txt]
+#
+# This file is autogenerated by pip-compile with python 3.11
+# To update, run:
+#
+#    bazel run //release:requirements_byod_3.11.update
+#
+
+
+[release/ray_release/byod/requirements_byod_3.12.txt]
+#
+# This file is autogenerated by pip-compile with python 3.12
+# To update, run:
+#
+#    bazel run //release:requirements_byod_3.12.update
+#
+
+
+[release/ray_release/byod/requirements_compiled.txt]
+../../../python/requirements_compiled.txt
+
+[release/ray_release/byod/requirements_llm_byod_3.11.txt]
+pytest-asyncio==0.21.2
+pytest-timeout==2.1.0
+locust==2.33.0
+orjson==3.10.15
+backoff==2.2.1
+langchain_text_splitters==0.3.9
+sentence-transformers==5.1.0
+
+
+[release/ray_release/byod/requirements_llm_byod_3.12.txt]
+pytest-asyncio==0.21.2
+pytest-timeout==2.1.0
+locust==2.33.0
+orjson==3.10.15
+backoff==2.2.1
+langchain_text_splitters==0.3.9
+sentence-transformers==5.1.0
+
+
+[release/ray_release/byod/requirements_ml_byod_3.10.txt]
+#
+# This file is autogenerated by pip-compile with python 3.10
+# To update, run:
+#
+#    bazel run //release:requirements_ml_byod_3.10.update
+#
+--extra-index-url https://download.pytorch.org/whl/cpu
+--find-links https://data.pyg.org/whl/torch-2.3.0+cpu.html
+
+absl-py==1.4.0 \
+    --hash=sha256:0d3fe606adfa4f7db64792dd4c7aee4ee0c38ab75dfd353b7a83ed3e957fcb47 \
+    --hash=sha256:d2c244d01048ba476e7c080bd2c6df5e141d211de80223460d5b3b8a2a58433d
+    # via
+    #   -c release/ray_release/byod/requirements_compiled.txt
+    #   rouge-score
+accelerate==0.28.0 \
+    --hash=sha256:32019a49f4b3a85cc179ac4e38e9e2971f1a997dee026be0512816499464c4d5 \
+    --hash=sha256:8ae25f8a8dc4cf12283842c469113836300545fb0dfa46fef331fb0a2ac8b421
+    # via
+    #   -c release/ray_release/byod/requirements_compiled.txt
+    #   -r release/ray_release/byod/requirements_ml_byod_3.10.in
+    #   lm-eval
+    #   peft
+adagio==0.2.4 \
+    --hash=sha256:c6c4d812f629fc3141284a0b3cfe483731b28da3a1b18f3d5498695ff87dcc12 \
+    --hash=sha256:e58abc4539184a65faf9956957d3787616bedeb1303ac5c9b1a201d8af6b87d7
+    # via
+    #   -c release/ray_release/byod/requirements_compiled.txt
+    #   fugue
+    #   qpd
+aiohappyeyeballs==2.6.1 \
+    --hash=sha256:c3f9d0113123803ccadfdf3f0faa505bc78e6a72d1cc4806cbd719826e943558 \
+    --hash=sha256:f349ba8f4b75cb25c99c5c2d84e997e485204d2902a9597802b0371f09331fb8
+    # via
+    #   -c release/ray_release/byod/requirements_compiled.txt
+    #   aiohttp
+aiohttp==3.11.16 \
+    --hash=sha256:004511d3413737700835e949433536a2fe95a7d0297edd911a1e9705c5b5ea43 \
+    --hash=sha256:0902e887b0e1d50424112f200eb9ae3dfed6c0d0a19fc60f633ae5a57c809656 \
+    --hash=sha256:09b00dd520d88eac9d1768439a59ab3d145065c91a8fab97f900d1b5f802895e \
+    --hash=sha256:0a2f451849e6b39e5c226803dcacfa9c7133e9825dcefd2f4e837a2ec5a3bb98 \
+    --hash=sha256:0a950c2eb8ff17361abd8c85987fd6076d9f47d040ebffce67dce4993285e973 \
+    --hash=sha256:0ad1fb47da60ae1ddfb316f0ff16d1f3b8e844d1a1e154641928ea0583d486ed \
+    --hash=sha256:13ceac2c5cdcc3f64b9015710221ddf81c900c5febc505dbd8f810e770011540 \
+    --hash=sha256:14461157d8426bcb40bd94deb0450a6fa16f05129f7da546090cebf8f3123b0f \
+    --hash=sha256:16f8a2c9538c14a557b4d309ed4d0a7c60f0253e8ed7b6c9a2859a7582f8b1b8 \
+    --hash=sha256:17ae4664031aadfbcb34fd40ffd90976671fa0c0286e6c4113989f78bebab37a \
+    --hash=sha256:1ce63ae04719513dd2651202352a2beb9f67f55cb8490c40f056cea3c5c355ce \
+    --hash=sha256:23a15727fbfccab973343b6d1b7181bfb0b4aa7ae280f36fd2f90f5476805682 \
+    --hash=sha256:2540ddc83cc724b13d1838026f6a5ad178510953302a49e6d647f6e1de82bc34 \
+    --hash=sha256:37dcee4906454ae377be5937ab2a66a9a88377b11dd7c072df7a7c142b63c37c \
+    --hash=sha256:38bea84ee4fe24ebcc8edeb7b54bf20f06fd53ce4d2cc8b74344c5b9620597fd \
+    --hash=sha256:3ab3367bb7f61ad18793fea2ef71f2d181c528c87948638366bf1de26e239183 \
+    --hash=sha256:3ad1d59fd7114e6a08c4814983bb498f391c699f3c78712770077518cae63ff7 \
+    --hash=sha256:3b4e6db8dc4879015b9955778cfb9881897339c8fab7b3676f8433f849425913
+... [TRUNCATED]
+
+[release/requirements-doc.txt]
+../doc/requirements-doc.txt
+
+[release/requirements.txt]
+# Requirements to run release tests from the local machine (including client tests)
+click
+# Copy anyscale pin to requirements_buildkite.txt and util.py
+anyscale
+azure-identity
+azure-storage-blob
+msal
+slackclient
+boto3
+google-cloud-storage
+jinja2
+pybuildkite
+PyGithub
+pydantic < 1.10.0
+pyyaml
+typer[all]
+toml
+python-dotenv
+PyGithub
+expiringdict
+requests
+protobuf >= 3.15.3, != 3.19.5
+pytz
+retry
+kubernetes
+
+
+[release/requirements_py310.txt]
+#
+# This file is autogenerated by pip-compile with python 3.10
+# To update, run:
+#
+#    bazel run //release:requirements_py310.update
+#
+accessible-pygments==0.0.5 \
+    --hash=sha256:40918d3e6a2b619ad424cb91e556bd3bd8865443d9f22f1dcdf79e33c8046872 \
+    --hash=sha256:88ae3211e68a1d0b011504b2ffc1691feafce124b845bd072ab6f9f66f34d4b7
+    # via pydata-sphinx-theme
+aioboto3==12.4.0 \
+    --hash=sha256:0fa03ac7a8c2c187358dd27cdf84da05e91bc1a3bd85519cad13521343a3d767 \
+    --hash=sha256:a8d5a60852482cc7a472f3544e5ad7d2f5a911054ffa066357140dc6690da94b
+    # via -r release/requirements_py310.in
+aiobotocore[boto3]==2.12.3 \
+    --hash=sha256:86737685f4625e8f05c4e7a608a07cc97607263279f66cf6b02b640c4eafd324 \
+    --hash=sha256:e2a2929207bc5d62eb556106c2224c1fd106d5c65be2eb69f15cc8c34c44c236
+    # via aioboto3
+aiohttp==3.9.5 \
+    --hash=sha256:0605cc2c0088fcaae79f01c913a38611ad09ba68ff482402d3410bf59039bfb8 \
+    --hash=sha256:0a158704edf0abcac8ac371fbb54044f3270bdbc93e254a82b6c82be1ef08f3c \
+    --hash=sha256:0cbf56238f4bbf49dab8c2dc2e6b1b68502b1e88d335bea59b3f5b9f4c001475 \
+    --hash=sha256:1732102949ff6087589408d76cd6dea656b93c896b011ecafff418c9661dc4ed \
+    --hash=sha256:18f634d540dd099c262e9f887c8bbacc959847cfe5da7a0e2e1cf3f14dbf2daf \
+    --hash=sha256:239f975589a944eeb1bad26b8b140a59a3a320067fb3cd10b75c3092405a1372 \
+    --hash=sha256:2faa61a904b83142747fc6a6d7ad8fccff898c849123030f8e75d5d967fd4a81 \
+    --hash=sha256:320e8618eda64e19d11bdb3bd04ccc0a816c17eaecb7e4945d01deee2a22f95f \
+    --hash=sha256:38d80498e2e169bc61418ff36170e0aad0cd268da8b38a17c4cf29d254a8b3f1 \
+    --hash=sha256:3916c8692dbd9d55c523374a3b8213e628424d19116ac4308e434dbf6d95bbdd \
+    --hash=sha256:393c7aba2b55559ef7ab791c94b44f7482a07bf7640d17b341b79081f5e5cd1a \
+    --hash=sha256:3b7b30258348082826d274504fbc7c849959f1989d86c29bc355107accec6cfb \
+    --hash=sha256:3fcb4046d2904378e3aeea1df51f697b0467f2aac55d232c87ba162709478c46 \
+    --hash=sha256:4109adee842b90671f1b689901b948f347325045c15f46b39797ae1bf17019de \
+    --hash=sha256:4558e5012ee03d2638c681e156461d37b7a113fe13970d438d95d10173d25f78 \
+    --hash=sha256:45731330e754f5811c314901cebdf19dd776a44b31927fa4b4dbecab9e457b0c \
+    --hash=sha256:4715a9b778f4293b9f8ae7a0a7cef9829f02ff8d6277a39d7f40565c737d3771 \
+    --hash=sha256:471f0ef53ccedec9995287f02caf0c068732f026455f07db3f01a46e49d76bbb \
+    --hash=sha256:4d3ebb9e1316ec74277d19c5f482f98cc65a73ccd5430540d6d11682cd857430 \
+    --hash=sha256:4ff550491f5492ab5ed3533e76b8567f4b37bd2995e780a1f46bca2024223233 \
+    --hash=sha256:52c27110f3862a1afbcb2af4281fc9fdc40327fa286c4625dfee247c3ba90156 \
+    --hash=sha256:55b39c8684a46e56ef8c8d24faf02de4a2b2ac60d26cee93bc595651ff545de9 \
+    --hash=sha256:5a7ee16aab26e76add4afc45e8f8206c95d1d75540f1039b84a03c3b3800dd59 \
+    --hash=sha256:5ca51eadbd67045396bc92a4345d1790b7301c14d1848feaac1d6a6c9289e888 \
+    --hash=sha256:5d6b3f1fabe465e819aed2c421a6743d8debbde79b6a8600739300630a01bf2c \
+    --hash=sha256:60cdbd56f4cad9f69c35eaac0fbbdf1
+... [TRUNCATED]
+
+--- ML CONFIG FILES ---
+(No ML config files found)
+
+--- JUPYTER NOTEBOOKS ---
+  doc/source/_templates/template.ipynb
+  doc/source/data/examples/batch_inference_object_detection.ipynb
+  doc/source/data/examples/huggingface_vit_batch_prediction.ipynb
+  doc/source/data/examples/llm_batch_inference_text/content/README.ipynb
+  doc/source/data/examples/llm_batch_inference_vision/content/README.ipynb
+  doc/source/data/examples/pytorch_resnet_batch_prediction.ipynb
+  doc/source/data/examples/unstructured_data_ingestion/content/unstructured_data_ingestion.ipynb
+  doc/source/llm/examples/batch/vllm-with-lora.ipynb
+  doc/source/llm/examples/batch/vllm-with-structural-output.ipynb
+  doc/source/ray-core/examples/batch_prediction.ipynb
+
+--- MODEL / TRAINING FILES ---
+  doc/source/cluster/doc_code/simple-trainer.py
+  doc/source/ray-core/examples/lm/ray_train.py
+  doc/source/ray-overview/examples/e2e-multimodal-ai-workloads/doggos/doggos/model.py
+  doc/source/ray-overview/examples/e2e-multimodal-ai-workloads/doggos/doggos/train.py
+  doc/source/ray-overview/examples/e2e-timeseries/e2e_timeseries/data_factory.py
+  doc/source/ray-overview/examples/e2e-timeseries/e2e_timeseries/data_loader.py
+  doc/source/ray-overview/examples/e2e-timeseries/e2e_timeseries/model.py
+  doc/source/ray-overview/examples/e2e-xgboost/dist_xgboost/train.py
+  doc/source/rllib/doc_code/dreamerv3_inference.py
+  doc/source/serve/doc_code/autoscale_model_comp_example.py
+
+--- DIRECTORY STRUCTURE (depth 2) ---
+├── .bazelrc
+├── .bazelversion
+├── .buildkite/
+│   ├── .sunset_civ1_linux
+│   ├── BUILD.bazel
+│   ├── README.md
+│   ├── _forge.rayci.yml
+│   ├── _images.rayci.yml
+│   ├── _wheel-build.rayci.yml
+│   ├── always.rules.test.txt
+│   ├── always.rules.txt
+│   ├── base.rayci.yml
+│   ├── bisect/
+│   │   ├── _forge.rayci.yml
+│   │   ├── bisect.rayci.yml
+│   │   └── config.yml
+│   ├── build.rayci.yml
+│   ├── cicd-cron/
+│   │   ├── _forge.rayci.yml
+│   │   ├── cicd-cron.rayci.yml
+│   │   └── config.yaml
+│   ├── cicd.rayci.yml
+│   ├── copy_files.py
+│   ├── core.rayci.yml
+│   ├── data.rayci.yml
+│   ├── dependencies.rayci.yml
+│   ├── doc.rayci.yml
+│   ├── hooks/
+│   │   ├── post-artifact
+│   │   ├── post-command
+│   │   └── pre-command
+│   ├── kuberay.rayci.yml
+│   ├── lint.rayci.yml
+│   ├── linux_aarch64.rayci.yml
+│   ├── llm.rayci.yml
+│   ├── macos.rayci.yml
+│   ├── macos/
+│   │   ├── always.rules.test.txt
+│   │   ├── always.rules.txt
+│   │   ├── config.yml
+│   │   ├── macos.rayci.yml
+│   │   ├── test.rules.test.txt
+│   │   └── test.rules.txt
+│   ├── ml.rayci.yml
+│   ├── others.rayci.yml
+│   ├── release-automation/
+│   │   ├── check-commit-hash.sh
+│   │   ├── config.yml
+│   │   ├── forge.rayci.yml
+│   │   ├── forge_arm64.Dockerfile
+│   │   ├── forge_arm64.wanda.yaml
+│   │   ├── forge_x86_64.Dockerfile
+│   │   ├── forge_x86_64.wanda.yaml
+│   │   ├── pre_release.rayci.yml
+│   │   ├── set-ray-version.sh
+│   │   ├── verify-linux-wheels.sh
+│   │   ├── verify-macos-wheels.sh
+│   │   └── wheels.rayci.yml
+│   ├── release/
+│   │   ├── _forge.rayci.yml
+│   │   ├── _images.rayci.yml
+│   │   ├── _wheel-build.rayci.yml
+│   │   ├── build.rayci.yml
+│   │   ├── config.yml
+│   │   └── custom-image-build-and-test-init.sh
+│   ├── rllib.rayci.yml
+│   ├── serve.rayci.yml
+│   ├── test.rules.test.txt
+│   ├── test.rules.txt
+│   └── windows.rayci.yml
+├── .clang-format
+├── .clang-tidy
+├── .editorconfig
+├── .fossa.yml
+├── .gemini/
+│   └── config.yaml
+├── .git-blame-ignore-revs
+├── .gitattributes
+├── .github/
+│   ├── CODEOWNERS
+│   ├── ISSUE_TEMPLATE/
+│   │   ├── bug-report.yml
+│   │   ├── config.yml
+│   │   ├── documentation-issue.yml
+│   │   └── feature-request.yml
+│   ├── PULL_REQUEST_TEMPLATE.md
+│   ├── dependabot.yml
+│   └── workflows/
+│       ├── on_auto_merge.yaml
+│       ├── on_pull_request_synchronized.yml
+│       └── stale_pull_request.yaml
+├── .gitignore
+├── .pre-commit-config.yaml
+├── .prettierrc.toml
+├── .rayciversion
+├── .readthedocs.yaml
+├── .vale.ini
+├── .vale/
+│   └── styles/
+│       ├── Google/
+│       └── config/
+├── .wandaspecs
+├── BUILD.bazel
+├── CONTRIBUTING.rst
+├── LICENSE
+├── README.rst
+├── SECURITY.md
+├── WORKSPACE
+├── bazel/
+│   ├── BUILD.bazel
+│   ├── cython.BUILD
+│   ├── default_doctest_pytest_plugin.py
+│   ├── gen_extract.py
+│   ├── hiredis.BUILD
+│   ├── jemalloc.BUILD
+│   ├── msgpack.BUILD
+│   ├── nlohmann_json.BUILD
+│   ├── pytest_wrapper.py
+│   ├── python.bzl
+│   ├── pyzip.py
+│   ├── rapidjson.BUILD
+│   ├── ray.bzl
+│   ├── ray_deps_build_all.bzl
+│   ├── ray_deps_setup.bzl
+│   ├── redis.BUILD
+│   ├── spdlog.BUILD
+│   ├── tests/
+│   │   └── cpp/
+│   └── workspace_status.sh
+├── build-docker.sh
+├── build-image.sh
+├── build-wheel.sh
+├── ci/
+│   ├── __init__.py
+│   ├── build/
+│   │   ├── BUILD.bazel
+│   │   ├── bazel_cache_credential.json.enc
+│   │   ├── build-anyscale-docker.sh
+│   │   ├── build-manylinux-forge.sh
+│   │   ├── build-manylinux-jar.sh
+│   │   ├── build-manylinux-ray.sh
+│   │   ├── build-manylinux-wheel.sh
+│   │   ├── build-ray-cpp-wheel.sh
+│   │   ├── build-ray-docker.sh
+│   │   ├── build_common.py
+│   │   ├── build_common_test.py
+│   │   ├── build_image.py
+│   │   ├── build_image_test.py
+│   │   ├── build_wheel.py
+│   │   ├── build_wheel_test.py
+│   │   ├── container_resource_utils.py
+│   │   ├── container_resource_utils_test.py
+│   │   ├── copy_build_artifacts.sh
+│   │   ├── get_build_info.py
+│   │   ├── test-linux-placeholder-wheel.sh
+│   │   ├── test-macos-wheels.sh
+│   │   └── upload_build_info.sh
+│   ├── ci.sh
+│   ├── ci_tags_from_change.sh
+│   ├── compile_llm_requirements.sh
+│   ├── docker/
+│   │   ├── base.build.Dockerfile
+│   │   ├── base.build.aarch64.wanda.yaml
+│   │   ├── base.build.wanda.yaml
+│   │   ├── base.cu128.wanda.yaml
+│   │   ├── base.gpu.Dockerfile
+│   │   ├── base.gpu.wanda.yaml
+│   │   ├── base.ml.Dockerfile
+│   │   ├── base.ml.wanda.yaml
+│   │   ├── base.test.Dockerfile
+│   │   ├── base.test.aarch64.wanda.yaml
+│   │   ├── base.test.wanda.yaml
+│   │   ├── core.build.Dockerfile
+│   │   ├── core.build.wanda.yaml
+│   │   ├── data-tfxbsl.build.Dockerfile
+│   │   ├── data.build.Dockerfile
+│   │   ├── data.build.wanda.yaml
+│   │   ├── data9.build.wanda.yaml
+│   │   ├── datal.build.wanda.yaml
+│   │   ├── datamongo.build.wanda.yaml
+│   │   ├── datan.build.wanda.yaml
+│   │   ├── datatfds.build.Dockerfile
+│   │   ├── datatfds.build.wanda.yaml
+│   │   ├── datatfxbsl.build.wanda.yaml
+│   │   ├── doc.build.Dockerfile
+│   │   ├── doc.build.wanda.yaml
+│   │   ├── docgpu.build.Dockerfile
+│   │   ├── docgpu.build.wanda.yaml
+│   │   ├── doctest.build.Dockerfile
+│   │   ├── doctest.build.wanda.yaml
+│   │   ├── forge.Dockerfile
+│   │   ├── forge.aarch64.wanda.yaml
+│   │   ├── forge.wanda.yaml
+│   │   ├── fossa.Dockerfile
+│   │   ├── fossa.wanda.yaml
+│   │   ├── k8s.build.Dockerfile
+│   │   ├── k8s.build.wanda.yaml
+│   │   ├── llm.build.Dockerfile
+│   │   ├── llm.build.wanda.yaml
+│   │   ├── manylinux-cibase.wanda.yaml
+│   │   ├── manylinux-retag.Dockerfile
+│   │   ├── manylinux.Dockerfile
+│   │   ├── manylinux.wanda.yaml
+│   │   ├── min.build.Dockerfile
+│   │   ├── min.build.wanda.yaml
+│   │   ├── ml.build.Dockerfile
+│   │   ├── ml.build.wanda.yaml
+│   │   ├── mllightning2gpu.build.wanda.yaml
+│   │   ├── ray-anyscale-cpu.wanda.yaml
+│   │   ├── ray-anyscale-cuda.wanda.yaml
+│   │   ├── ray-core.Dockerfile
+│   │   ├── ray-core.wanda.yaml
+│   │   ├── ray-cpp-core.Dockerfile
+│   │   ├── ray-cpp-core.wanda.yaml
+│   │   ├── ray-cpp-wheel.Dockerfile
+│   │   ├── ray-cpp-wheel.wanda.yaml
+│   │   ├── ray-dashboard.Dockerfile
+│   │   ├── ray-dashboard.wanda.yaml
+│   │   ├── ray-extra-image-cpu.wanda.yaml
+│   │   ├── ray-extra-image-cuda.wanda.yaml
+│   │   ├── ray-image-cpu.wanda.yaml
+│   │   ├── ray-image-cuda.wanda.yaml
+│   │   ├── ray-image-tpu.wanda.yaml
+│   │   ├── ray-image.Dockerfile
+│   │   ├── ray-java.Dockerfile
+│   │   ├── ray-java.wanda.yaml
+│   │   ├── ray-llm-anyscale-cuda.wanda.yaml
+│   │   ├── ray-llm-extra-image-cuda.wanda.yaml
+│   │   ├── ray-llm-image-cuda.wanda.yaml
+│   │   ├── ray-ml-anyscale-cuda.wanda.yaml
+│   │   ├── ray-wheel.Dockerfile
+│   │   ├── ray-wheel.wanda.yaml
+│   │   ├── rllib.build.Dockerfile
+│   │   ├── rllib.build.wanda.yaml
+│   │   ├── runtime_env_container/
+│   │   ├── serve.build.Dockerfile
+│   │   ├── serve.build.wanda.yaml
+│   │   ├── servetracing.build.wanda.yaml
+│   │   ├── windows.build.Dockerfile
+│   │   └── windows.build.wanda.yaml
+│   ├── env/
+│   │   ├── check_minimal_install.py
+│   │   ├── cleanup_test_state.py
+│   │   ├── env_info.sh
+│   │   ├── install-bazel.sh
+│   │   ├── install-core-prerelease-dependencies.sh
+│   │   ├── install-dependencies.sh
+│   │   ├── install-hdfs.sh
+│   │   ├── install-horovod.sh
+│   │   ├── install-java.sh
+│   │   ├── install-llvm-binaries.sh
+│   │   ├── install-miniforge.sh
+│   │   ├── install-strace.sh
+│   │   ├── install-toolchains.sh
+│   │   └── setup_credentials.py
+│   ├── fossa/
+│   │   ├── BUILD.bazel
+│   │   ├── analyze.sh
+│   │   ├── ray_oss_analysis.py
+│   │   └── test_ray_oss_analysis.py
+│   ├── k8s/
+│   │   ├── install-k8s-tools.sh
+│   │   ├── kind.config.yaml
+│   │   ├── prep-k8s-environment.sh
+│   │   ├── run-chaos-test.sh
+│   │   └── run-operator-tests.sh
+│   ├── lint/
+│   │   ├── BUILD.bazel
+│   │   ├── bazel-format.sh
+│   │   ├── check-banned-words.sh
+│   │   ├── check-bazel-buildifier.sh
+│   │   ├── check-dashboard-format.sh
+│   │   ├── check-docstyle.sh
+│   │   ├── check-documentation-style.sh
+│   │   ├── check-git-clang-format-output.sh
+│   │   ├── check-git-clang-tidy-output.sh
+│   │   ├── check-pytest-format.sh
+│   │   ├── check_api_annotations.py
+│   │   ├── check_bazel_team_owner.py
+│   │   ├── check_cpp_files_inclusion.py
+│   │   ├── check_import_order.py
+│   │   ├── clang-tidy-diff.py
+│   │   ├── copyright-format.sh
+│   │   ├── default-copyright.txt
+│   │   ├── generate_compile_commands/
+│   │   ├── git-clang-format
+│   │   ├── lint.sh
+│   │   ├── pre-push
+│   │   ├── prepare-commit-msg
+│   │   ├── pydoclint-baseline.txt
+│   │   └── pytest_checker.py
+│   ├── pipeline/
+│   │   ├── BUILD.bazel
+│   │   ├── check-test-run.py
+│   │   ├── determine_tests_to_run.py
+│   │   ├── fix-windows-bazel.ps1
+│   │   └── fix-windows-container-networking.ps1
+│   ├── ray_ci/
+│   │   ├── BUILD.bazel
+│   │   ├── anyscale_docker_container.py
+│   │   ├── automation/
+│   │   ├── bazel_sharding.py
+│   │   ├── bisect/
+│   │   ├── build_in_docker.py
+│   │   ├── build_in_docker_windows.py
+│   │   ├── builder.py
+│   │   ├── builder_container.py
+│   │   ├── configs.py
+│   │   ├── container.py
+│   │   ├── data.tests.yml
+│   │   ├── doc/
+│   │   ├── docker_container.py
+│   │   ├── kuberay.tests.yml
+│   │   ├── linux_container.py
+│   │   ├── linux_tester_container.py
+│   │   ├── macos/
+│   │   ├── ml.tests.yml
+│   │   ├── mock_BUILD
+│   │   ├── none.tests.yml
+│   │   ├── oss_config.yaml
+│   │   ├── pipeline/
+│   │   ├── ray_docker_container.py
+│   │   ├── ray_image.py
+│   │   ├── rllib.tests.yml
+│   │   ├── serve.tests.yml
+│   │   ├── serve_di_test_names.txt
+│   │   ├── serve_hap_test_names.txt
+│   │   ├── supported_images.py
+│   │   ├── test_anyscale_docker_container.py
+│   │   ├── test_base.py
+│   │   ├── test_bazel_sharding.py
+│   │   ├── test_builder_container.py
+│   │   ├── test_container.py
+│   │   ├── test_in_docker.py
+│   │   ├── test_linux_container.py
+│   │   ├── test_linux_tester_container.py
+│   │   ├── test_privileged.py
+│   │   ├── test_ray_docker_container.py
+│   │   ├── test_ray_image.py
+│   │   ├── test_supported_images.py
+│   │   ├── test_tester.py
+│   │   ├── test_utils.py
+│   │   ├── test_windows_container.py
+│   │   ├── test_windows_tester_container.py
+│   │   ├── tester.py
+│   │   ├── tester_container.py
+│   │   ├── tests.env.Dockerfile
+│   │   ├── tests.env.Dockerfile.dockerignore
+│   │   ├── utils.py
+│   │   ├── windows/
+│   │   ├── windows_builder_container.py
+│   │   ├── windows_container.py
+│   │   └── windows_tester_container.py
+│   ├── raydepsets/
+│   │   ├── BUILD.bazel
+│   │   ├── README.md
+│   │   ├── cli.py
+│   │   ├── configs/
+│   │   ├── pre_hooks/
+│   │   ├── raydepsets.py
+│   │   ├── tests/
+│   │   └── workspace.py
+│   ├── repro-ci-requirements.txt
+│   ├── repro-ci.py
+│   ├── run/
+│   │   └── bazel_export_options
+│   ├── suppress_output
+│   └── test_compile_llm_requirements.sh
+├── cpp/
+│   ├── BUILD.bazel
+│   ├── example/
+│   │   ├── _.bazelrc
+│   │   ├── _BUILD.bazel
+│   │   ├── _WORKSPACE
+│   │   ├── example.cc
+│   │   └── run.sh
+│   ├── gen_ray_cpp_pkg.py
+│   ├── include/
+│   │   └── ray/
+│   ├── src/
+│   │   └── ray/
+│   ├── symbols/
+│   │   └── ray_api_exported_symbols_linux.lds
+│   ├── test_python_call_cpp.py
+│   └── test_submit_cpp_job.py
+├── doc/
+│   ├── .cursor/
+│   │   └── rules/
+│   ├── .gitignore
+│   ├── BUILD.bazel
+│   ├── Makefile
+│   ├── README.md
+│   ├── azure/
+│   │   ├── azure-init.sh
+│   │   └── azure-ray-template.json
+│   ├── data/
+│   │   └── MNIST/
+│   ├── external/
+│   │   ├── pytorch_tutorials_hyperparameter_tuning_tutorial.py
+│   │   └── test_hashes.py
+│   ├── load_doc_cache.py
+│   ├── make.bat
+│   ├── requirements-doc.lock.txt
+│   ├── requirements-doc.txt
+│   ├── source/
+│   │   ├── _ext/
+│   │   ├── _includes/
+│   │   ├── _static/
+│   │   ├── _templates/
+│   │   ├── cluster/
+│   │   ├── conf.py
+│   │   ├── custom_directives.py
+│   │   ├── data/
+│   │   ├── images/
+│   │   ├── index.rst
+│   │   ├── llm/
+│   │   ├── navbar.yml
+│   │   ├── preprocess_github_markdown.py
+│   │   ├── ray-air/
+│   │   ├── ray-contribute/
+│   │   ├── ray-core/
+│   │   ├── ray-governance/
+│   │   ├── ray-more-libs/
+│   │   ├── ray-observability/
+│   │   ├── ray-overview/
+│   │   ├── ray-references/
+│   │   ├── ray-security/
+│   │   ├── rllib/
+│   │   ├── robots.txt
+│   │   ├── serve/
+│   │   ├── templates/
+│   │   ├── train/
+│   │   └── tune/
+│   ├── test_myst_doc.py
+│   ├── tools/
+│   │   ├── install-prometheus-server.sh
+│   │   └── install_gdrcopy.sh
+│   ├── update_cache_env.py
+│   └── yarn/
+│       ├── dashboard.py
+│       ├── example.py
+│       └── ray-skein.yaml
+├── docker/
+│   ├── README.md
+│   ├── autoscaler/
+│   │   └── README.md
+│   ├── base-deps/
+│   │   ├── Dockerfile
+│   │   ├── README.md
+│   │   ├── cpu.wanda.yaml
+│   │   ├── cuda.wanda.yaml
+│   │   ├── requirements.in
+│   │   ├── requirements_tpu.in
+│   │   └── tpu.wanda.yaml
+│   ├── base-extra-testdeps/
+│   │   ├── cpu.wanda.yaml
+│   │   └── cuda.wanda.yaml
+│   ├── base-extra/
+│   │   ├── Dockerfile
+│   │   ├── cpu.wanda.yaml
+│   │   ├── cuda.wanda.yaml
+│   │   └── requirements.in
+│   ├── base-slim/
+│   │   ├── Dockerfile
+│   │   ├── cpu.wanda.yaml
+│   │   ├── cuda.wanda.yaml
+│   │   └── requirements.in
+│   ├── fix-docker-latest.sh
+│   ├── ray-llm/
+│   │   ├── Dockerfile
+│   │   └── cuda.wanda.yaml
+│   ├── ray-ml/
+│   │   ├── Dockerfile
+│   │   ├── README.md
+│   │   ├── cpu.wanda.yaml
+│   │   ├── cuda.wanda.yaml
+│   │   └── install-ml-docker-requirements.sh
+│   ├── ray/
+│   │   ├── Dockerfile
+│   │   └── README.md
+│   └── retag-lambda/
+│       ├── README.md
+│       ├── cuda_versions.txt
+│       ├── lambda_function.py
+│       └── python_versions.txt
+├── gen_py_proto.py
+├── gen_ray_pkg.py
+├── gen_redis_pkg.py
+├── java/
+│   ├── BUILD.bazel
+│   ├── README.md
+│   ├── api/
+│   │   ├── pom_template.xml
+│   │   └── src/
+│   ├── build-jar-multiplatform.sh
+│   ├── checkstyle-suppressions.xml
+│   ├── checkstyle.xml
+│   ├── cleanup.sh
+│   ├── dependencies.bzl
+│   ├── gen_maven_deps.py
+│   ├── gen_pom_files.py
+│   ├── gen_proto_files.py
+│   ├── gen_ray_java_pkg.py
+│   ├── generate_jni_header_files.sh
+│   ├── java-release-guide.md
+│   ├── performance_test/
+│   │   ├── pom_template.xml
+│   │   └── src/
+│   ├── pom.xml
+│   ├── runtime/
+│   │   ├── pom_template.xml
+│   │   └── src/
+│   ├── serve/
+│   │   ├── pom_template.xml
+│   │   └── src/
+│   ├── shade_rule
+│   ├── test.sh
+│   ├── test/
+│   │   ├── pom_template.xml
+│   │   └── src/
+│   ├── testng.xml
+│   └── testng_custom_template.xml
+├── pylintrc
+├── pyproject.toml
+├── pyrefly.toml
+├── pytest.ini
+├── python/
+│   ├── LICENSE.txt
+│   ├── MANIFEST.in
+│   ├── README-building-wheels.md
+│   ├── build-wheel-macos.sh
+│   ├── build-wheel-manylinux2014.sh
+│   ├── build-wheel-windows.sh
+│   ├── deplocks/
+│   │   ├── base_deps/
+│   │   ├── base_extra/
+│   │   ├── base_extra_testdeps/
+│   │   ├── base_slim/
+│   │   ├── ci/
+│   │   ├── docs/
+│   │   ├── llm/
+│   │   ├── ray_img/
+│   │   └── tests/
+│   ├── ray/
+│   │   ├── __init__.py
+│   │   ├── _common/
+│   │   ├── _private/
+│   │   ├── _raylet.pxd
+│   │   ├── _raylet.pyi
+│   │   ├── _raylet.pyx
+│   │   ├── _version.py
+│   │   ├── actor.py
+│   │   ├── air/
+│   │   ├── autoscaler/
+│   │   ├── client_builder.py
+│   │   ├── cloudpickle/
+│   │   ├── cluster_utils.py
+│   │   ├── core/
+│   │   ├── cross_language.py
+│   │   ├── dag/
+│   │   ├── dashboard/
+│   │   ├── data/
+│   │   ├── exceptions.py
+│   │   ├── experimental/
+│   │   ├── includes/
+│   │   ├── internal/
+│   │   ├── job_config.py
+│   │   ├── job_submission/
+│   │   ├── llm/
+│   │   ├── py.typed
+│   │   ├── remote_function.py
+│   │   ├── rllib
+│   │   ├── runtime_context.py
+│   │   ├── runtime_env/
+│   │   ├── scripts/
+│   │   ├── serve/
+│   │   ├── setup-dev.py
+│   │   ├── tests/
+│   │   ├── train/
+│   │   ├── tune/
+│   │   ├── types.py
+│   │   ├── util/
+│   │   ├── widgets/
+│   │   └── workflow/
+│   ├── requirements.txt
+│   ├── requirements/
+│   │   ├── base-test-requirements.txt
+│   │   ├── cloud-requirements.txt
+│   │   ├── docker/
+│   │   ├── lint-requirements.txt
+│   │   ├── llm/
+│   │   ├── ml/
+│   │   ├── security-requirements.txt
+│   │   ├── serve/
+│   │   └── test-requirements.txt
+│   ├── requirements_compiled.txt
+│   ├── requirements_compiled_py3.10.txt
+│   ├── requirements_compiled_py3.11.txt
+│   ├── requirements_compiled_py3.12.txt
+│   ├── requirements_compiled_py3.13.txt
+│   └── setup.py
+├── ray-images.yaml
+├── rayci.env
+├── release/
+│   ├── BUILD.bazel
+│   ├── __init__.py
+│   ├── air_examples/
+│   │   ├── dolly_v2_lightning_fsdp_finetuning/
+│   │   ├── dreambooth/
+│   │   ├── gptj_deepspeed_finetuning/
+│   │   ├── opt_deepspeed_batch_inference/
+│   │   └── vicuna_13b_lightning_deepspeed_finetuning/
+│   ├── air_tests/
+│   │   └── air_benchmarks/
+│   ├── autoscaling_tests/
+│   │   ├── __init__.py
+│   │   ├── aws.yaml
+│   │   ├── logger.py
+│   │   ├── run.py
+│   │   └── test_core.py
+│   ├── aws2gce_iam.json
+│   ├── azure_docker_login.sh
+│   ├── benchmark-worker-startup/
+│   │   ├── app_config_gpu.yaml
+│   │   ├── benchmark_worker_startup.py
+│   │   ├── only_head_node_1gpu_64cpu.yaml
+│   │   ├── only_head_node_1gpu_64cpu_gce.yaml
+│   │   └── test_single_configuration.py
+│   ├── benchmarks/
+│   │   ├── README.md
+│   │   ├── distributed.yaml
+│   │   ├── distributed/
+│   │   ├── distributed_gce.yaml
+│   │   ├── distributed_smoke_test.yaml
+│   │   ├── many_nodes.yaml
+│   │   ├── many_nodes_gce.yaml
+│   │   ├── object_store.yaml
+│   │   ├── object_store/
+│   │   ├── object_store_gce.yaml
+│   │   ├── scheduling.yaml
+│   │   ├── scheduling_gce.yaml
+│   │   ├── single_node.yaml
+│   │   ├── single_node/
+│   │   └── single_node_gce.yaml
+│   ├── cluster_tests/
+│   │   ├── cpt_autoscaling_1-3_aws.yaml
+│   │   ├── cpt_autoscaling_1-3_gce.yaml
+│   │   ├── cpt_autoscaling_1-3_kuberay.yaml
+│   │   └── workloads/
+│   ├── dashboard/
+│   │   ├── agent_stress_compute.yaml
+│   │   ├── agent_stress_compute_gce.yaml
+│   │   ├── mem_check.py
+│   │   └── workload.py
+│   ├── gcloud_docker_login.sh
+│   ├── golden_notebook_tests/
+│   │   ├── compute_tpl.yaml
+│   │   ├── gpu_tpl_aws.yaml
+│   │   ├── gpu_tpl_gce.yaml
+│   │   └── workloads/
+│   ├── hello_world_tests/
+│   │   ├── hello_world.py
+│   │   ├── hello_world_compute_config.yaml
+│   │   ├── hello_world_compute_config_azure.yaml
+│   │   ├── hello_world_compute_config_gce.yaml
+│   │   ├── hello_world_emoji.py
+│   │   └── test.sh
+│   ├── jobs_tests/
+│   │   ├── compute_tpl_4_xlarge.yaml
+│   │   ├── compute_tpl_gce_4_xlarge.yaml
+│   │   ├── compute_tpl_gce_gpu_node.yaml
+│   │   ├── compute_tpl_gce_gpu_worker.yaml
+│   │   ├── compute_tpl_gpu_node.yaml
+│   │   ├── compute_tpl_gpu_worker.yaml
+│   │   └── workloads/
+│   ├── k8s_tests/
+│   │   ├── compute_tpl.yaml
+│   │   ├── locust-run.yaml
+│   │   ├── locustfile.py
+│   │   ├── prepare.sh
+│   │   ├── ray_v1alpha1_rayservice_template.yaml
+│   │   ├── run_gcs_ft_on_k8s.py
+│   │   └── solution.py
+│   ├── llm_tests/
+│   │   ├── batch/
+│   │   ├── benchmark/
+│   │   └── serve/
+│   ├── long_running_tests/
+│   │   ├── .gitignore
+│   │   ├── README.rst
+│   │   ├── app_config_np.yaml
+│   │   ├── tpl_cpu_1.yaml
+│   │   ├── tpl_cpu_1_c5.yaml
+│   │   ├── tpl_cpu_1_c5_gce.yaml
+│   │   ├── tpl_cpu_1_gce.yaml
+│   │   ├── tpl_cpu_1_large.yaml
+│   │   ├── tpl_cpu_2.yaml
+│   │   ├── tpl_cpu_4.yaml
+│   │   ├── tpl_cpu_4_gce.yaml
+│   │   └── workloads/
+│   ├── microbenchmark/
+│   │   ├── experimental/
+│   │   ├── run_microbenchmark.py
+│   │   ├── tpl_64.yaml
+│   │   └── tpl_64_gce.yaml
+│   ├── ml_user_tests/
+│   │   ├── horovod/
+│   │   └── train/
+│   ├── nightly_tests/
+│   │   ├── chaos_test/
+│   │   ├── dask_on_ray/
+│   │   ├── dataset/
+│   │   ├── multimodal_inference_benchmarks/
+│   │   ├── placement_group_tests/
+│   │   ├── setup_chaos.py
+│   │   ├── shuffle/
+│   │   ├── simulate_cross_az_network_failure.py
+│   │   └── stress_tests/
+│   ├── perf_metrics/
+│   │   ├── benchmarks/
+│   │   ├── metadata.json
+│   │   ├── microbenchmark.json
+│   │   ├── scalability/
+│   │   └── stress_tests/
+│   ├── ray_release/
+│   │   ├── .custom_build_and_test_init.stamp
+│   │   ├── __init__.py
+│   │   ├── alerts/
+│   │   ├── anyscale_util.py
+│   │   ├── aws.py
+│   │   ├── bazel.py
+│   │   ├── buildkite/
+│   │   ├── byod/
+│   │   ├── cloud_util.py
+│   │   ├── cluster_manager/
+│   │   ├── command_runner/
+│   │   ├── config.py
+│   │   ├── configs/
+│   │   ├── custom_byod_build_init_helper.py
+│   │   ├── env.py
+│   │   ├── environments/
+│   │   ├── exception.py
+│   │   ├── file_manager/
+│   │   ├── glue.py
+│   │   ├── job_manager/
+│   │   ├── kuberay_util.py
+│   │   ├── log_aggregator.py
+│   │   ├── logger.py
+│   │   ├── reporter/
+│   │   ├── result.py
+│   │   ├── retry.py
+│   │   ├── schema.json
+│   │   ├── scripts/
+│   │   ├── signal_handling.py
+│   │   ├── template.py
+│   │   ├── test.py
+│   │   ├── test_automation/
+│   │   ├── tests/
+│   │   ├── util.py
+│   │   └── wheels.py
+│   ├── release_data_tests.yaml
+│   ├── release_logs/
+│   │   ├── 0.7.7/
+│   │   ├── 0.8.0/
+│   │   ├── 0.8.1/
+│   │   ├── 0.8.2/
+│   │   ├── 0.8.3/
+│   │   ├── 0.8.4/
+│   │   ├── 0.8.5/
+│   │   ├── 0.8.6/
+│   │   ├── 0.8.7/
+│   │   ├── 1.0.0/
+│   │   ├── 1.0.1/
+│   │   ├── 1.1.0/
+│   │   ├── 1.10.0/
+│   │   ├── 1.11.0/
+│   │   ├── 1.12.0/
+│   │   ├── 1.13.0/
+│   │   ├── 1.2.0/
+│   │   ├── 1.3.0/
+│   │   ├── 1.4.0/
+│   │   ├── 1.5.0/
+│   │   ├── 1.6.0/
+│   │   ├── 1.7.0/
+│   │   ├── 1.8.0/
+│   │   ├── 1.9.0/
+│   │   ├── 2.0.0/
+│   │   ├── 2.1.0/
+│   │   ├── 2.10.0/
+│   │   ├── 2.11.0/
+│   │   ├── 2.12.0/
+│   │   ├── 2.2.0/
+│   │   ├── 2.20.0/
+│   │   ├── 2.21.0/
+│   │   ├── 2.22.0/
+│   │   ├── 2.3.0/
+│   │   ├── 2.4.0/
+│   │   ├── 2.5.0/
+│   │   ├── 2.6.0/
+│   │   ├── 2.6.1/
+│   │   ├── 2.6.2/
+│   │   ├── 2.6.3/
+│   │   ├── 2.7.0/
+│   │   ├── 2.7.1/
+│   │   ├── 2.8.0/
+│   │   ├── 2.9.0/
+│   │   ├── 2.9.1/
+│   │   ├── 2.9.2/
+│   │   ├── 2.9.3/
+│   │   ├── compare_perf_metrics
+│   │   └── fetch_release_logs.py
+│   ├── release_multimodal_inference_benchmarks_tests.yaml
+│   ├── release_tests.yaml
+│   ├── requirements-doc.txt
+│   ├── requirements.txt
+│   ├── requirements_py310.in
+│   ├── requirements_py310.txt
+│   ├── rllib_tests/
+│   │   ├── 1gpu_16cpus.yaml
+│   │   ├── 2gpus_32cpus.yaml
+│   │   ├── 4gpus_64cpus.yaml
+│   │   ├── 8gpus_96cpus.yaml
+│   │   └── example_algorithms
+│   ├── run_release_test.sh
+│   ├── runtime_env_tests/
+│   │   ├── rte_gce_minimal.yaml
+│   │   ├── rte_gce_small.yaml
+│   │   ├── rte_minimal.yaml
+│   │   ├── rte_small.yaml
+│   │   └── workloads/
+│   ├── serve_tests/
+│   │   ├── compute_tpl_32_cpu.yaml
+│   │   ├── compute_tpl_32_cpu_autoscaling.yaml
+│   │   ├── compute_tpl_32_cpu_autoscaling_gce.yaml
+│   │   ├── compute_tpl_32_cpu_gce.yaml
+│   │   ├── compute_tpl_8_cpu_autoscaling.yaml
+│   │   ├── compute_tpl_8_cpu_autoscaling_gce.yaml
+│   │   ├── compute_tpl_gpu_node.yaml
+│   │   ├── compute_tpl_gpu_node_gce.yaml
+│   │   ├── compute_tpl_single_node.yaml
+│   │   ├── compute_tpl_single_node_16_cpu.yaml
+│   │   ├── compute_tpl_single_node_32_cpu.yaml
+│   │   ├── compute_tpl_single_node_32_cpu_gce.yaml
+│   │   ├── compute_tpl_single_node_gce.yaml
+│   │   ├── compute_tpl_single_node_k8s.yaml
+│   │   └── workloads/
+│   ├── setup.py
+│   ├── train_tests/
+│   │   ├── async_checkpointing_validation_benchmark/
+│   │   ├── benchmark/
+│   │   ├── colocate_trainer/
+│   │   ├── elastic_training/
+│   │   ├── horovod/
+│   │   ├── huggingface_accelerate/
+│   │   ├── huggingface_transformers/
+│   │   ├── local_mode/
+│   │   ├── multinode_persistence/
+│   │   ├── pytorch_lightning/
+│   │   └── xgboost_lightgbm/
+│   ├── tune_tests/
+│   │   ├── cloud_tests/
+│   │   ├── fault_tolerance_tests/
+│   │   ├── frequent_pausing/
+│   │   └── scalability_tests/
+│   ├── util/
+│   │   ├── sanity_check.py
+│   │   ├── sanity_check_cpp.sh
+│   │   └── sanity_check_windows.sh
+│   └── workspace_templates
+├── rllib/
+│   ├── BUILD.bazel
+│   ├── README.rst
+│   ├── __init__.py
+│   ├── algorithms/
+│   │   ├── __init__.py
+│   │   ├── algorithm.py
+│   │   ├── algorithm_config.py
+│   │   ├── appo/
+│   │   ├── bc/
+│   │   ├── callbacks.py
+│   │   ├── cql/
+│   │   ├── dqn/
+│   │   ├── dreamerv3/
+│   │   ├── impala/
+│   │   ├── iql/
+│   │   ├── marwil/
+│   │   ├── mock.py
+│   │   ├── ppo/
+│   │   ├── registry.py
+│   │   ├── sac/
+│   │   ├── tests/
+│   │   ├── tqc/
+│   │   └── utils.py
+│   ├── callbacks/
+│   │   ├── __init__.py
+│   │   ├── callbacks.py
+│   │   ├── tests/
+│   │   └── utils.py
+│   ├── conftest.py
+│   ├── connectors/
+│   │   ├── __init__.py
+│   │   ├── action/
+│   │   ├── agent/
+│   │   ├── common/
+│   │   ├── connector.py
+│   │   ├── connector_pipeline_v2.py
+│   │   ├── connector_v2.py
+│   │   ├── env_to_module/
+│   │   ├── learner/
+│   │   ├── module_to_env/
+│   │   ├── registry.py
+│   │   └── util.py
+│   ├── core/
+│   │   ├── __init__.py
+│   │   ├── columns.py
+│   │   ├── distribution/
+│   │   ├── learner/
+│   │   ├── models/
+│   │   ├── rl_module/
+│   │   └── testing/
+│   ├── env/
+│   │   ├── __init__.py
+│   │   ├── base_env.py
+│   │   ├── env_context.py
+│   │   ├── env_errors.py
+│   │   ├── env_runner.py
+│   │   ├── env_runner_group.py
+│   │   ├── external/
+│   │   ├── external_env.py
+│   │   ├── external_multi_agent_env.py
+│   │   ├── multi_agent_env.py
+│   │   ├── multi_agent_env_runner.py
+│   │   ├── multi_agent_episode.py
+│   │   ├── policy_client.py
+│   │   ├── remote_base_env.py
+│   │   ├── single_agent_env_runner.py
+│   │   ├── single_agent_episode.py
+│   │   ├── tcp_client_inference_env_runner.py
+│   │   ├── tests/
+│   │   ├── utils/
+│   │   ├── vector/
+│   │   ├── vector_env.py
+│   │   └── wrappers/
+│   ├── evaluation/
+│   │   ├── __init__.py
+│   │   ├── collectors/
+│   │   ├── env_runner_v2.py
+│   │   ├── episode_v2.py
+│   │   ├── metrics.py
+│   │   ├── observation_function.py
+│   │   ├── postprocessing.py
+│   │   ├── rollout_worker.py
+│   │   ├── sample_batch_builder.py
+│   │   ├── sampler.py
+│   │   ├── tests/
+│   │   └── worker_set.py
+│   ├── examples/
+│   │   ├── __init__.py
+│   │   ├── _docs/
+│   │   ├── _old_api_stack/
+│   │   ├── actions/
+│   │   ├── algorithms/
+│   │   ├── catalogs/
+│   │   ├── checkpoints/
+│   │   ├── connectors/
+│   │   ├── curiosity/
+│   │   ├── curriculum/
+│   │   ├── debugging/
+│   │   ├── envs/
+│   │   ├── evaluation/
+│   │   ├── fault_tolerance/
+│   │   ├── gpus/
+│   │   ├── hierarchical/
+│   │   ├── inference/
+│   │   ├── learners/
+│   │   ├── metrics/
+│   │   ├── multi_agent/
+│   │   ├── offline_rl/
+│   │   ├── ray_serve/
+│   │   ├── ray_tune/
+│   │   ├── rl_modules/
+│   │   └── utils.py
+│   ├── execution/
+│   │   ├── __init__.py
+│   │   ├── buffers/
+│   │   ├── learner_thread.py
+│   │   ├── minibatch_buffer.py
+│   │   ├── multi_gpu_learner_thread.py
+│   │   ├── replay_ops.py
+│   │   ├── rollout_ops.py
+│   │   ├── segment_tree.py
+│   │   └── train_ops.py
+│   ├── models/
+│   │   ├── __init__.py
+│   │   ├── action_dist.py
+│   │   ├── catalog.py
+│   │   ├── distributions.py
+│   │   ├── modelv2.py
+│   │   ├── preprocessors.py
+│   │   ├── repeated_values.py
+│   │   ├── tests/
+│   │   ├── tf/
+│   │   ├── torch/
+│   │   └── utils.py
+│   ├── offline/
+│   │   ├── __init__.py
+│   │   ├── d4rl_reader.py
+│   │   ├── dataset_reader.py
+│   │   ├── dataset_writer.py
+│   │   ├── estimators/
+│   │   ├── feature_importance.py
+│   │   ├── input_reader.py
+│   │   ├── io_context.py
+│   │   ├── is_estimator.py
+│   │   ├── json_reader.py
+│   │   ├── json_writer.py
+│   │   ├── mixed_input.py
+│   │   ├── off_policy_estimator.py
+│   │   ├── offline_data.py
+│   │   ├── offline_env_runner.py
+│   │   ├── offline_evaluation_runner.py
+│   │   ├── offline_evaluation_runner_group.py
+│   │   ├── offline_evaluation_utils.py
+│   │   ├── offline_evaluator.py
+│   │   ├── offline_policy_evaluation_runner.py
+│   │   ├── offline_prelearner.py
+│   │   ├── output_writer.py
+│   │   ├── resource.py
+│   │   ├── shuffled_input.py
+│   │   ├── tests/
+│   │   └── wis_estimator.py
+│   ├── policy/
+│   │   ├── __init__.py
+│   │   ├── dynamic_tf_policy.py
+│   │   ├── dynamic_tf_policy_v2.py
+│   │   ├── eager_tf_policy.py
+│   │   ├── eager_tf_policy_v2.py
+│   │   ├── policy.py
+│   │   ├── policy_map.py
+│   │   ├── policy_template.py
+│   │   ├── rnn_sequencing.py
+│   │   ├── sample_batch.py
+│   │   ├── tests/
+│   │   ├── tf_mixins.py
+│   │   ├── tf_policy.py
+│   │   ├── tf_policy_template.py
+│   │   ├── torch_mixins.py
+│   │   ├── torch_policy.py
+│   │   ├── torch_policy_v2.py
+│   │   └── view_requirement.py
+│   └── utils/
+│       ├── __init__.py
+│       ├── actor_manager.py
+│       ├── actors.py
+│       ├── annotations.py
+│       ├── checkpoints.py
+│       ├── compression.py
+│       ├── debug/
+│       ├── error.py
+│       ├── exploration/
+│       ├── filter.py
+│       ├── filter_manager.py
+│       ├── framework.py
+│       ├── from_config.py
+│       ├── images.py
+│       ├── lambda_defaultdict.py
+│       ├── memory.py
+│       ├── metrics/
+│       ├── minibatch_utils.py
+│       ├── numpy.py
+│       ├── policy.py
+│       ├── postprocessing/
+│       ├── pre_checks/
+│       ├── replay_buffers/
+│       ├── runners/
+│       ├── schedules/
+│       ├── serialization.py
+│       ├── sgd.py
+│       ├── spaces/
+│       ├── tensor_dtype.py
+│       ├── test_utils.py
+│       ├── tests/
+│       ├── tf_run_builder.py
+│       ├── tf_utils.py
+│       ├── threading.py
+│       ├── torch_utils.py
+│       └── typing.py
+├── semgrep.yml
+├── setup_hooks.sh
+├── src/
+│   ├── mock/
+│   │   ├── .clang-format
+│   │   └── ray/
+│   ├── ray/
+│   │   ├── .cursor/
+│   │   ├── common/
+│   │   ├── core_worker/
+│   │   ├── core_worker_rpc_client/
+│   │   ├── design_docs/
+│   │   ├── flatbuffers/
+│   │   ├── gcs/
+│   │   ├── gcs_rpc_client/
+│   │   ├── internal/
+│   │   ├── object_manager/
+│   │   ├── object_manager_rpc_client/
+│   │   ├── observability/
+│   │   ├── protobuf/
+│   │   ├── pubsub/
+│   │   ├── ray_exported_symbols.lds
+│   │   ├── ray_syncer/
+│   │   ├── ray_version_script.lds
+│   │   ├── raylet/
+│   │   ├── raylet_ipc_client/
+│   │   ├── raylet_rpc_client/
+│   │   ├── rpc/
+│   │   ├── stats/
+│   │   ├── thirdparty/
+│   │   └── util/
+│   └── shims/
+│       └── windows/
+└── thirdparty/
+    ├── patches/
+    │   ├── BUILD.bazel
+    │   ├── abseil-cpp-shadow.patch
+    │   ├── boost-headers.patch
+    │   ├── cython.patch
+    │   ├── grpc-configurable-thread-count.patch
+    │   ├── grpc-cython-copts.patch
+    │   ├── grpc-zlib-fdopen.patch
+    │   ├── hiredis-windows-msvc.patch
+    │   ├── msgpack-shadow.patch
+    │   ├── msgpack-windows-iovec.patch
+    │   ├── opencensus-cpp-harvest-interval.patch
+    │   ├── opencensus-cpp-shutdown-api.patch
+    │   ├── opentelemetry-cpp-enable-mtls.patch
+    │   ├── prometheus-windows-headers.patch
+    │   ├── prometheus-windows-pollfd.patch
+    │   ├── prometheus-windows-zlib.patch
+    │   ├── prometheus-zlib-fdopen.patch
+    │   ├── redis-quiet.patch
+    │   ├── rules_boost-windows-linkopts.patch
+    │   ├── spdlog-rotation-file-format.patch
+    │   └── zlib-fdopen.patch
+    └── protobuf/
+        └── extra_actions_base.proto

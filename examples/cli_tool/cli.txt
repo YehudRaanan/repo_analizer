@@ -1,0 +1,656 @@
+=====================================
+Repository Analysis: cli
+Type: CLI Tool
+=====================================
+
+--- METADATA ---
+Name: cli
+Description: 🥧 HTTPie CLI  — modern, user-friendly command-line HTTP client for the API era. JSON support, colors, sessions, downloads, plugins & more.
+Language: Python
+Topics: api, api-client, api-testing, cli, client, curl, debugging, developer-tools, development, devops, http, http-client, httpie, json, python, rest, rest-api, terminal, usability, web
+Stars: 37643
+License: BSD 3-Clause "New" or "Revised" License
+
+--- README ---
+<h2 align="center">
+    <a href="https://httpie.io" target="blank_">
+        <img height="100" alt="HTTPie" src="https://raw.githubusercontent.com/httpie/cli/master/docs/httpie-logo.svg" />
+    </a>
+    <br>
+    HTTPie CLI: human-friendly HTTP client for the API era
+</h2>
+
+<div align="center">
+
+[![HTTPie for Desktop](https://img.shields.io/static/v1?label=HTTPie&message=Desktop&color=4B78E6)](https://httpie.io/product)
+[![](https://img.shields.io/static/v1?label=HTTPie&message=Web%20%26%20Mobile&color=73DC8C)](https://httpie.io/app)
+[![](https://img.shields.io/static/v1?label=HTTPie&message=CLI&color=FA9BFA)](https://httpie.io/cli)
+[![Twitter](https://img.shields.io/twitter/follow/httpie?style=flat&color=%234B78E6&logoColor=%234B78E6)](https://twitter.com/httpie)
+[![Chat](https://img.shields.io/discord/725351238698270761?style=flat&label=Chat%20on%20Discord&color=%23FA9BFA)](https://httpie.io/discord)
+
+</div>
+
+
+<div align="center">
+
+[![Docs](https://img.shields.io/badge/stable%20docs-httpie.io%2Fdocs%2Fcli-brightgreen?style=flat&color=%2373DC8C&label=Docs)](https://httpie.org/docs/cli)
+[![Latest version](https://img.shields.io/pypi/v/httpie.svg?style=flat&label=Latest&color=%234B78E6&logo=&logoColor=white)](https://pypi.python.org/pypi/httpie)
+[![Build](https://img.shields.io/github/actions/workflow/status/httpie/cli/tests.yml?branch=master&color=%23FA9BFA&label=Build)](https://github.com/httpie/cli/actions)
+[![Coverage](https://img.shields.io/codecov/c/github/httpie/cli?style=flat&label=Coverage&color=%2373DC8C)](https://codecov.io/gh/httpie/cli)
+[![PyPi downloads](https://img.shields.io/pepy/dt/httpie?style=flat&label=Downloads%20from%20PyPi%20only&color=4B78E6)](https://www.pepy.tech/projects/httpie)
+
+</div>
+
+HTTPie (pronounced _aitch-tee-tee-pie_) is a command-line HTTP client.
+Its goal is to make CLI interaction with web services as human-friendly as possible.
+HTTPie is designed for testing, debugging, and generally interacting with APIs & HTTP servers.
+The `http` & `https` commands allow for creating and sending arbitrary HTTP requests.
+They use simple and natural syntax and provide formatted and colorized output.
+
+<div align="center">
+
+<img src="https://raw.githubusercontent.com/httpie/cli/master/docs/httpie-animation.gif" alt="HTTPie in action" width="100%"/>
+
+
+</div>
+
+
+
+
+## We lost 54k GitHub stars
+
+Please note we recently accidentally made this repo private for a moment, and GitHub deleted our community that took a decade to build. Read the full story here: https://httpie.io/blog/stardust
+
+![](docs/stardust.png)
+
+
+## Getting started
+
+- [Installation instructions →](https://httpie.io/docs#installation)
+- [Full documentation →](https://httpie.io/docs)
+
+## Features
+
+- Expressive and intuitive syntax
+- Formatted and colorized terminal output
+- Built-in JSON support
+- Forms and file uploads
+- HTTPS, proxies, and authentication
+- Arbitrary request data
+- Custom headers
+- Persistent sessions
+- `wget`-like downloads
+
+[See all features →](https://httpie.io/docs)
+
+## Examples
+
+Hello World:
+
+```bash
+https httpie.io/hello
+```
+
+Custom [HTTP method](https://httpie.io/docs#http-method), [HTTP headers](https://httpie.io/docs#http-headers) and [JSON](https://httpie.io/docs#json) data:
+
+```bash
+http PUT pie.dev/put X-API-Token:123 name=John
+```
+
+Build and print a request without sending it using [offline mode](https://httpie.io/docs/cli/offline-mode):
+
+```bash
+http --offline pie.dev/post hello=offline
+```
+
+Use [GitHub API](https://developer.github.com/v3/issues/comments/#create-a-comment) to post a comment on an [Issue](https://github.com/httpie/cli/issues/83) with [authentication](https://httpie.io/docs#authentication):
+
+```bash
+http -a USERNAME POST https://api.github.com/repos/httpie/cli/issues/83/comments body='HTTPie is awesome! :heart:'
+```
+
+[See more examples →](https://httpie.io/docs#examples)
+
+## Community & support
+
+- Visit the [HTTPie website](https://httpie.io) for full documentation and useful links.
+- Join our [Discord server](https://httpie.io/discord) is to ask questions, discuss features, and for general API chat.
+- Tweet at [@httpie](https://twitter.com/httpie) on Twitter.
+- Use [StackOverflow](https://stackoverflow.com/questions/tagged/httpie) to ask questions and include a `httpie` tag.
+- Create [GitHub Issues](https://github.com/httpie/cli/issues) for bug reports and feature requests.
+- Subscribe to the [HTTPie newsletter](https://httpie.io) for occasional updates.
+
+## Contributing
+
+Have a look through existing [Issues](https://github.com/httpie/cli/issues) and [Pull Requests](https://github.com/httpie/cli/pulls) that you could help with. If you'd like to request a feature or report a bug, please [create a GitHub Issue](https://github.com/httpie/cli/issues) using one of the templates provided.
+
+[See contribution guide →](https://github.com/httpie/cli/blob/master/CONTRIBUTING.md)
+
+
+--- PACKAGE MANIFEST(S) ---
+
+[setup.py]
+from setuptools import setup
+
+setup()
+
+
+[setup.cfg]
+# Please keep all characters in this file in ASCII
+# distutils uses system's locale to interpret it and not everybody
+# uses UTF-8. See https://github.com/httpie/cli/issues/1039
+# for an example
+[wheel]
+
+
+[tool:pytest]
+# <https://docs.pytest.org/en/latest/customize.html>
+testpaths = httpie tests
+norecursedirs = tests/fixtures
+addopts = --tb=native --doctest-modules --verbose
+xfail_strict = True
+
+[metadata]
+name = httpie
+version = attr: httpie.__version__
+author = Jakub Roztocil
+author_email = jakub@roztocil.co
+license = BSD
+description = HTTPie: modern, user-friendly command-line HTTP client for the API era.
+url = https://httpie.io/
+long_description = file: README.md
+long_description_content_type = text/markdown
+classifiers =
+    Development Status :: 5 - Production/Stable
+    Programming Language :: Python
+    Programming Language :: Python :: 3 :: Only
+    Environment :: Console
+    Intended Audience :: Developers
+    Intended Audience :: System Administrators
+    License :: OSI Approved :: BSD License
+    Topic :: Internet :: WWW/HTTP
+    Topic :: Software Development
+    Topic :: System :: Networking
+    Topic :: Terminals
+    Topic :: Text Processing
+    Topic :: Utilities
+project_urls =
+    GitHub = https://github.com/httpie/cli
+    Twitter = https://twitter.com/httpie
+    Discord = https://httpie.io/discord
+    Documentation = https://httpie.io/docs
+    Online Demo = https://httpie.io/run
+
+
+[options]
+packages = find:
+install_requires =
+    pip
+    charset_normalizer>=2.0.0
+    defusedxml>=0.6.0
+    requests[socks] >=2.22.0
+    Pygments>=2.5.2
+    requests-toolbelt>=0.9.1
+    multidict>=4.7.0
+    setuptools
+    importlib-metadata>=1.4.0; python_version<"3.8"
+    rich>=9.10.0
+    colorama>=0.2.4; sys_platform=="win32"
+python_requires = >=3.7
+
+
+[flake8]
+# <https://flake8.pycqa.org/en/latest/user/error-codes.html>
+# E501 - line too long
+# W503 - line break before binary operator
+ignore = E501,W503
+
+[options.packages.find]
+include =
+    httpie
+    httpie.*
+
+[options.entry_points]
+console_scripts =
+    http = httpie.__main__:main
+    https = httpie.__main__:main
+    httpie = httpie.manager.__main__:main
+
+[options.extras_require]
+dev =
+    pytest
+    pytest-httpbin>=0.0.6
+    responses
+    pytest-mock
+    werkzeug<2.1.0
+    flake8
+    flake8-comprehensions
+    flake8-deprecated
+    flake8-mutable
+    flake8-tuple
+    pyopenssl
+    pytest-cov
+    pyyaml
+    twine
+    wheel
+    Jinja2
+test =
+    pytest
+    pytest-httpbin>=0.0.6
+    responses
+    pytest-mock
+    werkzeug<2.1.0
+
+[options.data_files]
+share/man/man1 =
+    extras/man/http.1
+    extras/man/https.1
+    extras/man/httpie.1
+
+
+[Makefile]
+###############################################################################
+# See ./CONTRIBUTING.md
+###############################################################################
+
+.PHONY: build
+
+ROOT_DIR:=$(shell dirname $(realpath $(firstword $(MAKEFILE_LIST))))
+VERSION=$(shell grep __version__ httpie/__init__.py)
+H1="\n\n\033[0;32m\#\#\# "
+H1END=" \#\#\# \033[0m\n"
+
+
+# Only used to create our venv.
+SYSTEM_PYTHON=python3
+
+VENV_ROOT=venv
+VENV_BIN=$(VENV_ROOT)/bin
+VENV_PIP=$(VENV_BIN)/pip3
+VENV_PYTHON=$(VENV_BIN)/python
+
+
+export PATH := $(VENV_BIN):$(PATH)
+
+
+
+default: list-tasks
+
+
+###############################################################################
+# Default task to get a list of tasks when `make' is run without args.
+# <https://stackoverflow.com/questions/4219255>
+###############################################################################
+
+list-tasks:
+	@echo Available tasks:
+	@echo ----------------
+	@$(MAKE) -pRrq -f $(lastword $(MAKEFILE_LIST)) : 2>/dev/null | awk -v RS= -F: '/^# File/,/^# Finished Make data base/ {if ($$1 !~ "^[#.]") {print $$1}}' | sort | grep -E -v -e '^[^[:alnum:]]' -e '^$@$$'
+	@echo
+
+
+###############################################################################
+# Installation
+###############################################################################
+
+all: uninstall-httpie install test
+
+
+install: venv install-reqs
+
+
+install-reqs:
+	@echo $(H1)Updating package tools$(H1END)
+	$(VENV_PIP) install --upgrade pip wheel build
+
+	@echo $(H1)Installing dev requirements$(H1END)
+	$(VENV_PIP) install --upgrade '.[dev]' '.[test]'
+
+	@echo $(H1)Installing HTTPie$(H1END)
+	$(VENV_PIP) install --upgrade --editable .
+
+	@echo
+
+
+clean:
+	@echo $(H1)Cleaning up$(H1END)
+	rm -rf $(VENV_ROOT)
+	# Remove symlink for virtualenvwrapper, if we’ve created one.
+	[ -n "$(WORKON_HOME)" -a -L "$(WORKON_HOME)/httpie" -a -f "$(WORKON_HOME)/httpie" ] && rm $(WORKON_HOME)/httpie || true
+	rm -rf *.egg dist build .coverage .cache .pytest_cache httpie.egg-info
+	find . -name '__pycache__' -delete -o -name '*.pyc' -delete
+	@echo
+
+
+venv:
+	@echo $(H1)Creating a Python environment $(VENV_ROOT) $(H1END)
+
+	$(SYSTEM_PYTHON) -m venv --prompt httpie $(VENV_ROOT)
+
+	@echo
+	@echo done.
+	@echo
+	@echo To active it manually, run:
+	@echo
+	@echo "    source $(VENV_BIN)/activate"
+	@echo
+	@echo '(learn more: https://docs.python.org/3/library/venv.html)'
+	@echo
+	@if [ -n "$(WORKON_HOME)" ]; then \
+		echo $(ROOT_DIR) >  $(VENV_ROOT)/.project; \
+		if [ ! -d $(WORKON_HOME)/httpie -a ! -L $(WORKON_HOME)/httpie ]; then \
+			ln -s $(ROOT_DIR)/$(VENV_ROOT) $(WORKON_HOME)/httpie ; \
+			echo ''; \
+			echo 'Since you use virtualenvwrapper, we created a symlink'; \
+			echo 'so you can also use "workon httpie" to activate the venv.'; \
+			echo ''; \
+		fi; \
+	fi
+
+
+###############################################################################
+# Testing
+###############################################################################
+
+
+test:
+	@echo $(H1)Running tests$(HEADER_EXT
+... [TRUNCATED]
+
+--- CLI ENTRY POINTS / COMMAND DEFINITIONS ---
+
+[httpie/__main__.py]
+"""The main entry point. Invoke as `http' or `python -m httpie'.
+
+"""
+
+
+def main():
+    try:
+        from httpie.core import main
+        exit_status = main()
+    except KeyboardInterrupt:
+        from httpie.status import ExitStatus
+        exit_status = ExitStatus.ERROR_CTRL_C
+
+    return exit_status.value
+
+
+if __name__ == '__main__':  # pragma: nocover
+    import sys
+    sys.exit(main())
+
+
+[httpie/manager/__main__.py]
+import argparse
+import sys
+
+from typing import List, Union
+
+from httpie.context import Environment
+from httpie.status import ExitStatus
+from httpie.manager.cli import parser
+from httpie.manager.core import MSG_COMMAND_CONFUSION, program as main_program
+
+
+def is_http_command(args: List[Union[str, bytes]], env: Environment) -> bool:
+    """Check whether http/https parser can parse the arguments."""
+
+    from httpie.cli.definition import parser as http_parser
+    from httpie.manager.cli import COMMANDS
+
+    # If the user already selected a top-level sub-command, never
+    # show the http/https version. E.g httpie plugins pie.dev/post
+    if len(args) >= 1 and args[0] in COMMANDS:
+        return False
+
+    with env.as_silent():
+        try:
+            http_parser.parse_args(env=env, args=args)
+        except (Exception, SystemExit):
+            return False
+        else:
+            return True
+
+
+def main(args: List[Union[str, bytes]] = sys.argv, env: Environment = Environment()) -> ExitStatus:
+    from httpie.core import raw_main
+
+    try:
+        return raw_main(
+            parser=parser,
+            main_program=main_program,
+            args=args,
+            env=env,
+            use_default_options=False,
+        )
+    except argparse.ArgumentError:
+        program_args = args[1:]
+        if is_http_command(program_args, env):
+            env.stderr.write(MSG_COMMAND_CONFUSION.format(args=' '.join(program_args)) + "\n")
+
+        return ExitStatus.ERROR
+
+
+def program():
+    try:
+        exit_status = main()
+    except KeyboardInterrupt:
+        exit_status = ExitStatus.ERROR_CTRL_C
+
+    return exit_status
+
+
+if __name__ == '__main__':  # pragma: nocover
+    sys.exit(program())
+
+
+--- SHELL COMPLETIONS & MAN PAGES ---
+  extras/httpie-completion.bash
+  extras/httpie-completion.fish
+  extras/man/http.1
+  extras/man/httpie.1
+  extras/man/https.1
+
+--- DIRECTORY STRUCTURE (depth 2) ---
+├── .editorconfig
+├── .github/
+│   ├── ISSUE_TEMPLATE/
+│   │   ├── bug_report.md
+│   │   ├── feature_request.md
+│   │   └── other.md
+│   ├── dependabot.yml
+│   └── workflows/
+│       ├── benchmark.yml
+│       ├── code-style.yml
+│       ├── content.yml
+│       ├── coverage.yml
+│       ├── docs-check-markdown.yml
+│       ├── docs-deploy.yml
+│       ├── release-brew.yml
+│       ├── release-choco.yml
+│       ├── release-linux-standalone.yml
+│       ├── release-pypi.yml
+│       ├── release-snap.yml
+│       ├── stale.yml
+│       ├── test-package-linux-snap.yml
+│       ├── test-package-mac-brew.yml
+│       └── tests.yml
+├── .gitignore
+├── .packit.yaml
+├── AUTHORS.md
+├── CHANGELOG.md
+├── CODE_OF_CONDUCT.md
+├── CONTRIBUTING.md
+├── LICENSE
+├── MANIFEST.in
+├── Makefile
+├── README.md
+├── SECURITY.md
+├── docs/
+│   ├── README.md
+│   ├── config.json
+│   ├── contributors/
+│   │   ├── README.md
+│   │   ├── fetch.py
+│   │   ├── generate.py
+│   │   ├── people.json
+│   │   └── snippet.jinja2
+│   ├── httpie-animation.gif
+│   ├── httpie-logo.svg
+│   ├── installation/
+│   │   ├── README.md
+│   │   ├── generate.py
+│   │   ├── installation.jinja2
+│   │   └── methods.yml
+│   ├── markdownlint.rb
+│   ├── packaging/
+│   │   ├── README.md
+│   │   ├── brew/
+│   │   ├── linux-arch/
+│   │   ├── linux-centos/
+│   │   ├── linux-debian/
+│   │   ├── linux-fedora/
+│   │   ├── mac-ports/
+│   │   ├── snapcraft/
+│   │   └── windows-chocolatey/
+│   └── stardust.png
+├── extras/
+│   ├── httpie-completion.bash
+│   ├── httpie-completion.fish
+│   ├── man/
+│   │   ├── http.1
+│   │   ├── httpie.1
+│   │   └── https.1
+│   ├── packaging/
+│   │   └── linux/
+│   ├── profiling/
+│   │   ├── README.md
+│   │   ├── benchmarks.py
+│   │   └── run.py
+│   └── scripts/
+│       └── generate_man_pages.py
+├── httpie/
+│   ├── __init__.py
+│   ├── __main__.py
+│   ├── adapters.py
+│   ├── cli/
+│   │   ├── __init__.py
+│   │   ├── argparser.py
+│   │   ├── argtypes.py
+│   │   ├── constants.py
+│   │   ├── definition.py
+│   │   ├── dicts.py
+│   │   ├── exceptions.py
+│   │   ├── nested_json/
+│   │   ├── options.py
+│   │   ├── requestitems.py
+│   │   └── utils.py
+│   ├── client.py
+│   ├── compat.py
+│   ├── config.py
+│   ├── context.py
+│   ├── cookies.py
+│   ├── core.py
+│   ├── downloads.py
+│   ├── encoding.py
+│   ├── internal/
+│   │   ├── __build_channel__.py
+│   │   ├── __init__.py
+│   │   ├── daemon_runner.py
+│   │   ├── daemons.py
+│   │   └── update_warnings.py
+│   ├── legacy/
+│   │   ├── __init__.py
+│   │   ├── v3_1_0_session_cookie_format.py
+│   │   └── v3_2_0_session_header_format.py
+│   ├── manager/
+│   │   ├── __init__.py
+│   │   ├── __main__.py
+│   │   ├── cli.py
+│   │   ├── compat.py
+│   │   ├── core.py
+│   │   └── tasks/
+│   ├── models.py
+│   ├── output/
+│   │   ├── __init__.py
+│   │   ├── formatters/
+│   │   ├── lexers/
+│   │   ├── models.py
+│   │   ├── processing.py
+│   │   ├── streams.py
+│   │   ├── ui/
+│   │   ├── utils.py
+│   │   └── writer.py
+│   ├── plugins/
+│   │   ├── __init__.py
+│   │   ├── base.py
+│   │   ├── builtin.py
+│   │   ├── manager.py
+│   │   └── registry.py
+│   ├── sessions.py
+│   ├── ssl_.py
+│   ├── status.py
+│   ├── uploads.py
+│   └── utils.py
+├── pytest.ini
+├── setup.cfg
+├── setup.py
+├── snapcraft.yaml
+└── tests/
+    ├── README.md
+    ├── __init__.py
+    ├── client_certs/
+    │   ├── client.crt
+    │   ├── client.key
+    │   ├── client.pem
+    │   └── password_protected/
+    ├── conftest.py
+    ├── fixtures/
+    │   ├── .editorconfig
+    │   ├── __init__.py
+    │   ├── session_data/
+    │   ├── test.bin
+    │   ├── test.json
+    │   ├── test.txt
+    │   ├── test_with_dupe_keys.json
+    │   └── xmldata/
+    ├── test_auth.py
+    ├── test_auth_plugins.py
+    ├── test_binary.py
+    ├── test_cli.py
+    ├── test_cli_ui.py
+    ├── test_cli_utils.py
+    ├── test_compress.py
+    ├── test_config.py
+    ├── test_cookie.py
+    ├── test_cookie_on_redirects.py
+    ├── test_defaults.py
+    ├── test_downloads.py
+    ├── test_encoding.py
+    ├── test_errors.py
+    ├── test_exit_status.py
+    ├── test_httpie.py
+    ├── test_httpie_cli.py
+    ├── test_json.py
+    ├── test_meta.py
+    ├── test_offline.py
+    ├── test_output.py
+    ├── test_parser_schema.py
+    ├── test_plugins_cli.py
+    ├── test_redirects.py
+    ├── test_regressions.py
+    ├── test_sessions.py
+    ├── test_ssl.py
+    ├── test_stream.py
+    ├── test_tokens.py
+    ├── test_transport_plugin.py
+    ├── test_update_warnings.py
+    ├── test_uploads.py
+    ├── test_windows.py
+    ├── test_xml.py
+    └── utils/
+        ├── __init__.py
+        ├── http_server.py
+        ├── matching/
+        └── plugins_cli.py

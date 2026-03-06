@@ -1,0 +1,1706 @@
+=====================================
+Repository Analysis: diffusers
+Type: Data / ML / AI Project
+=====================================
+
+--- METADATA ---
+Name: diffusers
+Description: 🤗 Diffusers: State-of-the-art diffusion models for image, video, and audio generation in PyTorch.
+Language: Python
+Topics: deep-learning, diffusion, flux, image-generation, image2image, image2video, latent-diffusion-models, pytorch, qwen-image, score-based-generative-modeling, stable-diffusion, stable-diffusion-diffusers, text2image, text2video, video2video
+Stars: 32934
+License: Apache License 2.0
+
+--- README ---
+<!---
+Copyright 2022 - The HuggingFace Team. All rights reserved.
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+-->
+
+<p align="center">
+    <br>
+    <img src="https://raw.githubusercontent.com/huggingface/diffusers/main/docs/source/en/imgs/diffusers_library.jpg" width="400"/>
+    <br>
+<p>
+<p align="center">
+    <a href="https://github.com/huggingface/diffusers/blob/main/LICENSE"><img alt="GitHub" src="https://img.shields.io/github/license/huggingface/datasets.svg?color=blue"></a>
+    <a href="https://github.com/huggingface/diffusers/releases"><img alt="GitHub release" src="https://img.shields.io/github/release/huggingface/diffusers.svg"></a>
+    <a href="https://pepy.tech/project/diffusers"><img alt="GitHub release" src="https://static.pepy.tech/badge/diffusers/month"></a>
+    <a href="CODE_OF_CONDUCT.md"><img alt="Contributor Covenant" src="https://img.shields.io/badge/Contributor%20Covenant-2.1-4baaaa.svg"></a>
+    <a href="https://twitter.com/diffuserslib"><img alt="X account" src="https://img.shields.io/twitter/url/https/twitter.com/diffuserslib.svg?style=social&label=Follow%20%40diffuserslib"></a>
+</p>
+
+🤗 Diffusers is the go-to library for state-of-the-art pretrained diffusion models for generating images, audio, and even 3D structures of molecules. Whether you're looking for a simple inference solution or training your own diffusion models, 🤗 Diffusers is a modular toolbox that supports both. Our library is designed with a focus on [usability over performance](https://huggingface.co/docs/diffusers/conceptual/philosophy#usability-over-performance), [simple over easy](https://huggingface.co/docs/diffusers/conceptual/philosophy#simple-over-easy), and [customizability over abstractions](https://huggingface.co/docs/diffusers/conceptual/philosophy#tweakable-contributorfriendly-over-abstraction).
+
+🤗 Diffusers offers three core components:
+
+- State-of-the-art [diffusion pipelines](https://huggingface.co/docs/diffusers/api/pipelines/overview) that can be run in inference with just a few lines of code.
+- Interchangeable noise [schedulers](https://huggingface.co/docs/diffusers/api/schedulers/overview) for different diffusion speeds and output quality.
+- Pretrained [models](https://huggingface.co/docs/diffusers/api/models/overview) that can be used as building blocks, and combined with schedulers, for creating your own end-to-end diffusion systems.
+
+## Installation
+
+We recommend installing 🤗 Diffusers in a virtual environment from PyPI or Conda. For more details about installing [PyTorch](https://pytorch.org/get-started/locally/), please refer to their official documentation.
+
+### PyTorch
+
+With `pip` (official package):
+
+```bash
+pip install --upgrade diffusers[torch]
+```
+
+With `conda` (maintained by the community):
+
+```sh
+conda install -c conda-forge diffusers
+```
+
+### Apple Silicon (M1/M2) support
+
+Please refer to the [How to use Stable Diffusion in Apple Silicon](https://huggingface.co/docs/diffusers/optimization/mps) guide.
+
+## Quickstart
+
+Generating outputs is super easy with 🤗 Diffusers. To generate an image from text, use the `from_pretrained` method to load any pretrained diffusion model (browse the [Hub](https://huggingface.co/models?library=diffusers&sort=downloads) for 30,000+ checkpoints):
+
+```python
+from diffusers import DiffusionPipeline
+import torch
+
+pipeline = DiffusionPipeline.from_pretrained("stable-diffusion-v1-5/stable-diffusion-v1-5", torch_dtype=torch.float16)
+pipeline.to("cuda")
+pipeline("An image of a squirrel in Picasso style").images[0]
+```
+
+You can also dig into the models and schedulers toolbox to build your own diffusion system:
+
+```python
+from diffusers import DDPMScheduler, UNet2DModel
+from PIL import Image
+import torch
+
+scheduler = DDPMScheduler.from_pretrained("google/ddpm-cat-256")
+model = UNet2DModel.from_pretrained("google/ddpm-cat-256").to("cuda")
+scheduler.set_timesteps(50)
+
+sample_size = model.config.sample_size
+noise = torch.randn((1, 3, sample_size, sample_size), device="cuda")
+input = noise
+
+for t in scheduler.timesteps:
+    with torch.no_grad():
+        noisy_residual = model(input, t).sample
+        prev_noisy_sample = scheduler.step(noisy_residual, t, input).prev_sample
+        input = prev_noisy_sample
+
+image = (input / 2 + 0.5).clamp(0, 1)
+image = image.cpu().permute(0, 2, 3, 1).numpy()[0]
+image = Image.fromarray((image * 255).round().astype("uint8"))
+image
+```
+
+Check out the [Quickstart](https://huggingface.co/docs/diffusers/quicktour) to launch your diffusion journey today!
+
+## How to navigate th
+... [TRUNCATED]
+
+--- PACKAGE MANIFEST(S) ---
+
+[pyproject.toml]
+[tool.ruff]
+line-length = 119
+extend-exclude = [
+    "src/diffusers/pipelines/flux2/system_messages.py",
+]
+
+[tool.ruff.lint]
+# Never enforce `E501` (line length violations).
+ignore = ["C901", "E501", "E721", "E741", "F402", "F823"]
+select = ["C", "E", "F", "I", "W"]
+
+# Ignore import violations in all `__init__.py` files.
+[tool.ruff.lint.per-file-ignores]
+"__init__.py" = ["E402", "F401", "F403", "F811"]
+"src/diffusers/utils/dummy_*.py" = ["F401"]
+
+[tool.ruff.lint.isort]
+lines-after-imports = 2
+known-first-party = ["diffusers"]
+
+[tool.ruff.format]
+# Like Black, use double quotes for strings.
+quote-style = "double"
+
+# Like Black, indent with spaces, rather than tabs.
+indent-style = "space"
+
+# Like Black, respect magic trailing commas.
+skip-magic-trailing-comma = false
+
+# Like Black, automatically detect the appropriate line ending.
+line-ending = "auto"
+
+
+[setup.py]
+# Copyright 2025 The HuggingFace Team. All rights reserved.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+"""
+Simple check list from AllenNLP repo: https://github.com/allenai/allennlp/blob/main/setup.py
+
+To create the package for PyPI.
+
+1. Run `make pre-release` (or `make pre-patch` for a patch release) then run `make fix-copies` to fix the index of the
+   documentation.
+
+   If releasing on a special branch, copy the updated README.md on the main branch for the commit you will make
+   for the post-release and run `make fix-copies` on the main branch as well.
+
+2. Unpin specific versions from setup.py that use a git install.
+
+3. Checkout the release branch (v<RELEASE>-release, for example v4.19-release), and commit these changes with the
+   message: "Release: <RELEASE>" and push.
+
+4. Manually trigger the "Nightly and release tests on main/release branch" workflow from the release branch. Wait for
+   the tests to complete. We can safely ignore the known test failures.
+
+5. Wait for the tests on main to be completed and be green (otherwise revert and fix bugs).
+
+6. Add a tag in git to mark the release: "git tag v<RELEASE> -m 'Adds tag v<RELEASE> for PyPI'"
+   Push the tag to git: git push --tags origin v<RELEASE>-release
+
+7. Build both the sources and the wheel. Do not change anything in setup.py between
+   creating the wheel and the source distribution (obviously).
+
+   For the wheel, run: "python setup.py bdist_wheel" in the top level directory
+   (This will build a wheel for the Python version you use to build it).
+
+   For the sources, run: "python setup.py sdist"
+   You should now have a /dist directory with both .whl and .tar.gz source versions.
+
+   Long story cut short, you need to run both before you can upload the distribution to the
+   test PyPI and the actual PyPI servers:
+
+   python setup.py bdist_wheel && python setup.py sdist
+
+8. Check that everything looks correct by uploading the package to the PyPI test server:
+
+   twine upload dist/* -r pypitest
+   (pypi suggests using twine as other methods upload files via plaintext.)
+   You may have to specify the repository url, use the following command then:
+   twine upload dist/* -r pypitest --repository-url=https://test.pypi.org/legacy/
+
+   Check that you can install it in a virtualenv by running:
+   pip install -i https://testpypi.python.org/pypi diffusers
+
+   If you are testing from a Colab Notebook, for instance, then do:
+   pip install diffusers && pip uninstall diffusers
+   pip install -i https://t
+... [TRUNCATED]
+
+--- REQUIREMENTS FILES ---
+
+[benchmarks/requirements.txt]
+pandas 
+psutil
+gpustat
+torchprofile
+bitsandbytes
+psycopg2==2.9.9
+
+[examples/advanced_diffusion_training/requirements.txt]
+accelerate>=0.31.0
+torchvision
+transformers>=4.41.2
+ftfy
+tensorboard
+Jinja2
+peft>=0.11.1
+sentencepiece
+
+[examples/advanced_diffusion_training/requirements_flux.txt]
+accelerate>=0.31.0
+torchvision
+transformers>=4.41.2
+ftfy
+tensorboard
+Jinja2
+peft>=0.11.1
+sentencepiece
+
+[examples/cogvideo/requirements.txt]
+accelerate>=0.31.0
+torchvision
+transformers>=4.41.2
+ftfy
+tensorboard
+Jinja2
+peft>=0.11.1
+sentencepiece
+decord>=0.6.0
+imageio-ffmpeg
+
+[examples/cogview4-control/requirements.txt]
+transformers==4.47.0
+wandb
+torch
+torchvision
+accelerate==1.2.0
+peft>=0.14.0
+
+
+[examples/consistency_distillation/requirements.txt]
+accelerate>=0.16.0
+torchvision
+transformers>=4.25.1
+ftfy
+tensorboard
+Jinja2
+webdataset
+
+[examples/controlnet/requirements.txt]
+accelerate>=0.16.0
+torchvision
+transformers>=4.25.1
+ftfy
+tensorboard
+datasets
+
+
+[examples/controlnet/requirements_flax.txt]
+transformers>=4.25.1
+datasets
+flax
+optax
+torch
+torchvision
+ftfy
+tensorboard
+Jinja2
+
+
+[examples/controlnet/requirements_flux.txt]
+accelerate>=0.16.0
+torchvision
+transformers>=4.25.1
+ftfy
+tensorboard
+Jinja2
+datasets
+wandb
+SentencePiece
+
+[examples/controlnet/requirements_sd3.txt]
+accelerate>=0.16.0
+torchvision
+transformers>=4.25.1
+ftfy
+tensorboard
+Jinja2
+datasets
+wandb
+
+
+[examples/controlnet/requirements_sdxl.txt]
+accelerate>=0.16.0
+torchvision
+transformers>=4.25.1
+ftfy
+tensorboard
+Jinja2
+datasets
+wandb
+
+
+[examples/custom_diffusion/requirements.txt]
+accelerate
+torchvision
+transformers>=4.25.1
+ftfy
+tensorboard
+Jinja2
+
+
+[examples/dreambooth/requirements.txt]
+accelerate>=0.16.0
+torchvision
+transformers>=4.25.1
+ftfy
+tensorboard
+Jinja2
+peft==0.7.0
+
+[examples/dreambooth/requirements_flax.txt]
+transformers>=4.25.1
+flax
+optax
+torch
+torchvision
+ftfy
+tensorboard
+Jinja2
+
+
+[examples/dreambooth/requirements_flux.txt]
+accelerate>=0.31.0
+torchvision
+transformers>=4.41.2
+ftfy
+tensorboard
+Jinja2
+peft>=0.11.1
+sentencepiece
+
+[examples/dreambooth/requirements_hidream.txt]
+accelerate>=1.4.0
+torchvision
+transformers>=4.50.0
+ftfy
+tensorboard
+Jinja2
+peft>=0.14.0
+sentencepiece
+
+[examples/dreambooth/requirements_sana.txt]
+accelerate>=1.0.0
+torchvision
+transformers>=4.47.0
+ftfy
+tensorboard
+Jinja2
+peft>=0.14.0
+sentencepiece
+
+[examples/dreambooth/requirements_sd3.txt]
+accelerate>=0.31.0
+torchvision
+transformers>=4.41.2
+ftfy
+tensorboard
+Jinja2
+peft==0.11.1
+sentencepiece
+
+[examples/dreambooth/requirements_sdxl.txt]
+accelerate>=0.16.0
+torchvision
+transformers>=4.25.1
+ftfy
+tensorboard
+Jinja2
+peft==0.7.0
+
+[examples/flux-control/requirements.txt]
+transformers==4.47.0
+wandb
+torch
+torchvision
+accelerate==1.2.0
+peft>=0.14.0
+
+
+[examples/instruct_pix2pix/requirements.txt]
+accelerate>=0.16.0
+torchvision
+transformers>=4.25.1
+datasets
+ftfy
+tensorboard
+
+[examples/kandinsky2_2/text_to_image/requirements.txt]
+accelerate>=0.16.0
+torchvision
+transformers>=4.25.1
+datasets
+ftfy
+tensorboard
+Jinja2
+
+
+[examples/model_search/requirements.txt]
+huggingface-hub>=0.26.2
+
+
+[examples/research_projects/autoencoderkl/requirements.txt]
+accelerate>=0.16.0
+bitsandbytes
+datasets
+huggingface_hub
+lpips
+numpy
+packaging
+Pillow
+taming_transformers
+torch
+torchvision
+tqdm
+transformers
+wandb
+xformers
+
+
+[examples/research_projects/consistency_training/requirements.txt]
+accelerate>=0.16.0
+torchvision
+transformers>=4.25.1
+ftfy
+tensorboard
+Jinja2
+
+[examples/research_projects/diffusion_dpo/requirements.txt]
+accelerate>=0.16.0
+torchvision
+transformers>=4.25.1
+ftfy
+tensorboard
+Jinja2
+peft
+wandb
+
+[examples/research_projects/diffusion_orpo/requirements.txt]
+datasets
+accelerate
+transformers
+torchvision
+wandb
+peft
+webdataset
+
+[examples/research_projects/dreambooth_inpaint/requirements.txt]
+diffusers==0.9.0
+accelerate>=0.16.0
+torchvision
+transformers>=4.21.0
+ftfy
+tensorboard
+Jinja2
+
+
+[examples/research_projects/gligen/requirements.txt]
+accelerate>=0.16.0
+torchvision
+transformers>=4.25.1
+ftfy
+tensorboard
+Jinja2
+diffusers
+scipy
+timm
+fairscale
+wandb
+
+[examples/research_projects/intel_opts/textual_inversion/requirements.txt]
+accelerate>=0.16.0
+torchvision
+transformers>=4.21.0
+ftfy
+tensorboard
+Jinja2
+intel_extension_for_pytorch>=1.13
+
+
+[examples/research_projects/intel_opts/textual_inversion_dfq/requirements.txt]
+accelerate
+torchvision
+transformers>=4.25.0
+ftfy
+tensorboard
+modelcards
+neural-compressor
+
+[examples/research_projects/ip_adapter/requirements.txt]
+accelerate
+torchvision
+transformers>=4.25.1
+ip_adapter
+
+
+[examples/research_projects/lora/requirements.txt]
+accelerate>=0.16.0
+torchvision
+transformers>=4.25.1
+datasets
+ftfy
+tensorboard
+Jinja2
+git+https://github.com/huggingface/peft.git
+
+[examples/research_projects/multi_subject_dreambooth/requirements.txt]
+accelerate>=0.16.0
+torchvision
+transformers>=4.25.1
+ftfy
+tensorboard
+Jinja2
+
+[examples/research_projects/multi_subject_dreambooth_inpainting/requirements.txt]
+accelerate>=0.16.0
+torchvision
+transformers>=4.25.1
+datasets>=2.16.0
+wandb>=0.16.1
+ftfy
+tensorboard
+Jinja2
+
+[examples/research_projects/multi_token_textual_inversion/requirements.txt]
+accelerate>=0.16.0
+torchvision
+transformers>=4.25.1
+ftfy
+tensorboard
+Jinja2
+
+
+[examples/research_projects/multi_token_textual_inversion/requirements_flax.txt]
+transformers>=4.25.1
+flax
+optax
+torch
+torchvision
+ftfy
+tensorboard
+Jinja2
+
+
+[examples/research_projects/onnxruntime/text_to_image/requirements.txt]
+accelerate>=0.16.0
+torchvision
+transformers>=4.25.1
+datasets
+ftfy
+tensorboard
+modelcards
+
+
+[examples/research_projects/onnxruntime/textual_inversion/requirements.txt]
+accelerate>=0.16.0
+torchvision
+transformers>=4.25.1
+ftfy
+tensorboard
+modelcards
+
+
+[examples/research_projects/onnxruntime/unconditional_image_generation/requirements.txt]
+accelerate>=0.16.0
+torchvision
+datasets
+tensorboard
+
+[examples/research_projects/pixart/requirements.txt]
+transformers
+SentencePiece
+torchvision
+controlnet-aux
+datasets
+# wandb
+
+[examples/research_projects/pytorch_xla/training/text_to_image/requirements.txt]
+accelerate>=0.16.0
+torchvision
+transformers>=4.25.1
+datasets>=2.19.1
+ftfy
+tensorboard
+Jinja2
+peft==0.7.0
+
+
+[examples/research_projects/realfill/requirements.txt]
+diffusers==0.20.1
+accelerate==0.23.0
+transformers==4.38.0
+peft==0.5.0
+torch==2.2.0
+torchvision>=0.16
+ftfy==6.1.1
+tensorboard==2.14.0
+Jinja2==3.1.6
+
+
+[examples/research_projects/wuerstchen/text_to_image/requirements.txt]
+accelerate>=0.16.0
+torchvision
+transformers>=4.25.1
+wandb
+bitsandbytes
+deepspeed
+peft>=0.6.0
+
+
+[examples/server-async/requirements.txt]
+torch 
+torchvision 
+transformers 
+sentencepiece 
+fastapi 
+uvicorn 
+ftfy
+accelerate
+xformers
+protobuf
+
+[examples/server/requirements.txt]
+# This file was autogenerated by uv via the following command:
+#    uv pip compile requirements.in -o requirements.txt
+aiohappyeyeballs==2.6.1
+    # via aiohttp
+aiohttp==3.12.14
+    # via -r requirements.in
+aiosignal==1.4.0
+    # via aiohttp
+annotated-types==0.7.0
+    # via pydantic
+anyio==4.6.2.post1
+    # via starlette
+async-timeout==4.0.3
+    # via aiohttp
+attrs==24.2.0
+    # via aiohttp
+certifi==2024.8.30
+    # via requests
+charset-normalizer==3.4.0
+    # via requests
+click==8.1.7
+    # via uvicorn
+exceptiongroup==1.3.0
+    # via anyio
+fastapi==0.115.3
+    # via -r requirements.in
+filelock==3.16.1
+    # via
+    #   huggingface-hub
+    #   torch
+    #   transformers
+frozenlist==1.5.0
+    # via
+    #   aiohttp
+    #   aiosignal
+fsspec==2024.10.0
+    # via
+    #   huggingface-hub
+    #   torch
+h11==0.14.0
+    # via uvicorn
+huggingface-hub==0.35.0
+    # via
+    #   tokenizers
+    #   transformers
+idna==3.10
+    # via
+    #   anyio
+    #   requests
+    #   yarl
+jinja2==3.1.4
+    # via torch
+markupsafe==3.0.2
+    # via jinja2
+mpmath==1.3.0
+    # via sympy
+multidict==6.1.0
+    # via
+    #   aiohttp
+    #   yarl
+networkx==3.2.1
+    # via torch
+numpy==2.0.2
+    # via transformers
+nvidia-cublas-cu12==12.6.4.1
+    # via
+    #   nvidia-cudnn-cu12
+    #   nvidia-cusolver-cu12
+    #   torch
+nvidia-cuda-cupti-cu12==12.6.80
+    # via torch
+nvidia-cuda-nvrtc-cu12==12.6.77
+    # via torch
+nvidia-cuda-runtime-cu12==12.6.77
+    # via torch
+nvidia-cudnn-cu12==9.5.1.17
+    # via torch
+nvidia-cufft-cu12==11.3.0.4
+    # via torch
+nvidia-cufile-cu12==1.11.1.6
+    # via torch
+nvidia-curand-cu12==10.3.7.77
+    # via torch
+nvidia-cusolver-cu12==11.7.1.2
+    # via torch
+nvidia-cusparse-cu12==12.5.4.2
+    # via
+    #   nvidia-cusolver-cu12
+    #   torch
+nvidia-cusparselt-cu12==0.6.3
+    # via torch
+nvidia-nccl-cu12==2.26.2
+    # via torch
+nvidia-nvjitlink-cu12==12.6.85
+    # via
+    #   nvidia-cufft-cu12
+    #   nvidia-cusolver-cu12
+    #   nvidia-cusparse-cu12
+    #   torch
+nvidia-nvtx-cu12==12.6.77
+    # via torch
+packaging==24.1
+    # via
+    #   huggingface-hub
+    #   transformers
+prometheus-client==0.21.0
+    # via
+    #   -r requirements.in
+    #   prometheus-fastapi-instrumentator
+prometheus-fastapi-instrumentator==7.0.0
+    # via -r requirements.in
+propcache==0.2.0
+    # via
+    #   aiohttp
+    #   yarl
+py-consul==1.5.3
+    # via -r requirements.in
+pydantic==2.9.2
+    # via fastapi
+pydantic-core==2.23.4
+    # via pydantic
+pyyaml==6.0.2
+    # via
+    #   huggingface-hub
+    #   transformers
+regex==2024.9.11
+    # via transformers
+requests==2.32.3
+    # via
+    #   huggingface-hub
+    #   py-consul
+    #   transformers
+safetensors==0.4.5
+    # via transformers
+sentencepiece==0.2.0
+    # via -r requirements.in
+sniffio==1.3.1
+    # via anyio
+starlette==0.41.0
+    # via
+    #   fastapi
+    #   prometheus-fastapi-instrumentator
+sympy==1.13.3
+    # via torch
+tokenizers==0.20.1
+    # via transformers
+torch==2.7.0
+    # via -r requirements.in
+tqdm==4.66.5
+    # via
+    # 
+... [TRUNCATED]
+
+[examples/t2i_adapter/requirements.txt]
+transformers>=4.25.1
+accelerate>=0.16.0
+safetensors
+datasets
+torchvision
+ftfy
+tensorboard
+wandb
+
+[examples/text_to_image/requirements.txt]
+accelerate>=0.16.0
+torchvision
+transformers>=4.25.1
+datasets>=2.19.1
+ftfy
+tensorboard
+Jinja2
+peft>=0.17.0
+
+
+[examples/text_to_image/requirements_flax.txt]
+transformers>=4.25.1
+datasets
+flax
+optax
+torch
+torchvision
+ftfy
+tensorboard
+Jinja2
+
+
+[examples/text_to_image/requirements_sdxl.txt]
+accelerate>=0.22.0
+torchvision
+transformers>=4.25.1
+ftfy
+tensorboard
+Jinja2
+datasets
+peft>=0.17.0
+
+[examples/textual_inversion/requirements.txt]
+accelerate>=0.16.0
+torchvision
+transformers>=4.25.1
+ftfy
+tensorboard
+Jinja2
+
+
+[examples/textual_inversion/requirements_flax.txt]
+transformers>=4.25.1
+flax
+optax
+torch
+torchvision
+ftfy
+tensorboard
+Jinja2
+
+
+[examples/unconditional_image_generation/requirements.txt]
+accelerate>=0.16.0
+torchvision
+datasets
+
+
+[examples/vqgan/requirements.txt]
+accelerate>=0.16.0
+torchvision
+transformers>=4.25.1
+datasets
+timm
+numpy
+tqdm
+tensorboard
+
+--- ML CONFIG FILES ---
+(No ML config files found)
+
+--- JUPYTER NOTEBOOKS ---
+  examples/research_projects/geodiff/geodiff_molecule_conformation.ipynb
+  examples/research_projects/gligen/demo.ipynb
+  examples/research_projects/sd3_lora_colab/sd3_dreambooth_lora_16gb.ipynb
+
+--- MODEL / TRAINING FILES ---
+  benchmarks/run_all.py
+  examples/advanced_diffusion_training/train_dreambooth_lora_flux_advanced.py
+  examples/advanced_diffusion_training/train_dreambooth_lora_sd15_advanced.py
+  examples/advanced_diffusion_training/train_dreambooth_lora_sdxl_advanced.py
+  examples/amused/train_amused.py
+  examples/cogvideo/train_cogvideox_image_to_video_lora.py
+  examples/cogvideo/train_cogvideox_lora.py
+  examples/cogview4-control/train_control_cogview4.py
+  examples/consistency_distillation/train_lcm_distill_lora_sd_wds.py
+  examples/consistency_distillation/train_lcm_distill_lora_sdxl.py
+
+--- DIRECTORY STRUCTURE (depth 2) ---
+├── .github/
+│   ├── ISSUE_TEMPLATE/
+│   │   ├── bug-report.yml
+│   │   ├── config.yml
+│   │   ├── feature_request.md
+│   │   ├── feedback.md
+│   │   ├── new-model-addition.yml
+│   │   ├── remote-vae-pilot-feedback.yml
+│   │   └── translate.md
+│   ├── PULL_REQUEST_TEMPLATE.md
+│   ├── actions/
+│   │   └── setup-miniconda/
+│   └── workflows/
+│       ├── benchmark.yml
+│       ├── build_docker_images.yml
+│       ├── build_documentation.yml
+│       ├── build_pr_documentation.yml
+│       ├── codeql.yml
+│       ├── mirror_community_pipeline.yml
+│       ├── nightly_tests.yml
+│       ├── notify_slack_about_release.yml
+│       ├── pr_dependency_test.yml
+│       ├── pr_modular_tests.yml
+│       ├── pr_style_bot.yml
+│       ├── pr_test_fetcher.yml
+│       ├── pr_tests.yml
+│       ├── pr_tests_gpu.yml
+│       ├── pr_torch_dependency_test.yml
+│       ├── push_tests.yml
+│       ├── push_tests_fast.yml
+│       ├── push_tests_mps.yml
+│       ├── pypi_publish.yaml
+│       ├── release_tests_fast.yml
+│       ├── run_tests_from_a_pr.yml
+│       ├── ssh-pr-runner.yml
+│       ├── ssh-runner.yml
+│       ├── stale.yml
+│       ├── trufflehog.yml
+│       ├── typos.yml
+│       ├── update_metadata.yml
+│       └── upload_pr_documentation.yml
+├── .gitignore
+├── CITATION.cff
+├── CODE_OF_CONDUCT.md
+├── CONTRIBUTING.md
+├── LICENSE
+├── MANIFEST.in
+├── Makefile
+├── PHILOSOPHY.md
+├── README.md
+├── _typos.toml
+├── benchmarks/
+│   ├── README.md
+│   ├── __init__.py
+│   ├── benchmarking_flux.py
+│   ├── benchmarking_ltx.py
+│   ├── benchmarking_sdxl.py
+│   ├── benchmarking_utils.py
+│   ├── benchmarking_wan.py
+│   ├── push_results.py
+│   ├── requirements.txt
+│   └── run_all.py
+├── docker/
+│   ├── diffusers-doc-builder/
+│   │   └── Dockerfile
+│   ├── diffusers-onnxruntime-cpu/
+│   │   └── Dockerfile
+│   ├── diffusers-onnxruntime-cuda/
+│   │   └── Dockerfile
+│   ├── diffusers-pytorch-cpu/
+│   │   └── Dockerfile
+│   ├── diffusers-pytorch-cuda/
+│   │   └── Dockerfile
+│   ├── diffusers-pytorch-minimum-cuda/
+│   │   └── Dockerfile
+│   └── diffusers-pytorch-xformers-cuda/
+│       └── Dockerfile
+├── docs/
+│   ├── README.md
+│   ├── TRANSLATING.md
+│   └── source/
+│       ├── _config.py
+│       ├── en/
+│       ├── ja/
+│       ├── ko/
+│       ├── pt/
+│       └── zh/
+├── examples/
+│   ├── README.md
+│   ├── advanced_diffusion_training/
+│   │   ├── README.md
+│   │   ├── README_flux.md
+│   │   ├── requirements.txt
+│   │   ├── requirements_flux.txt
+│   │   ├── test_dreambooth_lora_flux_advanced.py
+│   │   ├── train_dreambooth_lora_flux_advanced.py
+│   │   ├── train_dreambooth_lora_sd15_advanced.py
+│   │   └── train_dreambooth_lora_sdxl_advanced.py
+│   ├── amused/
+│   │   ├── README.md
+│   │   └── train_amused.py
+│   ├── cogvideo/
+│   │   ├── README.md
+│   │   ├── requirements.txt
+│   │   ├── train_cogvideox_image_to_video_lora.py
+│   │   └── train_cogvideox_lora.py
+│   ├── cogview4-control/
+│   │   ├── README.md
+│   │   ├── requirements.txt
+│   │   └── train_control_cogview4.py
+│   ├── community/
+│   │   ├── README.md
+│   │   ├── README_community_scripts.md
+│   │   ├── adaptive_mask_inpainting.py
+│   │   ├── bit_diffusion.py
+│   │   ├── checkpoint_merger.py
+│   │   ├── clip_guided_images_mixing_stable_diffusion.py
+│   │   ├── clip_guided_stable_diffusion.py
+│   │   ├── clip_guided_stable_diffusion_img2img.py
+│   │   ├── cogvideox_ddim_inversion.py
+│   │   ├── composable_stable_diffusion.py
+│   │   ├── ddim_noise_comparative_analysis.py
+│   │   ├── dps_pipeline.py
+│   │   ├── edict_pipeline.py
+│   │   ├── fresco_v2v.py
+│   │   ├── gluegen.py
+│   │   ├── hd_painter.py
+│   │   ├── iadb.py
+│   │   ├── imagic_stable_diffusion.py
+│   │   ├── img2img_inpainting.py
+│   │   ├── instaflow_one_step.py
+│   │   ├── interpolate_stable_diffusion.py
+│   │   ├── ip_adapter_face_id.py
+│   │   ├── kohya_hires_fix.py
+│   │   ├── latent_consistency_img2img.py
+│   │   ├── latent_consistency_interpolate.py
+│   │   ├── latent_consistency_txt2img.py
+│   │   ├── llm_grounded_diffusion.py
+│   │   ├── lpw_stable_diffusion.py
+│   │   ├── lpw_stable_diffusion_onnx.py
+│   │   ├── lpw_stable_diffusion_xl.py
+│   │   ├── magic_mix.py
+│   │   ├── marigold_depth_estimation.py
+│   │   ├── masked_stable_diffusion_img2img.py
+│   │   ├── masked_stable_diffusion_xl_img2img.py
+│   │   ├── matryoshka.py
+│   │   ├── mixture_canvas.py
+│   │   ├── mixture_tiling.py
+│   │   ├── mixture_tiling_sdxl.py
+│   │   ├── mod_controlnet_tile_sr_sdxl.py
+│   │   ├── multilingual_stable_diffusion.py
+│   │   ├── one_step_unet.py
+│   │   ├── pipeline_animatediff_controlnet.py
+│   │   ├── pipeline_animatediff_img2video.py
+│   │   ├── pipeline_animatediff_ipex.py
+│   │   ├── pipeline_controlnet_xl_kolors.py
+│   │   ├── pipeline_controlnet_xl_kolors_img2img.py
+│   │   ├── pipeline_controlnet_xl_kolors_inpaint.py
+│   │   ├── pipeline_demofusion_sdxl.py
+│   │   ├── pipeline_fabric.py
+│   │   ├── pipeline_faithdiff_stable_diffusion_xl.py
+│   │   ├── pipeline_flux_differential_img2img.py
+│   │   ├── pipeline_flux_kontext_multiple_images.py
+│   │   ├── pipeline_flux_rf_inversion.py
+│   │   ├── pipeline_flux_semantic_guidance.py
+│   │   ├── pipeline_flux_with_cfg.py
+│   │   ├── pipeline_hunyuandit_differential_img2img.py
+│   │   ├── pipeline_kolors_differential_img2img.py
+│   │   ├── pipeline_kolors_inpainting.py
+│   │   ├── pipeline_null_text_inversion.py
+│   │   ├── pipeline_prompt2prompt.py
+│   │   ├── pipeline_sdxl_style_aligned.py
+│   │   ├── pipeline_stable_diffusion_3_differential_img2img.py
+│   │   ├── pipeline_stable_diffusion_3_instruct_pix2pix.py
+│   │   ├── pipeline_stable_diffusion_boxdiff.py
+│   │   ├── pipeline_stable_diffusion_pag.py
+│   │   ├── pipeline_stable_diffusion_upscale_ldm3d.py
+│   │   ├── pipeline_stable_diffusion_xl_attentive_eraser.py
+│   │   ├── pipeline_stable_diffusion_xl_controlnet_adapter.py
+│   │   ├── pipeline_stable_diffusion_xl_controlnet_adapter_inpaint.py
+│   │   ├── pipeline_stable_diffusion_xl_differential_img2img.py
+│   │   ├── pipeline_stable_diffusion_xl_instandid_img2img.py
+│   │   ├── pipeline_stable_diffusion_xl_instantid.py
+│   │   ├── pipeline_stable_diffusion_xl_ipex.py
+│   │   ├── pipeline_stable_diffusion_xl_t5.py
+│   │   ├── pipeline_stg_cogvideox.py
+│   │   ├── pipeline_stg_hunyuan_video.py
+│   │   ├── pipeline_stg_ltx.py
+│   │   ├── pipeline_stg_ltx_image2video.py
+│   │   ├── pipeline_stg_mochi.py
+│   │   ├── pipeline_stg_wan.py
+│   │   ├── pipeline_z_image_differential_img2img.py
+│   │   ├── pipeline_zero1to3.py
+│   │   ├── pipline_flux_fill_controlnet_Inpaint.py
+│   │   ├── regional_prompting_stable_diffusion.py
+│   │   ├── rerender_a_video.py
+│   │   ├── run_onnx_controlnet.py
+│   │   ├── run_tensorrt_controlnet.py
+│   │   ├── scheduling_ufogen.py
+│   │   ├── sd_text2img_k_diffusion.py
+│   │   ├── sde_drag.py
+│   │   ├── seed_resize_stable_diffusion.py
+│   │   ├── speech_to_image_diffusion.py
+│   │   ├── stable_diffusion_comparison.py
+│   │   ├── stable_diffusion_controlnet_img2img.py
+│   │   ├── stable_diffusion_controlnet_inpaint.py
+│   │   ├── stable_diffusion_controlnet_inpaint_img2img.py
+│   │   ├── stable_diffusion_controlnet_reference.py
+│   │   ├── stable_diffusion_ipex.py
+│   │   ├── stable_diffusion_mega.py
+│   │   ├── stable_diffusion_reference.py
+│   │   ├── stable_diffusion_repaint.py
+│   │   ├── stable_diffusion_tensorrt_img2img.py
+│   │   ├── stable_diffusion_tensorrt_inpaint.py
+│   │   ├── stable_diffusion_tensorrt_txt2img.py
+│   │   ├── stable_diffusion_xl_controlnet_reference.py
+│   │   ├── stable_diffusion_xl_reference.py
+│   │   ├── stable_unclip.py
+│   │   ├── text_inpainting.py
+│   │   ├── tiled_upscaling.py
+│   │   ├── unclip_image_interpolation.py
+│   │   ├── unclip_text_interpolation.py
+│   │   └── wildcard_stable_diffusion.py
+│   ├── conftest.py
+│   ├── consistency_distillation/
+│   │   ├── README.md
+│   │   ├── README_sdxl.md
+│   │   ├── requirements.txt
+│   │   ├── test_lcm_lora.py
+│   │   ├── train_lcm_distill_lora_sd_wds.py
+│   │   ├── train_lcm_distill_lora_sdxl.py
+│   │   ├── train_lcm_distill_lora_sdxl_wds.py
+│   │   ├── train_lcm_distill_sd_wds.py
+│   │   └── train_lcm_distill_sdxl_wds.py
+│   ├── controlnet/
+│   │   ├── README.md
+│   │   ├── README_flux.md
+│   │   ├── README_sd3.md
+│   │   ├── README_sdxl.md
+│   │   ├── requirements.txt
+│   │   ├── requirements_flax.txt
+│   │   ├── requirements_flux.txt
+│   │   ├── requirements_sd3.txt
+│   │   ├── requirements_sdxl.txt
+│   │   ├── test_controlnet.py
+│   │   ├── train_controlnet.py
+│   │   ├── train_controlnet_flax.py
+│   │   ├── train_controlnet_flux.py
+│   │   ├── train_controlnet_sd3.py
+│   │   └── train_controlnet_sdxl.py
+│   ├── custom_diffusion/
+│   │   ├── README.md
+│   │   ├── requirements.txt
+│   │   ├── retrieve.py
+│   │   ├── test_custom_diffusion.py
+│   │   └── train_custom_diffusion.py
+│   ├── dreambooth/
+│   │   ├── README.md
+│   │   ├── README_flux.md
+│   │   ├── README_flux2.md
+│   │   ├── README_hidream.md
+│   │   ├── README_lumina2.md
+│   │   ├── README_qwen.md
+│   │   ├── README_sana.md
+│   │   ├── README_sd3.md
+│   │   ├── README_sdxl.md
+│   │   ├── README_z_image.md
+│   │   ├── convert_to_imagefolder.py
+│   │   ├── requirements.txt
+│   │   ├── requirements_flax.txt
+│   │   ├── requirements_flux.txt
+│   │   ├── requirements_hidream.txt
+│   │   ├── requirements_sana.txt
+│   │   ├── requirements_sd3.txt
+│   │   ├── requirements_sdxl.txt
+│   │   ├── test_dreambooth.py
+│   │   ├── test_dreambooth_flux.py
+│   │   ├── test_dreambooth_lora.py
+│   │   ├── test_dreambooth_lora_edm.py
+│   │   ├── test_dreambooth_lora_flux.py
+│   │   ├── test_dreambooth_lora_flux2.py
+│   │   ├── test_dreambooth_lora_flux2_klein.py
+│   │   ├── test_dreambooth_lora_flux_kontext.py
+│   │   ├── test_dreambooth_lora_hidream.py
+│   │   ├── test_dreambooth_lora_lumina2.py
+│   │   ├── test_dreambooth_lora_qwenimage.py
+│   │   ├── test_dreambooth_lora_sana.py
+│   │   ├── test_dreambooth_lora_sd3.py
+│   │   ├── test_dreambooth_sd3.py
+│   │   ├── train_dreambooth.py
+│   │   ├── train_dreambooth_flax.py
+│   │   ├── train_dreambooth_flux.py
+│   │   ├── train_dreambooth_lora.py
+│   │   ├── train_dreambooth_lora_flux.py
+│   │   ├── train_dreambooth_lora_flux2.py
+│   │   ├── train_dreambooth_lora_flux2_img2img.py
+│   │   ├── train_dreambooth_lora_flux2_klein.py
+│   │   ├── train_dreambooth_lora_flux2_klein_img2img.py
+│   │   ├── train_dreambooth_lora_flux_kontext.py
+│   │   ├── train_dreambooth_lora_hidream.py
+│   │   ├── train_dreambooth_lora_lumina2.py
+│   │   ├── train_dreambooth_lora_qwen_image.py
+│   │   ├── train_dreambooth_lora_sana.py
+│   │   ├── train_dreambooth_lora_sd3.py
+│   │   ├── train_dreambooth_lora_sdxl.py
+│   │   ├── train_dreambooth_lora_z_image.py
+│   │   └── train_dreambooth_sd3.py
+│   ├── flux-control/
+│   │   ├── README.md
+│   │   ├── requirements.txt
+│   │   ├── train_control_flux.py
+│   │   └── train_control_lora_flux.py
+│   ├── inference/
+│   │   ├── README.md
+│   │   ├── image_to_image.py
+│   │   └── inpainting.py
+│   ├── instruct_pix2pix/
+│   │   ├── README.md
+│   │   ├── README_sdxl.md
+│   │   ├── requirements.txt
+│   │   ├── test_instruct_pix2pix.py
+│   │   ├── train_instruct_pix2pix.py
+│   │   └── train_instruct_pix2pix_sdxl.py
+│   ├── kandinsky2_2/
+│   │   └── text_to_image/
+│   ├── model_search/
+│   │   ├── README.md
+│   │   ├── pipeline_easy.py
+│   │   └── requirements.txt
+│   ├── reinforcement_learning/
+│   │   ├── README.md
+│   │   ├── diffusion_policy.py
+│   │   └── run_diffuser_locomotion.py
+│   ├── research_projects/
+│   │   ├── README.md
+│   │   ├── anytext/
+│   │   ├── autoencoder_rae/
+│   │   ├── autoencoderkl/
+│   │   ├── colossalai/
+│   │   ├── consistency_training/
+│   │   ├── control_lora/
+│   │   ├── controlnet/
+│   │   ├── diffusion_dpo/
+│   │   ├── diffusion_orpo/
+│   │   ├── dreambooth_inpaint/
+│   │   ├── flux_lora_quantization/
+│   │   ├── geodiff/
+│   │   ├── gligen/
+│   │   ├── instructpix2pix_lora/
+│   │   ├── intel_opts/
+│   │   ├── ip_adapter/
+│   │   ├── lora/
+│   │   ├── lpl/
+│   │   ├── multi_subject_dreambooth/
+│   │   ├── multi_subject_dreambooth_inpainting/
+│   │   ├── multi_token_textual_inversion/
+│   │   ├── onnxruntime/
+│   │   ├── pixart/
+│   │   ├── promptdiffusion/
+│   │   ├── pytorch_xla/
+│   │   ├── rdm/
+│   │   ├── realfill/
+│   │   ├── sana/
+│   │   ├── scheduled_huber_loss_training/
+│   │   ├── sd3_lora_colab/
+│   │   ├── sdxl_flax/
+│   │   ├── vae/
+│   │   └── wuerstchen/
+│   ├── server-async/
+│   │   ├── Pipelines.py
+│   │   ├── README.md
+│   │   ├── requirements.txt
+│   │   ├── serverasync.py
+│   │   ├── test.py
+│   │   └── utils/
+│   ├── server/
+│   │   ├── README.md
+│   │   ├── requirements.in
+│   │   ├── requirements.txt
+│   │   └── server.py
+│   ├── t2i_adapter/
+│   │   ├── README.md
+│   │   ├── README_sdxl.md
+│   │   ├── requirements.txt
+│   │   ├── test_t2i_adapter.py
+│   │   └── train_t2i_adapter_sdxl.py
+│   ├── test_examples_utils.py
+│   ├── text_to_image/
+│   │   ├── README.md
+│   │   ├── README_sdxl.md
+│   │   ├── requirements.txt
+│   │   ├── requirements_flax.txt
+│   │   ├── requirements_sdxl.txt
+│   │   ├── test_text_to_image.py
+│   │   ├── test_text_to_image_lora.py
+│   │   ├── train_text_to_image.py
+│   │   ├── train_text_to_image_flax.py
+│   │   ├── train_text_to_image_lora.py
+│   │   ├── train_text_to_image_lora_sdxl.py
+│   │   └── train_text_to_image_sdxl.py
+│   ├── textual_inversion/
+│   │   ├── README.md
+│   │   ├── README_sdxl.md
+│   │   ├── requirements.txt
+│   │   ├── requirements_flax.txt
+│   │   ├── test_textual_inversion.py
+│   │   ├── test_textual_inversion_sdxl.py
+│   │   ├── textual_inversion.py
+│   │   ├── textual_inversion_flax.py
+│   │   └── textual_inversion_sdxl.py
+│   ├── unconditional_image_generation/
+│   │   ├── README.md
+│   │   ├── requirements.txt
+│   │   ├── test_unconditional.py
+│   │   └── train_unconditional.py
+│   └── vqgan/
+│       ├── README.md
+│       ├── discriminator.py
+│       ├── requirements.txt
+│       ├── test_vqgan.py
+│       └── train_vqgan.py
+├── pyproject.toml
+├── scripts/
+│   ├── __init__.py
+│   ├── change_naming_configs_and_checkpoints.py
+│   ├── conversion_ldm_uncond.py
+│   ├── convert_amused.py
+│   ├── convert_animatediff_motion_lora_to_diffusers.py
+│   ├── convert_animatediff_motion_module_to_diffusers.py
+│   ├── convert_animatediff_sparsectrl_to_diffusers.py
+│   ├── convert_asymmetric_vqgan_to_diffusers.py
+│   ├── convert_aura_flow_to_diffusers.py
+│   ├── convert_blipdiffusion_to_diffusers.py
+│   ├── convert_cogvideox_to_diffusers.py
+│   ├── convert_cogview3_to_diffusers.py
+│   ├── convert_cogview4_to_diffusers.py
+│   ├── convert_cogview4_to_diffusers_megatron.py
+│   ├── convert_consistency_decoder.py
+│   ├── convert_consistency_to_diffusers.py
+│   ├── convert_cosmos_to_diffusers.py
+│   ├── convert_dance_diffusion_to_diffusers.py
+│   ├── convert_dcae_to_diffusers.py
+│   ├── convert_ddpm_original_checkpoint_to_diffusers.py
+│   ├── convert_diffusers_sdxl_lora_to_webui.py
+│   ├── convert_diffusers_to_original_sdxl.py
+│   ├── convert_diffusers_to_original_stable_diffusion.py
+│   ├── convert_dit_to_diffusers.py
+│   ├── convert_flux2_to_diffusers.py
+│   ├── convert_flux_to_diffusers.py
+│   ├── convert_flux_xlabs_ipadapter_to_diffusers.py
+│   ├── convert_gligen_to_diffusers.py
+│   ├── convert_hunyuan_image_to_diffusers.py
+│   ├── convert_hunyuan_video1_5_to_diffusers.py
+│   ├── convert_hunyuan_video_to_diffusers.py
+│   ├── convert_hunyuandit_controlnet_to_diffusers.py
+│   ├── convert_hunyuandit_to_diffusers.py
+│   ├── convert_i2vgen_to_diffusers.py
+│   ├── convert_if.py
+│   ├── convert_k_upscaler_to_diffusers.py
+│   ├── convert_kakao_brain_unclip_to_diffusers.py
+│   ├── convert_kandinsky3_unet.py
+│   ├── convert_kandinsky_to_diffusers.py
+│   ├── convert_ldm_original_checkpoint_to_diffusers.py
+│   ├── convert_lora_safetensor_to_diffusers.py
+│   ├── convert_ltx2_to_diffusers.py
+│   ├── convert_ltx_to_diffusers.py
+│   ├── convert_lumina_to_diffusers.py
+│   ├── convert_mochi_to_diffusers.py
+│   ├── convert_models_diffuser_to_diffusers.py
+│   ├── convert_ms_text_to_video_to_diffusers.py
+│   ├── convert_music_spectrogram_to_diffusers.py
+│   ├── convert_ncsnpp_original_checkpoint_to_diffusers.py
+│   ├── convert_omnigen_to_diffusers.py
+│   ├── convert_original_audioldm2_to_diffusers.py
+│   ├── convert_original_audioldm_to_diffusers.py
+│   ├── convert_original_controlnet_to_diffusers.py
+│   ├── convert_original_musicldm_to_diffusers.py
+│   ├── convert_original_stable_diffusion_to_diffusers.py
+│   ├── convert_original_t2i_adapter.py
+│   ├── convert_ovis_image_to_diffusers.py
+│   ├── convert_pixart_alpha_to_diffusers.py
+│   ├── convert_pixart_sigma_to_diffusers.py
+│   ├── convert_prx_to_diffusers.py
+│   ├── convert_rae_to_diffusers.py
+│   ├── convert_sana_controlnet_to_diffusers.py
+│   ├── convert_sana_to_diffusers.py
+│   ├── convert_sana_video_to_diffusers.py
+│   ├── convert_sd3_controlnet_to_diffusers.py
+│   ├── convert_sd3_to_diffusers.py
+│   ├── convert_shap_e_to_diffusers.py
+│   ├── convert_skyreelsv2_to_diffusers.py
+│   ├── convert_stable_audio.py
+│   ├── convert_stable_cascade.py
+│   ├── convert_stable_cascade_lite.py
+│   ├── convert_stable_diffusion_checkpoint_to_onnx.py
+│   ├── convert_stable_diffusion_controlnet_to_onnx.py
+│   ├── convert_stable_diffusion_controlnet_to_tensorrt.py
+│   ├── convert_svd_to_diffusers.py
+│   ├── convert_tiny_autoencoder_to_diffusers.py
+│   ├── convert_unclip_txt2img_to_image_variation.py
+│   ├── convert_unidiffuser_to_diffusers.py
+│   ├── convert_vae_diff_to_onnx.py
+│   ├── convert_vae_pt_to_diffusers.py
+│   ├── convert_versatile_diffusion_to_diffusers.py
+│   ├── convert_vq_diffusion_to_diffusers.py
+│   ├── convert_wan_to_diffusers.py
+│   ├── convert_wuerstchen.py
+│   ├── convert_zero123_to_diffusers.py
+│   ├── extract_lora_from_model.py
+│   └── generate_logits.py
+├── setup.py
+├── src/
+│   └── diffusers/
+│       ├── __init__.py
+│       ├── callbacks.py
+│       ├── commands/
+│       ├── configuration_utils.py
+│       ├── dependency_versions_check.py
+│       ├── dependency_versions_table.py
+│       ├── experimental/
+│       ├── guiders/
+│       ├── hooks/
+│       ├── image_processor.py
+│       ├── loaders/
+│       ├── models/
+│       ├── modular_pipelines/
+│       ├── optimization.py
+│       ├── pipelines/
+│       ├── py.typed
+│       ├── quantizers/
+│       ├── schedulers/
+│       ├── training_utils.py
+│       ├── utils/
+│       └── video_processor.py
+├── tests/
+│   ├── __init__.py
+│   ├── conftest.py
+│   ├── fixtures/
+│   │   ├── custom_pipeline/
+│   │   └── elise_format0.mid
+│   ├── hooks/
+│   │   ├── __init__.py
+│   │   ├── test_group_offloading.py
+│   │   ├── test_hooks.py
+│   │   └── test_mag_cache.py
+│   ├── lora/
+│   │   ├── __init__.py
+│   │   ├── test_lora_layers_auraflow.py
+│   │   ├── test_lora_layers_cogvideox.py
+│   │   ├── test_lora_layers_cogview4.py
+│   │   ├── test_lora_layers_flux.py
+│   │   ├── test_lora_layers_flux2.py
+│   │   ├── test_lora_layers_helios.py
+│   │   ├── test_lora_layers_hunyuanvideo.py
+│   │   ├── test_lora_layers_ltx2.py
+│   │   ├── test_lora_layers_ltx_video.py
+│   │   ├── test_lora_layers_lumina2.py
+│   │   ├── test_lora_layers_mochi.py
+│   │   ├── test_lora_layers_qwenimage.py
+│   │   ├── test_lora_layers_sana.py
+│   │   ├── test_lora_layers_sd.py
+│   │   ├── test_lora_layers_sd3.py
+│   │   ├── test_lora_layers_sdxl.py
+│   │   ├── test_lora_layers_wan.py
+│   │   ├── test_lora_layers_wanvace.py
+│   │   ├── test_lora_layers_z_image.py
+│   │   └── utils.py
+│   ├── models/
+│   │   ├── __init__.py
+│   │   ├── autoencoders/
+│   │   ├── controlnets/
+│   │   ├── test_activations.py
+│   │   ├── test_attention_processor.py
+│   │   ├── test_layers_utils.py
+│   │   ├── test_modeling_common.py
+│   │   ├── test_models_auto.py
+│   │   ├── testing_utils/
+│   │   ├── transformers/
+│   │   └── unets/
+│   ├── modular_pipelines/
+│   │   ├── __init__.py
+│   │   ├── flux/
+│   │   ├── flux2/
+│   │   ├── qwen/
+│   │   ├── stable_diffusion_xl/
+│   │   ├── test_modular_pipelines_common.py
+│   │   ├── test_modular_pipelines_custom_blocks.py
+│   │   ├── wan/
+│   │   └── z_image/
+│   ├── others/
+│   │   ├── __init__.py
+│   │   ├── test_attention_backends.py
+│   │   ├── test_check_copies.py
+│   │   ├── test_check_dummies.py
+│   │   ├── test_check_support_list.py
+│   │   ├── test_config.py
+│   │   ├── test_dependencies.py
+│   │   ├── test_ema.py
+│   │   ├── test_hub_utils.py
+│   │   ├── test_image_processor.py
+│   │   ├── test_outputs.py
+│   │   ├── test_training.py
+│   │   ├── test_utils.py
+│   │   └── test_video_processor.py
+│   ├── pipelines/
+│   │   ├── __init__.py
+│   │   ├── allegro/
+│   │   ├── animatediff/
+│   │   ├── audioldm2/
+│   │   ├── aura_flow/
+│   │   ├── bria/
+│   │   ├── bria_fibo/
+│   │   ├── bria_fibo_edit/
+│   │   ├── chroma/
+│   │   ├── chronoedit/
+│   │   ├── cogvideo/
+│   │   ├── cogview3/
+│   │   ├── cogview4/
+│   │   ├── consisid/
+│   │   ├── consistency_models/
+│   │   ├── controlnet/
+│   │   ├── controlnet_flux/
+│   │   ├── controlnet_hunyuandit/
+│   │   ├── controlnet_sd3/
+│   │   ├── cosmos/
+│   │   ├── ddim/
+│   │   ├── ddpm/
+│   │   ├── deepfloyd_if/
+│   │   ├── dit/
+│   │   ├── easyanimate/
+│   │   ├── flux/
+│   │   ├── flux2/
+│   │   ├── glm_image/
+│   │   ├── helios/
+│   │   ├── hidream_image/
+│   │   ├── hunyuan_image_21/
+│   │   ├── hunyuan_video/
+│   │   ├── hunyuan_video1_5/
+│   │   ├── hunyuandit/
+│   │   ├── ip_adapters/
+│   │   ├── kandinsky/
+│   │   ├── kandinsky2_2/
+│   │   ├── kandinsky3/
+│   │   ├── kandinsky5/
+│   │   ├── kolors/
+│   │   ├── latent_consistency_models/
+│   │   ├── latent_diffusion/
+│   │   ├── latte/
+│   │   ├── ledits_pp/
+│   │   ├── longcat_image/
+│   │   ├── ltx/
+│   │   ├── ltx2/
+│   │   ├── lumina/
+│   │   ├── lumina2/
+│   │   ├── marigold/
+│   │   ├── mochi/
+│   │   ├── omnigen/
+│   │   ├── ovis_image/
+│   │   ├── pag/
+│   │   ├── pipeline_params.py
+│   │   ├── pixart_alpha/
+│   │   ├── pixart_sigma/
+│   │   ├── pndm/
+│   │   ├── prx/
+│   │   ├── qwenimage/
+│   │   ├── sana/
+│   │   ├── sana_video/
+│   │   ├── shap_e/
+│   │   ├── skyreels_v2/
+│   │   ├── stable_audio/
+│   │   ├── stable_cascade/
+│   │   ├── stable_diffusion/
+│   │   ├── stable_diffusion_2/
+│   │   ├── stable_diffusion_3/
+│   │   ├── stable_diffusion_adapter/
+│   │   ├── stable_diffusion_image_variation/
+│   │   ├── stable_diffusion_xl/
+│   │   ├── stable_unclip/
+│   │   ├── stable_video_diffusion/
+│   │   ├── test_pipeline_utils.py
+│   │   ├── test_pipelines.py
+│   │   ├── test_pipelines_auto.py
+│   │   ├── test_pipelines_combined.py
+│   │   ├── test_pipelines_common.py
+│   │   ├── test_pipelines_onnx_common.py
+│   │   ├── visualcloze/
+│   │   ├── wan/
+│   │   └── z_image/
+│   ├── quantization/
+│   │   ├── __init__.py
+│   │   ├── bnb/
+│   │   ├── gguf/
+│   │   ├── modelopt/
+│   │   ├── quanto/
+│   │   ├── test_pipeline_level_quantization.py
+│   │   ├── test_torch_compile_utils.py
+│   │   ├── torchao/
+│   │   └── utils.py
+│   ├── remote/
+│   │   ├── __init__.py
+│   │   ├── test_remote_decode.py
+│   │   └── test_remote_encode.py
+│   ├── schedulers/
+│   │   ├── __init__.py
+│   │   ├── test_scheduler_consistency_model.py
+│   │   ├── test_scheduler_ddim.py
+│   │   ├── test_scheduler_ddim_inverse.py
+│   │   ├── test_scheduler_ddim_parallel.py
+│   │   ├── test_scheduler_ddpm.py
+│   │   ├── test_scheduler_ddpm_parallel.py
+│   │   ├── test_scheduler_deis.py
+│   │   ├── test_scheduler_dpm_multi.py
+│   │   ├── test_scheduler_dpm_multi_inverse.py
+│   │   ├── test_scheduler_dpm_sde.py
+│   │   ├── test_scheduler_dpm_single.py
+│   │   ├── test_scheduler_edm_dpmsolver_multistep.py
+│   │   ├── test_scheduler_edm_euler.py
+│   │   ├── test_scheduler_euler.py
+│   │   ├── test_scheduler_euler_ancestral.py
+│   │   ├── test_scheduler_heun.py
+│   │   ├── test_scheduler_ipndm.py
+│   │   ├── test_scheduler_kdpm2_ancestral.py
+│   │   ├── test_scheduler_kdpm2_discrete.py
+│   │   ├── test_scheduler_lcm.py
+│   │   ├── test_scheduler_lms.py
+│   │   ├── test_scheduler_pndm.py
+│   │   ├── test_scheduler_sasolver.py
+│   │   ├── test_scheduler_score_sde_ve.py
+│   │   ├── test_scheduler_tcd.py
+│   │   ├── test_scheduler_unclip.py
+│   │   ├── test_scheduler_unipc.py
+│   │   ├── test_scheduler_vq_diffusion.py
+│   │   └── test_schedulers.py
+│   ├── single_file/
+│   │   ├── __init__.py
+│   │   ├── single_file_testing_utils.py
+│   │   ├── test_lumina2_transformer.py
+│   │   ├── test_model_autoencoder_dc_single_file.py
+│   │   ├── test_model_controlnet_single_file.py
+│   │   ├── test_model_flux_transformer_single_file.py
+│   │   ├── test_model_motion_adapter_single_file.py
+│   │   ├── test_model_sd_cascade_unet_single_file.py
+│   │   ├── test_model_vae_single_file.py
+│   │   ├── test_model_wan_autoencoder_single_file.py
+│   │   ├── test_model_wan_transformer3d_single_file.py
+│   │   ├── test_sana_transformer.py
+│   │   ├── test_stable_diffusion_controlnet_img2img_single_file.py
+│   │   ├── test_stable_diffusion_controlnet_inpaint_single_file.py
+│   │   ├── test_stable_diffusion_controlnet_single_file.py
+│   │   ├── test_stable_diffusion_img2img_single_file.py
+│   │   ├── test_stable_diffusion_inpaint_single_file.py
+│   │   ├── test_stable_diffusion_single_file.py
+│   │   ├── test_stable_diffusion_upscale_single_file.py
+│   │   ├── test_stable_diffusion_xl_adapter_single_file.py
+│   │   ├── test_stable_diffusion_xl_controlnet_single_file.py
+│   │   ├── test_stable_diffusion_xl_img2img_single_file.py
+│   │   ├── test_stable_diffusion_xl_instruct_pix2pix.py
+│   │   └── test_stable_diffusion_xl_single_file.py
+│   └── testing_utils.py
+└── utils/
+    ├── check_config_docstrings.py
+    ├── check_copies.py
+    ├── check_doc_toc.py
+    ├── check_dummies.py
+    ├── check_inits.py
+    ├── check_repo.py
+    ├── check_support_list.py
+    ├── check_table.py
+    ├── consolidated_test_report.py
+    ├── custom_init_isort.py
+    ├── extract_tests_from_mixin.py
+    ├── fetch_latest_release_branch.py
+    ├── fetch_torch_cuda_pipeline_test_matrix.py
+    ├── generate_model_tests.py
+    ├── get_modified_files.py
+    ├── log_reports.py
+    ├── modular_auto_docstring.py
+    ├── notify_benchmarking_status.py
+    ├── notify_community_pipelines_mirror.py
+    ├── notify_slack_about_release.py
+    ├── overwrite_expected_slice.py
+    ├── print_env.py
+    ├── release.py
+    ├── stale.py
+    ├── tests_fetcher.py
+    └── update_metadata.py

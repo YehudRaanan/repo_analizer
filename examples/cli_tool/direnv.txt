@@ -1,0 +1,394 @@
+=====================================
+Repository Analysis: direnv
+Type: CLI Tool
+=====================================
+
+--- METADATA ---
+Name: direnv
+Description: unclutter your .profile
+Language: Go
+Topics: bash, buildbot-numtide, direnv, environment, fish, shell, shell-extension, tcsh, zsh
+Stars: 14746
+License: MIT License
+
+--- README ---
+direnv -- unclutter your .profile
+=================================
+
+[![Built with Nix](https://builtwithnix.org/badge.svg)](https://builtwithnix.org)
+[![Packaging status](https://repology.org/badge/tiny-repos/direnv.svg)](https://repology.org/project/direnv/versions)
+[![latest packaged version(s)](https://repology.org/badge/latest-versions/direnv.svg)](https://repology.org/project/direnv/versions)
+[![Support room on Matrix](https://img.shields.io/matrix/direnv:numtide.com.svg?label=%23direnv%3Anumtide.com&logo=matrix&server_fqdn=matrix.numtide.com)](https://matrix.to/#/#direnv:numtide.com)
+
+`direnv` is an extension for your shell. It augments existing shells with a
+new feature that can load and unload environment variables depending on the
+current directory.
+
+## Use cases
+
+* Load [12factor apps](https://12factor.net/) environment variables
+* Create per-project isolated development environments
+* Load secrets for deployment
+
+## How it works
+
+Before each prompt, direnv checks for the existence of a `.envrc` file (and
+[optionally](man/direnv.toml.1.md#codeloaddotenvcode) a `.env` file) in the current
+and parent directories. If the file exists (and is authorized), it is loaded
+into a **bash** sub-shell and all exported variables are then captured by
+direnv and then made available to the current shell.
+
+It supports hooks for all the common shells like bash, zsh, tcsh and fish.
+This allows project-specific environment variables without cluttering the
+`~/.profile` file.
+
+Because direnv is compiled into a single static executable, it is fast enough
+to be unnoticeable on each prompt. It is also language-agnostic and can be
+used to build solutions similar to rbenv, pyenv and phpenv.
+
+## Getting Started
+
+### Prerequisites
+
+* Unix-like operating system (macOS, Linux, ...)
+* A supported shell (bash, zsh, tcsh, fish, elvish, powershell, murex, nushell)
+
+### Basic Installation
+
+1. direnv is packaged in most distributions already. See [the installation documentation](docs/installation.md) for details.
+2. [hook direnv into your shell](docs/hook.md).
+
+Now restart your shell.
+
+### Quick demo
+
+To follow along in your shell once direnv is installed.
+
+```shell
+# Create a new folder for demo purposes.
+$ mkdir ~/my-project
+$ cd ~/my-project
+
+# Show that the FOO environment variable is not loaded.
+$ echo ${FOO-nope}
+nope
+
+# Create a new .envrc. This file is bash code that is going to be loaded by
+# direnv.
+$ echo export FOO=foo > .envrc
+.envrc is not allowed
+
+# The security mechanism didn't allow to load the .envrc. Since we trust it,
+# let's allow its execution.
+$ direnv allow .
+direnv: reloading
+direnv: loading .envrc
+direnv export: +FOO
+
+# Show that the FOO environment variable is loaded.
+$ echo ${FOO-nope}
+foo
+
+# Exit the project
+$ cd ..
+direnv: unloading
+
+# And now FOO is unset again
+$ echo ${FOO-nope}
+nope
+```
+
+### The stdlib
+
+Exporting variables by hand is a bit repetitive so direnv provides a set of
+utility functions that are made available in the context of the `.envrc` file.
+
+As an example, the `PATH_add` function is used to expand and prepend a path to
+the $PATH environment variable. Instead of `export PATH=$PWD/bin:$PATH` you
+can write `PATH_add bin`. It's shorter and avoids a common mistake where
+`$PATH=bin`.
+
+To find the documentation for all available functions check the
+[direnv-stdlib(1) man page](man/direnv-stdlib.1.md).
+
+It's also possible to create your own extensions by creating a bash file at
+`~/.config/direnv/direnvrc` or `~/.config/direnv/lib/*.sh`. This file is
+loaded before your `.envrc` and thus allows you to make your own extensions to
+direnv.
+
+Note that this functionality is not supported in `.env` files. If the
+coexistence of both is needed, one can use `.envrc` for leveraging stdlib and
+append `dotenv` at the end of it to instruct direnv to also read the `.env`
+file next.
+
+## Docs
+
+* [Install direnv](docs/installation.md)
+* [Hook into your shell](docs/hook.md)
+* [Develop for direnv](docs/development.md)
+* [Manage your rubies with direnv and ruby-install](docs/ruby.md)
+* [Using direnv with GitHub Actions](docs/github-actions.md)
+* [Community Wiki](https://github.com/direnv/direnv/wiki)
+
+Make sure to take a look at the wiki! It contains all sorts of useful
+information such as common recipes, editor integration, tips-and-tricks.
+
+### Man pages
+
+* [direnv(1) man page](man/direnv.1.md)
+* [direnv-fetchurl(1) man page](man/direnv-fetchurl.1.md)
+* [direnv-stdlib(1) man page](man/direnv-stdlib.1.md)
+* [direnv.toml(1) man page](man/direnv.toml.1.md)
+
+### FAQ
+
+Based on GitHub issues interactions, here are the top things that have been
+confusing for users:
+
+1. direnv has a standard library of functions, a collection of utilities that
+   I found useful to have and accumulated over the years. You can find it
+   here: https://github.com/direnv/direnv/blob/master/stdlib.sh
+
+2. It's possible to override the stdlib with your own set of function by
+   adding a bash file to `~/.config/direnv/direnvrc`. This file is loade
+... [TRUNCATED]
+
+--- PACKAGE MANIFEST(S) ---
+
+[go.mod]
+module github.com/direnv/direnv/v2
+
+go 1.24
+
+require (
+	github.com/BurntSushi/toml v1.5.0
+	github.com/mattn/go-isatty v0.0.20
+	golang.org/x/mod v0.27.0
+)
+
+require golang.org/x/sys v0.30.0 // indirect
+
+
+--- CLI ENTRY POINTS / COMMAND DEFINITIONS ---
+
+[main.go]
+// Package main implements the direnv command-line tool.
+package main
+
+import (
+	_ "embed"
+	"github.com/direnv/direnv/v2/internal/cmd"
+	"os"
+	"strings"
+)
+
+var (
+	// Configured at compile time
+	bashPath string
+	//go:embed stdlib.sh
+	stdlib string
+	//go:embed version.txt
+	version string
+)
+
+func main() {
+	var (
+		env  = cmd.GetEnv()
+		args = os.Args
+	)
+	err := cmd.Main(env, args, bashPath, stdlib, strings.TrimSpace(version))
+	if err != nil {
+		os.Exit(1)
+	}
+}
+
+
+--- SHELL COMPLETIONS & MAN PAGES ---
+  man/direnv-fetchurl.1
+  man/direnv-fetchurl.1.md
+  man/direnv-stdlib.1
+  man/direnv-stdlib.1.md
+  man/direnv.1
+  man/direnv.1.md
+  man/direnv.toml.1
+  man/direnv.toml.1.md
+  test/direnv-test.bash
+  test/direnv-test.fish
+  test/direnv-test.zsh
+  test/stdlib.bash
+  test/strict_env_test.bash
+
+--- DIRECTORY STRUCTURE (depth 2) ---
+├── .github/
+│   ├── ISSUE_TEMPLATE/
+│   │   ├── bug_report.md
+│   │   └── feature_request.md
+│   ├── dependabot.yml
+│   └── workflows/
+│       ├── codeql.yml
+│       ├── go.yml
+│       ├── nix.yml
+│       ├── release.yml
+│       └── update-gomod2nix.yml
+├── .gitignore
+├── .golangci.yml
+├── .mergify.yml
+├── Brewfile
+├── CHANGELOG.md
+├── CNAME
+├── CONTRIBUTING.md
+├── GNUmakefile
+├── LICENSE
+├── README.md
+├── _config.yml
+├── _includes/
+│   └── head-custom.html
+├── default.nix
+├── docs/
+│   ├── development.md
+│   ├── github-actions.md
+│   ├── hook.md
+│   ├── installation.md
+│   └── ruby.md
+├── flake.lock
+├── flake.nix
+├── go.mod
+├── go.sum
+├── gomod2nix.toml
+├── gzenv/
+│   └── gzenv.go
+├── install.sh
+├── internal/
+│   └── cmd/
+│       ├── cmd_allow.go
+│       ├── cmd_apply_dump.go
+│       ├── cmd_check_required.go
+│       ├── cmd_current.go
+│       ├── cmd_deny.go
+│       ├── cmd_dotenv.go
+│       ├── cmd_dump.go
+│       ├── cmd_edit.go
+│       ├── cmd_exec.go
+│       ├── cmd_export.go
+│       ├── cmd_fetchurl.go
+│       ├── cmd_help.go
+│       ├── cmd_hook.go
+│       ├── cmd_log.go
+│       ├── cmd_prune.go
+│       ├── cmd_reload.go
+│       ├── cmd_show_dump.go
+│       ├── cmd_status.go
+│       ├── cmd_stdlib.go
+│       ├── cmd_version.go
+│       ├── cmd_version_test.go
+│       ├── cmd_watch.go
+│       ├── cmd_watch_dir.go
+│       ├── cmd_watch_list.go
+│       ├── cmd_watch_print.go
+│       ├── commands.go
+│       ├── config.go
+│       ├── const.go
+│       ├── env.go
+│       ├── env_diff.go
+│       ├── env_diff_test.go
+│       ├── env_test.go
+│       ├── file_times.go
+│       ├── file_times_test.go
+│       ├── log.go
+│       ├── look_path.go
+│       ├── mod.go
+│       ├── rc.go
+│       ├── rc_test.go
+│       ├── shell.go
+│       ├── shell_bash.go
+│       ├── shell_elvish.go
+│       ├── shell_fish.go
+│       ├── shell_gha.go
+│       ├── shell_gzenv.go
+│       ├── shell_json.go
+│       ├── shell_murex.go
+│       ├── shell_pwsh.go
+│       ├── shell_systemd.go
+│       ├── shell_systemd_test.go
+│       ├── shell_tcsh.go
+│       ├── shell_test.go
+│       ├── shell_vim.go
+│       ├── shell_zsh.go
+│       └── stdlib.go
+├── main.go
+├── man/
+│   ├── direnv-fetchurl.1
+│   ├── direnv-fetchurl.1.md
+│   ├── direnv-stdlib.1
+│   ├── direnv-stdlib.1.md
+│   ├── direnv.1
+│   ├── direnv.1.md
+│   ├── direnv.toml.1
+│   └── direnv.toml.1.md
+├── pkg/
+│   ├── dotenv/
+│   │   ├── README.md
+│   │   ├── parse.go
+│   │   └── parse_test.go
+│   └── sri/
+│       ├── parse.go
+│       ├── sri.go
+│       ├── sri_test.go
+│       └── writer.go
+├── script/
+│   ├── dist-push
+│   ├── prepare-release.sh
+│   └── update-gomod2nix
+├── shell.nix
+├── stdlib.sh
+├── test/
+│   ├── .envrc
+│   ├── config/
+│   │   └── direnv/
+│   ├── direnv-test-common.sh
+│   ├── direnv-test.bash
+│   ├── direnv-test.elv
+│   ├── direnv-test.fish
+│   ├── direnv-test.mx
+│   ├── direnv-test.ps1
+│   ├── direnv-test.tcsh
+│   ├── direnv-test.zsh
+│   ├── scenarios/
+│   │   ├── $test/
+│   │   ├── aliases/
+│   │   ├── base/
+│   │   ├── child-env/
+│   │   ├── dump/
+│   │   ├── empty-var-unset/
+│   │   ├── empty-var/
+│   │   ├── failure/
+│   │   ├── github-actions/
+│   │   ├── in-envrc/
+│   │   ├── inherit/
+│   │   ├── inherited/
+│   │   ├── load-env/
+│   │   ├── load-envrc-before-env/
+│   │   ├── missing-file-source-env/
+│   │   ├── parenthesis/
+│   │   ├── python-custom-virtual-env/
+│   │   ├── python-layout/
+│   │   ├── require-allowed/
+│   │   ├── ruby-layout.env
+│   │   ├── ruby-layout/
+│   │   ├── skip-env/
+│   │   ├── space dir/
+│   │   ├── special-characters/
+│   │   ├── special-vars/
+│   │   ├── symlink-bug/
+│   │   ├── symlink-changed/
+│   │   ├── symlink-dir/
+│   │   ├── use-rvm/
+│   │   ├── utf-8/
+│   │   ├── utils/
+│   │   └── watch-dir/
+│   ├── show-direnv-diff.sh
+│   ├── stdlib.bash
+│   └── strict_env_test.bash
+├── version.txt
+└── xdg/
+    └── xdg.go

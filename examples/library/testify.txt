@@ -1,0 +1,277 @@
+=====================================
+Repository Analysis: testify
+Type: Library / Package / SDK
+=====================================
+
+--- METADATA ---
+Name: testify
+Description: A toolkit with common assertions and mocks that plays nicely with the standard library
+Language: Go
+Topics: assertions, go, golang, mocking, testify, testing, toolkit
+Stars: 25892
+License: MIT License
+
+--- README ---
+Testify - Thou Shalt Write Tests
+================================
+
+> [!NOTE]
+> Testify is being maintained at v1, no breaking changes will be accepted in this repo.  
+> [See discussion about v2](https://github.com/stretchr/testify/discussions/1560).
+
+[![Build Status](https://github.com/stretchr/testify/actions/workflows/main.yml/badge.svg?branch=master)](https://github.com/stretchr/testify/actions/workflows/main.yml) [![Go Report Card](https://goreportcard.com/badge/github.com/stretchr/testify)](https://goreportcard.com/report/github.com/stretchr/testify) [![PkgGoDev](https://pkg.go.dev/badge/github.com/stretchr/testify)](https://pkg.go.dev/github.com/stretchr/testify)
+
+Go code (golang) set of packages that provide many tools for testifying that your code will behave as you intend.
+
+Features include:
+
+  * [Easy assertions](#assert-package)
+  * [Mocking](#mock-package)
+  * [Testing suite interfaces and functions](#suite-package)
+
+Get started:
+
+  * Install testify with [one line of code](#installation), or [update it with another](#staying-up-to-date)
+  * For an introduction to writing test code in Go, see https://go.dev/doc/code#Testing
+  * Check out the API Documentation https://pkg.go.dev/github.com/stretchr/testify
+  * Use [testifylint](https://github.com/Antonboom/testifylint) (via [golangci-lint](https://golangci-lint.run/)) to avoid common mistakes
+  * A little about [Test-Driven Development (TDD)](https://en.wikipedia.org/wiki/Test-driven_development)
+
+[`assert`](https://pkg.go.dev/github.com/stretchr/testify/assert "API documentation") package
+-------------------------------------------------------------------------------------------
+
+The `assert` package provides some helpful methods that allow you to write better test code in Go.
+
+  * Prints friendly, easy to read failure descriptions
+  * Allows for very readable code
+  * Optionally annotate each assertion with a message
+
+See it in action:
+
+```go
+package yours
+
+import (
+	"testing"
+
+	"github.com/stretchr/testify/assert"
+)
+
+func TestSomething(t *testing.T) {
+	// assert equality
+	assert.Equal(t, 123, 123, "they should be equal")
+
+	// assert inequality
+	assert.NotEqual(t, 123, 456, "they should not be equal")
+
+	// assert for nil (good for errors)
+	assert.Nil(t, object)
+
+	// assert for not nil (good when you expect something)
+	if assert.NotNil(t, object) {
+		// now we know that object isn't nil, we are safe to make
+		// further assertions without causing any errors
+		assert.Equal(t, "Something", object.Value)
+	}
+}
+```
+
+  * Every assert func takes the `testing.T` object as the first argument.  This is how it writes the errors out through the normal `go test` capabilities.
+  * Every assert func returns a bool indicating whether the assertion was successful or not, this is useful for if you want to go on making further assertions under certain conditions.
+
+if you assert many times, use the below:
+
+```go
+package yours
+
+import (
+	"testing"
+
+	"github.com/stretchr/testify/assert"
+)
+
+func TestSomething(t *testing.T) {
+	assert := assert.New(t)
+
+	// assert equality
+	assert.Equal(123, 123, "they should be equal")
+
+	// assert inequality
+	assert.NotEqual(123, 456, "they should not be equal")
+
+	// assert for nil (good for errors)
+	assert.Nil(object)
+
+	// assert for not nil (good when you expect something)
+	if assert.NotNil(object) {
+		// now we know that object isn't nil, we are safe to make
+		// further assertions without causing any errors
+		assert.Equal("Something", object.Value)
+	}
+}
+```
+
+[`require`](https://pkg.go.dev/github.com/stretchr/testify/require "API documentation") package
+---------------------------------------------------------------------------------------------
+
+The `require` package provides same global functions as the `assert` package, but instead of returning a boolean result they terminate current test.
+These functions must be called from the goroutine running the test or benchmark function, not from other goroutines created during the test.
+Otherwise race conditions may occur.
+
+See [t.FailNow](https://pkg.go.dev/testing#T.FailNow) for details.
+
+[`mock`](https://pkg.go.dev/github.com/stretchr/testify/mock "API documentation") package
+----------------------------------------------------------------------------------------
+
+The `mock` package provides a mechanism for easily writing mock objects that can be used in place of real objects when writing test code.
+
+An example test function that tests a piece of code that relies on an external object `testObj`, can set up expectations (testify) and assert that they indeed happened:
+
+```go
+package yours
+
+import (
+	"testing"
+
+	"github.com/stretchr/testify/mock"
+)
+
+/*
+  Test objects
+*/
+
+// MyMockedObject is a mocked object that implements an interface
+// that describes an object that the code I am testing relies on.
+type MyMockedObject struct {
+	mock.Mock
+}
+
+// DoSomething is a method on MyMockedObject that implements some interface
+// and just records the activity, and returns what the Mock object tells 
+... [TRUNCATED]
+
+--- PACKAGE MANIFEST(S) ---
+
+[go.mod]
+module github.com/stretchr/testify
+
+// This should match the minimum supported version that is tested in
+// .github/workflows/main.yml
+go 1.17
+
+require (
+	github.com/stretchr/objx v0.5.2 // To avoid a cycle the version of testify used by objx should be excluded below
+	gopkg.in/yaml.v3 v3.0.1
+)
+
+// Break dependency cycle with objx.
+// See https://github.com/stretchr/objx/pull/140
+exclude github.com/stretchr/testify v1.8.4
+
+
+--- DIRECTORY STRUCTURE (depth 2) ---
+├── .ci.gofmt.sh
+├── .ci.gogenerate.sh
+├── .ci.govet.sh
+├── .ci.readme.fmt.sh
+├── .gitattributes
+├── .github/
+│   ├── ISSUE_TEMPLATE/
+│   │   ├── bug_report.md
+│   │   └── feature_request.md
+│   ├── dependabot.yml
+│   ├── pull_request_template.md
+│   └── workflows/
+│       ├── main.yml
+│       └── release.yml
+├── .gitignore
+├── .mdsf.json
+├── CONTRIBUTING.md
+├── EMERITUS.md
+├── LICENSE
+├── MAINTAINERS.md
+├── README.md
+├── _codegen/
+│   ├── .gitignore
+│   ├── go.mod
+│   ├── go.sum
+│   ├── internal/
+│   │   └── imports/
+│   └── main.go
+├── assert/
+│   ├── assertion_compare.go
+│   ├── assertion_compare_test.go
+│   ├── assertion_format.go
+│   ├── assertion_format.go.tmpl
+│   ├── assertion_forward.go
+│   ├── assertion_forward.go.tmpl
+│   ├── assertion_order.go
+│   ├── assertion_order_test.go
+│   ├── assertions.go
+│   ├── assertions_test.go
+│   ├── doc.go
+│   ├── errors.go
+│   ├── forward_assertions.go
+│   ├── forward_assertions_test.go
+│   ├── http_assertions.go
+│   ├── http_assertions_test.go
+│   ├── internal/
+│   │   └── unsafetests/
+│   └── yaml/
+│       ├── yaml_custom.go
+│       ├── yaml_default.go
+│       └── yaml_fail.go
+├── doc.go
+├── go.mod
+├── go.sum
+├── http/
+│   ├── doc.go
+│   ├── test_response_writer.go
+│   └── test_round_tripper.go
+├── internal/
+│   ├── difflib/
+│   │   ├── LICENSE
+│   │   ├── difflib.go
+│   │   └── difflib_test.go
+│   └── spew/
+│       ├── LICENSE
+│       ├── README.md
+│       ├── bypass.go
+│       ├── bypasssafe.go
+│       ├── common.go
+│       ├── common_test.go
+│       ├── config.go
+│       ├── doc.go
+│       ├── dump.go
+│       ├── dump_test.go
+│       ├── dumpcgo_test.go
+│       ├── dumpnocgo_test.go
+│       ├── format.go
+│       ├── format_test.go
+│       ├── internal_test.go
+│       ├── internalunsafe_test.go
+│       ├── spew.go
+│       ├── spew_test.go
+│       └── testdata/
+├── mock/
+│   ├── doc.go
+│   ├── mock.go
+│   └── mock_test.go
+├── package_test.go
+├── require/
+│   ├── doc.go
+│   ├── forward_requirements.go
+│   ├── forward_requirements_test.go
+│   ├── require.go
+│   ├── require.go.tmpl
+│   ├── require_forward.go
+│   ├── require_forward.go.tmpl
+│   ├── requirements.go
+│   └── requirements_test.go
+└── suite/
+    ├── doc.go
+    ├── interfaces.go
+    ├── stats.go
+    ├── stats_test.go
+    ├── suite.go
+    └── suite_test.go

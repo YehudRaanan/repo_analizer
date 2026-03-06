@@ -1,0 +1,250 @@
+=====================================
+REPO CLASSIFICATION SIGNALS
+=====================================
+
+--- METADATA ---
+Name: cal.com
+Description: Scheduling infrastructure for absolutely everyone.
+Primary language: TypeScript
+Topics: next-auth, nextjs, open-source, postgresql, prisma, t3-stack, tailwindcss, trpc, turborepo, typescript, zod
+
+--- ROOT FILES (signal matches) ---
+Web App:     (none)
+Backend:     Procfile
+Library:     (none)
+CLI:         (none)
+Data/ML:     (none)
+Infra:       (none)
+
+--- TOP-LEVEL DIRECTORIES (signal matches) ---
+Web App:     (none)
+Backend:     (none)
+Library:     (none)
+CLI:         (none)
+Data/ML:     (none)
+Infra:       (none)
+
+--- ALL TOP-LEVEL DIRECTORIES ---
+.changeset, .claude, .cursor, .github, .husky, .opencode, .snaplet, .vscode, .well-known, .yarn, __checks__, agents
+
+--- TYPE-SPECIFIC EXTENSION COUNTS ---
+Web App extensions (.tsx, .jsx, .vue, .svelte): 0
+Data/ML extensions (.ipynb): 0
+Infra extensions (.tf, .hcl): 0
+Backend extensions (.proto, .graphql): 0
+
+--- TOP FILE EXTENSIONS (by count) ---
+  .yml: 305
+  .md: 119
+  .json: 9
+  .patch: 5
+  .ts: 3
+  .example: 2
+  .txt: 2
+  .js: 2
+  .claude/rules: 1
+  .claude/skills: 1
+  .cursor/rules: 1
+  .cursor/skills: 1
+  .dockerignore: 1
+  .editorconfig: 1
+  .gitattributes: 1
+
+--- BOOLEAN PATTERN CHECKS ---
+  pages or app dir: no
+  components dir: no
+  cmd or bin dir: no
+  src bin: no
+  run train scripts: no
+  ipynb files: no
+  model training files: no
+  tf files: no
+  k8s manifests: no
+  ansible playbooks: no
+  route controller dirs: no
+  db migrations: no
+  openapi spec: no
+  src and tests: no
+  examples dir: no
+  dockerfile: yes
+  ci cd: yes
+  completions or manpages: no
+
+
+[get_dependencies('')]
+(no dependency/manifest files found at repo root)
+
+---
+
+[get_directory('')]
+Contents of /(root):
+  [dir] .changeset
+  [dir] .claude
+  [dir] .cursor
+  [dir] .github
+  [dir] .husky
+  [dir] .opencode
+  [dir] .snaplet
+  [dir] .vscode
+  [dir] .well-known
+  [dir] .yarn
+  [dir] __checks__
+  [dir] agents
+  [dir] apps
+  [dir] deploy
+  [dir] docs
+  [dir] example-apps
+  [dir] packages
+  [dir] scripts
+  [dir] specs
+  [dir] vitest-mocks
+  [file] .dockerignore
+  [file] .editorconfig
+  [file] .env.appStore.example
+  [file] .env.example
+  [file] .gitattributes
+  [file] .gitignore
+  [file] .gitpod.yml
+  [file] .kodiak.toml
+  [file] .npmrc
+  [file] .yarnrc.yml
+  [file] AGENTS.md
+  [file] CLAUDE.md
+  [file] CODE_OF_CONDUCT.md
+  [file] CONTRIBUTING.md
+  [file] Dockerfile
+  [file] LICENSE
+  [file] PERMISSIONS.md
+  [file] Procfile
+  [file] README.md
+  [file] SECURITY.md
+  [file] SPEC-WORKFLOW.md
+  [file] app.json
+  [file] biome-staged.json
+  [file] biome.json
+  [file] checkly.config.ts
+  [file] docker-compose.yml
+  [file] gh.env
+  [file] headless-routing-to-booking-flow.md
+  [file] i18n-unused.config.js
+  [file] i18n.json
+  [file] i18n.lock
+  [file] lint-staged.config.mjs
+  [file] package.json
+  [file] playwright.config.ts
+  [file] setupVitest.ts
+  [file] turbo.json
+  [file] vitest.config.mts
+  [file] vitest.workspace.ts
+  [file] yarn.lock
+
+---
+
+[get_file('package.json')]
+{
+  "name": "calcom-monorepo",
+  "version": "0.0.0",
+  "private": true,
+  "workspaces": [
+    "apps/*",
+    "apps/api/*",
+    "packages/*",
+    "packages/embeds/*",
+    "packages/features/*",
+    "packages/app-store",
+    "packages/app-store/*",
+    "packages/platform/*",
+    "packages/platform/examples/base",
+    "example-apps/*"
+  ],
+  "scripts": {
+    "app-store-cli": "yarn workspace @calcom/app-store-cli",
+    "app-store:build": "yarn turbo build --filter=@calcom/app-store-cli",
+    "app-store:watch": "yarn app-store-cli watch",
+    "app-store": "yarn app-store-cli cli",
+    "create-app": "yarn app-store create",
+    "edit-app": "yarn app-store edit",
+    "withEmbedPublishEnv": "NEXT_PUBLIC_EMBED_LIB_URL='https://app.cal.com/embed/embed.js' NEXT_PUBLIC_WEBAPP_URL='https://app.cal.com' yarn",
+    "publish-embed": "yarn withEmbedPublishEnv workspace @calcom/embed-core build && yarn withEmbedPublishEnv workspace @calcom/embed-snippet build && yarn workspaces foreach --from=\"@calcom/embed*\" npm publish --access=public",
+    "delete-app": "yarn app-store delete",
+    "create-app-template": "yarn app-store create-template",
+    "edit-app-template": "yarn app-store edit-template",
+    "delete-app-template": "yarn app-store delete-template",
+    "build": "turbo run build --filter=@calcom/web...",
+    "build:ai": "turbo run build --filter=\"@calcom/ai\"",
+    "clean": "find . -name node_modules -o -name .next -o -name .turbo -o -name dist -type d -prune | xargs rm -rf",
+    "db-deploy": "turbo run db-deploy",
+    "db-seed": "turbo run db-seed",
+    "db-studio": "yarn prisma studio",
+    "deploy": "turbo run deploy",
+    "dev:all": "turbo run dev --filter=\"@calcom/web\" --filter=\"@calcom/website\" --filter=\"@calcom/console\"",
+    "dev:ai": "turbo run dev --filter=\"@calcom/web\" --filter=\"@calcom/api-proxy\" --filter=\"@calcom/api\" --filter=\"@calcom/ai\"",
+    "dev:api": "turbo run dev --filter=\"@calcom/web\" --filter=\"@calcom/api-proxy\" --filter=\"@calcom/api\"",
+    "dev:api:console": "turbo run dev --filter=\"@calcom/web\" --filter=\"@calcom/api-proxy\" --filter=\"@calcom/api\" --filter=\"@calcom/console\"",
+    "dev:console": "turbo run dev --filter=\"@calcom/web\" --filter=\"@calcom/console\"",
+    "dev:swagger": "turbo run dev --filter=\"@calcom/api-proxy\" --filter=\"@calcom/api\" --filter=\"@calcom/swagger\"",
+    "dev:website": "turbo run dev --filter=\"@calcom/web\" --filter=\"@calcom/website\"",
+    "dev:trigger": "turbo run dev:trigger --filter=\"@calcom/features\"",
+    "deploy:trigger:prod": "turbo run deploy:trigger:prod --filter=\"@calcom/features\"",
+    "deploy:trigger:staging": "turbo run deploy:trigger:staging --filter=\"@calcom/features\"",
+    "dev": "turbo run dev --filter=\"@calcom/web\"",
+    "dx": "turbo run dx",
+    "i-dev": "infisical run -- turbo run dev --filter=\"@calcom/web\"",
+    "i-dx": "infisical run -- turbo run dx",
+    "i-gen-web-example-env": "infisical secrets generate-example-env --tags=web > .env.example",
+    "i-gen-app-store-example-env": "infisical secrets generate-example-env --tags=appstore > .env.appStore.example",
+    "embed-tests-quick": "turbo run embed-tests-quick",
+    "embed-tests": "turbo run embed-tests",
+    "env-check:app-store": "dotenv-checker --schema .env.appStore.example --env .env.appStore",
+    "env-check:common": "dotenv-checker --schema .env.example --env .env",
+    "format": "biome format --write .",
+    "heroku-postbuild": "turbo run @calcom/web#build",
+    "lint:fix": "turbo lint:fix",
+    "lint:report": "turbo lint:report",
+    "lint": "turbo lint",
+    "postinstall": "husky install && turbo run post-install",
+    "pre-commit": "lint-staged",
+    "predev": "echo 'Checking env files'",
+    "prisma": "yarn workspace @calcom/prisma prisma",
+    "start": "turbo run start --filter=\"@calcom/web\"",
+    "tdd": "vitest watch",
+    "e2e": "NEXT_PUBLIC_IS_E2E=1 yarn playwright test --project=@calcom/web",
+    "e2e:app-store": "NEXT_PUBLIC_IS_E2E=1 QUICK=true 
+... [TRUNCATED — showing first 4000 chars]
+
+---
+
+[get_directory('apps')]
+Contents of /apps:
+  [dir] api
+  [dir] web
+
+---
+
+[get_directory('apps/api')]
+Contents of /apps/api:
+  [dir] v1
+  [dir] v2
+  [file] index.js
+  [file] package.json
+
+---
+
+[get_file('apps/api/package.json')]
+{
+  "name": "@calcom/api-proxy",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "private": true,
+  "scripts": {
+    "dev": "node ./index.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "connect": "3.7.0",
+    "http": "0.0.1-security",
+    "http-proxy-middleware": "2.0.9"
+  }
+}

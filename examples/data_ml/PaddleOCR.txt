@@ -1,0 +1,1123 @@
+=====================================
+Repository Analysis: PaddleOCR
+Type: Data / ML / AI Project
+=====================================
+
+--- METADATA ---
+Name: PaddleOCR
+Description: Turn any PDF or image document into structured data for your AI. A powerful, lightweight OCR toolkit that bridges the gap between images/PDFs and LLMs. Supports 100+ languages.
+Language: Python
+Topics: ai4science, chineseocr, document-parsing, document-translation, kie, ocr, paddleocr-vl, pdf-extractor-rag, pdf-parser, pdf2markdown, pp-ocr, pp-structure, rag
+Stars: 71653
+License: Apache License 2.0
+
+--- README ---
+<div align="center">
+  <p>
+      <img width="100%" src="./docs/images/Banner.png" alt="PaddleOCR Banner">
+  </p>
+
+English | [简体中文](./readme/README_cn.md) | [繁體中文](./readme/README_tcn.md) | [日本語](./readme/README_ja.md) | [한국어](./readme/README_ko.md) | [Français](./readme/README_fr.md) | [Русский](./readme/README_ru.md) | [Español](./readme/README_es.md) | [العربية](./readme/README_ar.md)
+
+<!-- icon -->
+[![stars](https://img.shields.io/github/stars/PaddlePaddle/PaddleOCR?color=ccf)](https://github.com/PaddlePaddle/PaddleOCR)
+[![forks](https://img.shields.io/github/forks/PaddlePaddle/PaddleOCR.svg)](https://github.com/PaddlePaddle/PaddleOCR)
+[![arXiv](https://img.shields.io/badge/PaddleOCR_3.0-Technical%20Report-b31b1b.svg?logo=arXiv)](https://arxiv.org/pdf/2507.05595)
+[![arXiv](https://img.shields.io/badge/PaddleOCR--VL-Technical%20Report-b31b1b.svg?logo=arXiv)](https://arxiv.org/abs/2510.14528)
+
+[![PyPI Downloads](https://static.pepy.tech/badge/paddleocr/month)](https://pepy.tech/projectsproject/paddleocr)
+[![PyPI Downloads](https://static.pepy.tech/badge/paddleocr)](https://pepy.tech/projects/paddleocr)
+[![Used by](https://img.shields.io/badge/Used%20by-6k%2B%20repositories-blue)](https://github.com/PaddlePaddle/PaddleOCR/network/dependents)
+[![PyPI version](https://img.shields.io/pypi/v/paddleocr)](https://pypi.org/project/paddleocr/)
+![python](https://img.shields.io/badge/python-3.8~3.12-aff.svg)
+
+![os](https://img.shields.io/badge/os-linux%2C%20win%2C%20mac-pink.svg)
+![hardware](https://img.shields.io/badge/hardware-cpu%2C%20gpu%2C%20xpu%2C%20npu-yellow.svg)
+[![License](https://img.shields.io/badge/license-Apache_2.0-green)](../LICENSE)
+[![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/PaddlePaddle/PaddleOCR)
+[![AI Studio](https://img.shields.io/badge/PaddleOCR-_Offiical_Website-1927BA?logo=data:image/png;base64,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&labelColor=white)](https://www.paddleocr.com)
+
+
+
+**PaddleOCR is an industry-leading, production-ready OCR and document AI engine, offering end-to-end solutions from text extraction to intelligent document understanding**
+
+</div>
+
+# PaddleOCR
+[![Framework](https://img.shields.io/badge/PaddlePaddle-3.0-orange)](https://www.paddlepaddle.org.cn/en)
+[![Accuracy](https://img.shields.io/badge/Recognition%20Accuracy-🏆-green)](#)
+[![Multi-Language](https://img.shields.io/badge/Support_Languages-100+-brightgreen)](#)
+[![Handwriting](https://img.shields.io/badge/Handwriting-✓-success)](#
+... [TRUNCATED]
+
+--- PACKAGE MANIFEST(S) ---
+
+[pyproject.toml]
+[build-system]
+requires = ["setuptools==72.1.0", "wheel", "setuptools_scm"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "paddleocr"
+# After each version release, the version number needs to be incremented
+dynamic = ["version"]
+description = "Awesome multilingual OCR and document parsing toolkits based on PaddlePaddle"
+authors = [
+    {name = "PaddlePaddle", email = "paddleocr@baidu.com"},
+]
+maintainers = [
+    {name = "PaddlePaddle", email = "paddleocr@baidu.com"},
+]
+readme = "README.md"
+requires-python = ">=3.8"
+keywords = [
+    "ocr",
+    "textdetection",
+    "textrecognition",
+    "paddleocr",
+    "chineseocr",
+    "pp-ocr",
+    "pp-structure",
+    "document-parsing",
+    "pdf2markdown",
+    "kie",
+    "pp-chatocr",
+    "document-translation",
+    "rag"
+]
+license = {text = "Apache License 2.0"}
+classifiers = [
+    "Intended Audience :: Developers",
+    "Operating System :: OS Independent",
+    "Natural Language :: Chinese (Simplified)",
+    "Programming Language :: Python :: 3",
+    "Topic :: Utilities",
+]
+dependencies = [
+    "paddlex[ocr-core]>=3.4.0,<3.5.0",
+    "PyYAML>=6",
+    "requests",
+    "typing-extensions>=4.12",
+]
+
+[project.urls]
+homepage = "https://github.com/PaddlePaddle/PaddleOCR"
+documentation = "https://github.com/PaddlePaddle/PaddleOCR/blob/main/README.md"
+repository = "https://github.com/PaddlePaddle/PaddleOCR.git"
+issues = "https://github.com/PaddlePaddle/PaddleOCR/issues"
+
+[project.scripts]
+paddleocr = "paddleocr.__main__:console_entry"
+
+[project.optional-dependencies]
+doc-parser = ["paddlex[ocr,genai-client]>=3.4.0,<3.5.0"]
+ie = ["paddlex[ie]>=3.4.0,<3.5.0"]
+trans = ["paddlex[trans]>=3.4.0,<3.5.0"]
+all = ["paddlex[ocr,genai-client,ie,trans]>=3.4.0,<3.5.0"]
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["paddleocr", "paddleocr.*"]
+namespaces = false
+
+[tool.setuptools_scm]
+version_scheme = 'release-branch-semver'
+
+[tool.pytest.ini_options]
+markers = [
+    "resource_intensive: mark a test as resource intensive"
+]
+addopts = "-m 'not resource_intensive'"
+
+
+[setup.py]
+# Copyright (c) 2020 PaddlePaddle Authors. All Rights Reserved.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+from setuptools import setup
+
+
+setup()
+
+
+[requirements.txt]
+shapely
+scikit-image
+pyclipper
+lmdb
+tqdm
+numpy
+rapidfuzz
+opencv-python
+opencv-contrib-python
+cython
+Pillow
+pyyaml
+requests
+albumentations
+# to be compatible with albumentations
+albucore
+packaging
+
+
+--- REQUIREMENTS FILES ---
+
+[deploy/avh/requirements.txt]
+paddlepaddle
+numpy
+opencv-python
+typing-extensions
+
+
+[deploy/paddleocr_vl_docker/hps/gateway/requirements.txt]
+fastapi == 0.123.6
+paddlex[serving] >= 3.4.0
+uvicorn == 0.35.0
+
+
+[docs/version2.x/algorithm/formula_recognition/requirements.txt]
+tokenizers==0.19.1
+imagesize
+ftfy
+Wand
+
+
+[ppstructure/kie/requirements.txt]
+sentencepiece
+yacs
+seqeval
+pypandoc
+attrdict3
+python_docx
+paddlenlp==2.5.2
+
+
+[ppstructure/recovery/requirements.txt]
+python-docx
+beautifulsoup4
+fonttools>=4.43.0
+fire>=0.3.0
+
+
+[requirements.txt]
+shapely
+scikit-image
+pyclipper
+lmdb
+tqdm
+numpy
+rapidfuzz
+opencv-python
+opencv-contrib-python
+cython
+Pillow
+pyyaml
+requests
+albumentations
+# to be compatible with albumentations
+albucore
+packaging
+
+
+[skills/paddleocr-doc-parsing/scripts/requirements-optimize.txt]
+# File Optimization Dependencies
+# Install with: pip install -r scripts/paddleocr-doc-parsing/requirements-optimize.txt
+
+# Image processing
+Pillow>=10.0.0
+
+# PDF processing
+pypdfium2>=4.0.0
+
+
+[skills/paddleocr-doc-parsing/scripts/requirements.txt]
+# PaddleOCR Document Parsing Dependencies
+
+# HTTP client
+httpx>=0.24.0
+
+# Environment variables
+python-dotenv>=1.0.0
+
+
+[skills/paddleocr-text-recognition/scripts/requirements.txt]
+# PaddleOCR Text Recognition Dependencies
+
+httpx>=0.24.0
+python-dotenv>=0.19.0
+
+
+[test_tipc/supplementary/requirements.txt]
+paddleslim==2.2.1
+
+
+--- ML CONFIG FILES ---
+(No ML config files found)
+
+--- JUPYTER NOTEBOOKS ---
+(No notebooks found)
+
+--- MODEL / TRAINING FILES ---
+  benchmark/PaddleOCR_DBNet/base/base_dataset.py
+  benchmark/PaddleOCR_DBNet/base/base_trainer.py
+  benchmark/PaddleOCR_DBNet/data_loader/dataset.py
+  benchmark/PaddleOCR_DBNet/models/model.py
+  benchmark/PaddleOCR_DBNet/tools/eval.py
+  benchmark/PaddleOCR_DBNet/tools/export_model.py
+  benchmark/PaddleOCR_DBNet/tools/predict.py
+  benchmark/PaddleOCR_DBNet/tools/train.py
+  benchmark/PaddleOCR_DBNet/trainer/trainer.py
+  benchmark/PaddleOCR_DBNet/utils/ocr_metric/icdar2015/detection/deteval.py
+
+--- DIRECTORY STRUCTURE (depth 2) ---
+├── .clang_format.hook
+├── .github/
+│   ├── ISSUE_TEMPLATE/
+│   │   ├── bug-report.yml
+│   │   └── config.yml
+│   ├── dependabot.yml
+│   └── workflows/
+│       ├── build_publish_develop_docs.yml
+│       ├── build_publish_release_docs.yml
+│       ├── close_inactive_issues.yaml
+│       ├── codestyle.yml
+│       ├── docs-anchor-check.yml
+│       ├── link-check.yml
+│       ├── python-publish.yml
+│       ├── test_gpu.yml
+│       └── tests.yaml
+├── .gitignore
+├── .lycheeignore
+├── .pre-commit-config.yaml
+├── .style.yapf
+├── CNAME
+├── LICENSE
+├── MANIFEST.in
+├── README.md
+├── applications/
+│   └── README.md
+├── awesome_projects.md
+├── benchmark/
+│   ├── PaddleOCR_DBNet/
+│   │   ├── .gitattributes
+│   │   ├── .gitignore
+│   │   ├── LICENSE.md
+│   │   ├── README.MD
+│   │   ├── base/
+│   │   ├── config/
+│   │   ├── data_loader/
+│   │   ├── environment.yml
+│   │   ├── eval.sh
+│   │   ├── generate_lists.sh
+│   │   ├── imgs/
+│   │   ├── models/
+│   │   ├── multi_gpu_train.sh
+│   │   ├── post_processing/
+│   │   ├── predict.sh
+│   │   ├── requirement.txt
+│   │   ├── single_gpu_train.sh
+│   │   ├── test/
+│   │   ├── test_tipc/
+│   │   ├── tools/
+│   │   ├── trainer/
+│   │   └── utils/
+│   ├── analysis.py
+│   ├── readme.md
+│   ├── run_benchmark_det.sh
+│   └── run_det.sh
+├── configs/
+│   ├── cls/
+│   │   ├── ch_PP-OCRv3/
+│   │   └── cls_mv3.yml
+│   ├── det/
+│   │   ├── PP-OCRv3/
+│   │   ├── PP-OCRv4/
+│   │   ├── PP-OCRv5/
+│   │   ├── ch_PP-OCRv2/
+│   │   ├── ch_ppocr_v2.0/
+│   │   ├── det_mv3_db.yml
+│   │   ├── det_mv3_east.yml
+│   │   ├── det_mv3_pse.yml
+│   │   ├── det_r18_vd_ct.yml
+│   │   ├── det_r50_db++_icdar15.yml
+│   │   ├── det_r50_db++_td_tr.yml
+│   │   ├── det_r50_drrg_ctw.yml
+│   │   ├── det_r50_vd_db.yml
+│   │   ├── det_r50_vd_dcn_fce_ctw.yml
+│   │   ├── det_r50_vd_east.yml
+│   │   ├── det_r50_vd_pse.yml
+│   │   ├── det_r50_vd_sast_icdar15.yml
+│   │   ├── det_r50_vd_sast_totaltext.yml
+│   │   ├── det_repsvtr_db.yml
+│   │   └── det_res18_db_v2.0.yml
+│   ├── e2e/
+│   │   └── e2e_r50_vd_pg.yml
+│   ├── kie/
+│   │   ├── layoutlm_series/
+│   │   ├── sdmgr/
+│   │   └── vi_layoutxlm/
+│   ├── rec/
+│   │   ├── LaTeX_OCR_rec.yaml
+│   │   ├── PP-FormuaNet/
+│   │   ├── PP-OCRv3/
+│   │   ├── PP-OCRv4/
+│   │   ├── PP-OCRv5/
+│   │   ├── SVTRv2/
+│   │   ├── UniMERNet.yaml
+│   │   ├── ch_PP-OCRv2/
+│   │   ├── ch_ppocr_v2.0/
+│   │   ├── multi_language/
+│   │   ├── rec_d28_can.yml
+│   │   ├── rec_efficientb3_fpn_pren.yml
+│   │   ├── rec_icdar15_train.yml
+│   │   ├── rec_mtb_nrtr.yml
+│   │   ├── rec_mv3_none_bilstm_ctc.yml
+│   │   ├── rec_mv3_none_none_ctc.yml
+│   │   ├── rec_mv3_tps_bilstm_att.yml
+│   │   ├── rec_mv3_tps_bilstm_ctc.yml
+│   │   ├── rec_r31_robustscanner.yml
+│   │   ├── rec_r31_sar.yml
+│   │   ├── rec_r32_gaspin_bilstm_att.yml
+│   │   ├── rec_r34_vd_none_bilstm_ctc.yml
+│   │   ├── rec_r34_vd_none_none_ctc.yml
+│   │   ├── rec_r34_vd_tps_bilstm_att.yml
+│   │   ├── rec_r34_vd_tps_bilstm_ctc.yml
+│   │   ├── rec_r45_abinet.yml
+│   │   ├── rec_r45_visionlan.yml
+│   │   ├── rec_r50_fpn_srn.yml
+│   │   ├── rec_resnet_rfl_att.yml
+│   │   ├── rec_resnet_rfl_visual.yml
+│   │   ├── rec_resnet_stn_bilstm_att.yml
+│   │   ├── rec_satrn.yml
+│   │   ├── rec_svtrnet.yml
+│   │   ├── rec_svtrnet_ch.yml
+│   │   ├── rec_svtrnet_cppd_base_ch.yml
+│   │   ├── rec_svtrnet_cppd_base_en.yml
+│   │   ├── rec_vit_parseq.yml
+│   │   └── rec_vitstr_none_ce.yml
+│   ├── sr/
+│   │   ├── sr_telescope.yml
+│   │   └── sr_tsrn_transformer_strock.yml
+│   └── table/
+│       ├── SLANeXt_wired.yml
+│       ├── SLANeXt_wireless.yml
+│       ├── SLANet.yml
+│       ├── SLANet_lcnetv2.yml
+│       ├── SLANet_plus.yml
+│       ├── table_master.yml
+│       └── table_mv3.yml
+├── deploy/
+│   ├── README.md
+│   ├── README_ch.md
+│   ├── android_demo/
+│   │   ├── .gitignore
+│   │   ├── README.md
+│   │   ├── app/
+│   │   ├── build.gradle
+│   │   ├── gradle.properties
+│   │   ├── gradle/
+│   │   ├── gradlew
+│   │   ├── gradlew.bat
+│   │   └── settings.gradle
+│   ├── avh/
+│   │   ├── .gitignore
+│   │   ├── Makefile
+│   │   ├── README.md
+│   │   ├── README_ch.md
+│   │   ├── arm-none-eabi-gcc.cmake
+│   │   ├── configure_avh.sh
+│   │   ├── convert_image.py
+│   │   ├── corstone300.ld
+│   │   ├── imgs_words_en/
+│   │   ├── include/
+│   │   ├── requirements.txt
+│   │   ├── run_demo.sh
+│   │   └── src/
+│   ├── cpp_infer/
+│   │   ├── CMakeLists.txt
+│   │   ├── THIRD_PARTY_LICENSES/
+│   │   ├── cli.cc
+│   │   ├── src/
+│   │   └── tools/
+│   ├── docker/
+│   │   └── hubserving/
+│   ├── hubserving/
+│   │   ├── kie_ser/
+│   │   ├── kie_ser_re/
+│   │   ├── ocr_cls/
+│   │   ├── ocr_det/
+│   │   ├── ocr_rec/
+│   │   ├── ocr_system/
+│   │   ├── readme.md
+│   │   ├── readme_en.md
+│   │   ├── structure_layout/
+│   │   ├── structure_system/
+│   │   └── structure_table/
+│   ├── ios_demo/
+│   │   └── README.md
+│   ├── lite/
+│   │   ├── Makefile
+│   │   ├── cls_process.cc
+│   │   ├── cls_process.h
+│   │   ├── config.txt
+│   │   ├── crnn_process.cc
+│   │   ├── crnn_process.h
+│   │   ├── db_post_process.cc
+│   │   ├── db_post_process.h
+│   │   ├── imgs/
+│   │   ├── ocr_db_crnn.cc
+│   │   ├── prepare.sh
+│   │   ├── readme.md
+│   │   └── readme_ch.md
+│   ├── paddle2onnx/
+│   │   ├── images/
+│   │   ├── readme.md
+│   │   └── readme_ch.md
+│   ├── paddlecloud/
+│   │   ├── README.md
+│   │   └── images/
+│   ├── paddleocr_vl_docker/
+│   │   ├── accelerators/
+│   │   ├── build_pipeline.sh
+│   │   ├── build_vlm.sh
+│   │   ├── hps/
+│   │   ├── pipeline_config_fastdeploy.yaml
+│   │   └── pipeline_config_vllm.yaml
+│   └── slim/
+│       ├── auto_compression/
+│       ├── prune/
+│       └── quantization/
+├── doc/
+│   └── fonts/
+│       ├── arabic.ttf
+│       ├── chinese_cht.ttf
+│       ├── cyrillic.ttf
+│       ├── french.ttf
+│       ├── german.ttf
+│       ├── hindi.ttf
+│       ├── japan.ttc
+│       ├── kannada.ttf
+│       ├── korean.ttf
+│       ├── latin.ttf
+│       ├── marathi.ttf
+│       ├── nepali.ttf
+│       ├── persian.ttf
+│       ├── simfang.ttf
+│       ├── spanish.ttf
+│       ├── tamil.ttf
+│       ├── telugu.ttf
+│       ├── urdu.ttf
+│       └── uyghur.ttf
+├── docs/
+│   ├── FAQ.en.md
+│   ├── FAQ.md
+│   ├── community/
+│   │   ├── code_and_doc.en.md
+│   │   ├── code_and_doc.md
+│   │   ├── community_contribution.en.md
+│   │   ├── community_contribution.md
+│   │   └── images/
+│   ├── data_anno_synth/
+│   │   ├── data_annotation.en.md
+│   │   ├── data_annotation.md
+│   │   ├── data_synthesis.en.md
+│   │   ├── data_synthesis.md
+│   │   ├── images/
+│   │   ├── overview.en.md
+│   │   └── overview.md
+│   ├── datasets/
+│   │   ├── datasets.en.md
+│   │   ├── datasets.md
+│   │   ├── handwritten_datasets.en.md
+│   │   ├── handwritten_datasets.md
+│   │   ├── images/
+│   │   ├── kie_datasets.en.md
+│   │   ├── kie_datasets.md
+│   │   ├── layout_datasets.en.md
+│   │   ├── layout_datasets.md
+│   │   ├── ocr_datasets.en.md
+│   │   ├── ocr_datasets.md
+│   │   ├── table_datasets.en.md
+│   │   ├── table_datasets.md
+│   │   ├── vertical_and_multilingual_datasets.en.md
+│   │   └── vertical_and_multilingual_datasets.md
+│   ├── images/
+│   │   ├── 00006737.jpg
+│   │   ├── 185310636-6ce02f7c-790d-479f-b163-ea97a5a04808-20240708082238739.jpg
+│   │   ├── 185393805-c67ff571-cf7e-4217-a4b0-8b396c4f22bb-20240708082310650.jpg
+│   │   ├── 185539517-ccf2372a-f026-4a7c-ad28-c741c770f60a-20240708082247529.png
+│   │   ├── 185540080-0431e006-9235-4b6d-b63d-0b3c6e1de48f-20240708082316558.jpg
+│   │   ├── 186094813-3a8e16cc-42e5-4982-b9f4-0134dfb5688d-20240708082323916.png
+│   │   ├── 197464552-69de557f-edff-4c7f-acbf-069df1ba097f-20240708082253634.png
+│   │   ├── Banner.png
+│   │   ├── Banner_cn.png
+│   │   ├── Banner_ja.png
+│   │   ├── PP-OCRv3-pic001.jpg
+│   │   ├── PP-OCRv3-pic002.jpg
+│   │   ├── PP-OCRv3-pic003.jpg
+│   │   ├── en_1.png
+│   │   ├── en_2.png
+│   │   ├── en_3-0398013.png
+│   │   ├── en_3.png
+│   │   ├── japan_2.jpg
+│   │   ├── korean_1.jpg
+│   │   ├── ppocrv4.png
+│   │   ├── ppocrv4_en.jpg
+│   │   ├── ppstructure-20240708082235651.gif
+│   │   └── test_add_91.jpg
+│   ├── index.en.md
+│   ├── index.md
+│   ├── index/
+│   │   ├── index.en.md
+│   │   ├── index.hi.md
+│   │   ├── index.ja.md
+│   │   ├── index.ko.md
+│   │   ├── index.md
+│   │   └── index.ru.md
+│   ├── quick_start.en.md
+│   ├── quick_start.md
+│   ├── update/
+│   │   ├── update.en.md
+│   │   ├── update.md
+│   │   ├── upgrade_notes.en.md
+│   │   └── upgrade_notes.md
+│   ├── version2.x/
+│   │   ├── README.en.md
+│   │   ├── README.md
+│   │   ├── algorithm/
+│   │   ├── javascripts/
+│   │   ├── legacy/
+│   │   ├── model/
+│   │   ├── ppocr/
+│   │   ├── ppstructure/
+│   │   └── static/
+│   └── version3.x/
+│       ├── algorithm/
+│       ├── deployment/
+│       ├── installation.en.md
+│       ├── installation.md
+│       ├── logging.en.md
+│       ├── logging.md
+│       ├── logo.jpg
+│       ├── model_list.md
+│       ├── module_usage/
+│       ├── other_devices_support/
+│       ├── paddleocr_and_paddlex.en.md
+│       ├── paddleocr_and_paddlex.md
+│       ├── paddlex/
+│       └── pipeline_usage/
+├── langchain-paddleocr/
+│   ├── Makefile
+│   ├── README.md
+│   ├── README_cn.md
+│   ├── langchain_paddleocr/
+│   │   ├── __init__.py
+│   │   ├── document_loaders/
+│   │   └── py.typed
+│   ├── pyproject.toml
+│   ├── scripts/
+│   │   ├── check_imports.py
+│   │   └── lint_imports.sh
+│   ├── tests/
+│   │   ├── __init__.py
+│   │   ├── data/
+│   │   ├── integration_tests/
+│   │   └── unit_tests/
+│   └── uv.lock
+├── mcp_server/
+│   ├── README.md
+│   ├── README_en.md
+│   ├── paddleocr_mcp/
+│   │   ├── __init__.py
+│   │   ├── __main__.py
+│   │   ├── pipelines.py
+│   │   └── py.typed
+│   └── pyproject.toml
+├── mkdocs-ci.yml
+├── mkdocs.yml
+├── overrides/
+│   ├── hooks/
+│   │   └── expiry.py
+│   ├── main.html
+│   └── partials/
+│       ├── comments.html
+│       ├── content.html
+│       └── expired_notice.html
+├── paddleocr/
+│   ├── __init__.py
+│   ├── __main__.py
+│   ├── _abstract.py
+│   ├── _cli.py
+│   ├── _common_args.py
+│   ├── _constants.py
+│   ├── _env.py
+│   ├── _models/
+│   │   ├── __init__.py
+│   │   ├── _doc_vlm.py
+│   │   ├── _image_classification.py
+│   │   ├── _object_detection.py
+│   │   ├── _text_detection.py
+│   │   ├── base.py
+│   │   ├── chart_parsing.py
+│   │   ├── doc_img_orientation_classification.py
+│   │   ├── doc_vlm.py
+│   │   ├── formula_recognition.py
+│   │   ├── layout_detection.py
+│   │   ├── seal_text_detection.py
+│   │   ├── table_cells_detection.py
+│   │   ├── table_classification.py
+│   │   ├── table_structure_recognition.py
+│   │   ├── text_detection.py
+│   │   ├── text_image_unwarping.py
+│   │   ├── text_recognition.py
+│   │   └── textline_orientation_classification.py
+│   ├── _pipelines/
+│   │   ├── __init__.py
+│   │   ├── _patch_layout_parsing.py
+│   │   ├── base.py
+│   │   ├── doc_preprocessor.py
+│   │   ├── doc_understanding.py
+│   │   ├── formula_recognition.py
+│   │   ├── ocr.py
+│   │   ├── paddleocr_vl.py
+│   │   ├── pp_chatocrv4_doc.py
+│   │   ├── pp_doctranslation.py
+│   │   ├── pp_structurev3.py
+│   │   ├── seal_recognition.py
+│   │   ├── table_recognition_v2.py
+│   │   └── utils.py
+│   ├── _utils/
+│   │   ├── __init__.py
+│   │   ├── cli.py
+│   │   ├── deprecation.py
+│   │   └── logging.py
+│   └── _version.py
+├── ppocr/
+│   ├── __init__.py
+│   ├── data/
+│   │   ├── __init__.py
+│   │   ├── collate_fn.py
+│   │   ├── imaug/
+│   │   ├── latexocr_dataset.py
+│   │   ├── lmdb_dataset.py
+│   │   ├── multi_scale_sampler.py
+│   │   ├── pgnet_dataset.py
+│   │   ├── pubtab_dataset.py
+│   │   └── simple_dataset.py
+│   ├── ext_op/
+│   │   ├── __init__.py
+│   │   └── roi_align_rotated/
+│   ├── losses/
+│   │   ├── __init__.py
+│   │   ├── ace_loss.py
+│   │   ├── basic_loss.py
+│   │   ├── center_loss.py
+│   │   ├── cls_loss.py
+│   │   ├── combined_loss.py
+│   │   ├── det_basic_loss.py
+│   │   ├── det_ct_loss.py
+│   │   ├── det_db_loss.py
+│   │   ├── det_drrg_loss.py
+│   │   ├── det_east_loss.py
+│   │   ├── det_fce_loss.py
+│   │   ├── det_pse_loss.py
+│   │   ├── det_sast_loss.py
+│   │   ├── distillation_loss.py
+│   │   ├── e2e_pg_loss.py
+│   │   ├── kie_sdmgr_loss.py
+│   │   ├── rec_aster_loss.py
+│   │   ├── rec_att_loss.py
+│   │   ├── rec_can_loss.py
+│   │   ├── rec_ce_loss.py
+│   │   ├── rec_cppd_loss.py
+│   │   ├── rec_ctc_loss.py
+│   │   ├── rec_enhanced_ctc_loss.py
+│   │   ├── rec_latexocr_loss.py
+│   │   ├── rec_multi_loss.py
+│   │   ├── rec_nrtr_loss.py
+│   │   ├── rec_parseq_loss.py
+│   │   ├── rec_ppformulanet_loss.py
+│   │   ├── rec_pren_loss.py
+│   │   ├── rec_rfl_loss.py
+│   │   ├── rec_sar_loss.py
+│   │   ├── rec_satrn_loss.py
+│   │   ├── rec_spin_att_loss.py
+│   │   ├── rec_srn_loss.py
+│   │   ├── rec_unimernet_loss.py
+│   │   ├── rec_vl_loss.py
+│   │   ├── stroke_focus_loss.py
+│   │   ├── table_att_loss.py
+│   │   ├── table_master_loss.py
+│   │   ├── text_focus_loss.py
+│   │   └── vqa_token_layoutlm_loss.py
+│   ├── metrics/
+│   │   ├── __init__.py
+│   │   ├── bleu.py
+│   │   ├── cls_metric.py
+│   │   ├── ct_metric.py
+│   │   ├── det_metric.py
+│   │   ├── distillation_metric.py
+│   │   ├── e2e_metric.py
+│   │   ├── eval_det_iou.py
+│   │   ├── kie_metric.py
+│   │   ├── rec_metric.py
+│   │   ├── sr_metric.py
+│   │   ├── table_metric.py
+│   │   ├── vqa_token_re_metric.py
+│   │   └── vqa_token_ser_metric.py
+│   ├── modeling/
+│   │   ├── architectures/
+│   │   ├── backbones/
+│   │   ├── heads/
+│   │   ├── necks/
+│   │   └── transforms/
+│   ├── optimizer/
+│   │   ├── __init__.py
+│   │   ├── learning_rate.py
+│   │   ├── lr_scheduler.py
+│   │   ├── optimizer.py
+│   │   └── regularizer.py
+│   ├── postprocess/
+│   │   ├── __init__.py
+│   │   ├── cls_postprocess.py
+│   │   ├── ct_postprocess.py
+│   │   ├── db_postprocess.py
+│   │   ├── drrg_postprocess.py
+│   │   ├── east_postprocess.py
+│   │   ├── fce_postprocess.py
+│   │   ├── locality_aware_nms.py
+│   │   ├── pg_postprocess.py
+│   │   ├── picodet_postprocess.py
+│   │   ├── pse_postprocess/
+│   │   ├── rec_postprocess.py
+│   │   ├── sast_postprocess.py
+│   │   ├── table_postprocess.py
+│   │   ├── vqa_token_re_layoutlm_postprocess.py
+│   │   └── vqa_token_ser_layoutlm_postprocess.py
+│   └── utils/
+│       ├── EN_symbol_dict.txt
+│       ├── __init__.py
+│       ├── dict/
+│       ├── dict90.txt
+│       ├── e2e_metric/
+│       ├── e2e_utils/
+│       ├── en_dict.txt
+│       ├── export_model.py
+│       ├── formula_utils/
+│       ├── gen_label.py
+│       ├── ic15_dict.txt
+│       ├── iou.py
+│       ├── loggers/
+│       ├── logging.py
+│       ├── network.py
+│       ├── poly_nms.py
+│       ├── ppocr_keys_v1.txt
+│       ├── profiler.py
+│       ├── save_load.py
+│       ├── stats.py
+│       ├── utility.py
+│       └── visual.py
+├── ppstructure/
+│   ├── README.md
+│   ├── __init__.py
+│   ├── kie/
+│   │   ├── README.md
+│   │   ├── README_ch.md
+│   │   ├── how_to_do_kie.md
+│   │   ├── how_to_do_kie_en.md
+│   │   ├── predict_kie_token_ser.py
+│   │   ├── predict_kie_token_ser_re.py
+│   │   ├── requirements.txt
+│   │   └── tools/
+│   ├── layout/
+│   │   ├── README.md
+│   │   ├── README_ch.md
+│   │   ├── __init__.py
+│   │   └── predict_layout.py
+│   ├── pdf2word/
+│   │   ├── README.md
+│   │   ├── icons/
+│   │   └── pdf2word.py
+│   ├── predict_system.py
+│   ├── recovery/
+│   │   ├── README.md
+│   │   ├── README_ch.md
+│   │   ├── __init__.py
+│   │   ├── recovery_to_doc.py
+│   │   ├── recovery_to_markdown.py
+│   │   ├── requirements.txt
+│   │   └── table_process.py
+│   ├── table/
+│   │   ├── README.md
+│   │   ├── README_ch.md
+│   │   ├── __init__.py
+│   │   ├── convert_label2html.py
+│   │   ├── eval_table.py
+│   │   ├── matcher.py
+│   │   ├── predict_structure.py
+│   │   ├── predict_table.py
+│   │   ├── table_master_match.py
+│   │   ├── table_metric/
+│   │   └── tablepyxl/
+│   └── utility.py
+├── pyproject.toml
+├── readme/
+│   ├── README_ar.md
+│   ├── README_cn.md
+│   ├── README_es.md
+│   ├── README_fr.md
+│   ├── README_ja.md
+│   ├── README_ko.md
+│   ├── README_ru.md
+│   └── README_tcn.md
+├── requirements.txt
+├── setup.py
+├── skills/
+│   ├── .env.example
+│   ├── README.ch.md
+│   ├── README.md
+│   ├── paddleocr-doc-parsing/
+│   │   ├── SKILL.md
+│   │   ├── references/
+│   │   └── scripts/
+│   └── paddleocr-text-recognition/
+│       ├── SKILL.md
+│       ├── references/
+│       └── scripts/
+├── test_tipc/
+│   ├── benchmark_train.sh
+│   ├── build_server.sh
+│   ├── common_func.sh
+│   ├── compare_results.py
+│   ├── configs/
+│   │   ├── PP-OCRv3_mobile_rec/
+│   │   ├── PP-OCRv3_mobile_rec_KL/
+│   │   ├── PP-OCRv3_mobile_rec_PACT/
+│   │   ├── PP-OCRv4_mobile_rec/
+│   │   ├── PP-OCRv4_mobile_rec_ampO2_ultra/
+│   │   ├── PP-OCRv4_mobile_rec_fp32_ultra/
+│   │   ├── PP-OCRv4_server_rec/
+│   │   ├── PP-OCRv4_server_rec_ampO2_ultra/
+│   │   ├── PP-OCRv4_server_rec_fp32_ultra/
+│   │   ├── ch_PP-OCRv2/
+│   │   ├── ch_PP-OCRv2_det/
+│   │   ├── ch_PP-OCRv2_det_KL/
+│   │   ├── ch_PP-OCRv2_det_PACT/
+│   │   ├── ch_PP-OCRv2_rec/
+│   │   ├── ch_PP-OCRv2_rec_KL/
+│   │   ├── ch_PP-OCRv2_rec_PACT/
+│   │   ├── ch_PP-OCRv3/
+│   │   ├── ch_PP-OCRv3_det/
+│   │   ├── ch_PP-OCRv3_det_KL/
+│   │   ├── ch_PP-OCRv3_det_PACT/
+│   │   ├── ch_PP-OCRv4_mobile_det/
+│   │   ├── ch_PP-OCRv4_server_det/
+│   │   ├── ch_ppocr_mobile_v2_0/
+│   │   ├── ch_ppocr_mobile_v2_0_det/
+│   │   ├── ch_ppocr_mobile_v2_0_det_FPGM/
+│   │   ├── ch_ppocr_mobile_v2_0_det_KL/
+│   │   ├── ch_ppocr_mobile_v2_0_det_PACT/
+│   │   ├── ch_ppocr_mobile_v2_0_rec/
+│   │   ├── ch_ppocr_mobile_v2_0_rec_FPGM/
+│   │   ├── ch_ppocr_mobile_v2_0_rec_KL/
+│   │   ├── ch_ppocr_mobile_v2_0_rec_PACT/
+│   │   ├── ch_ppocr_server_v2_0/
+│   │   ├── ch_ppocr_server_v2_0_det/
+│   │   ├── ch_ppocr_server_v2_0_rec/
+│   │   ├── det_mv3_db_v2_0/
+│   │   ├── det_mv3_east_v2_0/
+│   │   ├── det_mv3_pse_v2_0/
+│   │   ├── det_r18_ct/
+│   │   ├── det_r50_db_plusplus/
+│   │   ├── det_r50_db_v2_0/
+│   │   ├── det_r50_dcn_fce_ctw_v2_0/
+│   │   ├── det_r50_vd_east_v2_0/
+│   │   ├── det_r50_vd_pse_v2_0/
+│   │   ├── det_r50_vd_sast_icdar15_v2_0/
+│   │   ├── det_r50_vd_sast_totaltext_v2_0/
+│   │   ├── en_server_pgnetA/
+│   │   ├── en_table_structure/
+│   │   ├── en_table_structure_PACT/
+│   │   ├── layoutxlm_ser/
+│   │   ├── rec_d28_can/
+│   │   ├── rec_mtb_nrtr/
+│   │   ├── rec_mv3_none_bilstm_ctc_v2_0/
+│   │   ├── rec_mv3_none_none_ctc_v2_0/
+│   │   ├── rec_mv3_tps_bilstm_att_v2_0/
+│   │   ├── rec_mv3_tps_bilstm_ctc_v2_0/
+│   │   ├── rec_parseq/
+│   │   ├── rec_r31_robustscanner/
+│   │   ├── rec_r31_sar/
+│   │   ├── rec_r32_gaspin_bilstm_att/
+│   │   ├── rec_r34_vd_none_bilstm_ctc_v2_0/
+│   │   ├── rec_r34_vd_none_none_ctc_v2_0/
+│   │   ├── rec_r34_vd_tps_bilstm_att_v2_0/
+│   │   ├── rec_r34_vd_tps_bilstm_ctc_v2_0/
+│   │   ├── rec_r45_abinet/
+│   │   ├── rec_r45_visionlan/
+│   │   ├── rec_r50_fpn_vd_none_srn/
+│   │   ├── rec_resnet_rfl/
+│   │   ├── rec_svtrnet/
+│   │   ├── rec_vitstr_none_ce/
+│   │   ├── slanet/
+│   │   ├── sr_telescope/
+│   │   ├── table_master/
+│   │   └── vi_layoutxlm_ser/
+│   ├── docs/
+│   │   ├── benchmark_train.md
+│   │   ├── compare_cpp_right.png
+│   │   ├── compare_cpp_wrong.png
+│   │   ├── compare_right.png
+│   │   ├── compare_wrong.png
+│   │   ├── guide.png
+│   │   ├── install.md
+│   │   ├── lite_auto_log.png
+│   │   ├── lite_log.png
+│   │   ├── mac_test_train_inference_python.md
+│   │   ├── ssh_termux_ls.png
+│   │   ├── termux.jpg
+│   │   ├── termux_for_android.md
+│   │   ├── test.png
+│   │   ├── test_inference_cpp.md
+│   │   ├── test_lite_arm_cpp.md
+│   │   ├── test_paddle2onnx.md
+│   │   ├── test_ptq_inference_python.md
+│   │   ├── test_serving.md
+│   │   ├── test_train_fleet_inference_python.md
+│   │   ├── test_train_inference_python.md
+│   │   └── win_test_train_inference_python.md
+│   ├── prepare.sh
+│   ├── prepare_lite_cpp.sh
+│   ├── readme.md
+│   ├── results/
+│   │   ├── cpp_ppocr_det_mobile_results_fp16.txt
+│   │   ├── cpp_ppocr_det_mobile_results_fp32.txt
+│   │   ├── python_ppocr_det_mobile_results_fp16.txt
+│   │   └── python_ppocr_det_mobile_results_fp32.txt
+│   ├── supplementary/
+│   │   ├── __init__.py
+│   │   ├── config.py
+│   │   ├── custom_op/
+│   │   ├── data.py
+│   │   ├── data_loader.py
+│   │   ├── load_cifar.py
+│   │   ├── loss.py
+│   │   ├── metric.py
+│   │   ├── mv3.py
+│   │   ├── mv3_distill.yml
+│   │   ├── mv3_large_x0_5.yml
+│   │   ├── optimizer.py
+│   │   ├── readme.md
+│   │   ├── requirements.txt
+│   │   ├── slim/
+│   │   ├── test_tipc/
+│   │   ├── train.py
+│   │   ├── train.sh
+│   │   └── utils.py
+│   ├── test_inference_cpp.sh
+│   ├── test_inference_python.sh
+│   ├── test_lite_arm_cpp.sh
+│   ├── test_paddle2onnx.sh
+│   ├── test_ptq_inference_python.sh
+│   ├── test_serving_infer_cpp.sh
+│   ├── test_serving_infer_python.sh
+│   ├── test_train_inference_python.sh
+│   ├── test_train_inference_python_npu.sh
+│   ├── test_train_inference_python_xpu.sh
+│   └── web/
+│       ├── expect.json
+│       ├── index.html
+│       ├── index.test.js
+│       ├── jest-puppeteer.config.js
+│       ├── jest.config.js
+│       └── test.jpg
+├── tests/
+│   ├── __init__.py
+│   ├── models/
+│   │   ├── __init__.py
+│   │   ├── image_classification_common.py
+│   │   ├── object_detection_common.py
+│   │   ├── test_doc_img_orientation_classifcation.py
+│   │   ├── test_doc_vlm.py
+│   │   ├── test_formula_recognition.py
+│   │   ├── test_layout_detection.py
+│   │   ├── test_seal_text_detection.py
+│   │   ├── test_table_cells_detection.py
+│   │   ├── test_table_classifcation.py
+│   │   ├── test_table_structure_recognition.py
+│   │   ├── test_text_detection.py
+│   │   ├── test_text_image_unwarping.py
+│   │   ├── test_text_recognition.py
+│   │   └── test_textline_orientation_classifcation.py
+│   ├── pipelines/
+│   │   ├── __init__.py
+│   │   ├── test_doc_preprocessor.py
+│   │   ├── test_doc_understanding.py
+│   │   ├── test_formula_recognition.py
+│   │   ├── test_ocr.py
+│   │   ├── test_patch_layout_parsing.py
+│   │   ├── test_pp_chatocrv4_doc.py
+│   │   ├── test_pp_doctranslation.py
+│   │   ├── test_pp_structurev3.py
+│   │   ├── test_seal_rec.py
+│   │   └── test_table_recognition_v2.py
+│   ├── test_cls_postprocess.py
+│   ├── test_files/
+│   │   ├── book.jpg
+│   │   ├── book_rot180.jpg
+│   │   ├── doc_with_formula.png
+│   │   ├── formula.png
+│   │   ├── medal_table.png
+│   │   ├── seal.png
+│   │   ├── table.jpg
+│   │   ├── textline.png
+│   │   └── textline_rot180.jpg
+│   ├── test_formula_model.py
+│   ├── test_french_accents.py
+│   ├── test_iaa_augment.py
+│   ├── test_ppstructure.py
+│   ├── test_rec_postprocess.py
+│   └── testing_utils.py
+├── tools/
+│   ├── __init__.py
+│   ├── end2end/
+│   │   ├── convert_ppocr_label.py
+│   │   ├── draw_html.py
+│   │   ├── eval_end2end.py
+│   │   └── readme.md
+│   ├── eval.py
+│   ├── export_center.py
+│   ├── export_model.py
+│   ├── infer/
+│   │   ├── predict_cls.py
+│   │   ├── predict_det.py
+│   │   ├── predict_e2e.py
+│   │   ├── predict_rec.py
+│   │   ├── predict_sr.py
+│   │   ├── predict_system.py
+│   │   └── utility.py
+│   ├── infer_cls.py
+│   ├── infer_det.py
+│   ├── infer_e2e.py
+│   ├── infer_kie.py
+│   ├── infer_kie_token_ser.py
+│   ├── infer_kie_token_ser_re.py
+│   ├── infer_rec.py
+│   ├── infer_sr.py
+│   ├── infer_table.py
+│   ├── naive_sync_bn.py
+│   ├── program.py
+│   ├── test_hubserving.py
+│   └── train.py
+└── train.sh

@@ -1,0 +1,888 @@
+=====================================
+Repository Analysis: pulumi
+Type: Infrastructure / DevOps / IaC
+=====================================
+
+--- METADATA ---
+Name: pulumi
+Description: Pulumi - Infrastructure as Code in any programming language 🚀
+Language: Go
+Topics: aws, azure, cloud, cloud-computing, containers, csharp, dotnet, fsharp, gcp, go, golang, iac, infrastructure-as-code, javascript, kubernetes, python, serverless, typescript
+Stars: 24872
+License: Apache License 2.0
+
+--- README ---
+<p align="center">
+    <a href="https://www.pulumi.com/?utm_source=github.com&utm_medium=referral&utm_campaign=pulumi-pulumi-github-repo&utm_content=top+logo" title="Pulumi - Modern Infrastructure as Code - AWS Azure Kubernetes Containers Serverless">
+        <img src="https://www.pulumi.com/images/logo/logo-on-white-box.svg?" width="350">
+    </a>
+</p>
+
+[![Slack](http://www.pulumi.com/images/docs/badges/slack.svg)](https://slack.pulumi.com/)
+[![GitHub Discussions](https://img.shields.io/github/discussions/pulumi/pulumi)](https://github.com/pulumi/pulumi/discussions)
+[![NPM version](https://badge.fury.io/js/%40pulumi%2Fpulumi.svg)](https://npmjs.com/package/@pulumi/pulumi)
+[![Python version](https://badge.fury.io/py/pulumi.svg)](https://pypi.org/project/pulumi)
+[![NuGet version](https://badge.fury.io/nu/pulumi.svg)](https://badge.fury.io/nu/pulumi)
+[![GoDoc](https://godoc.org/github.com/pulumi/pulumi?status.svg)](https://godoc.org/github.com/pulumi/pulumi)
+[![License](https://img.shields.io/github/license/pulumi/pulumi)](LICENSE)
+
+# Infrastructure as Code in any Programming Language
+
+<a href="https://www.pulumi.com/docs/iac/get-started/">
+    <img src="https://www.pulumi.com/images/get-started.svg?" align="right" width="120">
+</a>
+
+**Pulumi Infrastructure as Code** is the easiest way to build and deploy infrastructure, of any architecture and on any cloud, using programming languages that you already know and love. Code and ship infrastructure faster with your favorite languages and tools, and embed IaC anywhere with [Automation API](https://www.pulumi.com/docs/iac/using-pulumi/automation-api/).
+
+Simply write code in your favorite language and Pulumi automatically provisions and manages your resources on
+[AWS](https://www.pulumi.com/docs/iac/clouds/aws/),
+[Azure](https://www.pulumi.com/docs/iac/clouds/azure/),
+[Google Cloud Platform](https://www.pulumi.com/docs/iac/clouds/gcp/), 
+[Kubernetes](https://www.pulumi.com/docs/iac/clouds/kubernetes/), and [120+ providers](https://www.pulumi.com/registry/) using an
+[infrastructure-as-code](https://www.pulumi.com/what-is/what-is-infrastructure-as-code/) approach.
+Skip the YAML, and use standard language features like loops, functions, classes,
+and package management that you already know and love.
+
+For example, create three web servers:
+
+```typescript
+const aws = require("@pulumi/aws");
+const sg = new aws.ec2.SecurityGroup("web-sg", {
+    ingress: [{ protocol: "tcp", fromPort: 80, toPort: 80, cidrBlocks: ["0.0.0.0/0"] }],
+});
+for (let i = 0; i < 3; i++) {
+    new aws.ec2.Instance(`web-${i}`, {
+        ami: "ami-7172b611",
+        instanceType: "t2.micro",
+        vpcSecurityGroupIds: [sg.id],
+        userData: `#!/bin/bash
+            echo "Hello, World!" > index.html
+            nohup python -m SimpleHTTPServer 80 &`,
+    });
+}
+```
+
+Or a simple serverless timer that archives Hacker News every day at 8:30AM:
+
+```typescript
+const aws = require("@pulumi/aws");
+
+const snapshots = new aws.dynamodb.Table("snapshots", {
+    attributes: [{ name: "id", type: "S", }],
+    hashKey: "id", billingMode: "PAY_PER_REQUEST",
+});
+
+aws.cloudwatch.onSchedule("daily-yc-snapshot", "cron(30 8 * * ? *)", () => {
+    require("https").get("https://news.ycombinator.com", res => {
+        let content = "";
+        res.setEncoding("utf8");
+        res.on("data", chunk => content += chunk);
+        res.on("end", () => new aws.sdk.DynamoDB.DocumentClient().put({
+            TableName: snapshots.name.get(),
+            Item: { date: Date.now(), content },
+        }).promise());
+    }).end();
+});
+```
+
+Many examples are available spanning containers, serverless, and infrastructure in
+[pulumi/examples](https://github.com/pulumi/examples).
+
+Pulumi is open source under the [Apache 2.0 license](https://github.com/pulumi/pulumi/blob/master/LICENSE), supports many languages and clouds, and is easy to extend.  This
+repo contains the `pulumi` CLI, language SDKs, and core Pulumi engine, and individual libraries are in their own repos.
+
+## Welcome
+
+<img align="right" width="400" src="https://www.pulumi.com/images/docs/quickstart/console.png" />
+
+* **[Get Started with Pulumi](https://www.pulumi.com/docs/iac/get-started/)**: Deploy a simple application in AWS, Azure, Google Cloud, or Kubernetes using Pulumi.
+
+* **[Learn](https://www.pulumi.com/tutorials/)**: Follow Pulumi learning pathways to learn best practices and architectural patterns through authentic examples.
+
+* **[Examples](https://github.com/pulumi/examples)**: Browse several examples across many languages,
+  clouds, and scenarios including containers, serverless, and infrastructure.
+
+* **[Docs](https://www.pulumi.com/docs/)**: Learn about Pulumi concepts, follow user-guides, and consult the reference documentation.
+
+* **[Registry](https://www.pulumi.com/registry/)**: Find the Pulumi Package with the resources you need. Install the package directly into your project, browse the API documentation, and start building.
+
+* **[Secrets Management](https://
+... [TRUNCATED]
+
+--- IAC CONFIG FILES ---
+
+[Makefile]
+PROJECT_NAME := Pulumi SDK
+SDKS         ?= nodejs python go
+SUB_PROJECTS := $(SDKS:%=sdk/%)
+
+include build/common.mk
+
+PROJECT         := github.com/pulumi/pulumi/pkg/v3/cmd/pulumi
+
+# Ensure bin directory exists before targets are evaluated
+# to avoid issues like realpath failing on macOS if the directory doesn't exist.
+_ := $(shell mkdir -p bin)
+
+_ := $(shell cd pkg && go build -o ../bin/helpmakego github.com/iwahbe/helpmakego)
+
+PKG_CODEGEN := github.com/pulumi/pulumi/pkg/v3/codegen
+# nodejs and python codegen tests are much slower than go/dotnet:
+PROJECT_PKGS    = $(shell cd ./pkg && go list ./... | grep -v -E '^${PKG_CODEGEN}/(dotnet|go|nodejs|python)')
+INTEGRATION_PKG := github.com/pulumi/pulumi/tests/integration
+PERFORMANCE_PKG := github.com/pulumi/pulumi/tests/performance
+TESTS_PKGS      = $(shell cd ./tests && go list -tags all ./... | grep -v tests/templates | grep -v ^${INTEGRATION_PKG}$ | grep -v ^${PERFORMANCE_PKG}$)
+VERSION         = $(if ${PULUMI_VERSION},${PULUMI_VERSION},$(shell ./scripts/pulumi-version.sh))
+
+# Relative paths to directories with go.mod files that should be linted.
+LINT_GOLANG_PKGS := sdk pkg tests sdk/go/pulumi-language-go sdk/nodejs/cmd/pulumi-language-nodejs sdk/python/cmd/pulumi-language-python
+
+# Additional arguments to pass to golangci-lint.
+GOLANGCI_LINT_ARGS ?=
+
+ifeq ($(DEBUG),"true")
+$(info    SHELL           = ${SHELL})
+$(info    VERSION         = ${VERSION})
+endif
+
+# Motivation: running `make TEST_ALL_DEPS= test_all` permits running
+# `test_all` without the dependencies.
+TEST_ALL_DEPS ?= build $(SUB_PROJECTS:%=%_install)
+
+# The number of Rapid checks to perform when fuzzing lifecycle tests. See the documentation on Rapid at
+# https://pkg.go.dev/pgregory.net/rapid#section-readme or the lifecycle test documentation under
+# pkg/engine/lifecycletest for more information.
+LIFECYCLE_TEST_FUZZ_CHECKS ?= 10000
+
+ensure: .make/ensure/go .make/ensure/phony $(SUB_PROJECTS:%=%_ensure)
+.make/ensure/phony: sdk/go.mod pkg/go.mod tests/go.mod
+	cd sdk && ../scripts/retry go mod download
+	cd pkg && ../scripts/retry go mod download
+	cd tests && ../scripts/retry go mod download
+	@mkdir -p .make/ensure && touch .make/ensure/phony
+
+.PHONY: build-proto build_proto
+PROTO_SOURCES := $(sort $(shell find proto -name '*.proto')) proto/generate.sh
+build-proto: build_proto
+build_proto: .make/proto
+.make/proto: $(PROTO_SOURCES)
+	cd proto && ./generate.sh
+	@mkdir -p .make && touch $@
+
+.PHONY: check-proto check_proto
+check-proto: check_proto
+check_proto: .make/proto
+	@if ! git diff --quiet -- sdk/proto/go sdk/nodejs/proto \
+	    sdk/python/lib/pulumi/runtime/proto proto/grpc_version.txt; then \
+		echo "Proto output is out of date. Run 'make build_proto' and commit."; \
+		git diff -- sdk/proto/go sdk/nodejs/proto \
+		    sdk/python/lib/pulumi/runtime/proto proto/grpc_version.txt; \
+		exit 1; \
+	fi
+
+.PHONY: generate
+generate::
+	$(call STEP_MESSAGE)
+	echo "This command does not do anything anymore. It will be removed in a future version."
+
+.P
+... [TRUNCATED]
+
+--- TERRAFORM FILES ---
+  tests/integration/convertfromterraform/main.tf
+  tests/integration/convertmultiplefromterraform/main.tf
+  tests/smoke/testdata/aws_tf/main.tf
+
+--- KUBERNETES MANIFESTS ---
+  pkg/cmd/pulumi/templates/cloud.go
+  pkg/cmd/pulumi/templates/templates.go
+  pkg/cmd/pulumi/templates/templates_test.go
+  pkg/cmd/pulumi/templates/workspace.go
+  pkg/util/generate/templates/pulumiverse_list.go.template
+  sdk/go/pulumi/generate/templates/config-config.go.template
+  sdk/go/pulumi/generate/templates/config-get.go.template
+  sdk/go/pulumi/generate/templates/config-require.go.template
+  sdk/go/pulumi/generate/templates/config-try.go.template
+  sdk/go/pulumi/generate/templates/types_builtins.go.template
+
+--- ANSIBLE FILES ---
+(None found)
+
+--- CI/CD PIPELINES ---
+  .github/workflows/ci-build-binaries.yml
+  .github/workflows/ci-build-sdks.yml
+  .github/workflows/ci-dev-release.yml
+  .github/workflows/ci-info.yml
+  .github/workflows/ci-lint.yml
+  .github/workflows/ci-performance-gate.yml
+  .github/workflows/ci-prepare-release.yml
+  .github/workflows/ci-run-test.yml
+  .github/workflows/ci.yml
+  .github/workflows/command-dispatch.yml
+  .github/workflows/cron-direct-build.yml
+  .github/workflows/cron-test-all.yml
+  .github/workflows/download-pulumi-cron.yml
+  .github/workflows/on-community-pr.yml
+  .github/workflows/on-merge.yml
+  .github/workflows/on-pr-close.yml
+  .github/workflows/on-pr-default.yml
+  .github/workflows/on-pr.yml
+  .github/workflows/on-push.yml
+  .github/workflows/on-release.yml
+  .github/workflows/pr-test-acceptance-on-dispatch.yml
+  .github/workflows/rebase.yml
+  .github/workflows/release-homebrew-tap.yml
+  .github/workflows/release-pr.yml
+  .github/workflows/release.pub
+  .github/workflows/release.yml
+  .github/workflows/sign.yml
+  .github/workflows/trigger-homebrew-event.yml
+  .github/workflows/trigger-release-docs-event.yml
+
+--- DIRECTORY STRUCTURE (depth 2) ---
+├── .devcontainer/
+│   ├── Dockerfile
+│   └── devcontainer.json
+├── .dockerignore
+├── .envrc.template
+├── .gitattributes
+├── .github/
+│   ├── CODEOWNERS
+│   ├── ISSUE_TEMPLATE/
+│   │   └── flaky_test.yaml
+│   ├── scripts/
+│   │   ├── generate-homebrew-tap
+│   │   ├── get-changelog
+│   │   ├── get-previous-version
+│   │   ├── get-version
+│   │   ├── pulumi-tap-template.rb
+│   │   ├── set-output
+│   │   ├── update-versions
+│   │   └── versions.yaml
+│   └── workflows/
+│       ├── ci-build-binaries.yml
+│       ├── ci-build-sdks.yml
+│       ├── ci-dev-release.yml
+│       ├── ci-info.yml
+│       ├── ci-lint.yml
+│       ├── ci-performance-gate.yml
+│       ├── ci-prepare-release.yml
+│       ├── ci-run-test.yml
+│       ├── ci.yml
+│       ├── command-dispatch.yml
+│       ├── cron-direct-build.yml
+│       ├── cron-test-all.yml
+│       ├── download-pulumi-cron.yml
+│       ├── on-community-pr.yml
+│       ├── on-merge.yml
+│       ├── on-pr-close.yml
+│       ├── on-pr-default.yml
+│       ├── on-pr.yml
+│       ├── on-push.yml
+│       ├── on-release.yml
+│       ├── pr-test-acceptance-on-dispatch.yml
+│       ├── rebase.yml
+│       ├── release-homebrew-tap.yml
+│       ├── release-pr.yml
+│       ├── release.pub
+│       ├── release.yml
+│       ├── sign.yml
+│       ├── trigger-homebrew-event.yml
+│       └── trigger-release-docs-event.yml
+├── .gitignore
+├── .golangci.yml
+├── .golangci/
+│   └── rules.go
+├── .goreleaser.yml
+├── .mise.toml
+├── .readthedocs.yaml
+├── .vscode/
+│   ├── launch.json.example
+│   └── settings.json
+├── .yarnrc
+├── CHANGELOG.md
+├── CODE-OF-CONDUCT.md
+├── CONTRIBUTING.md
+├── LICENSE
+├── Makefile
+├── README.md
+├── build/
+│   └── common.mk
+├── changelog/
+│   └── config.yaml
+├── codecov.yml
+├── coverage/
+│   └── .gitkeep
+├── developer-docs/
+│   ├── .gitignore
+│   ├── Makefile
+│   ├── README.md
+│   ├── architecture/
+│   │   ├── construct.svg
+│   │   ├── construct.uml
+│   │   ├── create.svg
+│   │   ├── create.uml
+│   │   ├── delete-before-replace-graph.svg
+│   │   ├── delete-before-replace-graph.uml
+│   │   ├── delete-before-replace.svg
+│   │   ├── delete-before-replace.uml
+│   │   ├── deployment-schema.md
+│   │   ├── import.md
+│   │   ├── import.svg
+│   │   ├── import.uml
+│   │   ├── overview.md
+│   │   ├── pulumi-cli.svg
+│   │   ├── pulumi-cli.uml
+│   │   ├── pulumi-import.svg
+│   │   ├── pulumi-import.uml
+│   │   ├── replace.svg
+│   │   ├── replace.uml
+│   │   ├── resource-registration.md
+│   │   ├── same.svg
+│   │   ├── same.uml
+│   │   ├── type-system.md
+│   │   ├── update.svg
+│   │   └── update.uml
+│   ├── build.md
+│   ├── conf.py
+│   ├── go.mod
+│   ├── go.sum
+│   ├── index.md
+│   ├── providers/
+│   │   ├── implementers-guide.md
+│   │   ├── metaschema.md
+│   │   ├── resource-lifecycle.svg
+│   │   └── resource-lifecycle.uml
+│   ├── requirements.txt
+│   └── utils/
+│       └── jsonschema2md.go
+├── docker/
+│   └── README.md
+├── docs/
+│   ├── .gitignore
+│   ├── Makefile
+│   ├── README.md
+│   ├── architecture/
+│   │   ├── README.md
+│   │   ├── converters.md
+│   │   ├── deployment-execution/
+│   │   ├── languages.md
+│   │   ├── plugins.md
+│   │   ├── providers/
+│   │   ├── resources/
+│   │   ├── testing/
+│   │   └── types/
+│   ├── contributing/
+│   │   ├── README.md
+│   │   └── development.md
+│   ├── debugging/
+│   │   ├── README.md
+│   │   ├── engine.md
+│   │   ├── performance.md
+│   │   └── providers-and-languages.md
+│   ├── diagrams.md
+│   ├── documentation.md
+│   ├── documentation/
+│   │   ├── README.md
+│   │   ├── diagrams.md
+│   │   └── writing.md
+│   ├── make.py
+│   ├── references/
+│   │   ├── README.md
+│   │   └── proto.md.tmpl
+│   ├── requirements.txt
+│   ├── sphinx/
+│   │   ├── _ext/
+│   │   ├── _static/
+│   │   ├── conf.py
+│   │   └── index.html.template
+│   └── writing.md
+├── pkg/
+│   ├── README.md
+│   ├── asset/
+│   │   └── massage.go
+│   ├── authhelpers/
+│   │   ├── gcpauth.go
+│   │   └── gcpauth_test.go
+│   ├── backend/
+│   │   ├── apply.go
+│   │   ├── apply_test.go
+│   │   ├── backend.go
+│   │   ├── backend_test.go
+│   │   ├── backenderr/
+│   │   ├── cancellation_scope.go
+│   │   ├── cloud_registry.go
+│   │   ├── display/
+│   │   ├── diy/
+│   │   ├── doc.go
+│   │   ├── httpstate/
+│   │   ├── journal.go
+│   │   ├── journaler_snapshot_test.go
+│   │   ├── mock.go
+│   │   ├── organizations.go
+│   │   ├── organizations_test.go
+│   │   ├── policypack.go
+│   │   ├── secrets.go
+│   │   ├── secrets/
+│   │   ├── secrets_test.go
+│   │   ├── snapshot.go
+│   │   ├── snapshot_test.go
+│   │   ├── stack.go
+│   │   ├── state/
+│   │   ├── updates.go
+│   │   ├── validating_persister.go
+│   │   └── watch.go
+│   ├── channel/
+│   │   ├── channel.go
+│   │   └── channel_test.go
+│   ├── cmd/
+│   │   └── pulumi/
+│   ├── codegen/
+│   │   ├── README.md
+│   │   ├── cgstrings/
+│   │   ├── convert/
+│   │   ├── docs.go
+│   │   ├── docs_integration_test.go
+│   │   ├── docs_test.go
+│   │   ├── dotnet/
+│   │   ├── gen_program_test/
+│   │   ├── go/
+│   │   ├── hcl2/
+│   │   ├── nodejs/
+│   │   ├── pcl/
+│   │   ├── programs.md
+│   │   ├── python/
+│   │   ├── schema/
+│   │   ├── sdks.md
+│   │   ├── testing/
+│   │   ├── utilities.go
+│   │   ├── utilities_test.go
+│   │   └── utilities_types.go
+│   ├── display/
+│   │   └── json.go
+│   ├── engine/
+│   │   ├── combined_manager.go
+│   │   ├── combined_manager_test.go
+│   │   ├── debugging.go
+│   │   ├── debugging_test.go
+│   │   ├── deployment.go
+│   │   ├── deployment_test.go
+│   │   ├── destroy.go
+│   │   ├── detailedDiff.go
+│   │   ├── detailedDiff_test.go
+│   │   ├── doc.go
+│   │   ├── engine.go
+│   │   ├── errors.go
+│   │   ├── events.go
+│   │   ├── events_test.go
+│   │   ├── eventsink.go
+│   │   ├── import.go
+│   │   ├── install_manager.go
+│   │   ├── journal_snapshot.go
+│   │   ├── journal_snapshot_test.go
+│   │   ├── lifecycletest/
+│   │   ├── plugin_host.go
+│   │   ├── plugins.go
+│   │   ├── plugins_test.go
+│   │   ├── policypacks.go
+│   │   ├── progress.go
+│   │   ├── progress_test.go
+│   │   ├── project.go
+│   │   ├── refresh.go
+│   │   ├── snapshot.go
+│   │   ├── test_journal.go
+│   │   ├── update.go
+│   │   └── update_test.go
+│   ├── go.mod
+│   ├── go.sum
+│   ├── graph/
+│   │   ├── dotconv/
+│   │   ├── graph.go
+│   │   └── toposort.go
+│   ├── importer/
+│   │   ├── hcl2.go
+│   │   ├── hcl2_test.go
+│   │   ├── language.go
+│   │   ├── language_test.go
+│   │   └── testdata/
+│   ├── operations/
+│   │   ├── doc.go
+│   │   ├── operations.go
+│   │   ├── operations_aws.go
+│   │   ├── operations_aws_test.go
+│   │   ├── operations_cloud_aws.go
+│   │   ├── operations_cloud_aws_test.go
+│   │   ├── operations_gcp.go
+│   │   ├── resources.go
+│   │   ├── resources_test.go
+│   │   └── testdata/
+│   ├── pluginstorage/
+│   │   ├── content.go
+│   │   ├── download.go
+│   │   └── pluginstorage.go
+│   ├── resource/
+│   │   ├── analyzer/
+│   │   ├── autonaming/
+│   │   ├── deploy/
+│   │   ├── edit/
+│   │   ├── graph/
+│   │   ├── provider/
+│   │   ├── stack/
+│   │   └── testdata/
+│   ├── secrets/
+│   │   ├── b64/
+│   │   ├── cloud/
+│   │   ├── manager.go
+│   │   ├── mock.go
+│   │   ├── passphrase/
+│   │   ├── provider.go
+│   │   └── service/
+│   ├── testing/
+│   │   ├── integration/
+│   │   └── pulumi-test-language/
+│   ├── util/
+│   │   ├── afero/
+│   │   ├── cancel/
+│   │   ├── cmdutil/
+│   │   ├── generate/
+│   │   ├── nosleep/
+│   │   ├── pdag/
+│   │   ├── plugin.go
+│   │   ├── plugin_test.go
+│   │   ├── pulumiverse_list.go
+│   │   ├── testutil/
+│   │   ├── tracing/
+│   │   └── validation/
+│   └── workspace/
+│       ├── context.go
+│       ├── creds.go
+│       ├── creds_test.go
+│       ├── mock.go
+│       ├── plugin.go
+│       ├── plugin_test.go
+│       ├── plugins_install_test.go
+│       ├── settings.go
+│       ├── templates.go
+│       ├── templates_test.go
+│       └── workspace.go
+├── proto/
+│   ├── README.md
+│   ├── generate.sh
+│   ├── google/
+│   │   └── protobuf/
+│   ├── grpc_version.txt
+│   └── pulumi/
+│       ├── alias.proto
+│       ├── analyzer.proto
+│       ├── callback.proto
+│       ├── codegen/
+│       ├── converter.proto
+│       ├── engine.proto
+│       ├── errors.proto
+│       ├── events.proto
+│       ├── language.proto
+│       ├── plugin.proto
+│       ├── provider.proto
+│       ├── resource.proto
+│       ├── resource_status.proto
+│       ├── source.proto
+│       └── testing/
+├── renovate.json5
+├── scripts/
+│   ├── brew.sh
+│   ├── get-job-matrix.py
+│   ├── get-language-providers.sh
+│   ├── get-pulumi-watch.sh
+│   ├── get-version
+│   ├── go-test.py
+│   ├── go-update.sh
+│   ├── go-wrapper.sh
+│   ├── integration_test_subsets.py
+│   ├── normpath
+│   ├── prep-for-goreleaser.sh
+│   ├── publish_npm.sh
+│   ├── pulumi-version.sh
+│   ├── retry
+│   ├── reversion.js
+│   ├── run-conformance.sh
+│   ├── set-version.py
+│   ├── tidy.sh
+│   ├── versions.sh
+│   ├── wasm-size-breakdown.py
+│   └── wasm-size-check.py
+├── sdk/
+│   ├── .version
+│   ├── README.md
+│   ├── go.mod
+│   ├── go.sum
+│   ├── go/
+│   │   ├── Makefile
+│   │   ├── README.md
+│   │   ├── auto/
+│   │   ├── common/
+│   │   ├── internal/
+│   │   ├── property/
+│   │   ├── pulumi-internal/
+│   │   ├── pulumi-language-go/
+│   │   ├── pulumi/
+│   │   ├── pulumix/
+│   │   └── tools/
+│   ├── nodejs/
+│   │   ├── .eslintrc.js
+│   │   ├── .gitignore
+│   │   ├── .npmignore
+│   │   ├── Makefile
+│   │   ├── README.md
+│   │   ├── asset/
+│   │   ├── automation/
+│   │   ├── biome.json
+│   │   ├── cmd/
+│   │   ├── config.ts
+│   │   ├── dist/
+│   │   ├── dynamic/
+│   │   ├── errors.ts
+│   │   ├── index.ts
+│   │   ├── invoke.ts
+│   │   ├── iterable/
+│   │   ├── log/
+│   │   ├── metadata.ts
+│   │   ├── npm/
+│   │   ├── output.ts
+│   │   ├── package.json
+│   │   ├── proto/
+│   │   ├── provider/
+│   │   ├── queryable/
+│   │   ├── resource.ts
+│   │   ├── runtime/
+│   │   ├── stackReference.ts
+│   │   ├── stash.ts
+│   │   ├── tests/
+│   │   ├── tests_with_mocks/
+│   │   ├── tools/
+│   │   ├── tsconfig.json
+│   │   ├── tsutils.ts
+│   │   ├── types/
+│   │   ├── typescript-shim.ts
+│   │   ├── utils.ts
+│   │   ├── vendor/
+│   │   ├── version.ts
+│   │   └── yarn.lock
+│   ├── policy_proxy.go
+│   ├── policy_proxy_test.go
+│   ├── proto/
+│   │   └── go/
+│   ├── python/
+│   │   ├── .gitignore
+│   │   ├── LICENSE
+│   │   ├── Makefile
+│   │   ├── README.md
+│   │   ├── cmd/
+│   │   ├── dist/
+│   │   ├── lib/
+│   │   ├── pyproject.toml
+│   │   ├── pytest.ini
+│   │   ├── scripts/
+│   │   ├── toolchain/
+│   │   ├── tools/
+│   │   └── uv.lock
+│   └── version.go
+├── tests/
+│   ├── .gitignore
+│   ├── README.md
+│   ├── about/
+│   │   └── about_test.go
+│   ├── benchmarks/
+│   │   └── go-alias-norm/
+│   ├── config/
+│   │   └── config_test.go
+│   ├── examples/
+│   │   ├── dynamic-provider/
+│   │   ├── examples_acceptance_test.go
+│   │   ├── examples_test.go
+│   │   ├── formattable/
+│   │   ├── minimal/
+│   │   └── secrets/
+│   ├── go.mod
+│   ├── go.sum
+│   ├── history/
+│   │   └── history_test.go
+│   ├── integration/
+│   │   ├── .gitignore
+│   │   ├── about/
+│   │   ├── aliases/
+│   │   ├── appdash_test.go
+│   │   ├── automation/
+│   │   ├── autonaming/
+│   │   ├── backend/
+│   │   ├── call_component_failures/
+│   │   ├── cancel/
+│   │   ├── cloud_secrets_provider/
+│   │   ├── component-error-resource/
+│   │   ├── component_provider/
+│   │   ├── component_provider_schema/
+│   │   ├── component_setup.sh
+│   │   ├── config_basic/
+│   │   ├── config_capture_e2e/
+│   │   ├── config_flag/
+│   │   ├── config_missing/
+│   │   ├── config_secrets_warn/
+│   │   ├── construct_component/
+│   │   ├── construct_component_configure_provider/
+│   │   ├── construct_component_error_apply/
+│   │   ├── construct_component_failures/
+│   │   ├── construct_component_id_output/
+│   │   ├── construct_component_methods/
+│   │   ├── construct_component_methods_errors/
+│   │   ├── construct_component_methods_provider/
+│   │   ├── construct_component_methods_resources/
+│   │   ├── construct_component_methods_unknown/
+│   │   ├── construct_component_output_values/
+│   │   ├── construct_component_plain/
+│   │   ├── construct_component_provider/
+│   │   ├── construct_component_provider_explicit/
+│   │   ├── construct_component_provider_propagation/
+│   │   ├── construct_component_resource_options/
+│   │   ├── construct_component_slow/
+│   │   ├── construct_component_unknown/
+│   │   ├── construct_nested_component/
+│   │   ├── convertfromterraform/
+│   │   ├── convertmultiplefromterraform/
+│   │   ├── custom_timeouts/
+│   │   ├── debug-plugin/
+│   │   ├── delete_before_create/
+│   │   ├── deleted_with/
+│   │   ├── dependency_steps/
+│   │   ├── double_pending_delete/
+│   │   ├── duplicate_urns/
+│   │   ├── dynamic/
+│   │   ├── ee_perf/
+│   │   ├── empty/
+│   │   ├── enums/
+│   │   ├── environments_basic/
+│   │   ├── environments_merge/
+│   │   ├── error_hooks/
+│   │   ├── exclude_protected/
+│   │   ├── explicit_provider/
+│   │   ├── external_tagged_component/
+│   │   ├── gather_plugin/
+│   │   ├── get_created/
+│   │   ├── get_resource/
+│   │   ├── github_component/
+│   │   ├── go/
+│   │   ├── integration_acceptance_test.go
+│   │   ├── integration_go_acceptance_test.go
+│   │   ├── integration_go_test.go
+│   │   ├── integration_nodejs_acceptance_test.go
+│   │   ├── integration_nodejs_test.go
+│   │   ├── integration_posix_test.go
+│   │   ├── integration_python_acceptance_test.go
+│   │   ├── integration_python_test.go
+│   │   ├── integration_test.go
+│   │   ├── integration_util_test.go
+│   │   ├── interrupt/
+│   │   ├── invalid_package_json/
+│   │   ├── iterative-constraints/
+│   │   ├── large_resource/
+│   │   ├── log_debug/
+│   │   ├── main_test.go
+│   │   ├── namespaced_component/
+│   │   ├── namespaced_component_invalid_name/
+│   │   ├── new/
+│   │   ├── nodejs/
+│   │   ├── package-add/
+│   │   ├── package-publish/
+│   │   ├── packageadd-remote/
+│   │   ├── packageadd-tsc/
+│   │   ├── packageadd-types/
+│   │   ├── packages-install-cycle/
+│   │   ├── packages-install-local/
+│   │   ├── packages-install-multi-git/
+│   │   ├── packages-install-recursive/
+│   │   ├── packages-install/
+│   │   ├── partial_state/
+│   │   ├── partial_values/
+│   │   ├── plugin_install/
+│   │   ├── policy/
+│   │   ├── printf/
+│   │   ├── program_error/
+│   │   ├── project_main/
+│   │   ├── project_main_abs/
+│   │   ├── project_main_parent/
+│   │   ├── protect_resources/
+│   │   ├── provider_secret_config/
+│   │   ├── python/
+│   │   ├── python_await/
+│   │   ├── read/
+│   │   ├── recreate_resource_check/
+│   │   ├── refresh/
+│   │   ├── required_pulumi_version/
+│   │   ├── resource_hooks/
+│   │   ├── resource_refs_get_resource/
+│   │   ├── rotate_passphrase/
+│   │   ├── run_plugin/
+│   │   ├── secret_outputs/
+│   │   ├── single_resource/
+│   │   ├── stack_bad_parenting/
+│   │   ├── stack_dependencies/
+│   │   ├── stack_outputs/
+│   │   ├── stack_outputs_program_error/
+│   │   ├── stack_outputs_resource_error/
+│   │   ├── stack_parenting/
+│   │   ├── stack_project_name/
+│   │   ├── state_protect_unprotect_test.go
+│   │   ├── state_rename_parent/
+│   │   ├── state_taint_untaint_test.go
+│   │   ├── steps/
+│   │   ├── targets/
+│   │   ├── transformations/
+│   │   ├── transforms/
+│   │   ├── tsconfig/
+│   │   ├── types/
+│   │   ├── unsafe_snapshot_tests/
+│   │   └── valid-property-names/
+│   ├── login/
+│   │   ├── login_test.go
+│   │   └── oidc_login_test.go
+│   ├── performance/
+│   │   ├── README.md
+│   │   ├── performance_test.go
+│   │   ├── python/
+│   │   └── typescript/
+│   ├── policy_new/
+│   │   └── policy_new_test.go
+│   ├── preview_only/
+│   │   └── preview_only_test.go
+│   ├── remote/
+│   │   └── remote_test.go
+│   ├── roundtrip/
+│   │   └── roundtrip_test.go
+│   ├── smoke/
+│   │   ├── main_test.go
+│   │   ├── smoke_test.go
+│   │   └── testdata/
+│   ├── stack/
+│   │   ├── main_test.go
+│   │   ├── stack_test.go
+│   │   └── testdata/
+│   ├── testdata/
+│   │   └── codegen/
+│   ├── testprovider-py/
+│   │   ├── .gitignore
+│   │   ├── PulumiPlugin.yaml
+│   │   ├── __main__.py
+│   │   ├── requirements.txt
+│   │   └── src/
+│   ├── testprovider/
+│   │   ├── .gitignore
+│   │   ├── PulumiPlugin.yaml
+│   │   ├── component.go
+│   │   ├── echo.go
+│   │   ├── fails_on_create.go
+│   │   ├── fails_on_delete.go
+│   │   ├── flaky_create.go
+│   │   ├── main.go
+│   │   ├── named.go
+│   │   └── random.go
+│   └── testutil/
+│       └── test_main_util.go
+└── youtube_preview_image.png

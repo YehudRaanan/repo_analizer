@@ -1,0 +1,785 @@
+=====================================
+Repository Analysis: onnx
+Type: Data / ML / AI Project
+=====================================
+
+--- METADATA ---
+Name: onnx
+Description: Open standard for machine learning interoperability
+Language: Python
+Topics: ai, artificial-intelligence, deep-learning, deep-neural-networks, dnn, keras, machine-learning, ml, neural-network, onnx, pytorch, scikit-learn, tensorflow
+Stars: 20436
+License: Apache License 2.0
+
+--- README ---
+<!--
+Copyright (c) ONNX Project Contributors
+
+SPDX-License-Identifier: Apache-2.0
+-->
+
+<p align="center"><img width="40%" src="https://github.com/onnx/onnx/raw/main/docs/onnx-horizontal-color.png" /></p>
+
+[![PyPI - Version](https://img.shields.io/pypi/v/onnx.svg)](https://pypi.org/project/onnx)
+[![CI](https://github.com/onnx/onnx/actions/workflows/main.yml/badge.svg)](https://github.com/onnx/onnx/actions/workflows/main.yml)
+[![CII Best Practices](https://bestpractices.coreinfrastructure.org/projects/3313/badge)](https://bestpractices.coreinfrastructure.org/projects/3313)
+[![OpenSSF Scorecard](https://api.securityscorecards.dev/projects/github.com/onnx/onnx/badge)](https://api.securityscorecards.dev/projects/github.com/onnx/onnx)
+[![REUSE compliant](https://api.reuse.software/badge/github.com/onnx/onnx)](https://api.reuse.software/info/github.com/onnx/onnx)
+[![Ruff](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/ruff/main/assets/badge/v2.json)](https://github.com/astral-sh/ruff)
+[![abi3 compatible](https://img.shields.io/badge/abi3-compatible-brightgreen)](https://docs.python.org/3/c-api/stable.html)
+
+[Open Neural Network Exchange (ONNX)](https://onnx.ai) is an open ecosystem that empowers AI developers
+to choose the right tools as their project evolves. ONNX provides an open source format for AI models, both deep learning and traditional ML. It defines an extensible computation graph model, as well as definitions of built-in operators and standard
+data types. Currently we focus on the capabilities needed for inferencing (scoring).
+
+ONNX is [widely supported](http://onnx.ai/supported-tools) and can be found in many frameworks, tools, and hardware. Enabling interoperability between different frameworks and streamlining the path from research to production helps increase the speed of innovation in the AI community. We invite the community to join us and further evolve ONNX.
+
+
+# Use ONNX
+
+* [Documentation of ONNX Python Package](https://onnx.ai/onnx/)
+* [Tutorials for creating ONNX models](https://github.com/onnx/tutorials)
+* [Pre-trained ONNX models](https://github.com/onnx/models)
+
+# Learn about the ONNX spec
+
+* [Overview](https://github.com/onnx/onnx/blob/main/docs/Overview.md)
+* [ONNX intermediate representation spec](https://github.com/onnx/onnx/blob/main/docs/IR.md)
+* [Versioning principles of the spec](https://github.com/onnx/onnx/blob/main/docs/Versioning.md)
+* [Operators documentation](https://github.com/onnx/onnx/blob/main/docs/Operators.md)
+* [Operators documentation](https://onnx.ai/onnx/operators/index.html) (latest release)
+* [Python API Overview](https://github.com/onnx/onnx/blob/main/docs/PythonAPIOverview.md)
+
+# Programming utilities for working with ONNX Graphs
+
+* [Shape and Type Inference](https://github.com/onnx/onnx/blob/main/docs/ShapeInference.md)
+* [Graph Optimization](https://github.com/onnx/optimizer)
+* [Opset Version Conversion](https://github.com/onnx/onnx/blob/main/docs/docsgen/source/api/version_converter.md)
+
+# Contribute
+
+ONNX is a community project and the open governance model is described [here](https://github.com/onnx/onnx/blob/main/community/readme.md). We encourage you to join the effort and contribute feedback, ideas, and code. You can participate in the [Special Interest Groups](https://github.com/onnx/onnx/blob/main/community/sigs.md) and [Working Groups](https://github.com/onnx/onnx/blob/main/community/working-groups.md) to shape the future of ONNX.
+
+Check out our [contribution guide](https://github.com/onnx/onnx/blob/main/CONTRIBUTING.md) to get started.
+
+If you think some operator should be added to ONNX specification, please read
+[this document](https://github.com/onnx/onnx/blob/main/docs/AddNewOp.md).
+
+# Community meetings
+
+The schedules of the regular meetings of the Steering Committee, the working groups and the SIGs can be found [here](https://onnx.ai/calendar)
+
+Community Meetups are held at least once a year. Content from previous community meetups are at:
+
+* 2020.04.09 <https://lf-aidata.atlassian.net/wiki/spaces/DL/pages/14091402/LF+AI+Day+-ONNX+Community+Virtual+Meetup+-+Silicon+Valley+-+2020+April+9>
+* 2020.10.14 <https://lf-aidata.atlassian.net/wiki/spaces/DL/pages/14092138/LF+AI+Day+-+ONNX+Community+Workshop+-+2020+October+14>
+* 2021.03.24 <https://lf-aidata.atlassian.net/wiki/spaces/DL/pages/14092424/Instructions+for+Event+Hosts+-+LF+AI+Data+Day+-+ONNX+Virtual+Community+Meetup+-+March+2021>
+* 2021.10.21 <https://lf-aidata.atlassian.net/wiki/spaces/DL/pages/14093194/LF+AI+Data+Day+ONNX+Community+Virtual+Meetup+-+October+2021>
+* 2022.06.24 <https://lf-aidata.atlassian.net/wiki/spaces/DL/pages/14093969/ONNX+Community+Day+-+2022+June+24>
+* 2023.06.28 <https://lf-aidata.atlassian.net/wiki/spaces/DL/pages/14094507/ONNX+Community+Day+2023+-+June+28>
+
+# Discuss
+
+We encourage you to open [Issues](https://github.com/onnx/onnx/issues), or use [Slack](https://lfaifoundation.slack.com/) (If you have not joined yet, please use this [lin
+... [TRUNCATED]
+
+--- PACKAGE MANIFEST(S) ---
+
+[pyproject.toml]
+# Copyright (c) ONNX Project Contributors
+#
+# SPDX-License-Identifier: Apache-2.0
+
+[build-system]
+requires = ["setuptools>=77", "protobuf>=4.25.1"]
+backend-path = ["."]
+build-backend = "backend"
+
+[project]
+name = "onnx"
+dynamic = ["version", "dependencies", "optional-dependencies"]
+description = "Open Neural Network Exchange"
+readme = "README.md"
+authors = [
+    {name = "ONNX Contributors", email = "onnx-technical-discuss@lists.lfaidata.foundation"},
+]
+classifiers = [
+    "Programming Language :: Python :: 3",
+]
+license = "Apache-2.0"
+requires-python = ">=3.10"
+
+[project.urls]
+Homepage = "https://onnx.ai/"
+Repository = "https://github.com/onnx/onnx"
+
+[project.scripts]
+backend-test-tools = "onnx.backend.test.cmd_tools:main"
+check-model = "onnx.bin.checker:check_model"
+check-node = "onnx.bin.checker:check_node"
+
+[tool.setuptools.dynamic]
+dependencies = {file = "requirements.txt"}
+
+[tool.setuptools.dynamic.optional-dependencies]
+reference = {file = "requirements-reference.txt"}
+
+[tool.setuptools.packages.find]
+include = ["onnx*"]
+
+[tool.setuptools.package-data]
+onnx = [
+    "**/*.c",
+    "**/*.cc",
+    "**/*.h",
+    "**/*.proto",
+    "**/*.pyi",
+    "backend/test/data/**/*",
+    "py.typed",
+]
+
+[tool.pytest.ini_options]
+
+addopts = "--tb=short --color=yes"
+testpaths = [
+    "onnx/test",
+    "onnx/examples",
+]
+
+[tool.mypy]
+follow_imports = "silent"
+strict_optional = true
+warn_return_any = true
+warn_no_return = true
+# TODO warn_unused_ignores = true
+warn_redundant_casts = true
+warn_incomplete_stub = true
+# TODO disallow_untyped_calls = true
+check_untyped_defs = true
+# Allow bare generics like np.ndarray
+disallow_any_generics = false
+no_implicit_optional = true
+# TODO disallow_incomplete_defs = true
+# TODO disallow_subclassing_any = true
+warn_unused_configs = true
+show_error_codes = true
+show_column_numbers = true
+ignore_missing_imports = true
+# NOTE: Do not grow the exclude list. Edit .lintrunner.toml instead
+exclude = []
+
+# NOTE: Avoid adding overrides unless for exceptional cases. Prefer inline ignores.
+# If you must ignore error for the whole file, consider adapting the example
+# `# mypy: disable-error-code="misc,arg-type,type-arg"`
+# and put this comment on the top of the file.
+[[tool.mypy.overrides]]
+module = [
+    'onnx.onnx_data_pb',
+    'onnx.onnx_data_pb2',
+    'onnx.onnx_pb',
+    'onnx.onnx_pb2',
+    'onnx.onnx_ml_pb2',
+    'onnx.onnx_operators_pb',
+    'onnx.onnx_operators_ml_pb2',
+]
+ignore_errors = true
+
+[tool.pylint.message_control]
+disable = [
+    "format",
+    "import-error",
+    "invalid-name",
+    "line-too-long",
+    "missing-docstring",
+    "no-name-in-module",
+    "too-few-public-methods",
+    "use-dict-literal",     # Dict literals are sometimes preferable when creating kwargs
+    "useless-return",
+]
+
+[tool.ruff]
+# NOTE: Do not create an exclude list. Edit .lintrunner.toml instead
+target-version = "py310"
+unsafe-fixes = true
+lint.select = [
+    "A", # flake8-builtins
+    "ARG", # flake8-unused-arguments
+    "B", # flake8-bugbear
+   
+... [TRUNCATED]
+
+[setup.py]
+# Copyright (c) ONNX Project Contributors
+#
+# SPDX-License-Identifier: Apache-2.0
+
+# NOTE: Put all metadata in pyproject.toml.
+# Set the environment variable `ONNX_PREVIEW_BUILD=1` to build the dev preview release.
+from __future__ import annotations
+
+import contextlib
+import datetime
+import glob
+import logging
+import multiprocessing
+import os
+import platform
+import shlex
+import shutil
+import subprocess
+import sys
+import sysconfig
+import textwrap
+from typing import ClassVar
+
+import setuptools
+import setuptools.command.build_ext
+import setuptools.command.build_py
+import setuptools.command.develop
+
+TOP_DIR = os.path.realpath(os.path.dirname(__file__))
+CMAKE_BUILD_DIR = os.path.join(TOP_DIR, ".setuptools-cmake-build")
+
+WINDOWS = os.name == "nt"
+
+CMAKE = shutil.which("cmake3") or shutil.which("cmake")
+
+################################################################################
+# Global variables for controlling the build variant
+################################################################################
+
+# Default value is set to TRUE\1 to keep the settings same as the current ones.
+# However going forward the recommended way to is to set this to False\0
+ONNX_ML = os.getenv("ONNX_ML") != "0"
+ONNX_VERIFY_PROTO3 = os.getenv("ONNX_VERIFY_PROTO3") == "1"
+ONNX_NAMESPACE = os.getenv("ONNX_NAMESPACE", "onnx")
+ONNX_BUILD_TESTS = os.getenv("ONNX_BUILD_TESTS") == "1"
+ONNX_DISABLE_EXCEPTIONS = os.getenv("ONNX_DISABLE_EXCEPTIONS") == "1"
+ONNX_DISABLE_STATIC_REGISTRATION = os.getenv("ONNX_DISABLE_STATIC_REGISTRATION") == "1"
+ONNX_PREVIEW_BUILD = os.getenv("ONNX_PREVIEW_BUILD") == "1"
+
+USE_MSVC_STATIC_RUNTIME = os.getenv("USE_MSVC_STATIC_RUNTIME", "0") == "1"
+USE_NINJA = os.getenv("USE_NINJA", "1") != "0"
+DEBUG = os.getenv("DEBUG", "0") == "1"
+COVERAGE = os.getenv("COVERAGE", "0") == "1"
+
+# Customize the wheel plat-name; sometimes useful for MacOS builds.
+# See https://github.com/onnx/onnx/pull/6117
+ONNX_WHEEL_PLATFORM_NAME = os.getenv("ONNX_WHEEL_PLATFORM_NAME")
+
+################################################################################
+# Version
+################################################################################
+
+try:
+    _git_version = (
+        subprocess.check_output(["git", "rev-parse", "HEAD"], cwd=TOP_DIR)
+        .decode("ascii")
+        .strip()
+    )
+except (OSError, subprocess.CalledProcessError):
+    _git_version = ""
+
+with open(os.path.join(TOP_DIR, "VERSION_NUMBER"), encoding="utf-8") as version_file:
+    _version = version_file.read().strip()
+    if ONNX_PREVIEW_BUILD:
+        # Create the preview build for weekly releases
+        todays_date = datetime.date.today().strftime("%Y%m%d")
+        _version += ".dev" + todays_date
+    VERSION_INFO = {"version": _version, "git_version": _git_version}
+
+################################################################################
+# Utilities
+################################################################################
+
+
+@contextlib.contextmanager
+def cd(path):
+    if not os
+... [TRUNCATED]
+
+[requirements.txt]
+numpy>=1.23.2
+protobuf>=4.25.1
+typing_extensions>=4.7.1
+ml_dtypes>=0.5.0; platform_machine != "s390x"
+ml_dtypes>=0.5.4; platform_machine == "s390x"
+
+
+--- REQUIREMENTS FILES ---
+
+[docs/docsgen/source/requirements.txt]
+furo
+markupsafe
+matplotlib
+myst-parser[linkify]
+onnx
+onnxruntime<1.20;python_version<"3.13"
+onnxruntime;python_version>="3.13"
+pillow
+pydot
+sphinx-copybutton
+sphinx-exec-code
+sphinx-gallery
+sphinx-tabs
+sphinx
+
+
+[requirements-dev.txt]
+build
+numpy
+parameterized
+protobuf
+pytest
+pytest-cov
+pytest-xdist
+setuptools
+wheel
+lintrunner>=0.10.7
+lintrunner-adapters>=0.12.3
+# Edit additional linter dependencies in requirements-lintrunner.txt
+# Dependencies for the reference implementation.
+-r requirements-reference.txt
+
+
+[requirements-lintrunner.txt]
+# This file is auto updated by dependabot
+lintrunner-adapters>=0.12.3
+# RUFF
+ruff==0.15.2
+# MYPY
+mypy==1.19.1
+types-protobuf==6.32.1.20260221
+# CLANG-FORMAT
+clang-format==21.1.8
+# EDITORCONFIG-CHECKER
+editorconfig-checker==3.6.0
+
+
+[requirements-min.txt]
+# Minimum package versions that ONNX supports
+# Since we use ml_dtypes, the numpy version is mainly 
+# defined by https://github.com/jax-ml/ml_dtypes/blob/main/pyproject.toml .
+protobuf==4.25.1; python_version<"3.14" or sys_platform != "darwin"
+protobuf==6.31.0; python_version>="3.14" and sys_platform == "darwin"
+numpy==1.23.2; python_version=="3.10"
+numpy==1.23.2; python_version=="3.11"
+numpy==1.26.0; python_version=="3.12"
+numpy==2.1.0; python_version=="3.13"
+numpy==2.3.2; python_version>="3.14"
+
+
+[requirements-reference.txt]
+Pillow
+
+
+[requirements-release_build.txt]
+build
+wheel
+protobuf==4.25.1; python_version<"3.14" or sys_platform != "darwin"
+protobuf==6.31.0; python_version>="3.14" and sys_platform == "darwin"
+setuptools
+
+
+[requirements-release_test.txt]
+abi3audit
+parameterized
+pytest
+pytest-cov
+pytest-xdist
+# Pin dependency versions for testing
+numpy==2.0.0; python_version >= "3.10" and python_version <= "3.12"
+numpy==2.2.0; python_version == "3.13"
+numpy==2.3.2; python_version >= "3.14"
+protobuf==6.31.1
+# Dependencies for the reference implementation.
+-r requirements-reference.txt
+
+
+[requirements.txt]
+numpy>=1.23.2
+protobuf>=4.25.1
+typing_extensions>=4.7.1
+ml_dtypes>=0.5.0; platform_machine != "s390x"
+ml_dtypes>=0.5.4; platform_machine == "s390x"
+
+
+--- ML CONFIG FILES ---
+(No ML config files found)
+
+--- JUPYTER NOTEBOOKS ---
+  examples/Protobufs.ipynb
+  examples/check_model.ipynb
+  examples/load_model.ipynb
+  examples/make_model.ipynb
+  examples/np_array_tensorproto.ipynb
+  examples/save_model.ipynb
+  examples/shape_inference.ipynb
+
+--- MODEL / TRAINING FILES ---
+  onnx/external_data_helper.py
+  onnx/model_container.py
+  onnx/reference/ops/aionnx_preview_training/_op_run_training.py
+  onnx/reference/ops/aionnxml/_op_run_aionnxml.py
+  onnx/reference/ops/experimental/_op_run_experimental.py
+  onnx/shape_inference.py
+  onnx/tools/update_model_dims.py
+
+--- DIRECTORY STRUCTURE (depth 2) ---
+├── .clang-format
+├── .clang-tidy
+├── .editorconfig
+├── .git-blame-ignore-revs
+├── .gitattributes
+├── .github/
+│   ├── ISSUE_TEMPLATE/
+│   │   ├── bug.md
+│   │   ├── config.yml
+│   │   ├── feature_request.yml
+│   │   ├── operator.md
+│   │   └── question.md
+│   ├── codeql/
+│   │   └── codeql-config.yml
+│   ├── copilot-instructions.md
+│   ├── dependabot.yml
+│   ├── install_test.yml
+│   ├── pull_request_template.md
+│   ├── release.yml
+│   └── workflows/
+│       ├── auto_update_doc.yml
+│       ├── check_pr_label.yml
+│       ├── check_urls.yml
+│       ├── clang_tidy_review.yml
+│       ├── clang_tidy_review_post.yml
+│       ├── codeql.yml
+│       ├── copilot-setup-steps.yml
+│       ├── create_release.yml
+│       ├── dco_merge_group.yml
+│       ├── dependency-review.yml
+│       ├── lint.yml
+│       ├── main.yml
+│       ├── manylinux/
+│       ├── pages.yml
+│       ├── pixi_build.yml
+│       ├── pr_checks.yml
+│       ├── pr_checks_post.yml
+│       ├── preview_source_dist_test.yml
+│       ├── release_linux.yml
+│       ├── release_mac.yml
+│       ├── release_sdist.yml
+│       ├── release_win.yml
+│       ├── reuse.yml
+│       ├── scorecard.yml
+│       ├── stale.yml
+│       ├── win_no_exception_ci.yml
+│       └── zizmor.yml
+├── .gitignore
+├── .gitmodules
+├── .lintrunner.toml
+├── CMakeLists.txt
+├── CODEOWNERS
+├── CODE_OF_CONDUCT.md
+├── CONTRIBUTING.md
+├── CPPLINT.cfg
+├── INSTALL.md
+├── LICENSE
+├── LICENSES/
+│   ├── Apache-2.0.txt
+│   ├── BSD-2-Clause.txt
+│   └── CC0-1.0.txt
+├── MANIFEST.in
+├── README.md
+├── RELEASE-MANAGEMENT.md
+├── REUSE.toml
+├── SECURITY.md
+├── VERSION_NUMBER
+├── backend.py
+├── cmake/
+│   ├── ONNXConfig.cmake.in
+│   ├── ONNXConfigVersion.cmake.in
+│   ├── Utils.cmake
+│   ├── external/
+│   │   ├── FindSanitizer.cmake
+│   │   └── googletest.cmake
+│   ├── summary.cmake
+│   └── unittest.cmake
+├── codecov.yml
+├── community/
+│   ├── logo_request.md
+│   ├── readme.md
+│   ├── repo_guidelines.md
+│   ├── sc-election-guidelines.md
+│   ├── sigs.md
+│   └── working-groups.md
+├── docs/
+│   ├── AddNewOp.md
+│   ├── Assurance_Case.md
+│   ├── Broadcasting.md
+│   ├── CIPipelines.md
+│   ├── Changelog-ml.md
+│   ├── Changelog.md
+│   ├── DefineDifferentiability.md
+│   ├── DimensionDenotation.md
+│   ├── ExternalData.md
+│   ├── IR.md
+│   ├── ImplementingAnOnnxBackend.md
+│   ├── ManagingExperimentalOps.md
+│   ├── MetadataProps.md
+│   ├── ONNXTypes.md
+│   ├── OnnxBackendTest.md
+│   ├── OnnxReleases.md
+│   ├── OpConventions.md
+│   ├── Operators-ml.md
+│   ├── Operators.md
+│   ├── Overview.md
+│   ├── PythonAPIOverview.md
+│   ├── Relicensing.md
+│   ├── Security.md
+│   ├── ShapeInference.md
+│   ├── Syntax.md
+│   ├── TestCoverage-ml.md
+│   ├── TestCoverage.md
+│   ├── TypeDenotation.md
+│   ├── VersionConverter.md
+│   ├── Versioning.md
+│   ├── docsgen/
+│   │   ├── Makefile
+│   │   ├── make.bat
+│   │   └── source/
+│   ├── images/
+│   │   └── onnx_hub_arch.svg
+│   ├── onnx-horizontal-color.png
+│   ├── proposals/
+│   │   ├── 0000-template.md
+│   │   ├── 0001-ArchiveFileFormatProposal.md
+│   │   ├── 0002-NLPinONNXproposal.md
+│   │   ├── 0003-ONNXIFIproposal.md
+│   │   ├── 0004-FunctionsProposal.md
+│   │   ├── 0005-SymbolicShapeInfProposal.md
+│   │   ├── 0006-ONNXMultiDeviceProposal.md
+│   │   ├── 0007-ShardingFormalism.md
+│   │   ├── README.md
+│   │   └── images/
+│   └── release-verification.md
+├── examples/
+│   ├── Protobufs.ipynb
+│   ├── check_model.ipynb
+│   ├── load_model.ipynb
+│   ├── make_model.ipynb
+│   ├── np_array_tensorproto.ipynb
+│   ├── resources/
+│   │   ├── single_relu.onnx
+│   │   ├── single_relu_new.onnx
+│   │   ├── tensor.pb
+│   │   └── two_transposes.onnx
+│   ├── save_model.ipynb
+│   └── shape_inference.ipynb
+├── onnx/
+│   ├── __init__.py
+│   ├── _mapping.py
+│   ├── backend/
+│   │   ├── __init__.py
+│   │   ├── base.py
+│   │   ├── sample/
+│   │   └── test/
+│   ├── bin/
+│   │   ├── __init__.py
+│   │   └── checker.py
+│   ├── checker.cc
+│   ├── checker.h
+│   ├── checker.py
+│   ├── common/
+│   │   ├── array_ref.h
+│   │   ├── assertions.cc
+│   │   ├── assertions.h
+│   │   ├── common.h
+│   │   ├── constants.h
+│   │   ├── file_utils.h
+│   │   ├── graph_node_list.h
+│   │   ├── interned_strings.cc
+│   │   ├── interned_strings.h
+│   │   ├── ir.h
+│   │   ├── ir_pb_converter.cc
+│   │   ├── ir_pb_converter.h
+│   │   ├── model_helpers.cc
+│   │   ├── model_helpers.h
+│   │   ├── path.h
+│   │   ├── platform_helpers.h
+│   │   ├── proto_util.h
+│   │   ├── status.cc
+│   │   ├── status.h
+│   │   ├── tensor.h
+│   │   ├── version.h
+│   │   └── visitor.h
+│   ├── compose.py
+│   ├── cpp2py_export.cc
+│   ├── defs/
+│   │   ├── __init__.py
+│   │   ├── attr_proto_util.cc
+│   │   ├── attr_proto_util.h
+│   │   ├── controlflow/
+│   │   ├── data_propagators.h
+│   │   ├── data_type_utils.cc
+│   │   ├── data_type_utils.h
+│   │   ├── doc_strings.cc
+│   │   ├── doc_strings.h
+│   │   ├── function.cc
+│   │   ├── function.h
+│   │   ├── gen_doc.py
+│   │   ├── gen_shape_inference_information.py
+│   │   ├── generator/
+│   │   ├── image/
+│   │   ├── logical/
+│   │   ├── math/
+│   │   ├── nn/
+│   │   ├── object_detection/
+│   │   ├── operator_sets.h
+│   │   ├── operator_sets_ml.h
+│   │   ├── operator_sets_preview.h
+│   │   ├── operator_sets_training.h
+│   │   ├── optional/
+│   │   ├── parser.cc
+│   │   ├── parser.h
+│   │   ├── printer.cc
+│   │   ├── printer.h
+│   │   ├── quantization/
+│   │   ├── reduction/
+│   │   ├── rnn/
+│   │   ├── schema.cc
+│   │   ├── schema.h
+│   │   ├── sequence/
+│   │   ├── shape_inference.cc
+│   │   ├── shape_inference.h
+│   │   ├── tensor/
+│   │   ├── tensor_proto_util.cc
+│   │   ├── tensor_proto_util.h
+│   │   ├── tensor_util.cc
+│   │   ├── tensor_util.h
+│   │   ├── text/
+│   │   ├── traditionalml/
+│   │   └── training/
+│   ├── external_data_helper.py
+│   ├── frontend/
+│   │   └── __init__.py
+│   ├── gen_proto.py
+│   ├── helper.py
+│   ├── inliner.py
+│   ├── inliner/
+│   │   ├── inliner.cc
+│   │   └── inliner.h
+│   ├── model_container.py
+│   ├── numpy_helper.py
+│   ├── onnx-data.in.proto
+│   ├── onnx-data.proto
+│   ├── onnx-data.proto3
+│   ├── onnx-ml.proto
+│   ├── onnx-ml.proto3
+│   ├── onnx-operators-ml.proto
+│   ├── onnx-operators-ml.proto3
+│   ├── onnx-operators.in.proto
+│   ├── onnx-operators.proto
+│   ├── onnx-operators.proto3
+│   ├── onnx-operators_pb.h
+│   ├── onnx.in.proto
+│   ├── onnx.proto
+│   ├── onnx.proto3
+│   ├── onnx_cpp2py_export/
+│   │   ├── __init__.pyi
+│   │   ├── checker.pyi
+│   │   ├── defs.pyi
+│   │   ├── inliner.pyi
+│   │   ├── parser.pyi
+│   │   ├── printer.pyi
+│   │   ├── shape_inference.pyi
+│   │   └── version_converter.pyi
+│   ├── onnx_pb.h
+│   ├── parser.py
+│   ├── printer.py
+│   ├── proto_utils.h
+│   ├── py.typed
+│   ├── py_utils.h
+│   ├── reference/
+│   │   ├── README.md
+│   │   ├── __init__.py
+│   │   ├── op_run.py
+│   │   ├── ops/
+│   │   ├── ops_optimized/
+│   │   └── reference_evaluator.py
+│   ├── serialization.py
+│   ├── shape_inference.py
+│   ├── shape_inference/
+│   │   ├── attribute_binder.h
+│   │   ├── implementation.cc
+│   │   └── implementation.h
+│   ├── string_utils.h
+│   ├── test/
+│   │   ├── basic_test.py
+│   │   ├── checker_test.py
+│   │   ├── cmake/
+│   │   ├── compose_test.py
+│   │   ├── cpp/
+│   │   ├── data_propagation_test.py
+│   │   ├── function_inference_test.py
+│   │   ├── function_test.py
+│   │   ├── helper_test.py
+│   │   ├── inference_function_test.py
+│   │   ├── inliner_test.py
+│   │   ├── model_container_refeval_test.py
+│   │   ├── model_container_test.py
+│   │   ├── model_inference_test.py
+│   │   ├── node_shape_inference_test.py
+│   │   ├── numpy_helper_test.py
+│   │   ├── parser_test.py
+│   │   ├── printer_test.py
+│   │   ├── reference_evaluator_ml_test.py
+│   │   ├── reference_evaluator_model_test.py
+│   │   ├── reference_evaluator_test.py
+│   │   ├── schema_test.py
+│   │   ├── serialization_test.py
+│   │   ├── shape_inference_test.py
+│   │   ├── symbolic_shape_test.py
+│   │   ├── test_backend_reference.py
+│   │   ├── test_backend_test.py
+│   │   ├── test_env_python_executable.py
+│   │   ├── test_external_data.py
+│   │   ├── tools_test.py
+│   │   ├── training_tool_test.py
+│   │   ├── utils_test.py
+│   │   ├── version_converter/
+│   │   ├── version_converter_test.py
+│   │   └── version_utils.py
+│   ├── tools/
+│   │   ├── __init__.py
+│   │   ├── net_drawer.py
+│   │   ├── replace_constants.py
+│   │   └── update_model_dims.py
+│   ├── utils.py
+│   ├── version_converter.py
+│   └── version_converter/
+│       ├── BaseConverter.h
+│       ├── adapters/
+│       ├── convert.cc
+│       ├── convert.h
+│       ├── helper.cc
+│       └── helper.h
+├── pixi.lock
+├── pixi.toml
+├── pyproject.toml
+├── renovate.json5
+├── requirements-dev.txt
+├── requirements-lintrunner.txt
+├── requirements-min.txt
+├── requirements-reference.txt
+├── requirements-release_build.txt
+├── requirements-release_test.txt
+├── requirements.txt
+├── setup.py
+├── tools/
+│   ├── gen_coverage_report.py
+│   ├── spec_to_yaml.py
+│   ├── update_doc.bat
+│   └── update_doc.sh
+└── workflow_scripts/
+    └── protobuf/
+        ├── build_protobuf_unix.sh
+        └── build_protobuf_win.ps1

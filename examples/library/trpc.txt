@@ -1,0 +1,786 @@
+=====================================
+Repository Analysis: trpc
+Type: Web Application
+=====================================
+
+--- METADATA ---
+Name: trpc
+Description: 🧙‍♀️  Move Fast and Break Nothing. End-to-end typesafe APIs made easy. 
+Language: TypeScript
+Topics: api, next, nextjs, prisma, react, typescript
+Stars: 39675
+License: MIT License
+
+--- README ---
+<a href="https://trpc.io/" target="_blank" rel="noopener">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="https://assets.trpc.io/www/trpc-readme-dark.png" />
+    <img alt="tRPC" src="https://assets.trpc.io/www/trpc-readme.png" />
+  </picture>
+</a>
+
+<div align="center">
+  <h1>tRPC</h1>
+  <h3>Move fast and break nothing.<br />End-to-end typesafe APIs made easy.</h3>
+  <a href="https://codecov.io/gh/trpc/trpc">
+    <img alt="codecov" src="https://codecov.io/gh/trpc/trpc/branch/next/graph/badge.svg?token=KPPS918B0G">
+  </a>
+  <a href="https://npmcharts.com/compare/@trpc/server?interval=30">
+    <img alt="weekly downloads" src="https://img.shields.io/npm/dm/%40trpc/server.svg">
+  </a>
+  <a href="https://github.com/trpc/trpc/blob/main/LICENSE">
+    <img alt="MIT License" src="https://img.shields.io/github/license/trpc/trpc" />
+  </a>
+  <a href="https://trpc.io/discord">
+    <img alt="Discord" src="https://img.shields.io/discord/867764511159091230?color=7389D8&label&logo=discord&logoColor=ffffff" />
+  </a>
+  <br />
+  <a href="https://twitter.com/trpcio">
+    <img alt="Twitter" src="https://img.shields.io/twitter/url.svg?label=%40trpcio&style=social&url=https%3A%2F%2Ftwitter.com%2Falexdotjs" />
+  </a>
+  <br />
+  <br />
+  <figure>
+    <img src="https://assets.trpc.io/www/v10/v10-dark-landscape.gif" alt="Demo" />
+    <figcaption>
+      <p align="center">
+        The client above is <strong>not</strong> importing any code from the server, only its type declarations.
+      </p>
+    </figcaption>
+  </figure>
+</div>
+
+<br />
+
+## Intro
+
+tRPC allows you to easily build & consume fully typesafe APIs without schemas or code generation.
+
+### Features
+
+- ✅&nbsp; Well-tested and production ready.
+- 🧙‍♂️&nbsp; Full static typesafety & autocompletion on the client, for inputs, outputs, and errors.
+- 🐎&nbsp; Snappy DX - No code generation, run-time bloat, or build pipeline.
+- 🍃&nbsp; Light - tRPC has zero deps and a tiny client-side footprint.
+- 🐻&nbsp; Easy to add to your existing brownfield project.
+- 🔋&nbsp; Batteries included - React.js/Next.js/Express.js/Fastify adapters. _(But tRPC is not tied to React, and there are many [community adapters](https://trpc.io/docs/awesome-trpc#-extensions--community-add-ons) for other libraries)_
+- 🥃&nbsp; Subscriptions support.
+- ⚡️&nbsp; Request batching - requests made at the same time can be automatically combined into one
+- 👀&nbsp; Quite a few examples in the [./examples](./examples)-folder
+
+## Quickstart
+
+There are a few [examples](https://trpc.io/docs/example-apps) that you can use for playing out with tRPC or bootstrapping your new project. For example, if you want a Next.js app, you can use the full-stack Next.js example:
+
+**Quick start with a full-stack Next.js example:**
+
+```sh
+# yarn
+yarn create next-app --example https://github.com/trpc/trpc --example-path examples/next-prisma-starter trpc-prisma-starter
+
+# npm
+npx create-next-app --example https://github.com/trpc/trpc --example-path examples/next-prisma-starter trpc-prisma-starter
+
+# pnpm
+pnpm create next-app --example https://github.com/trpc/trpc --example-path examples/next-prisma-starter trpc-prisma-starter
+
+# bun
+bunx create-next-app --example https://github.com/trpc/trpc --example-path examples/next-prisma-starter trpc-prisma-starter
+
+# deno
+deno init --npm next-app --example https://github.com/trpc/trpc --example-path examples/next-prisma-starter trpc-prisma-starter
+```
+
+**👉 See full documentation on [tRPC.io](https://trpc.io/docs). 👈**
+
+## Star History
+
+<a href="https://star-history.com/#trpc/trpc"><img src="https://api.star-history.com/svg?repos=trpc/trpc&type=Date" alt="Star History Chart" width="600" /></a>
+
+## Core Team
+
+> Do you want to contribute? First, read the <a href="https://github.com/trpc/trpc/blob/main/CONTRIBUTING.md">Contributing Guidelines</a> before opening an issue or PR so you understand the branching strategy and local development environment. If you need any more guidance or want to ask more questions, feel free to write to us on <a href="https://trpc.io/discord">Discord</a>!
+
+### Project leads
+
+> The people who lead the API-design decisions and have the most active role in the development
+
+<table>
+  <tbody>
+    <tr>
+      <td align="center"><a href="https://twitter.com/alexdotjs"><img src="https://avatars.githubusercontent.com/u/459267?v=4?s=100" width="100px;" alt=""/><br />Alex / KATT</a></td>
+      <td align="center"><a href="http://www.jumr.dev"><img src="https://avatars.githubusercontent.com/u/51714798?v=4&s=100" width="100px;" alt=""/><br />Julius Marminge</a></td>
+      <td align="center"><a href="https://github.com/Nick-Lucas"><img src="https://avatars.githubusercontent.com/u/8896153?v=4&s=100" width="100px;" alt=""/><br />Nick Lucas</a></td>
+    </tr>
+  </tbody>
+</table>
+
+### Active contributors
+
+> People who actively help out improving the codebase by making PRs and reviewing code
+
+<table>
+  <tbody>
+    <tr>
+      <td align="center"><a href="https://github.com/hmatthie
+... [TRUNCATED]
+
+--- PACKAGE MANIFEST(S) ---
+
+[package.json]
+{
+  "name": "root",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": "^24.0.0",
+    "pnpm": "^9.12.2"
+  },
+  "packageManager": "pnpm@9.12.2",
+  "scripts": {
+    "clean-dev": "pnpm clean && pnpm install && pnpm build && pnpm dev",
+    "clean-i": "pnpm clean && pnpm install",
+    "build": "turbo --filter=./packages/* build",
+    "monotest-build": "turbo --filter='@monotest/*' build",
+    "build-www": "turbo --filter www build",
+    "dev": "turbo --filter=./packages/* dev",
+    "dev-www": "turbo --filter www dev",
+    "test": "vitest",
+    "typecheck-packages": "pnpm run --parallel --filter=./packages/* typecheck",
+    "typecheck-www": "turbo --filter www typecheck",
+    "ts-watch": "pnpm typecheck-packages --watch",
+    "lint": "turbo lint",
+    "lint-fix": "turbo lint --continue -- --fix && manypkg fix && pnpm format-fix",
+    "format": "prettier \"**/*\" --ignore-unknown",
+    "format-fix": "pnpm format --write --list-different",
+    "lint-prune": "! ts-prune | grep -v \"used in module\" | grep -v rpc | grep -v observable | grep -v http | grep -v __fixtures__ | grep -v __generated__",
+    "clean": "find . -name node_modules -o -name .turbo -o -name .next -o -name dist -o -name __generated__ -type d -prune | xargs rm -rf",
+    "prepublish": "pnpm build",
+    "prepack": "tsx scripts/version.ts",
+    "version": "tsx scripts/version.ts",
+    "link-all": "cd packages/server && cd ../server && pnpm link --global && cd ../client && pnpm link --global && cd ../react-query && pnpm link --global && cd ../next && pnpm link --global",
+    "commit-date": "git log -n 1 --date=format:'%Y-%m-%d-%H-%M-%S' --pretty=format:'%ad'",
+    "canary-preid": "echo \"$(pnpm --silent current-branch)-$(pnpm --silent commit-date)\"",
+    "current-branch": "echo \"$(git rev-parse --abbrev-ref HEAD)\" | sed -E 's/refs\\/heads\\///' | sed -E 's/\\W|_/-/g' | sed -e 's/\\//-/'",
+    "publish-canary": "lerna publish --force-publish --canary --preid alpha-$(pnpm --silent canary-preid) --dist-tag $(pnpm --silent current-branch)",
+    "publish-prerelease": "pnpm install && lerna publish prerelease --force-publish --dist-tag next --no-push && sleep 60 && git push --follow-tags",
+    "merge-main": "git checkout main && git pull && git checkout next && git pull && git checkout -b next-merge-$(date '+%Y-%m-%d--%H-%M') next && git merge --ff main"
+  },
+  "dependencies": {
+    "@actions/core": "^3.0.0",
+    "@actions/github": "^9.0.0",
+    "@eslint/compat": "^2.0.0",
+    "@ianvs/prettier-plugin-sort-imports": "^4.4.0",
+    "@manypkg/cli": "^0.22.0",
+    "@testing-library/dom": "^10.0.0",
+    "@testing-library/jest-dom": "^6.9.1",
+    "@testing-library/react": "^16.1.0",
+    "@testing-library/user-event": "^14.4.3",
+    "@types/event-source-polyfill": "^1.0.5",
+    "@types/node": "^22.13.5",
+    "@vitest/coverage-istanbul": "^4.0.18",
+    "@vitest/ui": "^4.0.18",
+    "concurrently": "^9.0.0",
+    "eslint": "^9.26.0",
+    "eslint-plugin-react": "^7.37.5",
+    "eslint-plugin-re
+... [TRUNCATED]
+
+--- WEB FRAMEWORK CONFIG ---
+
+[tsconfig.json]
+{
+  "extends": "./tsconfig.build.json",
+  "include": ["packages", "types", "scripts", "examples"],
+  "exclude": [],
+  "compilerOptions": {
+    "allowJs": false,
+    "paths": {
+      "@trpc/client": ["./packages/client/src"],
+      "@trpc/client/*": ["./packages/client/src/*"],
+      "@trpc/next": ["./packages/next/src"],
+      "@trpc/next/*": ["./packages/next/src/*"],
+      "@trpc/react-query": ["./packages/react-query/src"],
+      "@trpc/react-query/*": ["./packages/react-query/src/*"],
+      "@trpc/server": ["./packages/server/src"],
+      "@trpc/server/*": ["./packages/server/src/*"],
+      "@trpc/tanstack-react-query": ["./packages/tanstack-react-query/src"],
+      "@trpc/tanstack-react-query/*": ["./packages/tanstack-react-query/src/*"]
+    },
+    "types": ["node", "vitest/globals"]
+  }
+}
+
+
+--- ROUTE / PAGE DEFINITIONS ---
+
+[examples/.test/ssg-infinite-serialization/src/pages/_app.tsx]
+import type { AppType } from 'next/app';
+import { trpc } from '../utils/trpc';
+
+const MyApp: AppType = ({ Component, pageProps }) => {
+  return <Component {...pageProps} />;
+};
+
+export default trpc.withTRPC(MyApp);
+
+
+[examples/.test/ssg-infinite-serialization/src/pages/api/trpc/[trpc].ts]
+/**
+ * This is the API-handler of your app that contains all your API routes.
+ * On a bigger app, you will probably want to split this file up into multiple files.
+ */
+import { createNextApiHandler } from '@trpc/server/adapters/next';
+import { appRouter } from '~/server/routers/_app';
+
+// export API handler
+export default createNextApiHandler({
+  router: appRouter,
+  createContext: () => ({}),
+});
+
+
+[examples/.test/ssg-infinite-serialization/src/pages/index.tsx]
+import { createServerSideHelpers } from '@trpc/react-query/server';
+import { appRouter } from '~/server/routers/_app';
+import { trpc } from '~/utils/trpc';
+import superjson from 'superjson';
+
+/**
+ * This page will be served statically
+ * @see https://trpc.io/docs/v11/ssg
+ */
+export const getStaticProps = async () => {
+  const ssg = createServerSideHelpers({
+    router: appRouter,
+    ctx: {},
+    // transformer: superjson,
+  });
+
+  await ssg.getPosts.prefetchInfinite({});
+
+  return {
+    props: {
+      trpcState: ssg.dehydrate(),
+    },
+    revalidate: 1,
+  };
+};
+
+export default function IndexPage() {
+  const result = trpc.getPosts.useInfiniteQuery(
+    {},
+    {
+      getNextPageParam: (lastPage) => lastPage.nextCursor,
+    },
+  );
+
+  if (!result.data) {
+    /* unreachable, page is served statically */
+    return (
+      <div style={styles}>
+        <h1>Loading...</h1>
+      </div>
+    );
+  }
+
+  return (
+    <div style={styles}>
+      <h1>Posts</h1>
+      {result.data.pages.map((page, i) => (
+        <div key={i}>
+          {page.items.map((post) => (
+            <div key={post.id}>{post.title}</div>
+          ))}
+        </div>
+      ))}
+
+      <button
+        data-testid="load-more"
+        onClick={() => result.fetchNextPage()}
+        disabled={result.isFetchingNextPage || !result.hasNextPage}
+      >
+        {result.hasNextPage ? 'Load more' : 'No more posts to fetch'}
+      </button>
+    </div>
+  );
+}
+
+const styles = {
+  width: '100vw',
+  height: '100vh',
+  display: 'flex',
+  flexDirection: 'column' as const,
+};
+
+
+[examples/.test/ssg/src/pages/_app.tsx]
+import type { AppType } from 'next/app';
+import { trpc } from '../utils/trpc';
+
+const MyApp: AppType = (props) => {
+  return <props.Component {...props.pageProps} />;
+};
+
+export default trpc.withTRPC(MyApp);
+
+
+[examples/.test/ssg/src/pages/api/trpc/[trpc].ts]
+/**
+ * This is the API-handler of your app that contains all your API routes.
+ * On a bigger app, you will probably want to split this file up into multiple files.
+ */
+import { createNextApiHandler } from '@trpc/server/adapters/next';
+import { appRouter } from '~/server/routers/_app';
+
+// export API handler
+export default createNextApiHandler({
+  router: appRouter,
+  createContext: () => ({}),
+});
+
+
+--- DIRECTORY STRUCTURE (depth 2) ---
+├── .cursor/
+│   └── rules/
+│       ├── coding-guidelines.mdc
+│       ├── pnpm.mdc
+│       ├── react-query-tests.mdc
+│       ├── tanstack-react-query-tests.mdc
+│       ├── test-patterns.mdc
+│       ├── test-running.mdc
+│       └── upgrade-tests.mdc
+├── .dockerignore
+├── .github/
+│   ├── CODEOWNERS
+│   ├── FUNDING.yml
+│   ├── ISSUE_TEMPLATE/
+│   │   ├── 1.bug_report.yml
+│   │   ├── 2.feature_request.yml
+│   │   ├── 3.docs.yml
+│   │   └── config.yml
+│   ├── labeler.yml
+│   ├── pull_request_template.md
+│   ├── renovate.json
+│   ├── setup/
+│   │   └── action.yml
+│   └── workflows/
+│       ├── codeql-analysis.yml
+│       ├── dependabot-approve.yml
+│       ├── labeler.yml
+│       ├── lint.yml
+│       ├── lock-issues.yml
+│       ├── main.yml
+│       ├── release-canary.yml
+│       ├── release-manual.yml
+│       ├── release-tmp.yml
+│       ├── semantic-pr.yml
+│       └── subtree.yml
+├── .gitignore
+├── .kodiak.toml
+├── .npmrc
+├── .nvmrc
+├── .prettierignore
+├── .tool-versions
+├── .ts-prunerc
+├── .vscode/
+│   ├── extensions.json
+│   └── settings.json
+├── CONTRIBUTING.md
+├── LICENSE
+├── README.md
+├── SECURITY.md
+├── codecov.yml
+├── eslint.config.js
+├── examples/
+│   ├── .experimental/
+│   │   └── next-app-dir/
+│   ├── .railway/
+│   │   ├── next-prisma-websockets-starter/
+│   │   └── next-sse-chat/
+│   ├── .test/
+│   │   ├── diagnostics-big-router/
+│   │   ├── internal-types-export/
+│   │   ├── monotest-api-router01/
+│   │   ├── monotest-api/
+│   │   ├── monotest-app/
+│   │   ├── monotest-trpc/
+│   │   ├── monotest-tsconfig/
+│   │   ├── ssg-infinite-serialization/
+│   │   └── ssg/
+│   ├── bun/
+│   │   ├── README.md
+│   │   ├── package.json
+│   │   ├── src/
+│   │   └── tsconfig.json
+│   ├── cloudflare-workers/
+│   │   ├── .gitignore
+│   │   ├── README.md
+│   │   ├── package.json
+│   │   ├── src/
+│   │   ├── tsconfig.json
+│   │   └── wrangler.jsonc
+│   ├── deno-deploy/
+│   │   ├── README.md
+│   │   ├── deno.json
+│   │   └── src/
+│   ├── express-minimal/
+│   │   ├── README.md
+│   │   ├── package.json
+│   │   ├── src/
+│   │   └── tsconfig.json
+│   ├── express-server/
+│   │   ├── README.md
+│   │   ├── package.json
+│   │   ├── src/
+│   │   └── tsconfig.json
+│   ├── fastify-server/
+│   │   ├── .gitignore
+│   │   ├── README.md
+│   │   ├── package.json
+│   │   ├── sandbox.config.json
+│   │   ├── src/
+│   │   └── tsconfig.json
+│   ├── kitchen-sink/
+│   │   └── README.md
+│   ├── lambda-api-gateway-streaming/
+│   │   ├── .gitignore
+│   │   ├── README.md
+│   │   ├── package.json
+│   │   ├── serverless.yml
+│   │   ├── src/
+│   │   └── tsconfig.json
+│   ├── lambda-api-gateway/
+│   │   ├── .gitignore
+│   │   ├── README.md
+│   │   ├── package.json
+│   │   ├── serverless.yml
+│   │   ├── src/
+│   │   └── tsconfig.json
+│   ├── lambda-url/
+│   │   ├── .gitignore
+│   │   ├── README.md
+│   │   ├── package.json
+│   │   ├── serverless.yml
+│   │   ├── src/
+│   │   └── tsconfig.json
+│   ├── lazy-load/
+│   │   ├── README.md
+│   │   ├── package.json
+│   │   ├── src/
+│   │   └── tsconfig.json
+│   ├── minimal-content-types/
+│   │   ├── README.md
+│   │   ├── client/
+│   │   ├── package.json
+│   │   ├── playwright.config.ts
+│   │   ├── server/
+│   │   └── test/
+│   ├── minimal-react/
+│   │   ├── README.md
+│   │   ├── client/
+│   │   ├── package.json
+│   │   ├── playwright.config.ts
+│   │   ├── server/
+│   │   └── test/
+│   ├── minimal/
+│   │   ├── README.md
+│   │   ├── package.json
+│   │   ├── src/
+│   │   └── tsconfig.json
+│   ├── next-big-router/
+│   │   ├── .gitignore
+│   │   ├── README.md
+│   │   ├── next-env.d.ts
+│   │   ├── next.config.ts
+│   │   ├── package.json
+│   │   ├── scripts/
+│   │   ├── src/
+│   │   └── tsconfig.json
+│   ├── next-edge-runtime/
+│   │   ├── README.md
+│   │   ├── next-env.d.ts
+│   │   ├── next.config.ts
+│   │   ├── package.json
+│   │   ├── src/
+│   │   └── tsconfig.json
+│   ├── next-formdata/
+│   │   ├── .gitignore
+│   │   ├── README.md
+│   │   ├── next-env.d.ts
+│   │   ├── next.config.ts
+│   │   ├── package.json
+│   │   ├── src/
+│   │   └── tsconfig.json
+│   ├── next-minimal-starter/
+│   │   ├── README.md
+│   │   ├── next-env.d.ts
+│   │   ├── next.config.ts
+│   │   ├── package.json
+│   │   ├── src/
+│   │   └── tsconfig.json
+│   ├── next-prisma-starter/
+│   │   ├── .env
+│   │   ├── .github/
+│   │   ├── .gitignore
+│   │   ├── .npmrc
+│   │   ├── .vscode/
+│   │   ├── README.md
+│   │   ├── eslint.config.mjs
+│   │   ├── next-env.d.ts
+│   │   ├── next.config.ts
+│   │   ├── package.json
+│   │   ├── playwright.config.ts
+│   │   ├── playwright/
+│   │   ├── postcss.config.js
+│   │   ├── prisma/
+│   │   ├── public/
+│   │   ├── sandbox.config.json
+│   │   ├── src/
+│   │   ├── tailwind.config.ts
+│   │   ├── tsconfig.json
+│   │   └── vitest.config.ts
+│   ├── next-prisma-todomvc/
+│   │   ├── .env
+│   │   ├── .gitignore
+│   │   ├── README.md
+│   │   ├── next.config.js
+│   │   ├── package.json
+│   │   ├── playwright.config.ts
+│   │   ├── prisma/
+│   │   ├── public/
+│   │   ├── src/
+│   │   ├── test/
+│   │   ├── tsconfig.json
+│   │   └── vercel.json
+│   ├── next-prisma-websockets-starter/
+│   │   ├── .env
+│   │   ├── .github/
+│   │   ├── .gitignore
+│   │   ├── .npmrc
+│   │   ├── .vscode/
+│   │   ├── README.md
+│   │   ├── docker-compose.yaml
+│   │   ├── eslint.config.mjs
+│   │   ├── next-env.d.ts
+│   │   ├── next.config.ts
+│   │   ├── package.json
+│   │   ├── playwright.config.ts
+│   │   ├── postcss.config.js
+│   │   ├── prisma/
+│   │   ├── public/
+│   │   ├── sandbox.config.json
+│   │   ├── src/
+│   │   ├── tailwind.config.ts
+│   │   ├── test/
+│   │   ├── tsconfig.json
+│   │   └── tsconfig.server.json
+│   ├── next-sse-chat/
+│   │   ├── .env.example
+│   │   ├── .gitignore
+│   │   ├── README.md
+│   │   ├── docker-compose.yaml
+│   │   ├── drizzle.config.ts
+│   │   ├── next.config.ts
+│   │   ├── package.json
+│   │   ├── postcss.config.js
+│   │   ├── src/
+│   │   ├── tailwind.config.ts
+│   │   └── tsconfig.json
+│   ├── next-websockets-encoder/
+│   │   ├── README.md
+│   │   ├── next-env.d.ts
+│   │   ├── next.config.ts
+│   │   ├── package.json
+│   │   ├── postcss.config.js
+│   │   ├── src/
+│   │   ├── tailwind.config.ts
+│   │   ├── tsconfig.json
+│   │   └── tsconfig.server.json
+│   ├── nuxt/
+│   │   ├── .gitignore
+│   │   ├── README.md
+│   │   ├── app.vue
+│   │   ├── nuxt.config.ts
+│   │   ├── package.json
+│   │   ├── playwright.config.ts
+│   │   ├── plugins/
+│   │   ├── public/
+│   │   ├── server/
+│   │   ├── test/
+│   │   └── tsconfig.json
+│   ├── soa/
+│   │   ├── README.md
+│   │   ├── client/
+│   │   ├── faux-gateway/
+│   │   ├── package.json
+│   │   ├── server-a/
+│   │   ├── server-b/
+│   │   ├── server-lib/
+│   │   └── tsconfig.json
+│   ├── standalone-server/
+│   │   ├── README.md
+│   │   ├── package.json
+│   │   ├── sandbox.config.json
+│   │   ├── src/
+│   │   └── tsconfig.json
+│   ├── trpc-chrome/
+│   │   └── README.md
+│   ├── trpc-openapi/
+│   │   └── README.md
+│   └── vercel-edge-runtime/
+│       ├── .gitignore
+│       ├── README.md
+│       ├── package.json
+│       ├── src/
+│       └── tsconfig.json
+├── lerna.json
+├── package.json
+├── packages/
+│   ├── client/
+│   │   ├── README.md
+│   │   ├── package.json
+│   │   ├── src/
+│   │   ├── tsconfig.build.json
+│   │   ├── tsconfig.json
+│   │   ├── tsdown.config.ts
+│   │   ├── turbo.json
+│   │   └── vitest.config.ts
+│   ├── next/
+│   │   ├── README.md
+│   │   ├── package.json
+│   │   ├── src/
+│   │   ├── test/
+│   │   ├── tsconfig.build.json
+│   │   ├── tsconfig.json
+│   │   ├── tsdown.config.ts
+│   │   ├── turbo.json
+│   │   └── vitest.config.ts
+│   ├── react-query/
+│   │   ├── README.md
+│   │   ├── package.json
+│   │   ├── src/
+│   │   ├── test/
+│   │   ├── tsconfig.build.json
+│   │   ├── tsconfig.json
+│   │   ├── tsdown.config.ts
+│   │   ├── turbo.json
+│   │   └── vitest.config.ts
+│   ├── server/
+│   │   ├── README.md
+│   │   ├── package.json
+│   │   ├── src/
+│   │   ├── tsconfig.benchmark.json
+│   │   ├── tsconfig.build.json
+│   │   ├── tsconfig.json
+│   │   ├── tsdown.config.ts
+│   │   ├── turbo.json
+│   │   └── vitest.config.ts
+│   ├── tanstack-react-query/
+│   │   ├── README.md
+│   │   ├── package.json
+│   │   ├── src/
+│   │   ├── test/
+│   │   ├── tsconfig.build.json
+│   │   ├── tsconfig.json
+│   │   ├── tsdown.config.ts
+│   │   ├── turbo.json
+│   │   └── vitest.config.ts
+│   ├── tests/
+│   │   ├── README.md
+│   │   ├── package.json
+│   │   ├── server/
+│   │   ├── showcase/
+│   │   ├── suppressActWarnings.ts
+│   │   ├── tsconfig.json
+│   │   └── vitest.config.ts
+│   └── upgrade/
+│       ├── README.md
+│       ├── package.json
+│       ├── src/
+│       ├── test/
+│       ├── tsconfig.json
+│       ├── tsdown.config.ts
+│       └── vitest.config.ts
+├── pnpm-lock.yaml
+├── pnpm-workspace.yaml
+├── prettier.config.js
+├── scripts/
+│   ├── entrypoints.js
+│   ├── entrypoints.ts
+│   └── version.ts
+├── tsconfig.build.json
+├── tsconfig.json
+├── turbo.json
+├── vitest.config.ts
+└── www/
+    ├── .gitignore
+    ├── .npmrc
+    ├── README.md
+    ├── blog/
+    │   ├── 2021-05-05-hello-world.mdx
+    │   ├── 2022-11-21-announcing-trpc-10.mdx
+    │   ├── 2023-01-14-typescript-performance-lessons.mdx
+    │   ├── 2023-01-17-tinyrpc-client.mdx
+    │   ├── 2024-05-23-trpc-actions.mdx
+    │   ├── 2025-02-17-new-tanstack-react-query-integration.mdx
+    │   ├── 2025-03-21-announcing-trpc-11.mdx
+    │   └── authors.yml
+    ├── docs/
+    │   ├── .gitignore
+    │   ├── client/
+    │   ├── community/
+    │   ├── further/
+    │   ├── landing-intro/
+    │   ├── main/
+    │   ├── migration/
+    │   ├── partials/
+    │   └── server/
+    ├── docusaurus.config.ts
+    ├── docusaurus.preferredTheme.js
+    ├── docusaurus.twitterReload.js
+    ├── docusaurus.typedoc.js
+    ├── global.d.ts
+    ├── mdxToJsx.js
+    ├── min-light-with-diff.json
+    ├── og-image/
+    │   ├── .gitignore
+    │   ├── README.md
+    │   ├── next-env.d.ts
+    │   ├── next.config.js
+    │   ├── package.json
+    │   ├── pages/
+    │   ├── public/
+    │   ├── tsconfig.json
+    │   └── utils/
+    ├── package.json
+    ├── scripts/
+    │   └── check-twoslash.ts
+    ├── shikiTwoslash.config.js
+    ├── sidebars.ts
+    ├── src/
+    │   ├── animations/
+    │   ├── components/
+    │   ├── css/
+    │   ├── pages/
+    │   ├── theme/
+    │   └── utils/
+    ├── static/
+    │   ├── .nojekyll
+    │   ├── img/
+    │   └── logos/
+    ├── tailwind.config.ts
+    ├── tsconfig.json
+    ├── types.d.ts
+    ├── unversioned/
+    │   ├── _contributing.mdx
+    │   ├── _love.mdx
+    │   └── _sponsors.mdx
+    ├── vercel.json
+    ├── versioned_docs/
+    │   ├── version-10.x/
+    │   └── version-9.x/
+    ├── versioned_sidebars/
+    │   ├── version-10.x-sidebars.json
+    │   └── version-9.x-sidebars.json
+    └── versions.json

@@ -1,0 +1,1465 @@
+=====================================
+Repository Analysis: great_expectations
+Type: Data / ML / AI Project
+=====================================
+
+--- METADATA ---
+Name: great_expectations
+Description: Always know what to expect from your data.
+Language: Python
+Topics: cleandata, data-engineering, data-profilers, data-profiling, data-quality, data-science, data-unit-tests, datacleaner, datacleaning, dataquality, dataunittest, eda, exploratory-analysis, exploratory-data-analysis, exploratorydataanalysis, mlops, pipeline, pipeline-debt, pipeline-testing, pipeline-tests
+Stars: 11215
+License: Apache License 2.0
+
+--- README ---
+[![Python Versions](https://img.shields.io/pypi/pyversions/great_expectations.svg)](https://pypi.python.org/pypi/great_expectations)
+[![PyPI](https://img.shields.io/pypi/v/great_expectations)](https://pypi.org/project/great-expectations/#history)
+[![PyPI Downloads](https://img.shields.io/pypi/dm/great-expectations)](https://pypistats.org/packages/great-expectations)
+[![Build Status](https://img.shields.io/azure-devops/build/great-expectations/bedaf2c2-4c4a-4b37-87b0-3877190e71f5/1)](https://dev.azure.com/great-expectations/great_expectations/_build/latest?definitionId=1&branchName=develop)
+[![pre-commit.ci Status](https://results.pre-commit.ci/badge/github/great-expectations/great_expectations/develop.svg)](https://results.pre-commit.ci/latest/github/great-expectations/great_expectations/develop)
+[![codecov](https://codecov.io/gh/great-expectations/great_expectations/graph/badge.svg?token=rbHxgTxYTs)](https://codecov.io/gh/great-expectations/great_expectations)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.5683574.svg)](https://doi.org/10.5281/zenodo.5683574)
+[![Twitter Follow](https://img.shields.io/twitter/follow/expectgreatdata?style=social)](https://twitter.com/expectgreatdata)
+[![Slack Status](https://img.shields.io/badge/slack-join_chat-white.svg?logo=slack&style=social)](https://greatexpectations.io/slack)
+[![Contributors](https://img.shields.io/github/contributors/great-expectations/great_expectations)](https://github.com/great-expectations/great_expectations/graphs/contributors)
+[![Ruff](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/ruff/main/assets/badge/v2.json)](https://github.com/astral-sh/ruff)
+
+<!-- <<<Super-quickstart links go here>>> -->
+
+<img align="right" src="./docs/docusaurus/static/img/gx-mark-160.png">
+
+## About GX Core
+
+GX Core combines the collective wisdom of thousands of community members with a proven track record in data quality deployments worldwide, wrapped into a super-simple package for data teams.
+
+Its powerful technical tools start with Expectations: expressive and extensible unit tests for your data. Expectations foster collaboration by giving teams a common language to express data quality tests in an intuitive way. You can automatically generate documentation for each set of validation results, making it easy for everyone to stay on the same page. This not only simplifies your data quality processes, but helps preserve your organization’s institutional knowledge about its data.
+
+Learn more about how data teams are using GX Core in our featured [case studies](https://greatexpectations.io/case-studies/).
+
+## Integration support policy
+
+GX Core supports Python `3.10` through `3.13`.
+Experimental support for Python `3.14` and later can be enabled by setting a `GX_PYTHON_EXPERIMENTAL` environment variable when installing `great_expectations`.
+
+For data sources and other integrations that GX supports, see the [compatibility reference](https://docs.greatexpectations.io/docs/help/compatibility_reference) for additional information.
+
+## Get started
+
+GX recommends deploying GX Core within a virtual environment. For more information about getting started with GX Core, see [Introduction to GX Core](https://docs.greatexpectations.io/docs/core/introduction/).
+
+1. Run the following command in an empty base directory inside a Python virtual environment to install GX Core:
+
+	```bash title="Terminal input"
+	pip install great_expectations
+	```
+2. Run the following command to import the `great_expectations module` and create a Data Context:
+
+	```python
+	import great_expectations as gx
+
+	context = gx.get_context()
+	```
+
+## Get support from GX and the community
+
+They are listed in the order in which GX is prioritizing the support issues:
+
+1. Issues and PRs in the [GX GitHub repository](https://github.com/great-expectations)
+2. Questions posted to the [GX Core Discourse forum](https://discourse.greatexpectations.io/c/oss-support/11)
+3. Questions posted to the [GX Slack community channel](https://greatexpectationstalk.slack.com/archives/CUTCNHN82)
+
+## Contribute
+We truly value the contributions of our community and always welcome pull requests. PRs are encouraged for both bug fixes and new features. For feature requests, we ask that you first open an issue for discussion to ensure the feature fits within the vision for GX Core and to align on the approach so that your time and effort are well spent. Thank you for being a crucial part of GX Core!
+
+## Code of conduct
+Everyone interacting in GX Core project codebases, Discourse forums, Slack channels, and email communications is expected to adhere to the [GX Community Code of Conduct](https://discourse.greatexpectations.io/t/gx-community-code-of-conduct/1199).
+
+
+--- PACKAGE MANIFEST(S) ---
+
+[pyproject.toml]
+[build-system]
+requires = ["setuptools", "wheel", "versioneer", "typing_extensions>=4.1.0"]
+build-backend = "setuptools.build_meta"
+
+[tool.mypy]
+python_version = "3.10"
+plugins = [
+    "pydantic.mypy",
+    "sqlalchemy.ext.mypy.plugin"
+]
+files = [
+    "great_expectations",
+    "docs",
+    "tests",
+    # "contrib" # ignore entire `contrib` package
+]
+warn_unused_configs = true
+ignore_missing_imports = false
+follow_imports = 'normal'
+warn_redundant_casts = true
+show_error_codes = true
+enable_error_code = [
+    'ignore-without-code',
+    'explicit-override',
+    'possibly-undefined'
+]
+# The following list of codes are globally ignored, do not add to this list
+disable_error_code = [
+    # annotation-unchecked are 'warning notes', not errors and won't cause mypy to fail
+    # but it does create a lot of noise in the CI mypy step.
+    # https://mypy-lang.blogspot.com/2022/11/mypy-0990-released.html
+    'annotation-unchecked',
+]
+exclude = [
+    # BEGIN ALWAYS EXCLUDE SECTION #####################################################
+    # If pattern should always be excluded add comment explaining why and put
+    # Docs should not be type checked with the rest of the library.
+    'docs/docusaurus',
+    'docs/expectation_gallery',
+    'docs/readme_assets',
+    'docs/sphinx_api_docs_source',
+    '_version\.py',                                                      # generated by `versioneer`
+    'v012',                                                              # legacy code
+    'datasource/data_connector/configured_asset_sql_data_connector\.py', # 37 - This is legacy code and will not be typed.
+    'core/usage_statistics/anonymizers/batch_anonymizer\.py',            # 10 - This code will be removed in 1.0
+    'core/usage_statistics/anonymizers/batch_request_anonymizer\.py',    # 16 - This code will be removed in 1.0
+    'core/usage_statistics/anonymizers/checkpoint_anonymizer\.py',       # 16 - This code will be removed in 1.0
+    'core/usage_statistics/anonymizers/data_docs_anonymizer\.py',        # 5 - This code will be removed in 1.0
+    'core/usage_statistics/anonymizers/datasource_anonymizer\.py',       # 9 - This code will be removed in 1.0
+    'core/usage_statistics/anonymizers/expectation_anonymizer\.py',      # 6 - This code will be removed in 1.0
+    'core/usage_statistics/anonymizers/validation_operator_anonymizer\.py',  # 5 - This code will be removed in 1.0
+    # END ALWAYS EXCLUDE SECTION ######################################################
+    #
+    # #################################################################################
+    # TODO: complete typing for the following modules and remove from exclude list
+    # number is the current number of typing errors for the excluded pattern
+    'expectations/core/expect_column_values_to_be_of_type\.py',                                            # 6
+    'expectations/core/expect_column_values_to_not_match_regex_list\.py',                                  # 2
+    'expectations/core/expect_column_
+... [TRUNCATED]
+
+[setup.py]
+import os
+import re
+from pathlib import Path
+from typing import List
+
+from setuptools import find_packages, setup
+
+import versioneer
+
+SUPPORTED_PYTHON = ">=3.10,<3.14"
+
+
+def parse_requirements(file_path: Path) -> List[str]:
+    """
+    Requirements parser that doesn't depend on pip internals.
+    This avoids circular dependencies during package build.
+
+    Args:
+        file_path: Path to the requirements file to parse
+
+    Returns:
+        List of requirement strings with comments and empty lines removed
+    """
+    requirements = []
+    with open(file_path) as f:
+        for line in f:
+            cleaned_line = line.strip()
+            # Skip empty lines and comments
+            if cleaned_line and not cleaned_line.startswith("#"):
+                # Remove inline comments
+                requirement_line = cleaned_line
+                if "#" in cleaned_line:
+                    requirement_line = cleaned_line.split("#")[0].strip()
+                requirements.append(requirement_line)
+    return requirements
+
+
+def get_python_requires() -> str:
+    """
+    If the GX_PYTHON_EXPERIMENTAL environment variable is set,
+    return a version with no upper-bound.
+    """
+    if os.getenv("GX_PYTHON_EXPERIMENTAL"):
+        return ">=3.10"
+    return SUPPORTED_PYTHON
+
+
+def get_extras_require():
+    results = {}
+    extra_key_mapping = {
+        "aws_secrets": "boto",
+        "azure_secrets": "azure",
+        "fabric": "sql-server",
+        "gcp": "bigquery",
+        "s3": "boto",
+    }
+    sqla1x_only_keys = (
+        "clickhouse",  # https://github.com/xzkostyan/clickhouse-sqlalchemy/blob/master/setup.py
+        "redshift",  # https://github.com/sqlalchemy-redshift/sqlalchemy-redshift/blob/main/setup.py
+        "teradata",  # https://pypi.org/project/teradatasqlalchemy   https://support.teradata.com/knowledge?id=kb_article_view&sys_kb_id=a5a869149729251ced863fe3f153af27
+    )
+    sqla_keys = (
+        "athena",  # https://github.com/laughingman7743/PyAthena/blob/master/pyproject.toml
+        "bigquery",  # https://github.com/googleapis/python-bigquery-sqlalchemy/blob/main/setup.py
+        "dremio",  # https://github.com/narendrans/sqlalchemy_dremio/blob/master/setup.py
+        "hive",  # https://github.com/dropbox/PyHive/blob/master/setup.py
+        "sql-server",  # https://github.com/mkleehammer/pyodbc/blob/master/setup.py
+        "mysql",  # https://github.com/PyMySQL/PyMySQL/blob/main/pyproject.toml
+        "postgresql",  # https://github.com/psycopg/psycopg2/blob/master/setup.py
+        "trino",  # https://github.com/trinodb/trino-python-client/blob/master/setup.py
+        "vertica",  # https://github.com/bluelabsio/sqlalchemy-vertica-python/blob/master/setup.py
+        "databricks",  # https://github.com/databricks/databricks-sql-python/blob/main/pyproject.toml
+        "snowflake",  # https://github.com/snowflakedb/snowflake-sqlalchemy/blob/main/setup.cfg
+        "gx-redshift",  # https://github.com/great-expectations/sqlalchemy-redshift/blob/main/s
+... [TRUNCATED]
+
+[setup.cfg]
+[easy_install]
+
+[bdist_wheel]
+universal=0
+
+[versioneer]
+VCS = git
+style = pep440
+versionfile_source = great_expectations/_version.py
+versionfile_build = great_expectations/_version.py
+tag_prefix =
+parentdir_prefix = great_expectations-
+
+[options]
+python_requires = >=3.10
+
+
+[requirements.txt]
+altair>=5.0.0,<7.0.0
+cryptography>=3.2
+jinja2>=3
+jsonschema>=2.5.1
+marshmallow>=3.7.1,<4.0.0
+mistune>=0.8.4
+numpy>=1.22.4; python_version >= "3.10"
+numpy>=1.26.0; python_version >= "3.12"
+numpy>=2.1.0; python_version >= "3.13"
+packaging
+pandas>=1.3.0; python_version >= "3.10"
+pandas>=2.2.3; python_version >= "3.13"
+pandas>=1.3.0; python_version >= "3.12"
+# patch version updates `typing_extensions` to the needed version
+pydantic>=1.10.7
+pyparsing>=2.4,!=3.2.4
+python-dateutil>=2.8.1
+requests>=2.20
+ruamel.yaml>=0.16
+scipy>=1.6.0
+tqdm>=4.59.0
+typing-extensions>=4.1.0 # Leverage type annotations from recent Python releases
+tzlocal>=1.2
+
+
+--- REQUIREMENTS FILES ---
+
+[contrib/capitalone_dataprofiler_expectations/requirements.txt]
+dataprofiler
+great_expectations
+numpy
+scikit-learn
+tensorflow
+
+
+[contrib/cli/requirements.txt]
+Click>=7.1.2         # CLI tooling
+cookiecutter==2.1.1  # Project templating
+mypy==1.13.0            # Type checker
+pydantic>=1.0        # Needed for mypy plugin
+pytest>=5.3.5        # Test framework
+ruff==0.7.2        # Linting / code style / formatting
+twine==3.7.1         # Packaging
+wheel==0.38.1        # Packaging
+
+
+[contrib/great_expectations_ethical_ai_expectations/requirements.txt]
+aequitas
+great_expectations
+pandas
+scikit_learn
+setuptools
+
+
+[contrib/great_expectations_geospatial_expectations/requirements.txt]
+geopandas
+geopy
+global_land_mask
+great_expectations
+pygeos
+python_geohash
+rtree
+scikit_learn
+scipy
+setuptools
+Shapely
+timezonefinder
+uszipcode
+
+
+[contrib/great_expectations_semantic_types_expectations/requirements.txt]
+arxiv
+barcodenumber
+blockcypher
+coinaddrvalidator
+cryptoaddress
+cryptocompare
+disposable_email_domains
+geonamescache
+great_expectations
+gtin
+holidays
+ipwhois
+isbnlib
+langid
+lxml
+pgeocode
+phonenumbers
+price_parser
+primefac
+pwnedpasswords
+py_moneyed
+pycountry
+pydnsbl
+pyephem
+python_dateutil
+python_stdnum
+pytz
+pyvat
+requests
+schwifty
+setuptools
+simple_icd_10
+sympy
+us
+user_agents
+yahoo_fin
+zipcodes
+
+
+[contrib/great_expectations_zipcode_expectations/requirements.txt]
+great_expectations
+pgeocode
+setuptools
+uszipcode
+zipcodes
+
+
+[contrib/time_series_expectations/requirements.txt]
+great_expectations
+
+
+[docs/sphinx_api_docs_source/requirements-dev-api-docs.txt]
+docstring-parser==0.16
+myst-parser
+pydata-sphinx-theme==0.11.0  # Pinned to keep the css styling consistent.
+sphinx~=4.5.0
+# Need to pin some sphinx extensions to avoid breaking changes. (https://stackoverflow.com/questions/77848565/sphinxcontrib-applehelp-breaking-sphinx-builds-with-sphinx-version-less-than-5-0)
+sphinxcontrib-applehelp==1.0.4
+sphinxcontrib-devhelp==1.0.2
+sphinxcontrib-htmlhelp==2.0.1
+sphinxcontrib-qthelp==1.0.3
+sphinxcontrib-serializinghtml==1.1.5
+
+
+[reqs/requirements-dev-all-contrib-expectations.txt]
+# aequitas          # This depends on old versions of Flask (0.12.2) and sqlalchemy (1.1.1)
+arxiv
+barcodenumber
+blockcypher
+coinaddrvalidator
+cryptoaddress
+cryptocompare
+dataprofiler
+disposable_email_domains
+dnspython
+edtf_validate
+ephem
+geonamescache
+geopandas
+geopy
+global-land-mask
+gtin
+holidays
+# indiapins         # This package does not work (FileNotFoundError: '...lib/python3.8/site-packages/indiapins/pins.json.bz2')
+ipwhois
+isbnlib
+langid>=1.1.6
+pgeocode
+phonenumbers
+price_parser
+primefac
+prophet
+pwnedpasswords
+py-moneyed
+pydnsbl
+pygeos
+pyogrio
+python-geohash
+python-stdnum
+pyvat
+rtree
+schwifty
+scikit-learn
+shapely
+simple_icd_10
+sympy
+tensorflow
+timezonefinder
+us
+user_agents
+uszipcode
+yahoo_fin
+zipcodes
+
+
+[reqs/requirements-dev-api-docs-test.txt]
+datasets>=4.1.0
+docstring-parser==0.16
+pdf2image>=1.17.0
+pytesseract>=0.3.13
+
+
+[reqs/requirements-dev-arrow.txt]
+feather-format>=0.4.1
+pyarrow>=14; python_version >= "3.12"
+pyarrow; python_version < "3.12"
+
+
+[reqs/requirements-dev-athena.txt]
+pyathena[SQLAlchemy]>=2.0.0
+
+
+[reqs/requirements-dev-azure.txt]
+azure-identity>=1.10.0
+azure-keyvault-secrets>=4.0.0
+azure-storage-blob>=12.5.0
+
+
+[reqs/requirements-dev-bigquery.txt]
+gcsfs>=0.5.1
+google-cloud-bigquery>=3.3.6
+# needed to prevent excessive pip backtracking on python 3.11
+google-cloud-bigquery-storage>=2.20.0
+google-cloud-secret-manager>=1.0.0
+# needed to prevent excessive pip backtracking on python 3.11
+google-cloud-storage>=2.10.0;python_version >= '3.11'
+google-cloud-storage>=1.28.0;python_version < '3.11'
+pandas_gbq>=0.26.1
+sqlalchemy-bigquery>=1.3.0
+
+
+[reqs/requirements-dev-clickhouse.txt]
+clickhouse-sqlalchemy>=0.2.2; python_version < "3.12"
+clickhouse-sqlalchemy>=0.3.0; python_version >= "3.12" # SQLALchemy 2 support added in 0.3.0
+
+
+[reqs/requirements-dev-cloud.txt]
+orjson>=3.9.7
+
+
+[reqs/requirements-dev-contrib.txt]
+adr-tools-python==1.0.3
+invoke>=2.0.0
+mypy==1.19.0
+pre-commit>=2.21.0
+ruff==0.14.9
+tomli>=2.0.1
+
+
+[reqs/requirements-dev-databricks.txt]
+databricks-sqlalchemy>=1.0.0
+
+
+[reqs/requirements-dev-dremio.txt]
+pyodbc>=4.0.30
+sqlalchemy-dremio==1.2.1 # 2.0.1 introduces breaking changes
+
+
+[reqs/requirements-dev-excel.txt]
+openpyxl>=3.0.7
+xlrd>=1.1.0,<2.0.0
+
+
+[reqs/requirements-dev-gx-redshift.txt]
+gx-sqlalchemy-redshift
+psycopg2-binary>=2.7.6
+
+
+[reqs/requirements-dev-hive.txt]
+PyHive>=0.6.5
+thrift>=0.16.0
+thrift-sasl>=0.4.3
+
+
+[reqs/requirements-dev-lite.txt]
+boto3>=1.17.106
+coverage[toml]>=7.5.1
+flaky>=3.7.0 # for docs-integration tests that access cloud-resources that access cloud-resources
+flask>=1.0.0 # for s3 test only (with moto)
+freezegun>=0.3.15
+moto[sns,s3]>=4.2.13,<5.0
+# Issue installing pact-python: https://github.com/pact-foundation/pact-python/issues/1275
+pact-python>=2.0.1,<3
+pyfakefs>=4.5.1
+pytest>=8.2.1
+pytest-benchmark>=3.4.1
+pytest-cov>=5.0.0
+pytest-icdiff >= 0.9.0
+pytest-mock>=3.14.0
+pytest-order>=1.2.1
+pytest-random-order>=1.1.1
+pytest-timeout>=2.3.1
+pytest-xdist>=3.6.1
+requirements-parser>=0.9.0
+responses>=0.23.1,!=0.25.5 # requests mocking - pinning due to https://github.com/getsentry/responses/issues/751
+setuptools>=70.0.0 # required for python 3.12
+sqlalchemy>=1.4.0
+
+
+[reqs/requirements-dev-mysql.txt]
+PyMySQL>=1.1.1
+
+
+[reqs/requirements-dev-pagerduty.txt]
+pypd==1.1.0
+
+
+[reqs/requirements-dev-postgresql.txt]
+psycopg2-binary>=2.7.6
+
+
+[reqs/requirements-dev-redshift.txt]
+psycopg2-binary>=2.7.6
+sqlalchemy-redshift>=0.8.8
+
+
+[reqs/requirements-dev-snowflake.txt]
+pyarrow>=14; python_version >= "3.12"
+snowflake-connector-python>=3.5.0
+snowflake-sqlalchemy>=1.2.3,!=1.7.0
+
+
+[reqs/requirements-dev-spark-connect.txt]
+# NOTES:
+# Spark connect's requirements are here: https://github.com/apache/spark/blob/ed3a9b1aa92957015592b399167a960b68b73beb/dev/requirements.txt#L60
+# grpcio and grpcio-status should be bumped up to match that, but that conflicts with our constraints.txt file.
+# TODO: Fix in V1-532
+
+googleapis-common-protos>=1.56.4
+grpcio>=1.48.1
+grpcio-status>=1.48.1
+
+
+[reqs/requirements-dev-spark.txt]
+pyspark>=2.3.2,<4.0  # spark
+
+
+[reqs/requirements-dev-sql-server.txt]
+pyodbc>=4.0.30
+
+
+[reqs/requirements-dev-sqlalchemy.txt]
+# Do not `pip install -r` this file locally or in CI (outside of StaticTypeCheck).
+# It only exists to be included in requirements-dev.txt, which should only be used in the Dockerfile.tests file.
+
+--requirement requirements-dev-lite.txt
+--requirement requirements-dev-athena.txt
+--requirement requirements-dev-sqlalchemy1.txt
+--requirement requirements-dev-bigquery.txt
+--requirement requirements-dev-dremio.txt
+--requirement requirements-dev-sql-server.txt
+--requirement requirements-dev-mysql.txt
+--requirement requirements-dev-postgresql.txt
+--requirement requirements-dev-gx-redshift.txt
+--requirement requirements-dev-snowflake.txt
+--requirement requirements-dev-teradata.txt
+--requirement requirements-dev-trino.txt
+--requirement requirements-dev-hive.txt
+--requirement requirements-dev-vertica.txt
+--requirement requirements-dev-clickhouse.txt
+
+
+[reqs/requirements-dev-sqlalchemy1.txt]
+# Used to construct the extras_requires dict in setup.py for sqlalchemy dialects that are not yet compatible with sqlalchemy 2.x
+
+sqlalchemy<2.0.0
+
+
+[reqs/requirements-dev-sqlalchemy2.txt]
+# TODO: remove this file once SQLAlchemy 2 is the only supported version
+--requirement requirements-dev-databricks.txt
+--requirement requirements-dev-sql-server.txt
+--requirement requirements-dev-mysql.txt
+--requirement requirements-dev-postgresql.txt
+--requirement requirements-dev-trino.txt
+--requirement requirements-dev-hive.txt
+--requirement requirements-dev-vertica.txt
+# Do not `pip install -r` this file locally or in CI (outside of StaticTypeCheck).
+# It only exists to be included in requirements-dev.txt, which should only be used in the Dockerfile.tests file.
+# Do not add any dependencies here that are not compatible with sqlalchemy>=2.0
+# -----------
+# Tempory pins for type checking step
+# TODO: update these pins in their respective requirements files and remove from here
+snowflake-sqlalchemy>=1.6,!=1.7.0  # min version required for sqlalchemy 2.0
+sqlalchemy>=2.0
+sqlalchemy-bigquery>=1.11.0 # min version required for sqlalchemy 2.0
+
+
+[reqs/requirements-dev-teradata.txt]
+teradatasqlalchemy==17.0.0.5
+
+
+[reqs/requirements-dev-test.txt]
+--requirement requirements-dev-arrow.txt
+--requirement requirements-dev-lite.txt
+--requirement requirements-dev-contrib.txt
+--requirement requirements-dev-api-docs-test.txt
+
+
+[reqs/requirements-dev-tools.txt]
+# Do not `pip install -r` this file locally or in CI.
+# It only exists to be used in the Dockerfile.tests file.
+
+jupyter
+jupyterlab
+matplotlib
+scikit-learn
+
+
+[reqs/requirements-dev-trino.txt]
+trino>=0.310.0,!=0.316.0
+
+
+[reqs/requirements-dev-vertica.txt]
+sqlalchemy-vertica-python>=0.5.10
+
+
+[requirements-dev.txt]
+# Do not `pip install -r` this file locally or in CI.
+# It only exists to be used in the Dockerfile.tests file.
+
+
+--requirement reqs/requirements-dev-arrow.txt
+--requirement requirements.txt
+--requirement reqs/requirements-dev-test.txt
+--requirement reqs/requirements-dev-sqlalchemy.txt
+--requirement reqs/requirements-dev-azure.txt
+--requirement reqs/requirements-dev-excel.txt
+--requirement reqs/requirements-dev-pagerduty.txt
+--requirement reqs/requirements-dev-spark.txt
+
+
+[requirements-types.txt]
+# This file installs the actual packages needed for type checking with mypy.
+# Type stubs are installed automatically by mypy's --install-types flag during type checking.
+# For usage instructions, run: invoke types --help
+
+--requirement reqs/requirements-dev-sqlalchemy2.txt
+--requirement requirements.txt
+--requirement reqs/requirements-dev-lite.txt
+--requirement reqs/requirements-dev-spark.txt
+--requirement reqs/requirements-dev-azure.txt
+--requirement reqs/requirements-dev-contrib.txt
+--requirement reqs/requirements-dev-cloud.txt
+--requirement reqs/requirements-dev-sql-server.txt
+--requirement docs/sphinx_api_docs_source/requirements-dev-api-docs.txt
+pandas-stubs
+# force sqlalchemy 2 because it exports types
+sqlalchemy>2.0
+
+
+[requirements.txt]
+altair>=5.0.0,<7.0.0
+cryptography>=3.2
+jinja2>=3
+jsonschema>=2.5.1
+marshmallow>=3.7.1,<4.0.0
+mistune>=0.8.4
+numpy>=1.22.4; python_version >= "3.10"
+numpy>=1.26.0; python_version >= "3.12"
+numpy>=2.1.0; python_version >= "3.13"
+packaging
+pandas>=1.3.0; python_version >= "3.10"
+pandas>=2.2.3; python_version >= "3.13"
+pandas>=1.3.0; python_version >= "3.12"
+# patch version updates `typing_extensions` to the needed version
+pydantic>=1.10.7
+pyparsing>=2.4,!=3.2.4
+python-dateutil>=2.8.1
+requests>=2.20
+ruamel.yaml>=0.16
+scipy>=1.6.0
+tqdm>=4.59.0
+typing-extensions>=4.1.0 # Leverage type annotations from recent Python releases
+tzlocal>=1.2
+
+
+--- ML CONFIG FILES ---
+(No ML config files found)
+
+--- JUPYTER NOTEBOOKS ---
+  docs/docusaurus/docs/components/reference_notebooks/_fluent_datasources_assumed_code_for_guides.ipynb
+  docs/docusaurus/docs/components/reference_notebooks/_fluent_zero_entry_pool_datasources_03062023_as11.ipynb
+  docs/docusaurus/docs/components/reference_notebooks/fluent_zero_entry_pool_datasources_03062023_as11.ipynb
+  docs/docusaurus/versioned_docs/version-0.18/components/reference_notebooks/_fluent_datasources_assumed_code_for_guides.ipynb
+  docs/docusaurus/versioned_docs/version-0.18/components/reference_notebooks/_fluent_zero_entry_pool_datasources_03062023_as11.ipynb
+  docs/docusaurus/versioned_docs/version-0.18/components/reference_notebooks/fluent_zero_entry_pool_datasources_03062023_as11.ipynb
+
+--- MODEL / TRAINING FILES ---
+  contrib/capitalone_dataprofiler_expectations/capitalone_dataprofiler_expectations/expectations/expect_column_values_confidence_for_data_label_to_be_greater_than_or_equal_to_threshold.py
+  contrib/capitalone_dataprofiler_expectations/capitalone_dataprofiler_expectations/expectations/expect_column_values_confidence_for_data_label_to_be_less_than_or_equal_to_threshold.py
+  contrib/capitalone_dataprofiler_expectations/capitalone_dataprofiler_expectations/metrics/data_profiler_metrics/data_profiler_column_profiler_report.py
+  contrib/capitalone_dataprofiler_expectations/capitalone_dataprofiler_expectations/metrics/data_profiler_metrics/data_profiler_profile_diff.py
+  contrib/capitalone_dataprofiler_expectations/capitalone_dataprofiler_expectations/metrics/data_profiler_metrics/data_profiler_profile_metric_provider.py
+  contrib/capitalone_dataprofiler_expectations/capitalone_dataprofiler_expectations/metrics/data_profiler_metrics/data_profiler_profile_numeric_columns.py
+  contrib/capitalone_dataprofiler_expectations/capitalone_dataprofiler_expectations/metrics/data_profiler_metrics/data_profiler_profile_percent_diff.py
+  contrib/capitalone_dataprofiler_expectations/capitalone_dataprofiler_expectations/metrics/data_profiler_metrics/data_profiler_profile_report.py
+  contrib/capitalone_dataprofiler_expectations/capitalone_dataprofiler_expectations/metrics/data_profiler_metrics/data_profiler_table_column_infos.py
+  contrib/capitalone_dataprofiler_expectations/capitalone_dataprofiler_expectations/metrics/data_profiler_metrics/data_profiler_table_column_list.py
+
+--- DIRECTORY STRUCTURE (depth 2) ---
+├── .coderabbit.yaml
+├── .git-blame-ignore-revs
+├── .gitattributes
+├── .github/
+│   ├── ISSUE_TEMPLATE/
+│   │   ├── bug_report.md
+│   │   └── feature_request.md
+│   ├── pull_request_template.md
+│   ├── teams.yml
+│   └── workflows/
+│       ├── README.md
+│       ├── ci.yml
+│       ├── codesee-arch-diagram.yml
+│       ├── data_source_cleanup.yml
+│       ├── ge_releaser-prep.yml
+│       ├── ge_releaser-publish.yml
+│       ├── ge_releaser-tag.yml
+│       ├── pr-title-checker.yml
+│       └── stale.yml
+├── .gitignore
+├── .pre-commit-config.yaml
+├── .readthedocs.yml
+├── CITATION.cff
+├── CODEOWNERS
+├── CONTRIBUTING_CODE.md
+├── CONTRIBUTING_WORKFLOWS.md
+├── IDE_SETUP_TIPS.md
+├── LICENSE
+├── MANIFEST.in
+├── README.md
+├── assets/
+│   ├── docker/
+│   │   ├── clickhouse/
+│   │   ├── databricks/
+│   │   ├── linkchecker/
+│   │   ├── mercury/
+│   │   ├── mssql/
+│   │   ├── mysql/
+│   │   ├── postgresql/
+│   │   ├── readthedocs/
+│   │   ├── spark/
+│   │   └── trino/
+│   └── scripts/
+│       ├── AlgoliaScripts/
+│       ├── build_gallery.py
+│       ├── build_package_gallery.py
+│       ├── copy_s3_staging_to_prod.sh
+│       ├── download_json_from_s3.sh
+│       └── trigger_algolia.sh
+├── ci/
+│   ├── README.md
+│   ├── azure-pipelines-packaging.yml
+│   ├── azure-pipelines-sqlalchemy-compatibility.yml
+│   ├── checks/
+│   │   ├── check_integration_test_gets_run.py
+│   │   ├── check_min_airflow_dependency_compatibility.sh
+│   │   ├── check_name_tag_snippets_referenced.py
+│   │   ├── check_no_line_number_snippets.py
+│   │   ├── check_only_name_tag_snippets.py
+│   │   ├── check_repo_root_size.sh
+│   │   ├── get_context.py
+│   │   └── validate_docs_snippets.py
+│   ├── constraints-test/
+│   │   ├── airflow-min-install.txt
+│   │   ├── pandas2-min-install.txt
+│   │   ├── py310-min-install.txt
+│   │   ├── py311-min-install.txt
+│   │   ├── py312-min-install.txt
+│   │   ├── py313-min-install.txt
+│   │   └── pydantic-v1-install.txt
+│   ├── dev-install-matrix.yml
+│   └── user-install-matrix.yml
+├── codecov.yml
+├── constraints-dev.txt
+├── contrib/
+│   ├── README.md
+│   ├── __init__.py
+│   ├── capitalone_dataprofiler_expectations/
+│   │   ├── .gitignore
+│   │   ├── LICENSE
+│   │   ├── README.md
+│   │   ├── __init__.py
+│   │   ├── assets/
+│   │   ├── capitalone_dataprofiler_expectations/
+│   │   ├── package_info.yml
+│   │   ├── requirements.txt
+│   │   └── setup.py
+│   ├── cli/
+│   │   ├── README.md
+│   │   ├── __init__.py
+│   │   ├── great_expectations_contrib/
+│   │   ├── requirements.txt
+│   │   ├── setup.py
+│   │   └── tests/
+│   ├── experimental/
+│   │   ├── README.md
+│   │   ├── __init__.py
+│   │   ├── great_expectations_experimental/
+│   │   └── setup.py
+│   ├── great_expectations_ethical_ai_expectations/
+│   │   ├── .gitignore
+│   │   ├── LICENSE
+│   │   ├── README.md
+│   │   ├── __init__.py
+│   │   ├── assets/
+│   │   ├── great_expectations_ethical_ai_expectations/
+│   │   ├── package_info.yml
+│   │   ├── requirements.txt
+│   │   ├── setup.py
+│   │   └── tests/
+│   ├── great_expectations_geospatial_expectations/
+│   │   ├── .gitignore
+│   │   ├── LICENSE
+│   │   ├── README.md
+│   │   ├── __init__.py
+│   │   ├── assets/
+│   │   ├── great_expectations_geospatial_expectations/
+│   │   ├── package_info.yml
+│   │   ├── requirements.txt
+│   │   ├── setup.py
+│   │   └── tests/
+│   ├── great_expectations_semantic_types_expectations/
+│   │   ├── .gitignore
+│   │   ├── LICENSE
+│   │   ├── README.md
+│   │   ├── __init__.py
+│   │   ├── assets/
+│   │   ├── great_expectations_semantic_types_expectations/
+│   │   ├── package_info.yml
+│   │   ├── requirements.txt
+│   │   ├── setup.py
+│   │   └── tests/
+│   ├── great_expectations_zipcode_expectations/
+│   │   ├── .gitignore
+│   │   ├── LICENSE
+│   │   ├── README.md
+│   │   ├── assets/
+│   │   ├── great_expectations_zipcode_expectations/
+│   │   ├── package_info.yml
+│   │   ├── requirements.txt
+│   │   ├── setup.py
+│   │   └── tests/
+│   ├── ruff.toml
+│   └── time_series_expectations/
+│       ├── .gitignore
+│       ├── LICENSE
+│       ├── README.md
+│       ├── assets/
+│       ├── docs/
+│       ├── package_info.yml
+│       ├── requirements.txt
+│       ├── setup.py
+│       ├── tests/
+│       └── time_series_expectations/
+├── docs/
+│   ├── .adr-dir
+│   ├── README.md
+│   ├── __init__.py
+│   ├── adr/
+│   │   ├── 0001-record-architecture-decisions.md
+│   │   ├── 0002-support-latest-point-release.md
+│   │   ├── 0003-automated-testing.md
+│   │   ├── 0004-meta.md
+│   │   └── 0005-public-api-docstrings.md
+│   ├── build_docs
+│   ├── docs_build.py
+│   ├── docusaurus/
+│   │   ├── .env.example
+│   │   ├── .gitignore
+│   │   ├── .nvmrc
+│   │   ├── README.md
+│   │   ├── ___test___/
+│   │   ├── __mocks__/
+│   │   ├── babel.config.js
+│   │   ├── docs/
+│   │   ├── docusaurus.config.js
+│   │   ├── jest.config.js
+│   │   ├── jest.setup.js
+│   │   ├── netlify/
+│   │   ├── package.json
+│   │   ├── runtime.txt
+│   │   ├── scripts/
+│   │   ├── sidebars.js
+│   │   ├── src/
+│   │   ├── static/
+│   │   ├── versioned_docs/
+│   │   ├── versioned_sidebars/
+│   │   ├── versions.json
+│   │   └── yarn.lock
+│   ├── expectation_gallery/
+│   │   ├── 0-expectation-diagnostics-and-testing.md
+│   │   ├── 1-the-build_gallery.py-script.md
+│   │   ├── 2-managing-the-expectation-gallery-site.md
+│   │   ├── 3-expectation-docstring-formatting.md
+│   │   ├── README.md
+│   │   └── azure-pipelines-manual-staging-json-to-prod.yml
+│   ├── logging.py
+│   ├── readme_assets/
+│   │   ├── Apache_Airflow.jpg
+│   │   ├── Athena_logo.jpg
+│   │   ├── Google_Cloud_logo.jpg
+│   │   ├── SQLite370.jpg
+│   │   ├── aws-glue-logo__1_.jpg
+│   │   ├── awss3.jpg
+│   │   ├── bigquery.jpg
+│   │   ├── data-contract-support.png
+│   │   ├── data_assistant_plot_expectations_and_metrics.png
+│   │   ├── datadocs-update.jpg
+│   │   ├── datadocs.gif
+│   │   ├── datahub_logo.jpg
+│   │   ├── datasource_redshift.jpg
+│   │   ├── deepnote_logo_400x.jpg
+│   │   ├── flyte_logo.jpg
+│   │   ├── jupyter.jpg
+│   │   ├── meltano-logo.jpg
+│   │   ├── microsoft-azure-blob-storage-logo.jpg
+│   │   ├── microsoft-sql-server-logo-96AF49E2B3-seeklogo.jpg
+│   │   ├── mysql.jpg
+│   │   ├── og-databricks.jpg
+│   │   ├── pandas.jpg
+│   │   ├── postgres.jpg
+│   │   ├── prefect-logo-gradient-navy.jpg
+│   │   ├── slack.jpg
+│   │   ├── snowflake.jpg
+│   │   ├── spark.jpg
+│   │   ├── terminal.gif
+│   │   ├── test-are-docs.jpg
+│   │   ├── trino-og.jpg
+│   │   └── zenml.jpg
+│   ├── ruff.toml
+│   └── sphinx_api_docs_source/
+│       ├── README.md
+│       ├── __init__.py
+│       ├── build_sphinx_api_docs.py
+│       ├── check_public_api_docstrings.py
+│       ├── conf.py
+│       ├── include_exclude_definition.py
+│       ├── index.md
+│       ├── printable_definition.py
+│       ├── public_api_excludes.py
+│       ├── public_api_includes.py
+│       ├── public_api_missing_threshold.py
+│       ├── public_api_report.py
+│       ├── requirements-dev-api-docs.txt
+│       ├── test_build_sphinx_api_docs.py
+│       └── utils.py
+├── great_expectations/
+│   ├── __init__.py
+│   ├── _docs_decorators.py
+│   ├── _version.py
+│   ├── alias_types.py
+│   ├── checkpoint/
+│   │   ├── __init__.py
+│   │   ├── actions.py
+│   │   └── checkpoint.py
+│   ├── compatibility/
+│   │   ├── README.md
+│   │   ├── __init__.py
+│   │   ├── aws.py
+│   │   ├── azure.py
+│   │   ├── bigquery.py
+│   │   ├── databricks.py
+│   │   ├── docstring_parser.py
+│   │   ├── google.py
+│   │   ├── not_imported.py
+│   │   ├── numpy.py
+│   │   ├── pandas_compatibility.py
+│   │   ├── pip.py
+│   │   ├── postgresql.py
+│   │   ├── py4j.py
+│   │   ├── pyarrow.py
+│   │   ├── pydantic.py
+│   │   ├── pyodbc.py
+│   │   ├── pyparsing.py
+│   │   ├── pypd.py
+│   │   ├── pyspark.py
+│   │   ├── snowflake.py
+│   │   ├── sqlalchemy.py
+│   │   ├── sqlalchemy_and_pandas.py
+│   │   ├── sqlalchemy_compatibility_wrappers.py
+│   │   ├── trino.py
+│   │   └── typing_extensions.py
+│   ├── constants.py
+│   ├── core/
+│   │   ├── __init__.py
+│   │   ├── batch.py
+│   │   ├── batch_definition.py
+│   │   ├── batch_manager.py
+│   │   ├── batch_spec.py
+│   │   ├── config_peer.py
+│   │   ├── config_provider.py
+│   │   ├── config_substitutor.py
+│   │   ├── configuration.py
+│   │   ├── data_context_key.py
+│   │   ├── domain.py
+│   │   ├── expectation_diagnostics/
+│   │   ├── expectation_suite.py
+│   │   ├── expectation_validation_result.py
+│   │   ├── factory/
+│   │   ├── freshness_diagnostics.py
+│   │   ├── http.py
+│   │   ├── id_dict.py
+│   │   ├── metric_domain_types.py
+│   │   ├── metric_function_types.py
+│   │   ├── partitioners.py
+│   │   ├── profiler_types_mapping.py
+│   │   ├── result_format.py
+│   │   ├── run_identifier.py
+│   │   ├── serdes.py
+│   │   ├── serializer.py
+│   │   ├── suite_parameters.py
+│   │   ├── types.py
+│   │   ├── util.py
+│   │   ├── validation_definition.py
+│   │   └── yaml_handler.py
+│   ├── data_context/
+│   │   ├── __init__.py
+│   │   ├── _version_checker.py
+│   │   ├── cloud_constants.py
+│   │   ├── constants.py
+│   │   ├── data_context/
+│   │   ├── data_context_variables.py
+│   │   ├── migrator/
+│   │   ├── store/
+│   │   ├── templates.py
+│   │   ├── types/
+│   │   └── util.py
+│   ├── datasource/
+│   │   ├── __init__.py
+│   │   ├── datasource_dict.py
+│   │   └── fluent/
+│   ├── deployment_version
+│   ├── exceptions/
+│   │   ├── __init__.py
+│   │   ├── exceptions.py
+│   │   └── resource_freshness.py
+│   ├── execution_engine/
+│   │   ├── __init__.py
+│   │   ├── execution_engine.py
+│   │   ├── pandas_batch_data.py
+│   │   ├── pandas_execution_engine.py
+│   │   ├── partition_and_sample/
+│   │   ├── redshift_execution_engine.py
+│   │   ├── sparkdf_batch_data.py
+│   │   ├── sparkdf_execution_engine.py
+│   │   ├── sqlalchemy_batch_data.py
+│   │   ├── sqlalchemy_dialect.py
+│   │   ├── sqlalchemy_execution_engine.py
+│   │   ├── sqlite_execution_engine.py
+│   │   └── util.py
+│   ├── expectations/
+│   │   ├── __init__.py
+│   │   ├── conditions.py
+│   │   ├── core/
+│   │   ├── expectation.py
+│   │   ├── expectation_configuration.py
+│   │   ├── legacy_row_conditions.py
+│   │   ├── metadata_types.py
+│   │   ├── metrics/
+│   │   ├── model_field_descriptions.py
+│   │   ├── model_field_types.py
+│   │   ├── regex_based_column_map_expectation.py
+│   │   ├── registry.py
+│   │   ├── row_conditions.py
+│   │   ├── set_based_column_map_expectation.py
+│   │   ├── sql_tokens_and_types.py
+│   │   ├── validation_handlers.py
+│   │   └── window.py
+│   ├── experimental/
+│   │   ├── __init__.py
+│   │   └── metric_repository/
+│   ├── metrics/
+│   │   ├── README.md
+│   │   ├── __init__.py
+│   │   ├── batch/
+│   │   ├── column/
+│   │   ├── column_pair/
+│   │   ├── metric.py
+│   │   ├── metric_name.py
+│   │   ├── metric_results.py
+│   │   ├── multi_column/
+│   │   └── query/
+│   ├── profile/
+│   │   ├── __init__.py
+│   │   ├── base.py
+│   │   └── metrics_utils.py
+│   ├── py.typed
+│   ├── render/
+│   │   ├── __init__.py
+│   │   ├── components.py
+│   │   ├── exceptions.py
+│   │   ├── renderer/
+│   │   ├── renderer_configuration.py
+│   │   ├── util.py
+│   │   └── view/
+│   ├── self_check/
+│   │   ├── __init__.py
+│   │   ├── sqlalchemy_connection_manager.py
+│   │   └── util.py
+│   ├── types/
+│   │   ├── __init__.py
+│   │   ├── attributes.py
+│   │   ├── base.py
+│   │   ├── colors.py
+│   │   ├── configurations.py
+│   │   ├── connect_args.py
+│   │   └── fonts.py
+│   ├── util.py
+│   ├── validator/
+│   │   ├── __init__.py
+│   │   ├── computed_metric.py
+│   │   ├── exception_info.py
+│   │   ├── metric_configuration.py
+│   │   ├── metrics_calculator.py
+│   │   ├── util.py
+│   │   ├── v1_validator.py
+│   │   ├── validation_graph.py
+│   │   ├── validation_statistics.py
+│   │   └── validator.py
+│   └── warnings.py
+├── lychee.toml
+├── pyproject.toml
+├── reqs/
+│   ├── README.md
+│   ├── requirements-dev-all-contrib-expectations.txt
+│   ├── requirements-dev-api-docs-test.txt
+│   ├── requirements-dev-arrow.txt
+│   ├── requirements-dev-athena.txt
+│   ├── requirements-dev-azure.txt
+│   ├── requirements-dev-bigquery.txt
+│   ├── requirements-dev-clickhouse.txt
+│   ├── requirements-dev-cloud.txt
+│   ├── requirements-dev-contrib.txt
+│   ├── requirements-dev-databricks.txt
+│   ├── requirements-dev-dremio.txt
+│   ├── requirements-dev-excel.txt
+│   ├── requirements-dev-gx-redshift.txt
+│   ├── requirements-dev-hive.txt
+│   ├── requirements-dev-lite.txt
+│   ├── requirements-dev-mysql.txt
+│   ├── requirements-dev-pagerduty.txt
+│   ├── requirements-dev-postgresql.txt
+│   ├── requirements-dev-redshift.txt
+│   ├── requirements-dev-snowflake.txt
+│   ├── requirements-dev-spark-connect.txt
+│   ├── requirements-dev-spark.txt
+│   ├── requirements-dev-sql-server.txt
+│   ├── requirements-dev-sqlalchemy.txt
+│   ├── requirements-dev-sqlalchemy1.txt
+│   ├── requirements-dev-sqlalchemy2.txt
+│   ├── requirements-dev-teradata.txt
+│   ├── requirements-dev-test.txt
+│   ├── requirements-dev-tools.txt
+│   ├── requirements-dev-trino.txt
+│   └── requirements-dev-vertica.txt
+├── requirements-dev.txt
+├── requirements-types.txt
+├── requirements.txt
+├── scripts/
+│   ├── README.md
+│   ├── __init__.py
+│   ├── build_api_docs.py
+│   ├── build_glossary_page.py
+│   ├── check_for_technical_terms.py
+│   ├── check_linter_ignores.sh
+│   ├── cleanup/
+│   │   ├── __init__.py
+│   │   ├── cleanup_big_query.py
+│   │   ├── cleanup_databricks.py
+│   │   ├── cleanup_redshift.py
+│   │   └── cleanup_snowflake.py
+│   ├── explicit_docusaurus_version_in_api_reference_links.py
+│   ├── gen_stub.py
+│   ├── install_mssql_odbc_driver.sh
+│   ├── install_sql_server_odbc_driver.sh
+│   └── linter_ignores.py
+├── setup.cfg
+├── setup.py
+├── tasks.py
+├── tests/
+│   ├── __init__.py
+│   ├── actions/
+│   │   ├── __init__.py
+│   │   ├── conftest.py
+│   │   ├── test_action_serialization.py
+│   │   └── test_core_actions.py
+│   ├── build_index_page.py
+│   ├── checkpoint/
+│   │   ├── __init__.py
+│   │   ├── cloud_config.py
+│   │   ├── conftest.py
+│   │   ├── test_checkpoint.py
+│   │   └── test_checkpoint_id_pk.py
+│   ├── conftest.py
+│   ├── core/
+│   │   ├── __init__.py
+│   │   ├── factory/
+│   │   ├── test__docs_decorators.py
+│   │   ├── test_batch.py
+│   │   ├── test_batch_definition.py
+│   │   ├── test_batch_related_objects.py
+│   │   ├── test_config_provider.py
+│   │   ├── test_config_substitutor.py
+│   │   ├── test_evaluation_parameters.py
+│   │   ├── test_expectation_configuration.py
+│   │   ├── test_expectation_suite.py
+│   │   ├── test_expectation_suite_crud_methods.py
+│   │   ├── test_expectation_validation_result.py
+│   │   ├── test_http.py
+│   │   ├── test_identifiers.py
+│   │   ├── test_serialization.py
+│   │   ├── test_serializers.py
+│   │   ├── test_util.py
+│   │   ├── test_validation_definition.py
+│   │   └── test_yaml_handler.py
+│   ├── data_asset/
+│   │   └── __init__.py
+│   ├── data_context/
+│   │   ├── __init__.py
+│   │   ├── abstract_data_context/
+│   │   ├── cloud_data_context/
+│   │   ├── conftest.py
+│   │   ├── fixtures/
+│   │   ├── store/
+│   │   ├── test_cloud_data_context.py
+│   │   ├── test_configuration_storage.py
+│   │   ├── test_data_context.py
+│   │   ├── test_data_context_config_ui.py
+│   │   ├── test_data_context_config_variables.py
+│   │   ├── test_data_context_data_docs_api.py
+│   │   ├── test_data_context_datasources.py
+│   │   ├── test_data_context_ge_cloud_mode.py
+│   │   ├── test_data_context_on_teams.py
+│   │   ├── test_data_context_resource_identifiers.py
+│   │   ├── test_data_context_state_management.py
+│   │   ├── test_data_context_store_configs.py
+│   │   ├── test_data_context_types.py
+│   │   ├── test_data_context_utils.py
+│   │   ├── test_data_context_variables.py
+│   │   ├── test_get_data_context.py
+│   │   ├── test_loading_and_saving_of_data_context_configs.py
+│   │   ├── test_project_manager.py
+│   │   ├── test_templates.py
+│   │   └── test_workspace_aware_context.py
+│   ├── datasource/
+│   │   ├── __init__.py
+│   │   ├── conftest.py
+│   │   ├── data_connector/
+│   │   ├── fluent/
+│   │   ├── test_datasource_dict.py
+│   │   ├── test_sqlalchemy_datasource_workarounds.py
+│   │   └── test_util.py
+│   ├── docs/
+│   │   └── __init__.py
+│   ├── execution_engine/
+│   │   ├── __init__.py
+│   │   ├── conftest.py
+│   │   ├── partition_and_sample/
+│   │   ├── test_execution_engine.py
+│   │   ├── test_pandas_execution_engine.py
+│   │   ├── test_sparkdf_execution_engine.py
+│   │   ├── test_sqlalchemy_batch_data.py
+│   │   ├── test_sqlalchemy_dialect.py
+│   │   └── test_sqlalchemy_execution_engine.py
+│   ├── expectations/
+│   │   ├── __init__.py
+│   │   ├── core/
+│   │   ├── fixtures/
+│   │   ├── metrics/
+│   │   ├── test_condition_validators.py
+│   │   ├── test_conditions.py
+│   │   ├── test_dataclass_serializable_dot_dict_pattern.py
+│   │   ├── test_expectation.py
+│   │   ├── test_expectation_atomic_renderers.py
+│   │   ├── test_expectation_diagnostics.py
+│   │   ├── test_expectation_test_data_cases.py
+│   │   ├── test_format_map_output.py
+│   │   ├── test_generate_diagnostic_checklist.py
+│   │   ├── test_null_filters.py
+│   │   ├── test_registry.py
+│   │   ├── test_row_conditions.py
+│   │   ├── test_run_diagnostics.py
+│   │   ├── test_run_diagnostics_supporting_methods.py
+│   │   └── test_util.py
+│   ├── experimental/
+│   │   ├── __init__.py
+│   │   └── metric_repository/
+│   ├── integration/
+│   │   ├── README.md
+│   │   ├── __init__.py
+│   │   ├── backend_dependencies.py
+│   │   ├── cloud/
+│   │   ├── common_workflows/
+│   │   ├── conftest.py
+│   │   ├── data_sources_and_expectations/
+│   │   ├── db/
+│   │   ├── docusaurus/
+│   │   ├── execution_engine/
+│   │   ├── fixtures/
+│   │   ├── fluent/
+│   │   ├── integration_test_fixture.py
+│   │   ├── metrics/
+│   │   ├── spark/
+│   │   ├── sql_session_manager.py
+│   │   ├── test_definitions/
+│   │   ├── test_script_runner.py
+│   │   ├── test_setup.py
+│   │   └── test_utils/
+│   ├── metrics/
+│   │   ├── __init__.py
+│   │   ├── column_pair_values/
+│   │   ├── conftest.py
+│   │   ├── test_metric.py
+│   │   └── test_metric_results.py
+│   ├── performance/
+│   │   ├── README.md
+│   │   ├── bigquery_schema.json
+│   │   ├── results/
+│   │   ├── run_benchmark_multiple_times.sh
+│   │   └── setup_bigquery_tables_for_performance_test.sh
+│   ├── profile/
+│   │   ├── __init__.py
+│   │   ├── conftest.py
+│   │   ├── fixtures/
+│   │   └── test_profile.py
+│   ├── render/
+│   │   ├── BulletListContentBlock.json
+│   │   ├── __init__.py
+│   │   ├── conftest.py
+│   │   ├── expectations/
+│   │   ├── fixtures/
+│   │   ├── output/
+│   │   ├── renderer/
+│   │   ├── test_EmailRenderer.py
+│   │   ├── test_OpsgenieRenderer.py
+│   │   ├── test_column_section_renderer.py
+│   │   ├── test_data_documentation_site_builder.py
+│   │   ├── test_default_jinja_view.py
+│   │   ├── test_default_markdown_view.py
+│   │   ├── test_inline_renderer.py
+│   │   ├── test_microsoft_teams_renderer.py
+│   │   ├── test_page_renderer.py
+│   │   ├── test_render.py
+│   │   ├── test_render_BulletListContentBlock.py
+│   │   ├── test_render_ExceptionListContentBlockRenderer.py
+│   │   ├── test_render_ValidationResultsTableContentBlockRenderer.py
+│   │   ├── test_renderer.py
+│   │   ├── test_renderer_configuration.py
+│   │   ├── test_slack_renderer.py
+│   │   ├── test_styled_string_template.py
+│   │   └── test_util.py
+│   ├── ruff.toml
+│   ├── scripts/
+│   │   ├── __init__.py
+│   │   └── test_public_api_report.py
+│   ├── sqlalchemy_test_doubles.py
+│   ├── test_configs.py
+│   ├── test_convert_to_json_serializable.py
+│   ├── test_deprecation.py
+│   ├── test_fixtures/
+│   │   ├── __init__.py
+│   │   ├── config_variables.yml
+│   │   ├── config_variables_exhaustive.yml
+│   │   ├── expectation_suites/
+│   │   ├── great_expectations_bad_datasource.yml
+│   │   ├── great_expectations_basic.yml
+│   │   ├── great_expectations_basic_with_variables.yml
+│   │   ├── great_expectations_basic_without_config_variables_filepath.yml
+│   │   ├── great_expectations_custom_local_site_config.yml
+│   │   ├── great_expectations_titanic.yml
+│   │   ├── great_expectations_titanic_no_data_docs.yml
+│   │   ├── great_expectations_titanic_pre_v013_no_data_docs.yml
+│   │   ├── great_expectations_v013_basic.yml
+│   │   ├── great_expectations_v013_basic_with_exhaustive_variables.yml
+│   │   ├── great_expectations_v013_basic_with_usage_stats_enabled.yml
+│   │   ├── great_expectations_v013_no_datasource_stats_enabled.yml
+│   │   ├── great_expectations_v013_titanic.yml
+│   │   └── great_expectations_v013_upgraded_titanic.yml
+│   ├── test_ge_utils.py
+│   ├── test_markers.py
+│   ├── test_not_imported.py
+│   ├── test_packaging.py
+│   ├── test_plugins/
+│   │   ├── __init__.py
+│   │   ├── fake_actions.py
+│   │   └── fake_configs.py
+│   ├── test_sets/
+│   │   ├── Titanic.csv
+│   │   ├── Titanic.feather
+│   │   ├── Titanic.parquet
+│   │   ├── Titanic.pkl
+│   │   ├── Titanic.sas7bdat
+│   │   ├── distributional_expectations_data_base.csv
+│   │   ├── distributional_expectations_data_base.json
+│   │   ├── distributional_expectations_data_test.csv
+│   │   ├── distributional_expectations_data_test.json
+│   │   ├── expected_cli_results_default.json
+│   │   ├── fixed_distributional_test_dataset.csv
+│   │   ├── fixed_distributional_test_dataset.json
+│   │   ├── invalid_json_file.json
+│   │   ├── learn_data_quality_use_cases/
+│   │   ├── metrics_test.db
+│   │   ├── nested_test_json_data_file.json
+│   │   ├── quickstart/
+│   │   ├── referential_integrity_dataset.db
+│   │   ├── sample_schema.json
+│   │   ├── taxi_yellow_tripdata_samples/
+│   │   ├── taxi_yellow_tripdata_samples_upcase/
+│   │   ├── test_cases_for_sql_data_connector.db
+│   │   ├── test_json_data_file.json
+│   │   ├── test_partitions.json
+│   │   ├── test_partitions_definition_fixture.json
+│   │   ├── titanic.db
+│   │   ├── titanic_custom_expectations.json
+│   │   ├── titanic_evaluation_parameters.json
+│   │   ├── titanic_expectations.json
+│   │   ├── titanic_expected_data_asset_validate_results.json
+│   │   ├── titanic_expected_data_asset_validate_results_with_exceptions.json
+│   │   ├── titanic_parameterized_expectations.json
+│   │   ├── titanic_sql_test_cases.db
+│   │   └── visits/
+│   ├── test_setup.py
+│   ├── test_the_utils_in_self_check_utils.py
+│   ├── test_the_utils_in_test_utils.py
+│   ├── test_utils.py
+│   └── validator/
+│       ├── __init__.py
+│       ├── test_exception_info.py
+│       ├── test_metric_configuration.py
+│       ├── test_metrics_calculator.py
+│       ├── test_util.py
+│       ├── test_v1_validator.py
+│       ├── test_validation_graph.py
+│       ├── test_validation_statistics.py
+│       └── test_validator.py
+└── versioneer.py

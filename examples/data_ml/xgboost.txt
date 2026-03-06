@@ -1,0 +1,1151 @@
+=====================================
+Repository Analysis: xgboost
+Type: Data / ML / AI Project
+=====================================
+
+--- METADATA ---
+Name: xgboost
+Description: Scalable, Portable and Distributed Gradient Boosting (GBDT, GBRT or GBM) Library,  for Python, R, Java, Scala, C++ and more. Runs on single machine, Hadoop, Spark, Dask, Flink and DataFlow
+Language: C++
+Topics: distributed-systems, gbdt, gbm, gbrt, machine-learning, xgboost
+Stars: 28087
+License: Apache License 2.0
+
+--- README ---
+<img src="https://xgboost.ai/images/logo/xgboost-logo-trimmed.png" width=200/> eXtreme Gradient Boosting
+===========
+
+[![XGBoost-CI](https://github.com/dmlc/xgboost/workflows/XGBoost%20CI/badge.svg?branch=master)](https://github.com/dmlc/xgboost/actions)
+[![Documentation Status](https://readthedocs.org/projects/xgboost/badge/?version=latest)](https://xgboost.readthedocs.org)
+[![GitHub license](https://dmlc.github.io/img/apache2.svg)](./LICENSE)
+[![CRAN Status Badge](https://www.r-pkg.org/badges/version/xgboost)](https://cran.r-project.org/web/packages/xgboost)
+[![PyPI version](https://badge.fury.io/py/xgboost.svg)](https://pypi.python.org/pypi/xgboost/)
+[![Conda version](https://img.shields.io/conda/vn/conda-forge/py-xgboost.svg)](https://anaconda.org/conda-forge/py-xgboost)
+[![Optuna](https://img.shields.io/badge/Optuna-integrated-blue)](https://optuna.org)
+[![Twitter](https://img.shields.io/badge/@XGBoostProject--_.svg?style=social&logo=twitter)](https://twitter.com/XGBoostProject)
+[![OpenSSF Scorecard](https://api.securityscorecards.dev/projects/github.com/dmlc/xgboost/badge)](https://api.securityscorecards.dev/projects/github.com/dmlc/xgboost)
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/comet-ml/comet-examples/blob/master/integrations/model-training/xgboost/notebooks/how_to_use_comet_with_xgboost_tutorial.ipynb)
+
+[Community](https://xgboost.ai/community) |
+[Documentation](https://xgboost.readthedocs.org) |
+[Resources](demo/README.md) |
+[Contributors](CONTRIBUTORS.md) |
+[Release Notes](https://xgboost.readthedocs.io/en/latest/changes/index.html)
+
+XGBoost is an optimized distributed gradient boosting library designed to be highly ***efficient***, ***flexible*** and ***portable***.
+It implements machine learning algorithms under the [Gradient Boosting](https://en.wikipedia.org/wiki/Gradient_boosting) framework.
+XGBoost provides a parallel tree boosting (also known as GBDT, GBM) that solve many data science problems in a fast and accurate way.
+The same code runs on major distributed environment (Kubernetes, Hadoop, SGE, Dask, Spark, PySpark) and can solve problems beyond billions of examples.
+
+License
+-------
+© Contributors, 2021. Licensed under an [Apache-2](https://github.com/dmlc/xgboost/blob/master/LICENSE) license.
+
+Contribute to XGBoost
+---------------------
+XGBoost has been developed and used by a group of active community members. Your help is very valuable to make the package better for everyone.
+Checkout the [Community Page](https://xgboost.ai/community).
+
+Reference
+---------
+- Tianqi Chen and Carlos Guestrin. [XGBoost: A Scalable Tree Boosting System](https://arxiv.org/abs/1603.02754). In 22nd SIGKDD Conference on Knowledge Discovery and Data Mining, 2016
+- XGBoost originates from research project at University of Washington.
+
+Sponsors
+--------
+Become a sponsor and get a logo here. See details at [Sponsoring the XGBoost Project](https://xgboost.ai/sponsors). The funds are used to defray the cost of continuous integration and testing infrastructure (https://xgboost-ci.net).
+
+## Open Source Collective sponsors
+[![Backers on Open Collective](https://opencollective.com/xgboost/backers/badge.svg)](#backers) [![Sponsors on Open Collective](https://opencollective.com/xgboost/sponsors/badge.svg)](#sponsors)
+
+### Sponsors
+[[Become a sponsor](https://opencollective.com/xgboost#sponsor)]
+
+<a href="https://www.nvidia.com/en-us/" target="_blank"><img src="https://raw.githubusercontent.com/xgboost-ai/xgboost-ai.github.io/master/images/sponsors/nvidia.jpg" alt="NVIDIA" width="72" height="72"></a>
+<a href="https://www.comet.com/site/?utm_source=xgboost&utm_medium=github&utm_content=readme" target="_blank"><img src="https://cdn.comet.ml/img/notebook_logo.png" height="72"></a>
+<a href="https://opencollective.com/tomislav1" target="_blank"><img src="https://images.opencollective.com/tomislav1/avatar/256.png" height="72"></a>
+<a href="https://databento.com/?utm_source=xgboost&utm_medium=sponsor&utm_content=display"><img src="https://raw.githubusercontent.com/xgboost-ai/xgboost-ai.github.io/refs/heads/master/images/sponsors/databento.png" height="72"></a>
+<a href="https://www.intel.com/" target="_blank"><img src="https://images.opencollective.com/intel-corporation/2fa85c1/logo/256.png" width="72" height="72"></a>
+
+### Backers
+[[Become a backer](https://opencollective.com/xgboost#backer)]
+
+<a href="https://opencollective.com/xgboost#backers" target="_blank"><img src="https://opencollective.com/xgboost/backers.svg?width=890"></a>
+
+
+--- PACKAGE MANIFEST(S) ---
+(No package manifest found)
+
+--- REQUIREMENTS FILES ---
+
+[doc/requirements.txt]
+sphinx
+mock
+sphinx_rtd_theme>=1.0.0
+breathe
+scikit-learn
+sh
+matplotlib
+graphviz
+numpy
+scipy
+myst-parser
+ray[train]
+sphinx-gallery
+sphinx-issues
+sphinx-tabs
+dask
+pyspark
+cloudpickle
+setuptools
+
+
+--- ML CONFIG FILES ---
+(No ML config files found)
+
+--- JUPYTER NOTEBOOKS ---
+(No notebooks found)
+
+--- MODEL / TRAINING FILES ---
+  demo/guide-python/generalized_linear_model.py
+  demo/guide-python/model_parser.py
+  demo/guide-python/quantile_data_iterator.py
+  demo/multiclass_classification/train.py
+  demo/nvflare/horizontal/custom/trainer.py
+  demo/nvflare/vertical/custom/trainer.py
+  python-package/xgboost/_data_utils.py
+  python-package/xgboost/testing/basic_models.py
+  python-package/xgboost/testing/data_iter.py
+  python-package/xgboost/testing/predict.py
+
+--- DIRECTORY STRUCTURE (depth 2) ---
+├── .clang-format
+├── .clang-tidy
+├── .editorconfig
+├── .gitattributes
+├── .github/
+│   ├── FUNDING.yml
+│   ├── ISSUE_TEMPLATE.md
+│   ├── dependabot.yml
+│   ├── lock.yml
+│   ├── runs-on.yml
+│   └── workflows/
+│       ├── cccl_nightly.yml
+│       ├── freebsd.yml
+│       ├── jvm_tests.yml
+│       ├── lint.yml
+│       ├── main.yml
+│       ├── misc.yml
+│       ├── pre-commit.yml
+│       ├── python_tests.yml
+│       ├── python_wheels_variants.yml
+│       ├── python_wheels_winarm64.yml
+│       ├── r_nold.yml
+│       ├── r_tests.yml
+│       ├── scorecards.yml
+│       ├── sycl_tests.yml
+│       └── windows.yml
+├── .gitignore
+├── .gitmodules
+├── .pre-commit-config.yaml
+├── .readthedocs.yaml
+├── CITATION
+├── CMakeLists.txt
+├── CONTRIBUTORS.md
+├── LICENSE
+├── NEWS.md
+├── R-package/
+│   ├── .Rbuildignore
+│   ├── .gitignore
+│   ├── CMakeLists.txt
+│   ├── DESCRIPTION
+│   ├── NAMESPACE
+│   ├── R/
+│   │   ├── callbacks.R
+│   │   ├── utils.R
+│   │   ├── xgb.Booster.R
+│   │   ├── xgb.DMatrix.R
+│   │   ├── xgb.DMatrix.save.R
+│   │   ├── xgb.config.R
+│   │   ├── xgb.create.features.R
+│   │   ├── xgb.cv.R
+│   │   ├── xgb.dump.R
+│   │   ├── xgb.ggplot.R
+│   │   ├── xgb.importance.R
+│   │   ├── xgb.load.R
+│   │   ├── xgb.load.raw.R
+│   │   ├── xgb.model.dt.tree.R
+│   │   ├── xgb.plot.deepness.R
+│   │   ├── xgb.plot.importance.R
+│   │   ├── xgb.plot.multi.trees.R
+│   │   ├── xgb.plot.shap.R
+│   │   ├── xgb.plot.tree.R
+│   │   ├── xgb.save.R
+│   │   ├── xgb.save.raw.R
+│   │   ├── xgb.train.R
+│   │   └── xgboost.R
+│   ├── README.md
+│   ├── bootstrap.R
+│   ├── cleanup
+│   ├── configure
+│   ├── configure.ac
+│   ├── configure.win
+│   ├── data/
+│   │   ├── agaricus.test.rda
+│   │   └── agaricus.train.rda
+│   ├── inst/
+│   │   └── make-r-def.R
+│   ├── man/
+│   │   ├── a-compatibility-note-for-saveRDS-save.Rd
+│   │   ├── agaricus.test.Rd
+│   │   ├── agaricus.train.Rd
+│   │   ├── coef.xgb.Booster.Rd
+│   │   ├── dim.xgb.DMatrix.Rd
+│   │   ├── dimnames.xgb.DMatrix.Rd
+│   │   ├── getinfo.Rd
+│   │   ├── predict.xgb.Booster.Rd
+│   │   ├── predict.xgboost.Rd
+│   │   ├── print.xgb.Booster.Rd
+│   │   ├── print.xgb.DMatrix.Rd
+│   │   ├── print.xgb.cv.Rd
+│   │   ├── print.xgboost.Rd
+│   │   ├── variable.names.xgb.Booster.Rd
+│   │   ├── xgb.Callback.Rd
+│   │   ├── xgb.DMatrix.Rd
+│   │   ├── xgb.DMatrix.hasinfo.Rd
+│   │   ├── xgb.DMatrix.save.Rd
+│   │   ├── xgb.DataBatch.Rd
+│   │   ├── xgb.DataIter.Rd
+│   │   ├── xgb.ExtMemDMatrix.Rd
+│   │   ├── xgb.QuantileDMatrix.from_iterator.Rd
+│   │   ├── xgb.attr.Rd
+│   │   ├── xgb.cb.cv.predict.Rd
+│   │   ├── xgb.cb.early.stop.Rd
+│   │   ├── xgb.cb.evaluation.log.Rd
+│   │   ├── xgb.cb.gblinear.history.Rd
+│   │   ├── xgb.cb.print.evaluation.Rd
+│   │   ├── xgb.cb.reset.parameters.Rd
+│   │   ├── xgb.cb.save.model.Rd
+│   │   ├── xgb.config.Rd
+│   │   ├── xgb.copy.Booster.Rd
+│   │   ├── xgb.create.features.Rd
+│   │   ├── xgb.cv.Rd
+│   │   ├── xgb.dump.Rd
+│   │   ├── xgb.gblinear.history.Rd
+│   │   ├── xgb.get.DMatrix.data.Rd
+│   │   ├── xgb.get.DMatrix.num.non.missing.Rd
+│   │   ├── xgb.get.DMatrix.qcut.Rd
+│   │   ├── xgb.get.num.boosted.rounds.Rd
+│   │   ├── xgb.importance.Rd
+│   │   ├── xgb.is.same.Booster.Rd
+│   │   ├── xgb.load.Rd
+│   │   ├── xgb.load.raw.Rd
+│   │   ├── xgb.model.dt.tree.Rd
+│   │   ├── xgb.model.parameters.Rd
+│   │   ├── xgb.params.Rd
+│   │   ├── xgb.plot.deepness.Rd
+│   │   ├── xgb.plot.importance.Rd
+│   │   ├── xgb.plot.multi.trees.Rd
+│   │   ├── xgb.plot.shap.Rd
+│   │   ├── xgb.plot.shap.summary.Rd
+│   │   ├── xgb.plot.tree.Rd
+│   │   ├── xgb.save.Rd
+│   │   ├── xgb.save.raw.Rd
+│   │   ├── xgb.slice.Booster.Rd
+│   │   ├── xgb.slice.DMatrix.Rd
+│   │   ├── xgb.train.Rd
+│   │   ├── xgbConfig.Rd
+│   │   ├── xgboost-options.Rd
+│   │   └── xgboost.Rd
+│   ├── pkgdown/
+│   │   └── _pkgdown.yml
+│   ├── remove_warning_suppression_pragma.sh
+│   ├── src/
+│   │   ├── Makevars.in
+│   │   ├── Makevars.win.in
+│   │   ├── config.h.in
+│   │   ├── init.c
+│   │   ├── xgboost-win.def
+│   │   ├── xgboost_R.cc
+│   │   ├── xgboost_R.h
+│   │   └── xgboost_custom.cc
+│   ├── tests/
+│   │   ├── helper_scripts/
+│   │   ├── testthat.R
+│   │   └── testthat/
+│   └── vignettes/
+│       ├── xgboost_introduction.Rmd
+│       └── xgboostfromJSON.Rmd
+├── README.md
+├── SECURITY.md
+├── amalgamation/
+│   └── dmlc-minimum0.cc
+├── cmake/
+│   ├── Doc.cmake
+│   ├── FindOpenMPMacOS.cmake
+│   ├── PrefetchIntrinsics.cmake
+│   ├── RPackageInstall.cmake.in
+│   ├── RPackageInstallTargetSetup.cmake
+│   ├── Sanitizer.cmake
+│   ├── Utils.cmake
+│   ├── Version.cmake
+│   ├── modules/
+│   │   ├── FindASan.cmake
+│   │   ├── FindLSan.cmake
+│   │   ├── FindLibR.cmake
+│   │   ├── FindNVML.cmake
+│   │   ├── FindNccl.cmake
+│   │   ├── FindTSan.cmake
+│   │   └── FindUBSan.cmake
+│   ├── version_config.h.in
+│   ├── xgboost-config.cmake.in
+│   └── xgboost.pc.in
+├── demo/
+│   ├── .gitignore
+│   ├── README.md
+│   ├── aft_survival/
+│   │   ├── README.rst
+│   │   ├── aft_survival_demo.py
+│   │   ├── aft_survival_demo_with_optuna.py
+│   │   └── aft_survival_viz_demo.py
+│   ├── c-api/
+│   │   ├── .gitignore
+│   │   ├── CMakeLists.txt
+│   │   ├── basic/
+│   │   ├── external-memory/
+│   │   └── inference/
+│   ├── dask/
+│   │   ├── README.rst
+│   │   ├── cpu_survival.py
+│   │   ├── cpu_training.py
+│   │   ├── dask_callbacks.py
+│   │   ├── dask_learning_to_rank.py
+│   │   ├── forward_logging.py
+│   │   ├── gpu_training.py
+│   │   ├── sklearn_cpu_training.py
+│   │   └── sklearn_gpu_training.py
+│   ├── data/
+│   │   ├── README.md
+│   │   ├── agaricus.txt.test
+│   │   ├── agaricus.txt.train
+│   │   ├── featmap.txt
+│   │   ├── gen_autoclaims.R
+│   │   ├── regression/
+│   │   └── veterans_lung_cancer.csv
+│   ├── guide-python/
+│   │   ├── README.rst
+│   │   ├── basic_walkthrough.py
+│   │   ├── boost_from_prediction.py
+│   │   ├── callbacks.py
+│   │   ├── cat_in_the_dat.py
+│   │   ├── cat_pipeline.py
+│   │   ├── categorical.py
+│   │   ├── continuation.py
+│   │   ├── cover_type.py
+│   │   ├── cross_validation.py
+│   │   ├── custom_rmsle.py
+│   │   ├── custom_softmax.py
+│   │   ├── distributed_extmem_basic.py
+│   │   ├── evals_result.py
+│   │   ├── external_memory.py
+│   │   ├── feature_weights.py
+│   │   ├── gamma_regression.py
+│   │   ├── generalized_linear_model.py
+│   │   ├── gpu_tree_shap.py
+│   │   ├── individual_trees.py
+│   │   ├── learning_to_rank.py
+│   │   ├── model_parser.py
+│   │   ├── multioutput_reduced_gradient.py
+│   │   ├── multioutput_regression.py
+│   │   ├── predict_first_ntree.py
+│   │   ├── predict_leaf_indices.py
+│   │   ├── quantile_data_iterator.py
+│   │   ├── quantile_regression.py
+│   │   ├── sklearn_evals_result.py
+│   │   ├── sklearn_examples.py
+│   │   ├── sklearn_parallel.py
+│   │   ├── spark_estimator_examples.py
+│   │   └── update_process.py
+│   ├── kaggle-higgs/
+│   │   ├── README.md
+│   │   ├── higgs-cv.py
+│   │   ├── higgs-numpy.py
+│   │   ├── higgs-pred.R
+│   │   ├── higgs-pred.py
+│   │   ├── higgs-train.R
+│   │   ├── run.sh
+│   │   ├── speedtest.R
+│   │   └── speedtest.py
+│   ├── kaggle-otto/
+│   │   ├── README.MD
+│   │   ├── otto_train_pred.R
+│   │   └── understandingXGBoostModel.Rmd
+│   ├── multiclass_classification/
+│   │   ├── README.md
+│   │   ├── runexp.sh
+│   │   ├── train.R
+│   │   └── train.py
+│   ├── nvflare/
+│   │   ├── .gitignore
+│   │   ├── README.md
+│   │   ├── config/
+│   │   ├── horizontal/
+│   │   └── vertical/
+│   └── rmm_plugin/
+│       ├── README.rst
+│       ├── rmm_mgpu_with_dask.py
+│       └── rmm_singlegpu.py
+├── dev/
+│   ├── prepare_jvm_release.py
+│   └── query_contributors.py
+├── dmlc-core
+├── doc/
+│   ├── .gitignore
+│   ├── Doxyfile.in
+│   ├── Makefile
+│   ├── R-package/
+│   │   ├── .gitignore
+│   │   ├── Makefile
+│   │   ├── adding_parameters.rst
+│   │   ├── index.rst
+│   │   ├── index_base.rst
+│   │   ├── migration_guide.rst
+│   │   └── r_docs/
+│   ├── README
+│   ├── _static/
+│   │   ├── cn.svg
+│   │   ├── custom.css
+│   │   ├── js/
+│   │   └── us.svg
+│   ├── build.rst
+│   ├── c++.rst
+│   ├── c.rst
+│   ├── changes/
+│   │   ├── index.rst
+│   │   ├── v2.1.0.rst
+│   │   ├── v3.0.0.rst
+│   │   ├── v3.1.0.rst
+│   │   └── v3.2.0.rst
+│   ├── conf.py
+│   ├── contrib/
+│   │   ├── ci.rst
+│   │   ├── coding_guide.rst
+│   │   ├── community.rst
+│   │   ├── consistency.rst
+│   │   ├── docs.rst
+│   │   ├── donate.rst
+│   │   ├── featuremap.rst
+│   │   ├── git_guide.rst
+│   │   ├── index.rst
+│   │   ├── python_packaging.rst
+│   │   ├── release.rst
+│   │   └── unit_tests.rst
+│   ├── dump.schema
+│   ├── faq.rst
+│   ├── get_started.rst
+│   ├── gpu/
+│   │   └── index.rst
+│   ├── index.rst
+│   ├── install.rst
+│   ├── julia.rst
+│   ├── jvm/
+│   │   ├── api.rst
+│   │   ├── index.rst
+│   │   ├── java_intro.rst
+│   │   ├── javadocs/
+│   │   ├── scaladocs/
+│   │   ├── xgboost4j_spark_gpu_tutorial.rst
+│   │   ├── xgboost4j_spark_tutorial.rst
+│   │   └── xgboost_spark_migration.rst
+│   ├── parameter.rst
+│   ├── prediction.rst
+│   ├── python/
+│   │   ├── .gitignore
+│   │   ├── callbacks.rst
+│   │   ├── data_input.rst
+│   │   ├── index.rst
+│   │   ├── python_api.rst
+│   │   ├── python_intro.rst
+│   │   └── sklearn_estimator.rst
+│   ├── requirements.txt
+│   ├── sphinx_util.py
+│   ├── treemethod.rst
+│   ├── tutorials/
+│   │   ├── advanced_custom_obj.rst
+│   │   ├── aft_survival_analysis.rst
+│   │   ├── c_api_tutorial.rst
+│   │   ├── categorical.rst
+│   │   ├── custom_metric_obj.rst
+│   │   ├── dart.rst
+│   │   ├── dask.rst
+│   │   ├── external_memory.rst
+│   │   ├── feature_interaction_constraint.rst
+│   │   ├── index.rst
+│   │   ├── input_format.rst
+│   │   ├── intercept.rst
+│   │   ├── kubernetes.rst
+│   │   ├── learning_to_rank.rst
+│   │   ├── model.rst
+│   │   ├── monotonic.rst
+│   │   ├── multioutput.rst
+│   │   ├── param_tuning.rst
+│   │   ├── privacy_preserving.rst
+│   │   ├── ray.rst
+│   │   ├── rf.rst
+│   │   ├── saving_model.rst
+│   │   ├── slicing_model.rst
+│   │   └── spark_estimator.rst
+│   └── xgboost_doc.yml
+├── gputreeshap
+├── include/
+│   └── xgboost/
+│       ├── base.h
+│       ├── byteswap.h
+│       ├── c_api.h
+│       ├── cache.h
+│       ├── collective/
+│       ├── context.h
+│       ├── data.h
+│       ├── feature_map.h
+│       ├── gbm.h
+│       ├── global_config.h
+│       ├── gradient.h
+│       ├── host_device_vector.h
+│       ├── intrusive_ptr.h
+│       ├── json.h
+│       ├── json_io.h
+│       ├── learner.h
+│       ├── linalg.h
+│       ├── linear_updater.h
+│       ├── logging.h
+│       ├── metric.h
+│       ├── model.h
+│       ├── multi_target_tree_model.h
+│       ├── objective.h
+│       ├── parameter.h
+│       ├── predictor.h
+│       ├── span.h
+│       ├── string_view.h
+│       ├── task.h
+│       ├── tree_model.h
+│       ├── tree_updater.h
+│       ├── version_config.h
+│       └── windefs.h
+├── jvm-packages/
+│   ├── .gitignore
+│   ├── CMakeLists.txt
+│   ├── README.md
+│   ├── checkstyle-suppressions.xml
+│   ├── checkstyle.xml
+│   ├── create_jni.py
+│   ├── pom.xml
+│   ├── scalastyle-config.xml
+│   ├── xgboost4j-example/
+│   │   ├── LICENSE
+│   │   ├── README.md
+│   │   ├── pom.xml
+│   │   └── src/
+│   ├── xgboost4j-flink/
+│   │   ├── pom.xml
+│   │   └── src/
+│   ├── xgboost4j-spark-gpu/
+│   │   ├── pom.xml
+│   │   └── src/
+│   ├── xgboost4j-spark/
+│   │   ├── pom.xml
+│   │   └── src/
+│   └── xgboost4j/
+│       ├── LICENSE
+│       ├── pom.xml
+│       └── src/
+├── ops/
+│   ├── conda_env/
+│   │   ├── aarch64_test.yml
+│   │   ├── cpp_test.yml
+│   │   ├── linux_cpu_test.yml
+│   │   ├── linux_sycl_test.yml
+│   │   ├── macos_cpu_test.yml
+│   │   ├── minimal.yml
+│   │   ├── python_lint.yml
+│   │   ├── sdist_test.yml
+│   │   └── win64_test.yml
+│   ├── docker_run.py
+│   ├── pipeline/
+│   │   ├── audit-cuda-wheel.sh
+│   │   ├── build-cpu.sh
+│   │   ├── build-cuda-impl.sh
+│   │   ├── build-cuda.sh
+│   │   ├── build-gpu-rpkg.sh
+│   │   ├── build-jvm-doc.sh
+│   │   ├── build-jvm-gpu.sh
+│   │   ├── build-jvm-macos.sh
+│   │   ├── build-jvm-manylinux2014.sh
+│   │   ├── build-python-wheels-arm64-impl.sh
+│   │   ├── build-python-wheels-cpu.sh
+│   │   ├── build-python-wheels-macos.sh
+│   │   ├── build-r-docs.sh
+│   │   ├── build-test-jvm-packages.sh
+│   │   ├── build-test-sycl.sh
+│   │   ├── build-variant-wheels-impl.sh
+│   │   ├── build-variant-wheels.sh
+│   │   ├── build-win64.ps1
+│   │   ├── classify-git-branch.sh
+│   │   ├── deploy-jvm-packages.sh
+│   │   ├── enforce-ci.ps1
+│   │   ├── enforce-ci.sh
+│   │   ├── get-docker-registry-details.sh
+│   │   ├── get-image-tag.sh
+│   │   ├── login-docker-registry.sh
+│   │   ├── manage-artifacts.py
+│   │   ├── nightly-test-cccl-impl.sh
+│   │   ├── nightly-test-cccl.sh
+│   │   ├── nightly-test-rmm-impl.sh
+│   │   ├── nightly-test-rmm.sh
+│   │   ├── query-latest-cccl.sh
+│   │   ├── query-latest-rmm.sh
+│   │   ├── run-clang-tidy.sh
+│   │   ├── test-c-api-demo.sh
+│   │   ├── test-cpp-i386.sh
+│   │   ├── test-freebsd.sh
+│   │   ├── test-python-macos.sh
+│   │   ├── test-python-sdist.sh
+│   │   ├── test-python-wheel.sh
+│   │   ├── test-python-with-sysprefix.sh
+│   │   ├── test-win64-gpu.ps1
+│   │   ├── trigger-rtd-impl.py
+│   │   └── trigger-rtd.sh
+│   └── script/
+│       ├── change_scala_version.py
+│       ├── change_version.py
+│       ├── changelog.py
+│       ├── format_wheel_meta.py
+│       ├── inject_jvm_lib.sh
+│       ├── lint_cpp.py
+│       ├── lint_r.R
+│       ├── pypi_variants.py
+│       ├── release_artifacts.py
+│       ├── run_clang_tidy.py
+│       ├── setup_r_sccache.sh
+│       ├── test_r_package.py
+│       ├── test_tidy.cc
+│       ├── test_utils.py
+│       ├── type_check_python.py
+│       └── verify_link.sh
+├── plugin/
+│   ├── CMakeLists.txt
+│   ├── README.md
+│   ├── example/
+│   │   ├── README.md
+│   │   └── custom_obj.cc
+│   ├── federated/
+│   │   ├── CMakeLists.txt
+│   │   ├── README.md
+│   │   ├── federated.proto
+│   │   ├── federated_coll.cc
+│   │   ├── federated_coll.cu
+│   │   ├── federated_coll.cuh
+│   │   ├── federated_coll.h
+│   │   ├── federated_comm.cc
+│   │   ├── federated_comm.cu
+│   │   ├── federated_comm.cuh
+│   │   ├── federated_comm.h
+│   │   ├── federated_tracker.cc
+│   │   └── federated_tracker.h
+│   ├── sycl/
+│   │   ├── README.md
+│   │   ├── common/
+│   │   ├── context_helper.cc
+│   │   ├── context_helper.h
+│   │   ├── data.h
+│   │   ├── data/
+│   │   ├── device_manager.cc
+│   │   ├── device_manager.h
+│   │   ├── device_properties.h
+│   │   ├── predictor/
+│   │   └── tree/
+│   └── updater_gpu/
+│       └── README.md
+├── python-package/
+│   ├── .gitignore
+│   ├── README.cpu.rst
+│   ├── README.dft.rst
+│   ├── README.rst
+│   ├── README.stub.rst
+│   ├── hatch_build.py
+│   ├── packager/
+│   │   ├── __init__.py
+│   │   ├── build_config.py
+│   │   ├── nativelib.py
+│   │   ├── pep517.py
+│   │   ├── sdist.py
+│   │   └── util.py
+│   ├── pyproject.toml
+│   ├── pyproject.toml.in
+│   ├── pyproject.toml.stub.in
+│   └── xgboost/
+│       ├── VERSION
+│       ├── __init__.py
+│       ├── _c_api.py
+│       ├── _data_utils.py
+│       ├── _typing.py
+│       ├── callback.py
+│       ├── collective.py
+│       ├── compat.py
+│       ├── config.py
+│       ├── core.py
+│       ├── dask/
+│       ├── data.py
+│       ├── federated.py
+│       ├── libpath.py
+│       ├── objective.py
+│       ├── plotting.py
+│       ├── py.typed
+│       ├── sklearn.py
+│       ├── spark/
+│       ├── testing/
+│       ├── tracker.py
+│       └── training.py
+├── src/
+│   ├── CMakeLists.txt
+│   ├── c_api/
+│   │   ├── c_api.cc
+│   │   ├── c_api.cu
+│   │   ├── c_api_error.cc
+│   │   ├── c_api_error.h
+│   │   ├── c_api_utils.h
+│   │   └── coll_c_api.cc
+│   ├── collective/
+│   │   ├── aggregator.cuh
+│   │   ├── aggregator.h
+│   │   ├── allgather.cc
+│   │   ├── allgather.h
+│   │   ├── allreduce.cc
+│   │   ├── allreduce.h
+│   │   ├── broadcast.cc
+│   │   ├── broadcast.h
+│   │   ├── coll.cc
+│   │   ├── coll.cu
+│   │   ├── coll.cuh
+│   │   ├── coll.h
+│   │   ├── comm.cc
+│   │   ├── comm.cu
+│   │   ├── comm.cuh
+│   │   ├── comm.h
+│   │   ├── comm_group.cc
+│   │   ├── comm_group.h
+│   │   ├── communicator-inl.h
+│   │   ├── in_memory_communicator.h
+│   │   ├── in_memory_handler.cc
+│   │   ├── in_memory_handler.h
+│   │   ├── loop.cc
+│   │   ├── loop.h
+│   │   ├── nccl_stub.cc
+│   │   ├── nccl_stub.h
+│   │   ├── protocol.h
+│   │   ├── result.cc
+│   │   ├── socket.cc
+│   │   ├── tracker.cc
+│   │   └── tracker.h
+│   ├── common/
+│   │   ├── algorithm.cuh
+│   │   ├── algorithm.h
+│   │   ├── api_entry.h
+│   │   ├── base64.h
+│   │   ├── bitfield.h
+│   │   ├── cache_manager.cc
+│   │   ├── cache_manager.h
+│   │   ├── categorical.h
+│   │   ├── charconv.cc
+│   │   ├── charconv.h
+│   │   ├── column_matrix.cc
+│   │   ├── column_matrix.h
+│   │   ├── common.cc
+│   │   ├── common.cu
+│   │   ├── common.h
+│   │   ├── compressed_iterator.h
+│   │   ├── cuda_context.cuh
+│   │   ├── cuda_dr_utils.cc
+│   │   ├── cuda_dr_utils.h
+│   │   ├── cuda_pinned_allocator.cu
+│   │   ├── cuda_pinned_allocator.h
+│   │   ├── cuda_rt_utils.cc
+│   │   ├── cuda_rt_utils.h
+│   │   ├── cuda_stream.h
+│   │   ├── cuda_stream_pool.h
+│   │   ├── deterministic.cuh
+│   │   ├── device_compression.cu
+│   │   ├── device_compression.cuh
+│   │   ├── device_compression.h
+│   │   ├── device_debug.cuh
+│   │   ├── device_helpers.cu
+│   │   ├── device_helpers.cuh
+│   │   ├── device_vector.cu
+│   │   ├── device_vector.cuh
+│   │   ├── error_msg.cc
+│   │   ├── error_msg.h
+│   │   ├── expectile_loss_utils.cc
+│   │   ├── expectile_loss_utils.h
+│   │   ├── group_data.h
+│   │   ├── hist_util.cc
+│   │   ├── hist_util.cu
+│   │   ├── hist_util.cuh
+│   │   ├── hist_util.h
+│   │   ├── host_device_vector.cc
+│   │   ├── host_device_vector.cu
+│   │   ├── io.cc
+│   │   ├── io.h
+│   │   ├── json.cc
+│   │   ├── json_utils.h
+│   │   ├── linalg_op.cc
+│   │   ├── linalg_op.cu
+│   │   ├── linalg_op.cuh
+│   │   ├── linalg_op.h
+│   │   ├── math.h
+│   │   ├── numa_topo.cc
+│   │   ├── numa_topo.h
+│   │   ├── numeric.cc
+│   │   ├── numeric.cu
+│   │   ├── numeric.h
+│   │   ├── nvtx_utils.h
+│   │   ├── observer.h
+│   │   ├── optional_weight.cc
+│   │   ├── optional_weight.cu
+│   │   ├── optional_weight.h
+│   │   ├── param_array.cc
+│   │   ├── param_array.h
+│   │   ├── partition_builder.h
+│   │   ├── probability_distribution.h
+│   │   ├── pseudo_huber.cc
+│   │   ├── pseudo_huber.h
+│   │   ├── quantile.cc
+│   │   ├── quantile.cu
+│   │   ├── quantile.cuh
+│   │   ├── quantile.h
+│   │   ├── quantile_loss_utils.cc
+│   │   ├── quantile_loss_utils.h
+│   │   ├── random.cc
+│   │   ├── random.cu
+│   │   ├── random.h
+│   │   ├── ranking_utils.cc
+│   │   ├── ranking_utils.cu
+│   │   ├── ranking_utils.cuh
+│   │   ├── ranking_utils.h
+│   │   ├── ref_resource_view.cuh
+│   │   ├── ref_resource_view.h
+│   │   ├── resource.cu
+│   │   ├── resource.cuh
+│   │   ├── row_set.h
+│   │   ├── stats.cc
+│   │   ├── stats.cu
+│   │   ├── stats.cuh
+│   │   ├── stats.h
+│   │   ├── survival_util.cc
+│   │   ├── survival_util.h
+│   │   ├── threading_utils.cc
+│   │   ├── threading_utils.cuh
+│   │   ├── threading_utils.h
+│   │   ├── threadpool.h
+│   │   ├── timer.cc
+│   │   ├── timer.h
+│   │   ├── transform.h
+│   │   ├── transform_iterator.h
+│   │   ├── type.h
+│   │   ├── utils.h
+│   │   ├── version.cc
+│   │   └── version.h
+│   ├── context.cc
+│   ├── context.cu
+│   ├── data/
+│   │   ├── adapter.cc
+│   │   ├── adapter.h
+│   │   ├── array_interface.cc
+│   │   ├── array_interface.cu
+│   │   ├── array_interface.h
+│   │   ├── batch_utils.cc
+│   │   ├── batch_utils.h
+│   │   ├── cat_container.cc
+│   │   ├── cat_container.cu
+│   │   ├── cat_container.cuh
+│   │   ├── cat_container.h
+│   │   ├── columnar.h
+│   │   ├── data.cc
+│   │   ├── data.cu
+│   │   ├── device_adapter.cu
+│   │   ├── device_adapter.cuh
+│   │   ├── ellpack_page.cc
+│   │   ├── ellpack_page.cu
+│   │   ├── ellpack_page.cuh
+│   │   ├── ellpack_page.h
+│   │   ├── ellpack_page_raw_format.cu
+│   │   ├── ellpack_page_raw_format.h
+│   │   ├── ellpack_page_source.cu
+│   │   ├── ellpack_page_source.h
+│   │   ├── entry.h
+│   │   ├── extmem_quantile_dmatrix.cc
+│   │   ├── extmem_quantile_dmatrix.cu
+│   │   ├── extmem_quantile_dmatrix.h
+│   │   ├── file_iterator.cc
+│   │   ├── file_iterator.h
+│   │   ├── gradient_index.cc
+│   │   ├── gradient_index.cu
+│   │   ├── gradient_index.h
+│   │   ├── gradient_index_format.cc
+│   │   ├── gradient_index_format.h
+│   │   ├── gradient_index_page_source.cc
+│   │   ├── gradient_index_page_source.h
+│   │   ├── iterative_dmatrix.cc
+│   │   ├── iterative_dmatrix.cu
+│   │   ├── iterative_dmatrix.h
+│   │   ├── metainfo.cc
+│   │   ├── metainfo.cu
+│   │   ├── metainfo.h
+│   │   ├── proxy_dmatrix.cc
+│   │   ├── proxy_dmatrix.cu
+│   │   ├── proxy_dmatrix.cuh
+│   │   ├── proxy_dmatrix.h
+│   │   ├── quantile_dmatrix.cc
+│   │   ├── quantile_dmatrix.cu
+│   │   ├── quantile_dmatrix.h
+│   │   ├── simple_batch_iterator.h
+│   │   ├── simple_dmatrix.cc
+│   │   ├── simple_dmatrix.cu
+│   │   ├── simple_dmatrix.cuh
+│   │   ├── simple_dmatrix.h
+│   │   ├── sparse_page_dmatrix.cc
+│   │   ├── sparse_page_dmatrix.cu
+│   │   ├── sparse_page_dmatrix.h
+│   │   ├── sparse_page_raw_format.cc
+│   │   ├── sparse_page_source.cc
+│   │   ├── sparse_page_source.cu
+│   │   ├── sparse_page_source.h
+│   │   └── sparse_page_writer.h
+│   ├── encoder/
+│   │   ├── ordinal.cuh
+│   │   ├── ordinal.h
+│   │   └── types.h
+│   ├── gbm/
+│   │   ├── gblinear.cc
+│   │   ├── gblinear_model.cc
+│   │   ├── gblinear_model.h
+│   │   ├── gbm.cc
+│   │   ├── gbtree.cc
+│   │   ├── gbtree.cu
+│   │   ├── gbtree.h
+│   │   ├── gbtree_model.cc
+│   │   └── gbtree_model.h
+│   ├── global_config.cc
+│   ├── learner.cc
+│   ├── linear/
+│   │   ├── coordinate_common.h
+│   │   ├── linear_updater.cc
+│   │   ├── param.h
+│   │   ├── updater_coordinate.cc
+│   │   ├── updater_gpu_coordinate.cu
+│   │   └── updater_shotgun.cc
+│   ├── logging.cc
+│   ├── metric/
+│   │   ├── auc.cc
+│   │   ├── auc.cu
+│   │   ├── auc.h
+│   │   ├── elementwise_metric.cc
+│   │   ├── elementwise_metric.cu
+│   │   ├── metric.cc
+│   │   ├── metric_common.h
+│   │   ├── multiclass_metric.cc
+│   │   ├── multiclass_metric.cu
+│   │   ├── rank_metric.cc
+│   │   ├── rank_metric.cu
+│   │   ├── rank_metric.h
+│   │   ├── survival_metric.cc
+│   │   └── survival_metric.cu
+│   ├── objective/
+│   │   ├── adaptive.cc
+│   │   ├── adaptive.cu
+│   │   ├── adaptive.h
+│   │   ├── aft_obj.cc
+│   │   ├── aft_obj.cu
+│   │   ├── hinge.cc
+│   │   ├── hinge.cu
+│   │   ├── init_estimation.cc
+│   │   ├── init_estimation.h
+│   │   ├── lambdarank_obj.cc
+│   │   ├── lambdarank_obj.cu
+│   │   ├── lambdarank_obj.cuh
+│   │   ├── lambdarank_obj.h
+│   │   ├── multiclass_obj.cc
+│   │   ├── multiclass_obj.cu
+│   │   ├── multiclass_param.h
+│   │   ├── objective.cc
+│   │   ├── quantile_obj.cc
+│   │   ├── quantile_obj.cu
+│   │   ├── regression_loss.h
+│   │   ├── regression_obj.cc
+│   │   ├── regression_obj.cu
+│   │   └── regression_param.h
+│   ├── predictor/
+│   │   ├── array_tree_layout.h
+│   │   ├── cpu_predictor.cc
+│   │   ├── data_accessor.h
+│   │   ├── gbtree_view.h
+│   │   ├── gpu_data_accessor.cuh
+│   │   ├── gpu_predictor.cu
+│   │   ├── interpretability/
+│   │   ├── predict_fn.h
+│   │   ├── predictor.cc
+│   │   ├── predictor.cu
+│   │   ├── treeshap.cc
+│   │   ├── treeshap.h
+│   │   └── utils.h
+│   └── tree/
+│       ├── common_row_partitioner.h
+│       ├── constraints.cc
+│       ├── constraints.cu
+│       ├── constraints.cuh
+│       ├── constraints.h
+│       ├── driver.h
+│       ├── fit_stump.cc
+│       ├── fit_stump.cu
+│       ├── fit_stump.h
+│       ├── gpu_hist/
+│       ├── hist/
+│       ├── io_utils.h
+│       ├── multi_target_tree_model.cc
+│       ├── param.cc
+│       ├── param.h
+│       ├── sample_position.h
+│       ├── split_evaluator.h
+│       ├── tree_model.cc
+│       ├── tree_updater.cc
+│       ├── tree_view.cc
+│       ├── tree_view.h
+│       ├── updater_approx.cc
+│       ├── updater_colmaker.cc
+│       ├── updater_gpu_common.cuh
+│       ├── updater_gpu_hist.cu
+│       ├── updater_gpu_hist.cuh
+│       ├── updater_prune.cc
+│       ├── updater_quantile_hist.cc
+│       ├── updater_refresh.cc
+│       └── updater_sync.cc
+└── tests/
+    ├── README.md
+    ├── cpp/
+    │   ├── CMakeLists.txt
+    │   ├── c_api/
+    │   ├── categorical_helpers.h
+    │   ├── collective/
+    │   ├── common/
+    │   ├── data/
+    │   ├── encoder/
+    │   ├── filesystem.cc
+    │   ├── filesystem.h
+    │   ├── gbm/
+    │   ├── helpers.cc
+    │   ├── helpers.cu
+    │   ├── helpers.h
+    │   ├── histogram_helpers.cu
+    │   ├── histogram_helpers.h
+    │   ├── linear/
+    │   ├── metric/
+    │   ├── objective/
+    │   ├── objective_helpers.cc
+    │   ├── objective_helpers.h
+    │   ├── plugin/
+    │   ├── predictor/
+    │   ├── test_cache.cc
+    │   ├── test_context.cc
+    │   ├── test_context.cu
+    │   ├── test_global_config.cc
+    │   ├── test_helpers.cc
+    │   ├── test_histogram_helpers.cu
+    │   ├── test_learner.cc
+    │   ├── test_learner.cu
+    │   ├── test_logging.cc
+    │   ├── test_main.cc
+    │   ├── test_multi_target.cc
+    │   ├── test_serialization.cc
+    │   ├── test_serialization.h
+    │   └── tree/
+    ├── cross-platform/
+    │   └── test_cross_platform_model.py
+    ├── pytest.ini
+    ├── python-gpu/
+    │   ├── conftest.py
+    │   ├── load_pickle.py
+    │   ├── test_device_quantile_dmatrix.py
+    │   ├── test_from_cudf.py
+    │   ├── test_from_cupy.py
+    │   ├── test_gpu_basic_models.py
+    │   ├── test_gpu_callbacks.py
+    │   ├── test_gpu_data_iterator.py
+    │   ├── test_gpu_demos.py
+    │   ├── test_gpu_eval_metrics.py
+    │   ├── test_gpu_interaction_constraints.py
+    │   ├── test_gpu_intercept.py
+    │   ├── test_gpu_linear.py
+    │   ├── test_gpu_multi_target.py
+    │   ├── test_gpu_ordinal.py
+    │   ├── test_gpu_parse_tree.py
+    │   ├── test_gpu_pickling.py
+    │   ├── test_gpu_plotting.py
+    │   ├── test_gpu_prediction.py
+    │   ├── test_gpu_ranking.py
+    │   ├── test_gpu_training_continuation.py
+    │   ├── test_gpu_updaters.py
+    │   ├── test_gpu_with_sklearn.py
+    │   ├── test_large_input.py
+    │   └── test_monotonic_constraints.py
+    ├── python-sycl/
+    │   ├── test_sycl_prediction.py
+    │   ├── test_sycl_simple_dask.py
+    │   ├── test_sycl_training_continuation.py
+    │   ├── test_sycl_updaters.py
+    │   └── test_sycl_with_sklearn.py
+    ├── python/
+    │   ├── generate_models.py
+    │   ├── test_basic.py
+    │   ├── test_basic_models.py
+    │   ├── test_callback.py
+    │   ├── test_collective.py
+    │   ├── test_config.py
+    │   ├── test_data_iterator.py
+    │   ├── test_demos.py
+    │   ├── test_dmatrix.py
+    │   ├── test_early_stopping.py
+    │   ├── test_eval_metrics.py
+    │   ├── test_interaction_constraints.py
+    │   ├── test_intercept.py
+    │   ├── test_linear.py
+    │   ├── test_model_compatibility.py
+    │   ├── test_model_io.py
+    │   ├── test_monotone_constraints.py
+    │   ├── test_multi_target.py
+    │   ├── test_openmp.py
+    │   ├── test_ordinal.py
+    │   ├── test_parse_tree.py
+    │   ├── test_pickling.py
+    │   ├── test_plotting.py
+    │   ├── test_predict.py
+    │   ├── test_quantile_dmatrix.py
+    │   ├── test_ranking.py
+    │   ├── test_shap.py
+    │   ├── test_survival.py
+    │   ├── test_tracker.py
+    │   ├── test_training_continuation.py
+    │   ├── test_tree_regularization.py
+    │   ├── test_updaters.py
+    │   ├── test_with_arrow.py
+    │   ├── test_with_modin.py
+    │   ├── test_with_pandas.py
+    │   ├── test_with_polars.py
+    │   ├── test_with_scipy.py
+    │   ├── test_with_shap.py
+    │   ├── test_with_sklearn.py
+    │   └── with_omp_limit.py
+    └── test_distributed/
+        ├── __init__.py
+        ├── test_federated/
+        ├── test_gpu_federated/
+        ├── test_gpu_with_dask/
+        ├── test_with_dask/
+        └── test_with_spark/

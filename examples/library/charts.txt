@@ -1,0 +1,2552 @@
+=====================================
+Repository Analysis: charts
+Type: Infrastructure / DevOps / IaC
+=====================================
+
+--- METADATA ---
+Name: charts
+Description: ⚠️(OBSOLETE) Curated applications for Kubernetes
+Language: Go
+Topics: charts, helm, kubernetes
+Stars: 15440
+License: Apache License 2.0
+
+--- README ---
+|![](https://upload.wikimedia.org/wikipedia/commons/thumb/1/17/Warning.svg/156px-Warning.svg.png) | This project is no longer supported.
+|---|---|
+
+# Helm Charts
+
+The canonical source for Helm charts is the [Artifact Hub](https://artifacthub.io), an aggregator for distributed chart repos.
+
+This GitHub project is the source for Helm `stable` and `incubator` [Helm chart repositories](https://v3.helm.sh/docs/topics/chart_repository/). This is now an archive no longer under active development.
+
+For more information about installing and using Helm, see the
+[Helm Docs](https://helm.sh/docs/). For a quick introduction to Charts, see the [Chart Guide](https://helm.sh/docs/topics/charts/).
+
+## ⚠️ Deprecation and Archive Notice
+
+Similar to the [Helm 2 Support Plan](https://helm.sh/blog/2019-10-22-helm-2150-released/#helm-2-support-plan), this GitHub project has begun transition to a 1 year "maintenance mode" (see [Deprecation Timeline](#deprecation-timeline) below). Given the deprecation plan, this project is intended for [apiVersion: v1](https://helm.sh/docs/topics/charts/#the-apiversion-field) Charts (installable by both Helm 2 and 3), and not for `apiVersion: v2` charts (installable by Helm 3 only).
+
+### Deprecation Timeline
+
+| | |
+| - | - |
+| **Nov 13, 2019** | At [Helm 3's public release](https://helm.sh/blog/helm-3-released/), new charts are no longer accepted to `stable` or `incubator`. Patches to existing charts may continue to be submitted by the community, and (time permitting) reviewed by chart OWNERS for acceptance |
+| **Aug 13, 2020** | At 9 months – when Helm v2 goes security fix only – the `stable` and `incubator` repos will be de-listed from the Helm Hub. Chart OWNERS are encouraged to accept security fixes only. ℹ️ _Note: the original date has been extended 3 months to match Helm v2 support. See [COVID-19: Extending Helm v2 Bug Fixes](https://helm.sh/blog/covid-19-extending-helm-v2-bug-fixes/)_ |
+| **Nov 13, 2020** | At 1 year, support for this project will formally end, at which point the `stable` and `incubator` chart repos will be marked obsolete. At that time these chart repos will likely be garbage collected and no longer available. This git repository will remain as an archive. |
+
+This timeline gives the community (chart OWNERS, organizations, groups or individuals who want to host charts) 9 months to move charts to new Helm repos, and list these new repos on the Helm Hub before `stable` and `incubator` are de-listed.
+
+Note that this project has been under active development for some time, so you might run into [issues](https://github.com/helm/charts/issues). If you do, please don't be shy about letting us know, or better yet, contribute a fix or feature (within the deprecation timeline of course). Also be aware the repo and chart OWNERS are volunteers so reviews are as time allows, and acceptance is up to the chart OWNERS - you may [reach out](#where-to-find-us) but please be patient and courteous.
+
+## Where to Find Us
+
+For general Helm Chart discussions join the Helm Charts (#charts) room in the [Kubernetes Slack instance](http://slack.kubernetes.io/).
+
+For issues and support for Helm and Charts see [Support Channels](CONTRIBUTING.md#support-channels).
+
+## How Do I Install These Charts?
+
+Just `helm install stable/<chart>`. This is the default repository for Helm v2 which is located at https://charts.helm.sh/stable/ and was installed by default prior to Helm v3.
+
+For more information on using Helm, refer to the [Helm documentation](https://github.com/kubernetes/helm#docs).
+
+## How Do I Enable the Stable Repository for Helm 3?
+
+To add the Helm Stable Charts for your local client, run `helm repo add`:
+
+```
+$ helm repo add stable https://charts.helm.sh/stable
+"stable" has been added to your repositories
+```
+
+## How Do I Enable the Incubator Repository?
+
+To add the Incubator charts for your local client, run `helm repo add`:
+
+```
+$ helm repo add incubator https://charts.helm.sh/incubator
+"incubator" has been added to your repositories
+```
+
+You can then run `helm search incubator` to see the charts.
+
+## Chart Format
+
+Take a look at the [alpine example chart](https://github.com/helm/helm/tree/master/cmd/helm/testdata/testcharts/alpine) for reference when you're writing your first few charts.
+
+Before contributing a Chart, become familiar with the format. Note that the project is still under active development and the format may still evolve a bit.
+
+## Repository Structure
+
+This GitHub repository contains the source for the packaged and versioned charts released using [GitHub pages](https://github.com/helm/charts/tree/gh-pages/stable) (the Chart Repository).
+
+The Charts in the `stable/` directory in the master branch of this repository match the latest packaged Chart in the Chart Repository, though there may be previous versions of a Chart available in that Chart Repository.
+
+The purpose of this repository is to provide a place for maintaining and contributing official Charts, with CI processes in pla
+... [TRUNCATED]
+
+--- IAC CONFIG FILES ---
+(No IaC config files found)
+
+--- TERRAFORM FILES ---
+(None found)
+
+--- KUBERNETES MANIFESTS ---
+  incubator/artifactory/templates/NOTES.txt
+  incubator/artifactory/templates/_helpers.tpl
+  incubator/artifactory/templates/deployment.yaml
+  incubator/artifactory/templates/svc.yaml
+  incubator/aws-alb-ingress-controller/templates/NOTES.txt
+  incubator/aws-alb-ingress-controller/templates/_helpers.tpl
+  incubator/aws-alb-ingress-controller/templates/clusterrole.yaml
+  incubator/aws-alb-ingress-controller/templates/clusterrolebinding.yaml
+  incubator/aws-alb-ingress-controller/templates/deployment.yaml
+  incubator/aws-alb-ingress-controller/templates/serviceaccount.yaml
+
+--- ANSIBLE FILES ---
+(None found)
+
+--- CI/CD PIPELINES ---
+(None found)
+
+--- DIRECTORY STRUCTURE (depth 2) ---
+├── .gitattributes
+├── .github/
+│   ├── ISSUE_TEMPLATE/
+│   │   ├── bug_report.md
+│   │   └── feature_request.md
+│   ├── PULL_REQUEST_TEMPLATE.md
+│   └── stale.yml
+├── .gitignore
+├── CONTRIBUTING.md
+├── LICENSE
+├── OWNERS
+├── PROCESSES.md
+├── README.md
+├── REVIEW_GUIDELINES.md
+├── code-of-conduct.md
+├── incubator/
+│   ├── README.md
+│   ├── artifactory/
+│   │   ├── .helmignore
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── templates/
+│   │   └── values.yaml
+│   ├── aws-alb-ingress-controller/
+│   │   ├── .helmignore
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── templates/
+│   │   └── values.yaml
+│   ├── azuremonitor-containers/
+│   │   ├── .helmignore
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── templates/
+│   │   └── values.yaml
+│   ├── burrow/
+│   │   ├── .helmignore
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── examples/
+│   │   ├── templates/
+│   │   └── values.yaml
+│   ├── buzzfeed-sso/
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── templates/
+│   │   └── values.yaml
+│   ├── cassandra-operator/
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── crds/
+│   │   ├── templates/
+│   │   └── values.yaml
+│   ├── cassandra-reaper/
+│   │   ├── .helmignore
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── templates/
+│   │   └── values.yaml
+│   ├── cassandra/
+│   │   ├── .helmignore
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── sample/
+│   │   ├── templates/
+│   │   └── values.yaml
+│   ├── chartmuseum/
+│   │   ├── .helmignore
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── templates/
+│   │   └── values.yaml
+│   ├── check-mk/
+│   │   ├── .helmignore
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── templates/
+│   │   └── values.yaml
+│   ├── cockroachdb/
+│   │   ├── .helmignore
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── templates/
+│   │   └── values.yaml
+│   ├── common/
+│   │   ├── .helmignore
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── templates/
+│   │   └── values.yaml
+│   ├── consul/
+│   │   ├── .helmignore
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── templates/
+│   │   └── values.yaml
+│   ├── couchdb/
+│   │   ├── .helmignore
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── templates/
+│   │   └── values.yaml
+│   ├── distribution/
+│   │   ├── .helmignore
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── ci/
+│   │   ├── requirements.lock
+│   │   ├── requirements.yaml
+│   │   ├── templates/
+│   │   └── values.yaml
+│   ├── docker-registry/
+│   │   ├── .helmignore
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── templates/
+│   │   └── values.yaml
+│   ├── drone/
+│   │   ├── .helmignore
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── templates/
+│   │   └── values.yaml
+│   ├── druid/
+│   │   ├── .helmignore
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── requirements.lock
+│   │   ├── requirements.yaml
+│   │   ├── templates/
+│   │   └── values.yaml
+│   ├── elastic-stack/
+│   │   ├── .helmignore
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── requirements.lock
+│   │   ├── requirements.yaml
+│   │   ├── templates/
+│   │   └── values.yaml
+│   ├── elasticsearch-curator/
+│   │   ├── .helmignore
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── templates/
+│   │   └── values.yaml
+│   ├── elasticsearch/
+│   │   ├── .helmignore
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── ci/
+│   │   ├── templates/
+│   │   └── values.yaml
+│   ├── etcd/
+│   │   ├── .helmignore
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── templates/
+│   │   └── values.yaml
+│   ├── fluentd-cloudwatch/
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── templates/
+│   │   └── values.yaml
+│   ├── fluentd-elasticsearch/
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── templates/
+│   │   └── values.yaml
+│   ├── fluentd/
+│   │   ├── .helmignore
+│   │   ├── Chart.yaml
+│   │   ├── templates/
+│   │   └── values.yaml
+│   ├── gocd/
+│   │   ├── .helmignore
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── templates/
+│   │   └── values.yaml
+│   ├── gogs/
+│   │   ├── .helmignore
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── requirements.lock
+│   │   ├── requirements.yaml
+│   │   ├── templates/
+│   │   └── values.yaml
+│   ├── goldfish/
+│   │   ├── .helmignore
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── templates/
+│   │   └── values.yaml
+│   ├── grafana/
+│   │   ├── .helmignore
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── templates/
+│   │   └── values.yaml
+│   ├── haproxy-ingress/
+│   │   ├── .helmignore
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── templates/
+│   │   └── values.yaml
+│   ├── honeydipper/
+│   │   ├── .helmignore
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── templates/
+│   │   ├── test-values.yaml
+│   │   ├── test_fixtures/
+│   │   └── values.yaml
+│   ├── hoverfly/
+│   │   ├── .helmignore
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── templates/
+│   │   └── values.yaml
+│   ├── istio/
+│   │   ├── .helmignore
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── templates/
+│   │   └── values.yaml
+│   ├── jaeger/
+│   │   ├── .helmignore
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── requirements.yaml
+│   │   ├── templates/
+│   │   └── values.yaml
+│   ├── jenkins-operator/
+│   │   ├── CRD-protected/
+│   │   ├── CRD/
+│   │   ├── Chart.yaml
+│   │   ├── RBAC/
+│   │   ├── README.md
+│   │   ├── templates/
+│   │   └── values.yaml
+│   ├── kafka/
+│   │   ├── .helmignore
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── requirements.lock
+│   │   ├── requirements.yaml
+│   │   ├── templates/
+│   │   └── values.yaml
+│   ├── keycloak-proxy/
+│   │   ├── .helmignore
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── templates/
+│   │   └── values.yaml
+│   ├── keycloak/
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── requirements.lock
+│   │   ├── requirements.yaml
+│   │   ├── templates/
+│   │   └── values.yaml
+│   ├── kube-downscaler/
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── templates/
+│   │   └── values.yaml
+│   ├── kube-janitor/
+│   │   ├── .helmignore
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── templates/
+│   │   └── values.yaml
+│   ├── kube-ops-view/
+│   │   ├── .helmignore
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── templates/
+│   │   └── values.yaml
+│   ├── kube-registry-proxy/
+│   │   ├── .helmignore
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── templates/
+│   │   └── values.yaml
+│   ├── kube-spot-termination-notice-handler/
+│   │   ├── .helmignore
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── templates/
+│   │   └── values.yaml
+│   ├── kubeless/
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── crds/
+│   │   ├── templates/
+│   │   └── values.yaml
+│   ├── kubernetes-vault/
+│   │   ├── .helmignore
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── templates/
+│   │   └── values.yaml
+│   ├── kubewatch/
+│   │   ├── .helmignore
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── templates/
+│   │   └── values.yaml
+│   ├── logstash/
+│   │   ├── .helmignore
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── templates/
+│   │   └── values.yaml
+│   ├── mongodb-replicaset/
+│   │   ├── .helmignore
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── templates/
+│   │   └── values.yaml
+│   ├── mongodb/
+│   │   ├── .helmignore
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── templates/
+│   │   └── values.yaml
+│   ├── mysqlha/
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── templates/
+│   │   └── values.yaml
+│   ├── neo4j/
+│   │   ├── .helmignore
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── templates/
+│   │   └── values.yaml
+│   ├── oauth-proxy/
+│   │   ├── .helmignore
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── templates/
+│   │   └── values.yaml
+│   ├── orientdb/
+│   │   ├── .helmignore
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── config/
+│   │   ├── templates/
+│   │   └── values.yaml
+│   ├── patroni/
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── requirements.lock
+│   │   ├── requirements.yaml
+│   │   ├── templates/
+│   │   └── values.yaml
+│   ├── prometheus/
+│   │   ├── .helmignore
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── templates/
+│   │   └── values.yaml
+│   ├── puppet-forge/
+│   │   ├── .helmignore
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── templates/
+│   │   └── values.yaml
+│   ├── raw/
+│   │   ├── .helmignore
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── ci/
+│   │   ├── templates/
+│   │   └── values.yaml
+│   ├── redis-cache/
+│   │   ├── .helmignore
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── templates/
+│   │   └── values.yaml
+│   ├── riemann/
+│   │   ├── .gitignore
+│   │   ├── .helmignore
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── templates/
+│   │   └── values.yaml
+│   ├── rundeck/
+│   │   ├── .helmignore
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── files/
+│   │   ├── templates/
+│   │   └── values.yaml
+│   ├── schema-registry/
+│   │   ├── .helmignore
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── requirements.lock
+│   │   ├── requirements.yaml
+│   │   ├── templates/
+│   │   └── values.yaml
+│   ├── sentry-kubernetes/
+│   │   ├── .helmignore
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── templates/
+│   │   └── values.yaml
+│   ├── solr/
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── requirements.lock
+│   │   ├── requirements.yaml
+│   │   ├── templates/
+│   │   └── values.yaml
+│   ├── spark/
+│   │   ├── .helmignore
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── templates/
+│   │   └── values.yaml
+│   ├── sparkoperator/
+│   │   ├── .helmignore
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── ci/
+│   │   ├── hack/
+│   │   ├── templates/
+│   │   └── values.yaml
+│   ├── spring-cloud-data-flow/
+│   │   ├── .helmignore
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── requirements.lock
+│   │   ├── requirements.yaml
+│   │   ├── templates/
+│   │   └── values.yaml
+│   ├── tensorflow-inception/
+│   │   ├── .helmignore
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── templates/
+│   │   └── values.yaml
+│   ├── vault/
+│   │   ├── .helmignore
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── templates/
+│   │   └── values.yaml
+│   ├── vaultingkube/
+│   │   ├── .helmignore
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── templates/
+│   │   └── values.yaml
+│   ├── webpagetest-agent/
+│   │   ├── .helmignore
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── templates/
+│   │   └── values.yaml
+│   ├── webpagetest-server/
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── templates/
+│   │   └── values.yaml
+│   ├── xray/
+│   │   ├── .helmignore
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── ci/
+│   │   ├── requirements.lock
+│   │   ├── requirements.yaml
+│   │   ├── templates/
+│   │   └── values.yaml
+│   └── zookeeper/
+│       ├── .helmignore
+│       ├── Chart.yaml
+│       ├── README.md
+│       ├── templates/
+│       └── values.yaml
+├── stable/
+│   ├── README.md
+│   ├── acs-engine-autoscaler/
+│   │   ├── .helmignore
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── templates/
+│   │   └── values.yaml
+│   ├── aerospike/
+│   │   ├── .helmignore
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── templates/
+│   │   └── values.yaml
+│   ├── airflow/
+│   │   ├── .helmignore
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── UPGRADE.md
+│   │   ├── examples/
+│   │   ├── requirements.yaml
+│   │   ├── templates/
+│   │   └── values.yaml
+│   ├── ambassador/
+│   │   ├── .helmignore
+│   │   ├── CHANGELOG.md
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── ci/
+│   │   ├── crds/
+│   │   ├── templates/
+│   │   └── values.yaml
+│   ├── anchore-engine/
+│   │   ├── .helmignore
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── charts/
+│   │   ├── enterprise_values.yaml
+│   │   ├── requirements.lock
+│   │   ├── requirements.yaml
+│   │   ├── templates/
+│   │   └── values.yaml
+│   ├── apm-server/
+│   │   ├── .helmignore
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── templates/
+│   │   └── values.yaml
+│   ├── ark/
+│   │   ├── .helmignore
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── templates/
+│   │   └── values.yaml
+│   ├── artifactory-ha/
+│   │   ├── .helmignore
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── requirements.lock
+│   │   ├── requirements.yaml
+│   │   ├── templates/
+│   │   └── values.yaml
+│   ├── artifactory/
+│   │   ├── .helmignore
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── requirements.lock
+│   │   ├── requirements.yaml
+│   │   ├── templates/
+│   │   └── values.yaml
+│   ├── atlantis/
+│   │   ├── .helmignore
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── ci/
+│   │   ├── templates/
+│   │   ├── test-values.yaml
+│   │   └── values.yaml
+│   ├── auditbeat/
+│   │   ├── .helmignore
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── templates/
+│   │   └── values.yaml
+│   ├── aws-cluster-autoscaler/
+│   │   ├── .helmignore
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── templates/
+│   │   └── values.yaml
+│   ├── aws-iam-authenticator/
+│   │   ├── .helmignore
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── templates/
+│   │   └── values.yaml
+│   ├── bitcoind/
+│   │   ├── .helmignore
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── templates/
+│   │   └── values.yaml
+│   ├── bookstack/
+│   │   ├── .helmignore
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── requirements.lock
+│   │   ├── requirements.yaml
+│   │   ├── templates/
+│   │   └── values.yaml
+│   ├── buildkite/
+│   │   ├── .helmignore
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── pipeline-examples/
+│   │   ├── templates/
+│   │   └── values.yaml
+│   ├── burrow/
+│   │   ├── .helmignore
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── ci/
+│   │   ├── initialize.sh
+│   │   ├── templates/
+│   │   └── values.yaml
+│   ├── centrifugo/
+│   │   ├── .helmignore
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── templates/
+│   │   └── values.yaml
+│   ├── cerebro/
+│   │   ├── .helmignore
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── templates/
+│   │   └── values.yaml
+│   ├── cert-manager/
+│   │   ├── .helmignore
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── requirements.lock
+│   │   ├── requirements.yaml
+│   │   ├── templates/
+│   │   ├── values.yaml
+│   │   └── webhook/
+│   ├── chaoskube/
+│   │   ├── .helmignore
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── templates/
+│   │   └── values.yaml
+│   ├── chartmuseum/
+│   │   ├── .helmignore
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── ci/
+│   │   ├── templates/
+│   │   └── values.yaml
+│   ├── chronograf/
+│   │   ├── .helmignore
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── templates/
+│   │   └── values.yaml
+│   ├── clamav/
+│   │   ├── .helmignore
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── templates/
+│   │   └── values.yaml
+│   ├── cloudserver/
+│   │   ├── .helmignore
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── requirements.lock
+│   │   ├── requirements.yaml
+│   │   ├── templates/
+│   │   └── values.yaml
+│   ├── cluster-autoscaler/
+│   │   ├── .helmignore
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── templates/
+│   │   └── values.yaml
+│   ├── cluster-overprovisioner/
+│   │   ├── .helmignore
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── ci/
+│   │   ├── templates/
+│   │   └── values.yaml
+│   ├── cockroachdb/
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── templates/
+│   │   └── values.yaml
+│   ├── collabora-code/
+│   │   ├── .helmignore
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── templates/
+│   │   └── values.yaml
+│   ├── concourse/
+│   │   ├── .helmignore
+│   │   ├── CHANGELOG.md
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── ci/
+│   │   ├── requirements.lock
+│   │   ├── requirements.yaml
+│   │   ├── templates/
+│   │   └── values.yaml
+│   ├── consul/
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── templates/
+│   │   └── values.yaml
+│   ├── contour/
+│   │   ├── .helmignore
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── ci/
+│   │   ├── crds/
+│   │   ├── templates/
+│   │   ├── tests/
+│   │   └── values.yaml
+│   ├── coredns/
+│   │   ├── .helmignore
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── templates/
+│   │   └── values.yaml
+│   ├── cosbench/
+│   │   ├── .helmignore
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── templates/
+│   │   └── values.yaml
+│   ├── coscale/
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── templates/
+│   │   └── values.yaml
+│   ├── couchbase-operator/
+│   │   ├── .helmignore
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── templates/
+│   │   └── values.yaml
+│   ├── couchdb/
+│   │   ├── .helmignore
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── templates/
+│   │   └── values.yaml
+│   ├── dask-distributed/
+│   │   ├── .helmignore
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── templates/
+│   │   └── values.yaml
+│   ├── dask/
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── templates/
+│   │   └── values.yaml
+│   ├── datadog/
+│   │   ├── .helmignore
+│   │   ├── CHANGELOG.md
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── ci/
+│   │   ├── docs/
+│   │   ├── requirements.lock
+│   │   ├── requirements.yaml
+│   │   ├── templates/
+│   │   └── values.yaml
+│   ├── dex/
+│   │   ├── .helmignore
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── config/
+│   │   ├── templates/
+│   │   └── values.yaml
+│   ├── distributed-jmeter/
+│   │   ├── .helmignore
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── templates/
+│   │   └── values.yaml
+│   ├── distributed-tensorflow/
+│   │   ├── .helmignore
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── distributed-tf.jpg
+│   │   ├── templates/
+│   │   └── values.yaml
+│   ├── distribution/
+│   │   ├── .helmignore
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── ci/
+│   │   ├── requirements.lock
+│   │   ├── requirements.yaml
+│   │   ├── templates/
+│   │   └── values.yaml
+│   ├── dmarc2logstash/
+│   │   ├── .helmignore
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── templates/
+│   │   └── values.yaml
+│   ├── docker-registry/
+│   │   ├── .helmignore
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── templates/
+│   │   └── values.yaml
+│   ├── dokuwiki/
+│   │   ├── .helmignore
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── templates/
+│   │   └── values.yaml
+│   ├── drone/
+│   │   ├── .helmignore
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── templates/
+│   │   └── values.yaml
+│   ├── drupal/
+│   │   ├── .helmignore
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── requirements.lock
+│   │   ├── requirements.yaml
+│   │   ├── templates/
+│   │   ├── values.schema.json
+│   │   └── values.yaml
+│   ├── efs-provisioner/
+│   │   ├── .helmignore
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── templates/
+│   │   └── values.yaml
+│   ├── elastabot/
+│   │   ├── .helmignore
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── templates/
+│   │   └── values.yaml
+│   ├── elastalert/
+│   │   ├── .helmignore
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── templates/
+│   │   └── values.yaml
+│   ├── elastic-stack/
+│   │   ├── .helmignore
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── requirements.lock
+│   │   ├── requirements.yaml
+│   │   ├── templates/
+│   │   └── values.yaml
+│   ├── elasticsearch-curator/
+│   │   ├── .helmignore
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── ci/
+│   │   ├── templates/
+│   │   └── values.yaml
+│   ├── elasticsearch-exporter/
+│   │   ├── .helmignore
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── ci/
+│   │   ├── templates/
+│   │   └── values.yaml
+│   ├── elasticsearch/
+│   │   ├── .helmignore
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── ci/
+│   │   ├── templates/
+│   │   └── values.yaml
+│   ├── envoy/
+│   │   ├── .helmignore
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── templates/
+│   │   └── values.yaml
+│   ├── etcd-operator/
+│   │   ├── .helmignore
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── crds/
+│   │   ├── templates/
+│   │   └── values.yaml
+│   ├── ethereum/
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── ci/
+│   │   ├── scripts/
+│   │   ├── templates/
+│   │   └── values.yaml
+│   ├── eventrouter/
+│   │   ├── .helmignore
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── templates/
+│   │   └── values.yaml
+│   ├── express-gateway/
+│   │   ├── .helmignore
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── requirements.lock
+│   │   ├── requirements.yaml
+│   │   ├── templates/
+│   │   └── values.yaml
+│   ├── external-dns/
+│   │   ├── .helmignore
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── templates/
+│   │   ├── values-production.yaml
+│   │   └── values.yaml
+│   ├── factorio/
+│   │   ├── .helmignore
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── templates/
+│   │   └── values.yaml
+│   ├── falco/
+│   │   ├── .helmignore
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── templates/
+│   │   └── values.yaml
+│   ├── filebeat/
+│   │   ├── .helmignore
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── templates/
+│   │   └── values.yaml
+│   ├── fluent-bit/
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── templates/
+│   │   └── values.yaml
+│   ├── fluentd-elasticsearch/
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── templates/
+│   │   └── values.yaml
+│   ├── fluentd/
+│   │   ├── .helmignore
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── templates/
+│   │   └── values.yaml
+│   ├── g2/
+│   │   ├── .helmignore
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── templates/
+│   │   └── values.yaml
+│   ├── gangway/
+│   │   ├── .helmignore
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── templates/
+│   │   └── values.yaml
+│   ├── gce-ingress/
+│   │   ├── .helmignore
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── templates/
+│   │   └── values.yaml
+│   ├── gcloud-endpoints/
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── templates/
+│   │   └── values.yaml
+│   ├── gcloud-sqlproxy/
+│   │   ├── .helmignore
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── templates/
+│   │   └── values.yaml
+│   ├── gcp-night-king/
+│   │   ├── .helmignore
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── templates/
+│   │   └── values.yaml
+│   ├── ghost/
+│   │   ├── .helmignore
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── requirements.lock
+│   │   ├── requirements.yaml
+│   │   ├── templates/
+│   │   ├── values.schema.json
+│   │   └── values.yaml
+│   ├── gitlab-ce/
+│   │   ├── .helmignore
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── requirements.lock
+│   │   ├── requirements.yaml
+│   │   ├── templates/
+│   │   └── values.yaml
+│   ├── gitlab-ee/
+│   │   ├── .helmignore
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── requirements.lock
+│   │   ├── requirements.yaml
+│   │   ├── templates/
+│   │   └── values.yaml
+│   ├── gocd/
+│   │   ├── .helmignore
+│   │   ├── CHANGELOG.md
+│   │   ├── Chart.yaml
+│   │   ├── LICENSE
+│   │   ├── README.md
+│   │   ├── templates/
+│   │   └── values.yaml
+│   ├── goldpinger/
+│   │   ├── .helmignore
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── templates/
+│   │   └── values.yaml
+│   ├── grafana/
+│   │   ├── .helmignore
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── ci/
+│   │   ├── dashboards/
+│   │   ├── templates/
+│   │   └── values.yaml
+│   ├── graphite/
+│   │   ├── .helmignore
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── templates/
+│   │   └── values.yaml
+│   ├── graylog/
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── requirements.yaml
+│   │   ├── templates/
+│   │   └── values.yaml
+│   ├── hackmd/
+│   │   ├── .helmignore
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── requirements.lock
+│   │   ├── requirements.yaml
+│   │   ├── templates/
+│   │   └── values.yaml
+│   ├── hadoop/
+│   │   ├── .helmignore
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── templates/
+│   │   ├── tools/
+│   │   └── values.yaml
+│   ├── hazelcast-jet/
+│   │   ├── .helmignore
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── templates/
+│   │   └── values.yaml
+│   ├── hazelcast/
+│   │   ├── .helmignore
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── templates/
+│   │   └── values.yaml
+│   ├── heapster/
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── templates/
+│   │   └── values.yaml
+│   ├── heartbeat/
+│   │   ├── .helmignore
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── templates/
+│   │   └── values.yaml
+│   ├── helm-exporter/
+│   │   ├── .helmignore
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── templates/
+│   │   └── values.yaml
+│   ├── hl-composer/
+│   │   ├── .helmignore
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── templates/
+│   │   └── values.yaml
+│   ├── hlf-ca/
+│   │   ├── .helmignore
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── requirements.lock
+│   │   ├── requirements.yaml
+│   │   ├── templates/
+│   │   ├── tests/
+│   │   └── values.yaml
+│   ├── hlf-couchdb/
+│   │   ├── .helmignore
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── templates/
+│   │   └── values.yaml
+│   ├── hlf-ord/
+│   │   ├── .helmignore
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── UPGRADE_1-1-x.md
+│   │   ├── templates/
+│   │   ├── tests/
+│   │   └── values.yaml
+│   ├── hlf-peer/
+│   │   ├── .helmignore
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── UPGRADE_1-1-x.md
+│   │   ├── templates/
+│   │   ├── tests/
+│   │   └── values.yaml
+│   ├── hoard/
+│   │   ├── .helmignore
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── templates/
+│   │   └── values.yaml
+│   ├── home-assistant/
+│   │   ├── .helmignore
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── templates/
+│   │   └── values.yaml
+│   ├── horovod/
+│   │   ├── .helmignore
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── templates/
+│   │   └── values.yaml
+│   ├── hubot/
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── ci/
+│   │   ├── requirements.lock
+│   │   ├── requirements.yaml
+│   │   ├── templates/
+│   │   └── values.yaml
+│   ├── ignite/
+│   │   ├── .helmignore
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── templates/
+│   │   └── values.yaml
+│   ├── inbucket/
+│   │   ├── .helmignore
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── templates/
+│   │   └── values.yaml
+│   ├── influxdb/
+│   │   ├── .helmignore
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── templates/
+│   │   └── values.yaml
+│   ├── ingressmonitorcontroller/
+│   │   ├── .helmignore
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── templates/
+│   │   └── values.yaml
+│   ├── instana-agent/
+│   │   ├── .helmignore
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── templates/
+│   │   └── values.yaml
+│   ├── ipfs/
+│   │   ├── .helmignore
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── templates/
+│   │   └── values.yaml
+│   ├── jaeger-operator/
+│   │   ├── .helmignore
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── crds/
+│   │   ├── templates/
+│   │   └── values.yaml
+│   ├── janusgraph/
+│   │   ├── .helmignore
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── requirements.yaml
+│   │   ├── templates/
+│   │   └── values.yaml
+│   ├── jasperreports/
+│   │   ├── .helmignore
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── requirements.lock
+│   │   ├── requirements.yaml
+│   │   ├── templates/
+│   │   └── values.yaml
+│   ├── jenkins/
+│   │   ├── .helmignore
+│   │   ├── CHANGELOG.md
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── ci/
+│   │   ├── templates/
+│   │   └── values.yaml
+│   ├── joomla/
+│   │   ├── .helmignore
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── requirements.lock
+│   │   ├── requirements.yaml
+│   │   ├── templates/
+│   │   ├── values.schema.json
+│   │   └── values.yaml
+│   ├── k8s-spot-rescheduler/
+│   │   ├── .helmignore
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── templates/
+│   │   └── values.yaml
+│   ├── k8s-spot-termination-handler/
+│   │   ├── .helmignore
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── templates/
+│   │   └── values.yaml
+│   ├── kafka-manager/
+│   │   ├── .helmignore
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── ci/
+│   │   ├── requirements.lock
+│   │   ├── requirements.yaml
+│   │   ├── templates/
+│   │   └── values.yaml
+│   ├── kanister-operator/
+│   │   ├── .helmignore
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── charts/
+│   │   ├── templates/
+│   │   └── values.yaml
+│   ├── kapacitor/
+│   │   ├── .helmignore
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── templates/
+│   │   └── values.yaml
+│   ├── karma/
+│   │   ├── .helmignore
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── ci/
+│   │   ├── templates/
+│   │   └── values.yaml
+│   ├── katafygio/
+│   │   ├── .helmignore
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── templates/
+│   │   └── values.yaml
+│   ├── keel/
+│   │   ├── .helmignore
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── templates/
+│   │   └── values.yaml
+│   ├── keycloak/
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── ci/
+│   │   ├── requirements.lock
+│   │   ├── requirements.yaml
+│   │   ├── scripts/
+│   │   ├── templates/
+│   │   └── values.yaml
+│   ├── kiam/
+│   │   ├── .helmignore
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── ci/
+│   │   ├── templates/
+│   │   └── values.yaml
+│   ├── kibana/
+│   │   ├── .helmignore
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── ci/
+│   │   ├── templates/
+│   │   └── values.yaml
+│   ├── kong/
+│   │   ├── .helmignore
+│   │   ├── Chart.yaml
+│   │   ├── FAQs.md
+│   │   ├── README.md
+│   │   ├── ci/
+│   │   ├── requirements.lock
+│   │   ├── requirements.yaml
+│   │   ├── templates/
+│   │   └── values.yaml
+│   ├── kube-hunter/
+│   │   ├── .helmignore
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── templates/
+│   │   └── values.yaml
+│   ├── kube-lego/
+│   │   ├── .helmignore
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── templates/
+│   │   └── values.yaml
+│   ├── kube-ops-view/
+│   │   ├── .helmignore
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── ci/
+│   │   ├── requirements.lock
+│   │   ├── requirements.yaml
+│   │   ├── templates/
+│   │   └── values.yaml
+│   ├── kube-slack/
+│   │   ├── .helmignore
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── templates/
+│   │   └── values.yaml
+│   ├── kube-state-metrics/
+│   │   ├── .helmignore
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── templates/
+│   │   └── values.yaml
+│   ├── kube2iam/
+│   │   ├── .helmignore
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── templates/
+│   │   └── values.yaml
+│   ├── kubed/
+│   │   ├── .helmignore
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── templates/
+│   │   └── values.yaml
+│   ├── kubedb/
+│   │   ├── .helmignore
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── templates/
+│   │   └── values.yaml
+│   ├── kuberhealthy/
+│   │   ├── Chart.yaml
+│   │   ├── NOTES.txt
+│   │   ├── README.md
+│   │   ├── templates/
+│   │   └── values.yaml
+│   ├── kubernetes-dashboard/
+│   │   ├── .helmignore
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── templates/
+│   │   └── values.yaml
+│   ├── kuberos/
+│   │   ├── .helmignore
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── templates/
+│   │   └── values.yaml
+│   ├── kubewatch/
+│   │   ├── .helmignore
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── templates/
+│   │   └── values.yaml
+│   ├── kured/
+│   │   ├── .helmignore
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── templates/
+│   │   └── values.yaml
+│   ├── lamp/
+│   │   ├── .helmignore
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── examples/
+│   │   ├── files/
+│   │   ├── templates/
+│   │   └── values.yaml
+│   ├── linkerd/
+│   │   ├── .helmignore
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── templates/
+│   │   └── values.yaml
+│   ├── locust/
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── tasks/
+│   │   ├── templates/
+│   │   └── values.yaml
+│   ├── logdna-agent/
+│   │   ├── .helmignore
+│   │   ├── Chart.yaml
+│   │   ├── DEVELOPER_README.md
+│   │   ├── README.md
+│   │   ├── templates/
+│   │   ├── tests/
+│   │   └── values.yaml
+│   ├── logstash/
+│   │   ├── .helmignore
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── serviceaccount.yaml
+│   │   ├── templates/
+│   │   └── values.yaml
+│   ├── luigi/
+│   │   ├── .helmignore
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── requirements.lock
+│   │   ├── requirements.yaml
+│   │   ├── templates/
+│   │   └── values.yaml
+│   ├── magento/
+│   │   ├── .helmignore
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── requirements.lock
+│   │   ├── requirements.yaml
+│   │   ├── templates/
+│   │   ├── values-production.yaml
+│   │   └── values.yaml
+│   ├── magic-ip-address/
+│   │   ├── .helmignore
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── templates/
+│   │   └── values.yaml
+│   ├── magic-namespace/
+│   │   ├── .helmignore
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── templates/
+│   │   └── values.yaml
+│   ├── mailhog/
+│   │   ├── .helmignore
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── templates/
+│   │   └── values.yaml
+│   ├── mariadb/
+│   │   ├── .helmignore
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── files/
+│   │   ├── templates/
+│   │   ├── values-production.yaml
+│   │   ├── values.schema.json
+│   │   └── values.yaml
+│   ├── mattermost-team-edition/
+│   │   ├── .helmignore
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── ci/
+│   │   ├── requirements.lock
+│   │   ├── requirements.yaml
+│   │   ├── templates/
+│   │   └── values.yaml
+│   ├── mcrouter/
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── requirements.lock
+│   │   ├── requirements.yaml
+│   │   ├── templates/
+│   │   └── values.yaml
+│   ├── mediawiki/
+│   │   ├── .helmignore
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── requirements.lock
+│   │   ├── requirements.yaml
+│   │   ├── templates/
+│   │   └── values.yaml
+│   ├── memcached/
+│   │   ├── .helmignore
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── templates/
+│   │   └── values.yaml
+│   ├── mercure/
+│   │   ├── .helmignore
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── templates/
+│   │   └── values.yaml
+│   ├── metabase/
+│   │   ├── .helmignore
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── templates/
+│   │   └── values.yaml
+│   ├── metallb/
+│   │   ├── .helmignore
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── templates/
+│   │   └── values.yaml
+│   ├── metricbeat/
+│   │   ├── .helmignore
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── templates/
+│   │   └── values.yaml
+│   ├── metrics-server/
+│   │   ├── .helmignore
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── ci/
+│   │   ├── templates/
+│   │   └── values.yaml
+│   ├── minecraft/
+│   │   ├── .helmignore
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── ci/
+│   │   ├── templates/
+│   │   └── values.yaml
+│   ├── minio/
+│   │   ├── .helmignore
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── ci/
+│   │   ├── templates/
+│   │   └── values.yaml
+│   ├── mission-control/
+│   │   ├── .helmignore
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── charts/
+│   │   ├── ci/
+│   │   ├── requirements.lock
+│   │   ├── requirements.yaml
+│   │   ├── templates/
+│   │   └── values.yaml
+│   ├── mongodb-replicaset/
+│   │   ├── .helmignore
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── ci/
+│   │   ├── init/
+│   │   ├── install/
+│   │   ├── templates/
+│   │   ├── test.sh
+│   │   ├── tests/
+│   │   └── values.yaml
+│   ├── mongodb/
+│   │   ├── .helmignore
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── files/
+│   │   ├── templates/
+│   │   ├── values-production.yaml
+│   │   ├── values.schema.json
+│   │   └── values.yaml
+│   ├── moodle/
+│   │   ├── .helmignore
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── requirements.lock
+│   │   ├── requirements.yaml
+│   │   ├── templates/
+│   │   └── values.yaml
+│   ├── msoms/
+│   │   ├── .helmignore
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── templates/
+│   │   └── values.yaml
+│   ├── mssql-linux/
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── templates/
+│   │   └── values.yaml
+│   ├── mysql/
+│   │   ├── .helmignore
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── templates/
+│   │   └── values.yaml
+│   ├── mysqldump/
+│   │   ├── .helmignore
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── files/
+│   │   ├── templates/
+│   │   └── values.yaml
+│   ├── namerd/
+│   │   ├── .helmignore
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── templates/
+│   │   └── values.yaml
+│   ├── nats/
+│   │   ├── .helmignore
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── templates/
+│   │   ├── values-production.yaml
+│   │   └── values.yaml
+│   ├── neo4j/
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── ci/
+│   │   ├── templates/
+│   │   ├── test.sh
+│   │   └── values.yaml
+│   ├── newrelic-infrastructure/
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── templates/
+│   │   └── values.yaml
+│   ├── nextcloud/
+│   │   ├── .helmignore
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── requirements.lock
+│   │   ├── requirements.yaml
+│   │   ├── templates/
+│   │   ├── values-mariadb.yaml
+│   │   └── values.yaml
+│   ├── nfs-client-provisioner/
+│   │   ├── .helmignore
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── ci/
+│   │   ├── templates/
+│   │   └── values.yaml
+│   ├── nfs-server-provisioner/
+│   │   ├── .helmignore
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── templates/
+│   │   └── values.yaml
+│   ├── nginx-ingress/
+│   │   ├── .helmignore
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── ci/
+│   │   ├── templates/
+│   │   └── values.yaml
+│   ├── nginx-ldapauth-proxy/
+│   │   ├── .helmignore
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── templates/
+│   │   └── values.yaml
+│   ├── nginx-lego/
+│   │   ├── .helmignore
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── templates/
+│   │   └── values.yaml
+│   ├── node-problem-detector/
+│   │   ├── .helmignore
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── templates/
+│   │   └── values.yaml
+│   ├── node-red/
+│   │   ├── .helmignore
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── templates/
+│   │   └── values.yaml
+│   ├── oauth2-proxy/
+│   │   ├── .helmignore
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── ci/
+│   │   ├── default-values.yaml
+│   │   ├── pdb-values.yaml
+│   │   ├── templates/
+│   │   └── values.yaml
+│   ├── odoo/
+│   │   ├── .helmignore
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── requirements.lock
+│   │   ├── requirements.yaml
+│   │   ├── templates/
+│   │   └── values.yaml
+│   ├── opa/
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── templates/
+│   │   └── values.yaml
+│   ├── opencart/
+│   │   ├── .helmignore
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── requirements.lock
+│   │   ├── requirements.yaml
+│   │   ├── templates/
+│   │   └── values.yaml
+│   ├── openebs/
+│   │   ├── .helmignore
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── templates/
+│   │   └── values.yaml
+│   ├── openiban/
+│   │   ├── .helmignore
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── templates/
+│   │   └── values.yaml
+│   ├── openldap/
+│   │   ├── .helmignore
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── templates/
+│   │   └── values.yaml
+│   ├── openvpn/
+│   │   ├── .helmignore
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── templates/
+│   │   └── values.yaml
+│   ├── orangehrm/
+│   │   ├── .helmignore
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── requirements.lock
+│   │   ├── requirements.yaml
+│   │   ├── templates/
+│   │   └── values.yaml
+│   ├── osclass/
+│   │   ├── .helmignore
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── requirements.lock
+│   │   ├── requirements.yaml
+│   │   ├── templates/
+│   │   └── values.yaml
+│   ├── owncloud/
+│   │   ├── .helmignore
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── requirements.lock
+│   │   ├── requirements.yaml
+│   │   ├── templates/
+│   │   └── values.yaml
+│   ├── pachyderm/
+│   │   ├── .helmignore
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── templates/
+│   │   └── values.yaml
+│   ├── parse/
+│   │   ├── .helmignore
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── files/
+│   │   ├── requirements.lock
+│   │   ├── requirements.yaml
+│   │   ├── templates/
+│   │   └── values.yaml
+│   ├── percona-xtradb-cluster/
+│   │   ├── .helmignore
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── files/
+│   │   ├── templates/
+│   │   └── values.yaml
+│   ├── percona/
+│   │   ├── .helmignore
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── templates/
+│   │   └── values.yaml
+│   ├── pgadmin/
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── templates/
+│   │   └── values.yaml
+│   ├── phabricator/
+│   │   ├── .helmignore
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── requirements.lock
+│   │   ├── requirements.yaml
+│   │   ├── templates/
+│   │   └── values.yaml
+│   ├── phpbb/
+│   │   ├── .helmignore
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── requirements.lock
+│   │   ├── requirements.yaml
+│   │   ├── templates/
+│   │   └── values.yaml
+│   ├── phpmyadmin/
+│   │   ├── .helmignore
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── requirements.lock
+│   │   ├── requirements.yaml
+│   │   ├── templates/
+│   │   └── values.yaml
+│   ├── pomerium/
+│   │   ├── .helmignore
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── ci/
+│   │   ├── scripts/
+│   │   ├── templates/
+│   │   └── values.yaml
+│   ├── postgresql/
+│   │   ├── .helmignore
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── ci/
+│   │   ├── files/
+│   │   ├── templates/
+│   │   ├── values-production.yaml
+│   │   ├── values.schema.json
+│   │   └── values.yaml
+│   ├── prestashop/
+│   │   ├── .helmignore
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── requirements.lock
+│   │   ├── requirements.yaml
+│   │   ├── templates/
+│   │   └── values.yaml
+│   ├── presto/
+│   │   ├── .helmignore
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── templates/
+│   │   └── values.yaml
+│   ├── prisma/
+│   │   ├── .helmignore
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── ci/
+│   │   ├── requirements.lock
+│   │   ├── requirements.yaml
+│   │   ├── templates/
+│   │   └── values.yaml
+│   ├── prometheus-adapter/
+│   │   ├── .helmignore
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── ci/
+│   │   ├── templates/
+│   │   └── values.yaml
+│   ├── prometheus-blackbox-exporter/
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── ci/
+│   │   ├── templates/
+│   │   └── values.yaml
+│   ├── prometheus-cloudwatch-exporter/
+│   │   ├── .helmignore
+│   │   ├── CHANGELOG.md
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── templates/
+│   │   └── values.yaml
+│   ├── prometheus-consul-exporter/
+│   │   ├── .helmignore
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── templates/
+│   │   └── values.yaml
+│   ├── prometheus-couchdb-exporter/
+│   │   ├── .helmignore
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── templates/
+│   │   └── values.yaml
+│   ├── prometheus-mongodb-exporter/
+│   │   ├── .helmignore
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── ci/
+│   │   ├── templates/
+│   │   └── values.yaml
+│   ├── prometheus-mysql-exporter/
+│   │   ├── .helmignore
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── templates/
+│   │   └── values.yaml
+│   ├── prometheus-nats-exporter/
+│   │   ├── .helmignore
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── templates/
+│   │   └── values.yaml
+│   ├── prometheus-node-exporter/
+│   │   ├── .helmignore
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── ci/
+│   │   ├── templates/
+│   │   └── values.yaml
+│   ├── prometheus-operator/
+│   │   ├── .helmignore
+│   │   ├── CONTRIBUTING.md
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── ci/
+│   │   ├── crds/
+│   │   ├── hack/
+│   │   ├── requirements.lock
+│   │   ├── requirements.yaml
+│   │   ├── templates/
+│   │   └── values.yaml
+│   ├── prometheus-postgres-exporter/
+│   │   ├── .helmignore
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── templates/
+│   │   └── values.yaml
+│   ├── prometheus-pushgateway/
+│   │   ├── .helmignore
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── templates/
+│   │   └── values.yaml
+│   ├── prometheus-rabbitmq-exporter/
+│   │   ├── .helmignore
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── templates/
+│   │   └── values.yaml
+│   ├── prometheus-redis-exporter/
+│   │   ├── .helmignore
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── templates/
+│   │   └── values.yaml
+│   ├── prometheus-snmp-exporter/
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── templates/
+│   │   └── values.yaml
+│   ├── prometheus-to-sd/
+│   │   ├── .helmignore
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── templates/
+│   │   └── values.yaml
+│   ├── prometheus/
+│   │   ├── .gitignore
+│   │   ├── .helmignore
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── requirements.yaml
+│   │   ├── templates/
+│   │   └── values.yaml
+│   ├── quassel/
+│   │   ├── .helmignore
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── requirements.lock
+│   │   ├── requirements.yaml
+│   │   ├── templates/
+│   │   └── values.yaml
+│   ├── rabbitmq-ha/
+│   │   ├── .helmignore
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── ci/
+│   │   ├── templates/
+│   │   └── values.yaml
+│   ├── rabbitmq/
+│   │   ├── .helmignore
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── ci/
+│   │   ├── templates/
+│   │   ├── values-production.yaml
+│   │   ├── values.schema.json
+│   │   └── values.yaml
+│   ├── redis-ha/
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── ci/
+│   │   ├── templates/
+│   │   └── values.yaml
+│   ├── redis/
+│   │   ├── .helmignore
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── ci/
+│   │   ├── templates/
+│   │   ├── values-production.yaml
+│   │   ├── values.schema.json
+│   │   └── values.yaml
+│   ├── redmine/
+│   │   ├── .helmignore
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── requirements.lock
+│   │   ├── requirements.yaml
+│   │   ├── templates/
+│   │   ├── values.schema.json
+│   │   └── values.yaml
+│   ├── reloader/
+│   │   ├── .helmignore
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── templates/
+│   │   └── values.yaml
+│   ├── rethinkdb/
+│   │   ├── .gitignore
+│   │   ├── .helmignore
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── init/
+│   │   ├── templates/
+│   │   └── values.yaml
+│   ├── risk-advisor/
+│   │   ├── .helmignore
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── templates/
+│   │   └── values.yaml
+│   ├── rocketchat/
+│   │   ├── .helmignore
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── ci/
+│   │   ├── requirements.lock
+│   │   ├── requirements.yaml
+│   │   ├── templates/
+│   │   └── values.yaml
+│   ├── rookout/
+│   │   ├── .helmignore
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── templates/
+│   │   └── values.yaml
+│   ├── sapho/
+│   │   ├── .helmignore
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── requirements.lock
+│   │   ├── requirements.yaml
+│   │   ├── templates/
+│   │   └── values.yaml
+│   ├── satisfy/
+│   │   ├── .helmignore
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── templates/
+│   │   └── values.yaml
+│   ├── schema-registry-ui/
+│   │   ├── .helmignore
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── templates/
+│   │   └── values.yaml
+│   ├── sealed-secrets/
+│   │   ├── .helmignore
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── ci/
+│   │   ├── dashboards/
+│   │   ├── templates/
+│   │   └── values.yaml
+│   ├── searchlight/
+│   │   ├── .helmignore
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── templates/
+│   │   └── values.yaml
+│   ├── selenium/
+│   │   ├── .helmignore
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── templates/
+│   │   └── values.yaml
+│   ├── sematext-agent/
+│   │   ├── .helmignore
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── templates/
+│   │   └── values.yaml
+│   ├── sematext-docker-agent/
+│   │   ├── .helmignore
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── templates/
+│   │   └── values.yaml
+│   ├── sensu/
+│   │   ├── .helmignore
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── requirements.lock
+│   │   ├── requirements.yaml
+│   │   ├── templates/
+│   │   └── values.yaml
+│   ├── sentry/
+│   │   ├── .helmignore
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── requirements.lock
+│   │   ├── requirements.yaml
+│   │   ├── templates/
+│   │   └── values.yaml
+│   ├── seq/
+│   │   ├── .helmignore
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── templates/
+│   │   └── values.yaml
+│   ├── signalfx-agent/
+│   │   ├── .helmignore
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── templates/
+│   │   └── values.yaml
+│   ├── signalsciences/
+│   │   ├── .helmignore
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── templates/
+│   │   └── values.yaml
+│   ├── socat-tunneller/
+│   │   ├── .helmignore
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── templates/
+│   │   └── values.yaml
+│   ├── sonarqube/
+│   │   ├── .helmignore
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── requirements.lock
+│   │   ├── requirements.yaml
+│   │   ├── templates/
+│   │   └── values.yaml
+│   ├── sonatype-nexus/
+│   │   ├── .helmignore
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── templates/
+│   │   └── values.yaml
+│   ├── spark-history-server/
+│   │   ├── .helmignore
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── charts/
+│   │   ├── templates/
+│   │   └── values.yaml
+│   ├── spark/
+│   │   ├── .helmignore
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── templates/
+│   │   └── values.yaml
+│   ├── spartakus/
+│   │   ├── .helmignore
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── templates/
+│   │   └── values.yaml
+│   ├── spinnaker/
+│   │   ├── .helmignore
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── requirements.lock
+│   │   ├── requirements.yaml
+│   │   ├── templates/
+│   │   ├── values.yaml
+│   │   └── values_saml.yaml
+│   ├── spotify-docker-gc/
+│   │   ├── .helmignore
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── templates/
+│   │   └── values.yaml
+│   ├── spring-cloud-data-flow/
+│   │   ├── .helmignore
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── requirements.lock
+│   │   ├── requirements.yaml
+│   │   ├── templates/
+│   │   └── values.yaml
+│   ├── stackdriver-exporter/
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── templates/
+│   │   └── values.yaml
+│   ├── stash/
+│   │   ├── .helmignore
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── templates/
+│   │   └── values.yaml
+│   ├── stellar-core/
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── requirements.lock
+│   │   ├── requirements.yaml
+│   │   ├── templates/
+│   │   └── values.yaml
+│   ├── stolon/
+│   │   ├── .helmignore
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── ci/
+│   │   ├── templates/
+│   │   └── values.yaml
+│   ├── suitecrm/
+│   │   ├── .helmignore
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── requirements.lock
+│   │   ├── requirements.yaml
+│   │   ├── templates/
+│   │   └── values.yaml
+│   ├── sumokube/
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── sumokube.jpg
+│   │   ├── templates/
+│   │   └── values.yaml
+│   ├── sumologic-fluentd/
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── ci/
+│   │   ├── files/
+│   │   ├── sumologic-fluentd.jpg
+│   │   ├── templates/
+│   │   └── values.yaml
+│   ├── superset/
+│   │   ├── .helmignore
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── ci/
+│   │   ├── templates/
+│   │   └── values.yaml
+│   ├── swift/
+│   │   ├── .helmignore
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── templates/
+│   │   └── values.yaml
+│   ├── sysdig/
+│   │   ├── CHANGELOG.md
+│   │   ├── Chart.yaml
+│   │   ├── DESIGN.md
+│   │   ├── README-AWS.md
+│   │   ├── README.md
+│   │   ├── scripts/
+│   │   ├── templates/
+│   │   └── values.yaml
+│   ├── telegraf/
+│   │   ├── .helmignore
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── templates/
+│   │   └── values.yaml
+│   ├── tensorflow-notebook/
+│   │   ├── .helmignore
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── jupyter.jpg
+│   │   ├── templates/
+│   │   ├── tensorboard.jpg
+│   │   └── values.yaml
+│   ├── tensorflow-serving/
+│   │   ├── .helmignore
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── models/
+│   │   ├── templates/
+│   │   └── values.yaml
+│   ├── terracotta/
+│   │   ├── .helmignore
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── templates/
+│   │   └── values.yaml
+│   ├── testlink/
+│   │   ├── .helmignore
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── requirements.lock
+│   │   ├── requirements.yaml
+│   │   ├── templates/
+│   │   └── values.yaml
+│   ├── tomcat/
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── templates/
+│   │   └── values.yaml
+│   ├── traefik/
+│   │   ├── .helmignore
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── ci/
+│   │   ├── templates/
+│   │   └── values.yaml
+│   ├── uchiwa/
+│   │   ├── .helmignore
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── requirements.lock
+│   │   ├── requirements.yaml
+│   │   ├── templates/
+│   │   └── values.yaml
+│   ├── unbound/
+│   │   ├── .helmignore
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── templates/
+│   │   └── values.yaml
+│   ├── unifi/
+│   │   ├── .helmignore
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── templates/
+│   │   └── values.yaml
+│   ├── vault-operator/
+│   │   ├── .helmignore
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── requirements.lock
+│   │   ├── requirements.yaml
+│   │   ├── templates/
+│   │   └── values.yaml
+│   ├── velero/
+│   │   ├── .helmignore
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── ci/
+│   │   ├── crds/
+│   │   ├── templates/
+│   │   └── values.yaml
+│   ├── verdaccio/
+│   │   ├── .helmignore
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── templates/
+│   │   └── values.yaml
+│   ├── voyager/
+│   │   ├── .helmignore
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── templates/
+│   │   └── values.yaml
+│   ├── vsphere-cpi/
+│   │   ├── .helmignore
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── templates/
+│   │   └── values.yaml
+│   ├── wavefront/
+│   │   ├── .helmignore
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── examples/
+│   │   ├── requirements.lock
+│   │   ├── requirements.yaml
+│   │   ├── templates/
+│   │   └── values.yaml
+│   ├── weave-cloud/
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── ci/
+│   │   ├── templates/
+│   │   └── values.yaml
+│   ├── weave-scope/
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── charts/
+│   │   ├── templates/
+│   │   └── values.yaml
+│   ├── wordpress/
+│   │   ├── .helmignore
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── requirements.lock
+│   │   ├── requirements.yaml
+│   │   ├── templates/
+│   │   ├── values-production.yaml
+│   │   ├── values.schema.json
+│   │   └── values.yaml
+│   ├── xray/
+│   │   ├── .helmignore
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── ci/
+│   │   ├── requirements.lock
+│   │   ├── requirements.yaml
+│   │   ├── templates/
+│   │   └── values.yaml
+│   ├── zeppelin/
+│   │   ├── .helmignore
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── templates/
+│   │   └── values.yaml
+│   └── zetcd/
+│       ├── .helmignore
+│       ├── Chart.yaml
+│       ├── README.md
+│       ├── requirements.lock
+│       ├── requirements.yaml
+│       ├── templates/
+│       └── values.yaml
+└── test/
+    ├── .dockerignore
+    ├── Dockerfile
+    ├── README.md
+    ├── build.sh
+    ├── ct.yaml
+    ├── e2e.sh
+    ├── helm-test-e2e.sh
+    ├── helm-test/
+    │   ├── main.go
+    │   └── whitelist.yaml
+    └── repo-sync.sh

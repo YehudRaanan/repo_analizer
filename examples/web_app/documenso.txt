@@ -1,0 +1,919 @@
+=====================================
+Repository Analysis: documenso
+Type: Web Application
+=====================================
+
+--- METADATA ---
+Name: documenso
+Description: The Open Source DocuSign Alternative.
+Language: TypeScript
+Topics: digital-signature, document-signing, docusign-alternative, e-signature, esign, esignature, next-auth, nextjs, open-source, pades-standard, pdf, pdf-sign, pdf-signature, postgresql, prisma, self-hosted, signing, typescript
+Stars: 12470
+License: GNU Affero General Public License v3.0
+
+--- README ---
+<img src="https://github.com/documenso/documenso/assets/13398220/a643571f-0239-46a6-a73e-6bef38d1228b" alt="Documenso Logo">
+
+<p align="center" style="margin-top: 20px">
+  <p align="center">
+  The Open Source DocuSign Alternative.
+  <br>
+    <a href="https://documenso.com"><strong>Learn more »</strong></a>
+    <br />
+    <br />
+    <a href="https://documen.so/discord">Discord</a>
+    ·
+    <a href="https://documenso.com">Website</a>
+    ·
+    <a href="https://github.com/documenso/documenso/issues">Issues</a>
+    ·
+    <a href="https://documen.so/live">Upcoming Releases</a>
+    ·
+    <a href="https://documen.so/roadmap">Roadmap</a>
+  </p>
+</p>
+
+<p align="center">
+   <a href="https://documen.so/discord"><img src="https://img.shields.io/badge/Discord-documen.so/discord-%235865F2" alt="Join Documenso on Discord"></a>
+   <a href="https://github.com/documenso/documenso/stargazers"><img src="https://img.shields.io/github/stars/documenso/documenso" alt="Github Stars"></a>
+   <a href="https://github.com/documenso/documenso/blob/main/LICENSE"><img src="https://img.shields.io/badge/license-AGPLv3-purple" alt="License"></a>
+   <a href="https://github.com/documenso/documenso/pulse"><img src="https://img.shields.io/github/commit-activity/m/documenso/documenso" alt="Commits-per-month"></a>
+   <a href="https://vscode.dev/redirect?url=vscode://ms-vscode-remote.remote-containers/cloneInVolume?url=https://github.com/documenso/documenso">
+   <img alt="open in devcontainer" src="https://img.shields.io/static/v1?label=Dev%20Containers&message=Enabled&color=blue&logo=visualstudiocode" />
+   </a>
+   <a href="CODE_OF_CONDUCT.md"><img src="https://img.shields.io/badge/Contributor%20Covenant-2.1-4baaaa.svg" alt="Contributor Covenant"></a>
+</p>
+
+<div align="center">
+  <img src="https://github.com/documenso/documenso/assets/13398220/d96ed533-6f34-4a97-be9b-442bdb189c69" style="width: 80%;" />
+</div>
+
+## About Documenso
+
+Signing documents digitally should be fast and easy and should be the best practice for every document signed worldwide. This is technically quite easy today, but it also introduces a new party to every signature: The signing tool providers. While this is not a problem in itself, it should make us think about how we want these providers of trust to work. Documenso aims to be the world's most trusted document-signing tool. This trust is built by empowering you to self-host Documenso and review how it works under the hood.
+
+Join us in creating the next generation of open trust infrastructure.
+
+## Recognition
+
+<p align="center">
+  <a href="https://www.producthunt.com/posts/documenso?utm_source=badge-top-post-badge&utm_medium=badge&utm_souce=badge-documenso" target="_blank"><img src="https://api.producthunt.com/widgets/embed-image/v1/top-post-badge.svg?post_id=395047&theme=light&period=daily" alt="Documenso - The&#0032;open&#0032;source&#0032;DocuSign&#0032;alternative | Product Hunt" style="width: 250px; height: 54px;" width="250" height="54" /></a>
+  <a href="https://www.producthunt.com/posts/documenso?utm_source=badge-featured&utm_medium=badge&utm_souce=badge-documenso" target="_blank"><img src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=395047&theme=light" alt="Documenso - The&#0032;Open&#0032;Source&#0032;DocuSign&#0032;Alternative&#0046; | Product Hunt" style="width: 250px; height: 54px;" width="250" height="54" /></a>
+</p>
+
+## Community and Next Steps 🎯
+
+- Check out the first source code release in this repository and test it.
+- Tell us what you think in the [Discussions](https://github.com/documenso/documenso/discussions).
+- Join the [Discord server](https://documen.so/discord) for any questions and getting to know to other community members.
+- ⭐ the repository to help us raise awareness.
+- Spread the word on Twitter that Documenso is working towards a more open signing tool.
+- Fix or create [issues](https://github.com/documenso/documenso/issues), that are needed for the first production release.
+
+## Contributing
+
+- To contribute, please see our [contribution guide](https://github.com/documenso/documenso/blob/main/CONTRIBUTING.md).
+
+## Contact us
+
+Contact us if you are interested in our Enterprise plan for large organizations that need extra flexibility and control.
+
+<a href="https://cal.com/timurercan/enterprise-customers?utm_source=banner&utm_campaign=oss"><img alt="Book us with Cal.com" src="https://cal.com/book-with-cal-dark.svg" /></a>
+
+## Tech Stack
+
+<p align="left">
+  <a href="https://www.typescriptlang.org"><img src="https://shields.io/badge/TypeScript-3178C6?logo=TypeScript&logoColor=FFF&style=flat-square" alt="TypeScript"></a>
+  <a href="https://prisma.io"><img width="122" height="20" src="http://made-with.prisma.io/indigo.svg" alt="Made with Prisma" /></a>
+  <a href="https://tailwindcss.com/"><img src="https://img.shields.io/badge/tailwindcss-0F172A?&logo=tailwindcss" alt="Tailwind CSS"></a>
+  <a href=""><img src="" alt=""></a>
+  <a href=""><img src="" alt=""></a>
+  <a href=""
+... [TRUNCATED]
+
+--- PACKAGE MANIFEST(S) ---
+
+[package.json]
+{
+  "private": true,
+  "name": "@documenso/root",
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "version": "2.7.1",
+  "scripts": {
+    "postinstall": "patch-package",
+    "build": "turbo run build",
+    "dev": "npm run translate:compile && turbo run dev --filter=@documenso/remix",
+    "dev:remix": "npm run translate:compile && turbo run dev --filter=@documenso/remix",
+    "dev:docs": "turbo run dev --filter=@documenso/documentation",
+    "dev:openpage-api": "turbo run dev --filter=@documenso/openpage-api",
+    "start": "turbo run start --filter=@documenso/remix --filter=@documenso/documentation --filter=@documenso/openpage-api",
+    "lint": "turbo run lint",
+    "lint:fix": "turbo run lint:fix",
+    "format": "prettier --write \"**/*.{js,jsx,cjs,mjs,ts,tsx,cts,mts,mdx}\"",
+    "prepare": "husky && husky install || true",
+    "commitlint": "commitlint --edit",
+    "clean": "turbo run clean && rimraf node_modules",
+    "d": "npm run dx && npm run translate:compile && npm run dev",
+    "dx": "npm ci && npm run dx:up && npm run prisma:migrate-dev && npm run prisma:seed",
+    "dx:up": "docker compose -f docker/development/compose.yml up -d",
+    "dx:down": "docker compose -f docker/development/compose.yml down",
+    "ci": "turbo run build --filter=@documenso/remix && turbo run test:e2e",
+    "prisma:generate": "npm run with:env -- npm run prisma:generate -w @documenso/prisma",
+    "prisma:migrate-dev": "npm run with:env -- npm run prisma:migrate-dev -w @documenso/prisma",
+    "prisma:migrate-deploy": "npm run with:env -- npm run prisma:migrate-deploy -w @documenso/prisma",
+    "prisma:migrate-reset": "npm run with:env -- npm run prisma:migrate-reset -w @documenso/prisma",
+    "prisma:seed": "npm run with:env -- npm run prisma:seed -w @documenso/prisma",
+    "prisma:studio": "npm run with:env -- npm run prisma:studio -w @documenso/prisma",
+    "with:env": "dotenv -e .env -e .env.local --",
+    "reset:hard": "npm run clean && npm i && npm run prisma:generate",
+    "precommit": "npm install && git add package.json package-lock.json",
+    "trigger:dev": "npm run with:env -- npx trigger-cli dev --handler-path=\"/api/jobs\"",
+    "inngest:dev": "inngest dev -u http://localhost:3000/api/jobs",
+    "make:version": "npm version --workspace @documenso/remix --include-workspace-root --no-git-tag-version -m \"v%s\"",
+    "translate": "npm run translate:extract && npm run translate:compile",
+    "translate:extract": "lingui extract --clean",
+    "translate:compile": "lingui compile"
+  },
+  "packageManager": "npm@10.7.0",
+  "engines": {
+    "npm": ">=10.7.0",
+    "node": ">=22.0.0"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^20.1.0",
+    "@commitlint/config-conventional": "^20.0.0",
+    "@lingui/cli": "^5.6.0",
+    "@prisma/client": "^6.19.0",
+    "@trpc/client": "11.8.1",
+    "@trpc/react-query": "11.8.1",
+    "@trpc/server": "11.8.1",
+    "@ts-rest/core": "^3.52.1",
+    "@ts-rest/open-api": "^3.52.1",
+    "@ts-rest/serverless": "^3.52.1",
+    "
+... [TRUNCATED]
+
+--- WEB FRAMEWORK CONFIG ---
+
+[.env.example]
+# The license key to enable enterprise features for self hosters
+NEXT_PRIVATE_DOCUMENSO_LICENSE_KEY=
+
+# [[AUTH]]
+NEXTAUTH_SECRET="secret"
+
+# [[CRYPTO]]
+# Application Key for symmetric encryption and decryption
+# REQUIRED: This should be a random string of at least 32 characters
+NEXT_PRIVATE_ENCRYPTION_KEY="CAFEBABE"
+# REQUIRED: This should be a random string of at least 32 characters
+NEXT_PRIVATE_ENCRYPTION_SECONDARY_KEY="DEADBEEF"
+
+# [[AUTH OPTIONAL]]
+# Find documentation on setting up Google OAuth here:
+# https://docs.documenso.com/developers/self-hosting/setting-up-oauth-providers#google-oauth-gmail
+NEXT_PRIVATE_GOOGLE_CLIENT_ID=""
+NEXT_PRIVATE_GOOGLE_CLIENT_SECRET=""
+# Find documentation on setting up Microsoft OAuth here:
+# https://docs.documenso.com/developers/self-hosting/setting-up-oauth-providers#microsoft-oauth-azure-ad
+NEXT_PRIVATE_MICROSOFT_CLIENT_ID=""
+NEXT_PRIVATE_MICROSOFT_CLIENT_SECRET=""
+
+NEXT_PRIVATE_OIDC_WELL_KNOWN=""
+NEXT_PRIVATE_OIDC_CLIENT_ID=""
+NEXT_PRIVATE_OIDC_CLIENT_SECRET=""
+NEXT_PRIVATE_OIDC_PROVIDER_LABEL="OIDC"
+NEXT_PRIVATE_OIDC_SKIP_VERIFY=""
+# Specifies the prompt to use for OIDC signin, explicitly setting
+# an empty string will omit the prompt parameter.
+# See: https://www.cerberauth.com/blog/openid-connect-oauth2-prompts/
+NEXT_PRIVATE_OIDC_PROMPT="login"
+
+# [[URLS]]
+NEXT_PUBLIC_WEBAPP_URL="http://localhost:3000"
+# URL used by the web app to request itself (e.g. local background jobs)
+NEXT_PRIVATE_INTERNAL_WEBAPP_URL="http://localhost:3000"
+
+# [[SERVER]]
+# OPTIONAL: The port the server will listen on. Defaults to 3000.
+PORT=3000
+
+# [[DATABASE]]
+NEXT_PRIVATE_DATABASE_URL="postgres://documenso:password@127.0.0.1:54320/documenso"
+# Defines the URL to use for the database when running migrations and other commands that won't work with a connection pool.
+NEXT_PRIVATE_DIRECT_DATABASE_URL="postgres://documenso:password@127.0.0.1:54320/documenso"
+
+# [[SIGNING]]
+# The transport to use for document signing. Available options: local (default) | gcloud-hsm
+NEXT_PRIVATE_SIGNING_TRANSPORT="local"
+# OPTIONAL: The passphrase to use for the local file-based signing transport.
+NEXT_PRIVATE_SIGNING_PASSPHRASE=
+# OPTIONAL: The local file path to the .p12 file to use for the local signing transport.
+NEXT_PRIVATE_SIGNING_LOCAL_FILE_PATH=
+# OPTIONAL: The base64-encoded contents of the .p12 file to use for the local signing transport.
+NEXT_PRIVATE_SIGNING_LOCAL_FILE_CONTENTS=
+# OPTIONAL: The path to the Google Cloud HSM key to use for the gcloud-hsm signing transport.
+NEXT_PRIVATE_SIGNING_GCLOUD_HSM_KEY_PATH=
+# OPTIONAL: The path to the Google Cloud HSM public certificate file to use for the gcloud-hsm signing transport.
+NEXT_PRIVATE_SIGNING_GCLOUD_HSM_PUBLIC_CRT_FILE_PATH=
+# OPTIONAL: The base64-encoded contents of the Google Cloud HSM public certificate file to use for the gcloud-hsm signing transport.
+NEXT_PRIVATE_SIGNING_GCLOUD_HSM_PUBLIC_CRT_FILE_CONTENTS=
+# OPTIONAL: The path to the Google Cloud Credentials file to use for the gclo
+... [TRUNCATED]
+
+--- ENVIRONMENT VARIABLES (.env.example) ---
+# The license key to enable enterprise features for self hosters
+NEXT_PRIVATE_DOCUMENSO_LICENSE_KEY=
+
+# [[AUTH]]
+NEXTAUTH_SECRET="secret"
+
+# [[CRYPTO]]
+# Application Key for symmetric encryption and decryption
+# REQUIRED: This should be a random string of at least 32 characters
+NEXT_PRIVATE_ENCRYPTION_KEY="CAFEBABE"
+# REQUIRED: This should be a random string of at least 32 characters
+NEXT_PRIVATE_ENCRYPTION_SECONDARY_KEY="DEADBEEF"
+
+# [[AUTH OPTIONAL]]
+# Find documentation on setting up Google OAuth here:
+# https://docs.documenso.com/developers/self-hosting/setting-up-oauth-providers#google-oauth-gmail
+NEXT_PRIVATE_GOOGLE_CLIENT_ID=""
+NEXT_PRIVATE_GOOGLE_CLIENT_SECRET=""
+# Find documentation on setting up Microsoft OAuth here:
+# https://docs.documenso.com/developers/self-hosting/setting-up-oauth-providers#microsoft-oauth-azure-ad
+NEXT_PRIVATE_MICROSOFT_CLIENT_ID=""
+NEXT_PRIVATE_MICROSOFT_CLIENT_SECRET=""
+
+NEXT_PRIVATE_OIDC_WELL_KNOWN=""
+NEXT_PRIVATE_OIDC_CLIENT_ID=""
+NEXT_PRIVATE_OIDC_CLIENT_SECRET=""
+NEXT_PRIVATE_OIDC_PROVIDER_LABEL="OIDC"
+NEXT_PRIVATE_OIDC_SKIP_VERIFY=""
+# Specifies the prompt to use for OIDC signin, explicitly setting
+# an empty string will omit the prompt parameter.
+# See: https://www.cerberauth.com/blog/openid-connect-oauth2-prompts/
+NEXT_PRIVATE_OIDC_PROMPT="login"
+
+# [[URLS]]
+NEXT_PUBLIC_WEBAPP_URL="http://localhost:3000"
+# URL used by the web app to request itself (e.g. local background jobs)
+NEXT_PRIVATE_INTERNAL_WEBAPP_URL="http://localhost:3000"
+
+# [[SERVER]]
+# OPTIONAL: The port the server will listen on. Defaults to 3000.
+PORT=3000
+
+# [[DATABASE]]
+NEXT_PRIVATE_DATABASE_URL="postgres://documenso:password@127.0.0.1:54320/documenso"
+# Defines the URL to use for the database when running migrations and other commands that won't work with a connection pool.
+NEXT_PRIVATE_DIRECT_DATABASE_URL="postgres://documenso:password@127.0.0.1:54320/documenso"
+
+# [[SIGNING]]
+# The transport to use for document signing. Available options: local (default) | gcloud-hsm
+NEXT_PRIVATE_SIGNING_TRANSPORT="local"
+# OPTIONAL: The passphrase to use for the local file-based signing transport.
+NEXT_PRIVATE_SIGNING_PASSPHRASE=
+# OPTIONAL: The local file path to the .p12 file to use for the local signing transport.
+NEXT_PRIVATE_SIGNING_LOCAL_FILE_PATH=
+# OPTIONAL: The base64-encoded contents of the .p12 file to use for the local signing transport.
+NEXT_PRIVATE_SIGNING_LOCAL_FILE_CONTENTS=
+# OPTIONAL: The path to the Google Cloud HSM key to use for the gcloud-hsm signing transport.
+NEXT_PRIVATE_SIGNING_GCLOUD_HSM_KEY_PATH=
+# OPTIONAL: The path to the Google Cloud HSM public certificate file to use for the gcloud-hsm signing transport.
+NEXT_PRIVATE_SIGNING_GCLOUD_HSM_PUBLIC_CRT_FILE_PATH=
+# OPTIONAL: The base64-encoded contents of the Google Cloud HSM public certificate file to use for the gcloud-hsm signing transport.
+NEXT_PRIVATE_SIGNING_GCLOUD_HSM_PUBLIC_CRT_FILE_CONTENTS=
+# OPTIONAL: The path to the Google Cloud Credentials file to use for the gclo
+... [TRUNCATED]
+
+--- ROUTE / PAGE DEFINITIONS ---
+
+[apps/remix/app/routes.ts]
+import { remixRoutesOptionAdapter } from '@react-router/remix-routes-option-adapter';
+import { flatRoutes } from 'remix-flat-routes';
+
+export default remixRoutesOptionAdapter((defineRoutes) => {
+  return flatRoutes('routes', defineRoutes, {
+    ignoredRouteFiles: ['**/.*'], // Ignore dot files (like .DS_Store)
+    //appDir: 'app',
+    //routeDir: 'routes',
+    //basePath: '/',
+    //paramPrefixChar: '$',
+    //routeRegex: /(([+][\/\\][^\/\\:?*]+)|[\/\\]((index|route|layout|page)|(_[^\/\\:?*]+)|([^\/\\:?*]+\.route)))\.(ts|tsx|js|jsx|md|mdx)$$/,
+  });
+});
+
+
+[apps/remix/app/routes/_authenticated+/_layout.tsx]
+import { msg } from '@lingui/core/macro';
+import { Trans } from '@lingui/react/macro';
+import { Link, Outlet, redirect } from 'react-router';
+
+import { getOptionalSession } from '@documenso/auth/server/lib/utils/get-session';
+import { OrganisationProvider } from '@documenso/lib/client-only/providers/organisation';
+import { useSession } from '@documenso/lib/client-only/providers/session';
+import { getSiteSettings } from '@documenso/lib/server-only/site-settings/get-site-settings';
+import { SITE_SETTINGS_BANNER_ID } from '@documenso/lib/server-only/site-settings/schemas/banner';
+import { cn } from '@documenso/ui/lib/utils';
+import { Button } from '@documenso/ui/primitives/button';
+
+import { AppBanner } from '~/components/general/app-banner';
+import { Header } from '~/components/general/app-header';
+import { GenericErrorLayout } from '~/components/general/generic-error-layout';
+import { OrganisationBillingBanner } from '~/components/general/organisations/organisation-billing-banner';
+import { VerifyEmailBanner } from '~/components/general/verify-email-banner';
+import { TeamProvider } from '~/providers/team';
+
+import type { Route } from './+types/_layout';
+
+/**
+ * Don't revalidate (run the loader on sequential navigations)
+ *
+ * Update values via providers.
+ */
+export const shouldRevalidate = () => false;
+
+export async function loader({ request }: Route.LoaderArgs) {
+  const [session, banner] = await Promise.all([
+    getOptionalSession(request),
+    getSiteSettings().then((settings) =>
+      settings.find((setting) => setting.id === SITE_SETTINGS_BANNER_ID),
+    ),
+  ]);
+
+  if (!session.isAuthenticated) {
+    throw redirect('/signin');
+  }
+
+  return {
+    banner,
+  };
+}
+
+export default function Layout({ loaderData, params, matches }: Route.ComponentProps) {
+  const { banner } = loaderData;
+
+  const { user, organisations } = useSession();
+
+  const teamUrl = params.teamUrl;
+  const orgUrl = params.orgUrl;
+
+  const teams = organisations.flatMap((org) => org.teams);
+
+  const extractCurrentOrganisation = () => {
+    if (orgUrl) {
+      return organisations.find((org) => org.url === orgUrl);
+    }
+
+    // Search organisations to find the team since we don't have access to the orgUrl in the URL.
+    if (teamUrl) {
+      return organisations.find((org) => org.teams.some((team) => team.url === teamUrl));
+    }
+
+    return null;
+  };
+
+  const currentTeam = teams.find((team) => team.url === teamUrl);
+  const currentOrganisation = extractCurrentOrganisation() || null;
+
+  const orgNotFound = params.orgUrl && !currentOrganisation;
+  const teamNotFound = params.teamUrl && !currentTeam;
+
+  // Hide the header for editor routes.
+  const hideHeader = matches.some(
+    (match) =>
+      match?.id === 'routes/_authenticated+/t.$teamUrl+/documents.$id.edit' ||
+      match?.id === 'routes/_authenticated+/t.$teamUrl+/templates.$id.edit',
+  );
+
+  if (orgNotFound || teamNotFound) {
+    return (
+      <GenericErrorLayout
+        errorCode={404}
+        errorCodeMap={{
+        
+... [TRUNCATED]
+
+[apps/remix/app/routes/_authenticated+/admin+/_index.tsx]
+import { redirect } from 'react-router';
+
+export function loader() {
+  throw redirect('/admin/stats');
+}
+
+export default function AdminPage() {
+  // Redirect page.
+}
+
+
+[apps/remix/app/routes/_authenticated+/admin+/_layout.tsx]
+import { Trans } from '@lingui/react/macro';
+import {
+  AlertTriangleIcon,
+  BarChart3,
+  Building2Icon,
+  FileStack,
+  MailIcon,
+  Settings,
+  Trophy,
+  Users,
+  Wallet2,
+} from 'lucide-react';
+import { Link, Outlet, redirect, useLocation } from 'react-router';
+
+import { getSession } from '@documenso/auth/server/lib/utils/get-session';
+import { LicenseClient } from '@documenso/lib/server-only/license/license-client';
+import { isAdmin } from '@documenso/lib/utils/is-admin';
+import { cn } from '@documenso/ui/lib/utils';
+import { Button } from '@documenso/ui/primitives/button';
+
+import { AdminLicenseStatusBanner } from '~/components/general/admin-license-status-banner';
+
+import type { Route } from './+types/_layout';
+
+export async function loader({ request }: Route.LoaderArgs) {
+  const { user } = await getSession(request);
+
+  const license = await LicenseClient.getInstance()?.getCachedLicense();
+
+  if (!user || !isAdmin(user)) {
+    throw redirect('/');
+  }
+
+  return {
+    license: license || null,
+  };
+}
+
+export default function AdminLayout({ loaderData }: Route.ComponentProps) {
+  const { license } = loaderData;
+  const { pathname } = useLocation();
+
+  return (
+    <div className="mx-auto w-full max-w-screen-xl px-4 md:px-8">
+      <AdminLicenseStatusBanner license={license} />
+
+      <h1 className="text-4xl font-semibold">
+        <Trans>Admin Panel</Trans>
+      </h1>
+
+      <div className="mt-4 grid grid-cols-12 gap-x-8 md:mt-8">
+        <div
+          className={cn(
+            'col-span-12 flex gap-x-2.5 gap-y-2 overflow-hidden overflow-x-auto md:col-span-3 md:flex md:flex-col',
+          )}
+        >
+          <Button
+            variant="ghost"
+            className={cn(
+              'justify-start md:w-full',
+              pathname?.startsWith('/admin/stats') && 'bg-secondary',
+            )}
+            asChild
+          >
+            <Link to="/admin/stats">
+              <BarChart3 className="mr-2 h-5 w-5" />
+              <Trans>Stats</Trans>
+            </Link>
+          </Button>
+
+          <Button
+            variant="ghost"
+            className={cn(
+              'justify-start md:w-full',
+              pathname?.startsWith('/admin/organisations') && 'bg-secondary',
+            )}
+            asChild
+          >
+            <Link to="/admin/organisations">
+              <Building2Icon className="mr-2 h-5 w-5" />
+              <Trans>Organisations</Trans>
+            </Link>
+          </Button>
+
+          <Button
+            variant="ghost"
+            className={cn(
+              'justify-start md:w-full',
+              pathname?.startsWith('/admin/claims') && 'bg-secondary',
+            )}
+            asChild
+          >
+            <Link to="/admin/claims">
+              <Wallet2 className="mr-2 h-5 w-5" />
+              <Trans>Claims</Trans>
+            </Link>
+          </Button>
+
+          <Button
+            variant="ghost"
+            className={cn(
+              'justify-start md:w-full',
+              pathname?.startsW
+... [TRUNCATED]
+
+[apps/remix/app/routes/_authenticated+/admin+/claims.tsx]
+import { useEffect, useState } from 'react';
+
+import { useLingui } from '@lingui/react/macro';
+import { useLocation, useSearchParams } from 'react-router';
+
+import { useDebouncedValue } from '@documenso/lib/client-only/hooks/use-debounced-value';
+import { LicenseClient } from '@documenso/lib/server-only/license/license-client';
+import { Input } from '@documenso/ui/primitives/input';
+
+import { ClaimCreateDialog } from '~/components/dialogs/claim-create-dialog';
+import { SettingsHeader } from '~/components/general/settings-header';
+import { AdminClaimsTable } from '~/components/tables/admin-claims-table';
+
+import type { Route } from './+types/claims';
+
+export async function loader() {
+  const licenseData = await LicenseClient.getInstance()?.getCachedLicense();
+
+  return {
+    licenseFlags: licenseData?.license?.flags,
+  };
+}
+
+export default function Claims({ loaderData }: Route.ComponentProps) {
+  const { licenseFlags } = loaderData;
+
+  const { t } = useLingui();
+
+  const [searchParams, setSearchParams] = useSearchParams();
+  const { pathname } = useLocation();
+
+  const [searchQuery, setSearchQuery] = useState(() => searchParams?.get('query') ?? '');
+
+  const debouncedSearchQuery = useDebouncedValue(searchQuery, 500);
+
+  /**
+   * Handle debouncing the search query.
+   */
+  useEffect(() => {
+    const params = new URLSearchParams(searchParams?.toString());
+
+    params.set('query', debouncedSearchQuery);
+
+    if (debouncedSearchQuery === '') {
+      params.delete('query');
+    }
+
+    // If nothing  to change then do nothing.
+    if (params.toString() === searchParams?.toString()) {
+      return;
+    }
+
+    setSearchParams(params);
+  }, [debouncedSearchQuery, pathname, searchParams]);
+
+  return (
+    <div>
+      <SettingsHeader
+        title={t`Subscription Claims`}
+        subtitle={t`Manage all subscription claims`}
+        hideDivider
+      >
+        <ClaimCreateDialog licenseFlags={licenseFlags} />
+      </SettingsHeader>
+
+      <div className="mt-4">
+        <Input
+          defaultValue={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)}
+          placeholder={t`Search by claim ID or name`}
+          className="mb-4"
+        />
+
+        <AdminClaimsTable licenseFlags={licenseFlags} />
+      </div>
+    </div>
+  );
+}
+
+
+--- DIRECTORY STRUCTURE (depth 2) ---
+├── .agents/
+│   ├── justifications/
+│   │   └── .gitkeep
+│   ├── plans/
+│   │   ├── .gitkeep
+│   │   ├── bold-emerald-earth-pdf-placeholder-field-positioning.md
+│   │   ├── calm-violet-tide-envelope-expiration.md
+│   │   ├── clear-amber-light-validate-signer-fields-on-distribute.md
+│   │   ├── dark-hazel-beam-swap-subscription-between-orgs.md
+│   │   ├── fresh-gold-rock-cert-page-width-mismatch.md
+│   │   ├── pale-lemon-rock-pnpm-migration.md
+│   │   ├── smooth-coral-earth-database-rate-limiting.md
+│   │   ├── swift-pink-sky-simplewebauthn-v13-upgrade.md
+│   │   ├── warm-purple-flower-custom-email-domain-sync-and-recovery.md
+│   │   └── wild-teal-wind-add-folder-support-to-v1-api.md
+│   ├── scratches/
+│   │   └── .gitkeep
+│   └── skills/
+│       └── agent-browser/
+├── .cursorrules
+├── .devcontainer/
+│   ├── devcontainer.json
+│   ├── on-create.sh
+│   └── post-start.sh
+├── .dockerignore
+├── .editorconfig
+├── .env.example
+├── .eslintignore
+├── .eslintrc.cjs
+├── .github/
+│   ├── ISSUE_TEMPLATE/
+│   │   ├── bug-report.yml
+│   │   ├── feature-request.yml
+│   │   └── improvement.yml
+│   ├── PULL_REQUEST_TEMPLATE.md
+│   ├── PULL_REQUEST_TEMPLATE/
+│   │   └── test-addition.md
+│   ├── actions/
+│   │   ├── node-install/
+│   │   └── playwright-install/
+│   ├── dependabot.yml
+│   ├── labeler.yml
+│   └── workflows/
+│       ├── ci.yml
+│       ├── codeql-analysis.yml
+│       ├── deploy.yml
+│       ├── e2e-tests.yml
+│       ├── first-interaction.yml
+│       ├── issue-assignee-check.yml
+│       ├── issue-labeler.yml
+│       ├── issue-opened.yml
+│       ├── pr-labeler.yml
+│       ├── pr-review-reminder.yml
+│       ├── publish.yml
+│       ├── semantic-pull-requests.yml
+│       ├── stale.yml
+│       ├── translations-force-pull.yml
+│       ├── translations-pull.yml
+│       └── translations-upload.yml
+├── .gitignore
+├── .gitpod.yml
+├── .husky/
+│   ├── commit-msg
+│   └── pre-commit
+├── .npmrc
+├── .opencode/
+│   ├── commands/
+│   │   ├── commit.md
+│   │   ├── continue.md
+│   │   ├── create-justification.md
+│   │   ├── create-plan.md
+│   │   ├── create-scratch.md
+│   │   ├── document.md
+│   │   ├── implement.md
+│   │   └── interview.md
+│   ├── skill/
+│   │   ├── create-justification/
+│   │   ├── create-plan/
+│   │   └── create-scratch/
+│   └── skills/
+│       ├── agent-browser
+│       └── envelope-editor-v2-e2e/
+├── .prettierignore
+├── .vscode/
+│   └── settings.json
+├── .well-known/
+│   └── security.txt
+├── AGENTS.md
+├── ARCHITECTURE.md
+├── CLA.md
+├── CODE_OF_CONDUCT.md
+├── CODE_STYLE.md
+├── CONTRIBUTING.md
+├── LICENSE
+├── MANIFEST.md
+├── README.md
+├── SIGNING.md
+├── WRITING_STYLE.md
+├── apps/
+│   ├── docs/
+│   │   ├── .gitignore
+│   │   ├── README.md
+│   │   ├── cli.json
+│   │   ├── content/
+│   │   ├── next.config.mjs
+│   │   ├── package.json
+│   │   ├── postcss.config.mjs
+│   │   ├── public/
+│   │   ├── source.config.ts
+│   │   ├── src/
+│   │   └── tsconfig.json
+│   ├── openpage-api/
+│   │   ├── .gitignore
+│   │   ├── README.md
+│   │   ├── app/
+│   │   ├── lib/
+│   │   ├── next.config.ts
+│   │   ├── package.json
+│   │   └── tsconfig.json
+│   └── remix/
+│       ├── .bin/
+│       ├── .dockerignore
+│       ├── .gitignore
+│       ├── Dockerfile
+│       ├── Dockerfile.bun
+│       ├── Dockerfile.pnpm
+│       ├── README.md
+│       ├── app/
+│       ├── example/
+│       ├── package.json
+│       ├── public/
+│       ├── react-router.config.ts
+│       ├── rollup.config.mjs
+│       ├── server/
+│       ├── tailwind.config.ts
+│       ├── tsconfig.json
+│       ├── vite-env.d.ts
+│       └── vite.config.ts
+├── assets/
+│   ├── a4-size.pdf
+│   ├── example.pdf
+│   ├── field-font-alignment.pdf
+│   ├── field-meta.pdf
+│   ├── form-fields-test.pdf
+│   ├── letter-size.pdf
+│   └── tabloid-landscape.pdf
+├── build.log
+├── commitlint.config.cjs
+├── crowdin.yml
+├── docker/
+│   ├── Dockerfile
+│   ├── Dockerfile.chromium
+│   ├── README.md
+│   ├── build.sh
+│   ├── buildx-and-push.sh
+│   ├── buildx.sh
+│   ├── development/
+│   │   └── compose.yml
+│   ├── production/
+│   │   └── compose.yml
+│   ├── start.sh
+│   └── testing/
+│       └── compose.yml
+├── lingui.config.ts
+├── lint-staged.config.cjs
+├── package-lock.json
+├── package.json
+├── packages/
+│   ├── api/
+│   │   ├── hono.ts
+│   │   ├── index.ts
+│   │   ├── package.json
+│   │   ├── tsconfig.json
+│   │   └── v1/
+│   ├── app-tests/
+│   │   ├── .gitignore
+│   │   ├── constants/
+│   │   ├── e2e/
+│   │   ├── package.json
+│   │   ├── playwright.config.ts
+│   │   ├── tsconfig.json
+│   │   └── visual-regression/
+│   ├── assets/
+│   │   ├── android-chrome-192x192.png
+│   │   ├── android-chrome-512x512.png
+│   │   ├── apple-touch-icon.png
+│   │   ├── documenso-supporter-pledge.pdf
+│   │   ├── favicon-16x16.png
+│   │   ├── favicon-32x32.png
+│   │   ├── favicon.ico
+│   │   ├── fixtures/
+│   │   ├── fonts/
+│   │   ├── images/
+│   │   ├── logo.png
+│   │   ├── logo_icon.png
+│   │   ├── next.svg
+│   │   ├── opengraph-image.jpg
+│   │   ├── package.json
+│   │   ├── site.webmanifest
+│   │   ├── static/
+│   │   └── vercel.svg
+│   ├── auth/
+│   │   ├── client/
+│   │   ├── index.ts
+│   │   ├── package.json
+│   │   ├── server/
+│   │   └── tsconfig.json
+│   ├── ee/
+│   │   ├── FEATURES
+│   │   ├── LICENSE
+│   │   ├── index.ts
+│   │   ├── package.json
+│   │   ├── server-only/
+│   │   └── tsconfig.json
+│   ├── email/
+│   │   ├── .gitignore
+│   │   ├── components.ts
+│   │   ├── index.ts
+│   │   ├── mailer.ts
+│   │   ├── package.json
+│   │   ├── providers/
+│   │   ├── render.tsx
+│   │   ├── static/
+│   │   ├── tailwind.config.js
+│   │   ├── template-components/
+│   │   ├── templates/
+│   │   ├── transports/
+│   │   └── tsconfig.json
+│   ├── eslint-config/
+│   │   ├── index.cjs
+│   │   ├── package.json
+│   │   └── tsconfig.json
+│   ├── lib/
+│   │   ├── advanced-fields-validation/
+│   │   ├── client-only/
+│   │   ├── constants/
+│   │   ├── errors/
+│   │   ├── index.ts
+│   │   ├── jobs/
+│   │   ├── package.json
+│   │   ├── plain/
+│   │   ├── schemas/
+│   │   ├── server-only/
+│   │   ├── translations/
+│   │   ├── tsconfig.json
+│   │   ├── types/
+│   │   ├── universal/
+│   │   └── utils/
+│   ├── prettier-config/
+│   │   ├── index.cjs
+│   │   └── package.json
+│   ├── prisma/
+│   │   ├── .gitignore
+│   │   ├── client.ts
+│   │   ├── guards/
+│   │   ├── helper.ts
+│   │   ├── index.ts
+│   │   ├── migrations/
+│   │   ├── package.json
+│   │   ├── prisma-middleware.ts
+│   │   ├── schema.prisma
+│   │   ├── seed-database.ts
+│   │   ├── seed/
+│   │   ├── tsconfig.json
+│   │   ├── tsconfig.seed.json
+│   │   ├── types/
+│   │   └── utils/
+│   ├── signing/
+│   │   ├── helpers/
+│   │   ├── index.ts
+│   │   ├── package.json
+│   │   ├── transports/
+│   │   └── tsconfig.json
+│   ├── tailwind-config/
+│   │   ├── index.cjs
+│   │   ├── index.d.ts
+│   │   ├── package.json
+│   │   └── tsconfig.json
+│   ├── trpc/
+│   │   ├── client/
+│   │   ├── index.ts
+│   │   ├── package.json
+│   │   ├── react/
+│   │   ├── server/
+│   │   ├── tsconfig.json
+│   │   └── utils/
+│   ├── tsconfig/
+│   │   ├── README.md
+│   │   ├── ambient.d.ts
+│   │   ├── base.json
+│   │   ├── nextjs.json
+│   │   ├── package.json
+│   │   ├── process-env.d.ts
+│   │   ├── react-library.json
+│   │   └── tsconfig.json
+│   └── ui/
+│       ├── components/
+│       ├── icons/
+│       ├── index.ts
+│       ├── lib/
+│       ├── package.json
+│       ├── primitives/
+│       ├── styles/
+│       ├── tailwind.config.cjs
+│       └── tsconfig.json
+├── patches/
+│   └── @ai-sdk+google-vertex+3.0.81.patch
+├── prettier.config.cjs
+├── railway.toml
+├── render.yaml
+├── scripts/
+│   ├── copy-wellknown.cjs
+│   ├── create-justification.ts
+│   ├── create-plan.ts
+│   ├── create-scratch.ts
+│   └── utils/
+│       └── generate-id.ts
+├── tsconfig.eslint.json
+└── turbo.json

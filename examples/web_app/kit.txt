@@ -1,0 +1,372 @@
+=====================================
+Repository Analysis: kit
+Type: Web Application
+=====================================
+
+--- METADATA ---
+Name: kit
+Description: web development, streamlined
+Language: JavaScript
+Topics: hacktoberfest, svelte
+Stars: 20331
+License: MIT License
+
+--- README ---
+[![Chat](https://img.shields.io/discord/457912077277855764?label=chat&logo=discord)](https://svelte.dev/chat)
+
+# SvelteKit
+
+Web development, streamlined. Read the [documentation](https://svelte.dev/docs/kit) to get started.
+
+### Packages
+
+| Package                                                                     | Changelog                                                     |
+| --------------------------------------------------------------------------- | ------------------------------------------------------------- |
+| [@sveltejs/kit](packages/kit)                                               | [Changelog](packages/kit/CHANGELOG.md)                        |
+| [@sveltejs/adapter-auto](packages/adapter-auto)                             | [Changelog](packages/adapter-auto/CHANGELOG.md)               |
+| [@sveltejs/adapter-cloudflare](packages/adapter-cloudflare)                 | [Changelog](packages/adapter-cloudflare/CHANGELOG.md)         |
+| [@sveltejs/adapter-netlify](packages/adapter-netlify)                       | [Changelog](packages/adapter-netlify/CHANGELOG.md)            |
+| [@sveltejs/adapter-node](packages/adapter-node)                             | [Changelog](packages/adapter-node/CHANGELOG.md)               |
+| [@sveltejs/adapter-static](packages/adapter-static)                         | [Changelog](packages/adapter-static/CHANGELOG.md)             |
+| [@sveltejs/adapter-vercel](packages/adapter-vercel)                         | [Changelog](packages/adapter-vercel/CHANGELOG.md)             |
+| [@sveltejs/amp](packages/amp)                                               | [Changelog](packages/amp/CHANGELOG.md)                        |
+| [@sveltejs/enhanced-img](packages/enhanced-img)                             | [Changelog](packages/enhanced-img/CHANGELOG.md)               |
+| [@sveltejs/package](packages/package)                                       | [Changelog](packages/package/CHANGELOG.md)                    |
+
+[Additional adapters](https://sveltesociety.dev/packages?category=sveltekit-adapters) are maintained by the community.
+
+## Bug reporting
+
+Please make sure the issue you're reporting involves SvelteKit. Many issues related to how a project builds originate from [Vite](https://vitejs.dev/), which is used to build a SvelteKit project. You can create a new Vite project with `npm create vite@latest` for client-side only repros and `npm create vite-extra@latest` for SSR or library repros.
+
+If an issue originates from Vite, please report it in the [Vite issue tracker](https://github.com/vitejs/vite/issues).
+
+## Contributing
+
+See [CONTRIBUTING.md](./CONTRIBUTING.md) for information on how to develop SvelteKit locally.
+
+## Supporting Svelte
+
+Svelte is an MIT-licensed open source project with its ongoing development made possible entirely by fantastic volunteers. If you'd like to support their efforts, please consider:
+
+- [Becoming a backer on Open Collective](https://opencollective.com/svelte).
+
+Funds donated via Open Collective will be used for compensating expenses related to Svelte's development such as hosting costs. If sufficient donations are received, funds may also be used to support Svelte's development more directly.
+
+## License
+
+[MIT](https://github.com/sveltejs/kit/blob/main/LICENSE)
+
+
+--- PACKAGE MANIFEST(S) ---
+
+[package.json]
+{
+	"name": "kit-monorepo",
+	"version": "0.0.1",
+	"description": "monorepo for @sveltejs/kit and friends",
+	"private": true,
+	"type": "module",
+	"scripts": {
+		"test:kit": "pnpm run --dir packages/kit test",
+		"test:cross-platform:dev": "pnpm run --dir packages/kit test:cross-platform:dev",
+		"test:cross-platform:build": "pnpm run --dir packages/kit test:cross-platform:build",
+		"test:server-side-route-resolution:dev": "pnpm run --dir packages/kit test:server-side-route-resolution:dev",
+		"test:server-side-route-resolution:build": "pnpm run --dir packages/kit test:server-side-route-resolution:build",
+		"test:svelte-async:dev": "pnpm run --dir packages/kit test:svelte-async:dev",
+		"test:svelte-async:build": "pnpm run --dir packages/kit test:svelte-async:build",
+		"test:vite-ecosystem-ci": "pnpm --dir packages/kit test",
+		"test:others": "pnpm -r --filter='./packages/*' --filter=!./packages/kit/ --workspace-concurrency=1 test",
+		"check": "pnpm -r prepublishOnly && pnpm -r check",
+		"lint": "pnpm -r lint && eslint --cache --cache-location node_modules/.eslintcache 'packages/**/*.js'",
+		"format": "pnpm -r format",
+		"precommit": "pnpm format && pnpm lint",
+		"changeset:version": "changeset version && pnpm -r generate:version && git add --all",
+		"changeset:release": "changeset publish",
+		"build": "pnpm --filter '@sveltejs/*' -r build",
+		"sync-all": "node scripts/sync-all.js"
+	},
+	"devDependencies": {
+		"@changesets/cli": "catalog:",
+		"@playwright/test": "catalog:",
+		"@sveltejs/eslint-config": "catalog:",
+		"@svitejs/changesets-changelog-github-compact": "catalog:",
+		"eslint": "catalog:",
+		"prettier": "catalog:",
+		"prettier-plugin-svelte": "catalog:"
+	},
+	"packageManager": "pnpm@10.30.3+sha512.c961d1e0a2d8e354ecaa5166b822516668b7f44cb5bd95122d590dd81922f606f5473b6d23ec4a5be05e7fcd18e8488d47d978bbe981872f1145d06e9a740017",
+	"engines": {
+		"pnpm": ">=9.0.0"
+	},
+	"pnpm": {
+		"onlyBuiltDependencies": [
+			"@parcel/watcher",
+			"esbuild",
+			"protobufjs",
+			"rolldown",
+			"sharp",
+			"svelte-preprocess",
+			"unix-dgram",
+			"workerd"
+		]
+	}
+}
+
+
+--- WEB FRAMEWORK CONFIG ---
+
+[tsconfig.json]
+{
+	"compilerOptions": {
+		"checkJs": true,
+		"noEmit": true,
+		"module": "ESNext",
+		"target": "ESNext",
+		"moduleResolution": "bundler"
+	},
+	"include": ["eslint.config.js", ".eslint/*.js"]
+}
+
+
+--- ROUTE / PAGE DEFINITIONS ---
+
+[packages/adapter-cloudflare/test/apps/pages/.gitignore]
+.DS_Store
+node_modules
+/.svelte-kit
+/.wrangler
+
+[packages/adapter-cloudflare/test/apps/pages/package.json]
+{
+	"name": "test-cloudflare-pages",
+	"version": "0.0.1",
+	"private": true,
+	"scripts": {
+		"dev": "vite dev",
+		"build": "vite build",
+		"preview": "wrangler pages dev .svelte-kit/cloudflare --port 8787",
+		"prepare": "svelte-kit sync || echo ''",
+		"test": "playwright test"
+	},
+	"devDependencies": {
+		"@sveltejs/kit": "workspace:^",
+		"@sveltejs/vite-plugin-svelte": "catalog:",
+		"server-side-dep": "file:server-side-dep",
+		"svelte": "catalog:",
+		"vite": "catalog:",
+		"wrangler": "catalog:"
+	},
+	"type": "module"
+}
+
+
+[packages/adapter-cloudflare/test/apps/pages/playwright.config.js]
+export { config as default } from '../../utils.js';
+
+
+[packages/adapter-cloudflare/test/apps/pages/server-side-dep/index.d.ts]
+export function sum(a: number, b: number): number;
+
+
+[packages/adapter-cloudflare/test/apps/pages/server-side-dep/index.js]
+/** @type {import('./index.js').sum} */
+export function sum(a, b) {
+	return a + b;
+}
+
+
+--- DIRECTORY STRUCTURE (depth 2) ---
+├── .changeset/
+│   ├── config.json
+│   ├── large-squids-pull.md
+│   ├── resolve-accept-query-hash.md
+│   ├── shaky-pillows-sell.md
+│   └── stale-poets-clap.md
+├── .editorconfig
+├── .eslint/
+│   └── no-runtime-to-exports-imports.js
+├── .gitattributes
+├── .githooks/
+│   └── pre-push
+├── .github/
+│   ├── FUNDING.yml
+│   ├── ISSUE_TEMPLATE/
+│   │   ├── bug_report.yml
+│   │   ├── config.yml
+│   │   └── feature_request.yml
+│   ├── PULL_REQUEST_TEMPLATE.md
+│   ├── actions/
+│   │   ├── platform-test/
+│   │   └── vercel-deploy/
+│   ├── copilot-instructions.md
+│   └── workflows/
+│       ├── audit.yml
+│       ├── autofix-lint.yml
+│       ├── ci.yml
+│       ├── platform-tests-all.yml
+│       ├── platform-tests-vercel.yml
+│       └── release.yml
+├── .gitignore
+├── .npmrc
+├── .prettierrc
+├── .well-known/
+│   └── funding-manifest-urls
+├── AGENTS.md
+├── CLAUDE.md
+├── CONTRIBUTING.md
+├── FUNDING.json
+├── LICENSE
+├── README.md
+├── documentation/
+│   └── docs/
+│       ├── 10-getting-started/
+│       ├── 20-core-concepts/
+│       ├── 25-build-and-deploy/
+│       ├── 30-advanced/
+│       ├── 40-best-practices/
+│       ├── 60-appendix/
+│       ├── 98-reference/
+│       └── index.md
+├── eslint.config.js
+├── package.json
+├── packages/
+│   ├── adapter-auto/
+│   │   ├── .gitignore
+│   │   ├── CHANGELOG.md
+│   │   ├── README.md
+│   │   ├── adapters.js
+│   │   ├── index.d.ts
+│   │   ├── index.js
+│   │   ├── package.json
+│   │   ├── test/
+│   │   └── tsconfig.json
+│   ├── adapter-cloudflare/
+│   │   ├── .gitignore
+│   │   ├── CHANGELOG.md
+│   │   ├── README.md
+│   │   ├── ambient.d.ts
+│   │   ├── index.d.ts
+│   │   ├── index.js
+│   │   ├── internal.d.ts
+│   │   ├── package.json
+│   │   ├── src/
+│   │   ├── test/
+│   │   ├── tsconfig.json
+│   │   ├── utils.js
+│   │   └── utils.spec.js
+│   ├── adapter-netlify/
+│   │   ├── .gitignore
+│   │   ├── CHANGELOG.md
+│   │   ├── README.md
+│   │   ├── ambient.d.ts
+│   │   ├── index.d.ts
+│   │   ├── index.js
+│   │   ├── internal.d.ts
+│   │   ├── package.json
+│   │   ├── rollup.config.js
+│   │   ├── src/
+│   │   ├── test/
+│   │   └── tsconfig.json
+│   ├── adapter-node/
+│   │   ├── .gitignore
+│   │   ├── CHANGELOG.md
+│   │   ├── LICENSE
+│   │   ├── README.md
+│   │   ├── ambient.d.ts
+│   │   ├── index.d.ts
+│   │   ├── index.js
+│   │   ├── internal.d.ts
+│   │   ├── package.json
+│   │   ├── rollup.config.js
+│   │   ├── src/
+│   │   ├── tests/
+│   │   ├── tsconfig.json
+│   │   └── utils.js
+│   ├── adapter-static/
+│   │   ├── .gitignore
+│   │   ├── CHANGELOG.md
+│   │   ├── LICENSE
+│   │   ├── README.md
+│   │   ├── index.d.ts
+│   │   ├── index.js
+│   │   ├── internal.d.ts
+│   │   ├── package.json
+│   │   ├── platforms.js
+│   │   ├── test/
+│   │   └── tsconfig.json
+│   ├── adapter-vercel/
+│   │   ├── .gitignore
+│   │   ├── CHANGELOG.md
+│   │   ├── README.md
+│   │   ├── ambient.d.ts
+│   │   ├── files/
+│   │   ├── index.d.ts
+│   │   ├── index.js
+│   │   ├── internal.d.ts
+│   │   ├── package.json
+│   │   ├── test/
+│   │   ├── tsconfig.json
+│   │   └── utils.js
+│   ├── amp/
+│   │   ├── .gitignore
+│   │   ├── CHANGELOG.md
+│   │   ├── index.d.ts
+│   │   ├── index.js
+│   │   ├── package.json
+│   │   └── tsconfig.json
+│   ├── enhanced-img/
+│   │   ├── .prettierignore
+│   │   ├── CHANGELOG.md
+│   │   ├── README.md
+│   │   ├── package.json
+│   │   ├── src/
+│   │   ├── test/
+│   │   ├── tsconfig.json
+│   │   └── types/
+│   ├── kit/
+│   │   ├── .gitignore
+│   │   ├── .prettierignore
+│   │   ├── CHANGELOG-pre-1.md
+│   │   ├── CHANGELOG.md
+│   │   ├── README.md
+│   │   ├── kit.vitest.config.js
+│   │   ├── package.json
+│   │   ├── scripts/
+│   │   ├── src/
+│   │   ├── svelte-kit.js
+│   │   ├── test/
+│   │   ├── tsconfig.json
+│   │   └── types/
+│   ├── package/
+│   │   ├── .gitignore
+│   │   ├── CHANGELOG.md
+│   │   ├── README.md
+│   │   ├── package.json
+│   │   ├── src/
+│   │   ├── svelte-package.js
+│   │   ├── test/
+│   │   └── tsconfig.json
+│   └── test-redirect-importer/
+│       ├── index.js
+│       └── package.json
+├── playgrounds/
+│   ├── README.md
+│   └── basic/
+│       ├── .gitignore
+│       ├── package.json
+│       ├── src/
+│       ├── static/
+│       ├── svelte.config.js
+│       ├── tsconfig.json
+│       └── vite.config.js
+├── pnpm-lock.yaml
+├── pnpm-workspace.yaml
+├── renovate.json
+├── scripts/
+│   ├── check-dependencies.js
+│   ├── print-flaky-test-report.js
+│   └── sync-all.js
+├── test-utils/
+│   └── index.js
+└── tsconfig.json

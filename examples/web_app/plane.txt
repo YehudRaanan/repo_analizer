@@ -1,0 +1,1079 @@
+=====================================
+Repository Analysis: plane
+Type: Web Application
+=====================================
+
+--- METADATA ---
+Name: plane
+Description: 🔥🔥🔥 Open-source Jira, Linear, Monday, and ClickUp alternative. Plane is a modern project management platform to manage tasks, sprints, docs, and triage.
+Language: TypeScript
+Topics: boards, bug-tracker, django, docker, gantt, issue-tracker, jira, jira-alternative, kanban, linear, postgresql, product-management, project-management, project-planning, python, react, redis, typescipt, vite, work-management
+Stars: 46255
+License: GNU Affero General Public License v3.0
+
+--- README ---
+<br /><br />
+
+<p align="center">
+<a href="https://plane.so">
+  <img src="https://media.docs.plane.so/logo/plane_github_readme.png" alt="Plane Logo" width="400">
+</a>
+</p>
+<p align="center"><b>Modern project management for all teams</b></p>
+
+<p align="center">
+    <a href="https://plane.so/"><b>Website</b></a> •
+    <a href="https://forum.plane.so"><b>Forum</b></a> •
+    <a href="https://twitter.com/planepowers"><b>Twitter</b></a> •
+    <a href="https://docs.plane.so/"><b>Documentation</b></a>
+</p>
+
+<p>
+    <a href="https://app.plane.so/#gh-light-mode-only" target="_blank">
+      <img
+        src="https://media.docs.plane.so/GitHub-readme/github-top.webp"
+        alt="Plane Screens"
+        width="100%"
+      />
+    </a>
+</p>
+
+Meet [Plane](https://plane.so/), an open-source project management tool to track issues, run ~sprints~ cycles, and manage product roadmaps without the chaos of managing the tool itself. 🧘‍♀️
+
+> Plane is evolving every day. Your suggestions, ideas, and reported bugs help us immensely. Do not hesitate to join in the conversation on [Forum](https://forum.plane.so) or raise a GitHub issue. We read everything and respond to most.
+
+## 🚀 Installation
+
+Getting started with Plane is simple. Choose the setup that works best for you:
+
+- **Plane Cloud**
+  Sign up for a free account on [Plane Cloud](https://app.plane.so)—it's the fastest way to get up and running without worrying about infrastructure.
+
+- **Self-host Plane**
+  Prefer full control over your data and infrastructure? Install and run Plane on your own servers. Follow our detailed [deployment guides](https://developers.plane.so/self-hosting/overview) to get started.
+
+| Installation methods | Docs link                                                                                                                                                                               |
+| -------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Docker               | [![Docker](https://img.shields.io/badge/docker-%230db7ed.svg?style=for-the-badge&logo=docker&logoColor=white)](https://developers.plane.so/self-hosting/methods/docker-compose)         |
+| Kubernetes           | [![Kubernetes](https://img.shields.io/badge/kubernetes-%23326ce5.svg?style=for-the-badge&logo=kubernetes&logoColor=white)](https://developers.plane.so/self-hosting/methods/kubernetes) |
+
+`Instance admins` can configure instance settings with [God mode](https://developers.plane.so/self-hosting/govern/instance-admin).
+
+## 🌟 Features
+
+- **Work Items**
+  Efficiently create and manage tasks with a robust rich text editor that supports file uploads. Enhance organization and tracking by adding sub-properties and referencing related issues.
+
+- **Cycles**
+  Maintain your team’s momentum with Cycles. Track progress effortlessly using burn-down charts and other insightful tools.
+
+- **Modules**
+  Simplify complex projects by dividing them into smaller, manageable modules.
+
+- **Views**
+  Customize your workflow by creating filters to display only the most relevant issues. Save and share these views with ease.
+
+- **Pages**
+  Capture and organize ideas using Plane Pages, complete with AI capabilities and a rich text editor. Format text, insert images, add hyperlinks, or convert your notes into actionable items.
+
+- **Analytics**
+  Access real-time insights across all your Plane data. Visualize trends, remove blockers, and keep your projects moving forward.
+
+## 🛠️ Local development
+
+See [CONTRIBUTING](./CONTRIBUTING.md)
+
+## ⚙️ Built with
+
+[![React Router](https://img.shields.io/badge/-React%20Router-CA4245?logo=react-router&style=for-the-badge&logoColor=white)](https://reactrouter.com/)
+[![Django](https://img.shields.io/badge/Django-092E20?style=for-the-badge&logo=django&logoColor=green)](https://www.djangoproject.com/)
+[![Node JS](https://img.shields.io/badge/node.js-339933?style=for-the-badge&logo=Node.js&logoColor=white)](https://nodejs.org/en)
+
+## 📸 Screenshots
+
+  <p>
+    <a href="https://plane.so" target="_blank">
+      <img
+        src="https://media.docs.plane.so/GitHub-readme/github-work-items.webp"
+        alt="Plane Views"
+        width="100%"
+      />
+    </a>
+  </p>
+  <p>
+    <a href="https://plane.so" target="_blank">
+      <img
+        src="https://media.docs.plane.so/GitHub-readme/github-cycles.webp"
+        width="100%"
+      />
+    </a>
+  </p>
+  <p>
+    <a href="https://plane.so" target="_blank">
+      <img
+        src="https://media.docs.plane.so/GitHub-readme/github-modules.webp"
+        alt="Plane Cycles and Modules"
+        width="100%"
+      />
+    </a>
+  </p>
+  <p>
+    <a href="https://plane.so" target="_blank">
+      <img
+        src="https://media.docs.plane.so/GitHub-readme/github-views.webp"
+        alt="Plane Analytics"
+        width="100%"
+      />
+    </a>
+  </p>
+   <p>
+    <a href="https://plane.so" target="_blank">
+... [TRUNCATED]
+
+--- PACKAGE MANIFEST(S) ---
+
+[package.json]
+{
+  "name": "plane",
+  "version": "1.2.0",
+  "private": true,
+  "description": "Open-source project management that unlocks customer value",
+  "license": "AGPL-3.0",
+  "repository": "https://github.com/makeplane/plane.git",
+  "scripts": {
+    "build": "turbo run build",
+    "dev": "turbo run dev --concurrency=18",
+    "start": "turbo run start",
+    "clean": "turbo run clean && rm -rf .turbo && rm -rf .next && rm -rf node_modules && rm -rf dist",
+    "fix": "turbo run fix",
+    "fix:format": "turbo run fix:format",
+    "fix:lint": "turbo run fix:lint",
+    "check": "turbo run check",
+    "check:lint": "turbo run check:lint",
+    "check:format": "turbo run check:format",
+    "check:types": "turbo run check:types",
+    "prepare": "husky"
+  },
+  "devDependencies": {
+    "husky": "9.1.7",
+    "lint-staged": "16.2.7",
+    "oxfmt": "0.35.0",
+    "oxlint": "1.51.0",
+    "turbo": "2.8.12"
+  },
+  "lint-staged": {
+    "*.{js,jsx,ts,tsx,cjs,mjs,cts,mts,json,css,md}": [
+      "pnpm exec oxfmt --no-error-on-unmatched-pattern"
+    ],
+    "*.{js,jsx,ts,tsx,cjs,mjs,cts,mts}": [
+      "pnpm exec oxlint --fix --deny-warnings"
+    ]
+  },
+  "engines": {
+    "node": ">=22.18.0"
+  },
+  "packageManager": "pnpm@10.30.2+sha512.36cdc707e7b7940a988c9c1ecf88d084f8514b5c3f085f53a2e244c2921d3b2545bc20dd4ebe1fc245feec463bb298aecea7a63ed1f7680b877dc6379d8d0cb4",
+  "pnpm": {
+    "overrides": {
+      "express": "catalog:",
+      "mdast-util-to-hast": "13.2.1",
+      "valibot": "1.2.0",
+      "glob": "11.1.0",
+      "js-yaml": "4.1.1",
+      "brace-expansion": "2.0.2",
+      "nanoid": "3.3.8",
+      "esbuild": "0.25.0",
+      "@babel/helpers": "7.26.10",
+      "@babel/runtime": "7.26.10",
+      "chokidar": "3.6.0",
+      "happy-dom": "20.0.2",
+      "tar-fs": "3.0.9",
+      "prosemirror-view": "1.40.0",
+      "@types/express": "4.17.23",
+      "typescript": "catalog:",
+      "vite": "catalog:",
+      "qs": "6.14.2",
+      "diff": "5.2.2",
+      "webpack": "5.104.1",
+      "lodash-es": "catalog:",
+      "@isaacs/brace-expansion": "5.0.1",
+      "lodash": "4.17.23",
+      "markdown-it": "14.1.1",
+      "rollup": "4.59.0",
+      "minimatch@3": "3.1.4",
+      "minimatch@10": "10.2.3",
+      "serialize-javascript": "7.0.3",
+      "ajv@6": "6.14.0",
+      "ajv@8": "8.18.0"
+    },
+    "onlyBuiltDependencies": [
+      "turbo"
+    ],
+    "ignoredBuiltDependencies": [
+      "sharp"
+    ]
+  }
+}
+
+
+--- WEB FRAMEWORK CONFIG ---
+
+[.env.example]
+# Database Settings
+POSTGRES_USER="plane"
+POSTGRES_PASSWORD="plane"
+POSTGRES_DB="plane"
+PGDATA="/var/lib/postgresql/data"
+
+# Redis Settings
+REDIS_HOST="plane-redis"
+REDIS_PORT="6379"
+
+# RabbitMQ Settings
+RABBITMQ_HOST="plane-mq"
+RABBITMQ_PORT="5672"
+RABBITMQ_USER="plane"
+RABBITMQ_PASSWORD="plane"
+RABBITMQ_VHOST="plane"
+
+LISTEN_HTTP_PORT=80
+LISTEN_HTTPS_PORT=443
+
+# AWS Settings
+AWS_REGION=""
+AWS_ACCESS_KEY_ID="access-key"
+AWS_SECRET_ACCESS_KEY="secret-key"
+AWS_S3_ENDPOINT_URL="http://plane-minio:9000"
+# Changing this requires change in the proxy config for uploads if using minio setup
+AWS_S3_BUCKET_NAME="uploads"
+# Maximum file upload limit
+FILE_SIZE_LIMIT=5242880
+
+# GPT settings
+OPENAI_API_BASE="https://api.openai.com/v1" # deprecated
+OPENAI_API_KEY="sk-" # deprecated
+GPT_ENGINE="gpt-3.5-turbo" # deprecated
+
+# Settings related to Docker
+DOCKERIZED=1  # deprecated
+
+# set to 1 If using the pre-configured minio setup
+USE_MINIO=1
+
+# If SSL Cert to be generated, set CERT_EMAIl="email <EMAIL_ADDRESS>"
+CERT_ACME_CA=https://acme-v02.api.letsencrypt.org/directory
+TRUSTED_PROXIES=0.0.0.0/0
+SITE_ADDRESS=:80
+CERT_EMAIL=
+
+# For DNS Challenge based certificate generation, set the CERT_ACME_DNS, CERT_EMAIL
+# CERT_ACME_DNS="acme_dns <CERT_DNS_PROVIDER> <CERT_DNS_PROVIDER_API_KEY>"
+CERT_ACME_DNS=
+
+# Force HTTPS for handling SSL Termination
+MINIO_ENDPOINT_SSL=0
+
+# API key rate limit
+API_KEY_RATE_LIMIT="60/minute"
+
+
+[docker-compose.yml]
+services:
+  web:
+    container_name: web
+    build:
+      context: .
+      dockerfile: ./apps/web/Dockerfile.web
+      args:
+        DOCKER_BUILDKIT: 1
+    restart: always
+    depends_on:
+      - api
+
+  admin:
+    container_name: admin
+    build:
+      context: .
+      dockerfile: ./apps/admin/Dockerfile.admin
+      args:
+        DOCKER_BUILDKIT: 1
+    restart: always
+    depends_on:
+      - api
+      - web
+
+  space:
+    container_name: space
+    build:
+      context: .
+      dockerfile: ./apps/space/Dockerfile.space
+      args:
+        DOCKER_BUILDKIT: 1
+    restart: always
+    depends_on:
+      - api
+      - web
+
+  api:
+    container_name: api
+    build:
+      context: ./apps/api
+      dockerfile: Dockerfile.api
+      args:
+        DOCKER_BUILDKIT: 1
+    restart: always
+    command: ./bin/docker-entrypoint-api.sh
+    env_file:
+      - ./apps/api/.env
+    depends_on:
+      - plane-db
+      - plane-redis
+
+  worker:
+    container_name: bgworker
+    build:
+      context: ./apps/api
+      dockerfile: Dockerfile.api
+      args:
+        DOCKER_BUILDKIT: 1
+    restart: always
+    command: ./bin/docker-entrypoint-worker.sh
+    env_file:
+      - ./apps/api/.env
+    depends_on:
+      - api
+      - plane-db
+      - plane-redis
+
+  beat-worker:
+    container_name: beatworker
+    build:
+      context: ./apps/api
+      dockerfile: Dockerfile.api
+      args:
+        DOCKER_BUILDKIT: 1
+    restart: always
+    command: ./bin/docker-entrypoint-beat.sh
+    env_file:
+      - ./apps/api/.env
+    depends_on:
+      - api
+      - plane-db
+      - plane-redis
+
+  migrator:
+    container_name: plane-migrator
+    build:
+      context: ./apps/api
+      dockerfile: Dockerfile.api
+      args:
+        DOCKER_BUILDKIT: 1
+    restart: no
+    command: ./bin/docker-entrypoint-migrator.sh
+    env_file:
+      - ./apps/api/.env
+    depends_on:
+      - plane-db
+      - plane-redis
+
+  live:
+    container_name: plane-live
+    build:
+      context: .
+      dockerfile: ./apps/live/Dockerfile.live
+      args:
+        DOCKER_BUILDKIT: 1
+    restart: always
+
+  plane-db:
+    container_name: plane-db
+    image: postgres:15.7-alpine
+    restart: always
+    command: postgres -c 'max_connections=1000'
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    env_file:
+      - .env
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      PGDATA: /var/lib/postgresql/data
+
+  plane-redis:
+    container_name: plane-redis
+    image: valkey/valkey:7.2.11-alpine
+    restart: always
+    volumes:
+      - redisdata:/data
+
+  plane-mq:
+    container_name: plane-mq
+    image: rabbitmq:3.13.6-management-alpine
+    restart: always
+    env_file:
+      - .env
+    environment:
+      RABBITMQ_DEFAULT_USER: ${RABBITMQ_USER}
+      RABBITMQ_DEFAULT_PASS: ${RABBITMQ_PASSWORD}
+      RABBITMQ_DEFAULT_VHOST: ${RABBITMQ_VHOST}
+    volumes:
+      - rabbitmq_data:/var/lib/rabbitmq
+
+  plane-minio:
+    container_name: plane-minio
+    image: minio/
+... [TRUNCATED]
+
+--- ENVIRONMENT VARIABLES (.env.example) ---
+# Database Settings
+POSTGRES_USER="plane"
+POSTGRES_PASSWORD="plane"
+POSTGRES_DB="plane"
+PGDATA="/var/lib/postgresql/data"
+
+# Redis Settings
+REDIS_HOST="plane-redis"
+REDIS_PORT="6379"
+
+# RabbitMQ Settings
+RABBITMQ_HOST="plane-mq"
+RABBITMQ_PORT="5672"
+RABBITMQ_USER="plane"
+RABBITMQ_PASSWORD="plane"
+RABBITMQ_VHOST="plane"
+
+LISTEN_HTTP_PORT=80
+LISTEN_HTTPS_PORT=443
+
+# AWS Settings
+AWS_REGION=""
+AWS_ACCESS_KEY_ID="access-key"
+AWS_SECRET_ACCESS_KEY="secret-key"
+AWS_S3_ENDPOINT_URL="http://plane-minio:9000"
+# Changing this requires change in the proxy config for uploads if using minio setup
+AWS_S3_BUCKET_NAME="uploads"
+# Maximum file upload limit
+FILE_SIZE_LIMIT=5242880
+
+# GPT settings
+OPENAI_API_BASE="https://api.openai.com/v1" # deprecated
+OPENAI_API_KEY="sk-" # deprecated
+GPT_ENGINE="gpt-3.5-turbo" # deprecated
+
+# Settings related to Docker
+DOCKERIZED=1  # deprecated
+
+# set to 1 If using the pre-configured minio setup
+USE_MINIO=1
+
+# If SSL Cert to be generated, set CERT_EMAIl="email <EMAIL_ADDRESS>"
+CERT_ACME_CA=https://acme-v02.api.letsencrypt.org/directory
+TRUSTED_PROXIES=0.0.0.0/0
+SITE_ADDRESS=:80
+CERT_EMAIL=
+
+# For DNS Challenge based certificate generation, set the CERT_ACME_DNS, CERT_EMAIL
+# CERT_ACME_DNS="acme_dns <CERT_DNS_PROVIDER> <CERT_DNS_PROVIDER_API_KEY>"
+CERT_ACME_DNS=
+
+# Force HTTPS for handling SSL Termination
+MINIO_ENDPOINT_SSL=0
+
+# API key rate limit
+API_KEY_RATE_LIMIT="60/minute"
+
+
+--- ROUTE / PAGE DEFINITIONS ---
+
+[apps/admin/app/routes.ts]
+/**
+ * Copyright (c) 2023-present Plane Software, Inc. and contributors
+ * SPDX-License-Identifier: AGPL-3.0-only
+ * See the LICENSE file for details.
+ */
+
+import { index, layout, route } from "@react-router/dev/routes";
+import type { RouteConfig } from "@react-router/dev/routes";
+
+export default [
+  layout("./(all)/(home)/layout.tsx", [index("./(all)/(home)/page.tsx")]),
+  layout("./(all)/(dashboard)/layout.tsx", [
+    route("general", "./(all)/(dashboard)/general/page.tsx"),
+    route("workspace", "./(all)/(dashboard)/workspace/page.tsx"),
+    route("workspace/create", "./(all)/(dashboard)/workspace/create/page.tsx"),
+    route("email", "./(all)/(dashboard)/email/page.tsx"),
+    route("authentication", "./(all)/(dashboard)/authentication/page.tsx"),
+    route("authentication/github", "./(all)/(dashboard)/authentication/github/page.tsx"),
+    route("authentication/gitlab", "./(all)/(dashboard)/authentication/gitlab/page.tsx"),
+    route("authentication/google", "./(all)/(dashboard)/authentication/google/page.tsx"),
+    route("authentication/gitea", "./(all)/(dashboard)/authentication/gitea/page.tsx"),
+    route("ai", "./(all)/(dashboard)/ai/page.tsx"),
+    route("image", "./(all)/(dashboard)/image/page.tsx"),
+  ]),
+  // Catch-all route for 404 handling - must be last
+  route("*", "./components/404.tsx"),
+] satisfies RouteConfig;
+
+
+[apps/api/plane/app/urls/views.py]
+# Copyright (c) 2023-present Plane Software, Inc. and contributors
+# SPDX-License-Identifier: AGPL-3.0-only
+# See the LICENSE file for details.
+
+from django.urls import path
+
+
+from plane.app.views import (
+    IssueViewViewSet,
+    WorkspaceViewViewSet,
+    WorkspaceViewIssuesViewSet,
+    IssueViewFavoriteViewSet,
+)
+
+
+urlpatterns = [
+    path(
+        "workspaces/<str:slug>/projects/<uuid:project_id>/views/",
+        IssueViewViewSet.as_view({"get": "list", "post": "create"}),
+        name="project-view",
+    ),
+    path(
+        "workspaces/<str:slug>/projects/<uuid:project_id>/views/<uuid:pk>/",
+        IssueViewViewSet.as_view(
+            {
+                "get": "retrieve",
+                "put": "update",
+                "patch": "partial_update",
+                "delete": "destroy",
+            }
+        ),
+        name="project-view",
+    ),
+    path(
+        "workspaces/<str:slug>/views/",
+        WorkspaceViewViewSet.as_view({"get": "list", "post": "create"}),
+        name="global-view",
+    ),
+    path(
+        "workspaces/<str:slug>/views/<uuid:pk>/",
+        WorkspaceViewViewSet.as_view(
+            {
+                "get": "retrieve",
+                "put": "update",
+                "patch": "partial_update",
+                "delete": "destroy",
+            }
+        ),
+        name="global-view",
+    ),
+    path(
+        "workspaces/<str:slug>/issues/",
+        WorkspaceViewIssuesViewSet.as_view({"get": "list"}),
+        name="global-view-issues",
+    ),
+    path(
+        "workspaces/<str:slug>/projects/<uuid:project_id>/user-favorite-views/",
+        IssueViewFavoriteViewSet.as_view({"get": "list", "post": "create"}),
+        name="user-favorite-view",
+    ),
+    path(
+        "workspaces/<str:slug>/projects/<uuid:project_id>/user-favorite-views/<uuid:view_id>/",
+        IssueViewFavoriteViewSet.as_view({"delete": "destroy"}),
+        name="user-favorite-view",
+    ),
+]
+
+
+[apps/api/plane/authentication/urls.py]
+# Copyright (c) 2023-present Plane Software, Inc. and contributors
+# SPDX-License-Identifier: AGPL-3.0-only
+# See the LICENSE file for details.
+
+from django.urls import path
+
+from .views import (
+    CSRFTokenEndpoint,
+    ForgotPasswordEndpoint,
+    SetUserPasswordEndpoint,
+    ResetPasswordEndpoint,
+    ChangePasswordEndpoint,
+    # App
+    EmailCheckEndpoint,
+    GitLabCallbackEndpoint,
+    GitLabOauthInitiateEndpoint,
+    GitHubCallbackEndpoint,
+    GitHubOauthInitiateEndpoint,
+    GoogleCallbackEndpoint,
+    GoogleOauthInitiateEndpoint,
+    MagicGenerateEndpoint,
+    MagicSignInEndpoint,
+    MagicSignUpEndpoint,
+    SignInAuthEndpoint,
+    SignOutAuthEndpoint,
+    SignUpAuthEndpoint,
+    ForgotPasswordSpaceEndpoint,
+    ResetPasswordSpaceEndpoint,
+    # Space
+    EmailCheckSpaceEndpoint,
+    GitLabCallbackSpaceEndpoint,
+    GitLabOauthInitiateSpaceEndpoint,
+    GitHubCallbackSpaceEndpoint,
+    GitHubOauthInitiateSpaceEndpoint,
+    GoogleCallbackSpaceEndpoint,
+    GoogleOauthInitiateSpaceEndpoint,
+    MagicGenerateSpaceEndpoint,
+    MagicSignInSpaceEndpoint,
+    MagicSignUpSpaceEndpoint,
+    SignInAuthSpaceEndpoint,
+    SignUpAuthSpaceEndpoint,
+    SignOutAuthSpaceEndpoint,
+    GiteaCallbackEndpoint,
+    GiteaOauthInitiateEndpoint,
+    GiteaCallbackSpaceEndpoint,
+    GiteaOauthInitiateSpaceEndpoint,
+)
+
+urlpatterns = [
+    # credentials
+    path("sign-in/", SignInAuthEndpoint.as_view(), name="sign-in"),
+    path("sign-up/", SignUpAuthEndpoint.as_view(), name="sign-up"),
+    path("spaces/sign-in/", SignInAuthSpaceEndpoint.as_view(), name="space-sign-in"),
+    path("spaces/sign-up/", SignUpAuthSpaceEndpoint.as_view(), name="space-sign-up"),
+    # signout
+    path("sign-out/", SignOutAuthEndpoint.as_view(), name="sign-out"),
+    path("spaces/sign-out/", SignOutAuthSpaceEndpoint.as_view(), name="space-sign-out"),
+    # csrf token
+    path("get-csrf-token/", CSRFTokenEndpoint.as_view(), name="get_csrf_token"),
+    # Magic sign in
+    path("magic-generate/", MagicGenerateEndpoint.as_view(), name="magic-generate"),
+    path("magic-sign-in/", MagicSignInEndpoint.as_view(), name="magic-sign-in"),
+    path("magic-sign-up/", MagicSignUpEndpoint.as_view(), name="magic-sign-up"),
+    path(
+        "spaces/magic-generate/",
+        MagicGenerateSpaceEndpoint.as_view(),
+        name="space-magic-generate",
+    ),
+    path(
+        "spaces/magic-sign-in/",
+        MagicSignInSpaceEndpoint.as_view(),
+        name="space-magic-sign-in",
+    ),
+    path(
+        "spaces/magic-sign-up/",
+        MagicSignUpSpaceEndpoint.as_view(),
+        name="space-magic-sign-up",
+    ),
+    ## Google Oauth
+    path("google/", GoogleOauthInitiateEndpoint.as_view(), name="google-initiate"),
+    path("google/callback/", GoogleCallbackEndpoint.as_view(), name="google-callback"),
+    path(
+        "spaces/google/",
+        GoogleOauthInitiateSpaceEndpoint.as_view(),
+        name="space-google-initiate",
+    ),
+    path(
+        "spaces/google/callback/",
+        GoogleCallbackSpace
+... [TRUNCATED]
+
+[apps/api/plane/license/urls.py]
+# Copyright (c) 2023-present Plane Software, Inc. and contributors
+# SPDX-License-Identifier: AGPL-3.0-only
+# See the LICENSE file for details.
+
+from django.urls import path
+
+from plane.license.api.views import (
+    EmailCredentialCheckEndpoint,
+    InstanceAdminEndpoint,
+    InstanceAdminSignInEndpoint,
+    InstanceAdminSignUpEndpoint,
+    InstanceConfigurationEndpoint,
+    DisableEmailFeatureEndpoint,
+    InstanceEndpoint,
+    SignUpScreenVisitedEndpoint,
+    InstanceAdminUserMeEndpoint,
+    InstanceAdminSignOutEndpoint,
+    InstanceAdminUserSessionEndpoint,
+    InstanceWorkSpaceAvailabilityCheckEndpoint,
+    InstanceWorkSpaceEndpoint,
+)
+
+urlpatterns = [
+    path("", InstanceEndpoint.as_view(), name="instance"),
+    path("admins/", InstanceAdminEndpoint.as_view(), name="instance-admins"),
+    path("admins/me/", InstanceAdminUserMeEndpoint.as_view(), name="instance-admins"),
+    path(
+        "admins/session/",
+        InstanceAdminUserSessionEndpoint.as_view(),
+        name="instance-admin-session",
+    ),
+    path(
+        "admins/sign-out/",
+        InstanceAdminSignOutEndpoint.as_view(),
+        name="instance-admins",
+    ),
+    path("admins/<uuid:pk>/", InstanceAdminEndpoint.as_view(), name="instance-admins"),
+    path(
+        "configurations/",
+        InstanceConfigurationEndpoint.as_view(),
+        name="instance-configuration",
+    ),
+    path(
+        "configurations/disable-email-feature/",
+        DisableEmailFeatureEndpoint.as_view(),
+        name="disable-email-configuration",
+    ),
+    path(
+        "admins/sign-in/",
+        InstanceAdminSignInEndpoint.as_view(),
+        name="instance-admin-sign-in",
+    ),
+    path(
+        "admins/sign-up/",
+        InstanceAdminSignUpEndpoint.as_view(),
+        name="instance-admin-sign-in",
+    ),
+    path(
+        "admins/sign-up-screen-visited/",
+        SignUpScreenVisitedEndpoint.as_view(),
+        name="instance-sign-up",
+    ),
+    path(
+        "email-credentials-check/",
+        EmailCredentialCheckEndpoint.as_view(),
+        name="email-credential-check",
+    ),
+    path(
+        "workspace-slug-check/",
+        InstanceWorkSpaceAvailabilityCheckEndpoint.as_view(),
+        name="instance-workspace-availability",
+    ),
+    path("workspaces/", InstanceWorkSpaceEndpoint.as_view(), name="instance-workspace"),
+]
+
+
+[apps/api/plane/urls.py]
+# Copyright (c) 2023-present Plane Software, Inc. and contributors
+# SPDX-License-Identifier: AGPL-3.0-only
+# See the LICENSE file for details.
+
+"""plane URL Configuration"""
+
+from django.conf import settings
+from django.urls import include, path, re_path
+from drf_spectacular.views import (
+    SpectacularAPIView,
+    SpectacularRedocView,
+    SpectacularSwaggerView,
+)
+
+handler404 = "plane.app.views.error_404.custom_404_view"
+
+urlpatterns = [
+    path("api/", include("plane.app.urls")),
+    path("api/public/", include("plane.space.urls")),
+    path("api/instances/", include("plane.license.urls")),
+    path("api/v1/", include("plane.api.urls")),
+    path("auth/", include("plane.authentication.urls")),
+    path("", include("plane.web.urls")),
+]
+
+if settings.ENABLE_DRF_SPECTACULAR:
+    urlpatterns += [
+        path("api/schema/", SpectacularAPIView.as_view(), name="schema"),
+        path(
+            "api/schema/swagger-ui/",
+            SpectacularSwaggerView.as_view(url_name="schema"),
+            name="swagger-ui",
+        ),
+        path(
+            "api/schema/redoc/",
+            SpectacularRedocView.as_view(url_name="schema"),
+            name="redoc",
+        ),
+    ]
+
+if settings.DEBUG:
+    try:
+        import debug_toolbar
+
+        urlpatterns = [re_path(r"^__debug__/", include(debug_toolbar.urls))] + urlpatterns
+    except ImportError:
+        pass
+
+
+--- DIRECTORY STRUCTURE (depth 2) ---
+├── .codespellrc
+├── .dockerignore
+├── .env.example
+├── .gitattributes
+├── .github/
+│   ├── ISSUE_TEMPLATE/
+│   │   ├── --bug-report.yaml
+│   │   ├── --feature-request.yaml
+│   │   └── config.yaml
+│   ├── dependabot.yml
+│   ├── instructions/
+│   │   ├── bash.instructions.md
+│   │   └── typescript.instructions.md
+│   ├── pull_request_template.md
+│   └── workflows/
+│       ├── build-branch.yml
+│       ├── check-version.yml
+│       ├── codeql.yml
+│       ├── codespell.yml
+│       ├── copyright-check.yml
+│       ├── feature-deployment.yml
+│       ├── pull-request-build-lint-api.yml
+│       ├── pull-request-build-lint-web-apps.yml
+│       ├── sync-repo-pr.yml
+│       └── sync-repo.yml
+├── .gitignore
+├── .husky/
+│   └── pre-commit
+├── .idx/
+│   └── dev.nix
+├── .mise.toml
+├── .npmrc
+├── .oxfmtrc.json
+├── .oxlintrc.json
+├── .prettierignore
+├── AGENTS.md
+├── CODEOWNERS
+├── CODE_OF_CONDUCT.md
+├── CONTRIBUTING.md
+├── COPYRIGHT.txt
+├── COPYRIGHT_CHECK.md
+├── LICENSE.txt
+├── README.md
+├── SECURITY.md
+├── apps/
+│   ├── admin/
+│   │   ├── .dockerignore
+│   │   ├── .env.example
+│   │   ├── .prettierignore
+│   │   ├── Dockerfile.admin
+│   │   ├── Dockerfile.dev
+│   │   ├── app/
+│   │   ├── components/
+│   │   ├── helpers/
+│   │   ├── hooks/
+│   │   ├── lib/
+│   │   ├── nginx/
+│   │   ├── package.json
+│   │   ├── postcss.config.js
+│   │   ├── providers/
+│   │   ├── public/
+│   │   ├── react-router.config.ts
+│   │   ├── store/
+│   │   ├── styles/
+│   │   ├── tsconfig.json
+│   │   ├── utils/
+│   │   └── vite.config.ts
+│   ├── api/
+│   │   ├── .coveragerc
+│   │   ├── .env.example
+│   │   ├── .prettierignore
+│   │   ├── Dockerfile.api
+│   │   ├── Dockerfile.dev
+│   │   ├── bin/
+│   │   ├── manage.py
+│   │   ├── package.json
+│   │   ├── plane/
+│   │   ├── pyproject.toml
+│   │   ├── pytest.ini
+│   │   ├── requirements.txt
+│   │   ├── requirements/
+│   │   ├── run_tests.py
+│   │   ├── run_tests.sh
+│   │   └── templates/
+│   ├── live/
+│   │   ├── .env.example
+│   │   ├── .prettierignore
+│   │   ├── Dockerfile.dev
+│   │   ├── Dockerfile.live
+│   │   ├── package.json
+│   │   ├── src/
+│   │   ├── tests/
+│   │   ├── tsconfig.json
+│   │   ├── tsdown.config.ts
+│   │   └── vitest.config.ts
+│   ├── proxy/
+│   │   ├── .prettierignore
+│   │   ├── Caddyfile.aio.ce
+│   │   ├── Caddyfile.ce
+│   │   └── Dockerfile.ce
+│   ├── space/
+│   │   ├── .env.example
+│   │   ├── .gitignore
+│   │   ├── .prettierignore
+│   │   ├── Dockerfile.dev
+│   │   ├── Dockerfile.space
+│   │   ├── README.md
+│   │   ├── additional.d.ts
+│   │   ├── app/
+│   │   ├── components/
+│   │   ├── helpers/
+│   │   ├── hooks/
+│   │   ├── lib/
+│   │   ├── nginx/
+│   │   ├── package.json
+│   │   ├── postcss.config.js
+│   │   ├── public/
+│   │   ├── react-router.config.ts
+│   │   ├── store/
+│   │   ├── styles/
+│   │   ├── tsconfig.json
+│   │   ├── types/
+│   │   └── vite.config.ts
+│   └── web/
+│       ├── .dockerignore
+│       ├── .env.example
+│       ├── .gitignore
+│       ├── .prettierignore
+│       ├── Dockerfile.dev
+│       ├── Dockerfile.web
+│       ├── app/
+│       ├── ce/
+│       ├── core/
+│       ├── google.d.ts
+│       ├── helpers/
+│       ├── manifest.json
+│       ├── nginx/
+│       ├── package.json
+│       ├── postcss.config.js
+│       ├── public/
+│       ├── react-router.config.ts
+│       ├── styles/
+│       ├── tsconfig.json
+│       ├── use-font-face-observer.d.ts
+│       └── vite.config.ts
+├── deployments/
+│   ├── aio/
+│   │   └── community/
+│   ├── cli/
+│   │   └── community/
+│   ├── kubernetes/
+│   │   └── community/
+│   └── swarm/
+│       └── community/
+├── docker-compose-local.yml
+├── docker-compose.yml
+├── docs/
+│   └── linting.md
+├── package.json
+├── packages/
+│   ├── codemods/
+│   │   ├── .prettierignore
+│   │   ├── function-declaration.ts
+│   │   ├── instructions.md
+│   │   ├── package.json
+│   │   ├── remove-directives.ts
+│   │   ├── tests/
+│   │   ├── tsconfig.json
+│   │   └── vitest.config.ts
+│   ├── constants/
+│   │   ├── .prettierignore
+│   │   ├── package.json
+│   │   ├── src/
+│   │   ├── tsconfig.json
+│   │   └── tsdown.config.ts
+│   ├── decorators/
+│   │   ├── .prettierignore
+│   │   ├── README.md
+│   │   ├── package.json
+│   │   ├── src/
+│   │   ├── tsconfig.json
+│   │   └── tsdown.config.ts
+│   ├── editor/
+│   │   ├── .prettierignore
+│   │   ├── Readme.md
+│   │   ├── package.json
+│   │   ├── postcss.config.js
+│   │   ├── src/
+│   │   ├── tsconfig.json
+│   │   └── tsdown.config.ts
+│   ├── hooks/
+│   │   ├── .prettierignore
+│   │   ├── package.json
+│   │   ├── src/
+│   │   ├── tsconfig.json
+│   │   └── tsdown.config.ts
+│   ├── i18n/
+│   │   ├── .prettierignore
+│   │   ├── package.json
+│   │   ├── src/
+│   │   ├── tsconfig.json
+│   │   └── tsdown.config.ts
+│   ├── logger/
+│   │   ├── .prettierignore
+│   │   ├── README.md
+│   │   ├── package.json
+│   │   ├── src/
+│   │   ├── tsconfig.json
+│   │   └── tsdown.config.ts
+│   ├── propel/
+│   │   ├── .prettierignore
+│   │   ├── .storybook/
+│   │   ├── package.json
+│   │   ├── postcss.config.js
+│   │   ├── public/
+│   │   ├── src/
+│   │   ├── tsconfig.json
+│   │   └── tsdown.config.ts
+│   ├── services/
+│   │   ├── .prettierignore
+│   │   ├── package.json
+│   │   ├── src/
+│   │   ├── tsconfig.json
+│   │   └── tsdown.config.ts
+│   ├── shared-state/
+│   │   ├── .prettierignore
+│   │   ├── package.json
+│   │   ├── src/
+│   │   ├── tsconfig.json
+│   │   └── tsdown.config.ts
+│   ├── tailwind-config/
+│   │   ├── .prettierignore
+│   │   ├── AGENTS.md
+│   │   ├── animations.css
+│   │   ├── index.css
+│   │   ├── package.json
+│   │   ├── postcss.config.js
+│   │   └── variables.css
+│   ├── types/
+│   │   ├── .prettierignore
+│   │   ├── package.json
+│   │   ├── src/
+│   │   ├── tsconfig.json
+│   │   └── tsdown.config.ts
+│   ├── typescript-config/
+│   │   ├── .prettierignore
+│   │   ├── base.json
+│   │   ├── nextjs.json
+│   │   ├── node-library.json
+│   │   ├── package.json
+│   │   ├── react-library.json
+│   │   └── react-router.json
+│   ├── ui/
+│   │   ├── .prettierignore
+│   │   ├── .storybook/
+│   │   ├── README.md
+│   │   ├── package.json
+│   │   ├── postcss.config.js
+│   │   ├── src/
+│   │   ├── styles/
+│   │   ├── tsconfig.json
+│   │   └── tsdown.config.ts
+│   └── utils/
+│       ├── .prettierignore
+│       ├── package.json
+│       ├── src/
+│       ├── tsconfig.json
+│       └── tsdown.config.ts
+├── pnpm-lock.yaml
+├── pnpm-workspace.yaml
+├── setup.sh
+└── turbo.json

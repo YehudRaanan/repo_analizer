@@ -1,0 +1,70 @@
+=====================================
+REPO CLASSIFICATION SIGNALS
+=====================================
+
+--- METADATA ---
+Name: astro
+Description: The web framework for content-driven websites. ⭐️ Star to support our work!
+Primary language: TypeScript
+Topics: astro, blog, browser, components, hybrid, islands, node, server, static, static-site-generator, universal
+
+--- ROOT FILES (signal matches) ---
+Web App:     (none)
+Backend:     (none)
+Library:     package.json
+CLI:         (none)
+Data/ML:     (none)
+Infra:       (none)
+
+--- TOP-LEVEL DIRECTORIES (signal matches) ---
+Web App:     (none)
+Backend:     (none)
+Library:     examples
+CLI:         (none)
+Data/ML:     (none)
+Infra:       (none)
+
+--- ALL TOP-LEVEL DIRECTORIES ---
+.agents, .changeset, .devcontainer, .flue, .github, .gitpod, .vscode, .zed, benchmark, examples, packages, scripts
+
+--- TYPE-SPECIFIC EXTENSION COUNTS ---
+Web App extensions (.tsx, .jsx, .vue, .svelte): 345
+Data/ML extensions (.ipynb): 0
+Infra extensions (.tf, .hcl): 0
+Backend extensions (.proto, .graphql): 0
+
+--- TOP FILE EXTENSIONS (by count) ---
+  .astro: 1688
+  .ts: 1253
+  .json: 840
+  .js: 794
+  .md: 615
+  .mjs: 448
+  .jsx: 145
+  .jpg: 122
+  .css: 99
+  .mdx: 98
+  .tsx: 73
+  .svg: 71
+  .vue: 64
+  .svelte: 63
+  .gitignore: 44
+
+--- BOOLEAN PATTERN CHECKS ---
+  pages or app dir: no
+  components dir: no
+  cmd or bin dir: no
+  src bin: no
+  run train scripts: no
+  ipynb files: no
+  model training files: no
+  tf files: no
+  k8s manifests: no
+  ansible playbooks: no
+  route controller dirs: no
+  db migrations: no
+  openapi spec: no
+  src and tests: no
+  examples dir: yes
+  dockerfile: no
+  ci cd: yes

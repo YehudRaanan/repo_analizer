@@ -1,0 +1,611 @@
+=====================================
+Repository Analysis: actix-web
+Type: Backend / API Service
+=====================================
+
+--- METADATA ---
+Name: actix-web
+Description: Actix Web is a powerful, pragmatic, and extremely fast web framework for Rust.
+Language: Rust
+Topics: actix, actix-web, async, rust, web, web-development, websockets
+Stars: 24491
+License: Apache License 2.0
+
+--- README ---
+actix-web/README.md
+
+--- PACKAGE MANIFEST(S) ---
+
+[Cargo.toml]
+[workspace]
+resolver = "2"
+members = [
+  "actix-files",
+  "actix-http-test",
+  "actix-http",
+  "actix-multipart",
+  "actix-multipart-derive",
+  "actix-router",
+  "actix-test",
+  "actix-web-codegen",
+  "actix-web",
+  "awc",
+]
+
+[workspace.package]
+homepage = "https://actix.rs"
+repository = "https://github.com/actix/actix-web"
+license = "MIT OR Apache-2.0"
+edition = "2021"
+rust-version = "1.88"
+
+[profile.dev]
+# Disabling debug info speeds up builds a bunch and we don't rely on it for debugging that much.
+debug = 0
+
+[profile.release]
+lto = true
+opt-level = 3
+codegen-units = 1
+
+[patch.crates-io]
+actix-files = { path = "actix-files" }
+actix-http = { path = "actix-http" }
+actix-http-test = { path = "actix-http-test" }
+actix-multipart = { path = "actix-multipart" }
+actix-multipart-derive = { path = "actix-multipart-derive" }
+actix-router = { path = "actix-router" }
+actix-test = { path = "actix-test" }
+actix-web = { path = "actix-web" }
+actix-web-codegen = { path = "actix-web-codegen" }
+awc = { path = "awc" }
+
+# uncomment for quick testing against local actix-net repo
+# actix-service = { path = "../actix-net/actix-service" }
+# actix-macros = { path = "../actix-net/actix-macros" }
+# actix-rt = { path = "../actix-net/actix-rt" }
+# actix-codec = { path = "../actix-net/actix-codec" }
+# actix-utils = { path = "../actix-net/actix-utils" }
+# actix-tls = { path = "../actix-net/actix-tls" }
+# actix-server = { path = "../actix-net/actix-server" }
+
+[workspace.lints.rust]
+rust_2018_idioms = { level = "deny" }
+future_incompatible = { level = "deny" }
+nonstandard_style = { level = "deny" }
+
+[workspace.lints.clippy]
+# clone_on_ref_ptr = { level = "deny" }
+
+
+--- BACKEND CONFIG FILES ---
+(No backend config files found)
+
+--- API ROUTE / ENDPOINT DEFINITIONS ---
+
+[actix-web-codegen/src/route.rs]
+use std::collections::HashSet;
+
+use actix_router::ResourceDef;
+use proc_macro::TokenStream;
+use proc_macro2::{Span, TokenStream as TokenStream2};
+use quote::{quote, ToTokens, TokenStreamExt};
+use syn::{punctuated::Punctuated, Ident, LitStr, Path, Token};
+
+use crate::input_and_compile_error;
+
+#[derive(Debug)]
+pub struct RouteArgs {
+    pub(crate) path: syn::LitStr,
+    pub(crate) options: Punctuated<syn::MetaNameValue, Token![,]>,
+}
+
+impl syn::parse::Parse for RouteArgs {
+    fn parse(input: syn::parse::ParseStream<'_>) -> syn::Result<Self> {
+        // path to match: "/foo"
+        let path = input.parse::<syn::LitStr>().map_err(|mut err| {
+            err.combine(syn::Error::new(
+                err.span(),
+                r#"invalid service definition, expected #[<method>("<path>")]"#,
+            ));
+
+            err
+        })?;
+
+        // verify that path pattern is valid
+        let _ = ResourceDef::new(path.value());
+
+        // if there's no comma, assume that no options are provided
+        if !input.peek(Token![,]) {
+            return Ok(Self {
+                path,
+                options: Punctuated::new(),
+            });
+        }
+
+        // advance past comma separator
+        input.parse::<Token![,]>()?;
+
+        // if next char is a literal, assume that it is a string and show multi-path error
+        if input.cursor().literal().is_some() {
+            return Err(syn::Error::new(
+                Span::call_site(),
+                r#"Multiple paths specified! There should be only one."#,
+            ));
+        }
+
+        // zero or more options: name = "foo"
+        let options = input.parse_terminated(syn::MetaNameValue::parse, Token![,])?;
+
+        Ok(Self { path, options })
+    }
+}
+
+macro_rules! standard_method_type {
+    (
+        $($variant:ident, $upper:ident, $lower:ident,)+
+    ) => {
+        #[doc(hidden)]
+        #[derive(Debug, Clone, PartialEq, Eq, Hash)]
+        pub enum MethodType {
+            $(
+                $variant,
+            )+
+        }
+
+        impl MethodType {
+            fn as_str(&self) -> &'static str {
+                match self {
+                    $(Self::$variant => stringify!($variant),)+
+                }
+            }
+
+            fn parse(method: &str) -> Result<Self, String> {
+                match method {
+                    $(stringify!($upper) => Ok(Self::$variant),)+
+                    _ => Err(format!("HTTP method must be uppercase: `{}`", method)),
+                }
+            }
+
+            pub(crate) fn from_path(method: &Path) -> Result<Self, ()> {
+                match () {
+                    $(_ if method.is_ident(stringify!($lower)) => Ok(Self::$variant),)+
+                    _ => Err(()),
+                }
+            }
+        }
+    };
+}
+
+standard_method_type! {
+    Get,       GET,     get,
+    Post,      POST,    post,
+    Put,       PUT,     put,
+    Delete,    DELETE,  delete,
+    Head,      HEAD,    head,
+    Connect,   CONNECT, connect,
+    Options,   OPTIONS, op
+... [TRUNCATED]
+
+[actix-web/src/route.rs]
+use std::{mem, rc::Rc};
+
+use actix_http::{body::MessageBody, Method};
+use actix_service::{
+    apply,
+    boxed::{self, BoxService},
+    fn_service, Service, ServiceFactory, ServiceFactoryExt, Transform,
+};
+use futures_core::future::LocalBoxFuture;
+
+use crate::{
+    guard::{self, Guard},
+    handler::{handler_service, Handler},
+    middleware::Compat,
+    service::{BoxedHttpServiceFactory, ServiceRequest, ServiceResponse},
+    Error, FromRequest, HttpResponse, Responder,
+};
+
+/// A request handler with [guards](guard).
+///
+/// Route uses a builder-like pattern for configuration. If handler is not set, a `404 Not Found`
+/// handler is used.
+pub struct Route {
+    service: BoxedHttpServiceFactory,
+    guards: Rc<Vec<Box<dyn Guard>>>,
+    wrapped: bool,
+}
+
+impl Route {
+    /// Create new route which matches any request.
+    #[allow(clippy::new_without_default)]
+    pub fn new() -> Route {
+        Route {
+            service: boxed::factory(fn_service(|req: ServiceRequest| async {
+                Ok(req.into_response(HttpResponse::NotFound()))
+            })),
+            guards: Rc::new(Vec::new()),
+            wrapped: false,
+        }
+    }
+
+    /// Registers a route middleware.
+    ///
+    /// `mw` is a middleware component (type), that can modify the requests and responses handled by
+    /// this `Route`.
+    ///
+    /// This middleware wraps the currently configured route service. Call this method after
+    /// [`Route::to`] or [`Route::service`] so the middleware is applied to the final handler.
+    ///
+    /// # Examples
+    /// ```
+    /// # use actix_web::{web, HttpResponse, middleware};
+    /// web::get()
+    ///     .to(|| async { HttpResponse::Ok() })
+    ///     .wrap(middleware::Logger::default());
+    /// ```
+    ///
+    /// See [`App::wrap`](crate::App::wrap) for more details.
+    #[doc(alias = "middleware")]
+    #[doc(alias = "use")] // nodejs terminology
+    pub fn wrap<M, B>(self, mw: M) -> Route
+    where
+        M: Transform<
+                BoxService<ServiceRequest, ServiceResponse, Error>,
+                ServiceRequest,
+                Response = ServiceResponse<B>,
+                Error = Error,
+                InitError = (),
+            > + 'static,
+        B: MessageBody + 'static,
+    {
+        Route {
+            service: boxed::factory(apply(Compat::new(mw), self.service)),
+            guards: self.guards,
+            wrapped: true,
+        }
+    }
+
+    pub(crate) fn take_guards(&mut self) -> Vec<Box<dyn Guard>> {
+        mem::take(Rc::get_mut(&mut self.guards).unwrap())
+    }
+
+    #[cold]
+    #[inline(never)]
+    #[track_caller]
+    fn panic_after_wrap(replaced: &str, example: &str) -> ! {
+        panic!(
+            "Route middleware was already registered with `.wrap()`. \
+             Calling `.{replaced}()` now would replace the wrapped service and silently drop middleware. \
+             Call `.{replaced}()` before `.wrap()` (for example: `{example}`)."
+        );
+    }
+}
+
+impl ServiceFactory<ServiceRequest> for 
+... [TRUNCATED]
+
+--- DATABASE SCHEMA / MODEL FILES ---
+(None found)
+
+--- DIRECTORY STRUCTURE (depth 2) ---
+├── .clippy.toml
+├── .codecov.yml
+├── .cspell.yml
+├── .github/
+│   ├── FUNDING.yml
+│   ├── ISSUE_TEMPLATE/
+│   │   ├── bug_report.md
+│   │   └── config.yml
+│   ├── PULL_REQUEST_TEMPLATE.md
+│   ├── dependabot.yml
+│   ├── labeler.yml
+│   └── workflows/
+│       ├── bench.yml
+│       ├── ci-post-merge.yml
+│       ├── ci.yml
+│       ├── coverage.yml
+│       ├── labeler.yml
+│       ├── lint.yml
+│       └── semver-labeler.yml
+├── .gitignore
+├── .prettierrc.yml
+├── .rustfmt.toml
+├── .taplo.toml
+├── CHANGES.md
+├── CODE_OF_CONDUCT.md
+├── Cargo.lock
+├── Cargo.toml
+├── LICENSE-APACHE
+├── LICENSE-MIT
+├── README.md
+├── actix-files/
+│   ├── CHANGES.md
+│   ├── Cargo.toml
+│   ├── LICENSE-APACHE
+│   ├── LICENSE-MIT
+│   ├── README.md
+│   ├── examples/
+│   │   └── guarded-listing.rs
+│   ├── src/
+│   │   ├── chunked.rs
+│   │   ├── directory.rs
+│   │   ├── encoding.rs
+│   │   ├── error.rs
+│   │   ├── files.rs
+│   │   ├── lib.rs
+│   │   ├── named.rs
+│   │   ├── path_buf.rs
+│   │   ├── range.rs
+│   │   └── service.rs
+│   └── tests/
+│       ├── encoding.rs
+│       ├── fixtures/
+│       ├── guard.rs
+│       ├── pre_epoch_mtime.rs
+│       ├── symlink-test.png
+│       ├── test space.binary
+│       ├── test.binary
+│       ├── test.js
+│       ├── test.png
+│       ├── traversal.rs
+│       ├── utf8.txt
+│       ├── utf8.txt.br
+│       └── utf8.txt.gz
+├── actix-http-test/
+│   ├── CHANGES.md
+│   ├── Cargo.toml
+│   ├── LICENSE-APACHE
+│   ├── LICENSE-MIT
+│   ├── README.md
+│   └── src/
+│       └── lib.rs
+├── actix-http/
+│   ├── CHANGES.md
+│   ├── Cargo.toml
+│   ├── LICENSE-APACHE
+│   ├── LICENSE-MIT
+│   ├── README.md
+│   ├── benches/
+│   │   ├── date-formatting.rs
+│   │   └── response-body-compression.rs
+│   ├── examples/
+│   │   ├── actix-web.rs
+│   │   ├── bench.rs
+│   │   ├── echo.rs
+│   │   ├── echo2.rs
+│   │   ├── h2c-detect.rs
+│   │   ├── h2spec.rs
+│   │   ├── hello-world.rs
+│   │   ├── streaming-error.rs
+│   │   ├── tls_rustls.rs
+│   │   └── ws.rs
+│   ├── src/
+│   │   ├── body/
+│   │   ├── builder.rs
+│   │   ├── config.rs
+│   │   ├── date.rs
+│   │   ├── encoding/
+│   │   ├── error.rs
+│   │   ├── extensions.rs
+│   │   ├── h1/
+│   │   ├── h2/
+│   │   ├── header/
+│   │   ├── helpers.rs
+│   │   ├── http_message.rs
+│   │   ├── keep_alive.rs
+│   │   ├── lib.rs
+│   │   ├── message.rs
+│   │   ├── notify_on_drop.rs
+│   │   ├── payload.rs
+│   │   ├── requests/
+│   │   ├── responses/
+│   │   ├── service.rs
+│   │   ├── test.rs
+│   │   └── ws/
+│   └── tests/
+│       ├── test.binary
+│       ├── test.png
+│       ├── test_client.rs
+│       ├── test_h2_timer.rs
+│       ├── test_openssl.rs
+│       ├── test_rustls.rs
+│       ├── test_server.rs
+│       └── test_ws.rs
+├── actix-multipart-derive/
+│   ├── CHANGES.md
+│   ├── Cargo.toml
+│   ├── LICENSE-APACHE
+│   ├── LICENSE-MIT
+│   ├── README.md
+│   ├── src/
+│   │   └── lib.rs
+│   └── tests/
+│       ├── trybuild.rs
+│       └── trybuild/
+├── actix-multipart/
+│   ├── CHANGES.md
+│   ├── Cargo.toml
+│   ├── LICENSE-APACHE
+│   ├── LICENSE-MIT
+│   ├── README.md
+│   ├── examples/
+│   │   └── form.rs
+│   └── src/
+│       ├── error.rs
+│       ├── extractor.rs
+│       ├── field.rs
+│       ├── form/
+│       ├── lib.rs
+│       ├── multipart.rs
+│       ├── payload.rs
+│       ├── safety.rs
+│       └── test.rs
+├── actix-router/
+│   ├── CHANGES.md
+│   ├── Cargo.toml
+│   ├── LICENSE-APACHE
+│   ├── LICENSE-MIT
+│   ├── README.md
+│   ├── benches/
+│   │   ├── quoter.rs
+│   │   └── router.rs
+│   └── src/
+│       ├── de.rs
+│       ├── lib.rs
+│       ├── path.rs
+│       ├── pattern.rs
+│       ├── quoter.rs
+│       ├── regex_set.rs
+│       ├── resource.rs
+│       ├── resource_path.rs
+│       ├── router.rs
+│       └── url.rs
+├── actix-test/
+│   ├── CHANGES.md
+│   ├── Cargo.toml
+│   ├── LICENSE-APACHE
+│   ├── LICENSE-MIT
+│   ├── README.md
+│   └── src/
+│       └── lib.rs
+├── actix-web-actors/
+│   ├── CHANGES.md
+│   ├── Cargo.toml
+│   ├── LICENSE-APACHE
+│   ├── LICENSE-MIT
+│   ├── README.md
+│   ├── src/
+│   │   ├── context.rs
+│   │   ├── lib.rs
+│   │   └── ws.rs
+│   └── tests/
+│       └── test_ws.rs
+├── actix-web-codegen/
+│   ├── CHANGES.md
+│   ├── Cargo.toml
+│   ├── LICENSE-APACHE
+│   ├── LICENSE-MIT
+│   ├── README.md
+│   ├── src/
+│   │   ├── lib.rs
+│   │   ├── route.rs
+│   │   └── scope.rs
+│   └── tests/
+│       ├── routes.rs
+│       ├── scopes.rs
+│       ├── trybuild.rs
+│       └── trybuild/
+├── actix-web/
+│   ├── CHANGES.md
+│   ├── Cargo.toml
+│   ├── LICENSE-APACHE
+│   ├── LICENSE-MIT
+│   ├── MIGRATION-0.x.md
+│   ├── MIGRATION-1.0.md
+│   ├── MIGRATION-2.0.md
+│   ├── MIGRATION-3.0.md
+│   ├── MIGRATION-4.0.md
+│   ├── README.md
+│   ├── benches/
+│   │   ├── responder.rs
+│   │   ├── server.rs
+│   │   └── service.rs
+│   ├── examples/
+│   │   ├── README.md
+│   │   ├── basic.rs
+│   │   ├── from_fn.rs
+│   │   ├── introspection.rs
+│   │   ├── introspection_multi_servers.rs
+│   │   ├── macroless.rs
+│   │   ├── middleware_from_fn.rs
+│   │   ├── on-connect.rs
+│   │   ├── uds.rs
+│   │   └── worker-cpu-pin.rs
+│   ├── src/
+│   │   ├── app.rs
+│   │   ├── app_service.rs
+│   │   ├── config.rs
+│   │   ├── data.rs
+│   │   ├── dev.rs
+│   │   ├── error/
+│   │   ├── extract.rs
+│   │   ├── guard/
+│   │   ├── handler.rs
+│   │   ├── helpers.rs
+│   │   ├── http/
+│   │   ├── info.rs
+│   │   ├── introspection.rs
+│   │   ├── lib.rs
+│   │   ├── middleware/
+│   │   ├── redirect.rs
+│   │   ├── request.rs
+│   │   ├── request_data.rs
+│   │   ├── resource.rs
+│   │   ├── response/
+│   │   ├── rmap.rs
+│   │   ├── route.rs
+│   │   ├── rt.rs
+│   │   ├── scope.rs
+│   │   ├── server.rs
+│   │   ├── service.rs
+│   │   ├── test/
+│   │   ├── thin_data.rs
+│   │   ├── types/
+│   │   └── web.rs
+│   └── tests/
+│       ├── compression.rs
+│       ├── fixtures/
+│       ├── introspection.rs
+│       ├── test-macro-import-conflict.rs
+│       ├── test_error_propagation.rs
+│       ├── test_httpserver.rs
+│       ├── test_server.rs
+│       ├── test_streaming_response.rs
+│       ├── test_weird_poll.rs
+│       ├── utils.rs
+│       └── weird_poll.rs
+├── awc/
+│   ├── CHANGES.md
+│   ├── Cargo.toml
+│   ├── LICENSE-APACHE
+│   ├── LICENSE-MIT
+│   ├── README.md
+│   ├── examples/
+│   │   └── client.rs
+│   ├── src/
+│   │   ├── any_body.rs
+│   │   ├── builder.rs
+│   │   ├── client/
+│   │   ├── connect.rs
+│   │   ├── error.rs
+│   │   ├── frozen.rs
+│   │   ├── lib.rs
+│   │   ├── middleware/
+│   │   ├── request.rs
+│   │   ├── responses/
+│   │   ├── sender.rs
+│   │   ├── test.rs
+│   │   └── ws.rs
+│   └── tests/
+│       ├── test_client.rs
+│       ├── test_connector.rs
+│       ├── test_empty_stream.rs
+│       ├── test_rustls_client.rs
+│       ├── test_ssl_client.rs
+│       ├── test_ws.rs
+│       └── utils.rs
+├── deny.toml
+├── docs/
+│   └── graphs/
+│       ├── .gitignore
+│       ├── README.md
+│       ├── net-only.dot
+│       ├── web-focus.dot
+│       └── web-only.dot
+├── justfile
+└── scripts/
+    ├── bump
+    ├── free-disk-space.sh
+    ├── publish
+    └── unreleased

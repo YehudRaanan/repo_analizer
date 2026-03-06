@@ -1,0 +1,1186 @@
+=====================================
+Repository Analysis: astro
+Type: Web Application
+=====================================
+
+--- METADATA ---
+Name: astro
+Description: The web framework for content-driven websites. ⭐️ Star to support our work!
+Language: TypeScript
+Topics: astro, blog, browser, components, hybrid, islands, node, server, static, static-site-generator, universal
+Stars: 57293
+License: Other
+
+--- README ---
+![Build the web you want](.github/assets/banner.jpg 'Build the web you want')
+
+<p align="center">
+  <br/>
+  <a href="https://astro.build">Astro</a> is a website build tool for the modern web &mdash;
+  <br/>
+  powerful developer experience meets lightweight output.
+  <br/><br/>
+</p>
+
+<div align="center">
+
+[![main](https://github.com/withastro/astro/actions/workflows/ci.yml/badge.svg)](https://github.com/withastro/astro/actions/workflows/ci.yml)
+[![License](https://img.shields.io/badge/License-MIT-blue.svg)](https://github.com/withastro/astro/blob/main/LICENSE)
+[![npm version](https://badge.fury.io/js/astro.svg)](https://badge.fury.io/js/astro)
+
+</div>
+
+## Install
+
+The **recommended** way to install the latest version of Astro is by running the command below:
+
+```bash
+npm create astro@latest
+```
+
+You can also install Astro **manually** by running this command instead:
+
+```bash
+npm install astro
+```
+
+Looking for help? Start with our [Getting Started](https://docs.astro.build/en/getting-started/) guide.
+
+Looking for quick examples? [Open a starter project](https://astro.new/) right in your browser.
+
+## Documentation
+
+Visit our [official documentation](https://docs.astro.build/).
+
+## Support
+
+Having trouble? Get help in the official [Astro Discord](https://astro.build/chat).
+
+## Contributing
+
+**New contributors welcome!** Check out our [Contributors Guide](CONTRIBUTING.md) for help getting started.
+
+Join us on [Discord](https://astro.build/chat) to meet other maintainers. We'll help you get your first contribution in no time!
+
+## Directory
+
+| Package                                                             | Release Notes                                                                                                                                                    |
+| ------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| [astro](packages/astro)                                             | [![astro version](https://img.shields.io/npm/v/astro.svg?label=%20)](packages/astro/CHANGELOG.md)                                                                |
+| [create-astro](packages/create-astro)                               | [![create-astro version](https://img.shields.io/npm/v/create-astro.svg?label=%20)](packages/create-astro/CHANGELOG.md)                                           |
+| [@astrojs/react](packages/integrations/react)                       | [![@astrojs/react version](https://img.shields.io/npm/v/@astrojs/react.svg?label=%20)](packages/integrations/react/CHANGELOG.md)                                 |
+| [@astrojs/preact](packages/integrations/preact)                     | [![@astrojs/preact version](https://img.shields.io/npm/v/@astrojs/preact.svg?label=%20)](packages/integrations/preact/CHANGELOG.md)                              |
+| [@astrojs/solid-js](packages/integrations/solid)                    | [![@astrojs/solid version](https://img.shields.io/npm/v/@astrojs/solid-js.svg?label=%20)](packages/integrations/solid/CHANGELOG.md)                              |
+| [@astrojs/svelte](packages/integrations/svelte)                     | [![@astrojs/svelte version](https://img.shields.io/npm/v/@astrojs/svelte.svg?label=%20)](packages/integrations/svelte/CHANGELOG.md)                              |
+| [@astrojs/vue](packages/integrations/vue)                           | [![@astrojs/vue version](https://img.shields.io/npm/v/@astrojs/vue.svg?label=%20)](packages/integrations/vue/CHANGELOG.md)                                       |
+| [@astrojs/node](packages/integrations/node)                         | [![@astrojs/node version](https://img.shields.io/npm/v/@astrojs/node.svg?label=%20)](packages/integrations/node/CHANGELOG.md)                                    |
+| [@astrojs/vercel](packages/integrations/vercel)                     | [![@astrojs/vercel version](https://img.shields.io/npm/v/@astrojs/vercel.svg?label=%20)](packages/integrations/vercel/CHANGELOG.md)                              |
+| [@astrojs/cloudflare](packages/integrations/cloudflare)             | [![@astrojs/cloudflare version](https://img.shields.io/npm/v/@astrojs/cloudflare.svg?label=%20)](packages/integrations/cloudflare/CHANGELOG.md)                  |
+| [@astrojs/partytown](packages/integrations/partytown)               | [![@astrojs/partytown version](https://img.shields.io/npm/v/@astrojs/partytown.svg?label=%20)](packages/integrations/partytown/CHANGELOG.md)                     |
+| [@astrojs/sitemap](packages/integrations/sitemap)                   | [![@astrojs/sitemap version](https://img.shields.io/npm/v/@astrojs/sitemap.svg?label=%20)](packages/integrations/sitemap/CHANGELOG.md)                           |
+| [@astrojs/alpinejs](packages/integrations/alpinejs)                 | [![@astrojs/alpinejs version](https://img.shields.io/npm/v/@astrojs/alpinejs
+... [TRUNCATED]
+
+--- PACKAGE MANIFEST(S) ---
+
+[package.json]
+{
+  "name": "root",
+  "type": "module",
+  "version": "0.0.0",
+  "private": true,
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/withastro/astro.git"
+  },
+  "scripts": {
+    "release": "pnpm run build && changeset publish",
+    "build": "turbo run build --filter=astro --filter=create-astro --filter=\"@astrojs/*\" --filter=\"astro-vscode\" --filter=\"@benchmark/*\"",
+    "build:ci": "turbo run build:ci --filter=astro --filter=create-astro --filter=\"@astrojs/*\" --filter=\"@benchmark/*\"",
+    "build:ci:no-cache": "pnpm -r --filter=astro --filter=create-astro --filter=\"@astrojs/*\" --filter=\"@benchmark/*\" build:ci",
+    "build:examples": "turbo run build --filter=\"@example/*\"",
+    "dev": "turbo run dev --concurrency=40 --parallel --filter=astro --filter=create-astro --filter=\"@astrojs/*\" --filter=\"@benchmark/*\"",
+    "format": "pnpm run format:code && pnpm run format:imports",
+    "format:ci": "pnpm run format:code:ci && pnpm run format:imports:ci",
+    "format:code": "biome format --write && prettier -w \"**/*\" --ignore-unknown --cache",
+    "format:code:ci": "biome format && prettier -w \"**/*\" --ignore-unknown --cache --check",
+    "format:imports": "biome check --formatter-enabled=false --write",
+    "format:imports:ci": "biome ci --formatter-enabled=false",
+    "test": "pnpm run test:astro && pnpm run test:integrations && pnpm run test:language-tools",
+    "test:astro": "turbo run test --concurrency=1 --filter=astro --only",
+    "test:integrations": "turbo run test --concurrency=1 --filter=create-astro --filter=\"@astrojs/*\" --filter=\"!./packages/language-tools/**/*\" --only",
+    "test:language-tools": "turbo run test --concurrency=1 --filter=\"./packages/language-tools/**/*\" --filter=\"!./packages/language-tools/ts-plugin\" --only",
+    "test:language-tools:no-vs": "turbo run test --filter=\"@astrojs/language-server\" --filter=\"@astrojs/check\" --only",
+    "test:citgm": "pnpm -r --filter=astro test",
+    "test:match": "cd packages/astro && pnpm run test:match",
+    "test:cli": "cd packages/astro && pnpm run test:cli",
+    "test:unit": "cd packages/astro && pnpm run test:unit",
+    "test:types": "cd packages/astro && pnpm run test:types",
+    "test:smoke": "pnpm test:smoke:example && pnpm test:smoke:docs",
+    "test:smoke:example": "turbo run build --concurrency=100% --filter=\"@example/*\"",
+    "test:smoke:docs": "turbo run build --filter=docs",
+    "test:check-examples": "node ./scripts/smoke/check.js",
+    "test:vite-ci": "cd packages/astro && pnpm run test:unit && pnpm run test:integration",
+    "test:e2e": "cd packages/astro && pnpm playwright install firefox && pnpm run test:e2e",
+    "test:e2e:match": "cd packages/astro && pnpm playwright install firefox && pnpm run test:e2e:match",
+    "test:e2e:hosts": "turbo run test:hosted",
+    "benchmark": "astro-benchmark",
+    "lint": "biome lint && knip && eslint . --report-unused-disable-directives-severity=warn --concurrency=auto",
+    "lint:ci": "k
+... [TRUNCATED]
+
+--- WEB FRAMEWORK CONFIG ---
+
+[tsconfig.json]
+// Yes this file is intentionally empty!
+// ---
+// Having a blank `tsconfig.json` file prevents TypeScript from crawling up your directory tree
+// and possibly picking up a parent `tsconfig.json` (which, unsurprisingly, is very hard to debug)
+{}
+
+
+--- ROUTE / PAGE DEFINITIONS ---
+
+[.devcontainer/non-html-pages/devcontainer.json]
+{
+  "name": "Non-HTML Pages",
+  "build": {
+    "dockerfile": "../examples.Dockerfile"
+  },
+
+  "workspaceFolder": "/workspaces/astro/examples/non-html-pages",
+
+  "portsAttributes": {
+    "4321": {
+      "label": "Application",
+      "onAutoForward": "openPreview"
+    }
+  },
+
+  "forwardPorts": [4321],
+
+  "postCreateCommand": "pnpm install && cd /workspaces/astro && pnpm run build",
+
+  "waitFor": "postCreateCommand",
+
+  "postAttachCommand": {
+    "Server": "pnpm start --host"
+  },
+
+  "customizations": {
+    "codespaces": {
+      "openFiles": ["src/pages/index.astro"]
+    },
+    "vscode": {
+      "extensions": ["astro-build.astro-vscode", "esbenp.prettier-vscode"]
+    }
+  }
+}
+
+
+[benchmark/static-projects/build-hybrid/src/pages/about.astro]
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+export const prerender = true;
+---
+
+<BaseLayout title="About - Hybrid Site">
+	<h1>About Us</h1>
+	<p>
+		<strong>Lorem</strong>
+		<em>Ipsum</em> is simply <span>dummy</span> text of the printing and typesetting industry. <strong
+			>Lorem</strong
+		>
+		<em>Ipsum</em> has been the industry's standard <span>dummy</span> text ever since the 1500s, when
+		an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived
+		not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.
+		It was popularised in the 1960s with the release of Letraset sheets containing <strong
+			>Lorem</strong
+		>
+		<em>Ipsum</em> passages, and more recently with desktop publishing software like Aldus PageMaker including
+		versions of <strong>Lorem</strong>
+		<em>Ipsum</em>. <strong>Lorem</strong>
+		<em>Ipsum</em> is simply <span>dummy</span> text of the printing and typesetting industry. <strong
+			>Lorem</strong
+		>
+		<em>Ipsum</em> has been the industry's standard <span>dummy</span> text ever since the 1500s, when
+		an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived
+		not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.
+		It was popularised in the 1960s with the release of Letraset sheets containing <strong
+			>Lorem</strong
+		>
+		<em>Ipsum</em> passages, and more recently with desktop publishing software like Aldus PageMaker including
+		versions of <strong>Lorem</strong>
+		<em>Ipsum</em>.
+	</p>
+	<p>
+		<strong>Lorem</strong>
+		<em>Ipsum</em> is simply <span>dummy</span> text of the printing and typesetting industry. <strong
+			>Lorem</strong
+		>
+		<em>Ipsum</em> has been the industry's standard <span>dummy</span> text ever since the 1500s, when
+		an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived
+		not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.
+		It was popularised in the 1960s with the release of Letraset sheets containing <strong
+			>Lorem</strong
+		>
+		<em>Ipsum</em> passages, and more recently with desktop publishing software like Aldus PageMaker including
+		versions of <strong>Lorem</strong>
+		<em>Ipsum</em>. <strong>Lorem</strong>
+		<em>Ipsum</em> is simply <span>dummy</span> text of the printing and typesetting industry. <strong
+			>Lorem</strong
+		>
+		<em>Ipsum</em> has been the industry's standard <span>dummy</span> text ever since the 1500s, when
+		an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived
+		not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.
+		It was popularised in the 1960s with the release of Letraset sheets containing <strong
+			>Lorem</strong
+		>
+		<em>Ipsum</em> passages, and more recently with
+... [TRUNCATED]
+
+[benchmark/static-projects/build-hybrid/src/pages/api/data.json.js]
+export const prerender = false;
+
+export async function GET({ params, request }) {
+	return new Response(JSON.stringify({
+		timestamp: new Date().toISOString(),
+		data: Array.from({ length: 100 }, (_, i) => ({
+			id: i + 1,
+			title: `Item ${i + 1}`,
+		})),
+	}), {
+		status: 200,
+		headers: {
+			'Content-Type': 'application/json'
+		}
+	});
+}
+
+[benchmark/static-projects/build-hybrid/src/pages/blog/[id].astro]
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+export async function getStaticPaths() {
+	// Only pre-render posts 1-50
+	return Array.from({ length: 50 }, (_, i) => ({
+		params: { id: String(i + 1) },
+		props: { postNumber: i + 1, isStatic: true },
+	}));
+}
+
+const { postNumber, isStatic } = Astro.props;
+const id = Astro.params.id;
+const currentPostNumber = postNumber || Number(id);
+const timestamp = new Date().toISOString();
+---
+
+<BaseLayout title={`Blog Post ${currentPostNumber} - Hybrid Site`}>
+	<article>
+		<h1>Blog Post {currentPostNumber}{!isStatic && ' (Server-Rendered)'}</h1>
+		<p class="meta">Published on January {(currentPostNumber % 28) + 1}, 2024</p>
+		{!isStatic && <p class="server-time">Server time: {timestamp}</p>}
+		<p>
+			<strong>Lorem</strong>
+			<em>Ipsum</em> is simply <span>dummy</span> text of the printing and typesetting industry. <strong
+				>Lorem</strong
+			>
+			<em>Ipsum</em> has been the industry's standard <span>dummy</span> text ever since the 1500s, when
+			an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived
+			not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.
+			It was popularised in the 1960s with the release of Letraset sheets containing <strong
+				>Lorem</strong
+			>
+			<em>Ipsum</em> passages, and more recently with desktop publishing software like Aldus PageMaker
+			including versions of <strong>Lorem</strong>
+			<em>Ipsum</em>. <strong>Lorem</strong>
+			<em>Ipsum</em> is simply <span>dummy</span> text of the printing and typesetting industry. <strong
+				>Lorem</strong
+			>
+			<em>Ipsum</em> has been the industry's standard <span>dummy</span> text ever since the 1500s, when
+			an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived
+			not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.
+			It was popularised in the 1960s with the release of Letraset sheets containing <strong
+				>Lorem</strong
+			>
+			<em>Ipsum</em> passages, and more recently with desktop publishing software like Aldus PageMaker
+			including versions of <strong>Lorem</strong>
+			<em>Ipsum</em>.
+		</p>
+		<p>
+			<strong>Lorem</strong>
+			<em>Ipsum</em> is simply <span>dummy</span> text of the printing and typesetting industry. <strong
+				>Lorem</strong
+			>
+			<em>Ipsum</em> has been the industry's standard <span>dummy</span> text ever since the 1500s, when
+			an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived
+			not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.
+			It was popularised in the 1960s with the release of Letraset sheets containing <strong
+				>Lorem</strong
+			>
+			<em>Ipsum</em> passages, and more recently with desktop publishing software like Aldus PageMaker
+			including versions of <strong>Lorem</strong>
+		
+... [TRUNCATED]
+
+[benchmark/static-projects/build-hybrid/src/pages/blog/index.astro]
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Card from '../../components/Card.astro';
+
+export const prerender = true;
+
+const posts = Array.from({ length: 100 }, (_, i) => ({
+	title: `Blog Post ${i + 1}`,
+	description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+	href: `/blog/${i + 1}`,
+}));
+---
+
+<BaseLayout title="Blog - Hybrid Site">
+	<h1>All Blog Posts</h1>
+	<div class="grid">
+		{
+			posts.map((post) => (
+				<Card title={post.title} description={post.description} href={post.href} />
+			))
+		}
+	</div>
+</BaseLayout>
+
+
+--- DIRECTORY STRUCTURE (depth 2) ---
+├── .agents/
+│   └── skills/
+│       ├── analyze-github-action-logs/
+│       ├── astro-developer/
+│       └── triage/
+├── .changeset/
+│   ├── README.md
+│   ├── adapter-interface-breaking.md
+│   ├── astro-ssr-check-metadata.md
+│   ├── beige-clowns-read.md
+│   ├── beta-tag-alpinejs.md
+│   ├── beta-tag-check.md
+│   ├── beta-tag-create-astro.md
+│   ├── beta-tag-db.md
+│   ├── beta-tag-language-server.md
+│   ├── beta-tag-markdown-remark.md
+│   ├── beta-tag-mdx.md
+│   ├── beta-tag-netlify.md
+│   ├── beta-tag-preact.md
+│   ├── beta-tag-prism.md
+│   ├── beta-tag-react.md
+│   ├── beta-tag-rss.md
+│   ├── beta-tag-sitemap.md
+│   ├── beta-tag-solid.md
+│   ├── beta-tag-upgrade.md
+│   ├── better-redirect-error.md
+│   ├── big-cups-drive.md
+│   ├── big-forks-lead.md
+│   ├── big-jobs-make.md
+│   ├── big-laws-dig.md
+│   ├── bold-ghosts-sink.md
+│   ├── breezy-schools-travel.md
+│   ├── bright-parrots-hear.md
+│   ├── bright-pens-dance.md
+│   ├── bright-symbols-see.md
+│   ├── bright-worlds-juggle.md
+│   ├── brown-beds-pay.md
+│   ├── busy-actors-follow.md
+│   ├── busy-humans-smoke.md
+│   ├── busy-olives-chew.md
+│   ├── calm-bats-create.md
+│   ├── calm-birds-fly.md
+│   ├── chubby-plums-rule.md
+│   ├── chubby-tips-change.md
+│   ├── clean-planets-flow.md
+│   ├── clear-areas-cry.md
+│   ├── clear-route-cache-content.md
+│   ├── clever-clubs-listen.md
+│   ├── cloudflare-dev-styles.md
+│   ├── cloudflare-entrypoint-breaking.md
+│   ├── cloudflare-image-component.md
+│   ├── cloudflare-image-dev-fix.md
+│   ├── cloudflare-image-service-object.md
+│   ├── cloudflare-integration-wrangler.md
+│   ├── cloudflare-workerd-prerender.md
+│   ├── common-knives-rescue.md
+│   ├── common-signs-punch.md
+│   ├── config.json
+│   ├── csp-shiki-warning.md
+│   ├── cuddly-worlds-beam.md
+│   ├── custom-prerenderer-api.md
+│   ├── cute-suns-check.md
+│   ├── cyan-crews-cross.md
+│   ├── dance-ornate-keen.md
+│   ├── deep-states-talk.md
+│   ├── discover-ssr-deps.md
+│   ├── drop-cjs-config-support.md
+│   ├── dry-balloons-brush.md
+│   ├── dry-icons-nail.md
+│   ├── dull-jeans-work.md
+│   ├── dull-mangos-travel.md
+│   ├── eager-owls-stare.md
+│   ├── early-badgers-pull.md
+│   ├── early-times-drop.md
+│   ├── eight-lines-dig.md
+│   ├── emit-client-asset-api.md
+│   ├── encoding-static-builds.md
+│   ├── every-carpets-grin.md
+│   ├── every-ghosts-like.md
+│   ├── every-oranges-begin.md
+│   ├── famous-trees-tan.md
+│   ├── fancy-bananas-sing.md
+│   ├── fast-bushes-fall.md
+│   ├── fast-wolves-render.md
+│   ├── fifty-dingos-study.md
+│   ├── fix-action-prototype-traversal.md
+│   ├── fix-cloudflare-static-output.md
+│   ├── fix-content-hmr.md
+│   ├── fix-create-astro-registry-hang.md
+│   ├── fix-envprefix-secret-leak.md
+│   ├── fix-font-head-swap.md
+│   ├── fix-forwarded-proto-allowed-domains.md
+│   ├── fix-i18n-fallback-redirect.md
+│   ├── fix-large-static-build-promise-all.md
+│   ├── fix-large-static-routes-stack-overflow.md
+│   ├── fix-markdoc-table-attributes.md
+│   ├── fix-mdx-slot-hydration.md
+│   ├── fix-netlify-external.md
+│   ├── fix-netlify-ssr-routing.md
+│   ├── fix-preact-cloudflare-hooks.md
+│   ├── fix-rewrite-non-ascii-paths.md
+│   ├── fix-safari-persist-canvas-context-loss.md
+│   ├── fix-serve-files-outside-srcdir.md
+│   ├── fix-server-island-dev-build-output.md
+│   ├── fix-session-regenerate-dirty.md
+│   ├── fix-ssr-prerendered-image-deletion.md
+│   ├── fix-store-race-condition.md
+│   ├── fix-svg-content-collection-component.md
+│   ├── fix-svg-content-collection-deadlock.md
+│   ├── fix-vite-runner-closed.md
+│   ├── flat-lions-care.md
+│   ├── flat-symbols-arrive.md
+│   ├── floppy-bottles-notice.md
+│   ├── floppy-cases-hug.md
+│   ├── fluffy-pets-greet.md
+│   ├── fluffy-shrimps-drop.md
+│   ├── four-insects-tan.md
+│   ├── fresh-rocks-sing.md
+│   ├── friendly-knives-rest.md
+│   ├── full-carpets-hide.md
+│   ├── full-crews-juggle.md
+│   ├── full-poems-divide.md
+│   ├── funny-planes-lick.md
+│   ├── giant-areas-press.md
+│   ├── giant-bananas-sit.md
+│   ├── good-camels-pull.md
+│   ├── good-clubs-cover.md
+│   ├── great-nails-brake.md
+│   ├── green-clowns-change.md
+│   ├── green-garlics-heal.md
+│   ├── green-plants-act.md
+│   ├── green-zebras-lick.md
+│   ├── grumpy-tables-serve.md
+│   ├── happy-falcons-show.md
+│   ├── harden-attribute-escaping.md
+│   ├── harden-dev-server-sec-fetch.md
+│   ├── harden-merge-responses-cookies.md
+│   ├── harden-merge-responses-framing.md
+│   ├── harden-node-server-defaults.md
+│   ├── harden-origin-port-consistency.md
+│   ├── harden-xff-allowed-domains.md
+│   ├── heavy-beers-unite.md
+│   ├── heavy-cats-own.md
+│   ├── heavy-parts-throw.md
+│   ├── helpful-runtime-errors.md
+│   ├── hojze-jglnm-ggfbv.md
+│   ├── honest-deer-add.md
+│   ├── hot-eyes-sink.md
+│   ├── humble-humans-sink.md
+│   ├── hungry-jars-pump.md
+│   ├── icy-pigs-smile.md
+│   ├── internal-create-filter.md
+│   ├── internal-helpers-normalize-pathname.md
+│   ├── itchy-ghosts-flow.md
+│   ├── jolly-dots-shop.md
+│   ├── jsx-include-exclude-preact.md
+│   ├── jsx-include-exclude-react.md
+│   ├── khaki-bushes-stop.md
+│   ├── khaki-toys-think.md
+│   ├── kind-emus-relate.md
+│   ├── kind-hairs-report.md
+│   ├── kind-pears-behave.md
+│   ├── large-ears-ask.md
+│   ├── large-keys-see.md
+│   ├── large-lemons-relax.md
+│   ├── late-carrots-cough.md
+│   ├── late-spiders-change.md
+│   ├── lazy-insects-wave.md
+│   ├── legacy-collections-backwards-compat-docs.md
+│   ├── light-parrots-find.md
+│   ├── little-goats-poke.md
+│   ├── long-bushes-rest.md
+│   ├── long-chefs-tie.md
+│   ├── long-trams-see.md
+│   ├── lovely-mice-sniff.md
+│   ├── lowercase-style-tags.md
+│   ├── major-lights-kiss.md
+│   ├── many-banks-hammer.md
+│   ├── many-cars-hope.md
+│   ├── markdoc-emit-client-asset.md
+│   ├── markdoc-emit-image-metadata.md
+│   ├── markdoc-render-transform.md
+│   ├── markdown-remark-fileurl-public.md
+│   ├── memory-route-filter.md
+│   ├── moody-owls-refuse.md
+│   ├── new-areas-yawn.md
+│   ├── new-beans-obey.md
+│   ├── nice-clouds-pull.md
+│   ├── normalize-backslash-pathname.md
+│   ├── normalize-dotfile-pathname.md
+│   ├── old-donuts-visit.md
+│   ├── olive-dots-jam.md
+│   ├── open-days-watch.md
+│   ├── open-monkeys-boil.md
+│   ├── optional-wrangler-config.md
+│   ├── orange-boats-refuse.md
+│   ├── polite-balloons-rhyme.md
+│   ├── polite-terms-shop.md
+│   ├── pre.json
+│   ├── preserve-directory-structure.md
+│   ├── pretty-forks-smash.md
+│   ├── proud-pans-change.md
+│   ├── public-files-priority.md
+│   ├── public-lemons-mate.md
+│   ├── puny-dragons-fail.md
+│   ├── puny-poems-create.md
+│   ├── purple-steaks-begin.md
+│   ├── quick-dingos-itch.md
+│   ├── quiet-cars-burn.md
+│   ├── quiet-owls-jump.md
+│   ├── ready-eagles-wink.md
+│   ├── ready-tigers-try.md
+│   ├── red-quail-bite.md
+│   ├── redirect-catch-all-hardening.md
+│   ├── remove-cloudflare-modules.md
+│   ├── render-markdown-file-url.md
+│   ├── render-markdown-frontmatter.md
+│   ├── rich-ghosts-pick.md
+│   ├── rich-horses-begin.md
+│   ├── ripe-nights-feel.md
+│   ├── route-data-breaking.md
+│   ├── rust-compiler-experimental.md
+│   ├── sad-lines-hear.md
+│   ├── sad-teams-end.md
+│   ├── server-island-slot-scripts.md
+│   ├── shiki-v4.md
+│   ├── short-pears-hammer.md
+│   ├── shy-cats-grin.md
+│   ├── silly-eels-remain.md
+│   ├── six-women-visit.md
+│   ├── sixty-deer-fold.md
+│   ├── slick-plums-remain.md
+│   ├── slimy-fans-sing.md
+│   ├── slimy-queens-punch.md
+│   ├── slow-coins-write.md
+│   ├── slow-laws-marry.md
+│   ├── small-ghosts-sort.md
+│   ├── smart-mammals-stop.md
+│   ├── smart-pillows-chew.md
+│   ├── smooth-kids-tease.md
+│   ├── social-jeans-mix.md
+│   ├── social-kings-swim.md
+│   ├── social-maps-shine.md
+│   ├── soft-vans-ask.md
+│   ├── solid-fans-jam.md
+│   ├── solid-sloths-call.md
+│   ├── some-olives-march.md
+│   ├── some-places-build.md
+│   ├── spicy-beds-boil.md
+│   ├── sql-import-fix.md
+│   ├── ssr-manifest-breaking.md
+│   ├── stale-ads-see.md
+│   ├── static-output-cloudflare.md
+│   ├── strict-regions-drop.md
+│   ├── strong-islands-say.md
+│   ├── strong-wolves-march.md
+│   ├── sweet-buttons-jam.md
+│   ├── swift-planets-swim.md
+│   ├── tall-needles-cross.md
+│   ├── tall-worms-live.md
+│   ├── tame-lemons-probe.md
+│   ├── tangy-days-wink.md
+│   ├── tangy-tables-jog.md
+│   ├── tangy-years-grin.md
+│   ├── ten-numbers-rush.md
+│   ├── tender-bats-tan.md
+│   ├── tender-moose-help.md
+│   ├── thin-hands-find.md
+│   ├── thirty-experts-tickle.md
+│   ├── three-sheep-burn.md
+│   ├── tiny-books-scream.md
+│   ├── tired-eels-cough.md
+│   ├── tired-poems-shake.md
+│   ├── tricky-donkeys-camp.md
+│   ├── true-bats-punch.md
+│   ├── true-dingos-attack.md
+│   ├── twenty-signs-brush.md
+│   ├── upset-dodos-rhyme.md
+│   ├── vite-environments-breaking.md
+│   ├── vite-plugin-react-v5.md
+│   ├── vite-plugin-vue-v6.md
+│   ├── warm-comics-pump.md
+│   ├── warm-donuts-learn.md
+│   ├── warm-dots-glow.md
+│   ├── warm-pens-glow.md
+│   ├── wet-animals-pump.md
+│   ├── wet-lines-wear.md
+│   ├── wet-suits-help.md
+│   ├── whole-geckos-think.md
+│   ├── wrangler-main-field.md
+│   ├── yellow-cycles-cheer.md
+│   ├── young-banks-camp.md
+│   ├── young-cougars-mix.md
+│   ├── young-pandas-talk.md
+│   └── yummy-peas-carry.md
+├── .devcontainer/
+│   ├── Dockerfile
+│   ├── basics/
+│   │   └── devcontainer.json
+│   ├── blog/
+│   │   └── devcontainer.json
+│   ├── component/
+│   │   └── devcontainer.json
+│   ├── devcontainer.json
+│   ├── docs/
+│   │   └── devcontainer.json
+│   ├── example-welcome-message.txt
+│   ├── examples.Dockerfile
+│   ├── framework-alpine/
+│   │   └── devcontainer.json
+│   ├── framework-lit/
+│   │   └── devcontainer.json
+│   ├── framework-multiple/
+│   │   └── devcontainer.json
+│   ├── framework-preact/
+│   │   └── devcontainer.json
+│   ├── framework-react/
+│   │   └── devcontainer.json
+│   ├── framework-solid/
+│   │   └── devcontainer.json
+│   ├── framework-svelte/
+│   │   └── devcontainer.json
+│   ├── framework-vue/
+│   │   └── devcontainer.json
+│   ├── hackernews/
+│   │   └── devcontainer.json
+│   ├── integration/
+│   │   └── devcontainer.json
+│   ├── minimal/
+│   │   └── devcontainer.json
+│   ├── non-html-pages/
+│   │   └── devcontainer.json
+│   ├── portfolio/
+│   │   └── devcontainer.json
+│   ├── ssr/
+│   │   └── devcontainer.json
+│   ├── welcome-message.txt
+│   ├── with-markdown-plugins/
+│   │   └── devcontainer.json
+│   ├── with-markdown-shiki/
+│   │   └── devcontainer.json
+│   ├── with-mdx/
+│   │   └── devcontainer.json
+│   ├── with-nanostores/
+│   │   └── devcontainer.json
+│   ├── with-tailwindcss/
+│   │   └── devcontainer.json
+│   └── with-vitest/
+│       └── devcontainer.json
+├── .editorconfig
+├── .flue/
+│   ├── sandbox/
+│   │   ├── AGENTS.md
+│   │   └── Dockerfile
+│   └── workflows/
+│       └── issue-triage/
+├── .git-blame-ignore-revs
+├── .github/
+│   ├── ISSUE_TEMPLATE/
+│   │   ├── ---01-bug-report.yml
+│   │   └── config.yml
+│   ├── PULL_REQUEST_TEMPLATE.md
+│   ├── assets/
+│   │   ├── banner.jpg
+│   │   ├── banner.png
+│   │   ├── deepgram-dark.svg
+│   │   ├── deepgram.svg
+│   │   ├── divriots-dark.svg
+│   │   ├── divriots.svg
+│   │   ├── monogram-dark.svg
+│   │   ├── monogram.svg
+│   │   ├── netlify-dark.svg
+│   │   ├── netlify.svg
+│   │   ├── qoddi-dark.png
+│   │   ├── qoddi.png
+│   │   ├── sentry-dark.svg
+│   │   ├── sentry.svg
+│   │   ├── shipshape-dark.svg
+│   │   ├── shipshape.svg
+│   │   ├── stackup-dark.svg
+│   │   ├── stackup.svg
+│   │   ├── storyblok-dark.svg
+│   │   ├── storyblok.svg
+│   │   ├── vercel-dark.svg
+│   │   └── vercel.svg
+│   ├── labeler.yml
+│   ├── renovate.json5
+│   ├── scripts/
+│   │   ├── announce.mjs
+│   │   ├── bundle-size.mjs
+│   │   └── utils.mjs
+│   └── workflows/
+│       ├── build-sandbox-image.yml
+│       ├── check-merge.yml
+│       ├── check.yml
+│       ├── ci.yml
+│       ├── cleanup-cache.yml
+│       ├── congrats.yml
+│       ├── continuous_benchmark.yml
+│       ├── diff-dependencies.yml
+│       ├── examples-deploy.yml
+│       ├── format.yml
+│       ├── issue-needs-repro.yml
+│       ├── issue-triage.yml
+│       ├── issue-wontfix.yml
+│       ├── label.yml
+│       ├── preview-release.yml
+│       ├── release.yml
+│       ├── scripts.yml
+│       ├── sync-examples.yml
+│       └── test-hosts.yml
+├── .gitignore
+├── .gitpod.yml
+├── .gitpod/
+│   └── gitpod-setup.sh
+├── .nvmrc
+├── .prettierignore
+├── .vscode/
+│   ├── extensions.json
+│   ├── launch.json
+│   ├── settings.json
+│   └── tasks.json
+├── .zed/
+│   └── settings.json
+├── AGENTS.md
+├── CONTRIBUTING.md
+├── LICENSE
+├── README.md
+├── SECURITY.md
+├── SECURITY_CONTACTS
+├── STYLE_GUIDE.md
+├── benchmark/
+│   ├── README.md
+│   ├── bench/
+│   │   ├── README.md
+│   │   ├── _template.js
+│   │   ├── _util.js
+│   │   ├── build-hybrid.bench.js
+│   │   ├── build-server.bench.js
+│   │   ├── build-static.bench.js
+│   │   ├── cli-startup.js
+│   │   ├── codspeed-setup.js
+│   │   ├── memory.js
+│   │   ├── render.bench.js
+│   │   ├── render.js
+│   │   ├── rendering-perf.bench.js
+│   │   └── server-stress.js
+│   ├── ci-helper.js
+│   ├── index.js
+│   ├── make-project/
+│   │   ├── README.md
+│   │   ├── _template.js
+│   │   ├── _util.js
+│   │   ├── image.jpg
+│   │   ├── markdown-cc1.js
+│   │   ├── markdown-cc2.js
+│   │   ├── mdx-cc1.js
+│   │   ├── mdx-cc2.js
+│   │   ├── memory-default.js
+│   │   ├── render-bench.js
+│   │   ├── render-default.js
+│   │   ├── rendering-perf.js
+│   │   └── server-stress-default.js
+│   ├── package.json
+│   ├── packages/
+│   │   ├── adapter/
+│   │   └── timer/
+│   ├── static-projects/
+│   │   ├── build-hybrid/
+│   │   ├── build-server/
+│   │   └── build-static/
+│   └── vitest.config.js
+├── biome.jsonc
+├── eslint.config.js
+├── examples/
+│   ├── README.md
+│   ├── basics/
+│   │   ├── .codesandbox/
+│   │   ├── .gitignore
+│   │   ├── .vscode/
+│   │   ├── README.md
+│   │   ├── astro.config.mjs
+│   │   ├── package.json
+│   │   ├── public/
+│   │   ├── src/
+│   │   └── tsconfig.json
+│   ├── blog/
+│   │   ├── .codesandbox/
+│   │   ├── .gitignore
+│   │   ├── .vscode/
+│   │   ├── README.md
+│   │   ├── astro.config.mjs
+│   │   ├── package.json
+│   │   ├── public/
+│   │   ├── src/
+│   │   └── tsconfig.json
+│   ├── component/
+│   │   ├── .gitignore
+│   │   ├── README.md
+│   │   ├── index.ts
+│   │   ├── package.json
+│   │   ├── src/
+│   │   └── tsconfig.json
+│   ├── container-with-vitest/
+│   │   ├── .codesandbox/
+│   │   ├── .gitignore
+│   │   ├── README.md
+│   │   ├── astro.config.ts
+│   │   ├── package.json
+│   │   ├── public/
+│   │   ├── src/
+│   │   ├── test/
+│   │   ├── tsconfig.json
+│   │   └── vitest.config.ts
+│   ├── framework-alpine/
+│   │   ├── .codesandbox/
+│   │   ├── .gitignore
+│   │   ├── .vscode/
+│   │   ├── README.md
+│   │   ├── astro.config.mjs
+│   │   ├── package.json
+│   │   ├── public/
+│   │   ├── src/
+│   │   └── tsconfig.json
+│   ├── framework-multiple/
+│   │   ├── .codesandbox/
+│   │   ├── .gitignore
+│   │   ├── .vscode/
+│   │   ├── README.md
+│   │   ├── astro.config.mjs
+│   │   ├── package.json
+│   │   ├── public/
+│   │   ├── src/
+│   │   └── tsconfig.json
+│   ├── framework-preact/
+│   │   ├── .codesandbox/
+│   │   ├── .gitignore
+│   │   ├── .vscode/
+│   │   ├── README.md
+│   │   ├── astro.config.mjs
+│   │   ├── package.json
+│   │   ├── public/
+│   │   ├── src/
+│   │   └── tsconfig.json
+│   ├── framework-react/
+│   │   ├── .codesandbox/
+│   │   ├── .gitignore
+│   │   ├── .vscode/
+│   │   ├── README.md
+│   │   ├── astro.config.mjs
+│   │   ├── package.json
+│   │   ├── public/
+│   │   ├── src/
+│   │   └── tsconfig.json
+│   ├── framework-solid/
+│   │   ├── .codesandbox/
+│   │   ├── .gitignore
+│   │   ├── .vscode/
+│   │   ├── README.md
+│   │   ├── astro.config.mjs
+│   │   ├── package.json
+│   │   ├── public/
+│   │   ├── src/
+│   │   └── tsconfig.json
+│   ├── framework-svelte/
+│   │   ├── .codesandbox/
+│   │   ├── .gitignore
+│   │   ├── .vscode/
+│   │   ├── README.md
+│   │   ├── astro.config.mjs
+│   │   ├── package.json
+│   │   ├── public/
+│   │   ├── src/
+│   │   ├── svelte.config.js
+│   │   └── tsconfig.json
+│   ├── framework-vue/
+│   │   ├── .codesandbox/
+│   │   ├── .gitignore
+│   │   ├── .vscode/
+│   │   ├── README.md
+│   │   ├── astro.config.mjs
+│   │   ├── package.json
+│   │   ├── public/
+│   │   ├── src/
+│   │   └── tsconfig.json
+│   ├── hackernews/
+│   │   ├── .codesandbox/
+│   │   ├── .gitignore
+│   │   ├── .vscode/
+│   │   ├── README.md
+│   │   ├── astro.config.mjs
+│   │   ├── package.json
+│   │   ├── public/
+│   │   ├── src/
+│   │   └── tsconfig.json
+│   ├── integration/
+│   │   ├── .gitignore
+│   │   ├── README.md
+│   │   ├── index.ts
+│   │   ├── package.json
+│   │   └── tsconfig.json
+│   ├── minimal/
+│   │   ├── .codesandbox/
+│   │   ├── .gitignore
+│   │   ├── .vscode/
+│   │   ├── README.md
+│   │   ├── astro.config.mjs
+│   │   ├── package.json
+│   │   ├── public/
+│   │   ├── src/
+│   │   └── tsconfig.json
+│   ├── portfolio/
+│   │   ├── .codesandbox/
+│   │   ├── .gitignore
+│   │   ├── .vscode/
+│   │   ├── README.md
+│   │   ├── astro.config.mjs
+│   │   ├── package.json
+│   │   ├── public/
+│   │   ├── src/
+│   │   └── tsconfig.json
+│   ├── ssr/
+│   │   ├── .codesandbox/
+│   │   ├── .gitignore
+│   │   ├── .vscode/
+│   │   ├── astro.config.mjs
+│   │   ├── package.json
+│   │   ├── public/
+│   │   ├── src/
+│   │   └── tsconfig.json
+│   ├── starlog/
+│   │   ├── .gitignore
+│   │   ├── README.md
+│   │   ├── astro.config.mjs
+│   │   ├── package.json
+│   │   ├── public/
+│   │   ├── src/
+│   │   └── tsconfig.json
+│   ├── toolbar-app/
+│   │   ├── .codesandbox/
+│   │   ├── .gitignore
+│   │   ├── README.md
+│   │   ├── package.json
+│   │   ├── src/
+│   │   └── tsconfig.json
+│   ├── with-markdoc/
+│   │   ├── .codesandbox/
+│   │   ├── .gitignore
+│   │   ├── .vscode/
+│   │   ├── README.md
+│   │   ├── astro.config.mjs
+│   │   ├── markdoc.config.mjs
+│   │   ├── package.json
+│   │   ├── public/
+│   │   ├── src/
+│   │   └── tsconfig.json
+│   ├── with-mdx/
+│   │   ├── .codesandbox/
+│   │   ├── .gitignore
+│   │   ├── .vscode/
+│   │   ├── README.md
+│   │   ├── astro.config.mjs
+│   │   ├── package.json
+│   │   ├── public/
+│   │   ├── src/
+│   │   └── tsconfig.json
+│   ├── with-nanostores/
+│   │   ├── .codesandbox/
+│   │   ├── .gitignore
+│   │   ├── README.md
+│   │   ├── astro.config.mjs
+│   │   ├── package.json
+│   │   ├── public/
+│   │   ├── src/
+│   │   └── tsconfig.json
+│   ├── with-tailwindcss/
+│   │   ├── .codesandbox/
+│   │   ├── .gitignore
+│   │   ├── README.md
+│   │   ├── astro.config.mjs
+│   │   ├── package.json
+│   │   ├── public/
+│   │   ├── src/
+│   │   └── tsconfig.json
+│   └── with-vitest/
+│       ├── .codesandbox/
+│       ├── .gitignore
+│       ├── README.md
+│       ├── astro.config.ts
+│       ├── package.json
+│       ├── public/
+│       ├── src/
+│       ├── test/
+│       ├── tsconfig.json
+│       └── vitest.config.ts
+├── knip.js
+├── package.json
+├── packages/
+│   ├── astro-prism/
+│   │   ├── CHANGELOG.md
+│   │   ├── Prism.astro
+│   │   ├── README.md
+│   │   ├── package.json
+│   │   ├── src/
+│   │   └── tsconfig.json
+│   ├── astro-rss/
+│   │   ├── CHANGELOG.md
+│   │   ├── README.md
+│   │   ├── package.json
+│   │   ├── src/
+│   │   ├── test/
+│   │   └── tsconfig.json
+│   ├── astro/
+│   │   ├── CHANGELOG-v1.md
+│   │   ├── CHANGELOG-v2.md
+│   │   ├── CHANGELOG-v3.md
+│   │   ├── CHANGELOG-v4.md
+│   │   ├── CHANGELOG.md
+│   │   ├── README.md
+│   │   ├── astro-jsx.d.ts
+│   │   ├── bin/
+│   │   ├── client.d.ts
+│   │   ├── components/
+│   │   ├── dev-only.d.ts
+│   │   ├── e2e/
+│   │   ├── env.d.ts
+│   │   ├── jsx-runtime.d.ts
+│   │   ├── package.json
+│   │   ├── performance/
+│   │   ├── playwright.config.js
+│   │   ├── playwright.firefox.config.js
+│   │   ├── src/
+│   │   ├── templates/
+│   │   ├── test/
+│   │   ├── tsconfig.json
+│   │   ├── tsconfigs/
+│   │   ├── types.d.ts
+│   │   └── types/
+│   ├── create-astro/
+│   │   ├── CHANGELOG.md
+│   │   ├── README.md
+│   │   ├── create-astro.mjs
+│   │   ├── package.json
+│   │   ├── src/
+│   │   ├── test/
+│   │   └── tsconfig.json
+│   ├── db/
+│   │   ├── CHANGELOG.md
+│   │   ├── README.md
+│   │   ├── index.d.ts
+│   │   ├── package.json
+│   │   ├── src/
+│   │   ├── test/
+│   │   ├── tsconfig.json
+│   │   ├── tsconfig.virtual.json
+│   │   └── virtual.d.ts
+│   ├── integrations/
+│   │   ├── alpinejs/
+│   │   ├── cloudflare/
+│   │   ├── deno/
+│   │   ├── markdoc/
+│   │   ├── mdx/
+│   │   ├── netlify/
+│   │   ├── node/
+│   │   ├── partytown/
+│   │   ├── preact/
+│   │   ├── react/
+│   │   ├── sitemap/
+│   │   ├── solid/
+│   │   ├── svelte/
+│   │   ├── tailwind/
+│   │   ├── vercel/
+│   │   ├── vue/
+│   │   └── web-vitals/
+│   ├── internal-helpers/
+│   │   ├── CHANGELOG.md
+│   │   ├── package.json
+│   │   ├── readme.md
+│   │   ├── src/
+│   │   ├── test/
+│   │   └── tsconfig.json
+│   ├── language-tools/
+│   │   ├── CONTRIBUTING.md
+│   │   ├── astro-check/
+│   │   ├── language-server/
+│   │   ├── ts-plugin/
+│   │   ├── tsconfig.json
+│   │   ├── vscode/
+│   │   └── yaml2ts/
+│   ├── markdown/
+│   │   └── remark/
+│   ├── telemetry/
+│   │   ├── CHANGELOG.md
+│   │   ├── README.md
+│   │   ├── package.json
+│   │   ├── src/
+│   │   ├── test/
+│   │   └── tsconfig.json
+│   ├── underscore-redirects/
+│   │   ├── CHANGELOG.md
+│   │   ├── README.md
+│   │   ├── package.json
+│   │   ├── src/
+│   │   ├── test/
+│   │   └── tsconfig.json
+│   └── upgrade/
+│       ├── CHANGELOG.md
+│       ├── README.md
+│       ├── package.json
+│       ├── src/
+│       ├── test/
+│       ├── tsconfig.json
+│       └── upgrade.mjs
+├── pnpm-lock.yaml
+├── pnpm-workspace.yaml
+├── prettier.config.mjs
+├── scripts/
+│   ├── CHANGELOG.md
+│   ├── cmd/
+│   │   ├── build.js
+│   │   ├── prebuild.js
+│   │   └── test.js
+│   ├── deps/
+│   │   └── update-example-versions.js
+│   ├── index.js
+│   ├── jsconfig.json
+│   ├── package.json
+│   └── smoke/
+│       └── check.js
+├── tsconfig.base.json
+├── tsconfig.eslint.json
+├── tsconfig.json
+└── turbo.json

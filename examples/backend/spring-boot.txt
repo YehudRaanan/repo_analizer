@@ -1,0 +1,1282 @@
+=====================================
+Repository Analysis: spring-boot
+Type: Library / Package / SDK
+=====================================
+
+--- METADATA ---
+Name: spring-boot
+Description: Spring Boot helps you to create Spring-powered, production-grade applications and services with absolute minimum fuss.
+Language: Java
+Topics: framework, java, spring, spring-boot
+Stars: 80175
+License: Apache License 2.0
+
+--- README ---
+(No README found)
+
+--- PACKAGE MANIFEST(S) ---
+
+[build.gradle]
+/*
+ * Copyright 2012-present the original author or authors.
+ *
+ * Licensed under the Apache License, Version 2.0 (the License);
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      https://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+plugins {
+	id "base"
+}
+
+description = "Spring Boot Build"
+
+defaultTasks 'build'
+
+allprojects {
+	group = "org.springframework.boot"
+}
+
+subprojects {
+	apply plugin: "org.springframework.boot.conventions"
+
+	repositories {
+		mavenCentral()
+		maven {
+			name = "Shibboleth Releases"
+			url = "https://build.shibboleth.net/nexus/content/repositories/releases"
+			content {
+				includeGroup "org.opensaml"
+				includeGroup "net.shibboleth"
+			}
+		}
+		spring.mavenRepositories()
+	}
+
+	configurations.all {
+		resolutionStrategy.cacheChangingModulesFor 0, "minutes"
+	}
+}
+
+
+--- DIRECTORY STRUCTURE (depth 2) ---
+├── .editorconfig
+├── .git-blame-ignore-revs
+├── .github/
+│   ├── ISSUE_TEMPLATE/
+│   │   ├── config.yml
+│   │   └── issue.md
+│   ├── PULL_REQUEST_TEMPLATE.md
+│   ├── actions/
+│   │   ├── await-http-resource/
+│   │   ├── build/
+│   │   ├── create-github-release/
+│   │   ├── prepare-gradle-build/
+│   │   ├── print-jvm-thread-dumps/
+│   │   ├── publish-gradle-plugin/
+│   │   ├── publish-to-sdkman/
+│   │   ├── send-notification/
+│   │   ├── sync-to-maven-central/
+│   │   └── update-homebrew-tap/
+│   ├── dco.yml
+│   ├── dependabot.yml
+│   ├── scripts/
+│   │   └── reclaim-docker-diskspace.sh
+│   └── workflows/
+│       ├── build-and-deploy-snapshot.yml
+│       ├── build-pull-request.yml
+│       ├── ci.yml
+│       ├── distribute.yml
+│       ├── release-milestone.yml
+│       ├── release.yml
+│       ├── run-codeql-analysis.yml
+│       ├── run-system-tests.yml
+│       ├── trigger-docs-build.yml
+│       └── verify.yml
+├── .gitignore
+├── .idea/
+│   ├── .gitignore
+│   ├── codeStyles/
+│   │   ├── Project.xml
+│   │   └── codeStyleConfig.xml
+│   ├── copyright/
+│   │   ├── java.xml
+│   │   └── profiles_settings.xml
+│   ├── icon.svg
+│   ├── inspectionProfiles/
+│   │   └── Project_Default.xml
+│   └── scopes/
+│       └── java.xml
+├── .sdkmanrc
+├── CONTRIBUTING.adoc
+├── LICENSE.txt
+├── README.adoc
+├── SUPPORT.adoc
+├── antora/
+│   ├── package-lock.json
+│   └── package.json
+├── build-plugin/
+│   ├── spring-boot-antlib/
+│   │   ├── build.gradle
+│   │   └── src/
+│   ├── spring-boot-gradle-plugin/
+│   │   ├── .gitignore
+│   │   ├── build.gradle
+│   │   └── src/
+│   └── spring-boot-maven-plugin/
+│       ├── build.gradle
+│       └── src/
+├── build.gradle
+├── buildSrc/
+│   ├── SpringRepositorySupport.groovy
+│   ├── build.gradle
+│   ├── config/
+│   │   └── checkstyle/
+│   ├── settings.gradle
+│   └── src/
+│       ├── main/
+│       └── test/
+├── buildpack/
+│   └── spring-boot-buildpack-platform/
+│       ├── build.gradle
+│       └── src/
+├── cli/
+│   └── spring-boot-cli/
+│       ├── build.gradle
+│       └── src/
+├── config/
+│   ├── checkstyle/
+│   │   ├── checkstyle-header.txt
+│   │   ├── checkstyle-suppressions.xml
+│   │   ├── checkstyle.xml
+│   │   └── import-control.xml
+│   ├── detekt/
+│   │   └── config.yml
+│   └── nohttp/
+│       ├── allowlist.lines
+│       ├── checkstyle.xml
+│       └── suppressions.xml
+├── configuration-metadata/
+│   ├── spring-boot-configuration-metadata-changelog-generator/
+│   │   ├── build.gradle
+│   │   └── src/
+│   ├── spring-boot-configuration-metadata/
+│   │   ├── build.gradle
+│   │   └── src/
+│   └── spring-boot-configuration-processor/
+│       ├── build.gradle
+│       └── src/
+├── core/
+│   ├── spring-boot-autoconfigure-processor/
+│   │   ├── build.gradle
+│   │   └── src/
+│   ├── spring-boot-autoconfigure/
+│   │   ├── build.gradle
+│   │   └── src/
+│   ├── spring-boot-docker-compose/
+│   │   ├── build.gradle
+│   │   └── src/
+│   ├── spring-boot-properties-migrator/
+│   │   ├── build.gradle
+│   │   └── src/
+│   ├── spring-boot-test-autoconfigure/
+│   │   ├── build.gradle
+│   │   └── src/
+│   ├── spring-boot-test/
+│   │   ├── build.gradle
+│   │   └── src/
+│   ├── spring-boot-testcontainers/
+│   │   ├── build.gradle
+│   │   └── src/
+│   └── spring-boot/
+│       ├── build.gradle
+│       └── src/
+├── documentation/
+│   ├── spring-boot-actuator-docs/
+│   │   ├── build.gradle
+│   │   └── src/
+│   └── spring-boot-docs/
+│       ├── build.gradle
+│       └── src/
+├── eclipse/
+│   ├── eclipse.properties
+│   └── spring-boot-project.setup
+├── git/
+│   └── hooks/
+│       ├── forward-merge
+│       └── prepare-forward-merge
+├── gradle.properties
+├── gradle/
+│   ├── plugins/
+│   │   ├── config/
+│   │   ├── cycle-detection-plugin/
+│   │   └── settings.gradle
+│   └── wrapper/
+│       ├── gradle-wrapper.jar
+│       └── gradle-wrapper.properties
+├── gradlew
+├── gradlew.bat
+├── integration-test/
+│   ├── spring-boot-actuator-integration-tests/
+│   │   ├── build.gradle
+│   │   └── src/
+│   ├── spring-boot-configuration-processor-integration-tests/
+│   │   ├── build.gradle
+│   │   └── src/
+│   ├── spring-boot-integration-tests/
+│   │   ├── build.gradle
+│   │   └── src/
+│   ├── spring-boot-loader-integration-tests/
+│   │   ├── build.gradle
+│   │   ├── spring-boot-loader-tests-app/
+│   │   ├── spring-boot-loader-tests-signed-jar/
+│   │   └── src/
+│   ├── spring-boot-server-integration-tests/
+│   │   ├── build.gradle
+│   │   ├── spring-boot-server-tests-app/
+│   │   └── src/
+│   ├── spring-boot-sni-integration-tests/
+│   │   ├── build.gradle
+│   │   ├── create-certs.sh
+│   │   ├── spring-boot-sni-client-app/
+│   │   ├── spring-boot-sni-reactive-app/
+│   │   ├── spring-boot-sni-servlet-app/
+│   │   └── src/
+│   └── spring-boot-test-integration-tests/
+│       ├── build.gradle
+│       └── src/
+├── loader/
+│   ├── spring-boot-jarmode-tools/
+│   │   ├── build.gradle
+│   │   └── src/
+│   ├── spring-boot-loader-tools/
+│   │   ├── build.gradle
+│   │   └── src/
+│   └── spring-boot-loader/
+│       ├── build.gradle
+│       └── src/
+├── module/
+│   ├── spring-boot-activemq/
+│   │   ├── build.gradle
+│   │   └── src/
+│   ├── spring-boot-actuator-autoconfigure/
+│   │   ├── build.gradle
+│   │   └── src/
+│   ├── spring-boot-actuator/
+│   │   ├── README.adoc
+│   │   ├── build.gradle
+│   │   └── src/
+│   ├── spring-boot-amqp/
+│   │   ├── build.gradle
+│   │   └── src/
+│   ├── spring-boot-artemis/
+│   │   ├── build.gradle
+│   │   └── src/
+│   ├── spring-boot-autoconfigure-classic-modules/
+│   │   └── build.gradle
+│   ├── spring-boot-autoconfigure-classic/
+│   │   └── build.gradle
+│   ├── spring-boot-batch-jdbc/
+│   │   ├── build.gradle
+│   │   └── src/
+│   ├── spring-boot-batch/
+│   │   ├── build.gradle
+│   │   └── src/
+│   ├── spring-boot-cache-test/
+│   │   ├── build.gradle
+│   │   └── src/
+│   ├── spring-boot-cache/
+│   │   ├── build.gradle
+│   │   └── src/
+│   ├── spring-boot-cassandra/
+│   │   ├── build.gradle
+│   │   └── src/
+│   ├── spring-boot-cloudfoundry/
+│   │   ├── build.gradle
+│   │   └── src/
+│   ├── spring-boot-couchbase/
+│   │   ├── build.gradle
+│   │   └── src/
+│   ├── spring-boot-data-cassandra-test/
+│   │   ├── build.gradle
+│   │   └── src/
+│   ├── spring-boot-data-cassandra/
+│   │   ├── build.gradle
+│   │   └── src/
+│   ├── spring-boot-data-commons/
+│   │   ├── build.gradle
+│   │   └── src/
+│   ├── spring-boot-data-couchbase-test/
+│   │   ├── build.gradle
+│   │   └── src/
+│   ├── spring-boot-data-couchbase/
+│   │   ├── build.gradle
+│   │   └── src/
+│   ├── spring-boot-data-elasticsearch-test/
+│   │   ├── build.gradle
+│   │   └── src/
+│   ├── spring-boot-data-elasticsearch/
+│   │   ├── build.gradle
+│   │   └── src/
+│   ├── spring-boot-data-jdbc-test/
+│   │   ├── build.gradle
+│   │   └── src/
+│   ├── spring-boot-data-jdbc/
+│   │   ├── build.gradle
+│   │   └── src/
+│   ├── spring-boot-data-jpa-test/
+│   │   ├── build.gradle
+│   │   └── src/
+│   ├── spring-boot-data-jpa/
+│   │   ├── build.gradle
+│   │   └── src/
+│   ├── spring-boot-data-ldap-test/
+│   │   ├── build.gradle
+│   │   └── src/
+│   ├── spring-boot-data-ldap/
+│   │   ├── build.gradle
+│   │   └── src/
+│   ├── spring-boot-data-mongodb-test/
+│   │   ├── build.gradle
+│   │   └── src/
+│   ├── spring-boot-data-mongodb/
+│   │   ├── build.gradle
+│   │   └── src/
+│   ├── spring-boot-data-neo4j-test/
+│   │   ├── build.gradle
+│   │   └── src/
+│   ├── spring-boot-data-neo4j/
+│   │   ├── build.gradle
+│   │   └── src/
+│   ├── spring-boot-data-r2dbc-test/
+│   │   ├── build.gradle
+│   │   └── src/
+│   ├── spring-boot-data-r2dbc/
+│   │   ├── build.gradle
+│   │   └── src/
+│   ├── spring-boot-data-redis-test/
+│   │   ├── build.gradle
+│   │   └── src/
+│   ├── spring-boot-data-redis/
+│   │   ├── build.gradle
+│   │   └── src/
+│   ├── spring-boot-data-rest/
+│   │   ├── build.gradle
+│   │   └── src/
+│   ├── spring-boot-devtools/
+│   │   ├── build.gradle
+│   │   └── src/
+│   ├── spring-boot-elasticsearch/
+│   │   ├── build.gradle
+│   │   └── src/
+│   ├── spring-boot-flyway/
+│   │   ├── build.gradle
+│   │   └── src/
+│   ├── spring-boot-freemarker/
+│   │   ├── build.gradle
+│   │   └── src/
+│   ├── spring-boot-graphql-test/
+│   │   ├── build.gradle
+│   │   └── src/
+│   ├── spring-boot-graphql/
+│   │   ├── build.gradle
+│   │   └── src/
+│   ├── spring-boot-groovy-templates/
+│   │   ├── build.gradle
+│   │   └── src/
+│   ├── spring-boot-gson/
+│   │   ├── build.gradle
+│   │   └── src/
+│   ├── spring-boot-h2console/
+│   │   ├── build.gradle
+│   │   └── src/
+│   ├── spring-boot-hateoas/
+│   │   ├── build.gradle
+│   │   └── src/
+│   ├── spring-boot-hazelcast/
+│   │   ├── build.gradle
+│   │   └── src/
+│   ├── spring-boot-health/
+│   │   ├── build.gradle
+│   │   └── src/
+│   ├── spring-boot-hibernate/
+│   │   ├── build.gradle
+│   │   └── src/
+│   ├── spring-boot-http-client/
+│   │   ├── build.gradle
+│   │   └── src/
+│   ├── spring-boot-http-codec/
+│   │   ├── build.gradle
+│   │   └── src/
+│   ├── spring-boot-http-converter/
+│   │   ├── build.gradle
+│   │   └── src/
+│   ├── spring-boot-integration/
+│   │   ├── build.gradle
+│   │   └── src/
+│   ├── spring-boot-jackson/
+│   │   ├── build.gradle
+│   │   └── src/
+│   ├── spring-boot-jackson2/
+│   │   ├── build.gradle
+│   │   └── src/
+│   ├── spring-boot-jdbc-test/
+│   │   ├── build.gradle
+│   │   └── src/
+│   ├── spring-boot-jdbc/
+│   │   ├── build.gradle
+│   │   └── src/
+│   ├── spring-boot-jersey/
+│   │   ├── build.gradle
+│   │   └── src/
+│   ├── spring-boot-jetty/
+│   │   ├── build.gradle
+│   │   └── src/
+│   ├── spring-boot-jms/
+│   │   ├── build.gradle
+│   │   └── src/
+│   ├── spring-boot-jooq-test/
+│   │   ├── build.gradle
+│   │   └── src/
+│   ├── spring-boot-jooq/
+│   │   ├── build.gradle
+│   │   └── src/
+│   ├── spring-boot-jpa-test/
+│   │   ├── build.gradle
+│   │   └── src/
+│   ├── spring-boot-jpa/
+│   │   ├── build.gradle
+│   │   └── src/
+│   ├── spring-boot-jsonb/
+│   │   ├── build.gradle
+│   │   └── src/
+│   ├── spring-boot-kafka/
+│   │   ├── build.gradle
+│   │   └── src/
+│   ├── spring-boot-kotlinx-serialization-json/
+│   │   ├── build.gradle
+│   │   └── src/
+│   ├── spring-boot-ldap/
+│   │   ├── build.gradle
+│   │   └── src/
+│   ├── spring-boot-liquibase/
+│   │   ├── build.gradle
+│   │   └── src/
+│   ├── spring-boot-mail/
+│   │   ├── build.gradle
+│   │   └── src/
+│   ├── spring-boot-micrometer-metrics-test/
+│   │   ├── build.gradle
+│   │   └── src/
+│   ├── spring-boot-micrometer-metrics/
+│   │   ├── build.gradle
+│   │   └── src/
+│   ├── spring-boot-micrometer-observation/
+│   │   ├── build.gradle
+│   │   └── src/
+│   ├── spring-boot-micrometer-tracing-brave/
+│   │   ├── build.gradle
+│   │   └── src/
+│   ├── spring-boot-micrometer-tracing-opentelemetry/
+│   │   ├── build.gradle
+│   │   └── src/
+│   ├── spring-boot-micrometer-tracing-test/
+│   │   ├── build.gradle
+│   │   └── src/
+│   ├── spring-boot-micrometer-tracing/
+│   │   ├── build.gradle
+│   │   └── src/
+│   ├── spring-boot-mongodb/
+│   │   ├── build.gradle
+│   │   └── src/
+│   ├── spring-boot-mustache/
+│   │   ├── build.gradle
+│   │   └── src/
+│   ├── spring-boot-neo4j/
+│   │   ├── build.gradle
+│   │   └── src/
+│   ├── spring-boot-netty/
+│   │   ├── build.gradle
+│   │   └── src/
+│   ├── spring-boot-opentelemetry/
+│   │   ├── build.gradle
+│   │   └── src/
+│   ├── spring-boot-persistence/
+│   │   ├── build.gradle
+│   │   └── src/
+│   ├── spring-boot-pulsar/
+│   │   ├── build.gradle
+│   │   └── src/
+│   ├── spring-boot-quartz/
+│   │   ├── build.gradle
+│   │   └── src/
+│   ├── spring-boot-r2dbc/
+│   │   ├── build.gradle
+│   │   └── src/
+│   ├── spring-boot-reactor-netty/
+│   │   ├── build.gradle
+│   │   └── src/
+│   ├── spring-boot-reactor/
+│   │   ├── build.gradle
+│   │   └── src/
+│   ├── spring-boot-restclient-test/
+│   │   ├── build.gradle
+│   │   └── src/
+│   ├── spring-boot-restclient/
+│   │   ├── build.gradle
+│   │   └── src/
+│   ├── spring-boot-restdocs/
+│   │   ├── build.gradle
+│   │   └── src/
+│   ├── spring-boot-resttestclient/
+│   │   ├── build.gradle
+│   │   └── src/
+│   ├── spring-boot-rsocket-test/
+│   │   ├── build.gradle
+│   │   └── src/
+│   ├── spring-boot-rsocket/
+│   │   ├── build.gradle
+│   │   └── src/
+│   ├── spring-boot-security-oauth2-authorization-server/
+│   │   ├── build.gradle
+│   │   └── src/
+│   ├── spring-boot-security-oauth2-client/
+│   │   ├── build.gradle
+│   │   └── src/
+│   ├── spring-boot-security-oauth2-resource-server/
+│   │   ├── build.gradle
+│   │   └── src/
+│   ├── spring-boot-security-saml2/
+│   │   ├── build.gradle
+│   │   └── src/
+│   ├── spring-boot-security-test/
+│   │   ├── build.gradle
+│   │   └── src/
+│   ├── spring-boot-security/
+│   │   ├── build.gradle
+│   │   └── src/
+│   ├── spring-boot-sendgrid/
+│   │   ├── build.gradle
+│   │   └── src/
+│   ├── spring-boot-servlet/
+│   │   ├── build.gradle
+│   │   └── src/
+│   ├── spring-boot-session-data-redis/
+│   │   ├── build.gradle
+│   │   └── src/
+│   ├── spring-boot-session-jdbc/
+│   │   ├── build.gradle
+│   │   └── src/
+│   ├── spring-boot-session/
+│   │   ├── build.gradle
+│   │   └── src/
+│   ├── spring-boot-sql/
+│   │   ├── build.gradle
+│   │   └── src/
+│   ├── spring-boot-test-classic-modules/
+│   │   └── build.gradle
+│   ├── spring-boot-thymeleaf/
+│   │   ├── build.gradle
+│   │   └── src/
+│   ├── spring-boot-tomcat/
+│   │   ├── build.gradle
+│   │   └── src/
+│   ├── spring-boot-transaction/
+│   │   ├── build.gradle
+│   │   └── src/
+│   ├── spring-boot-validation/
+│   │   ├── build.gradle
+│   │   └── src/
+│   ├── spring-boot-web-server-test/
+│   │   ├── build.gradle
+│   │   └── src/
+│   ├── spring-boot-web-server/
+│   │   ├── build.gradle
+│   │   └── src/
+│   ├── spring-boot-webclient-test/
+│   │   ├── build.gradle
+│   │   └── src/
+│   ├── spring-boot-webclient/
+│   │   ├── build.gradle
+│   │   └── src/
+│   ├── spring-boot-webflux-test/
+│   │   ├── build.gradle
+│   │   └── src/
+│   ├── spring-boot-webflux/
+│   │   ├── build.gradle
+│   │   └── src/
+│   ├── spring-boot-webmvc-test/
+│   │   ├── build.gradle
+│   │   └── src/
+│   ├── spring-boot-webmvc/
+│   │   ├── build.gradle
+│   │   └── src/
+│   ├── spring-boot-webservices-test/
+│   │   ├── build.gradle
+│   │   └── src/
+│   ├── spring-boot-webservices/
+│   │   ├── build.gradle
+│   │   └── src/
+│   ├── spring-boot-websocket/
+│   │   ├── build.gradle
+│   │   └── src/
+│   ├── spring-boot-webtestclient/
+│   │   ├── build.gradle
+│   │   └── src/
+│   └── spring-boot-zipkin/
+│       ├── build.gradle
+│       └── src/
+├── platform/
+│   ├── spring-boot-dependencies/
+│   │   └── build.gradle
+│   └── spring-boot-internal-dependencies/
+│       └── build.gradle
+├── settings.gradle
+├── smoke-test/
+│   ├── spring-boot-smoke-test-activemq-embedded/
+│   │   ├── build.gradle
+│   │   └── src/
+│   ├── spring-boot-smoke-test-activemq/
+│   │   ├── build.gradle
+│   │   └── src/
+│   ├── spring-boot-smoke-test-actuator-custom-security/
+│   │   ├── build.gradle
+│   │   └── src/
+│   ├── spring-boot-smoke-test-actuator-extension/
+│   │   ├── build.gradle
+│   │   └── src/
+│   ├── spring-boot-smoke-test-actuator-log4j2/
+│   │   ├── build.gradle
+│   │   └── src/
+│   ├── spring-boot-smoke-test-actuator-noweb/
+│   │   ├── build.gradle
+│   │   └── src/
+│   ├── spring-boot-smoke-test-actuator-ui/
+│   │   ├── build.gradle
+│   │   └── src/
+│   ├── spring-boot-smoke-test-actuator/
+│   │   ├── build.gradle
+│   │   └── src/
+│   ├── spring-boot-smoke-test-amqp/
+│   │   ├── build.gradle
+│   │   └── src/
+│   ├── spring-boot-smoke-test-ant/
+│   │   ├── build.gradle
+│   │   ├── build.xml
+│   │   ├── ivy.xml
+│   │   ├── ivysettings.xml
+│   │   └── src/
+│   ├── spring-boot-smoke-test-artemis/
+│   │   ├── build.gradle
+│   │   └── src/
+│   ├── spring-boot-smoke-test-aspectj/
+│   │   ├── build.gradle
+│   │   └── src/
+│   ├── spring-boot-smoke-test-autoconfigure-classic/
+│   │   ├── build.gradle
+│   │   └── src/
+│   ├── spring-boot-smoke-test-batch-jdbc/
+│   │   ├── build.gradle
+│   │   └── src/
+│   ├── spring-boot-smoke-test-batch/
+│   │   ├── build.gradle
+│   │   └── src/
+│   ├── spring-boot-smoke-test-bootstrap-registry/
+│   │   ├── build.gradle
+│   │   └── src/
+│   ├── spring-boot-smoke-test-cache/
+│   │   ├── build.gradle
+│   │   └── src/
+│   ├── spring-boot-smoke-test-config/
+│   │   ├── build.gradle
+│   │   └── src/
+│   ├── spring-boot-smoke-test-data-cassandra/
+│   │   ├── build.gradle
+│   │   └── src/
+│   ├── spring-boot-smoke-test-data-couchbase/
+│   │   ├── build.gradle
+│   │   └── src/
+│   ├── spring-boot-smoke-test-data-elasticsearch/
+│   │   ├── build.gradle
+│   │   └── src/
+│   ├── spring-boot-smoke-test-data-jdbc/
+│   │   ├── build.gradle
+│   │   └── src/
+│   ├── spring-boot-smoke-test-data-jpa/
+│   │   ├── build.gradle
+│   │   └── src/
+│   ├── spring-boot-smoke-test-data-ldap/
+│   │   ├── build.gradle
+│   │   └── src/
+│   ├── spring-boot-smoke-test-data-mongodb/
+│   │   ├── build.gradle
+│   │   └── src/
+│   ├── spring-boot-smoke-test-data-r2dbc-flyway/
+│   │   ├── build.gradle
+│   │   └── src/
+│   ├── spring-boot-smoke-test-data-r2dbc-liquibase/
+│   │   ├── build.gradle
+│   │   └── src/
+│   ├── spring-boot-smoke-test-data-r2dbc/
+│   │   ├── build.gradle
+│   │   └── src/
+│   ├── spring-boot-smoke-test-data-redis/
+│   │   ├── build.gradle
+│   │   └── src/
+│   ├── spring-boot-smoke-test-data-rest/
+│   │   ├── build.gradle
+│   │   └── src/
+│   ├── spring-boot-smoke-test-devtools/
+│   │   ├── build.gradle
+│   │   └── src/
+│   ├── spring-boot-smoke-test-flyway/
+│   │   ├── build.gradle
+│   │   └── src/
+│   ├── spring-boot-smoke-test-graphql/
+│   │   ├── build.gradle
+│   │   └── src/
+│   ├── spring-boot-smoke-test-hateoas/
+│   │   ├── build.gradle
+│   │   └── src/
+│   ├── spring-boot-smoke-test-hibernate/
+│   │   ├── build.gradle
+│   │   └── src/
+│   ├── spring-boot-smoke-test-integration/
+│   │   ├── build.gradle
+│   │   └── src/
+│   ├── spring-boot-smoke-test-jackson2-mixed/
+│   │   ├── build.gradle
+│   │   └── src/
+│   ├── spring-boot-smoke-test-jackson2-only/
+│   │   ├── build.gradle
+│   │   └── src/
+│   ├── spring-boot-smoke-test-jersey/
+│   │   ├── build.gradle
+│   │   └── src/
+│   ├── spring-boot-smoke-test-jetty-jsp/
+│   │   ├── build.gradle
+│   │   └── src/
+│   ├── spring-boot-smoke-test-jetty-ssl/
+│   │   ├── build.gradle
+│   │   └── src/
+│   ├── spring-boot-smoke-test-jetty/
+│   │   ├── build.gradle
+│   │   └── src/
+│   ├── spring-boot-smoke-test-kafka/
+│   │   ├── build.gradle
+│   │   └── src/
+│   ├── spring-boot-smoke-test-liquibase/
+│   │   ├── build.gradle
+│   │   └── src/
+│   ├── spring-boot-smoke-test-log4j2/
+│   │   ├── build.gradle
+│   │   └── src/
+│   ├── spring-boot-smoke-test-logback/
+│   │   ├── build.gradle
+│   │   └── src/
+│   ├── spring-boot-smoke-test-oauth2-authorization-server/
+│   │   ├── build.gradle
+│   │   └── src/
+│   ├── spring-boot-smoke-test-oauth2-client/
+│   │   ├── build.gradle
+│   │   └── src/
+│   ├── spring-boot-smoke-test-oauth2-resource-server/
+│   │   ├── build.gradle
+│   │   └── src/
+│   ├── spring-boot-smoke-test-parent-context/
+│   │   ├── build.gradle
+│   │   └── src/
+│   ├── spring-boot-smoke-test-profile/
+│   │   ├── application.yml
+│   │   ├── build.gradle
+│   │   └── src/
+│   ├── spring-boot-smoke-test-prometheus/
+│   │   ├── build.gradle
+│   │   └── src/
+│   ├── spring-boot-smoke-test-property-validation/
+│   │   ├── build.gradle
+│   │   └── src/
+│   ├── spring-boot-smoke-test-pulsar/
+│   │   ├── build.gradle
+│   │   └── src/
+│   ├── spring-boot-smoke-test-quartz/
+│   │   ├── build.gradle
+│   │   └── src/
+│   ├── spring-boot-smoke-test-reactive-oauth2-client/
+│   │   ├── build.gradle
+│   │   └── src/
+│   ├── spring-boot-smoke-test-reactive-oauth2-resource-server/
+│   │   ├── build.gradle
+│   │   └── src/
+│   ├── spring-boot-smoke-test-restclient/
+│   │   ├── build.gradle
+│   │   └── src/
+│   ├── spring-boot-smoke-test-rsocket/
+│   │   ├── build.gradle
+│   │   └── src/
+│   ├── spring-boot-smoke-test-saml2-service-provider/
+│   │   ├── build.gradle
+│   │   └── src/
+│   ├── spring-boot-smoke-test-secure-jersey/
+│   │   ├── build.gradle
+│   │   └── src/
+│   ├── spring-boot-smoke-test-secure-webflux/
+│   │   ├── build.gradle
+│   │   └── src/
+│   ├── spring-boot-smoke-test-secure/
+│   │   ├── build.gradle
+│   │   └── src/
+│   ├── spring-boot-smoke-test-servlet/
+│   │   ├── build.gradle
+│   │   └── src/
+│   ├── spring-boot-smoke-test-session-data-redis-webflux/
+│   │   ├── build.gradle
+│   │   └── src/
+│   ├── spring-boot-smoke-test-session-data-redis/
+│   │   ├── build.gradle
+│   │   └── src/
+│   ├── spring-boot-smoke-test-session-jdbc/
+│   │   ├── build.gradle
+│   │   └── src/
+│   ├── spring-boot-smoke-test-simple/
+│   │   ├── build.gradle
+│   │   └── src/
+│   ├── spring-boot-smoke-test-structured-logging-log4j2/
+│   │   ├── build.gradle
+│   │   └── src/
+│   ├── spring-boot-smoke-test-structured-logging/
+│   │   ├── build.gradle
+│   │   └── src/
+│   ├── spring-boot-smoke-test-test-nomockito/
+│   │   ├── build.gradle
+│   │   └── src/
+│   ├── spring-boot-smoke-test-test/
+│   │   ├── build.gradle
+│   │   └── src/
+│   ├── spring-boot-smoke-test-testng/
+│   │   ├── build.gradle
+│   │   └── src/
+│   ├── spring-boot-smoke-test-tomcat-jsp/
+│   │   ├── build.gradle
+│   │   └── src/
+│   ├── spring-boot-smoke-test-tomcat-multi-connectors/
+│   │   ├── build.gradle
+│   │   └── src/
+│   ├── spring-boot-smoke-test-tomcat-ssl/
+│   │   ├── build.gradle
+│   │   └── src/
+│   ├── spring-boot-smoke-test-tomcat/
+│   │   ├── build.gradle
+│   │   └── src/
+│   ├── spring-boot-smoke-test-traditional/
+│   │   ├── build.gradle
+│   │   └── src/
+│   ├── spring-boot-smoke-test-war/
+│   │   ├── build.gradle
+│   │   └── src/
+│   ├── spring-boot-smoke-test-web-application-type/
+│   │   ├── build.gradle
+│   │   └── src/
+│   ├── spring-boot-smoke-test-web-freemarker/
+│   │   ├── build.gradle
+│   │   └── src/
+│   ├── spring-boot-smoke-test-web-groovy-templates/
+│   │   ├── build.gradle
+│   │   └── src/
+│   ├── spring-boot-smoke-test-web-jsp/
+│   │   ├── build.gradle
+│   │   └── src/
+│   ├── spring-boot-smoke-test-web-method-security/
+│   │   ├── build.gradle
+│   │   └── src/
+│   ├── spring-boot-smoke-test-web-mustache/
+│   │   ├── build.gradle
+│   │   └── src/
+│   ├── spring-boot-smoke-test-web-secure-custom/
+│   │   ├── build.gradle
+│   │   └── src/
+│   ├── spring-boot-smoke-test-web-secure-jdbc/
+│   │   ├── build.gradle
+│   │   └── src/
+│   ├── spring-boot-smoke-test-web-secure/
+│   │   ├── build.gradle
+│   │   └── src/
+│   ├── spring-boot-smoke-test-web-static/
+│   │   ├── build.gradle
+│   │   └── src/
+│   ├── spring-boot-smoke-test-web-thymeleaf/
+│   │   ├── build.gradle
+│   │   └── src/
+│   ├── spring-boot-smoke-test-webflux-coroutines/
+│   │   ├── build.gradle
+│   │   └── src/
+│   ├── spring-boot-smoke-test-webflux/
+│   │   ├── build.gradle
+│   │   └── src/
+│   ├── spring-boot-smoke-test-webservices/
+│   │   ├── build.gradle
+│   │   └── src/
+│   ├── spring-boot-smoke-test-websocket-jetty/
+│   │   ├── build.gradle
+│   │   └── src/
+│   ├── spring-boot-smoke-test-websocket-tomcat/
+│   │   ├── build.gradle
+│   │   └── src/
+│   └── spring-boot-smoke-test-xml/
+│       ├── build.gradle
+│       └── src/
+├── starter/
+│   ├── README.adoc
+│   ├── spring-boot-starter-activemq-test/
+│   │   └── build.gradle
+│   ├── spring-boot-starter-activemq/
+│   │   └── build.gradle
+│   ├── spring-boot-starter-actuator-test/
+│   │   └── build.gradle
+│   ├── spring-boot-starter-actuator/
+│   │   └── build.gradle
+│   ├── spring-boot-starter-amqp-test/
+│   │   └── build.gradle
+│   ├── spring-boot-starter-amqp/
+│   │   └── build.gradle
+│   ├── spring-boot-starter-artemis-test/
+│   │   └── build.gradle
+│   ├── spring-boot-starter-artemis/
+│   │   └── build.gradle
+│   ├── spring-boot-starter-aspectj-test/
+│   │   └── build.gradle
+│   ├── spring-boot-starter-aspectj/
+│   │   └── build.gradle
+│   ├── spring-boot-starter-batch-jdbc-test/
+│   │   └── build.gradle
+│   ├── spring-boot-starter-batch-jdbc/
+│   │   └── build.gradle
+│   ├── spring-boot-starter-batch-test/
+│   │   └── build.gradle
+│   ├── spring-boot-starter-batch/
+│   │   └── build.gradle
+│   ├── spring-boot-starter-cache-test/
+│   │   └── build.gradle
+│   ├── spring-boot-starter-cache/
+│   │   └── build.gradle
+│   ├── spring-boot-starter-cassandra-test/
+│   │   └── build.gradle
+│   ├── spring-boot-starter-cassandra/
+│   │   └── build.gradle
+│   ├── spring-boot-starter-classic/
+│   │   └── build.gradle
+│   ├── spring-boot-starter-cloudfoundry-test/
+│   │   └── build.gradle
+│   ├── spring-boot-starter-cloudfoundry/
+│   │   └── build.gradle
+│   ├── spring-boot-starter-couchbase-test/
+│   │   └── build.gradle
+│   ├── spring-boot-starter-couchbase/
+│   │   └── build.gradle
+│   ├── spring-boot-starter-data-cassandra-reactive-test/
+│   │   └── build.gradle
+│   ├── spring-boot-starter-data-cassandra-reactive/
+│   │   └── build.gradle
+│   ├── spring-boot-starter-data-cassandra-test/
+│   │   └── build.gradle
+│   ├── spring-boot-starter-data-cassandra/
+│   │   └── build.gradle
+│   ├── spring-boot-starter-data-couchbase-reactive-test/
+│   │   └── build.gradle
+│   ├── spring-boot-starter-data-couchbase-reactive/
+│   │   └── build.gradle
+│   ├── spring-boot-starter-data-couchbase-test/
+│   │   └── build.gradle
+│   ├── spring-boot-starter-data-couchbase/
+│   │   └── build.gradle
+│   ├── spring-boot-starter-data-elasticsearch-test/
+│   │   └── build.gradle
+│   ├── spring-boot-starter-data-elasticsearch/
+│   │   └── build.gradle
+│   ├── spring-boot-starter-data-jdbc-test/
+│   │   └── build.gradle
+│   ├── spring-boot-starter-data-jdbc/
+│   │   └── build.gradle
+│   ├── spring-boot-starter-data-jpa-test/
+│   │   └── build.gradle
+│   ├── spring-boot-starter-data-jpa/
+│   │   └── build.gradle
+│   ├── spring-boot-starter-data-ldap-test/
+│   │   └── build.gradle
+│   ├── spring-boot-starter-data-ldap/
+│   │   └── build.gradle
+│   ├── spring-boot-starter-data-mongodb-reactive-test/
+│   │   └── build.gradle
+│   ├── spring-boot-starter-data-mongodb-reactive/
+│   │   └── build.gradle
+│   ├── spring-boot-starter-data-mongodb-test/
+│   │   └── build.gradle
+│   ├── spring-boot-starter-data-mongodb/
+│   │   └── build.gradle
+│   ├── spring-boot-starter-data-neo4j-test/
+│   │   └── build.gradle
+│   ├── spring-boot-starter-data-neo4j/
+│   │   └── build.gradle
+│   ├── spring-boot-starter-data-r2dbc-test/
+│   │   └── build.gradle
+│   ├── spring-boot-starter-data-r2dbc/
+│   │   └── build.gradle
+│   ├── spring-boot-starter-data-redis-reactive-test/
+│   │   └── build.gradle
+│   ├── spring-boot-starter-data-redis-reactive/
+│   │   └── build.gradle
+│   ├── spring-boot-starter-data-redis-test/
+│   │   └── build.gradle
+│   ├── spring-boot-starter-data-redis/
+│   │   └── build.gradle
+│   ├── spring-boot-starter-data-rest-test/
+│   │   └── build.gradle
+│   ├── spring-boot-starter-data-rest/
+│   │   └── build.gradle
+│   ├── spring-boot-starter-elasticsearch-test/
+│   │   └── build.gradle
+│   ├── spring-boot-starter-elasticsearch/
+│   │   └── build.gradle
+│   ├── spring-boot-starter-flyway-test/
+│   │   └── build.gradle
+│   ├── spring-boot-starter-flyway/
+│   │   └── build.gradle
+│   ├── spring-boot-starter-freemarker-test/
+│   │   └── build.gradle
+│   ├── spring-boot-starter-freemarker/
+│   │   └── build.gradle
+│   ├── spring-boot-starter-graphql-test/
+│   │   └── build.gradle
+│   ├── spring-boot-starter-graphql/
+│   │   └── build.gradle
+│   ├── spring-boot-starter-groovy-templates-test/
+│   │   └── build.gradle
+│   ├── spring-boot-starter-groovy-templates/
+│   │   └── build.gradle
+│   ├── spring-boot-starter-gson-test/
+│   │   └── build.gradle
+│   ├── spring-boot-starter-gson/
+│   │   └── build.gradle
+│   ├── spring-boot-starter-hateoas-test/
+│   │   └── build.gradle
+│   ├── spring-boot-starter-hateoas/
+│   │   └── build.gradle
+│   ├── spring-boot-starter-hazelcast-test/
+│   │   └── build.gradle
+│   ├── spring-boot-starter-hazelcast/
+│   │   └── build.gradle
+│   ├── spring-boot-starter-integration-test/
+│   │   └── build.gradle
+│   ├── spring-boot-starter-integration/
+│   │   └── build.gradle
+│   ├── spring-boot-starter-jackson-test/
+│   │   └── build.gradle
+│   ├── spring-boot-starter-jackson/
+│   │   └── build.gradle
+│   ├── spring-boot-starter-jdbc-test/
+│   │   └── build.gradle
+│   ├── spring-boot-starter-jdbc/
+│   │   └── build.gradle
+│   ├── spring-boot-starter-jersey-test/
+│   │   └── build.gradle
+│   ├── spring-boot-starter-jersey/
+│   │   └── build.gradle
+│   ├── spring-boot-starter-jetty-runtime/
+│   │   └── build.gradle
+│   ├── spring-boot-starter-jetty/
+│   │   └── build.gradle
+│   ├── spring-boot-starter-jms-test/
+│   │   └── build.gradle
+│   ├── spring-boot-starter-jms/
+│   │   └── build.gradle
+│   ├── spring-boot-starter-jooq-test/
+│   │   └── build.gradle
+│   ├── spring-boot-starter-jooq/
+│   │   └── build.gradle
+│   ├── spring-boot-starter-json/
+│   │   └── build.gradle
+│   ├── spring-boot-starter-jsonb-test/
+│   │   └── build.gradle
+│   ├── spring-boot-starter-jsonb/
+│   │   └── build.gradle
+│   ├── spring-boot-starter-kafka-test/
+│   │   └── build.gradle
+│   ├── spring-boot-starter-kafka/
+│   │   └── build.gradle
+│   ├── spring-boot-starter-kotlinx-serialization-json-test/
+│   │   └── build.gradle
+│   ├── spring-boot-starter-kotlinx-serialization-json/
+│   │   └── build.gradle
+│   ├── spring-boot-starter-ldap-test/
+│   │   └── build.gradle
+│   ├── spring-boot-starter-ldap/
+│   │   └── build.gradle
+│   ├── spring-boot-starter-liquibase-test/
+│   │   └── build.gradle
+│   ├── spring-boot-starter-liquibase/
+│   │   └── build.gradle
+│   ├── spring-boot-starter-log4j2/
+│   │   └── build.gradle
+│   ├── spring-boot-starter-logback/
+│   │   └── build.gradle
+│   ├── spring-boot-starter-logging/
+│   │   └── build.gradle
+│   ├── spring-boot-starter-mail-test/
+│   │   └── build.gradle
+│   ├── spring-boot-starter-mail/
+│   │   └── build.gradle
+│   ├── spring-boot-starter-micrometer-metrics-test/
+│   │   └── build.gradle
+│   ├── spring-boot-starter-micrometer-metrics/
+│   │   └── build.gradle
+│   ├── spring-boot-starter-mongodb-test/
+│   │   └── build.gradle
+│   ├── spring-boot-starter-mongodb/
+│   │   └── build.gradle
+│   ├── spring-boot-starter-mustache-test/
+│   │   └── build.gradle
+│   ├── spring-boot-starter-mustache/
+│   │   └── build.gradle
+│   ├── spring-boot-starter-neo4j-test/
+│   │   └── build.gradle
+│   ├── spring-boot-starter-neo4j/
+│   │   └── build.gradle
+│   ├── spring-boot-starter-oauth2-authorization-server/
+│   │   └── build.gradle
+│   ├── spring-boot-starter-oauth2-client/
+│   │   └── build.gradle
+│   ├── spring-boot-starter-oauth2-resource-server/
+│   │   └── build.gradle
+│   ├── spring-boot-starter-opentelemetry-test/
+│   │   └── build.gradle
+│   ├── spring-boot-starter-opentelemetry/
+│   │   └── build.gradle
+│   ├── spring-boot-starter-parent/
+│   │   └── build.gradle
+│   ├── spring-boot-starter-pulsar-test/
+│   │   └── build.gradle
+│   ├── spring-boot-starter-pulsar/
+│   │   └── build.gradle
+│   ├── spring-boot-starter-quartz-test/
+│   │   └── build.gradle
+│   ├── spring-boot-starter-quartz/
+│   │   └── build.gradle
+│   ├── spring-boot-starter-r2dbc-test/
+│   │   └── build.gradle
+│   ├── spring-boot-starter-r2dbc/
+│   │   └── build.gradle
+│   ├── spring-boot-starter-reactor-netty/
+│   │   └── build.gradle
+│   ├── spring-boot-starter-restclient-test/
+│   │   └── build.gradle
+│   ├── spring-boot-starter-restclient/
+│   │   └── build.gradle
+│   ├── spring-boot-starter-rsocket-test/
+│   │   └── build.gradle
+│   ├── spring-boot-starter-rsocket/
+│   │   └── build.gradle
+│   ├── spring-boot-starter-security-oauth2-authorization-server-test/
+│   │   └── build.gradle
+│   ├── spring-boot-starter-security-oauth2-authorization-server/
+│   │   └── build.gradle
+│   ├── spring-boot-starter-security-oauth2-client-test/
+│   │   └── build.gradle
+│   ├── spring-boot-starter-security-oauth2-client/
+│   │   └── build.gradle
+│   ├── spring-boot-starter-security-oauth2-resource-server-test/
+│   │   └── build.gradle
+│   ├── spring-boot-starter-security-oauth2-resource-server/
+│   │   └── build.gradle
+│   ├── spring-boot-starter-security-saml2-test/
+│   │   └── build.gradle
+│   ├── spring-boot-starter-security-saml2/
+│   │   └── build.gradle
+│   ├── spring-boot-starter-security-test/
+│   │   └── build.gradle
+│   ├── spring-boot-starter-security/
+│   │   └── build.gradle
+│   ├── spring-boot-starter-sendgrid-test/
+│   │   └── build.gradle
+│   ├── spring-boot-starter-sendgrid/
+│   │   └── build.gradle
+│   ├── spring-boot-starter-session-data-redis-test/
+│   │   └── build.gradle
+│   ├── spring-boot-starter-session-data-redis/
+│   │   └── build.gradle
+│   ├── spring-boot-starter-session-jdbc-test/
+│   │   └── build.gradle
+│   ├── spring-boot-starter-session-jdbc/
+│   │   └── build.gradle
+│   ├── spring-boot-starter-test-classic/
+│   │   └── build.gradle
+│   ├── spring-boot-starter-test/
+│   │   └── build.gradle
+│   ├── spring-boot-starter-thymeleaf-test/
+│   │   └── build.gradle
+│   ├── spring-boot-starter-thymeleaf/
+│   │   └── build.gradle
+│   ├── spring-boot-starter-tomcat-runtime/
+│   │   └── build.gradle
+│   ├── spring-boot-starter-tomcat/
+│   │   └── build.gradle
+│   ├── spring-boot-starter-validation-test/
+│   │   └── build.gradle
+│   ├── spring-boot-starter-validation/
+│   │   └── build.gradle
+│   ├── spring-boot-starter-web-server-test/
+│   │   └── build.gradle
+│   ├── spring-boot-starter-web-services/
+│   │   └── build.gradle
+│   ├── spring-boot-starter-web/
+│   │   └── build.gradle
+│   ├── spring-boot-starter-webclient-test/
+│   │   └── build.gradle
+│   ├── spring-boot-starter-webclient/
+│   │   └── build.gradle
+│   ├── spring-boot-starter-webflux-test/
+│   │   └── build.gradle
+│   ├── spring-boot-starter-webflux/
+│   │   └── build.gradle
+│   ├── spring-boot-starter-webmvc-test/
+│   │   └── build.gradle
+│   ├── spring-boot-starter-webmvc/
+│   │   └── build.gradle
+│   ├── spring-boot-starter-webservices-test/
+│   │   └── build.gradle
+│   ├── spring-boot-starter-webservices/
+│   │   └── build.gradle
+│   ├── spring-boot-starter-websocket-test/
+│   │   └── build.gradle
+│   ├── spring-boot-starter-websocket/
+│   │   └── build.gradle
+│   ├── spring-boot-starter-zipkin-test/
+│   │   └── build.gradle
+│   ├── spring-boot-starter-zipkin/
+│   │   └── build.gradle
+│   └── spring-boot-starter/
+│       └── build.gradle
+├── system-test/
+│   ├── spring-boot-deployment-system-tests/
+│   │   ├── build.gradle
+│   │   └── src/
+│   └── spring-boot-image-system-tests/
+│       ├── build.gradle
+│       └── src/
+└── test-support/
+    ├── spring-boot-docker-test-support/
+    │   ├── build.gradle
+    │   └── src/
+    ├── spring-boot-gradle-test-support/
+    │   ├── build.gradle
+    │   └── src/
+    └── spring-boot-test-support/
+        ├── build.gradle
+        └── src/

@@ -1,0 +1,401 @@
+=====================================
+Repository Analysis: rayon
+Type: Library / Package / SDK
+=====================================
+
+--- METADATA ---
+Name: rayon
+Description: Rayon: A data parallelism library for Rust
+Language: Rust
+Topics: N/A
+Stars: 12819
+License: Apache License 2.0
+
+--- README ---
+# Rayon
+
+[![Rayon crate](https://img.shields.io/crates/v/rayon.svg)](https://crates.io/crates/rayon)
+[![Rayon documentation](https://docs.rs/rayon/badge.svg)](https://docs.rs/rayon)
+![minimum rustc 1.80](https://img.shields.io/badge/rustc-1.80+-red.svg)
+[![build status](https://github.com/rayon-rs/rayon/workflows/main/badge.svg)](https://github.com/rayon-rs/rayon/actions)
+
+Rayon is a data-parallelism library for Rust. It is extremely
+lightweight and makes it easy to convert a sequential computation into
+a parallel one. It also guarantees data-race freedom. (You may also
+enjoy [this blog post][blog] about Rayon, which gives more background
+and details about how it works, or [this video][video], from the Rust
+Belt Rust conference.) Rayon is
+[available on crates.io](https://crates.io/crates/rayon), and
+[API documentation is available on docs.rs](https://docs.rs/rayon).
+
+[blog]: https://smallcultfollowing.com/babysteps/blog/2015/12/18/rayon-data-parallelism-in-rust/
+[video]: https://www.youtube.com/watch?v=gof_OEv71Aw
+
+## Parallel iterators and more
+
+Rayon makes it drop-dead simple to convert sequential iterators into
+parallel ones: usually, you just change your `foo.iter()` call into
+`foo.par_iter()`, and Rayon does the rest:
+
+```rust
+use rayon::prelude::*;
+fn sum_of_squares(input: &[i32]) -> i32 {
+    input.par_iter() // <-- just change that!
+         .map(|&i| i * i)
+         .sum()
+}
+```
+
+[Parallel iterators] take care of deciding how to divide your data
+into tasks; it will dynamically adapt for maximum performance. If you
+need more flexibility than that, Rayon also offers the [join] and
+[scope] functions, which let you create parallel tasks on your own.
+For even more control, you can create [custom thread pools] rather than
+using Rayon's default, global thread pool.
+
+[Parallel iterators]: https://docs.rs/rayon/*/rayon/iter/index.html
+[join]: https://docs.rs/rayon/*/rayon/fn.join.html
+[scope]: https://docs.rs/rayon/*/rayon/fn.scope.html
+[custom thread pools]: https://docs.rs/rayon/*/rayon/struct.ThreadPool.html
+
+## No data races
+
+You may have heard that parallel execution can produce all kinds of
+crazy bugs. Well, rest easy. Rayon's APIs all guarantee **data-race
+freedom**, which generally rules out most parallel bugs (though not
+all). In other words, **if your code compiles**, it typically does the
+same thing it did before.
+
+For the most, parallel iterators in particular are guaranteed to
+produce the same results as their sequential counterparts. One caveat:
+If your iterator has side effects (for example, sending methods to
+other threads through a [Rust channel] or writing to disk), those side
+effects may occur in a different order. Note also that, in some cases,
+parallel iterators offer alternative versions of the sequential
+iterator methods that can have higher performance.
+
+[Rust channel]: https://doc.rust-lang.org/std/sync/mpsc/fn.channel.html
+
+## Using Rayon
+
+[Rayon is available on crates.io](https://crates.io/crates/rayon). The
+recommended way to use it is to add a line into your Cargo.toml such
+as:
+
+```toml
+[dependencies]
+rayon = "1.11"
+```
+
+To use the parallel iterator APIs, a number of traits have to be in
+scope. The easiest way to bring those things into scope is to use the
+[Rayon prelude](https://docs.rs/rayon/*/rayon/prelude/index.html). In
+each module where you would like to use the parallel iterator APIs,
+just add:
+
+```rust
+use rayon::prelude::*;
+```
+
+Rayon currently requires `rustc 1.80.0` or greater.
+
+### Usage with WebAssembly
+
+By default, when building to WebAssembly, Rayon will treat it as any
+other platform without multithreading support and will fall back to
+sequential iteration. This allows existing code to compile and run
+successfully with no changes necessary, but it will run slower as it
+will only use a single CPU core.
+
+You can build Rayon-based projects with proper multithreading support
+for the Web, but you'll need an adapter and some project configuration
+to account for differences between WebAssembly threads and threads on
+the other platforms.
+
+Check out the
+[wasm-bindgen-rayon](https://github.com/RReverser/wasm-bindgen-rayon)
+docs for more details.
+
+## Contribution
+
+Rayon is an open source project! If you'd like to contribute to Rayon,
+check out
+[the list of "help wanted" issues](https://github.com/rayon-rs/rayon/issues?q=is%3Aissue+is%3Aopen+label%3A%22help+wanted%22).
+These are all (or should be) issues that are suitable for getting
+started, and they generally include a detailed set of instructions for
+what to do. Please ask questions if anything is unclear! Also, check
+out the
+[Guide to Development](https://github.com/rayon-rs/rayon/wiki/Guide-to-Development)
+page on the wiki. Note that all code submitted in PRs to Rayon is
+assumed to
+[be licensed under Rayon's dual MIT/Apache 2.0 licensing](https://github.com/rayon-rs/rayon/blob/main/README.md#license).
+
+## Quick demo
+
+To see Rayon in action, check out the `rayon-demo` directory, which
+includes a number of demos of code u
+... [TRUNCATED]
+
+--- PACKAGE MANIFEST(S) ---
+
+[Cargo.toml]
+[package]
+name = "rayon"
+version = "1.11.0"
+description = "Simple work-stealing parallelism for Rust"
+documentation = "https://docs.rs/rayon/"
+exclude = ["/ci/*", "/.github/*"]
+
+categories.workspace = true
+edition.workspace = true
+keywords.workspace = true
+license.workspace = true
+readme.workspace = true
+repository.workspace = true
+rust-version.workspace = true
+
+[features]
+# This feature switches to a spin-lock implementation on the browser's
+# main thread to avoid the forbidden `atomics.wait`.
+#
+# Only useful on the `wasm32-unknown-unknown` target.
+web_spin_lock = ["dep:wasm_sync", "rayon-core/web_spin_lock"]
+
+[dependencies]
+# These are both public dependencies!
+rayon-core = { version = "1.13.0", path = "rayon-core" }
+either.workspace = true
+
+wasm_sync = { workspace = true, optional = true }
+
+[dev-dependencies]
+rand.workspace = true
+rand_xorshift.workspace = true
+
+
+[workspace]
+members = ["rayon-demo", "rayon-core"]
+exclude = ["ci"]
+
+[workspace.package]
+readme = "README.md"
+rust-version = "1.80"
+edition = "2021"
+license = "MIT OR Apache-2.0"
+repository = "https://github.com/rayon-rs/rayon"
+keywords = ["parallel", "thread", "concurrency", "join", "performance"]
+categories = ["concurrency"]
+
+# Some dependencies may not be their latest version, in order to support older rustc.
+[workspace.dependencies]
+crossbeam-deque = "0.8.1"
+crossbeam-utils = "0.8.0"
+either = { version = "1", default-features = false }
+libc = "0.2"
+rand = "0.9"
+rand_xorshift = "0.4"
+scoped-tls = "1.0"
+wasm_sync = "0.1.0"
+
+
+--- DIRECTORY STRUCTURE (depth 2) ---
+├── .github/
+│   ├── dependabot.yml
+│   └── workflows/
+│       ├── ci.yaml
+│       ├── main.yaml
+│       └── pr.yaml
+├── .gitignore
+├── Cargo.toml
+├── FAQ.md
+├── LICENSE-APACHE
+├── LICENSE-MIT
+├── README.md
+├── RELEASES.md
+├── ci/
+│   ├── alt-core/
+│   │   ├── Cargo.toml
+│   │   ├── build.rs
+│   │   └── src/
+│   ├── compat-Cargo.lock
+│   ├── highlander.sh
+│   └── highlander/
+│       ├── Cargo.toml
+│       └── src/
+├── rayon-core/
+│   ├── Cargo.toml
+│   ├── LICENSE-APACHE
+│   ├── LICENSE-MIT
+│   ├── README.md
+│   ├── build.rs
+│   ├── src/
+│   │   ├── broadcast/
+│   │   ├── compile_fail/
+│   │   ├── job.rs
+│   │   ├── join/
+│   │   ├── latch.rs
+│   │   ├── lib.rs
+│   │   ├── private.rs
+│   │   ├── registry.rs
+│   │   ├── scope/
+│   │   ├── sleep/
+│   │   ├── spawn/
+│   │   ├── test.rs
+│   │   ├── thread_pool/
+│   │   └── unwind.rs
+│   └── tests/
+│       ├── double_init_fail.rs
+│       ├── init_zero_threads.rs
+│       ├── scope_join.rs
+│       ├── scoped_threadpool.rs
+│       ├── simple_panic.rs
+│       ├── stack_overflow_crash.rs
+│       └── use_current_thread.rs
+├── rayon-demo/
+│   ├── Cargo.toml
+│   ├── data/
+│   │   ├── README.md
+│   │   └── tsp/
+│   ├── examples/
+│   │   ├── README.md
+│   │   └── cpu_monitor.rs
+│   └── src/
+│       ├── cpu_time/
+│       ├── factorial/
+│       ├── fibonacci/
+│       ├── find/
+│       ├── join_microbench.rs
+│       ├── lib.rs
+│       ├── life/
+│       ├── main.rs
+│       ├── map_collect.rs
+│       ├── matmul/
+│       ├── mergesort/
+│       ├── nbody/
+│       ├── noop/
+│       ├── pythagoras/
+│       ├── quicksort/
+│       ├── sieve/
+│       ├── sort.rs
+│       ├── str_split.rs
+│       ├── tree.rs
+│       ├── tsp/
+│       └── vec_collect.rs
+├── src/
+│   ├── array.rs
+│   ├── collections/
+│   │   ├── binary_heap.rs
+│   │   ├── btree_map.rs
+│   │   ├── btree_set.rs
+│   │   ├── hash_map.rs
+│   │   ├── hash_set.rs
+│   │   ├── linked_list.rs
+│   │   ├── mod.rs
+│   │   └── vec_deque.rs
+│   ├── compile_fail/
+│   │   ├── cannot_collect_filtermap_data.rs
+│   │   ├── cannot_zip_filtered_data.rs
+│   │   ├── cell_par_iter.rs
+│   │   ├── mod.rs
+│   │   ├── must_use.rs
+│   │   ├── no_send_par_iter.rs
+│   │   └── rc_par_iter.rs
+│   ├── delegate.rs
+│   ├── iter/
+│   │   ├── blocks.rs
+│   │   ├── chain.rs
+│   │   ├── chunks.rs
+│   │   ├── cloned.rs
+│   │   ├── collect/
+│   │   ├── copied.rs
+│   │   ├── empty.rs
+│   │   ├── enumerate.rs
+│   │   ├── extend.rs
+│   │   ├── filter.rs
+│   │   ├── filter_map.rs
+│   │   ├── find.rs
+│   │   ├── find_first_last/
+│   │   ├── flat_map.rs
+│   │   ├── flat_map_iter.rs
+│   │   ├── flatten.rs
+│   │   ├── flatten_iter.rs
+│   │   ├── fold.rs
+│   │   ├── fold_chunks.rs
+│   │   ├── fold_chunks_with.rs
+│   │   ├── for_each.rs
+│   │   ├── from_par_iter.rs
+│   │   ├── inspect.rs
+│   │   ├── interleave.rs
+│   │   ├── interleave_shortest.rs
+│   │   ├── intersperse.rs
+│   │   ├── len.rs
+│   │   ├── map.rs
+│   │   ├── map_with.rs
+│   │   ├── mod.rs
+│   │   ├── multizip.rs
+│   │   ├── noop.rs
+│   │   ├── once.rs
+│   │   ├── panic_fuse.rs
+│   │   ├── par_bridge.rs
+│   │   ├── plumbing/
+│   │   ├── positions.rs
+│   │   ├── product.rs
+│   │   ├── reduce.rs
+│   │   ├── repeat.rs
+│   │   ├── rev.rs
+│   │   ├── skip.rs
+│   │   ├── skip_any.rs
+│   │   ├── skip_any_while.rs
+│   │   ├── splitter.rs
+│   │   ├── step_by.rs
+│   │   ├── sum.rs
+│   │   ├── take.rs
+│   │   ├── take_any.rs
+│   │   ├── take_any_while.rs
+│   │   ├── test.rs
+│   │   ├── try_fold.rs
+│   │   ├── try_reduce.rs
+│   │   ├── try_reduce_with.rs
+│   │   ├── unzip.rs
+│   │   ├── update.rs
+│   │   ├── walk_tree.rs
+│   │   ├── while_some.rs
+│   │   ├── zip.rs
+│   │   └── zip_eq.rs
+│   ├── lib.rs
+│   ├── math.rs
+│   ├── option.rs
+│   ├── par_either.rs
+│   ├── prelude.rs
+│   ├── private.rs
+│   ├── range.rs
+│   ├── range_inclusive.rs
+│   ├── result.rs
+│   ├── slice/
+│   │   ├── chunk_by.rs
+│   │   ├── chunks.rs
+│   │   ├── mod.rs
+│   │   ├── rchunks.rs
+│   │   ├── sort.rs
+│   │   └── test.rs
+│   ├── split_producer.rs
+│   ├── str.rs
+│   ├── string.rs
+│   └── vec.rs
+└── tests/
+    ├── chars.rs
+    ├── clones.rs
+    ├── collect.rs
+    ├── cross-pool.rs
+    ├── debug.rs
+    ├── drain_vec.rs
+    ├── intersperse.rs
+    ├── issue671-unzip.rs
+    ├── issue671.rs
+    ├── iter_panic.rs
+    ├── named-threads.rs
+    ├── octillion.rs
+    ├── par_bridge_recursion.rs
+    ├── producer_split_at.rs
+    ├── sort-panic-safe.rs
+    └── str.rs

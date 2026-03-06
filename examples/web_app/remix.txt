@@ -1,0 +1,955 @@
+=====================================
+Repository Analysis: remix
+Type: Web Application
+=====================================
+
+--- METADATA ---
+Name: remix
+Description: Build Better Websites. Create modern, resilient user experiences with web fundamentals.
+Language: TypeScript
+Topics: N/A
+Stars: 32473
+License: MIT License
+
+--- README ---
+# Welcome to Remix 3!
+
+This is the source repository for Remix 3. It is under active development.
+
+We published [a blog post](https://remix.run/blog/wake-up-remix) earlier this year with some of our thoughts around Remix 3. It explains our philosophy for web development and why we think the time is right for something new. When working on Remix 3, we follow these principles:
+
+1. **Model-First Development**. AI fundamentally shifts the human-computer interaction model for both user experience and developer workflows. Optimize the source code, documentation, tooling, and abstractions for LLMs. Additionally, develop abstractions for applications to use models in the product itself, not just as a tool to develop it.
+2. **Build on Web APIs**. Sharing abstractions across the stack greatly reduces the amount of context switching, both for humans and machines. Build on the foundation of Web APIs and JavaScript because it is the only full stack ecosystem.
+3. **Religiously Runtime**. Designing for bundlers/compilers/typegen (and any pre-runtime static analysis) leads to poor API design that eventually pollutes the entire system. All packages must be designed with no expectation of static analysis and all tests must run without bundling. Because browsers are involved, `--import` loaders for simple transformations like TypeScript and JSX are permissible.
+4. **Avoid Dependencies**. Dependencies lock you into somebody else's roadmap. Choose them wisely, wrap them completely, and expect to replace most of them with our own package eventually. The goal is zero.
+5. **Demand Composition**. Abstractions should be single-purpose and replaceable. A composable abstraction is easy to add and remove from an existing program. Every package must be useful and documented independent of any other context. New features should first be attempted as a new package. If impossible, attempt to break up the existing package to make it more composable. However, tightly coupled modules that almost always change together in both directions should be moved to the same package.
+6. **Distribute Cohesively**. Extremely composable ecosystems are difficult to learn and use. Remix will be distributed as a single `remix` package for both distribution and documentation.
+
+## Goals
+
+Although we recommend the `remix` package for ease of use, all packages that make up Remix should be usable standalone as well. This forces us to consider package boundaries and helps us define public interfaces that are portable and interoperable.
+
+Each package in Remix:
+
+- Has a [single responsibility](https://en.wikipedia.org/wiki/Single-responsibility_principle)
+- Prioritizes web standards to ensure maximum interoperability and portability across JavaScript runtimes
+- Augments standards unobtrusively where they are missing or incomplete, minimizing incompatibility risks
+
+This means Remix code is **portable by default**. Remix packages work seamlessly across [Node.js](https://nodejs.org/), [Bun](https://bun.sh/), [Deno](https://deno.com/), [Cloudflare Workers](https://workers.cloudflare.com/), and other environments.
+
+We leverage server-side web APIs when they are available:
+
+- [The Web Streams API](https://developer.mozilla.org/en-US/docs/Web/API/Streams_API) instead of `node:stream`
+- [`Uint8Array`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Uint8Array) instead of Node.js `Buffer`s
+- [The Web Crypto API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Crypto_API) instead of `node:crypto`
+- [`Blob`](https://developer.mozilla.org/en-US/docs/Web/API/Blob) and [`File`](https://developer.mozilla.org/en-US/docs/Web/API/File) instead of some bespoke runtime-specific API
+
+The benefit is code that's not just reusable, but **future-proof**.
+
+## Packages
+
+We currently publish the following packages:
+
+- [async-context-middleware](packages/async-context-middleware): Middleware for storing request context in AsyncLocalStorage
+- [component](packages/component): UI components for Remix
+- [compression-middleware](packages/compression-middleware): Middleware for compressing HTTP responses
+- [cookie](packages/cookie): A toolkit for working with cookies in JavaScript
+- [data-schema](packages/data-schema): Tiny, standards-aligned schema validation
+- [data-table](packages/data-table): A typed, relational query toolkit for Remix
+- [data-table-mysql](packages/data-table-mysql): MySQL adapter for remix/data-table
+- [data-table-postgres](packages/data-table-postgres): PostgreSQL adapter for remix/data-table
+- [data-table-sqlite](packages/data-table-sqlite): SQLite adapter for remix/data-table
+- [fetch-proxy](packages/fetch-proxy): An HTTP proxy for the web Fetch API
+- [fetch-router](packages/fetch-router): A minimal, composable router for the web Fetch API
+- [file-storage](packages/file-storage): Key/value storage for JavaScript File objects
+- [file-storage-s3](packages/file-storage-s3): S3 backend for remix/file-storage
+- [form-data-middleware](packages/f
+... [TRUNCATED]
+
+--- PACKAGE MANIFEST(S) ---
+
+[package.json]
+{
+  "name": "remix-the-web",
+  "type": "module",
+  "private": true,
+  "packageManager": "pnpm@10.26.0",
+  "dependencies": {
+    "@typescript/native-preview": "catalog:",
+    "eslint": "^9.33.0",
+    "eslint-plugin-import": "^2.32.0",
+    "eslint-plugin-jsdoc": "^61.5.0",
+    "eslint-plugin-prefer-let": "^4.0.0",
+    "prettier": "^3.3.3",
+    "tsx": "catalog:",
+    "typescript": "catalog:",
+    "typescript-eslint": "^8.40.0"
+  },
+  "engines": {
+    "node": ">=24.3.0"
+  },
+  "scripts": {
+    "postinstall": "test -n \"$CI\" || pnpm --filter @remix-run/component exec playwright install",
+    "build": "pnpm -r build",
+    "changes:preview": "node ./scripts/changes-preview.ts",
+    "changes:validate": "node ./scripts/changes-validate.ts",
+    "changes:version": "node ./scripts/changes-version.ts",
+    "clean": "git clean -fdX -e '!/.env' .",
+    "codegen": "pnpm -r run codegen",
+    "docs": "cd docs && pnpm run docs",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "generate-remix": "node scripts/generate-remix.ts",
+    "lint": "eslint . --max-warnings=0",
+    "lint:fix": "eslint . --fix",
+    "pr-preview": "node scripts/pr-preview.ts",
+    "setup-installable-branch": "node scripts/setup-installable-branch.ts",
+    "test": "pnpm --parallel run test",
+    "typecheck": "pnpm -r typecheck"
+  },
+  "workspaces": [
+    "packages/*"
+  ],
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "better-sqlite3",
+      "@remix-run/dom",
+      "@remix-run/events",
+      "@remix-run/style",
+      "@swc/core",
+      "esbuild",
+      "sharp",
+      "workerd"
+    ]
+  }
+}
+
+
+--- WEB FRAMEWORK CONFIG ---
+
+[.env.example]
+# Copy this file to .env and fill in the values
+
+# This is needed to publish GitHub Releases
+GITHUB_TOKEN=your_github_token
+
+
+--- ENVIRONMENT VARIABLES (.env.example) ---
+# Copy this file to .env and fill in the values
+
+# This is needed to publish GitHub Releases
+GITHUB_TOKEN=your_github_token
+
+
+--- ROUTE / PAGE DEFINITIONS ---
+
+[demos/bookstore/app/router.ts]
+import { createRouter } from 'remix/fetch-router'
+import { asyncContext } from 'remix/async-context-middleware'
+import { compression } from 'remix/compression-middleware'
+import { formData } from 'remix/form-data-middleware'
+import { logger } from 'remix/logger-middleware'
+import { methodOverride } from 'remix/method-override-middleware'
+import { session } from 'remix/session-middleware'
+import { staticFiles } from 'remix/static-middleware'
+
+import { routes } from './routes.ts'
+import { initializeBookstoreDatabase } from './data/setup.ts'
+import { sessionCookie, sessionStorage } from './utils/session.ts'
+import { uploadHandler } from './utils/uploads.ts'
+
+import adminController from './admin.tsx'
+import accountController from './account.tsx'
+import authController from './auth.tsx'
+import booksController from './books.tsx'
+import cartController from './cart.tsx'
+import { toggleCart } from './cart.tsx'
+import checkoutController from './checkout.tsx'
+import * as marketingController from './marketing.tsx'
+import { uploadsAction } from './uploads.tsx'
+import fragmentsController from './fragments.tsx'
+import { loadDatabase } from './middleware/database.ts'
+
+let middleware = []
+
+if (process.env.NODE_ENV === 'development') {
+  middleware.push(logger())
+}
+
+middleware.push(compression())
+middleware.push(
+  staticFiles('./public', {
+    cacheControl: 'no-store, must-revalidate',
+    etag: false,
+    lastModified: false,
+  }),
+)
+middleware.push(formData({ uploadHandler }))
+middleware.push(methodOverride())
+middleware.push(session(sessionCookie, sessionStorage))
+middleware.push(asyncContext())
+middleware.push(loadDatabase())
+
+await initializeBookstoreDatabase()
+
+export let router = createRouter({ middleware })
+
+router.get(routes.uploads, uploadsAction)
+router.map(routes.fragments, fragmentsController)
+router.post(routes.api.cartToggle, toggleCart)
+
+router.map(routes.home, marketingController.home)
+router.map(routes.about, marketingController.about)
+router.map(routes.contact, marketingController.contact)
+router.map(routes.search, marketingController.search)
+
+router.map(routes.books, booksController)
+router.map(routes.auth, authController)
+router.map(routes.cart, cartController)
+router.map(routes.account, accountController)
+router.map(routes.checkout, checkoutController)
+router.map(routes.admin, adminController)
+
+
+[demos/bookstore/app/routes.ts]
+import { del, get, post, put, route, form, resources } from 'remix/fetch-router/routes'
+
+export let routes = route({
+  assets: '/assets/*path',
+  uploads: '/uploads/*key',
+  fragments: route('fragments', {
+    cartButton: get('/cart-button/:bookId'),
+    cartItems: get('/cart-items'),
+  }),
+  api: route('api', {
+    cartToggle: post('/cart/toggle'),
+  }),
+
+  // Simple static routes
+  home: '/',
+  about: '/about',
+  contact: form('contact'),
+  search: '/search',
+
+  // Public book routes
+  books: {
+    index: '/books',
+    genre: '/books/genre/:genre',
+    show: '/books/:slug',
+  },
+
+  // Auth routes
+  auth: {
+    login: form('login'),
+    register: form('register'),
+    logout: post('logout'),
+    forgotPassword: form('forgot-password'),
+    resetPassword: form('reset-password/:token'),
+  },
+
+  // Account section (protected, nested routes)
+  account: route('account', {
+    index: '/',
+    settings: form('settings', {
+      formMethod: 'PUT',
+      names: {
+        action: 'update',
+      },
+    }),
+
+    // Orders as nested resources with custom param
+    orders: resources('orders', {
+      only: ['index', 'show'], // Read-only, no create/edit/delete
+      param: 'orderId',
+    }),
+  }),
+
+  // Cart and shopping
+  cart: route('cart', {
+    index: get('/'),
+
+    // API-style endpoints under /cart/api
+    api: {
+      add: post('/api/add'),
+      update: put('/api/update'),
+      remove: del('/api/remove'),
+    },
+  }),
+
+  // Checkout flow
+  checkout: route('checkout', {
+    index: get('/'),
+    action: post('/'),
+    confirmation: get('/:orderId/confirmation'),
+  }),
+
+  // Admin section (protected, showcases full CRUD on multiple resources)
+  admin: route('admin', {
+    index: get('/'),
+
+    // Full CRUD on books
+    books: resources('books', { param: 'bookId' }),
+
+    // Partial CRUD on users (no create, users self-register)
+    users: resources('users', {
+      only: ['index', 'show', 'edit', 'update', 'destroy'],
+      param: 'userId',
+    }),
+
+    // Orders view-only
+    orders: resources('orders', {
+      only: ['index', 'show'],
+      param: 'orderId',
+    }),
+  }),
+})
+
+
+[demos/frames/app/router.tsx]
+import { createRouter } from 'remix/fetch-router'
+import { logger } from 'remix/logger-middleware'
+import { staticFiles } from 'remix/static-middleware'
+import { renderToStream } from 'remix/component/server'
+import { Frame } from 'remix/component'
+
+import { routes } from './routes.ts'
+import { Counter } from './assets/counter.tsx'
+import { ReloadTime } from './assets/reload-time.tsx'
+import { ReloadScope } from './assets/reload-scope.tsx'
+import { ClientFrameExample } from './assets/client-frame-example.tsx'
+import { ClientMountedPageExample } from './assets/client-mounted-page-example.tsx'
+import { StateSearchPage } from './assets/state-search-page.tsx'
+import { searchUnitedStates } from './us-states.ts'
+
+let middleware = []
+
+if (process.env.NODE_ENV === 'development') {
+  middleware.push(logger())
+}
+
+middleware.push(
+  staticFiles('./public', {
+    cacheControl: 'no-store',
+    etag: false,
+    lastModified: false,
+    index: false,
+  }),
+)
+
+export let router = createRouter({ middleware })
+
+function App() {
+  return () => (
+    <html>
+      <head>
+        <meta charSet="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <title>Frames + fetch-router demo</title>
+        <script async type="module" src="/assets/entry.js" />
+      </head>
+      <body
+        style={{
+          fontFamily:
+            'ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, Apple Color Emoji, Segoe UI Emoji',
+          margin: 0,
+          padding: 24,
+          background: '#0b1020',
+          color: '#e9eefc',
+        }}
+      >
+        <div style={{ maxWidth: 980, margin: '0 auto' }}>
+          <h1 style={{ margin: 0, letterSpacing: '-0.02em' }}>Full-stack Frames</h1>
+          <p style={{ marginTop: 8, color: '#b9c6ff' }}>
+            Server routes are handled by <code>remix/fetch-router</code>; UI is streamed with{' '}
+            <code>remix/component</code> Frames and client entries.
+          </p>
+          <p style={{ marginTop: 0, marginBottom: 16 }}>
+            <a href="/time" style={{ color: '#b9c6ff', textDecoration: 'underline' }}>
+              Server time demo
+            </a>
+            {' · '}
+            <a href="/reload-scope" style={{ color: '#b9c6ff', textDecoration: 'underline' }}>
+              Frame vs top reload demo
+            </a>
+            {' · '}
+            <a href="/state-search" style={{ color: '#b9c6ff', textDecoration: 'underline' }}>
+              Dynamic src search demo
+            </a>
+            {' · '}
+            <a href="/client-mounted" style={{ color: '#b9c6ff', textDecoration: 'underline' }}>
+              Client-mounted nested frame demo
+            </a>
+          </p>
+
+          <div
+            style={{
+              display: 'grid',
+              gridTemplateColumns: '320px 1fr',
+              gap: 16,
+              alignItems: 'start',
+              marginTop: 24,
+            }}
+          >
+            <aside
+              style={{
+           
+... [TRUNCATED]
+
+[demos/frames/app/routes.ts]
+import { get, route } from 'remix/fetch-router/routes'
+
+export let routes = route({
+  home: get('/'),
+  time: get('/time'),
+  reloadScope: get('/reload-scope'),
+  stateSearch: get('/state-search'),
+  clientMounted: get('/client-mounted'),
+  frames: route('frames', {
+    clientFrameExample: get('/client-frame-example'),
+    clientFrameExampleNested: get('/client-frame-example/nested'),
+    clientMountedOuter: get('/client-mounted-outer'),
+    clientMountedNested: get('/client-mounted-nested'),
+    sidebar: get('/sidebar'),
+    activity: get('/activity'),
+    activityDetail: get('/activity/detail'),
+    time: get('/time'),
+    reloadScope: get('/reload-scope'),
+    stateSearchResults: get('/state-search-results'),
+  }),
+})
+
+
+[demos/sse/app/router.tsx]
+import { createRouter } from 'remix/fetch-router'
+import { compression } from 'remix/compression-middleware'
+import { logger } from 'remix/logger-middleware'
+import { staticFiles } from 'remix/static-middleware'
+import { css } from 'remix/component'
+
+import { routes } from './routes.ts'
+import { MessageStream } from './assets/message-stream.tsx'
+import { Layout } from './layout.tsx'
+import { render } from './utils/render.ts'
+
+let middleware = []
+
+if (process.env.NODE_ENV === 'development') {
+  middleware.push(logger())
+}
+
+middleware.push(compression())
+middleware.push(
+  staticFiles('./public', {
+    cacheControl: 'no-store',
+    etag: false,
+    lastModified: false,
+  }),
+)
+
+export let router = createRouter({ middleware })
+
+// The assets route is handled by the static files middleware above
+let { assets, ...pageRoutes } = routes
+
+router.map(pageRoutes, {
+  actions: {
+    home(context) {
+      let limitParam = context.url.searchParams.get('limit')
+      let limit = limitParam ? parseInt(limitParam, 10) : null
+      if (!limit || !isFinite(limit)) limit = null
+
+      return render(
+        <Layout>
+          <h1 mix={[css({ color: '#333', marginBottom: '0.5rem' })]}>Server-Sent Events Demo</h1>
+          <p mix={[css({ color: '#666', marginBottom: '2rem' })]}>
+            Real-time updates with compression middleware
+          </p>
+
+          <div
+            mix={[
+              css({
+                background: 'white',
+                padding: '1.5rem',
+                borderRadius: '8px',
+                boxShadow: '0 1px 3px rgba(0, 0, 0, 0.1)',
+                marginBottom: '1.5rem',
+              }),
+            ]}
+          >
+            <label
+              mix={[
+                css({
+                  display: 'block',
+                  fontWeight: 600,
+                  marginBottom: '0.5rem',
+                  color: '#333',
+                }),
+              ]}
+            >
+              Compression:
+            </label>
+            <div
+              mix={[
+                css({
+                  padding: '0.5rem',
+                  background: '#f8f9fa',
+                  borderRadius: '4px',
+                  color: '#666',
+                }),
+              ]}
+            >
+              Encoding is negotiated automatically via{' '}
+              <code
+                mix={[
+                  css({
+                    background: '#f5f5f5',
+                    padding: '0.2rem 0.4rem',
+                    borderRadius: '3px',
+                    fontFamily: "'Courier New', monospace",
+                    fontSize: '0.9em',
+                  }),
+                ]}
+              >
+                Accept-Encoding
+              </code>{' '}
+              header.
+              <br />
+              Open DevTools Network tab to see{' '}
+              <code
+                mix={[
+                  css({
+                    background: '#f5f5f5',
+                    padding: '0.2rem 0.4rem',
+                    borderRadius: '3px',
+       
+... [TRUNCATED]
+
+--- DIRECTORY STRUCTURE (depth 2) ---
+├── .env.example
+├── .github/
+│   └── workflows/
+│       ├── build.yaml
+│       ├── check.yaml
+│       ├── data-table-integration.yaml
+│       ├── file-storage-integration.yaml
+│       ├── format.yml
+│       ├── generate-remix.yaml
+│       ├── preview.yml
+│       ├── publish.yaml
+│       ├── release-pr.yaml
+│       ├── session-integration.yaml
+│       └── test.yaml
+├── .gitignore
+├── .prettierignore
+├── .prettierrc
+├── .vscode/
+│   ├── settings.json
+│   └── task.json
+├── AGENTS.md
+├── CONTRIBUTING.md
+├── LICENSE
+├── README.md
+├── cspell.yml
+├── decisions/
+│   ├── 001-route-pattern-vs-url-pattern.md
+│   └── 002-branching-and-releasing.md
+├── demos/
+│   ├── bookstore/
+│   │   ├── .gitignore
+│   │   ├── README.md
+│   │   ├── app/
+│   │   ├── data/
+│   │   ├── package.json
+│   │   ├── public/
+│   │   ├── server.ts
+│   │   ├── test/
+│   │   └── tsconfig.json
+│   ├── frames/
+│   │   ├── .gitignore
+│   │   ├── app/
+│   │   ├── package.json
+│   │   ├── server.ts
+│   │   └── tsconfig.json
+│   ├── sse/
+│   │   ├── .gitignore
+│   │   ├── app/
+│   │   ├── package.json
+│   │   ├── public/
+│   │   ├── server.ts
+│   │   └── tsconfig.json
+│   └── unpkg/
+│       ├── README.md
+│       ├── app/
+│       ├── package.json
+│       ├── server.ts
+│       ├── test/
+│       └── tsconfig.json
+├── docs/
+│   ├── .gitignore
+│   ├── package.json
+│   ├── public/
+│   │   └── docs.css
+│   ├── src/
+│   │   ├── client/
+│   │   ├── generate/
+│   │   └── server/
+│   └── tsconfig.json
+├── eslint.config.js
+├── package.json
+├── packages/
+│   ├── async-context-middleware/
+│   │   ├── .changes/
+│   │   ├── CHANGELOG.md
+│   │   ├── LICENSE
+│   │   ├── README.md
+│   │   ├── package.json
+│   │   ├── src/
+│   │   ├── tsconfig.build.json
+│   │   └── tsconfig.json
+│   ├── component/
+│   │   ├── .changes/
+│   │   ├── AGENTS.md
+│   │   ├── CHANGELOG.md
+│   │   ├── LICENSE
+│   │   ├── README.md
+│   │   ├── bench/
+│   │   ├── demos/
+│   │   ├── docs/
+│   │   ├── package.json
+│   │   ├── skills/
+│   │   ├── src/
+│   │   ├── tsconfig.build.json
+│   │   ├── tsconfig.json
+│   │   └── vitest.config.ts
+│   ├── compression-middleware/
+│   │   ├── .changes/
+│   │   ├── CHANGELOG.md
+│   │   ├── LICENSE
+│   │   ├── README.md
+│   │   ├── global.d.ts
+│   │   ├── package.json
+│   │   ├── src/
+│   │   ├── tsconfig.build.json
+│   │   └── tsconfig.json
+│   ├── cookie/
+│   │   ├── .changes/
+│   │   ├── CHANGELOG.md
+│   │   ├── LICENSE
+│   │   ├── README.md
+│   │   ├── package.json
+│   │   ├── src/
+│   │   ├── tsconfig.build.json
+│   │   └── tsconfig.json
+│   ├── data-schema/
+│   │   ├── .changes/
+│   │   ├── CHANGELOG.md
+│   │   ├── LICENSE
+│   │   ├── README.md
+│   │   ├── package.json
+│   │   ├── src/
+│   │   ├── tsconfig.build.json
+│   │   └── tsconfig.json
+│   ├── data-table-mysql/
+│   │   ├── .changes/
+│   │   ├── CHANGELOG.md
+│   │   ├── LICENSE
+│   │   ├── README.md
+│   │   ├── package.json
+│   │   ├── src/
+│   │   ├── tsconfig.build.json
+│   │   └── tsconfig.json
+│   ├── data-table-postgres/
+│   │   ├── .changes/
+│   │   ├── CHANGELOG.md
+│   │   ├── LICENSE
+│   │   ├── README.md
+│   │   ├── package.json
+│   │   ├── src/
+│   │   ├── tsconfig.build.json
+│   │   └── tsconfig.json
+│   ├── data-table-sqlite/
+│   │   ├── .changes/
+│   │   ├── CHANGELOG.md
+│   │   ├── LICENSE
+│   │   ├── README.md
+│   │   ├── package.json
+│   │   ├── src/
+│   │   ├── tsconfig.build.json
+│   │   └── tsconfig.json
+│   ├── data-table/
+│   │   ├── .changes/
+│   │   ├── CHANGELOG.md
+│   │   ├── LICENSE
+│   │   ├── README.md
+│   │   ├── package.json
+│   │   ├── src/
+│   │   ├── test/
+│   │   ├── tsconfig.build.json
+│   │   └── tsconfig.json
+│   ├── fetch-proxy/
+│   │   ├── .changes/
+│   │   ├── CHANGELOG.md
+│   │   ├── LICENSE
+│   │   ├── README.md
+│   │   ├── package.json
+│   │   ├── src/
+│   │   ├── tsconfig.build.json
+│   │   └── tsconfig.json
+│   ├── fetch-router/
+│   │   ├── .changes/
+│   │   ├── CHANGELOG.md
+│   │   ├── LICENSE
+│   │   ├── README.md
+│   │   ├── demos/
+│   │   ├── package.json
+│   │   ├── src/
+│   │   ├── tsconfig.build.json
+│   │   └── tsconfig.json
+│   ├── file-storage-s3/
+│   │   ├── .changes/
+│   │   ├── CHANGELOG.md
+│   │   ├── LICENSE
+│   │   ├── README.md
+│   │   ├── package.json
+│   │   ├── src/
+│   │   ├── tsconfig.build.json
+│   │   └── tsconfig.json
+│   ├── file-storage/
+│   │   ├── .changes/
+│   │   ├── CHANGELOG.md
+│   │   ├── LICENSE
+│   │   ├── README.md
+│   │   ├── package.json
+│   │   ├── src/
+│   │   ├── tsconfig.build.json
+│   │   └── tsconfig.json
+│   ├── form-data-middleware/
+│   │   ├── .changes/
+│   │   ├── CHANGELOG.md
+│   │   ├── LICENSE
+│   │   ├── README.md
+│   │   ├── package.json
+│   │   ├── src/
+│   │   ├── tsconfig.build.json
+│   │   └── tsconfig.json
+│   ├── form-data-parser/
+│   │   ├── .changes/
+│   │   ├── CHANGELOG.md
+│   │   ├── LICENSE
+│   │   ├── README.md
+│   │   ├── demos/
+│   │   ├── package.json
+│   │   ├── src/
+│   │   ├── tsconfig.build.json
+│   │   └── tsconfig.json
+│   ├── fs/
+│   │   ├── .changes/
+│   │   ├── CHANGELOG.md
+│   │   ├── LICENSE
+│   │   ├── README.md
+│   │   ├── package.json
+│   │   ├── src/
+│   │   ├── tsconfig.build.json
+│   │   └── tsconfig.json
+│   ├── headers/
+│   │   ├── .changes/
+│   │   ├── CHANGELOG.md
+│   │   ├── LICENSE
+│   │   ├── README.md
+│   │   ├── package.json
+│   │   ├── src/
+│   │   ├── tsconfig.build.json
+│   │   └── tsconfig.json
+│   ├── html-template/
+│   │   ├── .changes/
+│   │   ├── CHANGELOG.md
+│   │   ├── LICENSE
+│   │   ├── README.md
+│   │   ├── package.json
+│   │   ├── src/
+│   │   ├── tsconfig.build.json
+│   │   └── tsconfig.json
+│   ├── lazy-file/
+│   │   ├── .changes/
+│   │   ├── CHANGELOG.md
+│   │   ├── LICENSE
+│   │   ├── README.md
+│   │   ├── package.json
+│   │   ├── src/
+│   │   ├── tsconfig.build.json
+│   │   └── tsconfig.json
+│   ├── logger-middleware/
+│   │   ├── .changes/
+│   │   ├── CHANGELOG.md
+│   │   ├── LICENSE
+│   │   ├── README.md
+│   │   ├── package.json
+│   │   ├── src/
+│   │   ├── tsconfig.build.json
+│   │   └── tsconfig.json
+│   ├── method-override-middleware/
+│   │   ├── .changes/
+│   │   ├── CHANGELOG.md
+│   │   ├── LICENSE
+│   │   ├── README.md
+│   │   ├── package.json
+│   │   ├── src/
+│   │   ├── tsconfig.build.json
+│   │   └── tsconfig.json
+│   ├── mime/
+│   │   ├── .changes/
+│   │   ├── CHANGELOG.md
+│   │   ├── LICENSE
+│   │   ├── README.md
+│   │   ├── package.json
+│   │   ├── scripts/
+│   │   ├── src/
+│   │   ├── tsconfig.build.json
+│   │   └── tsconfig.json
+│   ├── multipart-parser/
+│   │   ├── .changes/
+│   │   ├── CHANGELOG.md
+│   │   ├── LICENSE
+│   │   ├── README.md
+│   │   ├── bench/
+│   │   ├── demos/
+│   │   ├── package.json
+│   │   ├── src/
+│   │   ├── test/
+│   │   ├── tsconfig.build.json
+│   │   └── tsconfig.json
+│   ├── node-fetch-server/
+│   │   ├── .changes/
+│   │   ├── CHANGELOG.md
+│   │   ├── LICENSE
+│   │   ├── README.md
+│   │   ├── bench/
+│   │   ├── demos/
+│   │   ├── package.json
+│   │   ├── src/
+│   │   ├── tsconfig.build.json
+│   │   └── tsconfig.json
+│   ├── remix/
+│   │   ├── .changes/
+│   │   ├── CHANGELOG.md
+│   │   ├── README.md
+│   │   ├── package.json
+│   │   ├── src/
+│   │   ├── tsconfig.build.json
+│   │   └── tsconfig.json
+│   ├── response/
+│   │   ├── .changes/
+│   │   ├── CHANGELOG.md
+│   │   ├── LICENSE
+│   │   ├── README.md
+│   │   ├── package.json
+│   │   ├── src/
+│   │   ├── tsconfig.build.json
+│   │   └── tsconfig.json
+│   ├── route-pattern/
+│   │   ├── .changes/
+│   │   ├── CHANGELOG.md
+│   │   ├── LICENSE
+│   │   ├── README.md
+│   │   ├── bench/
+│   │   ├── package.json
+│   │   ├── src/
+│   │   ├── tsconfig.build.json
+│   │   └── tsconfig.json
+│   ├── session-middleware/
+│   │   ├── .changes/
+│   │   ├── CHANGELOG.md
+│   │   ├── LICENSE
+│   │   ├── README.md
+│   │   ├── package.json
+│   │   ├── src/
+│   │   ├── tsconfig.build.json
+│   │   └── tsconfig.json
+│   ├── session-storage-memcache/
+│   │   ├── .changes/
+│   │   ├── CHANGELOG.md
+│   │   ├── LICENSE
+│   │   ├── README.md
+│   │   ├── package.json
+│   │   ├── src/
+│   │   ├── tsconfig.build.json
+│   │   └── tsconfig.json
+│   ├── session-storage-redis/
+│   │   ├── .changes/
+│   │   ├── CHANGELOG.md
+│   │   ├── LICENSE
+│   │   ├── README.md
+│   │   ├── package.json
+│   │   ├── src/
+│   │   ├── tsconfig.build.json
+│   │   └── tsconfig.json
+│   ├── session/
+│   │   ├── .changes/
+│   │   ├── CHANGELOG.md
+│   │   ├── LICENSE
+│   │   ├── README.md
+│   │   ├── package.json
+│   │   ├── src/
+│   │   ├── tsconfig.build.json
+│   │   └── tsconfig.json
+│   ├── static-middleware/
+│   │   ├── .changes/
+│   │   ├── CHANGELOG.md
+│   │   ├── LICENSE
+│   │   ├── README.md
+│   │   ├── demos/
+│   │   ├── package.json
+│   │   ├── src/
+│   │   ├── tsconfig.build.json
+│   │   └── tsconfig.json
+│   └── tar-parser/
+│       ├── .changes/
+│       ├── CHANGELOG.md
+│       ├── LICENSE
+│       ├── README.md
+│       ├── bench/
+│       ├── package.json
+│       ├── src/
+│       ├── test/
+│       ├── tsconfig.build.json
+│       └── tsconfig.json
+├── pnpm-lock.yaml
+├── pnpm-workspace.yaml
+├── scripts/
+│   ├── changes-preview.ts
+│   ├── changes-validate.ts
+│   ├── changes-version.ts
+│   ├── generate-remix.ts
+│   ├── package.json
+│   ├── pr-preview.ts
+│   ├── publish.ts
+│   ├── release-pr.ts
+│   ├── setup-installable-branch.ts
+│   ├── tsconfig.json
+│   └── utils/
+│       ├── changes.test.ts
+│       ├── changes.ts
+│       ├── color.ts
+│       ├── fs.ts
+│       ├── git.test.ts
+│       ├── git.ts
+│       ├── github.ts
+│       ├── packages.ts
+│       ├── process.ts
+│       ├── release-pr.test.ts
+│       └── release-pr.ts
+└── skills/
+    ├── add-package/
+    │   ├── SKILL.md
+    │   └── agents/
+    ├── make-pr/
+    │   ├── SKILL.md
+    │   └── agents/
+    ├── publish-placeholder-package/
+    │   ├── SKILL.md
+    │   └── agents/
+    └── supersede-pr/
+        ├── SKILL.md
+        ├── agents/
+        ├── scripts/
+        └── tsconfig.json

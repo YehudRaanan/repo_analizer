@@ -1,0 +1,70 @@
+=====================================
+REPO CLASSIFICATION SIGNALS
+=====================================
+
+--- METADATA ---
+Name: transformers
+Description: 🤗 Transformers: the model-definition framework for state-of-the-art machine learning models in text, vision, audio, and multimodal models, for both inference and training. 
+Primary language: Python
+Topics: audio, deep-learning, deepseek, gemma, glm, hacktoberfest, llm, machine-learning, model-hub, natural-language-processing, nlp, pretrained-models, python, pytorch, pytorch-transformers, qwen, speech-recognition, transformer, vlm
+
+--- ROOT FILES (signal matches) ---
+Web App:     (none)
+Backend:     (none)
+Library:     pyproject.toml, setup.py
+CLI:         (none)
+Data/ML:     (none)
+Infra:       (none)
+
+--- TOP-LEVEL DIRECTORIES (signal matches) ---
+Web App:     (none)
+Backend:     (none)
+Library:     docs, examples, src, tests
+CLI:         (none)
+Data/ML:     notebooks
+Infra:       (none)
+
+--- ALL TOP-LEVEL DIRECTORIES ---
+.circleci, .github, benchmark, benchmark_v2, docker, docs, examples, i18n, notebooks, scripts, src, tests, utils
+
+--- TYPE-SPECIFIC EXTENSION COUNTS ---
+Web App extensions (.tsx, .jsx, .vue, .svelte): 0
+Data/ML extensions (.ipynb): 0
+Infra extensions (.tf, .hcl): 0
+Backend extensions (.proto, .graphql): 0
+
+--- TOP FILE EXTENSIONS (by count) ---
+  .py: 4037
+  .md: 1270
+  .yml: 73
+  .txt: 36
+  .json: 30
+  .yaml: 14
+  .sh: 7
+  .dockerfile: 7
+  .model: 6
+  .gitignore: 4
+  .tsv: 4
+  .png: 3
+  .csv: 2
+  .git-blame-ignore-revs: 1
+  .gitattributes: 1
+
+--- BOOLEAN PATTERN CHECKS ---
+  pages or app dir: no
+  components dir: no
+  cmd or bin dir: no
+  src bin: no
+  run train scripts: yes
+  ipynb files: no
+  model training files: yes
+  tf files: no
+  k8s manifests: no
+  ansible playbooks: no
+  route controller dirs: no
+  db migrations: no
+  openapi spec: no
+  src and tests: yes
+  examples dir: yes
+  dockerfile: no
+  ci cd: yes

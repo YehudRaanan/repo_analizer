@@ -1,0 +1,629 @@
+=====================================
+Repository Analysis: strapi
+Type: Backend / API Service
+=====================================
+
+--- METADATA ---
+Name: strapi
+Description: 🚀 Strapi is the leading open-source headless CMS. It’s 100% JavaScript/TypeScript, fully customizable, and developer-first.
+Language: TypeScript
+Topics: api, cms, cms-framework, content-management, content-management-system, customizable, dashboard, graphql, hacktoberfest, headless-cms, jamstack, javascript, koa, koa2, mysql, no-code, nodejs, rest, strapi, typescript
+Stars: 71479
+License: Other
+
+--- README ---
+<p align="center">
+  <a href="https://strapi.io/#gh-light-mode-only">
+    <img src="https://strapi.io/assets/strapi-logo-dark.svg" width="318px" alt="Strapi logo" />
+  </a>
+  <a href="https://strapi.io/#gh-dark-mode-only">
+    <img src="https://strapi.io/assets/strapi-logo-light.svg" width="318px" alt="Strapi logo" />
+  </a>
+</p>
+
+<h3 align="center">Open-source headless CMS, self-hosted or Cloud you’re in control.</h3>
+<p align="center">The leading open-source headless CMS, 100% JavaScript/TypeScript, flexible and fully customizable.</p>
+<p align="center"><a href="https://cloud.strapi.io/signups?source=github1">Cloud</a> · <a href="https://strapi.io/demo?utm_campaign=Growth-Experiments&utm_source=strapi%2Fstrapi%20README.md">Try live demo</a></p>
+<br />
+
+<p align="center">
+  <a href="https://www.npmjs.org/package/@strapi/strapi">
+    <img src="https://img.shields.io/npm/v/@strapi/strapi/latest.svg" alt="NPM Version" />
+  </a>
+  <a href="https://github.com/strapi/strapi/actions/workflows/tests.yml">
+    <img src="https://github.com/strapi/strapi/actions/workflows/tests.yml/badge.svg?branch=main" alt="Tests" />
+  </a>
+  <a href="https://discord.strapi.io">
+    <img src="https://img.shields.io/discord/811989166782021633?label=Discord" alt="Strapi on Discord" />
+  </a>
+  <a href="https://github.com/strapi/strapi/actions/workflows/nightly.yml">
+    <img src="https://github.com/strapi/strapi/actions/workflows/nightly.yml/badge.svg" alt="Strapi Nightly Release Build Status" />
+  </a>
+</p>
+
+<br>
+
+<p align="center">
+  <a href="https://strapi.io">
+    <img src="https://raw.githubusercontent.com/strapi/strapi/main/public/assets/admin-demo.gif" alt="Administration panel" />
+  </a>
+</p>
+
+<br>
+
+Strapi Community Edition is a free and open-source headless CMS enabling you to manage any content, anywhere.
+
+- **Self-hosted or Cloud**: You can host and scale Strapi projects the way you want. You can save time by deploying to [Strapi Cloud](https://cloud.strapi.io/signups?source=github1) or deploy to the hosting platform you want\*\*: AWS, Azure, Google Cloud, DigitalOcean.
+- **Modern Admin Panel**: Elegant, entirely customizable and a fully extensible admin panel.
+- **Multi-database support**: You can choose the database you prefer: PostgreSQL, MySQL, MariaDB, and SQLite.
+- **Customizable**: You can quickly build your logic by fully customizing APIs, routes, or plugins to fit your needs perfectly.
+- **Blazing Fast and Robust**: Built on top of Node.js and TypeScript, Strapi delivers reliable and solid performance.
+- **Front-end Agnostic**: Use any front-end framework (React, Next.js, Vue, Angular, etc.), mobile apps or even IoT.
+- **Secure by default**: Reusable policies, CORS, CSP, P3P, Xframe, XSS, and more.
+- **Powerful CLI**: Scaffold projects and APIs on the fly.
+
+## Getting Started
+
+<a href="https://docs.strapi.io/developer-docs/latest/getting-started/quick-start.html" target="_blank">Read the Getting Started tutorial</a> or follow the steps below:
+
+### ⏳ Installation
+
+Use the **Quickstart** command below to create a new Strapi project instantly:
+
+- We recommend using **yarn** to create a Strapi project.  
+  [View yarn installation docs](https://yarnpkg.com/lang/en/docs/install/).
+
+```bash
+yarn create strapi
+```
+
+**or**
+
+(Using npx to install the Latest Version Strapi project.)
+
+```bash
+npx create-strapi@latest
+```
+
+This command generates a brand new project with the default features (authentication, permissions, content management, content type builder & file upload).
+
+Enjoy 🎉
+
+### 🖐 Requirements
+
+Complete installation requirements can be found in the documentation under <a href="https://docs.strapi.io/developer-docs/latest/setup-deployment-guides/deployment.html">Installation Requirements</a>.
+
+**Supported operating systems**:
+
+| OS              | Recommended | Minimum    |
+| --------------- | ----------- | ---------- |
+| Ubuntu          | 24.04       | LTS        |
+| Debian          | 11          | LTS        |
+| RHEL            | 9           | LTS        |
+| macOS           | 14          | 12         |
+| Windows Desktop | 11          | 10         |
+| Windows Server  | No Support  | No Support |
+| Docker          | N/A         | N/A        |
+
+(Please note that Strapi may work on other operating systems, but these are not tested nor officially supported at this time.)
+
+**Node:**
+
+Strapi only supports maintenance and LTS versions of Node.js. Please refer to the <a href="https://nodejs.org/en/about/releases/">Node.js release schedule</a> for more information. NPM versions installed by default with Node.js are supported. Generally it's recommended to use yarn over npm where possible.
+
+| Strapi Version  | Recommended | Minimum |
+| --------------- | ----------- | ------- |
+| 5.31.0 and up   | 24.x        | 20.x    |
+| 5.0.0 to 5.30.1 | 20.x        | 18.x    |
+| 4.14.5 and up   | 20.x        | 18.x    |
+| 4.11.0 and up   | 18.x        | 16.x    |
+| 4.3.9 to 4.10.x | 18.x        | 14.x    |
+| 4.0.x to 4.3.8  | 16.x        | 
+... [TRUNCATED]
+
+--- PACKAGE MANIFEST(S) ---
+
+[package.json]
+{
+  "name": "strapi",
+  "private": true,
+  "bugs": {
+    "url": "https://github.com/strapi/strapi/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/strapi/strapi.git"
+  },
+  "license": "SEE LICENSE IN LICENSE",
+  "author": {
+    "name": "Strapi Solutions SAS",
+    "email": "hi@strapi.io",
+    "url": "https://strapi.io"
+  },
+  "maintainers": [
+    {
+      "name": "Strapi Solutions SAS",
+      "email": "hi@strapi.io",
+      "url": "https://strapi.io"
+    }
+  ],
+  "workspaces": [
+    "packages/*",
+    "packages/*/*",
+    "examples/*",
+    "examples/plugins/*",
+    "examples/*/src/plugins/*",
+    ".github/actions/*",
+    "scripts/*"
+  ],
+  "scripts": {
+    "build": "nx run-many --targets build:code,build:types --nx-ignore-cycles",
+    "build:code": "nx run-many --target=build:code --nx-ignore-cycles",
+    "build:types": "nx run-many --target=build:types --nx-ignore-cycles",
+    "watch": "nx watch --all -- 'nx run-many --targets build:code,build:types --projects $NX_PROJECT_NAME'",
+    "build:size": "cd examples/getstarted && yarn build",
+    "build:ts": "nx run-many --target=build:ts --nx-ignore-cycles",
+    "build:watch": "nx watch --all --nx-ignore-cycles -- nx run \\$NX_PROJECT_NAME:build --nx-ignore-cycles",
+    "clean": "nx run-many --target=clean --nx-ignore-cycles",
+    "commit": "commit",
+    "doc:api": "node scripts/open-api/serve.js",
+    "format": "yarn format:code && yarn format:other",
+    "format:code": "yarn prettier:code --write",
+    "format:other": "yarn prettier:other --write",
+    "lint": "nx run-many --target=lint --nx-ignore-cycles && yarn lint:other",
+    "lint:fix": "nx run-many --target=lint --nx-ignore-cycles -- --fix",
+    "lint:other": "npm run prettier:other -- --check",
+    "version:check": "node scripts/check-package-versions.mjs && syncpack lint",
+    "version:fix": "node scripts/check-package-versions.mjs --fix --prompt && syncpack prompt && syncpack fix-mismatches",
+    "postinstall": "husky",
+    "prepack": "pinst --disable",
+    "postpack": "pinst --enable",
+    "prettier:check": "yarn prettier:code --check && yarn prettier:other --check",
+    "prettier:code": "prettier --cache --cache-strategy content \"**/*.{js,ts,jsx,tsx,json}\"",
+    "prettier:other": "prettier --cache --cache-strategy content \"**/*.{md,mdx,css,scss,yaml,yml}\"",
+    "prettier:write": "prettier --write \"**/*.{js,ts,jsx,tsx,json,md,mdx,css,scss,yaml,yml}\"",
+    "release": "node scripts/release.js",
+    "setup": "yarn && yarn clean && yarn build --skip-nx-cache",
+    "test:api": "node tests/scripts/run-api-tests.js",
+    "test:api:clean": "rimraf ./coverage",
+    "test:clean": "run-s -c test:api:clean test:e2e:clean test:cli:clean",
+    "test:cli": "node tests/scripts/run-cli-tests.js",
+    "test:cli:clean": "node tests/scripts/run-cli-tests.js clean",
+    "test:cli:debug": "node tests/scripts/run-cli-tests.js --debug",
+    "test:e2e": "node tests/scripts/run-e2e-tests.js",
+    "test:e2e:clean": "node tests/scripts
+... [TRUNCATED]
+
+--- BACKEND CONFIG FILES ---
+(No backend config files found)
+
+--- API ROUTE / ENDPOINT DEFINITIONS ---
+
+[examples/complex/src/api/basic-dp-i18n/controllers/basic-dp-i18n.ts]
+/**
+ * basic-dp-i18n controller
+ */
+
+import { factories } from '@strapi/strapi';
+
+export default factories.createCoreController('api::basic-dp-i18n.basic-dp-i18n');
+
+
+[examples/complex/src/api/basic-dp-i18n/routes/basic-dp-i18n.ts]
+/**
+ * basic-dp-i18n router
+ */
+
+import { factories } from '@strapi/strapi';
+
+export default factories.createCoreRouter('api::basic-dp-i18n.basic-dp-i18n');
+
+
+[examples/complex/src/api/basic-dp/controllers/basic-dp.ts]
+/**
+ * basic-dp controller
+ */
+
+import { factories } from '@strapi/strapi';
+
+export default factories.createCoreController('api::basic-dp.basic-dp');
+
+
+[examples/complex/src/api/basic-dp/routes/basic-dp.ts]
+/**
+ * basic-dp router
+ */
+
+import { factories } from '@strapi/strapi';
+
+export default factories.createCoreRouter('api::basic-dp.basic-dp');
+
+
+[examples/complex/src/api/basic/controllers/basic.ts]
+/**
+ * basic controller
+ */
+
+import { factories } from '@strapi/strapi';
+
+export default factories.createCoreController('api::basic.basic');
+
+
+[examples/complex/src/api/basic/routes/basic.ts]
+/**
+ * basic router
+ */
+
+import { factories } from '@strapi/strapi';
+
+export default factories.createCoreRouter('api::basic.basic');
+
+
+[examples/complex/src/api/relation-dp-i18n/controllers/relation-dp-i18n.ts]
+/**
+ * relation-dp-i18n controller
+ */
+
+import { factories } from '@strapi/strapi';
+
+export default factories.createCoreController('api::relation-dp-i18n.relation-dp-i18n');
+
+
+[examples/complex/src/api/relation-dp-i18n/routes/relation-dp-i18n.ts]
+/**
+ * relation-dp-i18n router
+ */
+
+import { factories } from '@strapi/strapi';
+
+export default factories.createCoreRouter('api::relation-dp-i18n.relation-dp-i18n');
+
+
+--- DATABASE SCHEMA / MODEL FILES ---
+  examples/complex/scripts/validate-migration.js
+  packages/core/admin/admin/src/components/GuidedTour/utils/migrations.ts
+  packages/core/admin/server/src/controllers/validation/schema.ts
+  packages/core/content-manager/admin/src/hooks/useContentTypeSchema.ts
+  packages/core/content-manager/admin/src/pages/EditView/components/FormInputs/BlocksInput/plugins/withStrapiSchema.ts
+
+--- DIRECTORY STRUCTURE (depth 2) ---
+├── .commitlintrc.ts
+├── .cursor/
+│   └── worktrees.json
+├── .editorconfig
+├── .gitattributes
+├── .github/
+│   ├── FUNDING.yml
+│   ├── ISSUE_TEMPLATE/
+│   │   ├── BUG_REPORT.yml
+│   │   └── config.yml
+│   ├── PULL_REQUEST_TEMPLATE.md
+│   ├── actions/
+│   │   ├── check-pr-status/
+│   │   ├── pr_diff/
+│   │   ├── run-api-tests/
+│   │   ├── run-build/
+│   │   ├── run-e2e-tests/
+│   │   ├── security/
+│   │   └── yarn-nm-install/
+│   ├── dependabot.yml
+│   ├── filters.yaml
+│   └── workflows/
+│       ├── adminBundleSize.yml
+│       ├── caniuse.yml
+│       ├── changeFreeze.yml
+│       ├── checks.yml
+│       ├── clean-up-pr-caches.yml
+│       ├── close_stale_issues.yml
+│       ├── commitlint.yml
+│       ├── community-label.yml
+│       ├── contributor-doc.yml
+│       ├── db/
+│       ├── diff_prs.yml
+│       ├── find_duplicate_issue.yml
+│       ├── issues_dailyCron.yml
+│       ├── issues_handleLabel.yml
+│       ├── label_stale_issues.yml
+│       ├── nightly.yml
+│       ├── pr-reviewer.yml
+│       ├── publish-npm.yml
+│       ├── publish-prerelease.yml
+│       ├── publish-release.yml
+│       ├── remove-dist-tag.yml
+│       ├── tests.yml
+│       └── watch_stale_issues.yml
+├── .gitignore
+├── .husky/
+│   ├── commit-msg
+│   └── pre-commit
+├── .npmrc
+├── .nvmrc
+├── .nxignore
+├── .prettierignore
+├── .prettierrc.js
+├── .syncpackrc.json
+├── .vscode/
+│   └── settings.json
+├── .yarn/
+│   └── releases/
+│       └── yarn-4.12.0.cjs
+├── .yarnrc.yml
+├── CODE_OF_CONDUCT.md
+├── CONTRIBUTING.md
+├── LICENSE
+├── README.md
+├── SECURITY.md
+├── codecov.yml
+├── docker-compose.dev.yml
+├── docker-compose.test.yml
+├── docs/
+│   ├── .eslintrc.docs.js
+│   ├── .gitignore
+│   ├── README.md
+│   ├── babel.config.js
+│   ├── docs/
+│   │   ├── api/
+│   │   ├── docs/
+│   │   ├── guides/
+│   │   ├── index.md
+│   │   └── rfcs/
+│   ├── docusaurus.config.js
+│   ├── package.json
+│   ├── sidebars.js
+│   ├── static/
+│   │   ├── .nojekyll
+│   │   └── img/
+│   └── yarn.lock
+├── examples/
+│   ├── complex/
+│   │   ├── .env.example
+│   │   ├── .gitignore
+│   │   ├── README.md
+│   │   ├── config/
+│   │   ├── docker-compose.dev.yml
+│   │   ├── favicon.png
+│   │   ├── package.json
+│   │   ├── public/
+│   │   ├── scripts/
+│   │   ├── snapshots/
+│   │   ├── src/
+│   │   └── tsconfig.json
+│   ├── empty/
+│   │   ├── .env.example
+│   │   ├── .gitignore
+│   │   ├── README.md
+│   │   ├── config/
+│   │   ├── database/
+│   │   ├── favicon.png
+│   │   ├── package.json
+│   │   ├── public/
+│   │   ├── src/
+│   │   └── tsconfig.json
+│   ├── experimental-dev/
+│   │   ├── .env.template
+│   │   ├── .gitignore
+│   │   ├── README.md
+│   │   ├── config/
+│   │   ├── favicon.png
+│   │   ├── package.json
+│   │   ├── public/
+│   │   ├── src/
+│   │   └── tsconfig.json
+│   ├── getstarted/
+│   │   ├── .env.example
+│   │   ├── .gitignore
+│   │   ├── .npmrc
+│   │   ├── README.md
+│   │   ├── config/
+│   │   ├── data/
+│   │   ├── ecosystem.config.js
+│   │   ├── favicon.png
+│   │   ├── jsconfig.json
+│   │   ├── package.json
+│   │   ├── public/
+│   │   └── src/
+│   ├── kitchensink-ts/
+│   │   ├── .gitignore
+│   │   ├── README.md
+│   │   ├── config/
+│   │   ├── favicon.png
+│   │   ├── package.json
+│   │   ├── public/
+│   │   ├── src/
+│   │   └── tsconfig.json
+│   ├── kitchensink/
+│   │   ├── .env.example
+│   │   ├── .eslintignore
+│   │   ├── .eslintrc
+│   │   ├── .gitignore
+│   │   ├── README.md
+│   │   ├── config/
+│   │   ├── favicon.png
+│   │   ├── jsconfig.json
+│   │   ├── package.json
+│   │   ├── public/
+│   │   └── src/
+│   └── plugins/
+│       ├── todo-example/
+│       └── workspace-plugin/
+├── fileTransformer.js
+├── jest-preset.front.js
+├── jest-preset.unit.js
+├── jest.config.api.js
+├── jest.config.cli.js
+├── jest.config.front.js
+├── jest.config.js
+├── jsconfig.json
+├── lerna.json
+├── lint-staged.config.js
+├── nx.json
+├── package.json
+├── packages/
+│   ├── admin-test-utils/
+│   │   ├── .eslintignore
+│   │   ├── .eslintrc.js
+│   │   ├── .gitignore
+│   │   ├── LICENSE
+│   │   ├── README.md
+│   │   ├── custom.d.ts
+│   │   ├── package.json
+│   │   ├── rollup.config.mjs
+│   │   ├── src/
+│   │   ├── tsconfig.build.json
+│   │   └── tsconfig.json
+│   ├── cli/
+│   │   ├── cloud/
+│   │   ├── create-strapi-app/
+│   │   └── create-strapi/
+│   ├── core/
+│   │   ├── admin/
+│   │   ├── content-manager/
+│   │   ├── content-releases/
+│   │   ├── content-type-builder/
+│   │   ├── core/
+│   │   ├── data-transfer/
+│   │   ├── database/
+│   │   ├── email/
+│   │   ├── openapi/
+│   │   ├── permissions/
+│   │   ├── review-workflows/
+│   │   ├── strapi/
+│   │   ├── types/
+│   │   ├── upload/
+│   │   └── utils/
+│   ├── generators/
+│   │   └── generators/
+│   ├── plugins/
+│   │   ├── cloud/
+│   │   ├── color-picker/
+│   │   ├── documentation/
+│   │   ├── graphql/
+│   │   ├── i18n/
+│   │   ├── sentry/
+│   │   └── users-permissions/
+│   ├── providers/
+│   │   ├── email-amazon-ses/
+│   │   ├── email-mailgun/
+│   │   ├── email-nodemailer/
+│   │   ├── email-sendgrid/
+│   │   ├── email-sendmail/
+│   │   ├── upload-aws-s3/
+│   │   ├── upload-cloudinary/
+│   │   └── upload-local/
+│   └── utils/
+│       ├── api-tests/
+│       ├── eslint-config-custom/
+│       ├── logger/
+│       ├── tsconfig/
+│       ├── typescript/
+│       ├── upgrade/
+│       └── vitest-config/
+├── playwright.base.config.js
+├── public/
+│   └── assets/
+│       ├── admin-demo.gif
+│       └── administration_panel.png
+├── rollup.utils.mjs
+├── scripts/
+│   ├── check-package-versions.mjs
+│   ├── front/
+│   │   ├── add-missing-keys-to-other-language.js
+│   │   ├── jest.config.front.js
+│   │   ├── merge-duplicated-translations/
+│   │   ├── package.json
+│   │   ├── reorder-admin-translation-files.js
+│   │   ├── tests/
+│   │   └── utils/
+│   ├── link.js
+│   ├── open-api/
+│   │   ├── public/
+│   │   └── serve.js
+│   ├── pre-publish.sh
+│   ├── publish.sh
+│   ├── release.js
+│   ├── remove-dist-tag.sh
+│   ├── unlink.js
+│   ├── yalc-link.js
+│   └── yalc-publish.js
+├── sonar-project.properties
+├── templates/
+│   └── website/
+│       ├── .env.example
+│       ├── .gitignore
+│       ├── README.md
+│       ├── config/
+│       ├── data/
+│       ├── database/
+│       ├── favicon.png
+│       ├── package.json
+│       ├── public/
+│       ├── src/
+│       ├── tsconfig.json
+│       └── types/
+├── tests/
+│   ├── .eslintrc
+│   ├── api/
+│   │   ├── core/
+│   │   ├── plugins/
+│   │   └── utils/
+│   ├── app-template/
+│   │   ├── .gitignore
+│   │   ├── README.md
+│   │   ├── config/
+│   │   ├── database/
+│   │   ├── package.json
+│   │   ├── public/
+│   │   ├── src/
+│   │   ├── template.json
+│   │   └── template/
+│   ├── cli/
+│   │   ├── README.md
+│   │   ├── constants.js
+│   │   ├── data/
+│   │   ├── jest.config.js
+│   │   └── tests/
+│   ├── e2e/
+│   │   ├── .env.example
+│   │   ├── README.md
+│   │   ├── constants.ts
+│   │   ├── data/
+│   │   └── tests/
+│   ├── helpers/
+│   │   ├── create-context.js
+│   │   ├── create-session-manager-mock.js
+│   │   └── test-app.js
+│   ├── scripts/
+│   │   ├── generate-test-app.js
+│   │   ├── run-api-tests.js
+│   │   ├── run-cli-tests.js
+│   │   ├── run-e2e-tests.js
+│   │   ├── run-test-app.js
+│   │   └── run-tests.js
+│   ├── setup/
+│   │   ├── jest-api.setup.js
+│   │   ├── jest-cli.setup.js
+│   │   └── unit.setup.js
+│   └── utils/
+│       ├── content-creation.ts
+│       ├── content-types.ts
+│       ├── dts-export.ts
+│       ├── dts-import.ts
+│       ├── file-reset.ts
+│       ├── fs.js
+│       ├── get-db-counts.js
+│       ├── get-db-state.js
+│       ├── get-test-apps.js
+│       ├── global-setup.ts
+│       ├── helpers.js
+│       ├── index.js
+│       ├── login.ts
+│       ├── rate-limit.ts
+│       ├── restart.ts
+│       ├── runners/
+│       ├── scripts/
+│       ├── setup.ts
+│       ├── shared.ts
+│       └── signup.ts
+├── vercel.json
+├── vitest.config.ts
+└── yarn.lock

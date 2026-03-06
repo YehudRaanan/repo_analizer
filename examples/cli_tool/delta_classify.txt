@@ -1,0 +1,70 @@
+=====================================
+REPO CLASSIFICATION SIGNALS
+=====================================
+
+--- METADATA ---
+Name: delta
+Description: A syntax-highlighting pager for git, diff, grep, and blame output
+Primary language: Rust
+Topics: color-themes, delta, diff, git, git-delta, pager, rust, syntax-highlighter
+
+--- ROOT FILES (signal matches) ---
+Web App:     (none)
+Backend:     (none)
+Library:     Cargo.toml
+CLI:         (none)
+Data/ML:     (none)
+Infra:       (none)
+
+--- TOP-LEVEL DIRECTORIES (signal matches) ---
+Web App:     (none)
+Backend:     (none)
+Library:     src, tests
+CLI:         (none)
+Data/ML:     (none)
+Infra:       (none)
+
+--- ALL TOP-LEVEL DIRECTORIES ---
+.cargo, .github, etc, manual, src, tests
+
+--- TYPE-SPECIFIC EXTENSION COUNTS ---
+Web App extensions (.tsx, .jsx, .vue, .svelte): 0
+Data/ML extensions (.ipynb): 0
+Infra extensions (.tf, .hcl): 0
+Backend extensions (.proto, .graphql): 0
+
+--- TOP FILE EXTENSIONS (by count) ---
+  .rs: 82
+  .md: 46
+  .diff: 21
+  .yml: 5
+  .toml: 3
+  .json: 3
+  .gitattributes: 2
+  .gitignore: 2
+  .gitconfig: 2
+  .lock: 1
+  .sh: 1
+  .bash: 1
+  .fish: 1
+  .zsh: 1
+  .dockerfile: 1
+
+--- BOOLEAN PATTERN CHECKS ---
+  pages or app dir: no
+  components dir: no
+  cmd or bin dir: no
+  src bin: no
+  run train scripts: no
+  ipynb files: no
+  model training files: no
+  tf files: no
+  k8s manifests: no
+  ansible playbooks: no
+  route controller dirs: no
+  db migrations: no
+  openapi spec: no
+  src and tests: yes
+  examples dir: no
+  dockerfile: no
+  ci cd: yes

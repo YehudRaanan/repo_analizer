@@ -1,0 +1,673 @@
+=====================================
+Repository Analysis: delta
+Type: CLI Tool
+=====================================
+
+--- METADATA ---
+Name: delta
+Description: A syntax-highlighting pager for git, diff, grep, and blame output
+Language: Rust
+Topics: color-themes, delta, diff, git, git-delta, pager, rust, syntax-highlighter
+Stars: 29323
+License: MIT License
+
+--- README ---
+<p align="center">
+  <img width=400px src="https://user-images.githubusercontent.com/52205/147996902-9829bd3f-cd33-466e-833e-49a6f3ebd623.png" alt="image" />
+</p>
+<p align="center">
+  <a href="https://github.com/dandavison/delta/actions">
+    <img src="https://github.com/dandavison/delta/workflows/Continuous%20Integration/badge.svg" alt="CI">
+  </a>
+  <a href="https://coveralls.io/github/dandavison/delta?branch=main">
+    <img src="https://coveralls.io/repos/github/dandavison/delta/badge.svg?branch=main" alt="Coverage Status">
+  </a>
+  <a href="https://gitter.im/dandavison-delta/community?utm_source=badge&amp;utm_medium=badge&amp;utm_campaign=pr-badge">
+    <img src="https://badges.gitter.im/dandavison-delta/community.svg" alt="Gitter">
+  </a>
+</p>
+
+## Get Started
+
+[Install it](https://dandavison.github.io/delta/installation.html) (the package is called "git-delta" in most package managers, but the executable is just `delta`) and add this to your `~/.gitconfig`:
+
+```gitconfig
+[core]
+    pager = delta
+
+[interactive]
+    diffFilter = delta --color-only
+
+[delta]
+    navigate = true  # use n and N to move between diff sections
+    dark = true      # or light = true, or omit for auto-detection
+
+[merge]
+    conflictStyle = zdiff3
+```
+
+Or run:
+
+```sh
+git config --global core.pager delta
+git config --global interactive.diffFilter 'delta --color-only'
+git config --global delta.navigate true
+git config --global merge.conflictStyle zdiff3
+```
+
+Delta has many features and is very customizable; please see `delta -h` (short help) or `delta --help` (full manual), or the [online user manual](https://dandavison.github.io/delta/).
+
+## Features
+
+- Language syntax highlighting with the same syntax-highlighting themes as [bat](https://github.com/sharkdp/bat#readme)
+- Word-level diff highlighting using a Levenshtein edit inference algorithm
+- Side-by-side view with line-wrapping
+- Line numbering
+- `n` and `N` keybindings to move between files in large diffs, and between diffs in `log -p` views (`--navigate`)
+- Improved merge conflict display
+- Improved `git blame` display (syntax highlighting; `--hyperlinks` formats commits as links to hosting provider etc. Supported hosting providers are: GitHub, GitLab, SourceHut, Codeberg)
+- Syntax-highlights grep output from `rg`, `git grep`, `grep`, etc
+- Support for Git's `--color-moved` feature.
+- Code can be copied directly from the diff (`-/+` markers are removed by default).
+- `diff-highlight` and `diff-so-fancy` emulation modes
+- Commit hashes can be formatted as terminal [hyperlinks](https://gist.github.com/egmontkob/eb114294efbcd5adb1944c9f3cb5feda) to the hosting provider page (`--hyperlinks`).
+  File paths can also be formatted as hyperlinks for opening in your OS.
+- Stylable box/line decorations to draw attention to commit, file and hunk header sections.
+- Style strings (foreground color, background color, font attributes) are supported for >20 stylable elements, using the same color/style language as git
+- Handles traditional unified diff output in addition to git output
+- Automatic detection of light/dark terminal background
+
+## A syntax-highlighting pager for git, diff, and grep output
+
+Code evolves, and we all spend time studying diffs. Delta aims to make this both efficient and enjoyable: it allows you to make extensive changes to the layout and styling of diffs, as well as allowing you to stay arbitrarily close to the default git/diff output.
+
+<table align="center">
+  <tr>
+    <td>
+      <img width=400px src="https://user-images.githubusercontent.com/52205/86275526-76792100-bba1-11ea-9e78-6be9baa80b29.png" alt="image" />
+      <br>
+      <p align="center"><sub>delta with <code>line-numbers</code> activated</sub></p>
+    </td>
+  </tr>
+</table>
+
+<table align="center">
+  <tr>
+    <td>
+      <img width=800px src="https://user-images.githubusercontent.com/52205/87230973-412eb900-c381-11ea-8aec-cc200290bd1b.png" alt="image" />
+      <br>
+      <p align="center"><sub>delta with <code>side-by-side</code> and <code>line-numbers</code> activated</sub></p>
+    </td>
+  </tr>
+</table>
+
+Here's what `git show` can look like with git configured to use delta:
+
+<br>
+
+<table align="center">
+  <tr>
+    <td>
+      <img width=500px style="border: 1px solid black"
+           src="https://user-images.githubusercontent.com/52205/81058545-a5725f80-8e9c-11ea-912e-d21954586a44.png"
+           alt="image" />
+    </td>
+    <td>
+      <img width=500px style="border: 1px solid black"
+           src="https://user-images.githubusercontent.com/52205/81058911-6abcf700-8e9d-11ea-93be-e212824ec03d.png"
+           alt="image" />
+    </td>
+  </tr>
+  <tr>
+    <td>
+      "Dracula" theme
+    </td>
+    <td>
+      "GitHub" theme
+    </td>
+  </tr>
+</table>
+
+<br>
+<br>
+
+### Syntax-highlighting themes
+
+**All the syntax-highlighting color themes that are available with [bat](https://github.com/sharkdp/bat/) are available with delta:**
+
+<br>
+<table>
+  <tr>
+    <td>
+      <img width=400px style="border: 1px solid black"
+    
+... [TRUNCATED]
+
+--- PACKAGE MANIFEST(S) ---
+
+[Cargo.toml]
+[package]
+name = "git-delta"
+authors = ["Dan Davison <dandavison7@gmail.com>"]
+categories = ["command-line-utilities", "development-tools"]
+description = "A syntax-highlighting pager for git"
+documentation = "https://github.com/dandavison/delta"
+edition = "2018"
+homepage = "https://github.com/dandavison/delta"
+license = "MIT"
+repository = "https://github.com/dandavison/delta"
+version = "0.18.2"
+
+[[bin]]
+name = "delta"
+path = "src/main.rs"
+
+[dependencies]
+ansi_colours = "1.2.1"
+ansi_term = "0.12.1"
+anstyle-parse = "0.2.3"
+anyhow = "1.0.70"
+bat = { version = "0.24.0", default-features = false, features = [
+    "minimal-application",
+    "paging",
+    "regex-onig",
+] }
+bitflags = "2.2.1"
+box_drawing = "0.1.2"
+bytelines = { version = "2.5.0", default-features = false }
+chrono = "0.4.26"
+chrono-humanize = "0.2.2"
+clap_complete = "4.4.4"
+clap = { version = "4.3.14", features = [
+    "derive",
+    "help",
+    "usage",
+    "error-context",
+] }
+console = "0.15.0"
+ctrlc = "3.2.5"
+dirs = "6.0.0"
+git2 = { version = "0.20.0", default-features = false, features = [] }
+grep-cli = "0.1.8"
+itertools = "0.10.5"
+lazy_static = "1.4"
+palette = "0.7.2"
+pathdiff = "0.2.1"
+regex = "1.7.1"
+serde_json = "1.0.96"
+serde = { version = "1.0.163", features = ["derive"] }
+shell-words = "1.0.0"
+smol_str = "0.1.24"
+syntect = "5.0.0"
+# sysinfo: no default features to disable the use of threads
+sysinfo = { version = "0.29.0", default-features = false, features = [] }
+terminal-colorsaurus = "0.4.8"
+unicode-segmentation = "1.10.1"
+# 0.2.0 (and 0.1.13) treats \n as width 1. Lines processed by delta have, lose,
+# and re-gain \n in various stages, which complicates upgrading.
+unicode-width = ">=0.1.14, <0.2.0"
+xdg = "2.4.1"
+
+[lints.rust]
+unexpected_cfgs = { level = "warn", check-cfg = ['cfg(tarpaulin_include)'] }
+
+[dev-dependencies]
+insta = { version = "1.*", features = ["colors", "filters"] }
+rstest = "0.21.0"
+pretty_assertions = "1.4"
+
+[profile.test]
+opt-level = 2
+
+[profile.dev.package.insta]
+opt-level = 3
+
+[profile.dev.package.similar]
+opt-level = 3
+
+
+[Makefile]
+build:
+	cargo build --release
+
+format:
+	git ls-files | grep '\.rs$$' | xargs -P 0 rustfmt
+
+lint:
+	cargo clippy
+
+test: unit-test end-to-end-test
+
+unit-test:
+	cargo test
+
+end-to-end-test: build
+	./tests/test_raw_output_matches_git_on_full_repo_history
+	./tests/test_deprecated_options > /dev/null
+	./tests/test_navigate_less_history_file
+
+shell-completion:
+	for shell in bash fish zsh; do ./target/release/delta --generate-completion $$shell > etc/completion/completion.$$shell; done
+
+release:
+	@make -f release.Makefile release
+
+version:
+	@grep version Cargo.toml | head -n1 | sed -E 's,.*version = "([^"]+)",\1,'
+
+BENCHMARK_INPUT_FILE = /tmp/delta-benchmark-input.gitdiff
+BENCHMARK_COMMAND = git log -p 23c292d3f25c67082a2ba315a187268be1a9b0ab
+benchmark: build
+	$(BENCHMARK_COMMAND) > $(BENCHMARK_INPUT_FILE)
+	hyperfine --warmup 10 --min-runs 20 \
+		'target/release/delta --no-gitconfig < $(BENCHMARK_INPUT_FILE) > /dev/null'
+
+# https://github.com/brendangregg/FlameGraph
+flamegraph: build
+	$(BENCHMARK_COMMAND) | target/release/delta > /dev/null &
+	sample delta | stackcollapse-sample | flamegraph > etc/performance/flamegraph.svg
+
+chronologer:
+	chronologer etc/performance/chronologer.yaml
+
+.PHONY: build format lint test unit-test end-to-end-test release shell-completion version benchmark flamegraph chronologer
+
+
+--- CLI ENTRY POINTS / COMMAND DEFINITIONS ---
+
+[src/cli.rs]
+use std::collections::{HashMap, HashSet};
+use std::ffi::OsString;
+use std::path::{Path, PathBuf};
+
+use bat::assets::HighlightingAssets;
+use clap::error::Error;
+use clap::{ArgMatches, ColorChoice, CommandFactory, FromArgMatches, Parser, ValueEnum, ValueHint};
+use clap_complete::Shell;
+use console::Term;
+use lazy_static::lazy_static;
+use syntect::highlighting::Theme as SyntaxTheme;
+use syntect::parsing::SyntaxSet;
+
+use crate::ansi::{ANSI_SGR_BOLD, ANSI_SGR_RESET, ANSI_SGR_UNDERLINE};
+use crate::color::ColorMode;
+use crate::config::delta_unreachable;
+use crate::env::DeltaEnv;
+use crate::git_config::GitConfig;
+use crate::options;
+use crate::subcommands;
+use crate::utils;
+use crate::utils::bat::output::PagingMode;
+
+const TERM_FALLBACK_WIDTH: usize = 79;
+
+#[derive(Parser)]
+#[command(
+    name = "delta",
+    about = "A viewer for git and diff output",
+    version,
+    color = ColorChoice::Always,
+    // output is wrapped by delta later:
+    term_width = usize::MAX,
+    max_term_width = usize::MAX,
+)]
+pub struct Opt {
+    #[arg(long = "blame-code-style", value_name = "STYLE")]
+    /// Style string for the code section of a git blame line.
+    ///
+    /// By default the code will be syntax-highlighted with the same background color as the blame
+    /// format section of the line (the background color is determined by blame-palette). E.g.
+    /// setting this option to 'syntax' will syntax-highlight the code with no background color.
+    pub blame_code_style: Option<String>,
+
+    #[arg(
+        long = "blame-format",
+        default_value = "{timestamp:<15} {author:<15.14} {commit:<8}",
+        value_name = "FMT"
+    )]
+    /// Format string for git blame commit metadata.
+    ///
+    /// Available placeholders are "{timestamp}", "{author}", and "{commit}".
+    pub blame_format: String,
+
+    #[arg(long = "blame-palette", value_name = "COLORS")]
+    /// Background colors used for git blame lines (space-separated string).
+    ///
+    /// Lines added by the same commit are painted with the same color; colors are recycled as
+    /// needed.
+    pub blame_palette: Option<String>,
+
+    #[arg(
+        long = "blame-separator-format",
+        default_value = "│{n:^4}│",
+        value_name = "FMT"
+    )]
+    /// Separator between the blame format and the code section of a git blame line.
+    ///
+    /// Contains the line number by default. Possible values are "none" to disable line numbers or a format
+    /// string. This may contain one "{n:}" placeholder and will display the line number on every line.
+    /// A type may be added after all other format specifiers and can be separated by '_':
+    /// If type is set to 'block' (e.g. "{n:^4_block}") the line number will only be shown when a new blame
+    /// block starts; or if it is set to 'every-N' the line will be show with every block and every
+    /// N-th (modulo) line.
+    pub blame_separator_format: String,
+
+    #[arg(long = "blame-separator-style", value_name = "STYLE")]
+    /// Style string for the blame-sep
+... [TRUNCATED]
+
+[src/main.rs]
+mod align;
+mod ansi;
+mod cli;
+mod color;
+mod colors;
+mod config;
+mod delta;
+mod edits;
+mod env;
+mod features;
+mod format;
+mod git_config;
+mod handlers;
+mod minusplus;
+mod options;
+mod paint;
+mod parse_style;
+mod parse_styles;
+mod style;
+mod utils;
+mod wrapping;
+
+mod subcommands;
+
+mod tests;
+
+use std::ffi::{OsStr, OsString};
+use std::io::{self, BufRead, Cursor, ErrorKind, IsTerminal, Write};
+use std::process::{self, Command, Stdio};
+
+use bytelines::ByteLinesReader;
+
+use crate::cli::Call;
+use crate::config::delta_unreachable;
+use crate::delta::delta;
+use crate::subcommands::{SubCmdKind, SubCommand};
+use crate::utils::bat::assets::list_languages;
+use crate::utils::bat::output::{OutputType, PagingMode};
+
+pub fn fatal<T>(errmsg: T) -> !
+where
+    T: AsRef<str> + std::fmt::Display,
+{
+    #[cfg(not(test))]
+    {
+        eprintln!("{errmsg}");
+        // As in Config::error_exit_code: use 2 for error
+        // because diff uses 0 and 1 for non-error.
+        process::exit(2);
+    }
+    #[cfg(test)]
+    panic!("{}\n", errmsg);
+}
+
+pub mod errors {
+    pub use anyhow::{anyhow, Context, Error, Result};
+}
+
+#[cfg(not(tarpaulin_include))]
+fn main() -> std::io::Result<()> {
+    // Do this first because both parsing all the input in `run_app()` and
+    // listing all processes takes about 50ms on Linux.
+    // It also improves the chance that the calling process is still around when
+    // input is piped into delta (e.g. `git show  --word-diff=color | delta`).
+    utils::process::start_determining_calling_process_in_thread();
+
+    // Ignore ctrl-c (SIGINT) to avoid leaving an orphaned pager process.
+    // See https://github.com/dandavison/delta/issues/681
+    ctrlc::set_handler(|| {})
+        .unwrap_or_else(|err| eprintln!("Failed to set ctrl-c handler: {err}"));
+    let exit_code = run_app(std::env::args_os().collect::<Vec<_>>(), None)?;
+    // when you call process::exit, no drop impls are called, so we want to do it only once, here
+    process::exit(exit_code);
+}
+
+#[cfg(not(tarpaulin_include))]
+// An Ok result contains the desired process exit code. Note that 1 is used to
+// report that two files differ when delta is called with two positional
+// arguments and without standard input; 2 is used to report a real problem.
+pub fn run_app(
+    args: Vec<OsString>,
+    capture_output: Option<&mut Cursor<Vec<u8>>>,
+) -> std::io::Result<i32> {
+    let env = env::DeltaEnv::init();
+    let assets = utils::bat::assets::load_highlighting_assets();
+    let (call, opt) = cli::Opt::from_args_and_git_config(args, &env, assets);
+
+    if let Call::Version(msg) = call {
+        writeln!(std::io::stdout(), "{}", msg.trim_end())?;
+        return Ok(0);
+    } else if let Call::Help(msg) = call {
+        OutputType::oneshot_write(msg)?;
+        return Ok(0);
+    } else if let Call::SubCommand(_, cmd) = &call {
+        // Set before creating the Config, which already asks for the calling process
+        // (not required for Call::DeltaDiff)
+        utils::process::set_calling_proc
+... [TRUNCATED]
+
+--- SHELL COMPLETIONS & MAN PAGES ---
+  etc/completion/completion.bash
+  etc/completion/completion.fish
+  etc/completion/completion.zsh
+
+--- DIRECTORY STRUCTURE (depth 2) ---
+├── .cargo/
+│   └── audit.toml
+├── .gitattributes
+├── .github/
+│   ├── ISSUE_TEMPLATE/
+│   │   ├── bug.md
+│   │   └── feature.md
+│   ├── dependabot.yml
+│   └── workflows/
+│       ├── audit.yml
+│       ├── cd.yml
+│       ├── ci.yml
+│       └── manual.yml
+├── .gitignore
+├── ARCHITECTURE.md
+├── CONTRIBUTING.md
+├── Cargo.lock
+├── Cargo.toml
+├── LICENSE
+├── Makefile
+├── README.md
+├── etc/
+│   ├── bin/
+│   │   ├── ansifilter
+│   │   ├── check-show-config-options
+│   │   ├── diagnostics
+│   │   └── list-options
+│   ├── ci/
+│   │   ├── .gitattributes
+│   │   └── before_deploy.sh
+│   ├── completion/
+│   │   ├── completion.bash
+│   │   ├── completion.fish
+│   │   └── completion.zsh
+│   ├── docker/
+│   │   ├── Makefile
+│   │   ├── README.md
+│   │   ├── delta-ubuntu
+│   │   └── ubuntu.Dockerfile
+│   ├── examples/
+│   │   ├── 119-within-line-edits
+│   │   ├── 121-unrecognized-content-before-diff-1
+│   │   ├── 121-unrecognized-content-before-diff-2
+│   │   ├── 125-merge-conflict-1.diff
+│   │   ├── 125-merge-conflict-2.diff
+│   │   ├── 127-paths-with-spaces--added
+│   │   ├── 127-paths-with-spaces--renamed
+│   │   ├── 128-empty-file
+│   │   ├── 139-file-with-space-delimited-dash.diff
+│   │   ├── 140-within-line-edits
+│   │   ├── 140-within-line-edits-counter-example
+│   │   ├── 189-merge-conflict.1.diff
+│   │   ├── 189-merge-conflict.2.diff
+│   │   ├── 189-merge-conflict.3.diff
+│   │   ├── 189-merge-conflict.4.diff
+│   │   ├── 189-merge-conflict.5.diff
+│   │   ├── 205-highlight-bug-1.diff
+│   │   ├── 205-highlight-bug-2.diff
+│   │   ├── 205-highlight-bug.diff
+│   │   ├── 308-side-by-side-tabs.diff
+│   │   ├── 345-keep-plus-minus-markers.diff
+│   │   ├── 345-keep-plus-minus-markers.gitconfig
+│   │   ├── 388-whitespace_error_keep_plus_minus_marker
+│   │   ├── 55-unicode-width.diff
+│   │   ├── 56-unified-directory-diff
+│   │   ├── 60-submodule
+│   │   ├── 662-submodules
+│   │   ├── 72-color-moved-2.diff
+│   │   ├── 72-color-moved-3.diff
+│   │   ├── 72-color-moved-4.diff
+│   │   ├── 72-color-moved.diff
+│   │   ├── 802-color-moved.diff
+│   │   ├── 813-cthulhu.diff
+│   │   ├── 822-hunk-header-within-merge-conflict.diff
+│   │   ├── 93-binary
+│   │   └── styles.py
+│   ├── performance/
+│   │   ├── README.md
+│   │   ├── all-benchmarks.json
+│   │   ├── chronologer.yaml
+│   │   ├── data/
+│   │   ├── index.html
+│   │   └── visualization.svg
+│   └── release.Makefile
+├── manual/
+│   ├── .gitignore
+│   ├── Makefile
+│   ├── book.toml
+│   └── src/
+│       ├── SUMMARY.md
+│       ├── build-delta-from-source.md
+│       ├── choosing-colors-styles.md
+│       ├── color-moved-support.md
+│       ├── comparisons-with-other-tools.md
+│       ├── configuration.md
+│       ├── custom-themes.md
+│       ├── delta-configs-used-in-screenshots.md
+│       ├── diff-highlight-and-diff-so-fancy-emulation.md
+│       ├── environment-variables.md
+│       ├── features-named-groups-of-settings.md
+│       ├── features.md
+│       ├── full---help-output.md
+│       ├── get-started.md
+│       ├── git-blame.md
+│       ├── grep.md
+│       ├── how-delta-works.md
+│       ├── hyperlinks.md
+│       ├── installation.md
+│       ├── introduction.md
+│       ├── line-numbers.md
+│       ├── merge-conflicts.md
+│       ├── navigation-keybindings-for-large-diffs.md
+│       ├── related-projects.md
+│       ├── side-by-side-view.md
+│       ├── supported-languages-and-themes.md
+│       ├── tips-and-tricks.md
+│       ├── tips-and-tricks/
+│       └── usage.md
+├── src/
+│   ├── align.rs
+│   ├── ansi/
+│   │   ├── console_tests.rs
+│   │   ├── iterator.rs
+│   │   └── mod.rs
+│   ├── cli.rs
+│   ├── color.rs
+│   ├── colors.rs
+│   ├── config.rs
+│   ├── delta.rs
+│   ├── edits.rs
+│   ├── env.rs
+│   ├── features/
+│   │   ├── color_only.rs
+│   │   ├── diff_highlight.rs
+│   │   ├── diff_so_fancy.rs
+│   │   ├── hyperlinks.rs
+│   │   ├── line_numbers.rs
+│   │   ├── mod.rs
+│   │   ├── navigate.rs
+│   │   ├── raw.rs
+│   │   └── side_by_side.rs
+│   ├── format.rs
+│   ├── git_config/
+│   │   ├── mod.rs
+│   │   └── remote.rs
+│   ├── handlers/
+│   │   ├── blame.rs
+│   │   ├── commit_meta.rs
+│   │   ├── diff_header.rs
+│   │   ├── diff_header_diff.rs
+│   │   ├── diff_header_misc.rs
+│   │   ├── diff_stat.rs
+│   │   ├── draw.rs
+│   │   ├── git_show_file.rs
+│   │   ├── grep.rs
+│   │   ├── hunk.rs
+│   │   ├── hunk_header.rs
+│   │   ├── merge_conflict.rs
+│   │   ├── mod.rs
+│   │   ├── ripgrep_json.rs
+│   │   └── submodule.rs
+│   ├── main.rs
+│   ├── minusplus.rs
+│   ├── options/
+│   │   ├── get.rs
+│   │   ├── mod.rs
+│   │   ├── option_value.rs
+│   │   ├── set.rs
+│   │   └── theme.rs
+│   ├── paint.rs
+│   ├── parse_style.rs
+│   ├── parse_styles.rs
+│   ├── style.rs
+│   ├── subcommands/
+│   │   ├── diff.rs
+│   │   ├── external.rs
+│   │   ├── generate_completion.rs
+│   │   ├── list_syntax_themes.rs
+│   │   ├── mod.rs
+│   │   ├── parse_ansi.rs
+│   │   ├── sample_diff.rs
+│   │   ├── show_colors.rs
+│   │   ├── show_config.rs
+│   │   ├── show_syntax_themes.rs
+│   │   └── show_themes.rs
+│   ├── tests/
+│   │   ├── ansi_test_utils.rs
+│   │   ├── integration_test_utils.rs
+│   │   ├── mod.rs
+│   │   ├── test_example_diffs.rs
+│   │   └── test_utils.rs
+│   ├── utils/
+│   │   ├── bat/
+│   │   ├── git.rs
+│   │   ├── helpwrap.rs
+│   │   ├── mod.rs
+│   │   ├── path.rs
+│   │   ├── process.rs
+│   │   ├── regex_replacement.rs
+│   │   ├── round_char_boundary.rs
+│   │   ├── syntect.rs
+│   │   ├── tabs.rs
+│   │   └── workarounds.rs
+│   └── wrapping.rs
+├── tests/
+│   ├── test_deprecated_options
+│   ├── test_navigate_less_history_file
+│   └── test_raw_output_matches_git_on_full_repo_history
+└── themes.gitconfig

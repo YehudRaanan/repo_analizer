@@ -1,0 +1,462 @@
+=====================================
+Repository Analysis: baojs
+Type: Web Application
+=====================================
+
+--- METADATA ---
+Name: baojs
+Description: ⚡️ A fast, minimalist web framework for the Bun JavaScript runtime
+Language: TypeScript
+Topics: N/A
+Stars: 972
+License: MIT License
+
+--- README ---
+# 🥟 Bao.js
+
+[![](https://img.shields.io/badge/readme%20style-standard-brightgreen.svg?style=flat-square)](https://github.com/RichardLitt/standard-readme)
+[![npm](https://img.shields.io/npm/v/baojs.svg)](https://www.npmjs.com/package/baojs)
+[![npm](https://img.shields.io/npm/l/baojs.svg)](https://spdx.org/licenses/MIT)
+[![npm](https://img.shields.io/npm/dt/baojs.svg)](<[![npm](https://img.shields.io/npm/v/npm.svg)](https://www.npmjs.com/package/baojs)>)
+
+<p align="center">
+  <img src="media/bao175.png" alt="Logo"></a>
+</p>
+
+A fast, minimalist web framework for the [Bun JavaScript runtime](https://bun.sh/).
+
+⚡️ **Bao.js** is **3.7x faster** than **Express.js** and has similar syntax for an easy transition.
+
+## Table of Contents
+
+- [Background](#background)
+- [Install](#install)
+- [Usage](#usage)
+  - [Examples](#examples)
+  - [Middleware](#middleware)
+- [Benchmarks](#benchmarks)
+- [Contribute](#contribute)
+- [License](#license)
+
+## Background
+
+Bun was released as a fast, modern JavaScript runtime. One of the many improvements over Node.js was the 2.5x increase in HTTP request throughput when compared to the Node.js `http` module ([reference](https://github.com/oven-sh/bun/blob/7d1c9fa1a471d180c078a860c4885478f334bdf5/README.md#bunserve---fast-http-server)).
+
+Bao.js uses Bun's built in `Bun.serve` module to serve routes and uses a radix tree for finding those routes resulting in exceptionally low latency response times. Bao is loosely syntactically modeled after [Express.js](https://github.com/expressjs/express) and [Koa.js](https://koajs.com/) with a handful of changes and upgrades to help with speed and improve the developer experience.
+
+Bao works by creating a `Context` object (`ctx`) for each request and passing that through middleware and the destination route. This Context object also has various shortcut methods to make life easier such as by having standard response types (e.g. `ctx.sendJson({ "hello": "world" })`). When a route or middleware is finished, it should return the Context object to pass it along the chain until it is sent to the user.
+
+The code is well documented and uses TypeScript, but more complete documentation will be added here in the future. It is not recommended to use this in production yet as both Bun and Bao.js are in beta.
+
+## Install
+
+Although this package is distributed via NPM, is only compatible with Bun (not Node.js) as it uses native Bun libraries.
+
+You must first install [Bun](https://bun.sh/) and use it to run your server.
+
+🧑‍💻 To install Bao.js, in your project directory, run `bun add baojs`
+
+## Usage
+
+You can import Bao by using
+
+```typescript
+import Bao from "baojs";
+
+const app = new Bao();
+```
+
+To create a GET route, run
+
+```typescript
+app.get("/", (ctx) => {
+  return ctx.sendText("OK");
+});
+```
+
+Then to get Bao to listen for requests, run
+
+```typescript
+app.listen();
+```
+
+This will start a web server on the default port 3000 listening on all interfaces (`0.0.0.0`). The port can be modified in the `listen()` options
+
+```typescript
+app.listen({ port: 8080 });
+```
+
+### Examples
+
+#### Hello World
+
+Run `bun index.ts`
+
+```typescript
+// index.ts
+import Bao from "baojs";
+
+const app = new Bao();
+
+app.get("/", (ctx) => {
+  return ctx.sendText("Hello World!");
+});
+
+const server = app.listen();
+
+console.log(`Listening on ${server.hostname}:${server.port}`);
+```
+
+#### Read request body
+
+Run `bun index.ts`
+
+```typescript
+// index.ts
+import Bao from "baojs";
+
+const app = new Bao();
+
+app.post("/pretty", async (ctx) => {
+  const json = await ctx.req.json();
+  return ctx.sendPrettyJson(json);
+});
+
+app.listen();
+```
+
+#### Named parameters
+
+Run `bun index.ts`
+
+```typescript
+// index.ts
+import Bao from "baojs";
+
+const app = new Bao();
+
+app.get("/user/:user", (ctx) => {
+  const user = await getUser(ctx.params.user);
+  return ctx.sendJson(user);
+});
+
+app.get("/user/:user/:post/data", (ctx) => {
+  const post = await getPost(ctx.params.post);
+  return ctx.sendJson({ post: post, byUser: user });
+});
+
+app.listen();
+```
+
+#### Wildcards
+
+Wildcards are different to named parameters as wildcards must be at the end of paths as they will catch everything.
+
+The following would be produced from the example below
+
+- `GET /posts/123` => `/123`
+- `GET /posts/123/abc` => `/123/abc`
+
+Run `bun index.ts`
+
+```typescript
+// index.ts
+import Bao from "baojs";
+
+const app = new Bao();
+
+app.get("/posts/*post", (ctx) => {
+  return ctx.sendText(ctx.params.post);
+});
+
+app.listen();
+```
+
+#### Custom error handler
+
+Run `bun index.ts`
+
+```typescript
+// index.ts
+import Bao from "baojs";
+
+const app = new Bao();
+
+app.get("/", (ctx) => {
+  return ctx.sendText("Hello World!");
+});
+
+// A perpetually broken POST route
+app.post("/broken", (ctx) => {
+  throw "An intentional error has occurred in POST /broken";
+  return ctx.sendText("I will never run...");
+});
+
+// Custom error handler
+app.errorHandler = (error: Error) => {
+  logErrorToLoggingService(error);
+  return new Response("Oh no! An error has occurred...");
+};
+
+// Custom 40
+... [TRUNCATED]
+
+--- PACKAGE MANIFEST(S) ---
+
+[package.json]
+{
+  "name": "baojs",
+  "version": "0.2.1",
+  "author": "Matt Reid <hello@mattreid.dev>",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mattreid1/baojs.git"
+  },
+  "keywords": [
+    "bun",
+    "web",
+    "framework",
+    "http",
+    "middleware",
+    "websocket"
+  ],
+  "main": "./dist/index.js",
+  "description": "A fast, minimalist web framework for the Bun.js runtime",
+  "license": "MIT",
+  "scripts": {
+    "build": "rm -rf dist/ && tsc",
+    "test": "bun ./node_modules/uvu/bin.js test '.+\\.test\\.ts'",
+    "format": "prettier --write ."
+  },
+  "dependencies": {
+    "bun-types": "^0.5.4"
+  },
+  "devDependencies": {
+    "prettier": "^3.2.4",
+    "typescript": "^4.7.4",
+    "uvu": "^0.5.6"
+  }
+}
+
+
+--- WEB FRAMEWORK CONFIG ---
+
+[tsconfig.json]
+{
+  "compilerOptions": {
+    "declaration": true,
+    "lib": ["ESNext"],
+    "module": "esnext",
+    "target": "esnext",
+    "moduleResolution": "node",
+    "noEmitOnError": true,
+    "noImplicitReturns": true,
+    "outDir": "dist",
+    "skipLibCheck": true,
+    "sourceMap": true,
+    "types": ["bun-types"],
+  },
+  "include": ["lib/**/*.ts"],
+}
+
+
+--- ROUTE / PAGE DEFINITIONS ---
+
+[lib/router.ts]
+import type { ServerWebSocket } from "bun";
+import type { IHandler, IWebSocketData, IWebSocketHandlers } from "./bao";
+import { Context, WebSocketContext } from "./context";
+import { Middleware } from "./middleware";
+import { BaoRouter } from "./router/router";
+
+export class Router {
+  #router = new BaoRouter();
+
+  /**
+   * The middleware used by this router
+   */
+  middleware = new Middleware();
+
+  /**
+   * Register a route with the router
+   *
+   * @param method The HTTP method
+   * @param path The path of the route
+   * @param handler The path handler function
+   */
+  register(method: TMethods, path: string, handler: IHandler): void {
+    if (method == "ANY") {
+      this.#router.any(path, handler);
+    } else {
+      this.#router.on(method, path, handler);
+    }
+  }
+
+  /**
+   * Register a WebSocket route with the router
+   *
+   * @param path The path of the WebSocket
+   * @param handlers The WebSocket path handler function
+   */
+  registerWebSocket(path: string, handlers: IWebSocketHandlers) {
+    // WebSocket handler function
+    this.#router.ws(path, handlers);
+
+    // Upgrade connection to WebSocket
+    this.#router.on("GET", path, async (ctx) => {
+      const wsCtx = new WebSocketContext(ctx);
+      const data: IWebSocketData = {
+        ctx: wsCtx,
+      };
+
+      // Run the optional before upgrade middleware
+      if (handlers.upgrade != null)
+        ctx = await Promise.resolve(handlers.upgrade(ctx));
+      if (!ctx.isLocked()) {
+        // Check the Upgrade header
+        if (ctx.headers.get("upgrade").toLowerCase() != "websocket")
+          return ctx
+            .sendText("Upgrade header is invalid", { status: 400 })
+            .forceSend();
+
+        // Upgrade the HTTP connection to a WebSocket connection
+        if (ctx.server.upgrade(ctx.req, { data }) === false)
+          throw new Error(`Unable to upgrade request on path "${ctx.path}"`);
+      }
+
+      return ctx;
+    });
+  }
+
+  /**
+   * Handles WebSocket connections
+   *
+   * @param ws The WebSocket instance itself
+   * @returns Methods to handle stages of the WebSocket lifecycle
+   */
+  handleWebSocket(ws: ServerWebSocket<IWebSocketData>) {
+    const path = ws.data.ctx.path;
+    const route = this.#router.find("WS", path);
+    const handlers = route.handler as IWebSocketHandlers;
+
+    return {
+      open: () =>
+        handlers.open != null ? Promise.resolve(handlers.open(ws)) : void null,
+      close: () =>
+        handlers.close != null
+          ? Promise.resolve(handlers.close(ws))
+          : void null,
+      message: (msg: string | Uint8Array) =>
+        handlers.message != null
+          ? Promise.resolve(handlers.message(ws, msg))
+          : void null,
+    };
+  }
+
+  /**
+   * Handles an incoming request
+   *
+   * @param ctx The Context object created by the request
+   * @returns The Response generated by the path handler and middleware
+   */
+  async handle(ctx: Context): Promise<Response> {
+    let method = ctx.method;
+    if (method == "HEAD") method = "GET";
+    if
+... [TRUNCATED]
+
+[lib/router/router.ts]
+import { IHandler, IWebSocketHandlers } from "../bao";
+import { TMethods } from "../router";
+import { Node } from "./tree";
+
+const httpMethods = [
+  "GET",
+  "HEAD",
+  "POST",
+  "PUT",
+  "DELETE",
+  "CONNECT",
+  "OPTIONS",
+  "TRACE",
+  "PATCH",
+];
+const NOT_FOUND: IRouterResponse = { handler: null, params: {} };
+
+export class BaoRouter {
+  trees: { [key: string]: Node };
+  opts: { [key: string]: any };
+
+  constructor(opts = {}) {
+    if (!(this instanceof BaoRouter)) {
+      return new BaoRouter(opts);
+    }
+    this.trees = {};
+    this.opts = opts;
+  }
+  any(path: string, handler: IHandler) {
+    for (const method of httpMethods) {
+      this.on(method as TMethods, path, handler);
+    }
+  }
+  ws(path: string, handlers: IWebSocketHandlers) {
+    if (path[0] !== "/") {
+      throw new Error("path must begin with '/' in path");
+    }
+    if (!this.trees["WS"]) {
+      this.trees["WS"] = new Node();
+    }
+    this.trees["WS"].addRoute(path, handlers);
+    return this;
+  }
+  on(method: TMethods, path: string, handler: IHandler) {
+    if (path[0] !== "/") {
+      throw new Error("path must begin with '/' in path");
+    }
+    if (!this.trees[method]) {
+      this.trees[method] = new Node();
+    }
+    this.trees[method].addRoute(path, handler);
+    return this;
+  }
+  find(method: string, path: string): IRouterResponse {
+    const tree = this.trees[method];
+    if (tree) {
+      return tree.search(path);
+    }
+    return NOT_FOUND;
+  }
+}
+
+export interface IRouterResponse {
+  handler: IHandler | IWebSocketHandlers | null;
+  params: { [key: string]: string };
+}
+
+
+--- DIRECTORY STRUCTURE (depth 2) ---
+├── .gitignore
+├── .npmignore
+├── .prettierrc
+├── LICENSE
+├── README.md
+├── bun.lockb
+├── lib/
+│   ├── bao.ts
+│   ├── context.ts
+│   ├── index.ts
+│   ├── middleware.ts
+│   ├── router.ts
+│   └── router/
+│       ├── ATTRIBUTION.md
+│       ├── router.ts
+│       └── tree.ts
+├── media/
+│   ├── bao.png
+│   └── bao175.png
+├── package.json
+├── test/
+│   ├── bao.test.ts
+│   ├── index.test.ts
+│   └── test-utils.ts
+└── tsconfig.json

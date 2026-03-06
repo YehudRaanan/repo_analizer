@@ -1,0 +1,2463 @@
+=====================================
+Repository Analysis: grafana
+Type: Web Application
+=====================================
+
+--- METADATA ---
+Name: grafana
+Description: The open and composable observability and data visualization platform. Visualize metrics, logs, and traces from multiple sources like Prometheus, Loki, Elasticsearch, InfluxDB, Postgres and many more. 
+Language: TypeScript
+Topics: alerting, analytics, business-intelligence, dashboard, data-visualization, elasticsearch, go, grafana, hacktoberfest, influxdb, metrics, monitoring, mysql, postgres, prometheus
+Stars: 72504
+License: GNU Affero General Public License v3.0
+
+--- README ---
+![Grafana Logo (Light)](docs/logo-horizontal.png#gh-light-mode-only)
+![Grafana Logo (Dark)](docs/logo-horizontal-dark.png#gh-dark-mode-only)
+
+The open-source platform for monitoring and observability
+
+[![License](https://img.shields.io/github/license/grafana/grafana)](LICENSE)
+[![Go Report Card](https://goreportcard.com/badge/github.com/grafana/grafana)](https://goreportcard.com/report/github.com/grafana/grafana)
+
+Grafana allows you to query, visualize, alert on and understand your metrics no matter where they are stored. Create, explore, and share dashboards with your team and foster a data-driven culture:
+
+- **Visualizations:** Fast and flexible client side graphs with a multitude of options. Panel plugins offer many different ways to visualize metrics and logs.
+- **Dynamic Dashboards:** Create dynamic & reusable dashboards with template variables that appear as dropdowns at the top of the dashboard.
+- **Explore Metrics:** Explore your data through ad-hoc queries and dynamic drilldown. Split view and compare different time ranges, queries and data sources side by side.
+- **Explore Logs:** Experience the magic of switching from metrics to logs with preserved label filters. Quickly search through all your logs or streaming them live.
+- **Alerting:** Visually define alert rules for your most important metrics. Grafana will continuously evaluate and send notifications to systems like Slack, PagerDuty, VictorOps, OpsGenie.
+- **Mixed Data Sources:** Mix different data sources in the same graph! You can specify a data source on a per-query basis. This works for even custom datasources.
+
+## Get started
+
+- [Get Grafana](https://grafana.com/get)
+- [Installation guides](https://grafana.com/docs/grafana/latest/setup-grafana/installation/)
+
+Unsure if Grafana is for you? Watch Grafana in action on [play.grafana.org](https://play.grafana.org/)!
+
+## Documentation
+
+The Grafana documentation is available at [grafana.com/docs](https://grafana.com/docs/).
+
+## Contributing
+
+If you're interested in contributing to the Grafana project:
+
+- Start by reading the [Contributing guide](https://github.com/grafana/grafana/blob/HEAD/CONTRIBUTING.md).
+- Learn how to set up your local environment, in our [Developer guide](https://github.com/grafana/grafana/blob/HEAD/contribute/developer-guide.md).
+- Explore our [beginner-friendly issues](https://github.com/grafana/grafana/issues?q=is%3Aopen+is%3Aissue+label%3A%22beginner+friendly%22).
+- Look through our [style guide and Storybook](https://developers.grafana.com/ui/latest/index.html).
+
+> Share your contributor experience in our [feedback survey](https://gra.fan/ome) to help us improve.
+
+## Get involved
+
+- Follow [@grafana on X (formerly Twitter)](https://x.com/grafana/).
+- Read and subscribe to the [Grafana blog](https://grafana.com/blog/).
+- If you have a specific question, check out our [discussion forums](https://community.grafana.com/).
+- For general discussions, join us on the [official Slack](https://slack.grafana.com) team.
+
+This project is tested with [BrowserStack](https://www.browserstack.com/).
+
+## License
+
+Grafana is distributed under [AGPL-3.0-only](LICENSE). For Apache-2.0 exceptions, see [LICENSING.md](https://github.com/grafana/grafana/blob/HEAD/LICENSING.md).
+
+
+--- PACKAGE MANIFEST(S) ---
+
+[package.json]
+{
+  "author": "Grafana Labs",
+  "license": "AGPL-3.0-only",
+  "private": true,
+  "name": "grafana",
+  "version": "13.0.0-pre",
+  "repository": "github:grafana/grafana",
+  "scripts": {
+    "check-frontend-dev": "./scripts/check-frontend-dev.sh",
+    "build": "NODE_ENV=production nx exec --verbose -- webpack --config scripts/webpack/webpack.prod.js && yarn build:react19",
+    "build:react19": "NODE_ENV=production nx exec --verbose -- webpack --config scripts/webpack/webpack.prod.js --env react19=1",
+    "build:nominify": "yarn run build -- --env noMinify=1",
+    "build:stats": "NODE_ENV=production webpack --progress --config scripts/webpack/webpack.stats.js",
+    "codeowners-manifest": "node ./scripts/codeowners-manifest/index.js",
+    "codeowners-manifest:clean": "rm -rf codeowners-manifest && mkdir -p codeowners-manifest",
+    "codeowners-manifest:generate": "node ./scripts/codeowners-manifest/generate.js",
+    "codeowners-manifest:metadata": "node ./scripts/codeowners-manifest/metadata.js",
+    "codeowners-manifest:raw": "node ./scripts/codeowners-manifest/raw.js",
+    "dev": "NODE_ENV=dev nx exec -- webpack --config scripts/webpack/webpack.dev.js",
+    "e2e": "./e2e/start-and-run-suite",
+    "e2e:old-arch": "./e2e/start-and-run-suite old-arch",
+    "e2e:schema-v2": "KUBERNETES_DASHBOARDS=true yarn playwright test --project dashboards",
+    "e2e:dashboards-search": "./e2e/start-and-run-suite dashboards-search",
+    "e2e:debug": "./e2e/start-and-run-suite debug",
+    "e2e:dev": "./e2e/start-and-run-suite dev",
+    "e2e:benchmark:live": "./e2e/start-and-run-suite benchmark live",
+    "e2e:enterprise": "./e2e/start-and-run-suite enterprise",
+    "e2e:enterprise:dev": "./e2e/start-and-run-suite enterprise dev",
+    "e2e:enterprise:debug": "./e2e/start-and-run-suite enterprise debug",
+    "e2e:playwright": "NODE_OPTIONS='-C @grafana-app/source' yarn playwright test --grep-invert @cloud-plugins",
+    "e2e:pw": "NODE_OPTIONS='-C @grafana-app/source' yarn playwright test",
+    "e2e:playwright:debug": "yarn e2e:pw --debug -x --trace on",
+    "e2e:playwright:10x": "yarn e2e:pw --repeat-each=10",
+    "e2e:playwright:cloud-plugins": "NODE_OPTIONS='-C @grafana-app/source' yarn playwright test --grep @cloud-plugins",
+    "e2e:playwright:storybook": "NODE_OPTIONS='-C @grafana-app/source' yarn playwright test -c playwright.storybook.config.ts",
+    "e2e:playwright:a11y": "AXE_A11Y_REPORT_PATH=./axe-ci-report.json NODE_OPTIONS='-C @grafana-app/source' yarn playwright test --grep \"@a11y\"",
+    "e2e:acceptance": "NODE_OPTIONS='-C @grafana-app/source' yarn playwright test --grep @acceptance",
+    "e2e:storybook": "PORT=9001 ./e2e/run-suite storybook true",
+    "e2e:plugin:build": "nx run-many -t build --projects='@test-plugins/*'",
+    "e2e:plugin:build:dev": "nx run-many -t dev --projects='@test-plugins/*' --maxParallel=100",
+    "test": "jest --notify --watch",
+    "test:coverage": "jest --coverage",
+    "test:coverage:by-codeowner": "yarn codeowners-manifest &
+... [TRUNCATED]
+
+[go.mod]
+module github.com/grafana/grafana
+
+go 1.25.7
+
+// Direct requirements -- every entry needs an owner
+require (
+	buf.build/gen/go/parca-dev/parca/connectrpc/go v1.18.1-20250703125925-3f0fcf4bff96.1 // @grafana/observability-traces-and-profiling
+	buf.build/gen/go/parca-dev/parca/protocolbuffers/go v1.36.2-20250703125925-3f0fcf4bff96.1 // @grafana/observability-traces-and-profiling
+	cloud.google.com/go/kms v1.25.0 // @grafana/grafana-backend-group
+	cloud.google.com/go/storage v1.56.0 // @grafana/grafana-backend-group
+	connectrpc.com/connect v1.19.1 // @grafana/observability-traces-and-profiling
+	cuelang.org/go v0.11.1 // indirect; @grafana/grafana-as-code
+	dario.cat/mergo v1.0.2 // @grafana/grafana-app-platform-squad
+	filippo.io/age v1.2.1 // @grafana/identity-access-team
+	github.com/1NCE-GmbH/grpc-go-pool v0.0.0-20231117122434-2a5bb974daa2 // @grafana/grafana-search-and-storage
+	github.com/Azure/azure-sdk-for-go v68.0.0+incompatible // @grafana/partner-datasources
+	github.com/Azure/azure-sdk-for-go/sdk/azcore v1.20.0 // @grafana/identity-access-team
+	github.com/Azure/azure-sdk-for-go/sdk/azidentity v1.13.1 // @grafana/grafana-backend-group
+	github.com/Azure/azure-sdk-for-go/sdk/keyvault/azkeys v0.10.0 // @grafana/grafana-backend-group
+	github.com/Azure/azure-storage-blob-go v0.15.0 // @grafana/grafana-backend-group
+	github.com/Azure/go-autorest/autorest v0.11.29 // @grafana/grafana-backend-group
+	github.com/Azure/go-autorest/autorest/adal v0.9.24 // @grafana/grafana-backend-group
+	github.com/Bose/minisentinel v0.0.0-20200130220412-917c5a9223bb // @grafana/alerting-backend
+	github.com/BurntSushi/toml v1.5.0 // @grafana/identity-access-team
+	github.com/DATA-DOG/go-sqlmock v1.5.2 // @grafana/grafana-search-and-storage
+	github.com/Masterminds/semver v1.5.0 // @grafana/grafana-backend-group
+	github.com/Masterminds/semver/v3 v3.4.0 // @grafana/grafana-developer-enablement-squad
+	github.com/Masterminds/sprig/v3 v3.3.0 // @grafana/grafana-backend-group
+	github.com/VividCortex/mysqlerr v1.0.0 // @grafana/grafana-backend-group
+	github.com/alicebob/miniredis/v2 v2.34.0 // @grafana/alerting-backend
+	github.com/andybalholm/brotli v1.2.0 // @grafana/partner-datasources
+	github.com/apache/arrow-go/v18 v18.5.1 // @grafana/plugins-platform-backend
+	github.com/armon/go-radix v1.0.0 // @grafana/grafana-app-platform-squad
+	github.com/aws/aws-sdk-go v1.55.7 // @grafana/aws-datasources
+	github.com/aws/aws-sdk-go-v2 v1.41.1 // @grafana/aws-datasources
+	github.com/aws/aws-sdk-go-v2/credentials v1.19.7 // @grafana/grafana-operator-experience-squad
+	github.com/aws/aws-sdk-go-v2/service/cloudwatch v1.45.3 // @grafana/aws-datasources
+	github.com/aws/aws-sdk-go-v2/service/cloudwatchlogs v1.51.0 // @grafana/aws-datasources
+	github.com/aws/aws-sdk-go-v2/service/ec2 v1.225.2 // @grafana/aws-datasources
+	github.com/aws/aws-sdk-go-v2/service/oam v1.18.3 // @grafana/aws-datasources
+	github.com/aws/aws-sdk-go-v2/service/resourcegroupstaggingapi v1.26.6 // @grafana/aws-datasources
+	gith
+... [TRUNCATED]
+
+--- WEB FRAMEWORK CONFIG ---
+
+[tsconfig.json]
+{
+  "extends": "./scripts/tsconfig.base.json",
+  "compilerOptions": {
+    "jsx": "react-jsx",
+    "baseUrl": "public/",
+    "outDir": "public/dist",
+    "rootDirs": ["public/"],
+    "allowJs": true,
+    "strict": true,
+    "resolveJsonModule": true,
+    "useUnknownInCatchVariables": true,
+    "incremental": true,
+    "isolatedModules": true,
+    "moduleResolution": "bundler",
+    "tsBuildInfoFile": "./tsconfig.tsbuildinfo",
+    "paths": {
+      "@grafana/schema/dist/esm/*": ["../packages/grafana-schema/src/*"]
+    }
+  },
+  "ts-node": {
+    "swc": true,
+    "compilerOptions": {
+      "module": "ESNext",
+      "moduleResolution": "Bundler"
+    }
+  },
+  "include": [
+    "eslint.config.js",
+    "public/app/**/*.ts*",
+    "public/swagger/**/*.ts*",
+    "public/e2e-test/**/*.ts",
+    "public/test/**/*.ts*",
+    "public/vendor/**/*.ts",
+    "packages/grafana-data/typings",
+    "packages/grafana-ui/src/types"
+  ],
+  "exclude": ["public/app/**/webpack.config.ts"]
+}
+
+
+[Dockerfile]
+# syntax=docker/dockerfile:1
+
+# to maintain formatting of multiline commands in vscode, add the following to settings.json:
+# "docker.languageserver.formatter.ignoreMultilineInstructions": true
+
+ARG BASE_IMAGE=alpine-base
+ARG GO_IMAGE=go-builder-base
+ARG JS_IMAGE=js-builder-base
+ARG JS_PLATFORM=linux/amd64
+
+# Default to building locally
+ARG GO_SRC=go-builder
+ARG JS_SRC=js-builder
+
+# Dependabot cannot update dependencies listed in ARGs
+# By using FROM instructions we can delegate dependency updates to dependabot
+FROM alpine:3.23.3 AS alpine-base
+FROM ubuntu:22.04 AS ubuntu-base
+FROM golang:1.25.7-alpine AS go-builder-base
+FROM --platform=${JS_PLATFORM} node:24-alpine AS js-builder-base
+# Javascript build stage
+FROM --platform=${JS_PLATFORM} ${JS_IMAGE} AS js-builder
+ARG JS_NODE_ENV=production
+ARG JS_YARN_INSTALL_FLAG=--immutable
+ARG JS_YARN_BUILD_FLAG=build
+
+ENV NODE_OPTIONS=--max_old_space_size=8000
+
+WORKDIR /tmp/grafana
+
+RUN apk add --no-cache make build-base python3
+
+COPY package.json project.json nx.json yarn.lock .yarnrc.yml ./
+COPY .yarn .yarn
+COPY packages packages
+COPY e2e-playwright e2e-playwright
+COPY public public
+COPY LICENSE ./
+COPY conf/defaults.ini ./conf/defaults.ini
+COPY e2e e2e
+
+#
+# Set the node env according to defaults or argument passed
+#
+ENV NODE_ENV=${JS_NODE_ENV}
+#
+RUN if [ "$JS_YARN_INSTALL_FLAG" = "" ]; then \
+    yarn install; \
+  else \
+    yarn install --immutable; \
+  fi
+
+COPY tsconfig.json eslint.config.js .editorconfig .browserslistrc .prettierrc.js ./
+COPY scripts scripts
+COPY emails emails
+
+# Set the build argument according to default or argument passed
+RUN yarn ${JS_YARN_BUILD_FLAG}
+
+# Golang build stage
+FROM ${GO_IMAGE} AS go-builder
+
+ARG COMMIT_SHA=""
+ARG BUILD_BRANCH=""
+ARG GO_BUILD_TAGS="oss"
+ARG WIRE_TAGS="oss"
+
+RUN if grep -i -q alpine /etc/issue; then \
+  apk add --no-cache \
+  bash \
+  # Install build dependencies
+  make git; \
+  fi
+
+WORKDIR /tmp/grafana
+
+COPY go.* ./
+COPY .citools .citools
+
+# Copy go dependencies first
+# If updating this, please also update devenv/frontend-service/backend.dockerfile
+COPY pkg/util/xorm pkg/util/xorm
+COPY pkg/apiserver pkg/apiserver
+COPY pkg/apimachinery pkg/apimachinery
+COPY pkg/build pkg/build
+COPY pkg/build/wire pkg/build/wire
+COPY pkg/promlib pkg/promlib
+COPY pkg/storage/unified/resource pkg/storage/unified/resource
+COPY pkg/storage/unified/resource/kv/go.* pkg/storage/unified/resource/kv
+COPY pkg/storage/unified/resourcepb pkg/storage/unified/resourcepb
+COPY pkg/storage/unified/apistore pkg/storage/unified/apistore
+COPY pkg/semconv pkg/semconv
+COPY pkg/plugins pkg/plugins
+COPY pkg/aggregator pkg/aggregator
+COPY apps/playlist apps/playlist
+COPY apps/quotas apps/quotas
+COPY apps/plugins apps/plugins
+COPY apps/shorturl apps/shorturl
+COPY apps/annotation apps/annotation
+COPY apps/correlations apps/correlations
+COPY apps/preferences apps/preferences
+COPY apps/collections apps/collections
+COPY apps/provisioning apps/provisioning
+COPY apps/secret apps/secret
+COPY apps/scope
+... [TRUNCATED]
+
+--- ROUTE / PAGE DEFINITIONS ---
+
+[e2e-playwright/test-plugins/grafana-extensionstest-app/pages/AddedComponents.tsx]
+import { PluginPage, usePluginComponents } from '@grafana/runtime';
+import { Stack } from '@grafana/ui';
+
+import { testIds } from '../testIds';
+
+type ReusableComponentProps = {
+  name: string;
+};
+
+export function AddedComponents() {
+  const { components } = usePluginComponents<ReusableComponentProps>({
+    extensionPointId: 'plugins/grafana-extensionstest-app/addComponent/v1',
+  });
+
+  return (
+    <PluginPage>
+      <Stack direction={'column'} gap={4} data-testid={testIds.addedComponentsPage.container}>
+        <article>
+          <h3>Component extensions defined with addComponent and retrived with usePluginComponents hook</h3>
+          {components.map((Component, i) => {
+            return <Component key={i} name="World" />;
+          })}
+        </article>
+      </Stack>
+    </PluginPage>
+  );
+}
+
+
+[e2e-playwright/test-plugins/grafana-extensionstest-app/pages/AddedLinks.tsx]
+import { PluginPage, usePluginLinks } from '@grafana/runtime';
+import { Stack } from '@grafana/ui';
+
+import { ActionButton } from '../components/ActionButton';
+import { testIds } from '../testIds';
+
+export const LINKS_EXTENSION_POINT_ID = 'plugins/grafana-extensionstest-app/use-plugin-links/v1';
+
+export function AddedLinks() {
+  const { links } = usePluginLinks({ extensionPointId: LINKS_EXTENSION_POINT_ID });
+
+  return (
+    <PluginPage>
+      <Stack direction={'column'} gap={4} data-testid={testIds.addedLinksPage.container}>
+        <section data-testid={testIds.addedLinksPage.section1}>
+          <h3>Link extensions defined with addLink and retrieved using usePluginLinks</h3>
+          <ActionButton extensions={links} />
+        </section>
+      </Stack>
+    </PluginPage>
+  );
+}
+
+
+[e2e-playwright/test-plugins/grafana-extensionstest-app/pages/Config.tsx]
+import { Trans } from '@grafana/i18n';
+import { PluginPage } from '@grafana/runtime';
+import { Stack } from '@grafana/ui';
+
+export function Config() {
+  return (
+    <PluginPage>
+      <Stack direction={'column'} gap={4}>
+        <section>
+          <h3>
+            <Trans i18nKey="config-page.header.text">Is this translated</Trans>
+          </h3>
+        </section>
+      </Stack>
+    </PluginPage>
+  );
+}
+
+
+[e2e-playwright/test-plugins/grafana-extensionstest-app/pages/ExposedComponents.tsx]
+import { PluginPage, usePluginComponent } from '@grafana/runtime';
+
+import { testIds } from '../testIds';
+
+type ReusableComponentProps = {
+  name: string;
+};
+
+export function ExposedComponents() {
+  const { component: ReusableComponent } = usePluginComponent<ReusableComponentProps>(
+    'grafana-extensionexample1-app/reusable-component/v1'
+  );
+  const { component: AddToDashboardForm } = usePluginComponent('grafana/add-to-dashboard-form/v1');
+
+  if (!ReusableComponent) {
+    return null;
+  }
+
+  return (
+    <PluginPage>
+      <div data-testid={testIds.exposedComponentsPage.container}>
+        <ReusableComponent name={'World'} />
+      </div>
+      {AddToDashboardForm && (
+        <section>
+          <h3>Save to dashboard (exposed form)</h3>
+          <AddToDashboardForm
+            // Create a recognizable panel for assertion
+            buildPanel={() => ({
+              type: 'timeseries',
+              title: 'E2E Add to Dashboard Panel',
+              targets: [],
+            })}
+            // Ensure navigation works correctly from plugin page
+            options={{ useAbsolutePath: true }}
+            onClose={() => {}}
+          />
+        </section>
+      )}
+    </PluginPage>
+  );
+}
+
+
+[e2e-playwright/test-plugins/grafana-extensionstest-app/pages/index.tsx]
+export { ExposedComponents } from './ExposedComponents';
+export { AddedComponents } from './AddedComponents';
+export { AddedLinks } from './AddedLinks';
+export { Config } from './Config';
+
+
+--- DIRECTORY STRUCTURE (depth 2) ---
+├── .air.toml
+├── .bra.toml
+├── .browserslistrc
+├── .changelog-archive/
+│   ├── CHANGELOG.01.md
+│   ├── CHANGELOG.02.md
+│   ├── CHANGELOG.03.md
+│   ├── CHANGELOG.04.md
+│   ├── CHANGELOG.05.md
+│   ├── CHANGELOG.06.md
+│   ├── CHANGELOG.07.md
+│   ├── CHANGELOG.08.md
+│   ├── CHANGELOG.09.md
+│   └── CHANGELOG.10.md
+├── .citools/
+│   ├── README.md
+│   ├── Variables.mk
+│   ├── generate.sh
+│   ├── install.sh
+│   └── src/
+│       ├── air/
+│       ├── bra/
+│       ├── cog/
+│       ├── cue/
+│       ├── golangci-lint/
+│       ├── jb/
+│       ├── lefthook/
+│       └── swagger/
+├── .dockerignore
+├── .editorconfig
+├── .gitattributes
+├── .github/
+│   ├── CODEOWNERS
+│   ├── ISSUE_TEMPLATE/
+│   │   ├── 0-bug-report.yaml
+│   │   ├── 1-feature_requests.md
+│   │   ├── 2-accessibility.md
+│   │   ├── 3-data_source_request.yaml
+│   │   ├── 4-staff_issues.md
+│   │   └── config.yml
+│   ├── PULL_REQUEST_TEMPLATE.md
+│   ├── actionlint.yaml
+│   ├── actions/
+│   │   ├── build-package/
+│   │   ├── change-detection/
+│   │   ├── changelog/
+│   │   ├── check-jobs/
+│   │   ├── setup-enterprise/
+│   │   ├── setup-grafana-bench/
+│   │   ├── setup-node/
+│   │   └── yarn-install/
+│   ├── bot.md
+│   ├── commands.json
+│   ├── dependabot.yml
+│   ├── issue-opened.json
+│   ├── license_finder.yaml
+│   ├── pr-checks.json
+│   ├── pr-commands.json
+│   ├── renovate.json5
+│   ├── workflows/
+│   │   ├── actionlint-format.txt
+│   │   ├── actionlint.yml
+│   │   ├── add-to-whats-new.yml
+│   │   ├── alerting-swagger-gen.yml
+│   │   ├── alerting-update-module.yml
+│   │   ├── analytics-events-report.yml
+│   │   ├── auto-milestone.yml
+│   │   ├── auto-triager/
+│   │   ├── backend-code-checks.yml
+│   │   ├── backend-unit-tests.yml
+│   │   ├── backport-trigger.yml
+│   │   ├── backport-workflow.yml
+│   │   ├── bump-version.yml
+│   │   ├── changelog.yml
+│   │   ├── check-frontend-test-coverage.yml
+│   │   ├── cleanup-branches.yml
+│   │   ├── codeowners-validator.yml
+│   │   ├── codeql-analysis.yml
+│   │   ├── commands.yml
+│   │   ├── community-release.yml
+│   │   ├── core-plugins-build-and-release.yml
+│   │   ├── create-next-release-branch.yml
+│   │   ├── create-security-branch.yml
+│   │   ├── create-security-patch-from-security-mirror.yml
+│   │   ├── dashboards-issue-add-label.yml
+│   │   ├── defaults-ini-docs-reminder.yml
+│   │   ├── deploy-pr-preview.yml
+│   │   ├── deploy-storybook-preview.yml
+│   │   ├── deploy-storybook.yml
+│   │   ├── detect-breaking-changes-levitate.yml
+│   │   ├── detect-plugin-extension-changes.yml
+│   │   ├── documentation-ci.yml
+│   │   ├── ephemeral-instances-pr-comment.yml
+│   │   ├── externalized-datasources-reminder.yml
+│   │   ├── feature-toggles-ci.yml
+│   │   ├── frontend-lint.yml
+│   │   ├── frontend-perf-tests.yaml
+│   │   ├── github-release.yml
+│   │   ├── go-lint.yml
+│   │   ├── i18n-crowdin-create-tasks.yml
+│   │   ├── i18n-crowdin-download.yml
+│   │   ├── i18n-crowdin-upload.yml
+│   │   ├── i18n-verify.yml
+│   │   ├── issue-opened.yml
+│   │   ├── lint-build-docs.yml
+│   │   ├── migrate-prs.yml
+│   │   ├── pr-build-grafana.yml
+│   │   ├── pr-checks.yml
+│   │   ├── pr-codeql-analysis-javascript.yml
+│   │   ├── pr-codeql-analysis-python.yml
+│   │   ├── pr-commands.yml
+│   │   ├── pr-dependabot-update-go-workspace.yml
+│   │   ├── pr-e2e-tests.yml
+│   │   ├── pr-external-labelling.yml
+│   │   ├── pr-frontend-unit-tests.yml
+│   │   ├── pr-go-workspace-check.yml
+│   │   ├── pr-k8s-codegen-check.yml
+│   │   ├── pr-mt-service-compatibility.yml
+│   │   ├── pr-patch-check-event.yml
+│   │   ├── pr-patch-check.yml
+│   │   ├── pr-test-docker.yml
+│   │   ├── pr-test-integration.yml
+│   │   ├── publish-artifact.yml
+│   │   ├── publish-technical-documentation-next.yml
+│   │   ├── publish-technical-documentation-release.yml
+│   │   ├── reject-gh-secrets.yml
+│   │   ├── release-build.yml
+│   │   ├── release-comms.yml
+│   │   ├── release-npm.yml
+│   │   ├── release-pr.yml
+│   │   ├── relyance-scan.yml
+│   │   ├── run-dashboard-search-e2e.yml
+│   │   ├── run-schema-v2-e2e.yml
+│   │   ├── scripts/
+│   │   ├── shellcheck.yml
+│   │   ├── skye-add-to-project.yml
+│   │   ├── stale.yml
+│   │   ├── storybook-a11y.yml
+│   │   ├── swagger-gen.yml
+│   │   ├── sync-mirror-event.yml
+│   │   ├── trigger-dashboard-search-e2e.yml
+│   │   ├── trivy-scan.yml
+│   │   ├── trufflehog.yml
+│   │   └── update-schema-types.yml
+│   └── zizmor.yml
+├── .gitignore
+├── .golangci.yml
+├── .husky/
+│   └── pre-commit
+├── .ignore
+├── .levignore.js
+├── .nvmrc
+├── .nxignore
+├── .prettierignore
+├── .prettierrc.js
+├── .trivyignore
+├── .vale.ini
+├── .vim/
+│   └── coc-settings.json
+├── .vscode/
+│   └── launch.json
+├── .yarn/
+│   ├── patches/
+│   │   ├── @storybook-core-npm-8.6.15-a468a35170.patch
+│   │   ├── history-npm-4.10.1-ee217563ae.patch
+│   │   ├── react-grid-layout-npm-1.4.4-4024c5395b.patch
+│   │   ├── react-split-pane-npm-0.1.92-93dbf51dff.patch
+│   │   └── slate-dev-environment-npm-0.2.5-9aeb7da7b5.patch
+│   ├── plugins/
+│   │   └── @yarnpkg/
+│   └── releases/
+│       └── yarn-4.11.0.cjs
+├── .yarnrc.yml
+├── AGENTS.md
+├── CHANGELOG.md
+├── CODE_OF_CONDUCT.md
+├── CONTRIBUTING.md
+├── Dockerfile
+├── GOVERNANCE.md
+├── HALL_OF_FAME.md
+├── LICENSE
+├── LICENSING.md
+├── MAINTAINERS.md
+├── Makefile
+├── NOTICE.md
+├── README.md
+├── ROADMAP.md
+├── SUPPORT.md
+├── WORKFLOW.md
+├── apps/
+│   ├── advisor/
+│   │   ├── Makefile
+│   │   ├── README.md
+│   │   ├── go.mod
+│   │   ├── go.sum
+│   │   ├── kinds/
+│   │   └── pkg/
+│   ├── alerting/
+│   │   ├── alertenrichment/
+│   │   ├── historian/
+│   │   ├── notifications/
+│   │   └── rules/
+│   ├── annotation/
+│   │   ├── Makefile
+│   │   ├── go.mod
+│   │   ├── go.sum
+│   │   ├── kinds/
+│   │   ├── pkg/
+│   │   └── plugin/
+│   ├── collections/
+│   │   ├── Makefile
+│   │   ├── go.mod
+│   │   ├── go.sum
+│   │   ├── kinds/
+│   │   └── pkg/
+│   ├── correlations/
+│   │   ├── Makefile
+│   │   ├── go.mod
+│   │   ├── go.sum
+│   │   ├── kinds/
+│   │   ├── pkg/
+│   │   └── plugin/
+│   ├── dashboard/
+│   │   ├── Makefile
+│   │   ├── go.mod
+│   │   ├── go.sum
+│   │   ├── kinds/
+│   │   ├── pkg/
+│   │   └── tshack/
+│   ├── dashvalidator/
+│   │   ├── Makefile
+│   │   ├── definitions/
+│   │   ├── go.mod
+│   │   ├── go.sum
+│   │   ├── kinds/
+│   │   ├── pkg/
+│   │   └── plugin/
+│   ├── example/
+│   │   ├── Makefile
+│   │   ├── README.md
+│   │   ├── go.mod
+│   │   ├── go.sum
+│   │   ├── kinds/
+│   │   ├── pkg/
+│   │   └── plugin/
+│   ├── folder/
+│   │   ├── Makefile
+│   │   ├── go.mod
+│   │   ├── go.sum
+│   │   ├── kinds/
+│   │   └── pkg/
+│   ├── iam/
+│   │   ├── .gitignore
+│   │   ├── Makefile
+│   │   ├── Tiltfile
+│   │   ├── go.mod
+│   │   ├── go.sum
+│   │   ├── kinds/
+│   │   ├── local/
+│   │   └── pkg/
+│   ├── live/
+│   │   ├── Makefile
+│   │   ├── go.mod
+│   │   ├── go.sum
+│   │   ├── kinds/
+│   │   └── pkg/
+│   ├── logsdrilldown/
+│   │   ├── Makefile
+│   │   ├── definitions/
+│   │   ├── go.mod
+│   │   ├── go.sum
+│   │   ├── kinds/
+│   │   ├── pkg/
+│   │   └── plugin/
+│   ├── playlist/
+│   │   ├── Makefile
+│   │   ├── go.mod
+│   │   ├── go.sum
+│   │   ├── kinds/
+│   │   └── pkg/
+│   ├── plugins/
+│   │   ├── Makefile
+│   │   ├── README.md
+│   │   ├── go.mod
+│   │   ├── go.sum
+│   │   ├── kinds/
+│   │   ├── pkg/
+│   │   └── plugin/
+│   ├── preferences/
+│   │   ├── Makefile
+│   │   ├── go.mod
+│   │   ├── go.sum
+│   │   ├── kinds/
+│   │   └── pkg/
+│   ├── provisioning/
+│   │   ├── Makefile
+│   │   ├── go.mod
+│   │   ├── go.sum
+│   │   ├── kinds/
+│   │   └── pkg/
+│   ├── quotas/
+│   │   ├── Makefile
+│   │   ├── go.mod
+│   │   ├── go.sum
+│   │   ├── kinds/
+│   │   ├── pkg/
+│   │   └── plugin/
+│   ├── scope/
+│   │   ├── README.md
+│   │   ├── go.mod
+│   │   ├── go.sum
+│   │   └── pkg/
+│   ├── sdk.mk
+│   ├── secret/
+│   │   ├── Makefile
+│   │   ├── buf.gen.yaml
+│   │   ├── buf.yaml
+│   │   ├── consolidate/
+│   │   ├── decrypt/
+│   │   ├── go.mod
+│   │   ├── go.sum
+│   │   ├── inline/
+│   │   ├── kinds/
+│   │   └── pkg/
+│   └── shorturl/
+│       ├── Makefile
+│       ├── go.mod
+│       ├── go.sum
+│       ├── kinds/
+│       ├── pkg/
+│       └── plugin/
+├── conf/
+│   ├── defaults.ini
+│   ├── ldap.toml
+│   ├── ldap_multiple.toml
+│   ├── provisioning/
+│   │   ├── access-control/
+│   │   ├── alerting/
+│   │   ├── dashboards/
+│   │   ├── datasources/
+│   │   ├── plugins/
+│   │   └── sample/
+│   └── sample.ini
+├── contribute/
+│   ├── ISSUE_TRIAGE.md
+│   ├── README.md
+│   ├── UPGRADING_DEPENDENCIES.md
+│   ├── architecture/
+│   │   ├── README.md
+│   │   ├── frontend-data-requests.md
+│   │   └── k8s-inspired-backend-arch.md
+│   ├── backend/
+│   │   ├── README.md
+│   │   ├── communication.md
+│   │   ├── database.md
+│   │   ├── errors.md
+│   │   ├── instrumentation.md
+│   │   ├── manage-go-module.md
+│   │   ├── package-hierarchy.md
+│   │   ├── recommended-practices.md
+│   │   ├── services.md
+│   │   ├── style-guide.md
+│   │   ├── support-bundles.md
+│   │   ├── upgrade-dependencies.md
+│   │   └── upgrade-go-version.md
+│   ├── breaking-changes-guide/
+│   │   ├── breaking-changes-comment-screenshot.png
+│   │   ├── breaking-changes-console-screenshot-1.png
+│   │   ├── breaking-changes-console-screenshot-2.png
+│   │   ├── breaking-changes-console-screenshot-3.png
+│   │   ├── breaking-changes-guide.md
+│   │   └── breaking-changes-workflow.png
+│   ├── create-feature-request.md
+│   ├── create-pull-request.md
+│   ├── deprecation-policy.md
+│   ├── developer-guide.md
+│   ├── documentation/
+│   │   └── README.md
+│   ├── engineering/
+│   │   └── terminology.md
+│   ├── feature-toggles.md
+│   ├── internationalization.md
+│   ├── merge-pull-request.md
+│   ├── style-guides/
+│   │   ├── accessibility.md
+│   │   ├── code-comments.md
+│   │   ├── e2e-playwright.md
+│   │   ├── frontend.md
+│   │   ├── redux.md
+│   │   ├── storybook.md
+│   │   ├── styling.md
+│   │   ├── testing.md
+│   │   └── themes.md
+│   └── triage-issues.md
+├── crowdin.yml
+├── cue.mod/
+│   └── module.cue
+├── cypress.config.js
+├── devenv/
+│   ├── README.md
+│   ├── alert_rules.yaml
+│   ├── bulk-dashboards/
+│   │   ├── bulk-dashboards.yaml
+│   │   └── bulkdash.jsonnet
+│   ├── bulk-folders/
+│   │   ├── bulk-folders.sh
+│   │   └── bulk-folders.yaml
+│   ├── create_docker_compose.sh
+│   ├── dashboards.yaml
+│   ├── datasources.yaml
+│   ├── datasources_docker.yaml
+│   ├── dev-dashboards-without-uid/
+│   │   ├── panel_tests_graph.json
+│   │   ├── panel_tests_graph_time_regions.json
+│   │   └── panel_tests_polystat.json
+│   ├── dev-dashboards/
+│   │   ├── all-panels.json
+│   │   ├── annotations/
+│   │   ├── dashboards.go
+│   │   ├── datasource-elasticsearch/
+│   │   ├── datasource-influxdb/
+│   │   ├── datasource-loki/
+│   │   ├── datasource-mssql/
+│   │   ├── datasource-mysql/
+│   │   ├── datasource-opentsdb/
+│   │   ├── datasource-postgres/
+│   │   ├── datasource-testdata/
+│   │   ├── e2e-repeats/
+│   │   ├── extensions/
+│   │   ├── feature-templating/
+│   │   ├── home.json
+│   │   ├── live/
+│   │   ├── migrations/
+│   │   ├── panel-barchart/
+│   │   ├── panel-bargauge/
+│   │   ├── panel-candlestick/
+│   │   ├── panel-canvas/
+│   │   ├── panel-common/
+│   │   ├── panel-dashlist/
+│   │   ├── panel-datagrid/
+│   │   ├── panel-flamegraph/
+│   │   ├── panel-gauge/
+│   │   ├── panel-geomap/
+│   │   ├── panel-graph/
+│   │   ├── panel-heatmap/
+│   │   ├── panel-histogram/
+│   │   ├── panel-library/
+│   │   ├── panel-logstable/
+│   │   ├── panel-piechart/
+│   │   ├── panel-polystat/
+│   │   ├── panel-stat/
+│   │   ├── panel-status-history/
+│   │   ├── panel-table/
+│   │   ├── panel-text/
+│   │   ├── panel-timeline/
+│   │   ├── panel-timeseries/
+│   │   ├── panel-trend/
+│   │   ├── panel-xychart/
+│   │   ├── scenarios/
+│   │   └── transforms/
+│   ├── docker/
+│   │   ├── blocks/
+│   │   ├── buildcontainer/
+│   │   ├── compose_header.yml
+│   │   ├── compose_volume_section.yml
+│   │   ├── debtest/
+│   │   ├── ha-test-unified-alerting/
+│   │   ├── ha_test/
+│   │   ├── loadtest/
+│   │   └── rpmtest/
+│   ├── frontend-service/
+│   │   ├── .gitignore
+│   │   ├── README.md
+│   │   ├── Tiltfile
+│   │   ├── build-grafana.sh
+│   │   ├── configs/
+│   │   ├── docker-compose.yaml
+│   │   ├── goff-flags.yaml
+│   │   ├── grafana-fs-dev.dockerfile
+│   │   ├── local-init.sh
+│   │   ├── provisioning/
+│   │   ├── proxy.dockerfile
+│   │   └── run.sh
+│   ├── jsonnet/
+│   │   ├── Makefile
+│   │   ├── dev-dashboards.go
+│   │   ├── dev-dashboards.libsonnet
+│   │   ├── gen.go
+│   │   ├── main.libsonnet
+│   │   └── tmpl/
+│   ├── local-npm/
+│   │   ├── conf/
+│   │   └── docker-compose.yaml
+│   ├── local_cdn/
+│   │   ├── default.conf
+│   │   └── docker-compose.yaml
+│   ├── plugins.yaml
+│   ├── scopes/
+│   │   ├── README.md
+│   │   ├── scopes-config.yaml
+│   │   └── scopes.go
+│   ├── secrets/
+│   │   ├── README.md
+│   │   ├── secrets-config.yaml
+│   │   └── secrets.go
+│   └── setup.sh
+├── docs/
+│   ├── .gitignore
+│   ├── AGENTS.md
+│   ├── Makefile
+│   ├── README.md
+│   ├── docs.mk
+│   ├── logo-horizontal-dark.png
+│   ├── logo-horizontal.png
+│   ├── make-docs
+│   ├── sources/
+│   │   ├── _index.md
+│   │   ├── administration/
+│   │   ├── alerting/
+│   │   ├── as-code/
+│   │   ├── breaking-changes/
+│   │   ├── datasources/
+│   │   ├── developer-resources/
+│   │   ├── developers/
+│   │   ├── fundamentals/
+│   │   ├── introduction/
+│   │   ├── setup-grafana/
+│   │   ├── shared/
+│   │   ├── troubleshooting/
+│   │   ├── tutorials/
+│   │   ├── upgrade-guide/
+│   │   ├── visualizations/
+│   │   └── whatsnew/
+│   └── variables.mk
+├── e2e-playwright/
+│   ├── alerting-suite/
+│   │   └── saved-searches.spec.ts
+│   ├── cloud-plugins-suite/
+│   │   └── azure-monitor.spec.ts
+│   ├── dashboard-cujs/
+│   │   ├── README.md
+│   │   ├── adhoc-filters-cujs.spec.ts
+│   │   ├── cuj-selectors.ts
+│   │   ├── dashboard-navigation.spec.ts
+│   │   ├── dashboard-view.spec.ts
+│   │   ├── dashboardUidsState.ts
+│   │   ├── global-setup.spec.ts
+│   │   ├── global-teardown.spec.ts
+│   │   ├── group-by-cujs.spec.ts
+│   │   ├── scope-cujs.spec.ts
+│   │   ├── scope-redirect.spec.ts
+│   │   └── utils.ts
+│   ├── dashboard-new-layouts/
+│   │   ├── dashboard-conditional-rendering-load-change.spec.ts
+│   │   ├── dashboard-duplicate-panel.spec.ts
+│   │   ├── dashboard-group-panels.spec.ts
+│   │   ├── dashboard-keybindings.spec.ts
+│   │   ├── dashboard-outline.spec.ts
+│   │   ├── dashboard-repeats-row-layout.spec.ts
+│   │   ├── dashboards-add-panel.spec.ts
+│   │   ├── dashboards-edit-adhoc-variables.spec.ts
+│   │   ├── dashboards-edit-custom-variables.spec.ts
+│   │   ├── dashboards-edit-datasource-variables.spec.ts
+│   │   ├── dashboards-edit-group-by-variables.spec.ts
+│   │   ├── dashboards-edit-panel-title-description.spec.ts
+│   │   ├── dashboards-edit-panel-transparent-bg.spec.ts
+│   │   ├── dashboards-edit-query-variables.spec.ts
+│   │   ├── dashboards-edit-variables.spec.ts
+│   │   ├── dashboards-move-panel.spec.ts
+│   │   ├── dashboards-panel-layouts.spec.ts
+│   │   ├── dashboards-remove-panel.spec.ts
+│   │   ├── dashboards-repeats-auto-grid.spec.ts
+│   │   ├── dashboards-repeats-custom-grid.spec.ts
+│   │   ├── dashboards-repeats-snapshots.spec.ts
+│   │   ├── dashboards-repeats-tabs-layout.spec.ts
+│   │   ├── dashboards-title-description.spec.ts
+│   │   └── utils.ts
+│   ├── dashboards-search-suite/
+│   │   └── dashboards-search.spec.ts
+│   ├── dashboards-suite/
+│   │   ├── adhoc-filter-from-panel.spec.ts
+│   │   ├── dashboard-browse-nested.spec.ts
+│   │   ├── dashboard-browse.spec.ts
+│   │   ├── dashboard-export-image.spec.ts
+│   │   ├── dashboard-export-json.spec.ts
+│   │   ├── dashboard-keybindings.spec.ts
+│   │   ├── dashboard-links-without-slug.spec.ts
+│   │   ├── dashboard-live-streaming.spec.ts
+│   │   ├── dashboard-public-create.spec.ts
+│   │   ├── dashboard-public-templating.spec.ts
+│   │   ├── dashboard-share-externally-create.spec.ts
+│   │   ├── dashboard-share-internally.spec.ts
+│   │   ├── dashboard-share-snapshot-create.spec.ts
+│   │   ├── dashboard-templating.spec.ts
+│   │   ├── dashboard-time-zone.spec.ts
+│   │   ├── dashboard-timepicker.spec.ts
+│   │   ├── embedded-dashboard.spec.ts
+│   │   ├── general-dashboards.spec.ts
+│   │   ├── import-dashboard.spec.ts
+│   │   ├── load-options-from-url.spec.ts
+│   │   ├── new-constant-variable.spec.ts
+│   │   ├── new-custom-variable.spec.ts
+│   │   ├── new-datasource-variable.spec.ts
+│   │   ├── new-interval-variable.spec.ts
+│   │   ├── new-query-variable.spec.ts
+│   │   ├── new-text-box-variable.spec.ts
+│   │   ├── repeating-a-panel-horizontally.spec.ts
+│   │   ├── repeating-a-panel-vertically.spec.ts
+│   │   ├── repeating-an-empty-row.spec.ts
+│   │   ├── set-options-from-ui.spec.ts
+│   │   ├── snapshot-create.spec.ts
+│   │   ├── templating-dashboard-links-and-variables.spec.ts
+│   │   ├── textbox-variables.spec.ts
+│   │   └── utils/
+│   ├── dashboards/
+│   │   ├── AdHocFilterTest.json
+│   │   ├── DashboardForConditionalRendering.json
+│   │   ├── DashboardLiveTest.json
+│   │   ├── DashboardWithAllConditionalRendering.json
+│   │   ├── DataLinkWithoutSlugTest.json
+│   │   ├── PanelSandboxDashboard.json
+│   │   ├── README.md
+│   │   ├── TestDashboard.json
+│   │   ├── TestV2Dashboard.json
+│   │   ├── V2DashWithRepeats.json
+│   │   ├── V2DashWithRowRepeats.json
+│   │   ├── V2DashWithTabRepeats.json
+│   │   └── cujs/
+│   ├── extensions/
+│   │   └── .keep
+│   ├── fixtures/
+│   │   ├── exemplars-query-response.json
+│   │   ├── long-trace-response.json
+│   │   ├── prometheus-response.json
+│   │   └── tempo-response.json
+│   ├── panels-suite/
+│   │   ├── candlestick.spec.ts
+│   │   ├── canvas-icon-mappings.spec.ts
+│   │   ├── canvas-scene.spec.ts
+│   │   ├── dashlist.spec.ts
+│   │   ├── datagrid-data-change.spec.ts
+│   │   ├── datagrid-editing-features.spec.ts
+│   │   ├── frontend-sandbox-panel.spec.ts
+│   │   ├── gauge.spec.ts
+│   │   ├── geomap-layer-types.spec.ts
+│   │   ├── geomap-map-controls.spec.ts
+│   │   ├── geomap-spatial-operations-transform.spec.ts
+│   │   ├── heatmap.spec.ts
+│   │   ├── logstable.spec.ts
+│   │   ├── panelEdit_base.spec.ts
+│   │   ├── panelEdit_queries.spec.ts
+│   │   ├── panelEdit_transforms.spec.ts
+│   │   ├── state-timeline.spec.ts
+│   │   ├── status-history.spec.ts
+│   │   ├── table-footer.spec.ts
+│   │   ├── table-kitchenSink.spec.ts
+│   │   ├── table-markdown.spec.ts
+│   │   ├── table-sparkline.spec.ts
+│   │   ├── table-utils.ts
+│   │   ├── timeseries-mouse-zoom-interaction.spec.ts
+│   │   └── timeseries.spec.ts
+│   ├── plugin-e2e/
+│   │   ├── azuremonitor/
+│   │   ├── cloudmonitoring/
+│   │   ├── cloudwatch/
+│   │   ├── elasticsearch/
+│   │   ├── graphite/
+│   │   ├── influxdb/
+│   │   ├── jaeger/
+│   │   ├── loki/
+│   │   ├── mssql/
+│   │   ├── mysql/
+│   │   ├── opentsdb/
+│   │   ├── plugin-e2e-api-tests/
+│   │   ├── postgres/
+│   │   └── zipkin/
+│   ├── smoke-tests-suite/
+│   │   ├── accessibility.spec.ts
+│   │   ├── panels.spec.ts
+│   │   └── smoketests.spec.ts
+│   ├── start-server
+│   ├── storybook/
+│   │   └── verify.spec.ts
+│   ├── test-plugins/
+│   │   ├── README.md
+│   │   ├── frontend-sandbox-app-test/
+│   │   ├── frontend-sandbox-datasource-test/
+│   │   ├── frontend-sandbox-panel-test/
+│   │   ├── grafana-extensionstest-app/
+│   │   ├── grafana-test-datasource/
+│   │   └── grafana-test-panel/
+│   ├── unauthenticated/
+│   │   └── login.spec.ts
+│   ├── utils/
+│   │   ├── RequestsRecorder.ts
+│   │   ├── axe-a11y/
+│   │   ├── dashboard-helpers.ts
+│   │   ├── prometheus-helpers.ts
+│   │   ├── scope-helpers.ts
+│   │   └── scopes.ts
+│   └── various-suite/
+│       ├── advisor.spec.ts
+│       ├── bar-gauge.spec.ts
+│       ├── bookmarks.spec.ts
+│       ├── exemplars.spec.ts
+│       ├── explore.spec.ts
+│       ├── filter-annotations.spec.ts
+│       ├── frontend-sandbox-app.spec.ts
+│       ├── frontend-sandbox-datasource.spec.ts
+│       ├── grafana-datasource-random-walk.spec.ts
+│       ├── graph-auto-migrate.spec.ts
+│       ├── inspect-drawer.spec.ts
+│       ├── keybinds.spec.ts
+│       ├── loki-query-builder.spec.ts
+│       ├── loki-table-explore-to-dash.spec.ts
+│       ├── migrate-to-cloud.spec.ts
+│       ├── navigation.spec.ts
+│       ├── perf-test.spec.ts
+│       ├── pie-chart.spec.ts
+│       ├── prometheus-annotations.spec.ts
+│       ├── prometheus-config.spec.ts
+│       ├── prometheus-editor.spec.ts
+│       ├── prometheus-variable-editor.spec.ts
+│       ├── query-editor.spec.ts
+│       ├── return-to-previous.spec.ts
+│       ├── solo-route.spec.ts
+│       ├── trace-view-scrolling.spec.ts
+│       ├── verify-i18n.spec.ts
+│       ├── visualization-suggestions-v2.spec.ts
+│       └── visualization-suggestions.spec.ts
+├── e2e/
+│   ├── benchmarks/
+│   │   ├── dashboards/
+│   │   └── live/
+│   ├── cypress/
+│   │   ├── fixtures/
+│   │   ├── plugins/
+│   │   └── support/
+│   ├── dashboards-search-suite/
+│   │   ├── dashboard-search.spec.ts
+│   │   ├── mode0.ini
+│   │   ├── mode1.ini
+│   │   ├── mode2-legacy-search-api.ini
+│   │   ├── mode2.ini
+│   │   ├── mode3.ini
+│   │   ├── mode4.ini
+│   │   └── mode5.ini
+│   ├── dashboards/
+│   │   ├── DashboardLiveTest.json
+│   │   ├── DashboardSearchTest.json
+│   │   ├── DataLinkWithoutSlugTest.json
+│   │   ├── PanelSandboxDashboard.json
+│   │   ├── TestDashboard.json
+│   │   └── TestV2Dashboard.json
+│   ├── extensions/
+│   │   └── .keep
+│   ├── internal/
+│   │   ├── cmd/
+│   │   ├── fpaths/
+│   │   └── outs/
+│   ├── log-reporter.js
+│   ├── main.go
+│   ├── old-arch/
+│   │   ├── dashboards-suite/
+│   │   ├── dashboards/
+│   │   ├── panels-suite/
+│   │   ├── shared/
+│   │   ├── smoke-tests-suite/
+│   │   ├── utils/
+│   │   └── various-suite/
+│   ├── run-suite
+│   ├── shared/
+│   │   └── smokeTestScenario.ts
+│   ├── start-and-run-suite
+│   ├── tsconfig.json
+│   ├── utils/
+│   │   ├── flows/
+│   │   ├── index.ts
+│   │   ├── support/
+│   │   └── typings/
+│   └── verify-release
+├── emails/
+│   ├── Makefile
+│   ├── README.md
+│   ├── grunt/
+│   │   ├── aliases.yaml
+│   │   ├── assemble.js
+│   │   ├── copy.js
+│   │   └── replace.js
+│   ├── gruntfile.js
+│   ├── package.json
+│   └── templates/
+│       ├── invited_to_org.mjml
+│       ├── invited_to_org.txt
+│       ├── new_user_invite.mjml
+│       ├── new_user_invite.txt
+│       ├── ng_alert_notification.mjml
+│       ├── ng_alert_notification.txt
+│       ├── partials/
+│       ├── passwordless_verify_existing_user.mjml
+│       ├── passwordless_verify_existing_user.txt
+│       ├── passwordless_verify_new_user.mjml
+│       ├── passwordless_verify_new_user.txt
+│       ├── reset_password.mjml
+│       ├── reset_password.txt
+│       ├── signup_started.mjml
+│       ├── signup_started.txt
+│       ├── verify_email.mjml
+│       ├── verify_email.txt
+│       ├── welcome_on_signup.mjml
+│       └── welcome_on_signup.txt
+├── embed.go
+├── eslint-suppressions.json
+├── eslint.config.js
+├── go.mod
+├── go.sum
+├── go.work
+├── go.work.sum
+├── grafana-mixin/
+│   ├── .gitignore
+│   ├── Makefile
+│   ├── README.md
+│   ├── alerts/
+│   │   └── alerts.libsonnet
+│   ├── dashboards/
+│   │   ├── dashboards.libsonnet
+│   │   └── grafana-overview.json
+│   ├── mixin.libsonnet
+│   ├── rules/
+│   │   └── rules.libsonnet
+│   └── scripts/
+│       ├── build.sh
+│       ├── common.sh
+│       ├── format.sh
+│       └── lint.sh
+├── hack/
+│   ├── README.md
+│   ├── boilerplate.go.txt
+│   ├── externalTools.go
+│   ├── go.mod
+│   ├── go.sum
+│   ├── make-aggregator-pki.sh
+│   ├── openapi-codegen.sh
+│   └── update-codegen.sh
+├── i18next.config.ts
+├── jest.config.codeowner.js
+├── jest.config.js
+├── kinds/
+│   ├── dashboard/
+│   │   └── dashboard_kind.cue
+│   └── gen.go
+├── kindsv2/
+│   ├── Makefile
+│   └── dashboard-ts.yaml
+├── latest.json
+├── lefthook.rc
+├── lefthook.yml
+├── lerna.json
+├── local/
+│   └── .gitkeep
+├── nx.json
+├── package.json
+├── packages/
+│   ├── README.md
+│   ├── grafana-alerting/
+│   │   ├── CHANGELOG.md
+│   │   ├── LICENSE_APACHE2
+│   │   ├── README.md
+│   │   ├── i18next.config.ts
+│   │   ├── package.json
+│   │   ├── project.json
+│   │   ├── rollup.config.ts
+│   │   ├── src/
+│   │   ├── tests/
+│   │   ├── tsconfig.build.json
+│   │   └── tsconfig.json
+│   ├── grafana-api-clients/
+│   │   ├── CHANGELOG.md
+│   │   ├── LICENSE_APACHE2
+│   │   ├── README.md
+│   │   ├── package.json
+│   │   ├── project.json
+│   │   ├── rollup.config.ts
+│   │   ├── src/
+│   │   ├── tsconfig.build.json
+│   │   └── tsconfig.json
+│   ├── grafana-data/
+│   │   ├── CHANGELOG.md
+│   │   ├── LICENSE_APACHE2
+│   │   ├── README.md
+│   │   ├── package.json
+│   │   ├── project.json
+│   │   ├── rollup.config.ts
+│   │   ├── scripts/
+│   │   ├── src/
+│   │   ├── test/
+│   │   ├── tsconfig.build.json
+│   │   ├── tsconfig.json
+│   │   └── typings/
+│   ├── grafana-e2e-selectors/
+│   │   ├── CHANGELOG.md
+│   │   ├── LICENSE_APACHE2
+│   │   ├── README.md
+│   │   ├── package.json
+│   │   ├── project.json
+│   │   ├── rollup.config.ts
+│   │   ├── src/
+│   │   ├── tsconfig.build.json
+│   │   └── tsconfig.json
+│   ├── grafana-eslint-rules/
+│   │   ├── LICENSE_APACHE2
+│   │   ├── README.md
+│   │   ├── index.cjs
+│   │   ├── jest.config.js
+│   │   ├── package.json
+│   │   ├── project.json
+│   │   ├── rules/
+│   │   ├── tests/
+│   │   └── tsconfig.json
+│   ├── grafana-flamegraph/
+│   │   ├── .storybook/
+│   │   ├── CHANGELOG.md
+│   │   ├── LICENSE_APACHE2
+│   │   ├── README.md
+│   │   ├── package.json
+│   │   ├── project.json
+│   │   ├── rollup.config.ts
+│   │   ├── src/
+│   │   ├── tsconfig.build.json
+│   │   └── tsconfig.json
+│   ├── grafana-i18n/
+│   │   ├── CHANGELOG.md
+│   │   ├── LICENSE_APACHE2
+│   │   ├── README.md
+│   │   ├── package.json
+│   │   ├── project.json
+│   │   ├── rollup.config.ts
+│   │   ├── src/
+│   │   ├── tsconfig.build.json
+│   │   └── tsconfig.json
+│   ├── grafana-o11y-ds-frontend/
+│   │   ├── package.json
+│   │   ├── project.json
+│   │   ├── src/
+│   │   └── tsconfig.json
+│   ├── grafana-openapi/
+│   │   ├── .gitattributes
+│   │   ├── CHANGELOG.md
+│   │   ├── LICENSE_APACHE2
+│   │   ├── README.md
+│   │   ├── package.json
+│   │   ├── project.json
+│   │   └── src/
+│   ├── grafana-plugin-configs/
+│   │   ├── constants.ts
+│   │   ├── jest/
+│   │   ├── package.json
+│   │   ├── project.json
+│   │   ├── tsconfig.json
+│   │   ├── types/
+│   │   ├── utils.ts
+│   │   └── webpack.config.ts
+│   ├── grafana-prometheus/
+│   │   ├── CHANGELOG.md
+│   │   ├── LICENSE_AGPL
+│   │   ├── README.md
+│   │   ├── i18next.config.ts
+│   │   ├── jest.config.js
+│   │   ├── package.json
+│   │   ├── project.json
+│   │   ├── rollup.config.ts
+│   │   ├── src/
+│   │   ├── tsconfig.build.json
+│   │   └── tsconfig.json
+│   ├── grafana-runtime/
+│   │   ├── CHANGELOG.md
+│   │   ├── LICENSE_APACHE2
+│   │   ├── README.md
+│   │   ├── package.json
+│   │   ├── project.json
+│   │   ├── rollup.config.ts
+│   │   ├── src/
+│   │   ├── tsconfig.build.json
+│   │   └── tsconfig.json
+│   ├── grafana-schema/
+│   │   ├── CHANGELOG.md
+│   │   ├── LICENSE_APACHE2
+│   │   ├── README.md
+│   │   ├── package.json
+│   │   ├── project.json
+│   │   ├── rollup.config.ts
+│   │   ├── src/
+│   │   ├── tsconfig.build.json
+│   │   └── tsconfig.json
+│   ├── grafana-sql/
+│   │   ├── i18next.config.ts
+│   │   ├── jest.config.js
+│   │   ├── package.json
+│   │   ├── project.json
+│   │   ├── src/
+│   │   └── tsconfig.json
+│   ├── grafana-test-utils/
+│   │   ├── CHANGELOG.md
+│   │   ├── LICENSE_APACHE2
+│   │   ├── README.md
+│   │   ├── jest-setup.js
+│   │   ├── jest.config.js
+│   │   ├── package.json
+│   │   ├── project.json
+│   │   ├── src/
+│   │   └── tsconfig.json
+│   ├── grafana-ui/
+│   │   ├── .storybook/
+│   │   ├── CHANGELOG.md
+│   │   ├── LICENSE_APACHE2
+│   │   ├── README.md
+│   │   ├── package.json
+│   │   ├── project.json
+│   │   ├── rollup.config.ts
+│   │   ├── src/
+│   │   ├── tsconfig.build.json
+│   │   └── tsconfig.json
+│   └── rollup.config.parts.ts
+├── packaging/
+│   ├── autocomplete/
+│   │   ├── bash_autocomplete
+│   │   ├── powershell_autocomplete.ps1
+│   │   └── zsh_autocomplete
+│   ├── deb/
+│   │   ├── control/
+│   │   ├── default/
+│   │   ├── init.d/
+│   │   └── systemd/
+│   ├── docker/
+│   │   ├── README.md
+│   │   ├── build.sh
+│   │   ├── custom/
+│   │   ├── push_to_docker_hub.sh
+│   │   └── run.sh
+│   ├── mac/
+│   │   └── bin/
+│   ├── rpm/
+│   │   ├── control/
+│   │   ├── sysconfig/
+│   │   └── systemd/
+│   └── wrappers/
+│       ├── grafana
+│       ├── grafana-cli
+│       └── grafana-server
+├── pkg/
+│   ├── README.md
+│   ├── aggregator/
+│   │   ├── README.md
+│   │   ├── apis/
+│   │   ├── apiserver/
+│   │   ├── examples/
+│   │   ├── generated/
+│   │   ├── go.mod
+│   │   ├── go.sum
+│   │   ├── registry/
+│   │   └── requestflow.png
+│   ├── api/
+│   │   ├── README.md
+│   │   ├── accesscontrol.go
+│   │   ├── admin.go
+│   │   ├── admin_encryption.go
+│   │   ├── admin_provisioning.go
+│   │   ├── admin_provisioning_test.go
+│   │   ├── admin_test.go
+│   │   ├── admin_users.go
+│   │   ├── admin_users_test.go
+│   │   ├── alerting.go
+│   │   ├── annotations.go
+│   │   ├── annotations_test.go
+│   │   ├── api.go
+│   │   ├── api_test.go
+│   │   ├── apierrors/
+│   │   ├── avatar/
+│   │   ├── basic_auth.go
+│   │   ├── basic_auth_test.go
+│   │   ├── common_test.go
+│   │   ├── dashboard.go
+│   │   ├── dashboard_permission.go
+│   │   ├── dashboard_permission_test.go
+│   │   ├── dashboard_snapshot.go
+│   │   ├── dashboard_snapshot_test.go
+│   │   ├── dashboard_test.go
+│   │   ├── dataproxy.go
+│   │   ├── datasource/
+│   │   ├── datasources.go
+│   │   ├── datasources_k8s.go
+│   │   ├── datasources_k8s_test.go
+│   │   ├── datasources_test.go
+│   │   ├── ds_query.go
+│   │   ├── ds_query_test.go
+│   │   ├── dtos/
+│   │   ├── fakes.go
+│   │   ├── folder.go
+│   │   ├── folder_bench_test.go
+│   │   ├── folder_permission.go
+│   │   ├── folder_permission_test.go
+│   │   ├── folder_test.go
+│   │   ├── frontend_logging.go
+│   │   ├── frontend_logging_test.go
+│   │   ├── frontend_metrics.go
+│   │   ├── frontendlogging/
+│   │   ├── frontendsettings.go
+│   │   ├── frontendsettings_test.go
+│   │   ├── grafana_com_proxy.go
+│   │   ├── health.go
+│   │   ├── health_test.go
+│   │   ├── http_server.go
+│   │   ├── http_server_test.go
+│   │   ├── index.go
+│   │   ├── login.go
+│   │   ├── login_oauth.go
+│   │   ├── login_oauth_test.go
+│   │   ├── login_test.go
+│   │   ├── org.go
+│   │   ├── org_invite.go
+│   │   ├── org_invite_test.go
+│   │   ├── org_test.go
+│   │   ├── org_users.go
+│   │   ├── org_users_test.go
+│   │   ├── password.go
+│   │   ├── playlist.go
+│   │   ├── plugin_checks.go
+│   │   ├── plugin_checks_test.go
+│   │   ├── plugin_dashboards.go
+│   │   ├── plugin_dashboards_test.go
+│   │   ├── plugin_metrics.go
+│   │   ├── plugin_metrics_test.go
+│   │   ├── plugin_proxy.go
+│   │   ├── plugin_proxy_test.go
+│   │   ├── plugin_resource.go
+│   │   ├── plugin_resource_test.go
+│   │   ├── pluginproxy/
+│   │   ├── plugins.go
+│   │   ├── plugins_test.go
+│   │   ├── preferences.go
+│   │   ├── preferences_test.go
+│   │   ├── quota.go
+│   │   ├── quota_test.go
+│   │   ├── render.go
+│   │   ├── response/
+│   │   ├── routing/
+│   │   ├── search.go
+│   │   ├── short_url.go
+│   │   ├── short_url_test.go
+│   │   ├── signup.go
+│   │   ├── static/
+│   │   ├── swagger.go
+│   │   ├── swagger_responses.go
+│   │   ├── swagger_tags.json
+│   │   ├── user.go
+│   │   ├── user_test.go
+│   │   ├── user_token.go
+│   │   ├── user_token_test.go
+│   │   ├── utils.go
+│   │   └── webassets/
+│   ├── apimachinery/
+│   │   ├── apis/
+│   │   ├── errutil/
+│   │   ├── go.mod
+│   │   ├── go.sum
+│   │   ├── identity/
+│   │   ├── utils/
+│   │   └── validation/
+│   ├── apis/
+│   │   ├── appplugin/
+│   │   ├── datasource/
+│   │   ├── iam/
+│   │   ├── service/
+│   │   └── userstorage/
+│   ├── apiserver/
+│   │   ├── auditing/
+│   │   ├── endpoints/
+│   │   ├── go.mod
+│   │   ├── go.sum
+│   │   ├── readonly/
+│   │   ├── registry/
+│   │   ├── rest/
+│   │   └── storage/
+│   ├── build/
+│   │   ├── actions/
+│   │   ├── cmd/
+│   │   ├── config/
+│   │   ├── daggerbuild/
+│   │   ├── docs.go
+│   │   ├── e2e-playwright/
+│   │   ├── e2e/
+│   │   ├── e2eutil/
+│   │   ├── go.mod
+│   │   ├── go.sum
+│   │   └── wire/
+│   ├── bus/
+│   │   ├── bus.go
+│   │   └── bus_test.go
+│   ├── clientauth/
+│   │   ├── providers.go
+│   │   ├── providers_test.go
+│   │   ├── roundtripper.go
+│   │   └── roundtripper_test.go
+│   ├── cmd/
+│   │   ├── grafana-cli/
+│   │   ├── grafana-server/
+│   │   └── grafana/
+│   ├── codegen/
+│   │   ├── astmanip_test.go
+│   │   ├── generators.go
+│   │   ├── generators/
+│   │   ├── go.mod
+│   │   ├── go.sum
+│   │   ├── jenny_core_registry.go
+│   │   ├── jenny_eachmajor.go
+│   │   ├── jenny_go_spec.go
+│   │   ├── jenny_gofmt.go
+│   │   ├── jenny_k8_resources.go
+│   │   ├── jenny_ts_types.go
+│   │   ├── jenny_tsveneerindex.go
+│   │   ├── tmpl.go
+│   │   ├── tmpl/
+│   │   ├── util_go.go
+│   │   └── util_ts.go
+│   ├── components/
+│   │   ├── apikeygen/
+│   │   ├── dashdiffs/
+│   │   ├── imguploader/
+│   │   ├── loki/
+│   │   ├── satokengen/
+│   │   └── simplejson/
+│   ├── configprovider/
+│   │   └── configprovider.go
+│   ├── events/
+│   │   └── events.go
+│   ├── expr/
+│   │   ├── classic/
+│   │   ├── commands.go
+│   │   ├── commands_test.go
+│   │   ├── convert_to_full_long.go
+│   │   ├── convert_to_full_long_num_test.go
+│   │   ├── convert_to_full_long_ts_test.go
+│   │   ├── converter.go
+│   │   ├── converter_test.go
+│   │   ├── dataplane.go
+│   │   ├── dataplane_test.go
+│   │   ├── errors.go
+│   │   ├── errors_test.go
+│   │   ├── graph.go
+│   │   ├── graph_test.go
+│   │   ├── hysteresis.go
+│   │   ├── hysteresis_test.go
+│   │   ├── mathexp/
+│   │   ├── metrics/
+│   │   ├── ml.go
+│   │   ├── ml/
+│   │   ├── ml_test.go
+│   │   ├── nodes.go
+│   │   ├── nodes_test.go
+│   │   ├── query.go
+│   │   ├── query.panel.example.json
+│   │   ├── query.panel.schema.json
+│   │   ├── query.request.example.json
+│   │   ├── query.request.schema.json
+│   │   ├── query.types.json
+│   │   ├── query_convert.go
+│   │   ├── query_convert_test.go
+│   │   ├── query_test.go
+│   │   ├── service.go
+│   │   ├── service_sql_test.go
+│   │   ├── service_test.go
+│   │   ├── sql/
+│   │   ├── sql_command.go
+│   │   ├── sql_command_alert_test.go
+│   │   ├── sql_command_test.go
+│   │   ├── sql_schema.go
+│   │   ├── testing.go
+│   │   ├── threshold.go
+│   │   ├── threshold_bench_test.go
+│   │   ├── threshold_test.go
+│   │   └── transform.go
+│   ├── extensions/
+│   │   ├── .keep
+│   │   ├── enterprise_imports.go
+│   │   ├── enterprise_imports_test.go
+│   │   └── main.go
+│   ├── generated/
+│   │   ├── applyconfiguration/
+│   │   ├── clientset/
+│   │   ├── informers/
+│   │   └── listers/
+│   ├── ifaces/
+│   │   └── gcsifaces/
+│   ├── infra/
+│   │   ├── db/
+│   │   ├── features/
+│   │   ├── filestorage/
+│   │   ├── fs/
+│   │   ├── httpclient/
+│   │   ├── kvstore/
+│   │   ├── localcache/
+│   │   ├── log/
+│   │   ├── metrics/
+│   │   ├── network/
+│   │   ├── process/
+│   │   ├── remotecache/
+│   │   ├── serverlock/
+│   │   ├── slugify/
+│   │   ├── tracing/
+│   │   └── usagestats/
+│   ├── kinds/
+│   │   ├── dashboard/
+│   │   └── general.go
+│   ├── login/
+│   │   └── social/
+│   ├── middleware/
+│   │   ├── auth.go
+│   │   ├── auth_test.go
+│   │   ├── cookies/
+│   │   ├── csp.go
+│   │   ├── csrf/
+│   │   ├── dashboard_redirect.go
+│   │   ├── dashboard_redirect_test.go
+│   │   ├── gziper.go
+│   │   ├── loggermw/
+│   │   ├── middleware.go
+│   │   ├── middleware_test.go
+│   │   ├── org_redirect.go
+│   │   ├── org_redirect_test.go
+│   │   ├── quota.go
+│   │   ├── quota_test.go
+│   │   ├── recovery.go
+│   │   ├── recovery_test.go
+│   │   ├── request_metadata_test.go
+│   │   ├── request_metrics.go
+│   │   ├── request_test.go
+│   │   ├── request_tracing.go
+│   │   ├── requestmeta/
+│   │   ├── subpath_redirect.go
+│   │   ├── subpath_redirect_test.go
+│   │   ├── testing.go
+│   │   ├── validate_action_url.go
+│   │   ├── validate_action_url_test.go
+│   │   └── validate_host.go
+│   ├── mocks/
+│   │   └── mock_gcsifaces/
+│   ├── models/
+│   │   ├── theme.go
+│   │   └── usertoken/
+│   ├── modules/
+│   │   ├── dependencies.go
+│   │   ├── listener.go
+│   │   ├── modules.go
+│   │   ├── tracing/
+│   │   └── util.go
+│   ├── operators/
+│   │   ├── iam/
+│   │   ├── provisioning/
+│   │   └── register.go
+│   ├── plugins/
+│   │   ├── apiserver.go
+│   │   ├── apiserver_test.go
+│   │   ├── auth/
+│   │   ├── backendplugin/
+│   │   ├── codegen/
+│   │   ├── config/
+│   │   ├── envvars/
+│   │   ├── errors.go
+│   │   ├── errors_test.go
+│   │   ├── filepath.go
+│   │   ├── filepath_test.go
+│   │   ├── go.mod
+│   │   ├── go.sum
+│   │   ├── httpresponsesender/
+│   │   ├── ifaces.go
+│   │   ├── instrumentationutils/
+│   │   ├── localfiles.go
+│   │   ├── localfiles_test.go
+│   │   ├── log/
+│   │   ├── manager/
+│   │   ├── models.go
+│   │   ├── pluginassets/
+│   │   ├── pluginerrs/
+│   │   ├── plugins.go
+│   │   ├── plugins_test.go
+│   │   ├── pluginscdn/
+│   │   ├── repo/
+│   │   ├── storage/
+│   │   ├── test_utils.go
+│   │   └── tracing/
+│   ├── promlib/
+│   │   ├── README.md
+│   │   ├── admission_handler.go
+│   │   ├── admission_handler_test.go
+│   │   ├── client/
+│   │   ├── conversion_handler.go
+│   │   ├── converter/
+│   │   ├── go.mod
+│   │   ├── go.sum
+│   │   ├── healthcheck.go
+│   │   ├── healthcheck_test.go
+│   │   ├── heuristics.go
+│   │   ├── heuristics_test.go
+│   │   ├── instrumentation/
+│   │   ├── intervalv2/
+│   │   ├── library.go
+│   │   ├── library_test.go
+│   │   ├── middleware/
+│   │   ├── models/
+│   │   ├── querydata/
+│   │   ├── resource/
+│   │   ├── testdata/
+│   │   └── utils/
+│   ├── registry/
+│   │   ├── apis/
+│   │   ├── apps/
+│   │   ├── backgroundsvcs/
+│   │   ├── fieldselectors/
+│   │   ├── registry.go
+│   │   └── usagestatssvcs/
+│   ├── ruleguard.rules.go
+│   ├── semconv/
+│   │   ├── Makefile
+│   │   ├── README.md
+│   │   ├── attributes.go
+│   │   ├── doc.go
+│   │   ├── go.mod
+│   │   ├── go.sum
+│   │   ├── model/
+│   │   ├── plugins.go
+│   │   └── templates/
+│   ├── server/
+│   │   ├── doc.go
+│   │   ├── health.go
+│   │   ├── health_test.go
+│   │   ├── instrumentation_service.go
+│   │   ├── instrumentation_service_test.go
+│   │   ├── memberlist.go
+│   │   ├── module_registerer.go
+│   │   ├── module_runner.go
+│   │   ├── module_server.go
+│   │   ├── module_server_test.go
+│   │   ├── operator.go
+│   │   ├── ring.go
+│   │   ├── runner.go
+│   │   ├── search_server_distributor_test.go
+│   │   ├── server.go
+│   │   ├── server_test.go
+│   │   ├── service.go
+│   │   ├── test_env.go
+│   │   ├── wire.go
+│   │   ├── wire_gen.go
+│   │   └── wireexts_oss.go
+│   ├── services/
+│   │   ├── accesscontrol/
+│   │   ├── annotations/
+│   │   ├── anonymous/
+│   │   ├── apikey/
+│   │   ├── apiserver/
+│   │   ├── auth/
+│   │   ├── authapi/
+│   │   ├── authn/
+│   │   ├── authz/
+│   │   ├── caching/
+│   │   ├── cleanup/
+│   │   ├── cloudmigration/
+│   │   ├── contexthandler/
+│   │   ├── correlations/
+│   │   ├── dashboardimport/
+│   │   ├── dashboards/
+│   │   ├── dashboardsnapshots/
+│   │   ├── dashboardversion/
+│   │   ├── datasourceproxy/
+│   │   ├── datasources/
+│   │   ├── dsquerierclient/
+│   │   ├── encryption/
+│   │   ├── extsvcauth/
+│   │   ├── featuremgmt/
+│   │   ├── folder/
+│   │   ├── frontend/
+│   │   ├── gcom/
+│   │   ├── grpcserver/
+│   │   ├── hooks/
+│   │   ├── kmsproviders/
+│   │   ├── ldap/
+│   │   ├── libraryelements/
+│   │   ├── librarypanels/
+│   │   ├── licensing/
+│   │   ├── live/
+│   │   ├── login/
+│   │   ├── loginattempt/
+│   │   ├── navtree/
+│   │   ├── ngalert/
+│   │   ├── notifications/
+│   │   ├── oauthtoken/
+│   │   ├── org/
+│   │   ├── playlist/
+│   │   ├── plugindashboards/
+│   │   ├── pluginsintegration/
+│   │   ├── preference/
+│   │   ├── promtypemigration/
+│   │   ├── provisioning/
+│   │   ├── publicdashboards/
+│   │   ├── query/
+│   │   ├── queryhistory/
+│   │   ├── quota/
+│   │   ├── rendering/
+│   │   ├── scimutil/
+│   │   ├── screenshot/
+│   │   ├── search/
+│   │   ├── searchusers/
+│   │   ├── secrets/
+│   │   ├── serviceaccounts/
+│   │   ├── setting/
+│   │   ├── shorturls/
+│   │   ├── signingkeys/
+│   │   ├── sqlstore/
+│   │   ├── ssosettings/
+│   │   ├── star/
+│   │   ├── stats/
+│   │   ├── store/
+│   │   ├── supportbundles/
+│   │   ├── tag/
+│   │   ├── team/
+│   │   ├── temp_user/
+│   │   ├── updatemanager/
+│   │   ├── user/
+│   │   └── validations/
+│   ├── setting/
+│   │   ├── date_formats.go
+│   │   ├── date_formats_test.go
+│   │   ├── dynamic_settings_test.go
+│   │   ├── expanders.go
+│   │   ├── expanders_test.go
+│   │   ├── provider.go
+│   │   ├── setting.go
+│   │   ├── setting_anonymous.go
+│   │   ├── setting_auth_proxy.go
+│   │   ├── setting_azure.go
+│   │   ├── setting_azure_test.go
+│   │   ├── setting_cloud_migration.go
+│   │   ├── setting_data_proxy.go
+│   │   ├── setting_feature_toggles.go
+│   │   ├── setting_feature_toggles_test.go
+│   │   ├── setting_folder.go
+│   │   ├── setting_folder_test.go
+│   │   ├── setting_grafana_javascript_agent.go
+│   │   ├── setting_grpc.go
+│   │   ├── setting_jwt.go
+│   │   ├── setting_k8s_dashboard_cleanup.go
+│   │   ├── setting_openfeature.go
+│   │   ├── setting_openfeature_test.go
+│   │   ├── setting_passwordless_magic_link.go
+│   │   ├── setting_plugins.go
+│   │   ├── setting_plugins_test.go
+│   │   ├── setting_quota.go
+│   │   ├── setting_remote_cache.go
+│   │   ├── setting_search.go
+│   │   ├── setting_secrets_manager.go
+│   │   ├── setting_secrets_manager_test.go
+│   │   ├── setting_secure_socks_proxy.go
+│   │   ├── setting_secure_socks_proxy_test.go
+│   │   ├── setting_session_test.go
+│   │   ├── setting_smtp.go
+│   │   ├── setting_smtp_test.go
+│   │   ├── setting_storage.go
+│   │   ├── setting_test.go
+│   │   ├── setting_time_picker.go
+│   │   ├── setting_time_picker_test.go
+│   │   ├── setting_unified_alerting.go
+│   │   ├── setting_unified_alerting_test.go
+│   │   ├── setting_unified_storage.go
+│   │   ├── setting_unified_storage_test.go
+│   │   ├── settings_rbac.go
+│   │   ├── settings_zanzana.go
+│   │   ├── settingtest/
+│   │   └── testdata/
+│   ├── storage/
+│   │   ├── legacysql/
+│   │   ├── secret/
+│   │   └── unified/
+│   ├── tests/
+│   │   ├── README.md
+│   │   ├── alertmanager/
+│   │   ├── api/
+│   │   ├── apis/
+│   │   ├── testinfra/
+│   │   ├── testsuite/
+│   │   ├── utils.go
+│   │   └── web/
+│   ├── tsdb/
+│   │   ├── Magefile.go
+│   │   ├── azuremonitor/
+│   │   ├── cloud-monitoring/
+│   │   ├── cloudwatch/
+│   │   ├── elasticsearch/
+│   │   ├── grafana-postgresql-datasource/
+│   │   ├── grafana-pyroscope-datasource/
+│   │   ├── grafana-testdata-datasource/
+│   │   ├── grafanads/
+│   │   ├── graphite/
+│   │   ├── influxdb/
+│   │   ├── jaeger/
+│   │   ├── loki/
+│   │   ├── mssql/
+│   │   ├── mysql/
+│   │   ├── opentsdb/
+│   │   ├── parca/
+│   │   ├── prometheus/
+│   │   ├── tempo/
+│   │   └── zipkin/
+│   ├── util/
+│   │   ├── cmd/
+│   │   ├── cmputil/
+│   │   ├── contextutil.go
+│   │   ├── contextutil_test.go
+│   │   ├── debouncer/
+│   │   ├── encoding.go
+│   │   ├── encoding_test.go
+│   │   ├── encryption.go
+│   │   ├── encryption_test.go
+│   │   ├── errhttp/
+│   │   ├── httpclient/
+│   │   ├── interface.go
+│   │   ├── interface_test.go
+│   │   ├── ip_address.go
+│   │   ├── ip_address_test.go
+│   │   ├── json.go
+│   │   ├── json_test.go
+│   │   ├── md5.go
+│   │   ├── md5_test.go
+│   │   ├── osutil/
+│   │   ├── pointer.go
+│   │   ├── proxyutil/
+│   │   ├── retryer/
+│   │   ├── reverse.go
+│   │   ├── reverse_test.go
+│   │   ├── ring/
+│   │   ├── scheduler/
+│   │   ├── shortid_generator.go
+│   │   ├── shortid_generator_race_test.go
+│   │   ├── shortid_generator_test.go
+│   │   ├── split_email.go
+│   │   ├── split_email_test.go
+│   │   ├── sqlite/
+│   │   ├── strings.go
+│   │   ├── strings_test.go
+│   │   ├── svg.go
+│   │   ├── svg_test.go
+│   │   ├── testutil/
+│   │   ├── tls.go
+│   │   ├── tls_test.go
+│   │   ├── uri_sanitize.go
+│   │   ├── uri_sanitize_test.go
+│   │   ├── url.go
+│   │   ├── url_test.go
+│   │   ├── validation.go
+│   │   ├── validation_test.go
+│   │   └── xorm/
+│   └── web/
+│       ├── binding.go
+│       ├── binding_test.go
+│       ├── context.go
+│       ├── context_test.go
+│       ├── macaron.go
+│       ├── macaron.s
+│       ├── render.go
+│       ├── response_writer.go
+│       ├── response_writer_test.go
+│       ├── router.go
+│       ├── tree.go
+│       ├── web.go
+│       └── webtest/
+├── playwright.config.ts
+├── playwright.storybook.config.ts
+├── project.json
+├── public/
+│   ├── api-enterprise-spec.json
+│   ├── api-merged.json
+│   ├── app/
+│   │   ├── AppWrapper.tsx
+│   │   ├── api/
+│   │   ├── app.ts
+│   │   ├── core/
+│   │   ├── dev-utils.ts
+│   │   ├── dev.ts
+│   │   ├── extensions/
+│   │   ├── features/
+│   │   ├── index.ts
+│   │   ├── initApp.ts
+│   │   ├── plugins/
+│   │   ├── routes/
+│   │   ├── store/
+│   │   └── types/
+│   ├── dashboards/
+│   │   ├── default.json
+│   │   ├── home.json
+│   │   ├── scripted.js
+│   │   ├── scripted_async.js
+│   │   ├── scripted_templated.js
+│   │   └── template_vars.json
+│   ├── emails/
+│   │   ├── README.md
+│   │   ├── alert_notification.html
+│   │   ├── alert_notification.txt
+│   │   ├── alert_notification_example.html
+│   │   ├── invited_to_org.html
+│   │   ├── invited_to_org.txt
+│   │   ├── new_user_invite.html
+│   │   ├── new_user_invite.txt
+│   │   ├── ng_alert_notification.html
+│   │   ├── ng_alert_notification.txt
+│   │   ├── passwordless_verify_existing_user.html
+│   │   ├── passwordless_verify_existing_user.txt
+│   │   ├── passwordless_verify_new_user.html
+│   │   ├── passwordless_verify_new_user.txt
+│   │   ├── reset_password.html
+│   │   ├── reset_password.txt
+│   │   ├── signup_started.html
+│   │   ├── signup_started.txt
+│   │   ├── verify_email.html
+│   │   ├── verify_email.txt
+│   │   ├── welcome_on_signup.html
+│   │   └── welcome_on_signup.txt
+│   ├── fonts/
+│   │   ├── FontAwesome.otf
+│   │   ├── fontawesome-webfont.eot
+│   │   ├── fontawesome-webfont.svg
+│   │   ├── fontawesome-webfont.ttf
+│   │   ├── fontawesome-webfont.woff
+│   │   ├── fontawesome-webfont.woff2
+│   │   ├── grafana-icons.eot
+│   │   ├── grafana-icons.svg
+│   │   ├── grafana-icons.ttf
+│   │   ├── grafana-icons.woff
+│   │   ├── inter/
+│   │   └── roboto/
+│   ├── gazetteer/
+│   │   ├── airports.geojson
+│   │   ├── countries.json
+│   │   └── usa-states.json
+│   ├── img/
+│   │   ├── DO_NOT_MODIFY.md
+│   │   ├── alert_howto_new.png
+│   │   ├── alerting/
+│   │   ├── angle_gradient_light_rev.png
+│   │   ├── angle_gradient_rev.png
+│   │   ├── apple-touch-icon.png
+│   │   ├── background_tease.jpg
+│   │   ├── bg/
+│   │   ├── browserconfig.xml
+│   │   ├── cache-screenshot.png
+│   │   ├── check_radio_sheet.png
+│   │   ├── checkbox.png
+│   │   ├── checkbox_white.png
+│   │   ├── critical.svg
+│   │   ├── cubes.png
+│   │   ├── dashboard-library/
+│   │   ├── dashboards/
+│   │   ├── enterprise/
+│   │   ├── envelope.png
+│   │   ├── fav32.png
+│   │   ├── g8_home_v2.svg
+│   │   ├── g8_login_dark.svg
+│   │   ├── g8_login_light.svg
+│   │   ├── getting_started_bg_dark.svg
+│   │   ├── getting_started_bg_light.svg
+│   │   ├── glyphicons-halflings-white.png
+│   │   ├── glyphicons-halflings.png
+│   │   ├── grab_dark.svg
+│   │   ├── grab_light.svg
+│   │   ├── grafana_com_auth_icon.svg
+│   │   ├── grafana_enterprise_typelogo.svg
+│   │   ├── grafana_icon.svg
+│   │   ├── grafana_mask_icon.svg
+│   │   ├── grafana_mask_icon_white.svg
+│   │   ├── grafana_net_logo.svg
+│   │   ├── grafana_text_logo-dark.svg
+│   │   ├── grafana_text_logo-light.svg
+│   │   ├── grafana_text_logo_dark.svg
+│   │   ├── grafana_text_logo_light.svg
+│   │   ├── grafana_typelogo.svg
+│   │   ├── grafanaconline.png
+│   │   ├── graph404.svg
+│   │   ├── grot-news.svg
+│   │   ├── heatmap_bg_test.svg
+│   │   ├── icn-app.svg
+│   │   ├── icn-dashboard-tiny.svg
+│   │   ├── icn-dashboard.svg
+│   │   ├── icn-datasource.svg
+│   │   ├── icn-panel.svg
+│   │   ├── icn-plugins-tiny.svg
+│   │   ├── icn-renderer.svg
+│   │   ├── icn-row.svg
+│   │   ├── icons/
+│   │   ├── insights-screenshot.png
+│   │   ├── irm_logo.svg
+│   │   ├── licensing/
+│   │   ├── light.png
+│   │   ├── load.gif
+│   │   ├── load_big.gif
+│   │   ├── loading-pulse.svg
+│   │   ├── login_background_dark.svg
+│   │   ├── login_background_light.svg
+│   │   ├── logo_transparent_200x.png
+│   │   ├── logo_transparent_200x75.png
+│   │   ├── logo_transparent_400x.png
+│   │   ├── microsoft_auth_icon.svg
+│   │   ├── mixed_styles.png
+│   │   ├── mstile-150x150.png
+│   │   ├── native-histograms/
+│   │   ├── okta_logo_white.png
+│   │   ├── online.svg
+│   │   ├── page_header_line.png
+│   │   ├── panel-tabs/
+│   │   ├── permissions-screenshot.png
+│   │   ├── plugin-default-logo_dark.svg
+│   │   ├── plugin-default-logo_light.svg
+│   │   ├── plugins/
+│   │   ├── provisioning-empty.svg
+│   │   ├── rendering_error_dark.png
+│   │   ├── rendering_error_light.png
+│   │   ├── rendering_limit_dark.png
+│   │   ├── rendering_limit_light.png
+│   │   ├── rendering_plugin_not_installed.png
+│   │   ├── rendering_timeout_dark.png
+│   │   ├── rendering_timeout_light.png
+│   │   ├── synthetic_monitoring_logo.svg
+│   │   ├── transparent.png
+│   │   ├── user_profile.png
+│   │   ├── warn-tiny.svg
+│   │   └── warn.svg
+│   ├── lib/
+│   │   ├── .gitignore
+│   │   └── monaco-languages/
+│   ├── locales/
+│   │   ├── cs-CZ/
+│   │   ├── de-DE/
+│   │   ├── en-US/
+│   │   ├── enterprise/
+│   │   ├── es-ES/
+│   │   ├── fr-FR/
+│   │   ├── hu-HU/
+│   │   ├── id-ID/
+│   │   ├── it-IT/
+│   │   ├── ja-JP/
+│   │   ├── ko-KR/
+│   │   ├── nl-NL/
+│   │   ├── pl-PL/
+│   │   ├── pt-BR/
+│   │   ├── pt-PT/
+│   │   ├── ru-RU/
+│   │   ├── sv-SE/
+│   │   ├── tr-TR/
+│   │   ├── zh-Hans/
+│   │   └── zh-Hant/
+│   ├── maps/
+│   │   ├── countries.geojson
+│   │   ├── example-with-style.geojson
+│   │   └── usa-states.geojson
+│   ├── openapi3.json
+│   ├── robots.txt
+│   ├── sass/
+│   │   ├── _angular.scss
+│   │   ├── _grafana.scss
+│   │   ├── _variables.dark.generated.scss
+│   │   ├── _variables.generated.scss
+│   │   ├── _variables.light.generated.scss
+│   │   ├── base/
+│   │   ├── grafana.dark.scss
+│   │   ├── grafana.light.scss
+│   │   └── icons.json
+│   ├── swagger/
+│   │   ├── K8sNameLookup.tsx
+│   │   ├── SwaggerPage.tsx
+│   │   ├── index.tsx
+│   │   └── plugins.tsx
+│   ├── test/
+│   │   ├── .jshintrc
+│   │   ├── core/
+│   │   ├── fixtures/
+│   │   ├── global-jquery-shim.ts
+│   │   ├── helpers/
+│   │   ├── jest-resolver.js
+│   │   ├── jest-setup.ts
+│   │   ├── log-reporter.js
+│   │   ├── mocks/
+│   │   ├── setupTests.ts
+│   │   ├── specs/
+│   │   └── test-utils.tsx
+│   ├── vendor/
+│   │   ├── css/
+│   │   ├── flot/
+│   │   └── plugin-text/
+│   └── views/
+│       ├── error.html
+│       ├── index.html
+│       └── swagger.html
+├── relyance.yaml
+├── scripts/
+│   ├── benchmark-access-control.sh
+│   ├── build/
+│   │   ├── build.sh
+│   │   ├── gpg-test-vars.sh
+│   │   ├── old_appveyor.yml
+│   │   ├── prepare_signing_key.sh
+│   │   ├── release_publisher/
+│   │   ├── retrieve-npm-packages.sh
+│   │   ├── rpmmacros
+│   │   ├── sign_packages.sh
+│   │   ├── store-npm-packages.sh
+│   │   ├── update_repo/
+│   │   └── verify_signed_packages.sh
+│   ├── check-breaking-changes.sh
+│   ├── check-codeowner-affected.js
+│   ├── check-frontend-dev.sh
+│   ├── ci-frontend-metrics.sh
+│   ├── ci-job-failed.sh
+│   ├── ci-job-started.sh
+│   ├── ci-job-succeeded.sh
+│   ├── ci/
+│   │   └── backend-tests/
+│   ├── circle-test-backend.sh
+│   ├── circle-test-cache-servers.sh
+│   ├── circle-test-frontend.sh
+│   ├── circle-test-mysql.sh
+│   ├── circle-test-postgres.sh
+│   ├── clean-git-or-error.sh
+│   ├── cleanup-husky.sh
+│   ├── cli/
+│   │   ├── eslint-stats-reporter.mjs
+│   │   ├── generateSassVariableFiles.ts
+│   │   ├── reportI18nStats.mjs
+│   │   ├── themeTemplates/
+│   │   └── tsconfig.json
+│   ├── codemods/
+│   │   └── explicit-barrel-imports.cjs
+│   ├── codeowners-manifest/
+│   │   ├── README.md
+│   │   ├── constants.js
+│   │   ├── generate.js
+│   │   ├── index.js
+│   │   ├── metadata.js
+│   │   ├── raw.js
+│   │   └── utils.js
+│   ├── compare-coverage-by-codeowner.js
+│   ├── docs/
+│   │   └── generate-transformations.ts
+│   ├── generate-alerting-rtk-apis.ts
+│   ├── go-workspace/
+│   │   ├── go.mod
+│   │   ├── go.sum
+│   │   ├── golangci-lint-includes.sh
+│   │   ├── main.go
+│   │   ├── test-includes.sh
+│   │   ├── update-workspace.sh
+│   │   └── validate-dockerfile.sh
+│   ├── grafana-server/
+│   │   ├── custom.ini
+│   │   ├── kill-server
+│   │   ├── start-server
+│   │   ├── variables
+│   │   └── wait-for-grafana
+│   ├── helpers/
+│   │   └── exit-if-fail.sh
+│   ├── import_many_dashboards.sh
+│   ├── levitate-parse-json-report.js
+│   ├── levitate-show-affected-plugins.js
+│   ├── list-release-artifacts.sh
+│   ├── mixin-check.sh
+│   ├── modowners/
+│   │   ├── .gitignore
+│   │   ├── README.md
+│   │   ├── go.mod
+│   │   ├── go.sum
+│   │   ├── modowners.go
+│   │   └── modowners_test.go
+│   ├── openapi3/
+│   │   └── openapi3conv.go
+│   ├── prepare-npm-package.js
+│   ├── protobuf-check.sh
+│   ├── publish-npm-packages.sh
+│   ├── releasefinder.sh
+│   ├── stripnulls.sh
+│   ├── tag_release.sh
+│   ├── test-coverage-by-codeowner.js
+│   ├── tests/
+│   │   └── generate-transformations.test.ts
+│   ├── trigger_docker_build.sh
+│   ├── trigger_grafana_packer.sh
+│   ├── trigger_windows_build.sh
+│   ├── tsconfig.base.json
+│   ├── validate-npm-packages.sh
+│   ├── verify-repo-update/
+│   │   ├── Dockerfile.deb
+│   │   ├── Dockerfile.rpm
+│   │   ├── deb-ee-beta.list
+│   │   ├── deb-ee-stable.list
+│   │   ├── deb-oss-beta.list
+│   │   ├── deb-oss-stable.list
+│   │   ├── rpm-ee-beta.list
+│   │   ├── rpm-ee-stable.list
+│   │   ├── rpm-oss-beta.list
+│   │   ├── rpm-oss-stable.list
+│   │   └── verify-repos.sh
+│   ├── view-playwright-ci.sh
+│   └── webpack/
+│       ├── dependencies.js
+│       ├── env-util.js
+│       ├── plugins/
+│       ├── postcss.config.js
+│       ├── sass.rule.js
+│       ├── webpack.common.js
+│       ├── webpack.dev.js
+│       ├── webpack.prod.js
+│       └── webpack.stats.js
+├── stylelint.config.js
+├── tools/
+│   ├── .gitkeep
+│   └── setup_grafana_alertmanager_integration_test_images.go
+├── tsconfig.json
+└── yarn.lock

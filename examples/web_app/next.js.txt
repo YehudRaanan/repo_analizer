@@ -1,0 +1,4097 @@
+=====================================
+Repository Analysis: next.js
+Type: Web Application
+=====================================
+
+--- METADATA ---
+Name: next.js
+Description: The React Framework
+Language: JavaScript
+Topics: blog, browser, compiler, components, hybrid, nextjs, node, react, server-rendering, ssg, static, static-site-generator, universal, vercel
+Stars: 138169
+License: MIT License
+
+--- README ---
+packages/next/README.md
+
+--- PACKAGE MANIFEST(S) ---
+
+[package.json]
+{
+  "name": "nextjs-project",
+  "version": "0.0.0",
+  "private": true,
+  "workspaces": [
+    "packages/*"
+  ],
+  "scripts": {
+    "new-error": "turbo gen error",
+    "new-test": "turbo gen test",
+    "clean": "lerna clean -y && lerna run clean && lerna exec 'node ../../scripts/rm.mjs dist'",
+    "build": "turbo run build --remote-cache-timeout 60 --summarize true",
+    "build-all": "turbo run build build-native-auto --remote-cache-timeout 60 --summarize true",
+    "lerna": "lerna",
+    "dev": "turbo run dev --parallel --filter=\"!@next/bundle-analyzer-ui\"",
+    "bench:render-pipeline": "tsx bench/render-pipeline/benchmark.ts",
+    "bench:render-pipeline:analyze": "tsx bench/render-pipeline/analyze-profiles.ts",
+    "pack-next": "tsx scripts/pack-next.ts",
+    "test-types": "tsc",
+    "test-unit": "jest test/unit/ packages/next/ packages/font",
+    "test-dev-inner": "cross-env NEXT_TEST_MODE=dev pnpm testheadless",
+    "test-dev": "pnpm run test-dev-webpack",
+    "test-dev-webpack": "pnpm run with-webpack pnpm test-dev-inner",
+    "test-dev-experimental-inner": "pnpm run with-experimental pnpm test-dev-inner",
+    "test-dev-experimental": "pnpm run test-dev-experimental-webpack",
+    "test-dev-experimental-webpack": "pnpm run with-webpack pnpm test-dev-experimental-inner",
+    "test-dev-rspack": "pnpm run with-rspack pnpm run test-dev-inner",
+    "test-dev-experimental-rspack": "pnpm run with-rspack pnpm run test-dev-experimental-inner",
+    "test-dev-turbo": "pnpm run with-turbo pnpm test-dev-inner",
+    "test-dev-experimental-turbo": "pnpm run with-turbo pnpm run with-experimental pnpm test-dev-inner",
+    "test-start-inner": "cross-env NEXT_TEST_MODE=start pnpm testheadless",
+    "test-start": "pnpm run test-start-webpack",
+    "test-start-webpack": "pnpm run with-webpack pnpm run test-start-inner",
+    "test-start-experimental-inner": "pnpm run with-experimental pnpm test-start-inner",
+    "test-start-experimental": "pnpm run test-start-experimental-webpack",
+    "test-start-experimental-webpack": "pnpm run with-webpack pnpm run test-start-experimental-inner",
+    "test-start-rspack": "pnpm run with-rspack pnpm run test-start-inner",
+    "test-start-experimental-rspack": "pnpm run with-rspack pnpm run test-start-experimental-inner",
+    "test-start-turbo": "pnpm run with-turbo pnpm test-start-inner",
+    "test-start-experimental-turbo": "pnpm run with-turbo pnpm run with-experimental pnpm test-start-experimental-inner",
+    "test-deploy-inner": "cross-env NEXT_TEST_MODE=deploy pnpm testheadless",
+    "test-deploy": "pnpm run test-deploy-webpack",
+    "test-deploy-webpack": "pnpm run with-webpack pnpm test-deploy-inner",
+    "test-deploy-turbo": "pnpm run with-turbo pnpm test-deploy-inner",
+    "testonly-dev-inner": "cross-env NEXT_TEST_MODE=dev pnpm testonly",
+    "testonly-dev": "pnpm run testonly-dev-webpack",
+    "testonly-dev-webpack": "pnpm run with-webpack pnpm run testonly-dev-inner",
+    "testonly-dev-rspack": "pnpm run with-rspack pn
+... [TRUNCATED]
+
+[Cargo.toml]
+[workspace]
+resolver = "2"
+
+members = [
+  "scripts/send-trace-to-jaeger",
+  "crates/next-napi-bindings",
+  "crates/wasm",
+  "crates/next-api",
+  "crates/next-build-test",
+  "crates/next-build",
+  "crates/next-code-frame",
+  "crates/next-core",
+  "crates/next-custom-transforms",
+  "crates/next-taskless",
+  "turbopack/crates/*",
+  "turbopack/crates/*/fuzz",
+  "turbopack/xtask",
+]
+
+exclude = [
+  "crates/next-error-code-swc-plugin",
+  "rspack/crates/binding"
+]
+
+[workspace.lints.clippy]
+too_many_arguments = "allow"
+
+[workspace.lints.rust]
+unexpected_cfgs = { level = "warn", check-cfg = [
+  'cfg(rust_analyzer)',
+  'cfg(fuzzing)',
+  'cfg(codspeed)',
+] }
+
+# This crate is particularly sensitive to compiler optimizations
+[profile.dev.package.turbo-persistence]
+opt-level = 1
+
+# Set the options for dependencies (not crates in the workspace), this mostly impacts cold builds
+[profile.dev.package."*"]
+opt-level = 1
+
+# Set the settings for build scripts and proc-macros.
+[profile.dev.build-override]
+opt-level = 3
+
+[profile.release]
+
+[profile.release.package]
+
+[profile.release.package.turbopack-ecmascript]
+opt-level = 3
+
+[profile.release.package.turbopack-core]
+opt-level = 3
+
+[profile.release.package.next-core]
+opt-level = 3
+
+[profile.release.package.lightningcss]
+opt-level = "s"
+
+[profile.release.package.lightningcss-napi]
+opt-level = "s"
+
+[profile.release.package.swc_ecma_ast]
+opt-level = 3
+
+[profile.release.package.next-api]
+opt-level = 3
+
+[profile.release.package.wasmer-wasix]
+opt-level = "s"
+
+[profile.release.package.cranelift-codegen]
+opt-level = "s"
+
+[profile.release.package.turbo-tasks]
+opt-level = 3
+
+[profile.release.package.turbopack-node]
+opt-level = 3
+
+[profile.release.package.turbopack-dev-server]
+opt-level = 3
+
+[profile.release.package.swc_ecma_minifier]
+opt-level = 3
+
+[profile.release.package.swc]
+opt-level = 3
+
+[profile.release.package.turbopack-css]
+opt-level = 3
+
+[profile.release.package.swc_ecma_compat_es2015]
+opt-level = "s"
+
+[profile.release.package.turbo-tasks-fs]
+opt-level = 3
+
+[profile.release.package.swc_ecma_parser]
+opt-level = 3
+
+[profile.release.package.turbopack]
+opt-level = 3
+
+[profile.release.package.turbopack-browser]
+opt-level = 3
+
+[profile.release.package.turbo-tasks-backend]
+opt-level = 3
+
+[profile.release.package.styled_jsx]
+opt-level = "s"
+
+[profile.release.package.next-custom-transforms]
+opt-level = 3
+
+[profile.release.package.wast]
+opt-level = "s"
+
+[profile.release.package.wasmparser]
+opt-level = "s"
+
+[profile.release.package.browserslist-rs]
+opt-level = "s"
+
+[profile.release.package.tokio]
+opt-level = 3
+
+[profile.release.package.reqwest]
+opt-level = "s"
+
+[profile.release.package.swc_ecma_transforms_proposal]
+opt-level = "s"
+
+[profile.release.package.turbopack-resolve]
+opt-level = 3
+
+[profile.release.package.swc_ecma_transforms_optimization]
+opt-level = 3
+
+[profile.release.package.swc_ecma_transforms_base]
+opt-level = 3
+
+[profile.release.package.regex-automata]
+opt-level = 3
+
+[profile.release.package.auto-hash-map]
+opt-level 
+... [TRUNCATED]
+
+--- WEB FRAMEWORK CONFIG ---
+
+[tsconfig.json]
+{
+  "compilerOptions": {
+    "noEmit": true,
+    "strict": false,
+    "allowJs": true,
+    "esModuleInterop": true,
+    "resolveJsonModule": true,
+    "jsx": "react-jsx",
+    "module": "ESNext",
+    "target": "ESNext",
+    "moduleResolution": "node",
+    "types": ["react", "jest", "node", "trusted-types", "jest-extended"],
+    "paths": {
+      "development-sandbox": ["./test/lib/development-sandbox"],
+      "next-test-utils": ["./test/lib/next-test-utils"],
+      "next-webdriver": ["./test/lib/next-webdriver"],
+      "e2e-utils": ["./test/lib/e2e-utils"],
+      "e2e-utils/*": ["./test/lib/e2e-utils/*"],
+      "test-data-service/*": ["./test/lib/test-data-service/*"],
+      "test-log": ["./test/lib/test-log"],
+      "router-act": ["./test/lib/router-act"],
+      "@next/playwright": ["./packages/next-playwright/src/index.ts"]
+    }
+  },
+  "include": [
+    "run-tests.js",
+    "test/**/*.test.ts",
+    "test/**/*.test.tsx",
+    "test/**/*.util.ts",
+    "test/e2e/app-dir/use-cache-custom-handler/*.js",
+    "test/lib/**/*.ts",
+    "scripts/**/*.js",
+    "scripts/**/*.cjs",
+    "scripts/**/*.mjs",
+    "scripts/**/*.ts",
+    "turbo/**/*.ts"
+  ],
+  "exclude": ["scripts/minimal-server.js"]
+}
+
+
+[vercel.json]
+{
+  "github": {
+    "silent": true,
+    "autoJobCancelation": true
+  }
+}
+
+
+--- ROUTE / PAGE DEFINITIONS ---
+
+[bench/app-router-server/pages/index.js]
+import * as React from 'react'
+
+export default function page() {
+  return <div> hello world </div>
+}
+
+export async function getServerSideProps() {
+  return {}
+}
+
+
+[bench/basic-app/pages/api/page-api.js]
+export default function handler(req, res) {
+  res.status(200).json({ name: 'John Doe' })
+}
+
+
+[bench/basic-app/pages/pages/index.js]
+export default () => 'Hello World'
+
+export function getServerSideProps() {
+  return {
+    props: {},
+  }
+}
+
+
+[bench/module-cost/pages/api/commonjs.js]
+import { measure } from '../../lib/measure'
+
+export default async function handler(req, res) {
+  const result = await measure(
+    'pages api commonjs',
+    () => import('../../lib/commonjs.js')
+  )
+
+  res.status(200).json(result)
+}
+
+
+[bench/module-cost/pages/api/esm.js]
+import { measure } from '../../lib/measure'
+
+export default async function handler(req, res) {
+  const result = await measure(
+    'pages api esm',
+    () => import('../../lib/esm.js')
+  )
+
+  res.status(200).json(result)
+}
+
+
+--- DIRECTORY STRUCTURE (depth 2) ---
+├── .agents/
+│   └── skills/
+│       ├── README.md
+│       ├── authoring-skills/
+│       ├── dce-edge/
+│       ├── flags/
+│       ├── pr-status-triage/
+│       ├── react-vendoring/
+│       └── runtime-debug/
+├── .alexignore
+├── .alexrc
+├── .cargo/
+│   ├── .vercel.approvers
+│   └── config.toml
+├── .claude-plugin/
+│   ├── marketplace.json
+│   └── plugins/
+│       ├── README.md
+│       └── cache-components/
+├── .claude/
+│   ├── commands/
+│   │   └── pr-status.md
+│   └── skills/
+│       └── update-docs/
+├── .conductor/
+│   ├── README.md
+│   └── scripts/
+│       ├── run.sh
+│       └── setup.sh
+├── .config/
+│   ├── .vercel.approvers
+│   ├── ast-grep/
+│   │   ├── rule-tests/
+│   │   ├── rule-utils/
+│   │   └── rules/
+│   ├── eslintignore.mjs
+│   └── nextest.toml
+├── .cursor/
+│   ├── commands/
+│   │   └── gt-workflow.md
+│   └── worktrees.json
+├── .cursorindexingignore
+├── .devcontainer/
+│   ├── devcontainer-lock.json
+│   ├── devcontainer.json
+│   ├── headless-browser/
+│   │   ├── devcontainer-feature.json
+│   │   └── install.sh
+│   ├── node-extras/
+│   │   ├── devcontainer-feature.json
+│   │   └── install.sh
+│   └── rust/
+│       ├── devcontainer-feature.json
+│       └── install.sh
+├── .git-blame-ignore-revs
+├── .gitattributes
+├── .github/
+│   ├── CODEOWNERS
+│   ├── DISCUSSION_TEMPLATE/
+│   │   ├── help.yml
+│   │   └── ideas.yml
+│   ├── ISSUE_TEMPLATE/
+│   │   ├── 1.bug_report.yml
+│   │   ├── 4.docs_report.yml
+│   │   └── config.yml
+│   ├── actions/
+│   │   ├── needs-triage/
+│   │   ├── next-integration-stat/
+│   │   ├── next-repo-actions/
+│   │   ├── next-stats-action/
+│   │   ├── setup-rust/
+│   │   ├── upload-turboyet-data/
+│   │   └── validate-docs-links/
+│   ├── comments/
+│   │   ├── good-first-issue.md
+│   │   ├── invalid-link.md
+│   │   ├── invalid-reproduction.md
+│   │   ├── resolved.md
+│   │   ├── simplify-reproduction.md
+│   │   └── verify-canary.md
+│   ├── labeler.json
+│   ├── pnpm-lock.yaml
+│   ├── pnpm-workspace.yaml
+│   ├── pull_request_template.md
+│   └── workflows/
+│       ├── build_and_deploy.yml
+│       ├── build_and_test.yml
+│       ├── build_reusable.yml
+│       ├── code_freeze.yml
+│       ├── create_release_branch.yml
+│       ├── deploy_docs.yml
+│       ├── graphite_ci_optimizer.yml
+│       ├── integration_tests_reusable.yml
+│       ├── issue_lock.yml
+│       ├── issue_stale.yml
+│       ├── issue_wrong_template.yml
+│       ├── popular.yml
+│       ├── pull_request_stats.yml
+│       ├── release-next-rspack.yml
+│       ├── retry_deploy_test.yml
+│       ├── retry_test.yml
+│       ├── rspack-nextjs-build-integration-tests.yml
+│       ├── rspack-nextjs-dev-integration-tests.yml
+│       ├── rspack-update-tests-manifest.yml
+│       ├── setup-nextjs-build.yml
+│       ├── test-turbopack-rust-bench-test.yml
+│       ├── test_e2e_deploy_release.yml
+│       ├── test_e2e_project_reset_cron.yml
+│       ├── test_examples.yml
+│       ├── triage.yml
+│       ├── trigger_release.yml
+│       ├── turbopack-benchmark.yml
+│       ├── turbopack-nextjs-build-integration-tests.yml
+│       ├── turbopack-nextjs-dev-integration-tests.yml
+│       ├── turbopack-update-tests-manifest.yml
+│       ├── update_fonts_data.yml
+│       ├── update_react.yml
+│       └── upload-tests-manifest.yml
+├── .gitignore
+├── .husky/
+│   ├── pre-commit
+│   └── pre-push
+├── .ignore
+├── .node-version
+├── .npmrc
+├── .prettierignore
+├── .prettierrc.json
+├── .rustfmt.toml
+├── .typos.toml
+├── .vscode/
+│   ├── extensions.json
+│   ├── launch.json
+│   ├── settings.json
+│   └── tasks.json
+├── AGENTS.md
+├── CLAUDE.md
+├── CODE_OF_CONDUCT.md
+├── Cargo.lock
+├── Cargo.toml
+├── UPGRADING.md
+├── apps/
+│   ├── bundle-analyzer/
+│   │   ├── .gitignore
+│   │   ├── README.md
+│   │   ├── app/
+│   │   ├── components.json
+│   │   ├── components/
+│   │   ├── lib/
+│   │   ├── next.config.mjs
+│   │   ├── package.json
+│   │   ├── postcss.config.mjs
+│   │   └── tsconfig.json
+│   └── docs/
+│       ├── .gitignore
+│       ├── README.md
+│       ├── app/
+│       ├── constants/
+│       ├── eslint.config.mjs
+│       ├── lib/
+│       ├── mdx-components.tsx
+│       ├── next.config.ts
+│       ├── package.json
+│       ├── postcss.config.mjs
+│       ├── public/
+│       ├── source.config.ts
+│       └── tsconfig.json
+├── bench/
+│   ├── BENCHMARKING.md
+│   ├── app-router-server/
+│   │   ├── app/
+│   │   ├── next.config.js
+│   │   ├── package.json
+│   │   └── pages/
+│   ├── basic-app/
+│   │   ├── app/
+│   │   ├── benchmark.sh
+│   │   ├── next.config.js
+│   │   └── pages/
+│   ├── fuzzponent/
+│   │   ├── bin/
+│   │   ├── package.json
+│   │   └── readme.md
+│   ├── heavy-npm-deps/
+│   │   ├── .eslintrc.json
+│   │   ├── .gitignore
+│   │   ├── app/
+│   │   ├── components/
+│   │   ├── next.config.mjs
+│   │   ├── package.json
+│   │   ├── postcss.config.cjs
+│   │   ├── public/
+│   │   └── tailwind.config.js
+│   ├── module-cost/
+│   │   ├── .gitignore
+│   │   ├── app/
+│   │   ├── components/
+│   │   ├── lib/
+│   │   ├── next.config.js
+│   │   ├── package.json
+│   │   ├── pages/
+│   │   └── scripts/
+│   ├── nested-deps-app-router-many-pages/
+│   │   ├── .gitignore
+│   │   ├── bench.mjs
+│   │   ├── create-pages.mjs
+│   │   ├── next.config.js
+│   │   ├── package.json
+│   │   └── template/
+│   ├── nested-deps-app-router/
+│   │   ├── .gitignore
+│   │   ├── app/
+│   │   ├── bench.mjs
+│   │   ├── next.config.js
+│   │   └── package.json
+│   ├── nested-deps/
+│   │   ├── .gitignore
+│   │   ├── bench.mjs
+│   │   ├── next.config.js
+│   │   ├── package.json
+│   │   └── pages/
+│   ├── next-minimal-server/
+│   │   ├── bin/
+│   │   └── package.json
+│   ├── recursive-copy/
+│   │   └── run.js
+│   ├── recursive-delete/
+│   │   ├── .gitignore
+│   │   ├── README.md
+│   │   ├── nodejs-rm.js
+│   │   ├── output.txt
+│   │   ├── package.json
+│   │   ├── recursive-delete.js
+│   │   ├── rimraf.js
+│   │   └── run.sh
+│   ├── render-pipeline/
+│   │   ├── .gitignore
+│   │   ├── README.md
+│   │   ├── analyze-profiles.ts
+│   │   └── benchmark.ts
+│   ├── rendering/
+│   │   ├── package.json
+│   │   ├── pages/
+│   │   └── readme.md
+│   └── vercel/
+│       ├── .env.dev
+│       ├── .gitignore
+│       ├── README.md
+│       ├── bench.js
+│       ├── benchmark-app/
+│       ├── chart.js
+│       ├── gen-request.js
+│       ├── generate-package-json.js
+│       ├── package.json
+│       └── project-utils.js
+├── conductor.json
+├── contributing.md
+├── contributing/
+│   ├── core/
+│   │   ├── adding-error-links.md
+│   │   ├── adding-features.md
+│   │   ├── building.md
+│   │   ├── developing-using-local-app.md
+│   │   ├── developing.md
+│   │   ├── testing.md
+│   │   └── vscode-debugger.md
+│   ├── docs/
+│   │   └── adding-documentation.md
+│   └── repository/
+│       ├── linting.md
+│       ├── pull-request-descriptions.md
+│       ├── release-channels-publishing.md
+│       └── triaging.md
+├── crates/
+│   ├── next-api/
+│   │   ├── Cargo.toml
+│   │   ├── build.rs
+│   │   └── src/
+│   ├── next-build-test/
+│   │   ├── Cargo.toml
+│   │   ├── README.md
+│   │   ├── bench.sh
+│   │   ├── jsConfig.json
+│   │   ├── nextConfig.json
+│   │   └── src/
+│   ├── next-build/
+│   │   ├── Cargo.toml
+│   │   └── src/
+│   ├── next-code-frame/
+│   │   ├── Cargo.toml
+│   │   ├── README.md
+│   │   ├── benches/
+│   │   └── src/
+│   ├── next-core/
+│   │   ├── Cargo.toml
+│   │   ├── js/
+│   │   └── src/
+│   ├── next-custom-transforms/
+│   │   ├── Cargo.toml
+│   │   ├── src/
+│   │   └── tests/
+│   ├── next-error-code-swc-plugin/
+│   │   ├── Cargo.lock
+│   │   ├── Cargo.toml
+│   │   ├── README.md
+│   │   ├── build-and-move.sh
+│   │   └── src/
+│   ├── next-napi-bindings/
+│   │   ├── Cargo.toml
+│   │   ├── build.rs
+│   │   ├── npm/
+│   │   └── src/
+│   ├── next-taskless/
+│   │   ├── Cargo.toml
+│   │   ├── README.md
+│   │   └── src/
+│   └── wasm/
+│       ├── Cargo.toml
+│       ├── README.md
+│       └── src/
+├── docs/
+│   ├── 01-app/
+│   │   ├── 01-getting-started/
+│   │   ├── 02-guides/
+│   │   ├── 03-api-reference/
+│   │   ├── 04-glossary.mdx
+│   │   └── index.mdx
+│   ├── 02-pages/
+│   │   ├── 01-getting-started/
+│   │   ├── 02-guides/
+│   │   ├── 03-building-your-application/
+│   │   ├── 04-api-reference/
+│   │   └── index.mdx
+│   ├── 03-architecture/
+│   │   ├── accessibility.mdx
+│   │   ├── fast-refresh.mdx
+│   │   ├── index.mdx
+│   │   ├── nextjs-compiler.mdx
+│   │   └── supported-browsers.mdx
+│   ├── 04-community/
+│   │   ├── 01-contribution-guide.mdx
+│   │   ├── 02-rspack.mdx
+│   │   └── index.mdx
+│   └── index.mdx
+├── errors/
+│   ├── 404-get-initial-props.mdx
+│   ├── api-routes-response-size-limit.mdx
+│   ├── api-routes-static-export.mdx
+│   ├── app-container-deprecated.mdx
+│   ├── app-dir-dynamic-href.mdx
+│   ├── app-static-to-dynamic-error.mdx
+│   ├── babel-font-loader-conflict.mdx
+│   ├── blocking-route.mdx
+│   ├── build-dir-not-writeable.mdx
+│   ├── built-in-css-disabled.mdx
+│   ├── built-in-next-font.mdx
+│   ├── cache-bypass-in-dev.mdx
+│   ├── can-not-output-to-public.mdx
+│   ├── can-not-output-to-static.mdx
+│   ├── cant-override-next-props.mdx
+│   ├── circular-structure.mdx
+│   ├── class-component-in-server-component.mdx
+│   ├── client-side-exception-occurred.mdx
+│   ├── config-resolve-alias.mdx
+│   ├── conflicting-public-file-page.mdx
+│   ├── conflicting-ssg-paths.mdx
+│   ├── context-in-server-component.mdx
+│   ├── css-global.mdx
+│   ├── css-modules-npm.mdx
+│   ├── css-npm.mdx
+│   ├── custom-document-image-import.mdx
+│   ├── custom-error-no-custom-404.mdx
+│   ├── deleting-query-params-in-proxy.mdx
+│   ├── deopted-into-client-rendering.mdx
+│   ├── deploymentid-invalid-characters.mdx
+│   ├── deploymentid-not-a-string.mdx
+│   ├── deprecated-analyticsid.mdx
+│   ├── deprecated-target-config.mdx
+│   ├── doc-crossorigin-deprecated.mdx
+│   ├── duplicate-sass.mdx
+│   ├── dynamic-server-error.mdx
+│   ├── edge-dynamic-code-evaluation.mdx
+│   ├── empty-configuration.mdx
+│   ├── empty-generate-static-params.mdx
+│   ├── empty-object-getInitialProps.mdx
+│   ├── env-key-not-allowed.mdx
+│   ├── env-loading-disabled.mdx
+│   ├── experimental-app-dir-config.mdx
+│   ├── experimental-jest-transformer.mdx
+│   ├── export-all-in-page.mdx
+│   ├── export-image-api.mdx
+│   ├── export-no-custom-routes.mdx
+│   ├── export-no-i18n.mdx
+│   ├── export-path-mismatch.mdx
+│   ├── failed-loading-swc.mdx
+│   ├── failed-to-fetch-devpagesmanifest.mdx
+│   ├── failed-to-find-server-action.mdx
+│   ├── fast-refresh-reload.mdx
+│   ├── future-webpack5-moved-to-webpack5.mdx
+│   ├── generatebuildid-not-a-string.mdx
+│   ├── get-initial-props-as-an-instance-method.mdx
+│   ├── get-initial-props-export.mdx
+│   ├── google-font-display.mdx
+│   ├── google-font-preconnect.mdx
+│   ├── google-fonts-missing-subsets.mdx
+│   ├── gsp-redirect-during-prerender.mdx
+│   ├── gssp-component-member.mdx
+│   ├── gssp-export.mdx
+│   ├── gssp-mixed-not-found-redirect.mdx
+│   ├── gssp-no-mutating-res.mdx
+│   ├── head-build-id.mdx
+│   ├── href-interpolation-failed.mdx
+│   ├── ignored-compiler-options.mdx
+│   ├── import-esm-externals.mdx
+│   ├── import-next.mdx
+│   ├── improper-devtool.mdx
+│   ├── incompatible-href-as.mdx
+│   ├── inline-script-id.mdx
+│   ├── install-sass.mdx
+│   ├── install-sharp.mdx
+│   ├── invalid-api-status-body.mdx
+│   ├── invalid-assetprefix.mdx
+│   ├── invalid-dynamic-options-type.mdx
+│   ├── invalid-dynamic-suspense.mdx
+│   ├── invalid-external-rewrite.mdx
+│   ├── invalid-getserversideprops-value.mdx
+│   ├── invalid-getstaticpaths-value.mdx
+│   ├── invalid-getstaticprops-value.mdx
+│   ├── invalid-href-passed.mdx
+│   ├── invalid-i18n-config.mdx
+│   ├── invalid-images-config.mdx
+│   ├── invalid-instant-configuration.mdx
+│   ├── invalid-multi-match.mdx
+│   ├── invalid-new-link-with-extra-anchor.mdx
+│   ├── invalid-next-config.mdx
+│   ├── invalid-page-config.mdx
+│   ├── invalid-project-dir-casing.mdx
+│   ├── invalid-react-version.mdx
+│   ├── invalid-redirect-gssp.mdx
+│   ├── invalid-relative-url-external-as.mdx
+│   ├── invalid-resolve-alias.mdx
+│   ├── invalid-route-source.mdx
+│   ├── invalid-script.mdx
+│   ├── invalid-segment-export.mdx
+│   ├── invalid-server-options.mdx
+│   ├── invalid-styled-jsx-children.mdx
+│   ├── invalid-use-server-value.mdx
+│   ├── invalid-webpack-5-version.mdx
+│   ├── large-page-data.mdx
+│   ├── link-multiple-children.mdx
+│   ├── link-no-children.mdx
+│   ├── link-passhref.mdx
+│   ├── max-custom-routes-reached.mdx
+│   ├── middleware-to-proxy.mdx
+│   ├── middleware-upgrade-guide.mdx
+│   ├── minification-disabled.mdx
+│   ├── missing-data-scroll-behavior.mdx
+│   ├── missing-document-component.mdx
+│   ├── missing-env-value.mdx
+│   ├── missing-root-layout-tags.mdx
+│   ├── missing-suspense-with-csr-bailout.mdx
+│   ├── module-not-found.mdx
+│   ├── multi-tabs.mdx
+│   ├── nested-proxy.mdx
+│   ├── nested-reserved-page.mdx
+│   ├── nested-styled-jsx-tags.mdx
+│   ├── nested-use-cache-no-explicit-cachelife.mdx
+│   ├── next-config-error.mdx
+│   ├── next-dynamic-api-wrong-context.mdx
+│   ├── next-dynamic-modules.mdx
+│   ├── next-export-no-build-id.mdx
+│   ├── next-export-serverless.mdx
+│   ├── next-head-count-missing.mdx
+│   ├── next-image-missing-loader-width.mdx
+│   ├── next-image-missing-loader.mdx
+│   ├── next-image-unconfigured-host.mdx
+│   ├── next-image-unconfigured-localpatterns.mdx
+│   ├── next-image-unconfigured-qualities.mdx
+│   ├── next-image-upgrade-to-13.mdx
+│   ├── next-prerender-crypto-client.mdx
+│   ├── next-prerender-crypto.mdx
+│   ├── next-prerender-current-time-client.mdx
+│   ├── next-prerender-current-time.mdx
+│   ├── next-prerender-dynamic-metadata.mdx
+│   ├── next-prerender-dynamic-viewport.mdx
+│   ├── next-prerender-random-client.mdx
+│   ├── next-prerender-random.mdx
+│   ├── next-prerender-runtime-crypto.mdx
+│   ├── next-prerender-runtime-current-time.mdx
+│   ├── next-prerender-runtime-random.mdx
+│   ├── next-prerender-sync-headers.mdx
+│   ├── next-prerender-sync-params.mdx
+│   ├── next-prerender-sync-request.mdx
+│   ├── next-request-in-use-cache.mdx
+│   ├── next-response-next-in-app-route-handler.mdx
+│   ├── next-router-not-mounted.mdx
+│   ├── next-script-for-ga.mdx
+│   ├── next-start-serverless.mdx
+│   ├── no-assign-module-variable.mdx
+│   ├── no-async-client-component.mdx
+│   ├── no-before-interactive-script-outside-document.mdx
+│   ├── no-cache.mdx
+│   ├── no-css-tags.mdx
+│   ├── no-document-import-in-page.mdx
+│   ├── no-document-title.mdx
+│   ├── no-document-viewport-meta.mdx
+│   ├── no-duplicate-head.mdx
+│   ├── no-head-element.mdx
+│   ├── no-head-import-in-document.mdx
+│   ├── no-html-link-for-pages.mdx
+│   ├── no-img-element.mdx
+│   ├── no-on-app-updated-hook.mdx
+│   ├── no-page-custom-font.mdx
+│   ├── no-router-instance.mdx
+│   ├── no-script-component-in-head.mdx
+│   ├── no-script-in-document.mdx
+│   ├── no-script-tags-in-head-component.mdx
+│   ├── no-server-import-in-page.mdx
+│   ├── no-styled-jsx-in-document.mdx
+│   ├── no-stylesheets-in-head-component.mdx
+│   ├── no-sync-scripts.mdx
+│   ├── no-title-in-document-head.mdx
+│   ├── no-unwanted-polyfillio.mdx
+│   ├── node-module-in-edge-runtime.mdx
+│   ├── non-dynamic-getstaticpaths-usage.mdx
+│   ├── non-standard-node-env.mdx
+│   ├── nonce-contained-invalid-characters.mdx
+│   ├── opening-an-issue.mdx
+│   ├── opt-out-auto-static-optimization.mdx
+│   ├── opt-out-automatic-prerendering.mdx
+│   ├── page-data-collection-timeout.mdx
+│   ├── page-without-valid-component.mdx
+│   ├── parallel-build-without-worker.mdx
+│   ├── placeholder-blur-data-url.mdx
+│   ├── popstate-state-empty.mdx
+│   ├── postcss-function.mdx
+│   ├── postcss-ignored-plugin.mdx
+│   ├── postcss-shape.mdx
+│   ├── ppr-caught-error.mdx
+│   ├── ppr-preview.mdx
+│   ├── prefetch-true-deprecated.mdx
+│   ├── prerender-error.mdx
+│   ├── production-start-no-build-id.mdx
+│   ├── promise-in-next-config.mdx
+│   ├── proxy-dynamic-wasm-compilation.mdx
+│   ├── proxy-new-signature.mdx
+│   ├── proxy-parse-user-agent.mdx
+│   ├── proxy-relative-urls.mdx
+│   ├── proxy-request-page.mdx
+│   ├── proxy-user-agent.mdx
+│   ├── public-next-folder-conflict.mdx
+│   ├── react-client-hook-in-server-component.mdx
+│   ├── react-hydration-error.mdx
+│   ├── react-version.mdx
+│   ├── render-no-starting-slash.mdx
+│   ├── reserved-page-prop.mdx
+│   ├── reserved-port.mdx
+│   ├── revalidate-tag-single-arg.mdx
+│   ├── rewrite-auto-export-fallback.mdx
+│   ├── routes-must-be-array.mdx
+│   ├── sharp-missing-in-production.mdx
+│   ├── sharp-version-avif.mdx
+│   ├── slot-missing-default.mdx
+│   ├── ssg-fallback-true-export.mdx
+│   ├── static-dir-deprecated.mdx
+│   ├── static-page-generation-timeout.mdx
+│   ├── swc-disabled.mdx
+│   ├── swc-minify-enabled.mdx
+│   ├── sync-dynamic-apis.mdx
+│   ├── template.txt
+│   ├── threw-undefined.mdx
+│   ├── undefined-webpack-config.mdx
+│   ├── url-deprecated.mdx
+│   ├── version-staleness.mdx
+│   ├── webpack-build-worker-opt-out.mdx
+│   └── webpack5.mdx
+├── eslint.cli.config.mjs
+├── eslint.config.mjs
+├── examples/
+│   ├── .prettierrc.json
+│   ├── active-class-name/
+│   │   ├── .gitignore
+│   │   ├── README.md
+│   │   ├── app/
+│   │   ├── components/
+│   │   ├── next.config.js
+│   │   ├── package.json
+│   │   └── tsconfig.json
+│   ├── api-routes-apollo-server-and-client-auth/
+│   │   ├── .env
+│   │   ├── .gitignore
+│   │   ├── README.md
+│   │   ├── apollo/
+│   │   ├── components/
+│   │   ├── lib/
+│   │   ├── package.json
+│   │   ├── pages/
+│   │   └── tsconfig.json
+│   ├── api-routes-apollo-server-and-client/
+│   │   ├── .gitignore
+│   │   ├── README.md
+│   │   ├── apollo/
+│   │   ├── package.json
+│   │   ├── pages/
+│   │   └── tsconfig.json
+│   ├── api-routes-apollo-server/
+│   │   ├── .gitignore
+│   │   ├── README.md
+│   │   ├── package.json
+│   │   ├── pages/
+│   │   ├── shared/
+│   │   └── tsconfig.json
+│   ├── api-routes-cors/
+│   │   ├── .gitignore
+│   │   ├── README.md
+│   │   ├── package.json
+│   │   ├── pages/
+│   │   └── tsconfig.json
+│   ├── api-routes-graphql/
+│   │   ├── .gitignore
+│   │   ├── README.md
+│   │   ├── package.json
+│   │   ├── pages/
+│   │   └── tsconfig.json
+│   ├── api-routes-middleware/
+│   │   ├── .gitignore
+│   │   ├── README.md
+│   │   ├── package.json
+│   │   ├── pages/
+│   │   ├── tsconfig.json
+│   │   └── utils/
+│   ├── api-routes-rest/
+│   │   ├── .gitignore
+│   │   ├── README.md
+│   │   ├── interfaces/
+│   │   ├── package.json
+│   │   ├── pages/
+│   │   └── tsconfig.json
+│   ├── auth-with-stytch/
+│   │   ├── .gitignore
+│   │   └── readme.md
+│   ├── auth/
+│   │   ├── .env.example
+│   │   ├── .gitignore
+│   │   ├── README.md
+│   │   ├── app/
+│   │   ├── auth.ts
+│   │   ├── middleware.ts
+│   │   ├── package.json
+│   │   └── tsconfig.json
+│   ├── auth0/
+│   │   ├── .env.local.example
+│   │   ├── .gitignore
+│   │   ├── README.md
+│   │   ├── additional.d.ts
+│   │   ├── components/
+│   │   ├── interfaces/
+│   │   ├── package.json
+│   │   ├── pages/
+│   │   └── tsconfig.json
+│   ├── basic-css/
+│   │   ├── .gitignore
+│   │   ├── README.md
+│   │   ├── app/
+│   │   ├── next.config.js
+│   │   ├── package.json
+│   │   ├── styles.module.css
+│   │   └── tsconfig.json
+│   ├── blog-starter/
+│   │   ├── .gitignore
+│   │   ├── README.md
+│   │   ├── _posts/
+│   │   ├── package.json
+│   │   ├── postcss.config.js
+│   │   ├── public/
+│   │   ├── src/
+│   │   ├── tailwind.config.ts
+│   │   └── tsconfig.json
+│   ├── blog-with-comment/
+│   │   ├── .env.local.example
+│   │   ├── .gitignore
+│   │   ├── README.md
+│   │   ├── _posts/
+│   │   ├── components/
+│   │   ├── environment.d.ts
+│   │   ├── hooks/
+│   │   ├── interfaces/
+│   │   ├── lib/
+│   │   ├── package.json
+│   │   ├── pages/
+│   │   ├── postcss.config.js
+│   │   ├── public/
+│   │   ├── tailwind.config.js
+│   │   └── tsconfig.json
+│   ├── blog/
+│   │   ├── .gitignore
+│   │   ├── README.md
+│   │   ├── next.config.js
+│   │   ├── package.json
+│   │   ├── pages/
+│   │   ├── public/
+│   │   ├── scripts/
+│   │   ├── styles/
+│   │   ├── theme.config.js
+│   │   └── tsconfig.json
+│   ├── cache-handler-redis/
+│   │   ├── .gitignore
+│   │   ├── README.md
+│   │   ├── app/
+│   │   ├── cache-handler.js
+│   │   ├── compose.yaml
+│   │   ├── next.config.js
+│   │   ├── package.json
+│   │   ├── public/
+│   │   └── tsconfig.json
+│   ├── cloudflare-turnstile/
+│   │   ├── .env.local.example
+│   │   ├── .gitignore
+│   │   ├── README.md
+│   │   ├── app.css
+│   │   ├── next.config.js
+│   │   ├── package.json
+│   │   ├── pages/
+│   │   └── tsconfig.json
+│   ├── cms-agilitycms/
+│   │   ├── .env.local.example
+│   │   ├── .gitignore
+│   │   ├── README.md
+│   │   ├── components/
+│   │   ├── environment.d.ts
+│   │   ├── lib/
+│   │   ├── package.json
+│   │   ├── pages/
+│   │   ├── postcss.config.js
+│   │   ├── public/
+│   │   ├── styles/
+│   │   ├── tailwind.config.js
+│   │   └── tsconfig.json
+│   ├── cms-builder-io/
+│   │   ├── .env.local.example
+│   │   ├── .gitignore
+│   │   ├── README.md
+│   │   ├── builder/
+│   │   ├── components/
+│   │   ├── jsconfig.json
+│   │   ├── lib/
+│   │   ├── next.config.js
+│   │   ├── package.json
+│   │   ├── pages/
+│   │   ├── postcss.config.js
+│   │   ├── public/
+│   │   ├── styles/
+│   │   └── tailwind.config.js
+│   ├── cms-buttercms/
+│   │   ├── .env.local.example
+│   │   ├── .gitignore
+│   │   ├── README.md
+│   │   ├── app.json
+│   │   ├── components/
+│   │   ├── css/
+│   │   ├── jsconfig.json
+│   │   ├── lib/
+│   │   ├── next.config.js
+│   │   ├── package.json
+│   │   ├── pages/
+│   │   └── public/
+│   ├── cms-contentful/
+│   │   ├── .env.local.example
+│   │   ├── .gitignore
+│   │   ├── README.md
+│   │   ├── app/
+│   │   ├── lib/
+│   │   ├── next.config.js
+│   │   ├── package.json
+│   │   ├── postcss.config.js
+│   │   ├── tailwind.config.ts
+│   │   └── tsconfig.json
+│   ├── cms-cosmic/
+│   │   ├── .env.local.example
+│   │   ├── .gitignore
+│   │   ├── README.md
+│   │   ├── components/
+│   │   ├── interfaces/
+│   │   ├── jsconfig.json
+│   │   ├── lib/
+│   │   ├── next.config.js
+│   │   ├── package.json
+│   │   ├── pages/
+│   │   ├── postcss.config.js
+│   │   ├── public/
+│   │   ├── styles/
+│   │   ├── tailwind.config.js
+│   │   └── tsconfig.json
+│   ├── cms-datocms/
+│   │   ├── .env.local.example
+│   │   ├── .gitignore
+│   │   ├── README.md
+│   │   ├── components/
+│   │   ├── jsconfig.json
+│   │   ├── lib/
+│   │   ├── next.config.js
+│   │   ├── package.json
+│   │   ├── pages/
+│   │   ├── postcss.config.js
+│   │   ├── public/
+│   │   ├── styles/
+│   │   └── tailwind.config.js
+│   ├── cms-dotcms/
+│   │   ├── .env.local.example
+│   │   ├── .gitignore
+│   │   ├── README.md
+│   │   ├── components/
+│   │   ├── lib/
+│   │   ├── next.config.js
+│   │   ├── package.json
+│   │   ├── pages/
+│   │   ├── postcss.config.js
+│   │   ├── public/
+│   │   ├── styles/
+│   │   ├── tailwind.config.js
+│   │   └── tsconfig.json
+│   ├── cms-drupal/
+│   │   ├── .env.local.example
+│   │   ├── .gitignore
+│   │   ├── README.md
+│   │   ├── components/
+│   │   ├── lib/
+│   │   ├── package.json
+│   │   ├── pages/
+│   │   ├── postcss.config.js
+│   │   ├── public/
+│   │   ├── styles/
+│   │   └── tailwind.config.js
+│   ├── cms-enterspeed/
+│   │   ├── .env.local.example
+│   │   ├── .gitignore
+│   │   ├── README.md
+│   │   ├── components/
+│   │   ├── lib/
+│   │   ├── next.config.js
+│   │   ├── package.json
+│   │   ├── pages/
+│   │   ├── postcss.config.js
+│   │   ├── public/
+│   │   ├── styles/
+│   │   ├── tailwind.config.js
+│   │   ├── tsconfig.json
+│   │   └── types/
+│   ├── cms-ghost/
+│   │   ├── .env.local.example
+│   │   ├── .gitignore
+│   │   ├── README.md
+│   │   ├── components/
+│   │   ├── jsconfig.json
+│   │   ├── lib/
+│   │   ├── next.config.js
+│   │   ├── package.json
+│   │   ├── pages/
+│   │   ├── postcss.config.js
+│   │   ├── public/
+│   │   ├── styles/
+│   │   └── tailwind.config.js
+│   ├── cms-graphcms/
+│   │   ├── .env.local.example
+│   │   ├── .gitignore
+│   │   ├── README.md
+│   │   ├── components/
+│   │   ├── jsconfig.json
+│   │   ├── lib/
+│   │   ├── next.config.js
+│   │   ├── package.json
+│   │   ├── pages/
+│   │   ├── postcss.config.js
+│   │   ├── public/
+│   │   ├── styles/
+│   │   └── tailwind.config.js
+│   ├── cms-keystonejs-embedded/
+│   │   ├── .gitignore
+│   │   └── README.md
+│   ├── cms-kontent-ai/
+│   │   ├── .env.local.example
+│   │   ├── .gitignore
+│   │   ├── README.md
+│   │   ├── components/
+│   │   ├── docs/
+│   │   ├── kontent-ai-backup.zip
+│   │   ├── lib/
+│   │   ├── models/
+│   │   ├── package.json
+│   │   ├── pages/
+│   │   ├── postcss.config.js
+│   │   ├── public/
+│   │   ├── styles/
+│   │   ├── tailwind.config.js
+│   │   ├── tsconfig.json
+│   │   └── viewmodels/
+│   ├── cms-makeswift/
+│   │   ├── .env.local.example
+│   │   ├── .gitignore
+│   │   ├── README.md
+│   │   ├── lib/
+│   │   ├── next.config.js
+│   │   ├── package.json
+│   │   ├── pages/
+│   │   └── tsconfig.json
+│   ├── cms-payload/
+│   │   ├── .env.example
+│   │   ├── .gitignore
+│   │   ├── .npmrc
+│   │   ├── README.md
+│   │   ├── app/
+│   │   ├── components/
+│   │   ├── css/
+│   │   ├── cssVariables.js
+│   │   ├── next-env.scss.d.ts
+│   │   ├── next.config.js
+│   │   ├── package.json
+│   │   ├── pages/
+│   │   ├── payload-types.ts
+│   │   ├── payload/
+│   │   ├── public/
+│   │   ├── tsconfig.json
+│   │   └── utilities/
+│   ├── cms-plasmic/
+│   │   ├── .env.local.example
+│   │   ├── .gitignore
+│   │   ├── README.md
+│   │   ├── next.config.js
+│   │   ├── package.json
+│   │   ├── pages/
+│   │   ├── plasmic-init.ts
+│   │   ├── public/
+│   │   ├── styles/
+│   │   └── tsconfig.json
+│   ├── cms-prepr/
+│   │   ├── .env.local.example
+│   │   ├── .gitignore
+│   │   ├── README.md
+│   │   ├── components/
+│   │   ├── jsconfig.json
+│   │   ├── lib/
+│   │   ├── next.config.js
+│   │   ├── package.json
+│   │   ├── pages/
+│   │   ├── postcss.config.js
+│   │   ├── public/
+│   │   ├── styles/
+│   │   └── tailwind.config.js
+│   ├── cms-prismic/
+│   │   ├── .gitignore
+│   │   ├── .slicemachine/
+│   │   ├── README.md
+│   │   ├── components/
+│   │   ├── customtypes/
+│   │   ├── documents/
+│   │   ├── lib/
+│   │   ├── next.config.js
+│   │   ├── package.json
+│   │   ├── pages/
+│   │   ├── postcss.config.js
+│   │   ├── prismicCodegen.config.ts
+│   │   ├── public/
+│   │   ├── slices/
+│   │   ├── sm.json
+│   │   ├── styles/
+│   │   ├── tailwind.config.js
+│   │   ├── tsconfig.json
+│   │   └── types.generated.ts
+│   ├── cms-sanity/
+│   │   ├── .env.local.example
+│   │   ├── .eslintignore
+│   │   ├── .eslintrc
+│   │   ├── .gitignore
+│   │   ├── .prettierignore
+│   │   ├── README.md
+│   │   ├── app/
+│   │   ├── next.config.ts
+│   │   ├── package.json
+│   │   ├── postcss.config.js
+│   │   ├── sanity.cli.ts
+│   │   ├── sanity.config.ts
+│   │   ├── sanity.types.ts
+│   │   ├── sanity/
+│   │   ├── schema.json
+│   │   ├── tailwind.config.ts
+│   │   └── tsconfig.json
+│   ├── cms-sitecore-xmcloud/
+│   │   ├── .env.example
+│   │   ├── .gitignore
+│   │   ├── .graphql-let.yml
+│   │   ├── LICENSE.txt
+│   │   ├── README.md
+│   │   ├── next.config.js
+│   │   ├── package.json
+│   │   ├── public/
+│   │   ├── scripts/
+│   │   ├── sitecore/
+│   │   ├── src/
+│   │   ├── tsconfig.json
+│   │   └── tsconfig.scripts.json
+│   ├── cms-sitefinity/
+│   │   ├── .env.local.example
+│   │   ├── .gitignore
+│   │   ├── README.md
+│   │   ├── components/
+│   │   ├── interfaces/
+│   │   ├── lib/
+│   │   ├── package.json
+│   │   ├── pages/
+│   │   ├── postcss.config.js
+│   │   ├── public/
+│   │   ├── sitefinity/
+│   │   ├── styles/
+│   │   ├── tailwind.config.js
+│   │   └── tsconfig.json
+│   ├── cms-storyblok/
+│   │   ├── .env.local.example
+│   │   ├── .gitignore
+│   │   ├── README.md
+│   │   ├── components/
+│   │   ├── jsconfig.json
+│   │   ├── lib/
+│   │   ├── package.json
+│   │   ├── pages/
+│   │   ├── postcss.config.js
+│   │   ├── public/
+│   │   ├── styles/
+│   │   └── tailwind.config.js
+│   ├── cms-strapi/
+│   │   ├── .gitignore
+│   │   └── README.md
+│   ├── cms-takeshape/
+│   │   ├── .env.local.example
+│   │   ├── .gitignore
+│   │   ├── README.md
+│   │   ├── components/
+│   │   ├── lib/
+│   │   ├── package.json
+│   │   ├── pages/
+│   │   ├── postcss.config.js
+│   │   ├── public/
+│   │   ├── styles/
+│   │   └── tailwind.config.js
+│   ├── cms-tina/
+│   │   ├── .gitignore
+│   │   ├── .tina/
+│   │   ├── README.md
+│   │   ├── _posts/
+│   │   ├── components/
+│   │   ├── lib/
+│   │   ├── package.json
+│   │   ├── pages/
+│   │   ├── postcss.config.js
+│   │   ├── public/
+│   │   ├── styles/
+│   │   └── tailwind.config.js
+│   ├── cms-umbraco-heartcore/
+│   │   ├── .env.local.example
+│   │   ├── .gitignore
+│   │   ├── README.md
+│   │   ├── components/
+│   │   ├── docs/
+│   │   ├── jsconfig.json
+│   │   ├── lib/
+│   │   ├── next.config.js
+│   │   ├── package.json
+│   │   ├── pages/
+│   │   ├── postcss.config.js
+│   │   ├── public/
+│   │   ├── styles/
+│   │   └── tailwind.config.js
+│   ├── cms-umbraco/
+│   │   ├── .env.local.example
+│   │   ├── .gitignore
+│   │   ├── README.md
+│   │   ├── components/
+│   │   ├── lib/
+│   │   ├── next.config.js
+│   │   ├── package.json
+│   │   ├── pages/
+│   │   ├── postcss.config.js
+│   │   ├── public/
+│   │   ├── styles/
+│   │   ├── tailwind.config.js
+│   │   ├── tsconfig.json
+│   │   └── types/
+│   ├── cms-webiny/
+│   │   ├── .env.local.example
+│   │   ├── .gitignore
+│   │   ├── README.md
+│   │   ├── components/
+│   │   ├── lib/
+│   │   ├── next.config.js
+│   │   ├── package.json
+│   │   ├── pages/
+│   │   ├── postcss.config.js
+│   │   ├── public/
+│   │   ├── styles/
+│   │   ├── tailwind.config.js
+│   │   └── tsconfig.json
+│   ├── cms-wordpress/
+│   │   ├── .env.local.example
+│   │   ├── .gitignore
+│   │   ├── README.md
+│   │   ├── add-ts-nocheck.js
+│   │   ├── codegen.ts
+│   │   ├── next.config.js
+│   │   ├── package.json
+│   │   ├── src/
+│   │   └── tsconfig.json
+│   ├── convex/
+│   │   ├── .env
+│   │   ├── .gitignore
+│   │   ├── .prettierignore
+│   │   ├── README.md
+│   │   ├── convex/
+│   │   ├── package.json
+│   │   ├── pages/
+│   │   ├── public/
+│   │   ├── styles/
+│   │   └── tsconfig.json
+│   ├── custom-server/
+│   │   ├── .gitignore
+│   │   ├── README.md
+│   │   ├── app/
+│   │   ├── nodemon.json
+│   │   ├── package.json
+│   │   ├── pages/
+│   │   ├── server.ts
+│   │   ├── tsconfig.json
+│   │   └── tsconfig.server.json
+│   ├── github-pages/
+│   │   ├── .gitignore
+│   │   ├── README.md
+│   │   ├── app/
+│   │   ├── next.config.js
+│   │   ├── package.json
+│   │   └── tsconfig.json
+│   ├── hello-world/
+│   │   ├── .gitignore
+│   │   ├── README.md
+│   │   ├── app/
+│   │   ├── next.config.ts
+│   │   ├── package.json
+│   │   └── tsconfig.json
+│   ├── i18n-routing-pages/
+│   │   ├── .gitignore
+│   │   ├── README.md
+│   │   ├── components/
+│   │   ├── next.config.js
+│   │   ├── package.json
+│   │   ├── pages/
+│   │   └── tsconfig.json
+│   ├── i18n-routing/
+│   │   ├── .gitignore
+│   │   ├── .vscode/
+│   │   ├── README.md
+│   │   ├── app/
+│   │   ├── dictionaries/
+│   │   ├── get-dictionary.ts
+│   │   ├── i18n-config.ts
+│   │   ├── middleware.ts
+│   │   ├── package.json
+│   │   ├── public/
+│   │   └── tsconfig.json
+│   ├── image-component/
+│   │   ├── .gitignore
+│   │   ├── README.md
+│   │   ├── app.css
+│   │   ├── app/
+│   │   ├── components/
+│   │   ├── next.config.js
+│   │   ├── package.json
+│   │   ├── public/
+│   │   ├── styles.module.css
+│   │   └── tsconfig.json
+│   ├── image-secure-compute/
+│   │   ├── .gitignore
+│   │   ├── README.md
+│   │   ├── app/
+│   │   ├── components/
+│   │   ├── next.config.ts
+│   │   ├── package.json
+│   │   └── tsconfig.json
+│   ├── inngest/
+│   │   ├── .env.development
+│   │   ├── .gitignore
+│   │   ├── README.md
+│   │   ├── next.config.js
+│   │   ├── package.json
+│   │   ├── src/
+│   │   └── tsconfig.json
+│   ├── markdoc/
+│   │   ├── .gitignore
+│   │   ├── README.md
+│   │   ├── markdoc/
+│   │   ├── next.config.js
+│   │   ├── package.json
+│   │   ├── pages/
+│   │   ├── public/
+│   │   └── tsconfig.json
+│   ├── mdx-pages/
+│   │   ├── .gitignore
+│   │   ├── README.md
+│   │   ├── components/
+│   │   ├── next.config.js
+│   │   ├── package.json
+│   │   └── pages/
+│   ├── mdx/
+│   │   ├── .gitignore
+│   │   ├── README.md
+│   │   ├── app/
+│   │   ├── mdx-components.tsx
+│   │   ├── next.config.js
+│   │   ├── package.json
+│   │   ├── public/
+│   │   ├── tsconfig.json
+│   │   └── types/
+│   ├── next-forms/
+│   │   ├── .env.example
+│   │   ├── .gitignore
+│   │   ├── README.md
+│   │   ├── app/
+│   │   ├── package.json
+│   │   └── tsconfig.json
+│   ├── panda-css/
+│   │   ├── .gitignore
+│   │   ├── README.md
+│   │   ├── app/
+│   │   ├── next.config.js
+│   │   ├── package.json
+│   │   ├── panda.config.ts
+│   │   ├── postcss.config.js
+│   │   └── tsconfig.json
+│   ├── prisma-postgres/
+│   │   ├── .gitignore
+│   │   ├── README.md
+│   │   ├── app/
+│   │   ├── lib/
+│   │   ├── next.config.ts
+│   │   ├── package.json
+│   │   ├── postcss.config.mjs
+│   │   ├── prisma/
+│   │   ├── tailwind.config.ts
+│   │   └── tsconfig.json
+│   ├── radix-ui/
+│   │   ├── .gitignore
+│   │   ├── README.md
+│   │   ├── app/
+│   │   ├── package.json
+│   │   ├── postcss.config.js
+│   │   ├── styles/
+│   │   ├── tailwind.config.js
+│   │   └── tsconfig.json
+│   ├── react-remove-properties/
+│   │   ├── .gitignore
+│   │   ├── README.md
+│   │   ├── app/
+│   │   ├── next.config.js
+│   │   ├── package.json
+│   │   └── tsconfig.json
+│   ├── remove-console/
+│   │   ├── .gitignore
+│   │   ├── README.md
+│   │   ├── app/
+│   │   ├── next.config.ts
+│   │   ├── package.json
+│   │   └── tsconfig.json
+│   ├── reproduction-template-pages/
+│   │   ├── .codesandbox/
+│   │   ├── .gitignore
+│   │   ├── README.md
+│   │   ├── next.config.ts
+│   │   ├── package.json
+│   │   ├── pages/
+│   │   ├── public/
+│   │   └── tsconfig.json
+│   ├── reproduction-template/
+│   │   ├── .codesandbox/
+│   │   ├── .gitignore
+│   │   ├── README.md
+│   │   ├── app/
+│   │   ├── next.config.ts
+│   │   ├── package.json
+│   │   └── tsconfig.json
+│   ├── with-ably/
+│   │   ├── .gitignore
+│   │   ├── README.md
+│   │   ├── package.json
+│   │   ├── pages/
+│   │   ├── public/
+│   │   ├── styles/
+│   │   ├── tsconfig.json
+│   │   └── types.d.ts
+│   ├── with-absolute-imports/
+│   │   ├── .gitignore
+│   │   ├── README.md
+│   │   ├── app/
+│   │   ├── components/
+│   │   ├── package.json
+│   │   └── tsconfig.json
+│   ├── with-algolia-react-instantsearch/
+│   │   ├── .gitignore
+│   │   ├── README.md
+│   │   ├── app/
+│   │   ├── components/
+│   │   ├── package.json
+│   │   ├── styles/
+│   │   └── tsconfig.json
+│   ├── with-ant-design/
+│   │   ├── .gitignore
+│   │   ├── README.md
+│   │   ├── app/
+│   │   ├── next.config.js
+│   │   ├── package.json
+│   │   └── tsconfig.json
+│   ├── with-apivideo/
+│   │   ├── .env.local.example
+│   │   ├── .gitignore
+│   │   ├── README.md
+│   │   ├── components/
+│   │   ├── next.config.js
+│   │   ├── package.json
+│   │   ├── pages/
+│   │   ├── public/
+│   │   ├── style/
+│   │   └── tsconfig.json
+│   ├── with-apollo-and-redux/
+│   │   ├── .gitignore
+│   │   ├── README.md
+│   │   ├── components/
+│   │   ├── lib/
+│   │   ├── package.json
+│   │   └── pages/
+│   ├── with-apollo/
+│   │   ├── .gitignore
+│   │   ├── README.md
+│   │   ├── next.config.mjs
+│   │   ├── package.json
+│   │   ├── src/
+│   │   └── tsconfig.json
+│   ├── with-axiom/
+│   │   ├── .gitignore
+│   │   ├── README.md
+│   │   ├── middleware.ts
+│   │   ├── next.config.js
+│   │   ├── package.json
+│   │   ├── pages/
+│   │   └── tsconfig.json
+│   ├── with-azure-cosmos/
+│   │   ├── .env.local.example
+│   │   ├── .gitignore
+│   │   ├── README.md
+│   │   ├── lib/
+│   │   ├── package.json
+│   │   ├── pages/
+│   │   ├── public/
+│   │   └── tsconfig.json
+│   ├── with-babel-macros/
+│   │   ├── .babelrc
+│   │   ├── .gitignore
+│   │   ├── README.md
+│   │   ├── app/
+│   │   ├── package.json
+│   │   └── tsconfig.json
+│   ├── with-biome/
+│   │   ├── .gitignore
+│   │   ├── README.md
+│   │   ├── app/
+│   │   ├── biome.json
+│   │   ├── package.json
+│   │   └── tsconfig.json
+│   ├── with-chakra-ui/
+│   │   ├── .gitignore
+│   │   ├── README.md
+│   │   ├── package.json
+│   │   ├── src/
+│   │   └── tsconfig.json
+│   ├── with-clerk/
+│   │   ├── .env.local.example
+│   │   ├── .gitignore
+│   │   ├── README.md
+│   │   ├── app/
+│   │   ├── middleware.ts
+│   │   ├── next.config.js
+│   │   ├── package.json
+│   │   ├── public/
+│   │   ├── styles/
+│   │   └── tsconfig.json
+│   ├── with-cloudinary/
+│   │   ├── .env.local.example
+│   │   ├── .gitignore
+│   │   ├── README.md
+│   │   ├── components/
+│   │   ├── next.config.js
+│   │   ├── package.json
+│   │   ├── pages/
+│   │   ├── postcss.config.js
+│   │   ├── public/
+│   │   ├── styles/
+│   │   ├── tailwind.config.js
+│   │   ├── tsconfig.json
+│   │   └── utils/
+│   ├── with-compiled-css/
+│   │   ├── .babelrc
+│   │   ├── .gitignore
+│   │   ├── README.md
+│   │   ├── components/
+│   │   ├── next.config.js
+│   │   ├── package.json
+│   │   ├── pages/
+│   │   └── style/
+│   ├── with-context-api/
+│   │   ├── .gitignore
+│   │   ├── README.md
+│   │   ├── _components/
+│   │   ├── app/
+│   │   ├── package.json
+│   │   └── tsconfig.json
+│   ├── with-cookies-next/
+│   │   ├── .gitignore
+│   │   ├── README.md
+│   │   ├── package.json
+│   │   ├── pages/
+│   │   └── tsconfig.json
+│   ├── with-couchbase/
+│   │   ├── .env.local.example
+│   │   ├── .gitignore
+│   │   ├── README.md
+│   │   ├── package.json
+│   │   ├── pages/
+│   │   ├── public/
+│   │   ├── styles/
+│   │   └── util/
+│   ├── with-custom-babel-config/
+│   │   ├── .babelrc
+│   │   ├── .gitignore
+│   │   ├── README.md
+│   │   ├── package.json
+│   │   └── pages/
+│   ├── with-cxs/
+│   │   ├── .gitignore
+│   │   ├── README.md
+│   │   ├── package.json
+│   │   ├── pages/
+│   │   └── tsconfig.json
+│   ├── with-cypress/
+│   │   ├── .gitignore
+│   │   ├── README.md
+│   │   ├── app/
+│   │   ├── components/
+│   │   ├── cypress.config.ts
+│   │   ├── cypress/
+│   │   ├── package.json
+│   │   ├── pages/
+│   │   ├── public/
+│   │   ├── styles/
+│   │   └── tsconfig.json
+│   ├── with-docker-compose/
+│   │   ├── .dockerignore
+│   │   ├── .env
+│   │   ├── .gitignore
+│   │   ├── README.md
+│   │   ├── compose.dev.yaml
+│   │   ├── compose.prod-without-multistage.yaml
+│   │   ├── compose.prod.yaml
+│   │   └── next-app/
+│   ├── with-docker-export-output/
+│   │   ├── .dockerignore
+│   │   ├── .gitignore
+│   │   ├── Dockerfile
+│   │   ├── Dockerfile.serve
+│   │   ├── README.md
+│   │   ├── app/
+│   │   ├── compose.yml
+│   │   ├── next-env.d.ts
+│   │   ├── next.config.ts
+│   │   ├── nginx.conf
+│   │   ├── package.json
+│   │   ├── pnpm-lock.yaml
+│   │   ├── postcss.config.js
+│   │   ├── public/
+│   │   └── tsconfig.json
+│   ├── with-docker-multi-env/
+│   │   ├── .dockerignore
+│   │   ├── .env
+│   │   ├── .env.development.sample
+│   │   ├── .env.production.sample
+│   │   ├── .env.staging.sample
+│   │   ├── .gitignore
+│   │   ├── Makefile
+│   │   ├── README.md
+│   │   ├── docker/
+│   │   ├── next.config.js
+│   │   ├── package.json
+│   │   ├── pages/
+│   │   ├── public/
+│   │   └── styles/
+│   ├── with-docker/
+│   │   ├── .dockerignore
+│   │   ├── .gitignore
+│   │   ├── Dockerfile
+│   │   ├── Dockerfile.bun
+│   │   ├── README.md
+│   │   ├── app.json
+│   │   ├── app/
+│   │   ├── compose.yml
+│   │   ├── next.config.ts
+│   │   ├── package.json
+│   │   ├── pnpm-lock.yaml
+│   │   ├── postcss.config.js
+│   │   ├── public/
+│   │   └── tsconfig.json
+│   ├── with-dynamic-import/
+│   │   ├── .gitignore
+│   │   ├── README.md
+│   │   ├── app/
+│   │   ├── package.json
+│   │   └── tsconfig.json
+│   ├── with-edgedb/
+│   │   ├── .eslintignore
+│   │   ├── .gitignore
+│   │   ├── README.md
+│   │   ├── client.ts
+│   │   ├── components/
+│   │   ├── dbschema/
+│   │   ├── edgedb.toml
+│   │   ├── package.json
+│   │   ├── pages/
+│   │   ├── postcss.config.js
+│   │   ├── seed.ts
+│   │   ├── styles/
+│   │   ├── tailwind.config.js
+│   │   └── tsconfig.json
+│   ├── with-elasticsearch/
+│   │   ├── .env.local.example
+│   │   ├── .gitignore
+│   │   ├── README.md
+│   │   ├── lib/
+│   │   ├── package.json
+│   │   ├── pages/
+│   │   ├── public/
+│   │   ├── styles/
+│   │   └── tsconfig.json
+│   ├── with-electron-typescript/
+│   │   ├── .gitignore
+│   │   ├── README.md
+│   │   ├── electron-src/
+│   │   ├── next.config.js
+│   │   ├── package.json
+│   │   └── renderer/
+│   ├── with-electron/
+│   │   ├── .gitignore
+│   │   ├── README.md
+│   │   ├── main/
+│   │   ├── next.config.js
+│   │   ├── package.json
+│   │   └── renderer/
+│   ├── with-emotion/
+│   │   ├── .gitignore
+│   │   ├── README.md
+│   │   ├── next.config.js
+│   │   ├── package.json
+│   │   ├── pages/
+│   │   ├── shared/
+│   │   └── tsconfig.json
+│   ├── with-eslint/
+│   │   ├── .eslintrc
+│   │   ├── .gitignore
+│   │   ├── README.md
+│   │   ├── app/
+│   │   ├── package.json
+│   │   └── tsconfig.json
+│   ├── with-expo-typescript/
+│   │   ├── .gitignore
+│   │   ├── App.tsx
+│   │   ├── README.md
+│   │   ├── babel.config.js
+│   │   ├── next.config.js
+│   │   ├── package.json
+│   │   ├── pages/
+│   │   ├── public/
+│   │   └── tsconfig.json
+│   ├── with-facebook-pixel/
+│   │   ├── .env.local.example
+│   │   ├── .gitignore
+│   │   ├── README.md
+│   │   ├── _pages/
+│   │   ├── app/
+│   │   ├── lib/
+│   │   ├── package.json
+│   │   └── public/
+│   ├── with-fela/
+│   │   ├── .gitignore
+│   │   ├── FelaProvider.js
+│   │   ├── README.md
+│   │   ├── getFelaRenderer.js
+│   │   ├── package.json
+│   │   └── pages/
+│   ├── with-filbert/
+│   │   ├── .babelrc
+│   │   ├── .gitignore
+│   │   ├── README.md
+│   │   ├── package.json
+│   │   ├── pages/
+│   │   └── public/
+│   ├── with-fingerprintjs-pro/
+│   │   ├── .env.local.example
+│   │   ├── .gitignore
+│   │   ├── README.md
+│   │   ├── components/
+│   │   ├── next.config.js
+│   │   ├── package.json
+│   │   ├── pages/
+│   │   ├── providers/
+│   │   ├── public/
+│   │   ├── styles/
+│   │   └── tsconfig.json
+│   ├── with-firebase-cloud-messaging/
+│   │   ├── .gitignore
+│   │   ├── README.md
+│   │   ├── package.json
+│   │   ├── pages/
+│   │   ├── public/
+│   │   └── utils/
+│   ├── with-firebase-hosting/
+│   │   ├── .firebaserc
+│   │   ├── .gitignore
+│   │   ├── README.md
+│   │   ├── firebase.json
+│   │   ├── firebaseFunctions.js
+│   │   ├── package.json
+│   │   ├── public/
+│   │   └── src/
+│   ├── with-firebase/
+│   │   ├── .env.local.example
+│   │   ├── .gitignore
+│   │   ├── README.md
+│   │   ├── context/
+│   │   ├── fetchData/
+│   │   ├── firebase/
+│   │   ├── package.json
+│   │   ├── pages/
+│   │   ├── public/
+│   │   └── vercel.json
+│   ├── with-flow/
+│   │   ├── .babelrc
+│   │   ├── .eslintrc.json
+│   │   ├── .flowconfig
+│   │   ├── .gitignore
+│   │   ├── README.md
+│   │   ├── components/
+│   │   ├── flow-typed/
+│   │   ├── package.json
+│   │   ├── pages/
+│   │   └── with-flow.gif
+│   ├── with-formspree/
+│   │   ├── .gitignore
+│   │   ├── README.md
+│   │   ├── components/
+│   │   ├── package.json
+│   │   ├── pages/
+│   │   ├── public/
+│   │   └── styles/
+│   ├── with-framer-motion/
+│   │   ├── .gitignore
+│   │   ├── README.md
+│   │   ├── components/
+│   │   ├── constants.js
+│   │   ├── package.json
+│   │   └── pages/
+│   ├── with-goober/
+│   │   ├── .gitignore
+│   │   ├── README.md
+│   │   ├── app/
+│   │   ├── package.json
+│   │   └── tsconfig.json
+│   ├── with-google-analytics/
+│   │   ├── .env.local.example
+│   │   ├── .gitignore
+│   │   ├── README.md
+│   │   ├── app/
+│   │   ├── components/
+│   │   ├── package.json
+│   │   └── tsconfig.json
+│   ├── with-google-maps-embed/
+│   │   ├── .env.local.example
+│   │   ├── .gitignore
+│   │   ├── README.md
+│   │   ├── app/
+│   │   ├── package.json
+│   │   └── tsconfig.json
+│   ├── with-google-tag-manager/
+│   │   ├── .env.local.example
+│   │   ├── .gitignore
+│   │   ├── README.md
+│   │   ├── _components/
+│   │   ├── app/
+│   │   ├── package.json
+│   │   └── tsconfig.json
+│   ├── with-grafbase/
+│   │   ├── .env.local.example
+│   │   ├── .gitignore
+│   │   ├── .vscode/
+│   │   ├── README.md
+│   │   ├── app/
+│   │   ├── codegen.ts
+│   │   ├── gql/
+│   │   ├── grafbase/
+│   │   ├── lib/
+│   │   ├── next.config.js
+│   │   ├── package.json
+│   │   ├── postcss.config.js
+│   │   ├── tailwind.config.js
+│   │   └── tsconfig.json
+│   ├── with-graphql-gateway/
+│   │   ├── .gitignore
+│   │   ├── .meshrc.yaml
+│   │   ├── README.md
+│   │   ├── next.config.js
+│   │   ├── package.json
+│   │   ├── pages/
+│   │   ├── public/
+│   │   ├── styles/
+│   │   └── tsconfig.json
+│   ├── with-graphql-hooks/
+│   │   ├── .gitignore
+│   │   ├── README.md
+│   │   ├── next.config.mjs
+│   │   ├── package.json
+│   │   ├── src/
+│   │   └── tsconfig.json
+│   ├── with-graphql-react/
+│   │   ├── .gitignore
+│   │   ├── README.md
+│   │   ├── package.json
+│   │   └── pages/
+│   ├── with-gsap/
+│   │   ├── .gitignore
+│   │   ├── App.scss
+│   │   ├── README.md
+│   │   ├── components/
+│   │   ├── package.json
+│   │   ├── pages/
+│   │   ├── public/
+│   │   └── tsconfig.json
+│   ├── with-hls-js/
+│   │   ├── .gitignore
+│   │   ├── README.md
+│   │   ├── components/
+│   │   ├── package.json
+│   │   ├── pages/
+│   │   └── public/
+│   ├── with-http2/
+│   │   ├── .gitignore
+│   │   ├── README.md
+│   │   ├── next.config.js
+│   │   ├── package.json
+│   │   ├── pages/
+│   │   └── server.js
+│   ├── with-i18n-next-intl/
+│   │   ├── .gitignore
+│   │   ├── README.md
+│   │   ├── components/
+│   │   ├── messages/
+│   │   ├── next.config.js
+│   │   ├── package.json
+│   │   └── pages/
+│   ├── with-i18n-rosetta/
+│   │   ├── .gitignore
+│   │   ├── README.md
+│   │   ├── components/
+│   │   ├── hooks/
+│   │   ├── lib/
+│   │   ├── locales/
+│   │   ├── next.config.js
+│   │   ├── package.json
+│   │   └── pages/
+│   ├── with-ionic/
+│   │   ├── .gitignore
+│   │   ├── README.md
+│   │   ├── _components/
+│   │   ├── app/
+│   │   ├── ionic.d.ts
+│   │   ├── next.config.ts
+│   │   ├── package.json
+│   │   ├── public/
+│   │   └── tsconfig.json
+│   ├── with-iron-session/
+│   │   ├── .gitignore
+│   │   └── README.md
+│   ├── with-jest-babel/
+│   │   ├── .eslintrc.json
+│   │   ├── .gitignore
+│   │   ├── README.md
+│   │   ├── __mocks__/
+│   │   ├── __tests__/
+│   │   ├── jest.config.js
+│   │   ├── jest.setup.js
+│   │   ├── package.json
+│   │   ├── pages/
+│   │   ├── public/
+│   │   ├── styles/
+│   │   ├── tsconfig.json
+│   │   └── types.d.ts
+│   ├── with-jest/
+│   │   ├── .gitignore
+│   │   ├── README.md
+│   │   ├── __tests__/
+│   │   ├── app/
+│   │   ├── jest.config.js
+│   │   ├── jest.setup.js
+│   │   ├── package.json
+│   │   ├── pages/
+│   │   ├── public/
+│   │   ├── styles/
+│   │   ├── tsconfig.json
+│   │   └── types.d.ts
+│   ├── with-joi/
+│   │   ├── .gitignore
+│   │   ├── README.md
+│   │   ├── package.json
+│   │   ├── pages/
+│   │   └── server/
+│   ├── with-jotai/
+│   │   ├── .gitignore
+│   │   ├── README.md
+│   │   ├── app/
+│   │   ├── components/
+│   │   ├── next.config.js
+│   │   ├── package.json
+│   │   ├── public/
+│   │   ├── styles/
+│   │   └── tsconfig.json
+│   ├── with-kea/
+│   │   ├── .gitignore
+│   │   ├── README.md
+│   │   ├── package.json
+│   │   ├── pages/
+│   │   └── store.js
+│   ├── with-knex/
+│   │   ├── .env.local.example
+│   │   ├── .gitignore
+│   │   ├── README.md
+│   │   ├── knex/
+│   │   ├── knexfile.js
+│   │   ├── package.json
+│   │   ├── pages/
+│   │   └── public/
+│   ├── with-linaria/
+│   │   ├── .babelrc
+│   │   ├── .gitignore
+│   │   ├── README.md
+│   │   ├── app/
+│   │   ├── next.config.js
+│   │   ├── package.json
+│   │   └── tsconfig.json
+│   ├── with-lingui/
+│   │   ├── .babelrc
+│   │   ├── .gitignore
+│   │   ├── README.md
+│   │   ├── components/
+│   │   ├── lingui.config.js
+│   │   ├── locale/
+│   │   ├── next.config.js
+│   │   ├── package.json
+│   │   └── pages/
+│   ├── with-magic/
+│   │   ├── .env.local.example
+│   │   ├── .gitignore
+│   │   ├── README.md
+│   │   ├── components/
+│   │   ├── lib/
+│   │   ├── package.json
+│   │   ├── pages/
+│   │   └── public/
+│   ├── with-mantine/
+│   │   ├── .gitignore
+│   │   ├── README.md
+│   │   ├── components/
+│   │   ├── next.config.js
+│   │   ├── package.json
+│   │   ├── pages/
+│   │   ├── prettier.config.js
+│   │   ├── public/
+│   │   ├── styles/
+│   │   └── tsconfig.json
+│   ├── with-mdbreact/
+│   │   ├── .gitignore
+│   │   ├── README.md
+│   │   ├── package.json
+│   │   ├── pages/
+│   │   ├── public/
+│   │   └── styles/
+│   ├── with-meilisearch/
+│   │   ├── .env.development
+│   │   ├── .env.local.example
+│   │   ├── .gitignore
+│   │   ├── README.md
+│   │   ├── env.d.ts
+│   │   ├── next.config.js
+│   │   ├── package.json
+│   │   ├── postcss.config.js
+│   │   ├── src/
+│   │   ├── tailwind.config.ts
+│   │   └── tsconfig.json
+│   ├── with-mobx-state-tree/
+│   │   ├── .gitignore
+│   │   ├── README.md
+│   │   ├── components/
+│   │   ├── package.json
+│   │   ├── pages/
+│   │   ├── store.ts
+│   │   └── tsconfig.json
+│   ├── with-mobx/
+│   │   ├── .gitignore
+│   │   ├── README.md
+│   │   ├── components/
+│   │   ├── package.json
+│   │   ├── pages/
+│   │   └── store.js
+│   ├── with-mocha/
+│   │   ├── .babelrc
+│   │   ├── .gitignore
+│   │   ├── .mocharc.yml
+│   │   ├── README.md
+│   │   ├── mocha.setup.js
+│   │   ├── package.json
+│   │   ├── pages/
+│   │   └── test/
+│   ├── with-mongodb-mongoose/
+│   │   ├── .env.local.example
+│   │   ├── .gitignore
+│   │   ├── README.md
+│   │   ├── components/
+│   │   ├── css/
+│   │   ├── lib/
+│   │   ├── models/
+│   │   ├── package.json
+│   │   ├── pages/
+│   │   ├── public/
+│   │   └── tsconfig.json
+│   ├── with-mongodb/
+│   │   ├── .env.local.example
+│   │   ├── .gitignore
+│   │   ├── README.md
+│   │   ├── app/
+│   │   ├── lib/
+│   │   ├── next.config.js
+│   │   ├── package.json
+│   │   ├── pages/
+│   │   ├── postcss.config.js
+│   │   ├── public/
+│   │   ├── styles/
+│   │   ├── tailwind.config.ts
+│   │   └── tsconfig.json
+│   ├── with-mqtt-js/
+│   │   ├── .env.local.example
+│   │   ├── .gitignore
+│   │   ├── README.md
+│   │   ├── app/
+│   │   ├── environment.d.ts
+│   │   ├── lib/
+│   │   ├── package.json
+│   │   └── tsconfig.json
+│   ├── with-msw/
+│   │   ├── .env.development
+│   │   ├── .env.production
+│   │   ├── .gitignore
+│   │   ├── README.md
+│   │   ├── mocks/
+│   │   ├── package.json
+│   │   ├── pages/
+│   │   ├── public/
+│   │   └── tsconfig.json
+│   ├── with-mux-video/
+│   │   ├── .env.local.example
+│   │   ├── .gitignore
+│   │   ├── README.md
+│   │   ├── app/
+│   │   ├── next.config.mjs
+│   │   ├── package.json
+│   │   ├── postcss.config.js
+│   │   ├── tailwind.config.js
+│   │   └── tsconfig.json
+│   ├── with-mysql/
+│   │   ├── .env.example
+│   │   ├── .gitignore
+│   │   ├── README.md
+│   │   ├── app/
+│   │   ├── components/
+│   │   ├── lib/
+│   │   ├── next.config.ts
+│   │   ├── package.json
+│   │   ├── postcss.config.mjs
+│   │   ├── prisma.config.ts
+│   │   ├── prisma/
+│   │   ├── public/
+│   │   └── tsconfig.json
+│   ├── with-neo4j/
+│   │   ├── .env.local.example
+│   │   ├── .gitignore
+│   │   ├── README.md
+│   │   ├── components/
+│   │   ├── lib/
+│   │   ├── movie-sample.md
+│   │   ├── package.json
+│   │   ├── pages/
+│   │   ├── public/
+│   │   ├── styles/
+│   │   └── util/
+│   ├── with-next-page-transitions/
+│   │   ├── .gitignore
+│   │   ├── README.md
+│   │   ├── components/
+│   │   ├── package.json
+│   │   └── pages/
+│   ├── with-next-seo/
+│   │   ├── .gitignore
+│   │   ├── README.md
+│   │   ├── next-seo.config.js
+│   │   ├── package.json
+│   │   └── pages/
+│   ├── with-next-sitemap/
+│   │   ├── .gitignore
+│   │   ├── README.md
+│   │   ├── next-sitemap.config.js
+│   │   ├── package.json
+│   │   ├── pages/
+│   │   └── tsconfig.json
+│   ├── with-next-translate/
+│   │   ├── .gitignore
+│   │   ├── README.md
+│   │   ├── app/
+│   │   ├── i18n.json
+│   │   ├── locales/
+│   │   ├── next.config.js
+│   │   ├── package.json
+│   │   └── public/
+│   ├── with-next-ui/
+│   │   ├── .gitignore
+│   │   ├── README.md
+│   │   ├── common/
+│   │   ├── components/
+│   │   ├── next.config.js
+│   │   ├── package.json
+│   │   ├── pages/
+│   │   ├── public/
+│   │   ├── styles/
+│   │   └── tsconfig.json
+│   ├── with-nhost-auth-realtime-graphql/
+│   │   ├── .env.local.example
+│   │   ├── .gitignore
+│   │   ├── README.md
+│   │   ├── components/
+│   │   ├── package.json
+│   │   ├── pages/
+│   │   ├── setup/
+│   │   └── utils/
+│   ├── with-opentelemetry/
+│   │   ├── .gitignore
+│   │   ├── README.md
+│   │   ├── app/
+│   │   ├── instrumentation.ts
+│   │   ├── next.config.js
+│   │   ├── package.json
+│   │   ├── pages/
+│   │   ├── shared/
+│   │   └── tsconfig.json
+│   ├── with-orbit-components/
+│   │   ├── .gitignore
+│   │   ├── README.md
+│   │   ├── app/
+│   │   ├── package.json
+│   │   ├── tailwind.config.js
+│   │   └── tsconfig.json
+│   ├── with-overmind/
+│   │   ├── .gitignore
+│   │   ├── README.md
+│   │   ├── components/
+│   │   ├── overmind/
+│   │   ├── package.json
+│   │   └── pages/
+│   ├── with-oxlint/
+│   │   ├── .gitignore
+│   │   ├── .oxlintrc.json
+│   │   ├── README.md
+│   │   ├── app/
+│   │   ├── package.json
+│   │   └── tsconfig.json
+│   ├── with-particles/
+│   │   ├── .gitignore
+│   │   ├── README.md
+│   │   ├── components/
+│   │   ├── next.config.js
+│   │   ├── package.json
+│   │   ├── pages/
+│   │   ├── public/
+│   │   ├── styles/
+│   │   └── tsconfig.json
+│   ├── with-passport-and-next-connect/
+│   │   ├── .env
+│   │   ├── .gitignore
+│   │   ├── README.md
+│   │   ├── components/
+│   │   ├── lib/
+│   │   ├── middleware/
+│   │   ├── package.json
+│   │   ├── pages/
+│   │   └── styles.css
+│   ├── with-passport/
+│   │   ├── .env
+│   │   ├── .gitignore
+│   │   ├── README.md
+│   │   ├── components/
+│   │   ├── lib/
+│   │   ├── package.json
+│   │   └── pages/
+│   ├── with-paste-typescript/
+│   │   ├── .gitignore
+│   │   ├── README.md
+│   │   ├── package.json
+│   │   ├── pages/
+│   │   ├── public/
+│   │   └── tsconfig.json
+│   ├── with-plausible/
+│   │   ├── .env.local.example
+│   │   ├── .gitignore
+│   │   ├── README.md
+│   │   ├── _components/
+│   │   ├── app/
+│   │   ├── package.json
+│   │   └── tsconfig.json
+│   ├── with-playwright/
+│   │   ├── .gitignore
+│   │   ├── README.md
+│   │   ├── app/
+│   │   ├── e2e/
+│   │   ├── package.json
+│   │   ├── pages/
+│   │   ├── playwright.config.ts
+│   │   ├── public/
+│   │   ├── styles/
+│   │   └── tsconfig.json
+│   ├── with-polyfills/
+│   │   ├── .gitignore
+│   │   ├── README.md
+│   │   ├── app/
+│   │   ├── package.json
+│   │   └── tsconfig.json
+│   ├── with-portals-ssr/
+│   │   ├── .gitignore
+│   │   ├── README.md
+│   │   ├── package.json
+│   │   └── pages/
+│   ├── with-portals/
+│   │   ├── .gitignore
+│   │   ├── README.md
+│   │   ├── components/
+│   │   ├── package.json
+│   │   └── pages/
+│   ├── with-postgres/
+│   │   ├── .gitignore
+│   │   └── README.md
+│   ├── with-prefetching/
+│   │   ├── .gitignore
+│   │   ├── README.md
+│   │   ├── components/
+│   │   ├── package.json
+│   │   ├── pages/
+│   │   └── tsconfig.json
+│   ├── with-quill-js/
+│   │   ├── .gitignore
+│   │   ├── README.md
+│   │   ├── package.json
+│   │   └── pages/
+│   ├── with-rbx-bulma-pro/
+│   │   ├── .gitignore
+│   │   ├── README.md
+│   │   ├── components/
+│   │   ├── package.json
+│   │   └── pages/
+│   ├── with-react-bootstrap/
+│   │   ├── .gitignore
+│   │   ├── README.md
+│   │   ├── package.json
+│   │   ├── pages/
+│   │   ├── public/
+│   │   └── style/
+│   ├── with-react-ga4/
+│   │   ├── .gitignore
+│   │   ├── README.md
+│   │   ├── package.json
+│   │   ├── pages/
+│   │   └── utils/
+│   ├── with-react-hook-form/
+│   │   ├── .gitignore
+│   │   ├── README.md
+│   │   ├── package.json
+│   │   ├── pages/
+│   │   ├── public/
+│   │   ├── styles/
+│   │   └── tsconfig.json
+│   ├── with-react-intl/
+│   │   ├── .babelrc
+│   │   ├── .eslintrc
+│   │   ├── .gitignore
+│   │   ├── .npmrc
+│   │   ├── README.md
+│   │   ├── components/
+│   │   ├── helper/
+│   │   ├── lang/
+│   │   ├── next.config.js
+│   │   ├── package.json
+│   │   ├── pages/
+│   │   └── tsconfig.json
+│   ├── with-react-md-typescript/
+│   │   ├── .gitignore
+│   │   ├── README.md
+│   │   ├── components/
+│   │   ├── package.json
+│   │   ├── pages/
+│   │   ├── styles/
+│   │   └── tsconfig.json
+│   ├── with-react-multi-carousel/
+│   │   ├── .gitignore
+│   │   ├── README.md
+│   │   ├── package.json
+│   │   ├── pages/
+│   │   ├── public/
+│   │   └── tsconfig.json
+│   ├── with-react-native-web/
+│   │   ├── .gitignore
+│   │   ├── README.md
+│   │   ├── app.json
+│   │   ├── next.config.js
+│   │   ├── package.json
+│   │   └── pages/
+│   ├── with-react-toolbox/
+│   │   ├── .gitignore
+│   │   ├── README.md
+│   │   ├── package.json
+│   │   ├── pages/
+│   │   ├── public/
+│   │   └── theme.js
+│   ├── with-reactstrap/
+│   │   ├── .gitignore
+│   │   ├── README.md
+│   │   ├── package.json
+│   │   ├── pages/
+│   │   ├── public/
+│   │   └── styles/
+│   ├── with-realm-web/
+│   │   ├── .env
+│   │   ├── .gitignore
+│   │   ├── README.md
+│   │   ├── lib/
+│   │   ├── package.json
+│   │   └── pages/
+│   ├── with-rebass/
+│   │   ├── .gitignore
+│   │   ├── README.md
+│   │   ├── package.json
+│   │   └── pages/
+│   ├── with-redis/
+│   │   ├── .env.example
+│   │   ├── .gitignore
+│   │   ├── README.md
+│   │   ├── app/
+│   │   ├── package.json
+│   │   ├── postcss.config.js
+│   │   ├── tailwind.config.ts
+│   │   └── tsconfig.json
+│   ├── with-redux/
+│   │   ├── .gitignore
+│   │   ├── README.md
+│   │   ├── app/
+│   │   ├── lib/
+│   │   ├── next.config.mjs
+│   │   ├── package.json
+│   │   ├── public/
+│   │   └── tsconfig.json
+│   ├── with-reflexjs/
+│   │   ├── .babelrc
+│   │   ├── .gitignore
+│   │   ├── README.md
+│   │   ├── package.json
+│   │   ├── pages/
+│   │   ├── src/
+│   │   └── tsconfig.json
+│   ├── with-reflux/
+│   │   ├── .gitignore
+│   │   ├── README.md
+│   │   ├── actions/
+│   │   ├── package.json
+│   │   ├── pages/
+│   │   └── store/
+│   ├── with-relay-modern/
+│   │   ├── .babelrc
+│   │   ├── .env
+│   │   ├── .gitignore
+│   │   ├── .graphqlconfig
+│   │   ├── README.md
+│   │   ├── components/
+│   │   ├── lib/
+│   │   ├── package.json
+│   │   ├── pages/
+│   │   ├── queries/
+│   │   └── schema/
+│   ├── with-rematch/
+│   │   ├── .gitignore
+│   │   ├── README.md
+│   │   ├── package.json
+│   │   ├── pages/
+│   │   └── shared/
+│   ├── with-route-as-modal/
+│   │   ├── .gitignore
+│   │   ├── README.md
+│   │   ├── app-styles.module.css
+│   │   ├── components/
+│   │   ├── package.json
+│   │   └── pages/
+│   ├── with-rspack/
+│   │   ├── .gitignore
+│   │   ├── README.md
+│   │   ├── app/
+│   │   ├── next.config.js
+│   │   ├── package.json
+│   │   └── tsconfig.json
+│   ├── with-sass/
+│   │   ├── .gitignore
+│   │   ├── README.md
+│   │   ├── app/
+│   │   ├── components/
+│   │   ├── package.json
+│   │   ├── styles/
+│   │   └── tsconfig.json
+│   ├── with-segment-analytics-pages-router/
+│   │   ├── .env.local.example
+│   │   ├── .gitignore
+│   │   ├── README.md
+│   │   ├── components/
+│   │   ├── lib/
+│   │   ├── package.json
+│   │   ├── pages/
+│   │   └── tsconfig.json
+│   ├── with-segment-analytics/
+│   │   ├── .env.local.example
+│   │   ├── .gitignore
+│   │   ├── README.md
+│   │   ├── app/
+│   │   ├── components/
+│   │   ├── lib/
+│   │   ├── package.json
+│   │   └── tsconfig.json
+│   ├── with-sentry/
+│   │   ├── .gitignore
+│   │   ├── README.md
+│   │   ├── next.config.js
+│   │   ├── package.json
+│   │   ├── pages/
+│   │   ├── public/
+│   │   ├── sentry.client.config.js
+│   │   ├── sentry.edge.config.js
+│   │   ├── sentry.server.config.js
+│   │   ├── styles/
+│   │   └── tsconfig.json
+│   ├── with-service-worker/
+│   │   ├── .gitignore
+│   │   ├── README.md
+│   │   ├── package.json
+│   │   ├── pages/
+│   │   ├── public/
+│   │   └── tsconfig.json
+│   ├── with-sfcc/
+│   │   ├── .env.local.example
+│   │   ├── .gitignore
+│   │   ├── README.md
+│   │   ├── components/
+│   │   ├── next.config.js
+│   │   ├── package.json
+│   │   ├── pages/
+│   │   ├── postcss.config.js
+│   │   ├── public/
+│   │   ├── sfcc.js
+│   │   ├── styles/
+│   │   ├── tailwind.config.js
+│   │   └── tsconfig.json
+│   ├── with-shallow-routing/
+│   │   ├── .gitignore
+│   │   ├── README.md
+│   │   ├── package.json
+│   │   └── pages/
+│   ├── with-sitemap/
+│   │   ├── .env
+│   │   ├── .gitignore
+│   │   ├── README.md
+│   │   ├── app/
+│   │   ├── next.config.js
+│   │   ├── package.json
+│   │   ├── public/
+│   │   ├── scripts/
+│   │   └── tsconfig.json
+│   ├── with-slate/
+│   │   ├── .gitignore
+│   │   ├── README.md
+│   │   ├── app/
+│   │   ├── package.json
+│   │   ├── tsconfig.json
+│   │   └── types/
+│   ├── with-static-export/
+│   │   ├── .gitignore
+│   │   ├── README.md
+│   │   ├── app/
+│   │   ├── next.config.js
+│   │   ├── package.json
+│   │   └── tsconfig.json
+│   ├── with-stencil/
+│   │   ├── .gitignore
+│   │   ├── README.md
+│   │   ├── package.json
+│   │   └── packages/
+│   ├── with-stitches/
+│   │   ├── .gitignore
+│   │   ├── README.md
+│   │   ├── app/
+│   │   ├── next.config.mjs
+│   │   ├── package.json
+│   │   ├── public/
+│   │   ├── stitches.config.ts
+│   │   └── tsconfig.json
+│   ├── with-storybook/
+│   │   ├── .gitignore
+│   │   ├── .storybook/
+│   │   ├── README.md
+│   │   ├── app/
+│   │   ├── next.config.mjs
+│   │   ├── package.json
+│   │   ├── public/
+│   │   ├── stories/
+│   │   ├── tsconfig.json
+│   │   └── vercel.json
+│   ├── with-strict-csp/
+│   │   ├── .gitignore
+│   │   ├── README.md
+│   │   ├── app/
+│   │   ├── middleware.js
+│   │   └── package.json
+│   ├── with-stripe-typescript/
+│   │   ├── .env.local.example
+│   │   ├── .gitignore
+│   │   ├── README.md
+│   │   ├── app/
+│   │   ├── config/
+│   │   ├── lib/
+│   │   ├── next.config.js
+│   │   ├── package.json
+│   │   ├── public/
+│   │   ├── styles.css
+│   │   ├── tsconfig.json
+│   │   └── utils/
+│   ├── with-styled-components/
+│   │   ├── .gitignore
+│   │   ├── README.md
+│   │   ├── app/
+│   │   ├── lib/
+│   │   ├── next.config.mjs
+│   │   ├── package.json
+│   │   ├── styled.d.ts
+│   │   └── tsconfig.json
+│   ├── with-styled-jsx/
+│   │   ├── .gitignore
+│   │   ├── README.md
+│   │   ├── app/
+│   │   ├── package.json
+│   │   └── tsconfig.json
+│   ├── with-styletron/
+│   │   ├── .gitignore
+│   │   ├── README.md
+│   │   ├── app/
+│   │   ├── next.config.js
+│   │   ├── package.json
+│   │   ├── styletron.js
+│   │   └── tsconfig.json
+│   ├── with-supabase/
+│   │   ├── .env.example
+│   │   ├── .gitignore
+│   │   ├── README.md
+│   │   ├── app/
+│   │   ├── components.json
+│   │   ├── components/
+│   │   ├── eslint.config.mjs
+│   │   ├── lib/
+│   │   ├── next.config.ts
+│   │   ├── package.json
+│   │   ├── postcss.config.mjs
+│   │   ├── proxy.ts
+│   │   ├── tailwind.config.ts
+│   │   └── tsconfig.json
+│   ├── with-supertokens/
+│   │   ├── .gitignore
+│   │   ├── README.md
+│   │   ├── app/
+│   │   ├── assets/
+│   │   ├── middleware.ts
+│   │   ├── next.config.js
+│   │   ├── package.json
+│   │   ├── public/
+│   │   └── tsconfig.json
+│   ├── with-temporal/
+│   │   ├── .gitignore
+│   │   ├── .nvmrc
+│   │   ├── README.md
+│   │   ├── components/
+│   │   ├── package.json
+│   │   ├── pages/
+│   │   ├── temporal/
+│   │   └── tsconfig.json
+│   ├── with-three-js/
+│   │   ├── .gitignore
+│   │   ├── README.md
+│   │   ├── app/
+│   │   ├── package.json
+│   │   ├── public/
+│   │   ├── styles/
+│   │   └── tsconfig.json
+│   ├── with-turbopack-loaders/
+│   │   ├── .gitignore
+│   │   ├── README.md
+│   │   ├── next.config.js
+│   │   ├── package.json
+│   │   ├── pages/
+│   │   ├── styles.styl
+│   │   └── vercel.react.svg
+│   ├── with-turbopack/
+│   │   ├── .gitignore
+│   │   ├── README.md
+│   │   ├── app/
+│   │   ├── package.json
+│   │   └── tsconfig.json
+│   ├── with-turso/
+│   │   ├── .env.example
+│   │   ├── .gitignore
+│   │   ├── README.md
+│   │   ├── app/
+│   │   ├── lib/
+│   │   ├── next.config.mjs
+│   │   ├── package.json
+│   │   ├── postcss.config.js
+│   │   ├── tailwind.config.ts
+│   │   └── tsconfig.json
+│   ├── with-typescript-graphql/
+│   │   ├── .gitignore
+│   │   ├── README.md
+│   │   ├── codegen.ts
+│   │   ├── jest.config.js
+│   │   ├── lib/
+│   │   ├── next.config.js
+│   │   ├── package.json
+│   │   ├── pages/
+│   │   ├── test/
+│   │   └── tsconfig.json
+│   ├── with-typescript-types/
+│   │   ├── .gitignore
+│   │   ├── README.md
+│   │   ├── package.json
+│   │   ├── pages/
+│   │   ├── tsconfig.json
+│   │   └── types/
+│   ├── with-typescript/
+│   │   ├── .gitignore
+│   │   ├── README.md
+│   │   ├── components/
+│   │   ├── interfaces/
+│   │   ├── package.json
+│   │   ├── pages/
+│   │   ├── tsconfig.json
+│   │   └── utils/
+│   ├── with-unsplash/
+│   │   ├── .env.local.example
+│   │   ├── .gitignore
+│   │   ├── README.md
+│   │   ├── components/
+│   │   ├── docs/
+│   │   ├── libs/
+│   │   ├── package.json
+│   │   ├── pages/
+│   │   ├── public/
+│   │   ├── styles/
+│   │   └── tsconfig.json
+│   ├── with-urql/
+│   │   ├── .gitignore
+│   │   ├── README.md
+│   │   ├── app/
+│   │   ├── graphql/
+│   │   ├── package.json
+│   │   └── tsconfig.json
+│   ├── with-userbase/
+│   │   ├── .env.local.example
+│   │   ├── .gitignore
+│   │   ├── README.md
+│   │   ├── components/
+│   │   ├── package.json
+│   │   ├── pages/
+│   │   ├── postcss.config.js
+│   │   ├── styles/
+│   │   └── tailwind.config.js
+│   ├── with-vanilla-extract/
+│   │   ├── .gitignore
+│   │   ├── README.md
+│   │   ├── app/
+│   │   ├── components/
+│   │   ├── next.config.js
+│   │   ├── package.json
+│   │   ├── public/
+│   │   └── tsconfig.json
+│   ├── with-videojs/
+│   │   ├── .gitignore
+│   │   ├── README.md
+│   │   ├── app/
+│   │   ├── package.json
+│   │   ├── tsconfig.json
+│   │   └── videojs.d.ts
+│   ├── with-vitest/
+│   │   ├── .gitignore
+│   │   ├── README.md
+│   │   ├── __tests__/
+│   │   ├── app/
+│   │   ├── package.json
+│   │   ├── pages/
+│   │   ├── public/
+│   │   ├── styles/
+│   │   ├── tsconfig.json
+│   │   └── vitest.config.ts
+│   ├── with-web-worker/
+│   │   ├── .gitignore
+│   │   ├── README.md
+│   │   ├── app/
+│   │   ├── package.json
+│   │   ├── tsconfig.json
+│   │   ├── utils/
+│   │   └── worker.ts
+│   ├── with-webassembly/
+│   │   ├── .gitignore
+│   │   ├── README.md
+│   │   ├── add.wasm
+│   │   ├── add.wasm.d.ts
+│   │   ├── app/
+│   │   ├── components/
+│   │   ├── next.config.js
+│   │   ├── package.json
+│   │   ├── src/
+│   │   └── tsconfig.json
+│   ├── with-xata/
+│   │   ├── .gitignore
+│   │   ├── README.md
+│   │   ├── package.json
+│   │   ├── pages/
+│   │   ├── public/
+│   │   ├── schema.template.json
+│   │   ├── styles/
+│   │   ├── tsconfig.json
+│   │   └── utils/
+│   ├── with-xstate/
+│   │   ├── .gitignore
+│   │   ├── README.md
+│   │   ├── app/
+│   │   ├── package.json
+│   │   └── tsconfig.json
+│   ├── with-yarn-workspaces/
+│   │   ├── .gitignore
+│   │   ├── README.md
+│   │   ├── package.json
+│   │   └── packages/
+│   ├── with-yoga/
+│   │   ├── .gitignore
+│   │   ├── README.md
+│   │   ├── next.config.js
+│   │   ├── package.json
+│   │   ├── pages/
+│   │   ├── tsconfig.json
+│   │   └── yoga.d.ts
+│   ├── with-youtube-embed/
+│   │   ├── .gitignore
+│   │   ├── README.md
+│   │   ├── app/
+│   │   ├── package.json
+│   │   └── tsconfig.json
+│   ├── with-zones/
+│   │   ├── .gitignore
+│   │   ├── README.md
+│   │   ├── blog/
+│   │   ├── docs/
+│   │   ├── home/
+│   │   └── package.json
+│   └── with-zustand/
+│       ├── .gitignore
+│       ├── README.md
+│       ├── package.json
+│       ├── public/
+│       ├── src/
+│       └── tsconfig.json
+├── jest.config.js
+├── jest.config.turbopack.js
+├── lerna.json
+├── license.md
+├── lint-staged.config.js
+├── package.json
+├── packages/
+│   ├── create-next-app/
+│   │   ├── README.md
+│   │   ├── create-app.ts
+│   │   ├── helpers/
+│   │   ├── index.ts
+│   │   ├── package.json
+│   │   ├── templates/
+│   │   └── tsconfig.json
+│   ├── eslint-config-next/
+│   │   ├── .swcrc
+│   │   ├── package.json
+│   │   ├── src/
+│   │   └── tsconfig.json
+│   ├── eslint-plugin-internal/
+│   │   ├── package.json
+│   │   └── src/
+│   ├── eslint-plugin-next/
+│   │   ├── .swcrc
+│   │   ├── README.md
+│   │   ├── package.json
+│   │   ├── src/
+│   │   └── tsconfig.json
+│   ├── font/
+│   │   ├── README.md
+│   │   ├── fontkit.js
+│   │   ├── google/
+│   │   ├── local/
+│   │   ├── package.json
+│   │   ├── src/
+│   │   ├── tsconfig.build.json
+│   │   └── tsconfig.json
+│   ├── next-bundle-analyzer/
+│   │   ├── index.d.ts
+│   │   ├── index.js
+│   │   ├── package.json
+│   │   └── readme.md
+│   ├── next-codemod/
+│   │   ├── .gitignore
+│   │   ├── README.md
+│   │   ├── bin/
+│   │   ├── lib/
+│   │   ├── license.md
+│   │   ├── package.json
+│   │   ├── scripts/
+│   │   ├── transforms/
+│   │   ├── tsconfig.json
+│   │   └── turbo.json
+│   ├── next-env/
+│   │   ├── .gitignore
+│   │   ├── README.md
+│   │   ├── index.ts
+│   │   ├── package.json
+│   │   └── tsconfig.json
+│   ├── next-mdx/
+│   │   ├── index.d.ts
+│   │   ├── index.js
+│   │   ├── license.md
+│   │   ├── mdx-components.js
+│   │   ├── mdx-js-loader.js
+│   │   ├── mdx-rs-loader.js
+│   │   ├── package.json
+│   │   └── readme.md
+│   ├── next-playwright/
+│   │   ├── README.md
+│   │   ├── package.json
+│   │   ├── src/
+│   │   └── tsconfig.json
+│   ├── next-plugin-storybook/
+│   │   ├── package.json
+│   │   ├── preset.js
+│   │   └── readme.md
+│   ├── next-polyfill-module/
+│   │   ├── package.json
+│   │   └── src/
+│   ├── next-polyfill-nomodule/
+│   │   ├── package.json
+│   │   └── src/
+│   ├── next-routing/
+│   │   ├── README.md
+│   │   ├── jest.config.js
+│   │   ├── package.json
+│   │   ├── src/
+│   │   └── tsconfig.json
+│   ├── next-rspack/
+│   │   ├── README.md
+│   │   ├── index.d.ts
+│   │   ├── index.js
+│   │   ├── package.json
+│   │   └── rspack-core.js
+│   ├── next-swc/
+│   │   ├── .gitignore
+│   │   ├── README.md
+│   │   ├── maybe-build-native.mjs
+│   │   ├── package.json
+│   │   └── turbo.jsonc
+│   ├── next/
+│   │   ├── .storybook/
+│   │   ├── README.md
+│   │   ├── app.d.ts
+│   │   ├── app.js
+│   │   ├── babel.d.ts
+│   │   ├── babel.js
+│   │   ├── cache.d.ts
+│   │   ├── cache.js
+│   │   ├── check-error-codes.js
+│   │   ├── client.d.ts
+│   │   ├── client.js
+│   │   ├── compat/
+│   │   ├── constants.d.ts
+│   │   ├── constants.js
+│   │   ├── document.d.ts
+│   │   ├── document.js
+│   │   ├── dynamic.d.ts
+│   │   ├── dynamic.js
+│   │   ├── error.d.ts
+│   │   ├── error.js
+│   │   ├── errors.json
+│   │   ├── experimental/
+│   │   ├── font/
+│   │   ├── form.d.ts
+│   │   ├── form.js
+│   │   ├── head.d.ts
+│   │   ├── head.js
+│   │   ├── headers.d.ts
+│   │   ├── headers.js
+│   │   ├── image-types/
+│   │   ├── image.d.ts
+│   │   ├── image.js
+│   │   ├── index.d.ts
+│   │   ├── jest.d.ts
+│   │   ├── jest.js
+│   │   ├── legacy/
+│   │   ├── license.md
+│   │   ├── link.d.ts
+│   │   ├── link.js
+│   │   ├── navigation-types/
+│   │   ├── navigation.d.ts
+│   │   ├── navigation.js
+│   │   ├── next-devtools.webpack-config.js
+│   │   ├── next-runtime.webpack-config.js
+│   │   ├── next_error_code_swc_plugin.wasm
+│   │   ├── og.d.ts
+│   │   ├── og.js
+│   │   ├── package.json
+│   │   ├── root-params.d.ts
+│   │   ├── root-params.js
+│   │   ├── router.d.ts
+│   │   ├── router.js
+│   │   ├── script.d.ts
+│   │   ├── script.js
+│   │   ├── server.d.ts
+│   │   ├── server.js
+│   │   ├── src/
+│   │   ├── taskfile-ncc.js
+│   │   ├── taskfile-swc.js
+│   │   ├── taskfile-watch.js
+│   │   ├── taskfile-webpack.js
+│   │   ├── taskfile.js
+│   │   ├── test-runner-jest.config.js
+│   │   ├── tsconfig.build.json
+│   │   ├── tsconfig.json
+│   │   ├── turbo.json
+│   │   ├── types.d.ts
+│   │   ├── types.js
+│   │   ├── types/
+│   │   ├── web-vitals.d.ts
+│   │   ├── web-vitals.js
+│   │   └── webpack-plugins/
+│   ├── react-refresh-utils/
+│   │   ├── README.md
+│   │   ├── ReactRefreshRspackPlugin.ts
+│   │   ├── ReactRefreshWebpackPlugin.ts
+│   │   ├── internal/
+│   │   ├── loader.ts
+│   │   ├── package.json
+│   │   ├── rspack-runtime.ts
+│   │   ├── runtime.ts
+│   │   └── tsconfig.json
+│   └── third-parties/
+│       ├── README.md
+│       ├── google.d.ts
+│       ├── package.json
+│       ├── src/
+│       └── tsconfig.json
+├── patches/
+│   ├── @base-ui-components__react@1.0.0-beta.1.patch
+│   ├── @types__node@20.17.6.patch
+│   ├── http-proxy@1.18.1.patch
+│   ├── minizlib@3.1.0.patch
+│   ├── stacktrace-parser@0.1.10.patch
+│   ├── taskr@1.1.0.patch
+│   └── webpack-sources@3.2.3.patch
+├── pnpm-lock.yaml
+├── pnpm-workspace.yaml
+├── readme.md
+├── release.js
+├── rspack/
+│   ├── .gitignore
+│   ├── .rustfmt.toml
+│   ├── Cargo.lock
+│   ├── Cargo.toml
+│   ├── change-npm-name.js
+│   ├── crates/
+│   │   └── binding/
+│   ├── lib/
+│   │   ├── index.d.ts
+│   │   └── index.js
+│   ├── package.json
+│   ├── pnpm-lock.yaml
+│   ├── pnpm-workspace.yaml
+│   └── rust-toolchain.toml
+├── run-tests.js
+├── rust-toolchain.toml
+├── scripts/
+│   ├── .gitignore
+│   ├── LaunchAgents/
+│   │   ├── build.turbo.compress.plist
+│   │   └── install-macos-agents.sh
+│   ├── analyze-dev-server-bundle.js
+│   ├── analyze-profile.js
+│   ├── automated-update-workflow.js
+│   ├── benchmark-boot-time.sh
+│   ├── benchmark-next-dev-boot.js
+│   ├── build-native.ts
+│   ├── build-wasm.cjs
+│   ├── cargo/
+│   │   └── bench/
+│   ├── check-examples.sh
+│   ├── check-is-release.js
+│   ├── check-manifests.js
+│   ├── check-pre-compiled.bat
+│   ├── check-pre-compiled.sh
+│   ├── check-unused-turbo-tasks.mjs
+│   ├── code-freeze.js
+│   ├── create-preview-tarballs.js
+│   ├── create-release-branch.js
+│   ├── deploy-docs.sh
+│   ├── deploy-examples.sh
+│   ├── deploy-turbopack-docs.sh
+│   ├── devlow-bench.mjs
+│   ├── generate-release-log.mjs
+│   ├── get-changed-tests.mjs
+│   ├── git-configure.mjs
+│   ├── git-info.mjs
+│   ├── inject-deploy-url.js
+│   ├── install-native.mjs
+│   ├── macos-compress.sh
+│   ├── merge-errors-json/
+│   │   ├── install
+│   │   ├── merge.mjs
+│   │   └── uninstall
+│   ├── minimal-server.js
+│   ├── next-with-deps.sh
+│   ├── normalize-version-bump.js
+│   ├── pack-next.ts
+│   ├── pack-util.ts
+│   ├── pack-utils/
+│   │   └── patch-package-json.ts
+│   ├── patch-next.ts
+│   ├── pr-status.js
+│   ├── profile-next-dev-boot.js
+│   ├── publish-native.js
+│   ├── publish-release.js
+│   ├── pull-turbo-cache.js
+│   ├── release-stats.sh
+│   ├── reset-project.mjs
+│   ├── rm.mjs
+│   ├── run-e2e-test-project-reset.mjs
+│   ├── run-for-change.mjs
+│   ├── send-trace-to-jaeger/
+│   │   ├── Cargo.lock
+│   │   ├── Cargo.toml
+│   │   └── src/
+│   ├── setup-node.sh
+│   ├── start-release.js
+│   ├── sweep.cjs
+│   ├── sync-react.js
+│   ├── test-new-tests.mjs
+│   ├── test-stats-benchmark.sh
+│   ├── trace-cli-startup.js
+│   ├── trace-dd.mjs
+│   ├── trace-next-server.js
+│   ├── trace-to-event-format.mjs
+│   ├── trace-to-tree.mjs
+│   ├── unpack-next.ts
+│   ├── update-google-fonts.js
+│   └── validate-externals-doc.js
+├── sgconfig.yml
+├── socket.yaml
+├── test-config-errors/
+│   ├── app/
+│   │   └── page.js
+│   └── next.config.js
+├── test-file.txt
+├── test/
+│   ├── .gitignore
+│   ├── .stats-app/
+│   │   ├── app/
+│   │   ├── components/
+│   │   ├── middleware.js
+│   │   ├── next.config.js
+│   │   ├── package.json
+│   │   ├── pages/
+│   │   └── stats-config.js
+│   ├── babel.config.js
+│   ├── cache-components-tests-manifest.json
+│   ├── deploy-tests-manifest.json
+│   ├── development/
+│   │   ├── acceptance-app/
+│   │   ├── acceptance/
+│   │   ├── api-cors-with-rewrite/
+│   │   ├── app-dir/
+│   │   ├── app-hmr/
+│   │   ├── basic/
+│   │   ├── browser-logs/
+│   │   ├── client-dev-overlay/
+│   │   ├── config-validation/
+│   │   ├── correct-tsconfig-defaults/
+│   │   ├── dev-cache-control-no-cache-disabled/
+│   │   ├── dev-cache-control-no-cache/
+│   │   ├── dev-indicator/
+│   │   ├── dotenv-default-expansion/
+│   │   ├── duplicate-pages/
+│   │   ├── enoent-during-require/
+│   │   ├── error-overlay/
+│   │   ├── experimental-https-server/
+│   │   ├── gssp-notfound/
+│   │   ├── internal-traces/
+│   │   ├── jsconfig-path-reloading/
+│   │   ├── load-config-freq/
+│   │   ├── lockfile/
+│   │   ├── mcp-server/
+│   │   ├── middleware-errors/
+│   │   ├── middleware-warnings/
+│   │   ├── next-config-ts/
+│   │   ├── next-font/
+│   │   ├── pages-dir/
+│   │   ├── project-directory-with-styled-jsx-suffix/
+│   │   ├── read-only-source-hmr/
+│   │   ├── repeated-dev-edits/
+│   │   ├── replayed-internal-errors/
+│   │   ├── report-system-env-var-inlining/
+│   │   ├── sass-error/
+│   │   ├── slow-module-detection/
+│   │   ├── stale-dev-types/
+│   │   ├── start-no-build/
+│   │   ├── tsconfig-path-reloading/
+│   │   ├── typescript-auto-install/
+│   │   ├── typescript-native-preview/
+│   │   ├── typescript-plugin/
+│   │   ├── watch-config-file/
+│   │   └── webpack-issuer-deprecation-warning/
+│   ├── e2e/
+│   │   ├── 404-page-router/
+│   │   ├── api-resolver-query-writeable/
+│   │   ├── app-dir-export/
+│   │   ├── app-dir/
+│   │   ├── app-document/
+│   │   ├── async-modules/
+│   │   ├── babel/
+│   │   ├── basepath/
+│   │   ├── browserslist-extends/
+│   │   ├── browserslist/
+│   │   ├── build-indicator/
+│   │   ├── cancel-request/
+│   │   ├── children-page/
+│   │   ├── chrome-devtools-workspace/
+│   │   ├── client-max-body-size/
+│   │   ├── config-promise-export/
+│   │   ├── config-schema-check/
+│   │   ├── config-turbopack/
+│   │   ├── conflicting-app-page-error/
+│   │   ├── cpu-profiling/
+│   │   ├── css-data-url-global-pages/
+│   │   ├── custom-app-render/
+│   │   ├── custom-cache-handler-image/
+│   │   ├── deferred-entries/
+│   │   ├── define/
+│   │   ├── deprecation-warnings/
+│   │   ├── disable-js-preload/
+│   │   ├── dynamic-route-interpolation/
+│   │   ├── edge-api-endpoints-can-receive-body/
+│   │   ├── edge-async-local-storage/
+│   │   ├── edge-can-read-request-body/
+│   │   ├── edge-can-use-wasm-files/
+│   │   ├── edge-compiler-can-import-blob-assets/
+│   │   ├── edge-compiler-module-exports-preference/
+│   │   ├── edge-configurable-runtime/
+│   │   ├── edge-pages-support/
+│   │   ├── edge-runtime-pages-api-route/
+│   │   ├── edge-runtime-uses-edge-light-import-specifier-for-packages/
+│   │   ├── error-handler-not-found-req-url/
+│   │   ├── esm-externals/
+│   │   ├── example-file.txt
+│   │   ├── example.txt
+│   │   ├── externals-transitive/
+│   │   ├── favicon-short-circuit/
+│   │   ├── fetch-failures-have-good-stack-traces-in-edge-runtime/
+│   │   ├── filesystem-cache/
+│   │   ├── geist-font/
+│   │   ├── getserversideprops/
+│   │   ├── handle-non-hoisted-swc-helpers/
+│   │   ├── hello-world/
+│   │   ├── i18n-api-support/
+│   │   ├── i18n-data-fetching-redirect/
+│   │   ├── i18n-data-route/
+│   │   ├── i18n-default-locale-redirect/
+│   │   ├── i18n-disallow-multiple-locales/
+│   │   ├── i18n-fallback-collision/
+│   │   ├── i18n-ignore-redirect-source-locale/
+│   │   ├── i18n-ignore-rewrite-source-locale/
+│   │   ├── i18n-navigations-middleware/
+│   │   ├── i18n-preferred-locale-detection/
+│   │   ├── ignore-invalid-popstateevent/
+│   │   ├── import-conditions/
+│   │   ├── import-meta/
+│   │   ├── instrumentation-client-hook/
+│   │   ├── instrumentation-hook-src/
+│   │   ├── instrumentation-hook/
+│   │   ├── invalid-static-asset-404-app/
+│   │   ├── invalid-static-asset-404-pages/
+│   │   ├── legacy-link-behavior-pages/
+│   │   ├── legacy-link-behavior/
+│   │   ├── link-on-navigate-prop/
+│   │   ├── link-with-api-rewrite/
+│   │   ├── manual-client-base-path/
+│   │   ├── middleware-base-path/
+│   │   ├── middleware-custom-matchers-basepath/
+│   │   ├── middleware-custom-matchers-i18n/
+│   │   ├── middleware-custom-matchers/
+│   │   ├── middleware-dynamic-basepath-matcher/
+│   │   ├── middleware-fetches-with-any-http-method/
+│   │   ├── middleware-fetches-with-body/
+│   │   ├── middleware-general/
+│   │   ├── middleware-matcher/
+│   │   ├── middleware-redirects/
+│   │   ├── middleware-request-header-overrides/
+│   │   ├── middleware-responses/
+│   │   ├── middleware-rewrites/
+│   │   ├── middleware-shallow-link/
+│   │   ├── middleware-static-files/
+│   │   ├── middleware-trailing-slash/
+│   │   ├── module-layer/
+│   │   ├── multi-zone/
+│   │   ├── new-link-behavior/
+│   │   ├── next-analyze/
+│   │   ├── next-config-warnings/
+│   │   ├── next-font/
+│   │   ├── next-form/
+│   │   ├── next-head/
+│   │   ├── next-image-forward-ref/
+│   │   ├── next-image-legacy-src-with-query-without-local-patterns/
+│   │   ├── next-image-src-with-query-without-local-patterns/
+│   │   ├── next-image-svgo-webpack/
+│   │   ├── next-link-errors/
+│   │   ├── next-phase/
+│   │   ├── next-script/
+│   │   ├── next-test/
+│   │   ├── node-cli-args/
+│   │   ├── nonce-head-manager/
+│   │   ├── og-api/
+│   │   ├── og-routes-custom-font/
+│   │   ├── on-request-error/
+│   │   ├── opentelemetry/
+│   │   ├── optimized-loading/
+│   │   ├── pages-performance-mark/
+│   │   ├── pages-ssg-data-deployment-skew/
+│   │   ├── persistent-caching-migration/
+│   │   ├── postcss-config-cjs/
+│   │   ├── postcss-config-package/
+│   │   ├── postcss-config-ts/
+│   │   ├── prerender-crawler.test.ts
+│   │   ├── prerender-native-module.test.ts
+│   │   ├── prerender-native-module/
+│   │   ├── prerender.test.ts
+│   │   ├── prerender/
+│   │   ├── proxy-request-with-middleware/
+│   │   ├── react-compiler/
+│   │   ├── react-dnd-compile/
+│   │   ├── react-version/
+│   │   ├── reload-scroll-backforward-restoration/
+│   │   ├── repeated-forward-slashes-error/
+│   │   ├── revalidate-reason/
+│   │   ├── rsc-layers-transform/
+│   │   ├── skip-trailing-slash-redirect/
+│   │   ├── socket-io/
+│   │   ├── ssr-react-context/
+│   │   ├── streaming-ssr-edge/
+│   │   ├── streaming-ssr/
+│   │   ├── styled-jsx/
+│   │   ├── swc-plugins/
+│   │   ├── swc-warnings/
+│   │   ├── switchable-runtime/
+│   │   ├── test-template/
+│   │   ├── test-utils-tests/
+│   │   ├── testmode/
+│   │   ├── third-parties/
+│   │   ├── trailing-slashes/
+│   │   ├── trailingslash-with-rewrite/
+│   │   ├── transpile-packages-typescript-foreign/
+│   │   ├── transpile-packages/
+│   │   ├── tsconfig-module-preserve/
+│   │   ├── tsconfig-path/
+│   │   ├── turbopack-import-with-type/
+│   │   ├── turbopack-loader-config/
+│   │   ├── twoslash/
+│   │   ├── type-module-interop/
+│   │   ├── typescript-custom-tsconfig/
+│   │   ├── typescript-version-no-warning/
+│   │   ├── typescript-version-warning/
+│   │   ├── undici-fetch/
+│   │   ├── url-imports/
+│   │   ├── url/
+│   │   ├── use-link-status/
+│   │   ├── use-router-with-rewrites/
+│   │   ├── useselectedlayoutsegment-s-in-pages-router/
+│   │   ├── vary-header/
+│   │   ├── with-router/
+│   │   ├── worker-react-refresh/
+│   │   └── yarn-pnp/
+│   ├── examples/
+│   │   └── examples.test.ts
+│   ├── get-test-filter.js
+│   ├── integration/
+│   │   ├── 404-page-app/
+│   │   ├── 404-page-custom-error/
+│   │   ├── 404-page-ssg/
+│   │   ├── 404-page/
+│   │   ├── 500-page/
+│   │   ├── absolute-assetprefix/
+│   │   ├── api-body-parser/
+│   │   ├── api-catch-all/
+│   │   ├── api-support/
+│   │   ├── app-aspath/
+│   │   ├── app-config-asset-prefix/
+│   │   ├── app-document-add-hmr/
+│   │   ├── app-document-import-order/
+│   │   ├── app-document-remove-hmr/
+│   │   ├── app-document-style-fragment/
+│   │   ├── app-dynamic-error/
+│   │   ├── app-functional/
+│   │   ├── app-tree/
+│   │   ├── app-types/
+│   │   ├── auto-export-error-bail/
+│   │   ├── auto-export-query-error/
+│   │   ├── auto-export/
+│   │   ├── babel-custom/
+│   │   ├── babel-next-image/
+│   │   ├── basepath-root-catch-all/
+│   │   ├── bigint/
+│   │   ├── broken-webpack-plugin/
+│   │   ├── build-output/
+│   │   ├── build-trace-extra-entries-monorepo/
+│   │   ├── build-trace-extra-entries-turbo/
+│   │   ├── build-trace-extra-entries/
+│   │   ├── build-warnings/
+│   │   ├── bundle-size-profiling/
+│   │   ├── catches-missing-getStaticProps/
+│   │   ├── chunking/
+│   │   ├── cli/
+│   │   ├── client-404/
+│   │   ├── client-navigation-a11y/
+│   │   ├── client-shallow-routing/
+│   │   ├── compression/
+│   │   ├── config-devtool-dev/
+│   │   ├── config-experimental-warning/
+│   │   ├── config-mjs/
+│   │   ├── config-output-export/
+│   │   ├── config-promise-error/
+│   │   ├── config-resolve-alias/
+│   │   ├── config-syntax-error/
+│   │   ├── config-validation/
+│   │   ├── config/
+│   │   ├── conflicting-public-file-page/
+│   │   ├── conflicting-ssg-paths/
+│   │   ├── cpu-profiling/
+│   │   ├── create-next-app/
+│   │   ├── critical-css/
+│   │   ├── css-client-nav/
+│   │   ├── css-customization/
+│   │   ├── css-features/
+│   │   ├── css-fixtures/
+│   │   ├── css-minify/
+│   │   ├── css-modules/
+│   │   ├── css/
+│   │   ├── custom-error-page-exception/
+│   │   ├── custom-error/
+│   │   ├── custom-page-extension/
+│   │   ├── custom-routes-catchall/
+│   │   ├── custom-routes-i18n-index-redirect/
+│   │   ├── custom-routes-i18n/
+│   │   ├── custom-routes/
+│   │   ├── custom-server-types/
+│   │   ├── custom-server/
+│   │   ├── data-fetching-errors/
+│   │   ├── dedupes-scripts/
+│   │   ├── development-hmr-refresh/
+│   │   ├── disable-js/
+│   │   ├── dist-dir/
+│   │   ├── document-file-dependencies/
+│   │   ├── document-head-warnings/
+│   │   ├── draft-mode/
+│   │   ├── dynamic-optional-routing-root-fallback/
+│   │   ├── dynamic-optional-routing-root-static-paths/
+│   │   ├── dynamic-optional-routing/
+│   │   ├── dynamic-require/
+│   │   ├── dynamic-route-rename/
+│   │   ├── dynamic-routing/
+│   │   ├── edge-runtime-configurable-guards/
+│   │   ├── edge-runtime-dynamic-code/
+│   │   ├── edge-runtime-module-errors/
+│   │   ├── edge-runtime-response-error/
+│   │   ├── edge-runtime-streaming-error/
+│   │   ├── edge-runtime-with-node.js-apis/
+│   │   ├── empty-object-getInitialProps/
+│   │   ├── empty-project/
+│   │   ├── env-config/
+│   │   ├── error-in-error/
+│   │   ├── error-load-fail/
+│   │   ├── error-plugin-stack-overflow/
+│   │   ├── errors-on-output-to-public/
+│   │   ├── errors-on-output-to-static/
+│   │   ├── export-404/
+│   │   ├── export-dynamic-pages/
+│   │   ├── export-fallback-true-error/
+│   │   ├── export-getInitialProps-warn/
+│   │   ├── export-image-default/
+│   │   ├── export-image-loader-legacy/
+│   │   ├── export-image-loader/
+│   │   ├── export-index-not-found-gsp/
+│   │   ├── export-intent/
+│   │   ├── export-subfolders/
+│   │   ├── externals-esm-loose/
+│   │   ├── externals-pages-bundle/
+│   │   ├── fallback-false-rewrite/
+│   │   ├── fallback-modules/
+│   │   ├── fallback-route-params/
+│   │   ├── fetch-polyfill-ky-universal/
+│   │   ├── fetch-polyfill/
+│   │   ├── file-serving/
+│   │   ├── filesystempublicroutes/
+│   │   ├── firebase-grpc/
+│   │   ├── future/
+│   │   ├── getinitialprops/
+│   │   ├── getserversideprops-export-error/
+│   │   ├── getserversideprops-preview/
+│   │   ├── gip-identifier/
+│   │   ├── gsp-build-errors/
+│   │   ├── gsp-extension/
+│   │   ├── gssp-pageProps-merge/
+│   │   ├── gssp-redirect-base-path/
+│   │   ├── gssp-redirect-with-rewrites/
+│   │   ├── gssp-redirect/
+│   │   ├── handles-export-errors/
+│   │   ├── hashbang/
+│   │   ├── hydrate-then-render/
+│   │   ├── hydration/
+│   │   ├── i18n-support-base-path/
+│   │   ├── i18n-support-catchall/
+│   │   ├── i18n-support-custom-error/
+│   │   ├── i18n-support-fallback-rewrite-legacy/
+│   │   ├── i18n-support-fallback-rewrite/
+│   │   ├── i18n-support-index-rewrite/
+│   │   ├── i18n-support-same-page-hash-change/
+│   │   ├── i18n-support/
+│   │   ├── image-generation/
+│   │   ├── image-optimizer/
+│   │   ├── import-assertion/
+│   │   ├── import-attributes/
+│   │   ├── index-index/
+│   │   ├── initial-ref/
+│   │   ├── invalid-config-values/
+│   │   ├── invalid-custom-routes/
+│   │   ├── invalid-document-image-import/
+│   │   ├── invalid-href/
+│   │   ├── invalid-middleware-matchers/
+│   │   ├── invalid-multi-match/
+│   │   ├── invalid-page-automatic-static-optimization/
+│   │   ├── invalid-revalidate-values/
+│   │   ├── invalid-server-options/
+│   │   ├── jsconfig-baseurl/
+│   │   ├── jsconfig-empty/
+│   │   ├── jsconfig-paths-wildcard/
+│   │   ├── jsconfig-paths/
+│   │   ├── jsconfig/
+│   │   ├── json-serialize-original-error/
+│   │   ├── link-ref-app/
+│   │   ├── link-ref-pages/
+│   │   ├── link-with-encoding/
+│   │   ├── link-without-router/
+│   │   ├── middleware-basic/
+│   │   ├── middleware-build-errors/
+│   │   ├── middleware-dev-update/
+│   │   ├── middleware-overrides-node.js-api/
+│   │   ├── middleware-prefetch/
+│   │   ├── middleware-src-node/
+│   │   ├── middleware-src/
+│   │   ├── missing-document-component-error/
+│   │   ├── mixed-ssg-serverprops-error/
+│   │   ├── module-ids/
+│   │   ├── next-dynamic-css-asset-prefix/
+│   │   ├── next-dynamic-css/
+│   │   ├── next-dynamic-lazy-compilation/
+│   │   ├── next-dynamic/
+│   │   ├── next-image-legacy/
+│   │   ├── next-image-new/
+│   │   ├── no-op-export/
+│   │   ├── no-override-next-props/
+│   │   ├── no-page-props/
+│   │   ├── node-fetch-keep-alive/
+│   │   ├── non-next-dist-exclude/
+│   │   ├── non-standard-node-env-warning/
+│   │   ├── not-found-revalidate/
+│   │   ├── nullish-config/
+│   │   ├── numeric-sep/
+│   │   ├── ondemand/
+│   │   ├── optional-chaining-nullish-coalescing/
+│   │   ├── page-config/
+│   │   ├── page-extensions/
+│   │   ├── plugin-mdx-rs/
+│   │   ├── polyfilling-minimal/
+│   │   ├── polyfills/
+│   │   ├── port-env-var/
+│   │   ├── preload-viewport/
+│   │   ├── prerender-export/
+│   │   ├── prerender-fallback-encoding/
+│   │   ├── prerender-invalid-catchall-params/
+│   │   ├── prerender-invalid-paths/
+│   │   ├── prerender-no-revalidate/
+│   │   ├── prerender-preview/
+│   │   ├── prerender-revalidate/
+│   │   ├── prerender/
+│   │   ├── preview-fallback/
+│   │   ├── production-build-dir/
+│   │   ├── production-config/
+│   │   ├── production-nav/
+│   │   ├── production-start-no-build/
+│   │   ├── query-with-encoding/
+│   │   ├── re-export-all-exports-from-page-disallowed/
+│   │   ├── react-current-version/
+│   │   ├── relay-graphql-swc-multi-project/
+│   │   ├── relay-graphql-swc-single-project/
+│   │   ├── render-error-on-module-error/
+│   │   ├── render-error-on-top-level-error/
+│   │   ├── repeated-slashes/
+│   │   ├── revalidate-as-path/
+│   │   ├── rewrite-with-browser-history/
+│   │   ├── rewrites-client-resolving/
+│   │   ├── rewrites-destination-query-array/
+│   │   ├── rewrites-has-condition/
+│   │   ├── rewrites-manual-href-as/
+│   │   ├── root-catchall-cache/
+│   │   ├── root-optional-revalidate/
+│   │   ├── route-index/
+│   │   ├── route-indexes/
+│   │   ├── route-load-cancel-css/
+│   │   ├── route-load-cancel/
+│   │   ├── router-hash-navigation/
+│   │   ├── router-is-ready-app-gip/
+│   │   ├── router-is-ready/
+│   │   ├── router-prefetch/
+│   │   ├── router-rerender/
+│   │   ├── script-loader/
+│   │   ├── scroll-back-restoration/
+│   │   ├── scroll-forward-restoration/
+│   │   ├── scss/
+│   │   ├── server-asset-modules/
+│   │   ├── server-side-dev-errors/
+│   │   ├── sharp-api/
+│   │   ├── src-dir-support-double-dir/
+│   │   ├── src-dir-support/
+│   │   ├── ssg-dynamic-routes-404-page/
+│   │   ├── static-404/
+│   │   ├── static-page-name/
+│   │   ├── styled-jsx-plugin/
+│   │   ├── telemetry/
+│   │   ├── test-file.txt
+│   │   ├── trailing-slash-dist/
+│   │   ├── trailing-slashes-href-resolving/
+│   │   ├── trailing-slashes-rewrite/
+│   │   ├── tsconfig-verifier/
+│   │   ├── turbopack-unsupported-log/
+│   │   ├── turborepo-access-trace/
+│   │   ├── turbotrace-with-webpack-worker/
+│   │   ├── typeof-window-replace/
+│   │   ├── typescript-app-type-declarations/
+│   │   ├── typescript-baseurl/
+│   │   ├── typescript-custom-tsconfig/
+│   │   ├── typescript-external-dir/
+│   │   ├── typescript-filtered-files/
+│   │   ├── typescript-hmr/
+│   │   ├── typescript-ignore-errors/
+│   │   ├── typescript-only-remove-type-imports/
+│   │   ├── typescript-paths/
+│   │   ├── typescript-workspaces-paths/
+│   │   ├── typescript/
+│   │   ├── undefined-webpack-config/
+│   │   ├── webpack-bun-externals/
+│   │   ├── webpack-config-extensionalias/
+│   │   ├── webpack-config-mainjs/
+│   │   ├── webpack-require-hook/
+│   │   ├── with-electron/
+│   │   └── worker-webpack5/
+│   ├── jest-global-setup.ts
+│   ├── jest-setup-after-env.ts
+│   ├── jest-setup-files.turbopack.js
+│   ├── lib/
+│   │   ├── add-redbox-matchers.ts
+│   │   ├── browsers/
+│   │   ├── check-build-freshness.js
+│   │   ├── create-next-install.js
+│   │   ├── development-sandbox.ts
+│   │   ├── e2e-utils/
+│   │   ├── next-modes/
+│   │   ├── next-test-utils.ts
+│   │   ├── next-webdriver.ts
+│   │   ├── react-channel-require-hook.js
+│   │   ├── router-act.ts
+│   │   ├── test-data-service/
+│   │   ├── test-log.ts
+│   │   ├── tsconfig.json
+│   │   ├── turbo.ts
+│   │   └── use-temp-dir.ts
+│   ├── production/
+│   │   ├── 500-page/
+│   │   ├── adapter-config/
+│   │   ├── allow-development-build/
+│   │   ├── app-dir-edge-runtime-with-wasm/
+│   │   ├── app-dir-hide-suppressed-error-during-next-export/
+│   │   ├── app-dir-prefetch-non-iso-url/
+│   │   ├── app-dir-prevent-304-caching/
+│   │   ├── app-dir/
+│   │   ├── app-type/
+│   │   ├── bfcache-routing/
+│   │   ├── build-lifecycle-hooks/
+│   │   ├── build-spinners/
+│   │   ├── build-tracing-message/
+│   │   ├── bundle-size/
+│   │   ├── chunk-load-failure/
+│   │   ├── ci-missing-typescript-deps/
+│   │   ├── clean-distdir/
+│   │   ├── config-validation-fatal-errors/
+│   │   ├── config-validation-warnings/
+│   │   ├── css-url-deployment-id/
+│   │   ├── custom-error-500/
+│   │   ├── custom-server/
+│   │   ├── debug-build-path/
+│   │   ├── dependencies-can-use-env-vars-in-middlewares/
+│   │   ├── deployment-id-handling/
+│   │   ├── deterministic-build/
+│   │   ├── disable-fallback-polyfills/
+│   │   ├── dynamic-css-client-navigation/
+│   │   ├── edge-config-validations/
+│   │   ├── edge-dynamic-code-eval/
+│   │   ├── edge-runtime-is-addressable/
+│   │   ├── emit-decorator-metadata/
+│   │   ├── empty-ssg-fallback/
+│   │   ├── enoent-during-require/
+│   │   ├── error-hydration/
+│   │   ├── escheck-output/
+│   │   ├── export/
+│   │   ├── exported-runtimes-value-validation/
+│   │   ├── fallback-export-error/
+│   │   ├── fatal-render-error/
+│   │   ├── generate-middleware-source-maps/
+│   │   ├── graceful-shutdown/
+│   │   ├── handle-already-sent-response/
+│   │   ├── instrumentation/
+│   │   ├── ipc-forbidden-headers/
+│   │   ├── jest/
+│   │   ├── middleware-typescript/
+│   │   ├── next-font/
+│   │   ├── next-link-legacybehavior-ref-merging/
+│   │   ├── next-server-nft/
+│   │   ├── optimize-server-react/
+│   │   ├── options-request/
+│   │   ├── pages-dir/
+│   │   ├── pnpm-support/
+│   │   ├── postcss-plugin-config-as-string/
+│   │   ├── prerender-prefetch/
+│   │   ├── production-browser-sourcemaps/
+│   │   ├── proxy-typescript/
+│   │   ├── react-profiling-mode/
+│   │   ├── reading-request-body-in-middleware/
+│   │   ├── remove-unused-imports/
+│   │   ├── required-server-files-ssr-404/
+│   │   ├── sharp-basic/
+│   │   ├── standalone-mode/
+│   │   ├── supports-module-resolution-nodenext/
+│   │   ├── terser-class-static-blocks/
+│   │   ├── transpile-packages/
+│   │   ├── turbopack-node-backend/
+│   │   ├── typescript-basic/
+│   │   ├── typescript-build-output/
+│   │   └── typescript-checked-side-effect-imports/
+│   ├── readme.md
+│   ├── rspack-build-tests-manifest.json
+│   ├── rspack-dev-examples-manifest.json
+│   ├── rspack-dev-tests-manifest.json
+│   ├── scripts/
+│   │   └── merge-errors-json/
+│   ├── test-file.txt
+│   ├── turbopack-build-tests-manifest.json
+│   ├── turbopack-dev-examples-manifest.json
+│   ├── turbopack-dev-tests-manifest.json
+│   ├── unit/
+│   │   ├── TurbopackInternalError.test.ts
+│   │   ├── accept-headers.test.ts
+│   │   ├── babel-plugin-next-page-config.test.ts
+│   │   ├── babel-plugin-next-ssg-transform.test.ts
+│   │   ├── build-output-log.test.ts
+│   │   ├── create-client-router-filter.test.ts
+│   │   ├── cssnano-simple/
+│   │   ├── eslint-config-next/
+│   │   ├── eslint-plugin-next/
+│   │   ├── esm-interpolate/
+│   │   ├── example.txt
+│   │   ├── find-config.test.ts
+│   │   ├── find-page-file.test.ts
+│   │   ├── fixtures/
+│   │   ├── get-files-in-dir.test.ts
+│   │   ├── get-project-dir.test.ts
+│   │   ├── getDisplayName.test.ts
+│   │   ├── htmlescape.test.ts
+│   │   ├── image-optimizer/
+│   │   ├── image-response-header.test.ts
+│   │   ├── incremental-cache/
+│   │   ├── infer-get-server-side-props-type.test.ts
+│   │   ├── infer-get-static-props.test.ts
+│   │   ├── is-equal-node.unit.test.ts
+│   │   ├── is-serializable-props.test.ts
+│   │   ├── isolated/
+│   │   ├── jest-next-swc.test.ts
+│   │   ├── link-rendering.test.ts
+│   │   ├── link-warnings.test.tsx
+│   │   ├── loadGetInitialProps.test.ts
+│   │   ├── metadata-types-compatibility.test.ts
+│   │   ├── mitt.test.ts
+│   │   ├── next-babel-loader-dev.test.ts
+│   │   ├── next-babel-loader-prod.test.ts
+│   │   ├── next-babel.test.ts
+│   │   ├── next-dynamic.test.tsx
+│   │   ├── next-head-rendering.test.ts
+│   │   ├── next-image-get-img-props.test.ts
+│   │   ├── next-image-legacy.test.ts
+│   │   ├── next-image-loader/
+│   │   ├── next-image-new.test.ts
+│   │   ├── next-swc.test.ts
+│   │   ├── oxford-comma.test.ts
+│   │   ├── page-route-sorter.test.ts
+│   │   ├── parse-page-static-info.test.ts
+│   │   ├── parse-relative-url.test.ts
+│   │   ├── phaseConstants.test.ts
+│   │   ├── preserve-process-env.test.ts
+│   │   ├── recursive-copy.test.ts
+│   │   ├── recursive-delete.test.ts
+│   │   ├── recursive-readdir.test.ts
+│   │   ├── router-add-base-path.test.ts
+│   │   ├── split-cookies-string.test.ts
+│   │   ├── stream-utils/
+│   │   ├── warn-removed-experimental-config.test.ts
+│   │   ├── web-runtime/
+│   │   ├── webpack-config-overrides.test.ts
+│   │   └── write-app-declarations.test.ts
+│   ├── update-bundler-manifest.d.ts
+│   └── update-bundler-manifest.js
+├── tsconfig-tsec.json
+├── tsconfig.json
+├── tsec-exemptions.json
+├── turbo.json
+├── turbo/
+│   └── generators/
+│       ├── config.ts
+│       └── helpers.ts
+├── turbopack/
+│   ├── .editorconfig
+│   ├── benchmark-apps/
+│   │   ├── README.md
+│   │   ├── date-fns-all/
+│   │   ├── date-fns-single/
+│   │   ├── framer-motion-all/
+│   │   ├── framer-motion-single/
+│   │   ├── joy/
+│   │   ├── lucide-react-all/
+│   │   ├── lucide-react-single/
+│   │   ├── mui/
+│   │   ├── package.json
+│   │   ├── pnpm-lock.yaml
+│   │   ├── pnpm-workspace.yaml
+│   │   └── shiki/
+│   ├── crates/
+│   │   ├── turbo-bincode/
+│   │   ├── turbo-dyn-eq-hash/
+│   │   ├── turbo-esregex/
+│   │   ├── turbo-frozenmap/
+│   │   ├── turbo-persistence-tools/
+│   │   ├── turbo-persistence/
+│   │   ├── turbo-prehash/
+│   │   ├── turbo-rcstr/
+│   │   ├── turbo-static/
+│   │   ├── turbo-tasks-auto-hash-map/
+│   │   ├── turbo-tasks-backend/
+│   │   ├── turbo-tasks-bytes/
+│   │   ├── turbo-tasks-env/
+│   │   ├── turbo-tasks-fetch/
+│   │   ├── turbo-tasks-fs/
+│   │   ├── turbo-tasks-fuzz/
+│   │   ├── turbo-tasks-hash/
+│   │   ├── turbo-tasks-macros-tests/
+│   │   ├── turbo-tasks-macros/
+│   │   ├── turbo-tasks-malloc/
+│   │   ├── turbo-tasks-testing/
+│   │   ├── turbo-tasks/
+│   │   ├── turbo-unix-path/
+│   │   ├── turbopack-analyze/
+│   │   ├── turbopack-bench/
+│   │   ├── turbopack-browser/
+│   │   ├── turbopack-cli-utils/
+│   │   ├── turbopack-cli/
+│   │   ├── turbopack-core/
+│   │   ├── turbopack-create-test-app/
+│   │   ├── turbopack-css/
+│   │   ├── turbopack-dev-server/
+│   │   ├── turbopack-ecmascript-hmr-protocol/
+│   │   ├── turbopack-ecmascript-plugins/
+│   │   ├── turbopack-ecmascript-runtime/
+│   │   ├── turbopack-ecmascript/
+│   │   ├── turbopack-env/
+│   │   ├── turbopack-image/
+│   │   ├── turbopack-mdx/
+│   │   ├── turbopack-nft/
+│   │   ├── turbopack-node/
+│   │   ├── turbopack-nodejs/
+│   │   ├── turbopack-resolve/
+│   │   ├── turbopack-static/
+│   │   ├── turbopack-swc-ast-explorer/
+│   │   ├── turbopack-swc-utils/
+│   │   ├── turbopack-test-utils/
+│   │   ├── turbopack-tests/
+│   │   ├── turbopack-trace-server/
+│   │   ├── turbopack-trace-utils/
+│   │   ├── turbopack-tracing/
+│   │   ├── turbopack-wasm/
+│   │   └── turbopack/
+│   ├── packages/
+│   │   ├── devlow-bench/
+│   │   ├── node-module-trace/
+│   │   ├── turbo-tracing-next-plugin/
+│   │   └── webpack-nmt/
+│   ├── scripts/
+│   │   └── analyze_cache_effectiveness.py
+│   ├── tsconfig.json
+│   └── xtask/
+│       ├── Cargo.toml
+│       └── src/
+└── vercel.json

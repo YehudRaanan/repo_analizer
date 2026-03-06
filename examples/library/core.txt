@@ -1,0 +1,904 @@
+=====================================
+Repository Analysis: core
+Type: Backend / API Service
+=====================================
+
+--- METADATA ---
+Name: core
+Description: AdonisJS is a TypeScript-first web framework for building web apps and API servers. It comes with support for testing, modern tooling, an ecosystem of official packages, and more.
+Language: TypeScript
+Topics: core, framework, mvc-framework, nodejs, nodejs-framework, typescript, typescript-framework, web-framework
+Stars: 18774
+License: MIT License
+
+--- README ---
+# @adonisjs/core
+
+**Featured sponsors**
+
+<table>
+
+<tr>
+<td>
+
+<a href="https://route4me.com/?utm_source=adonisjs.com">
+  <img src="https://raw.githubusercontent.com/thetutlage/static/refs/heads/main/featured_sponsors/logos/route4me.jpg" />
+</a>
+
+</td>
+
+<td>
+
+<a href="https://ezycourse.com/?utm_source=adonisjs.com">
+  <img src="https://raw.githubusercontent.com/thetutlage/static/refs/heads/main/featured_sponsors/logos/ezycourse.jpg" />
+</a>
+
+</td>
+
+</tr>
+
+<tr>
+
+<td>
+
+<a href="https://meteor.software/g6h?utm_source=adonisjs.com">
+  <img src="https://raw.githubusercontent.com/thetutlage/static/refs/heads/main/featured_sponsors/logos/galaxy.jpg" />
+</a>
+
+</td>
+
+<td>
+
+<a href="https://www.testmuai.com/?utm_source=adonisjs.com">
+  <img src="https://raw.githubusercontent.com/thetutlage/static/refs/heads/main/featured_sponsors/logos/testmu.jpg" />
+</a>
+
+</td>
+
+</tr>
+
+<tr>
+
+<td>
+
+<a href="https://relancer.com/?utm_source=adonisjs.com">
+  <img src="https://raw.githubusercontent.com/thetutlage/static/refs/heads/main/featured_sponsors/logos/relancer.jpg" />
+</a>
+
+</td>
+
+<td>
+
+</td>
+
+</tr>
+
+</table>
+
+![](https://github.com/thetutlage/static/blob/main/sponsorkit/sponsors.png?raw=true)
+
+<hr>
+<br />
+
+<div align="center">
+  <h3>Fullstack MVC framework for Node.js</h3>
+  <p>AdonisJs is a fullstack Web framework with focus on <strong> ergonomics and speed </strong>. It takes care of much of the Web development hassles, offering you a clean and stable API to build Web apps and micro services.</p>
+</div>
+
+<br />
+
+<div align="center">
+
+[![gh-workflow-image]][gh-workflow-url] [![npm-image]][npm-url] ![][typescript-image] [![license-image]][license-url]
+
+</div>
+
+<div align="center">
+  <h3>
+    <a href="https://adonisjs.com">
+      Website
+    </a>
+    <span> | </span>
+    <a href="https://docs.adonisjs.com">
+      Guides
+    </a>
+    <span> | </span>
+    <a href="https://github.com/adonisjs/.github/blob/main/docs/CONTRIBUTING.md">
+      Contributing
+    </a>
+  </h3>
+</div>
+
+<div align="center">
+  <sub>Built with ❤︎ by <a href="https://github.com/thetutlage">Harminder Virk</a>
+</div>
+
+[gh-workflow-image]: https://img.shields.io/github/actions/workflow/status/adonisjs/core/checks.yml?label=Tests&style=for-the-badge
+[gh-workflow-url]: https://github.com/adonisjs/core/actions/workflows/checks.yml 'Github action'
+[npm-image]: https://img.shields.io/npm/v/@adonisjs/core/latest.svg?style=for-the-badge&logo=npm
+[npm-url]: https://www.npmjs.com/package/@adonisjs/core/v/latest 'npm'
+[typescript-image]: https://img.shields.io/badge/Typescript-294E80.svg?style=for-the-badge&logo=typescript
+[license-url]: LICENSE.md
+[license-image]: https://img.shields.io/github/license/adonisjs/adonis-framework?style=for-the-badge
+
+
+--- PACKAGE MANIFEST(S) ---
+
+[package.json]
+{
+  "name": "@adonisjs/core",
+  "description": "Core of AdonisJS",
+  "version": "7.0.1",
+  "engines": {
+    "node": ">=24.0.0"
+  },
+  "main": "build/index.js",
+  "type": "module",
+  "files": [
+    "build",
+    "!build/bin",
+    "!build/tests"
+  ],
+  "bin": {
+    "adonis-kit": "./build/toolkit/main.js"
+  },
+  "exports": {
+    ".": "./build/index.js",
+    "./commands": "./build/commands/main.js",
+    "./commands/*": "./build/commands/*.js",
+    "./factories": "./build/factories/core/main.js",
+    "./factories/*": "./build/factories/*.js",
+    "./types": "./build/src/types.js",
+    "./types/*": "./build/types/*.js",
+    "./services/*": "./build/services/*.js",
+    "./providers/*": "./build/providers/*.js",
+    "./helpers": "./build/src/helpers/main.js",
+    "./helpers/*": "./build/src/helpers/*.js",
+    "./ace": "./build/modules/ace/main.js",
+    "./ace/codemods": "./build/modules/ace/codemods.js",
+    "./bodyparser": "./build/modules/bodyparser/main.js",
+    "./bodyparser_middleware": "./build/modules/bodyparser/bodyparser_middleware.js",
+    "./hash": "./build/modules/hash/main.js",
+    "./hash/phc_formatter": "./build/modules/hash/phc_formatter.js",
+    "./hash/drivers/argon": "./build/modules/hash/drivers/argon.js",
+    "./hash/drivers/bcrypt": "./build/modules/hash/drivers/bcrypt.js",
+    "./hash/drivers/scrypt": "./build/modules/hash/drivers/scrypt.js",
+    "./app": "./build/modules/app.js",
+    "./config": "./build/modules/config.js",
+    "./container": "./build/modules/container.js",
+    "./encryption": "./build/modules/encryption/main.js",
+    "./encryption/drivers/aes_256_cbc": "./build/modules/encryption/drivers/aes_256_cbc.js",
+    "./encryption/drivers/aes_256_gcm": "./build/modules/encryption/drivers/aes_256_gcm.js",
+    "./encryption/drivers/aes_siv": "./build/modules/encryption/drivers/aes_siv.js",
+    "./encryption/drivers/chacha20_poly1305": "./build/modules/encryption/drivers/chacha20_poly1305.js",
+    "./env": "./build/modules/env/main.js",
+    "./dumper": "./build/modules/dumper/main.js",
+    "./dumper/plugin_edge": "./build/modules/dumper/plugins/edge.js",
+    "./env/editor": "./build/modules/env/editor.js",
+    "./events": "./build/modules/events.js",
+    "./http": "./build/modules/http/main.js",
+    "./http/helpers": "./build/modules/http/helpers.js",
+    "./http/url_builder_client": "./build/modules/http/url_builder_client.js",
+    "./logger": "./build/modules/logger.js",
+    "./repl": "./build/modules/repl.js",
+    "./transformers": "./build/modules/transformers/main.js",
+    "./package.json": "./package.json",
+    "./exceptions": "./build/src/exceptions.js",
+    "./test_utils": "./build/src/test_utils/main.js",
+    "./health": "./build/modules/health.js",
+    "./vine": "./build/src/vine.js"
+  },
+  "scripts": {
+    "pretest": "npm run lint",
+    "test": "cross-env NODE_DEBUG=adonisjs:core npm run quick:test",
+    "clean": "del-cli build",
+    "copy:templates": "copyfiles \"stubs/**/**/*.stub\" --up=1 build",
+    "precompile
+... [TRUNCATED]
+
+--- BACKEND CONFIG FILES ---
+(No backend config files found)
+
+--- API ROUTE / ENDPOINT DEFINITIONS ---
+
+[commands/list/routes.ts]
+/*
+ * @adonisjs/core
+ *
+ * (c) AdonisJS
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
+import type { CommandOptions } from '../../types/ace.ts'
+import { args, BaseCommand, flags } from '../../modules/ace/main.ts'
+import { RoutesListFormatter } from '../../src/cli_formatters/routes_list.ts'
+
+/**
+ * Command to display a list of all registered routes in the application.
+ * Supports filtering by keywords, middleware, and output formatting options.
+ * Routes can be displayed as a formatted list, table, or JSON.
+ *
+ * @example
+ * ```
+ * ace list:routes
+ * ace list:routes user
+ * ace list:routes --middleware=auth
+ * ace list:routes --ignore-middleware=guest
+ * ace list:routes --json
+ * ace list:routes --table
+ * ```
+ */
+export default class ListRoutes extends BaseCommand {
+  /**
+   * The command name
+   */
+  static commandName = 'list:routes'
+
+  /**
+   * The command description
+   */
+  static description =
+    'List application routes. This command will boot the application in the console environment'
+
+  /**
+   * Command options configuration.
+   * Requires the application to be started so routes are loaded.
+   */
+  static options: CommandOptions = {
+    startApp: true,
+  }
+
+  /**
+   * Keyword to match against route names, patterns, and controller names
+   */
+  @args.string({
+    description:
+      'Find routes matching the given keyword. Route name, pattern and controller name will be searched against the keyword',
+    required: false,
+  })
+  declare match: string
+
+  /**
+   * Filter routes that include all specified middleware names
+   */
+  @flags.array({
+    description:
+      'View routes that includes all the mentioned middleware names. Use * to see routes that are using one or more middleware',
+  })
+  declare middleware: string[]
+
+  /**
+   * Filter routes that do not include all specified middleware names
+   */
+  @flags.array({
+    description:
+      'View routes that does not include all the mentioned middleware names. Use * to see routes that are using zero middleware',
+  })
+  declare ignoreMiddleware: string[]
+
+  /**
+   * Output routes as JSON format
+   */
+  @flags.boolean({ description: 'Get routes list as a JSON string' })
+  declare json: boolean
+
+  /**
+   * Output routes as a CLI table format
+   */
+  @flags.boolean({ description: 'View list of routes as a table' })
+  declare table: boolean
+
+  /**
+   * Execute the command to list application routes.
+   * Creates a formatter with the specified filters and outputs routes
+   * in the requested format (JSON, table, or formatted list).
+   */
+  async run() {
+    const router = await this.app.container.make('router')
+    const formatter = new RoutesListFormatter(
+      router,
+      this.ui,
+      {},
+      {
+        ignoreMiddleware: this.ignoreMiddleware,
+        middleware: this.middleware,
+        match: this.match,
+      }
+    )
+
+    /**
+     * Display as JSON
+     */
+    if (this.json) {
+      this.logger.lo
+... [TRUNCATED]
+
+[commands/make/controller.ts]
+/*
+ * @adonisjs/core
+ *
+ * (c) AdonisJS
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
+import string from '@poppinss/utils/string'
+import { stubsRoot } from '../../stubs/main.ts'
+import { args, flags, BaseCommand } from '../../modules/ace/main.ts'
+import { type CommandOptions } from '../../types/ace.ts'
+
+/**
+ * The make controller command to create an HTTP controller
+ *
+ * @example
+ * ```
+ * ace make:controller User
+ * ace make:controller User store update
+ * ace make:controller User --resource
+ * ace make:controller User --api
+ * ace make:controller User --singular
+ * ```
+ */
+export default class MakeController extends BaseCommand {
+  /**
+   * The command name
+   */
+  static commandName = 'make:controller'
+  /**
+   * The command description
+   */
+  static description = 'Create a new HTTP controller class'
+
+  /**
+   * Command options configuration
+   */
+  static options: CommandOptions = {
+    allowUnknownFlags: true,
+  }
+
+  /**
+   * The name of the controller
+   */
+  @args.string({ description: 'The name of the controller' })
+  declare name: string
+
+  /**
+   * Create controller with custom method names
+   */
+  @args.spread({ description: 'Create controller with custom method names', required: false })
+  declare actions?: string[]
+
+  /**
+   * Generate controller in singular form
+   */
+  @flags.boolean({
+    description: 'Generate controller in singular form',
+    alias: 's',
+  })
+  declare singular: boolean
+
+  /**
+   * Generate resourceful controller with methods to perform CRUD actions on a resource
+   */
+  @flags.boolean({
+    description:
+      'Generate resourceful controller with methods to perform CRUD actions on a resource',
+    alias: 'r',
+  })
+  declare resource: boolean
+
+  /**
+   * Generate resourceful controller without the "edit" and the "create" methods
+   */
+  @flags.boolean({
+    description: 'Generate resourceful controller without the "edit" and the "create" methods',
+    alias: 'a',
+  })
+  declare api: boolean
+
+  /**
+   * Read the contents from this file (if the flag exists) and use
+   * it as the raw contents
+   */
+  @flags.string({ description: 'Use the contents of the given file as the generated output' })
+  declare contentsFrom: string
+
+  /**
+   * The stub to use for generating the controller
+   */
+  protected stubPath: string = 'make/controller/main.stub'
+
+  /**
+   * Preparing the command state
+   */
+  async prepare() {
+    /**
+     * Use actions stub
+     */
+    if (this.actions) {
+      this.stubPath = 'make/controller/actions.stub'
+    }
+
+    /**
+     * Use resource stub
+     */
+    if (this.resource) {
+      if (this.actions) {
+        this.logger.warning('Cannot use --resource flag with actions. Ignoring --resource')
+      } else {
+        this.stubPath = 'make/controller/resource.stub'
+      }
+    }
+
+    /**
+     * Use api stub
+     */
+    if (this.api) {
+      if (this.actions) {
+        this.logger.warning('Cannot use --api flag 
+... [TRUNCATED]
+
+[commands/make/view.ts]
+/*
+ * @adonisjs/core
+ *
+ * (c) AdonisJS
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
+import { stubsRoot } from '../../stubs/main.ts'
+import { args, flags, BaseCommand } from '../../modules/ace/main.ts'
+
+/**
+ * Command to create a new Edge.js template file.
+ * Edge templates are used for rendering HTML views in your web application,
+ * supporting layouts, partials, components, and template inheritance.
+ *
+ * @example
+ * ```
+ * ace make:view home
+ * ace make:view users/profile
+ * ace make:view components/navbar
+ * ace make:view layouts/app
+ * ```
+ */
+export default class MakeView extends BaseCommand {
+  /**
+   * The command name
+   */
+  static commandName = 'make:view'
+
+  /**
+   * The command description
+   */
+  static description = 'Create a new Edge.js template file'
+
+  /**
+   * Name of the template file to create
+   */
+  @args.string({ description: 'Name of the template' })
+  declare name: string
+
+  /**
+   * Read the contents from this file (if the flag exists) and use
+   * it as the raw contents
+   */
+  @flags.string({ description: 'Use the contents of the given file as the generated output' })
+  declare contentsFrom: string
+
+  /**
+   * The stub template file to use for generating the Edge template
+   */
+  protected stubPath: string = 'make/view/main.stub'
+
+  /**
+   * Execute the command to create a new Edge.js template file.
+   * Generates the template file in the views directory.
+   */
+  async run() {
+    const codemods = await this.createCodemods()
+    await codemods.makeUsingStub(
+      stubsRoot,
+      this.stubPath,
+      {
+        flags: this.parsed.flags,
+        entity: this.app.generators.createEntity(this.name),
+      },
+      {
+        contentsFromFile: this.contentsFrom,
+      }
+    )
+  }
+}
+
+
+[stubs/make/controller/actions.stub]
+{{#var controllerName = generators.controllerName(entity.name, singular)}}
+{{#var controllerFileName = generators.controllerFileName(entity.name, singular)}}
+{{{
+  exports({
+    to: app.httpControllersPath(entity.path, controllerFileName)
+  })
+}}}
+import type { HttpContext } from '@adonisjs/core/http'
+
+export default class {{ controllerName }} {
+  {{#each actions as action}}
+  async {{action}}({}: HttpContext) {}
+  {{/each}}
+}
+
+
+[stubs/make/controller/api.stub]
+{{#var controllerName = generators.controllerName(entity.name, singular)}}
+{{#var controllerFileName = generators.controllerFileName(entity.name, singular)}}
+{{{
+  exports({
+    to: app.httpControllersPath(entity.path, controllerFileName)
+  })
+}}}
+import type { HttpContext } from '@adonisjs/core/http'
+
+export default class {{ controllerName }} {
+  /**
+   * Display a list of resource
+   */
+  async index({}: HttpContext) {}
+
+  /**
+   * Handle form submission for the create action
+   */
+  async store({ request }: HttpContext) {}
+
+  /**
+   * Show individual record
+   */
+  async show({ params }: HttpContext) {}
+
+  /**
+   * Handle form submission for the edit action
+   */
+  async update({ params, request }: HttpContext) {}
+
+  /**
+   * Delete record
+   */
+  async destroy({ params }: HttpContext) {}
+}
+
+
+[stubs/make/controller/main.stub]
+{{#var controllerName = generators.controllerName(entity.name, singular)}}
+{{#var controllerFileName = generators.controllerFileName(entity.name, singular)}}
+{{{
+  exports({
+    to: app.httpControllersPath(entity.path, controllerFileName)
+  })
+}}}
+// import type { HttpContext } from '@adonisjs/core/http'
+
+export default class {{ controllerName }} {
+}
+
+
+[stubs/make/controller/resource.stub]
+{{#var controllerName = generators.controllerName(entity.name, singular)}}
+{{#var controllerFileName = generators.controllerFileName(entity.name, singular)}}
+{{{
+  exports({
+    to: app.httpControllersPath(entity.path, controllerFileName)
+  })
+}}}
+import type { HttpContext } from '@adonisjs/core/http'
+
+export default class {{ controllerName }} {
+  /**
+   * Display a list of resource
+   */
+  async index({}: HttpContext) {}
+
+  /**
+   * Display form to create a new record
+   */
+  async create({}: HttpContext) {}
+
+  /**
+   * Handle form submission for the create action
+   */
+  async store({ request }: HttpContext) {}
+
+  /**
+   * Show individual record
+   */
+  async show({ params }: HttpContext) {}
+
+  /**
+   * Edit individual record
+   */
+  async edit({ params }: HttpContext) {}
+
+  /**
+   * Handle form submission for the edit action
+   */
+  async update({ params, request }: HttpContext) {}
+
+  /**
+   * Delete record
+   */
+  async destroy({ params }: HttpContext) {}
+}
+
+
+[stubs/make/view/main.stub]
+{{#var viewFileName = generators.viewFileName(entity.name)}}
+{{{
+  exports({
+    to: app.viewsPath(entity.path, viewFileName)
+  })
+}}}
+
+
+--- DATABASE SCHEMA / MODEL FILES ---
+  src/assembler_hooks/index_entities.ts
+
+--- DIRECTORY STRUCTURE (depth 2) ---
+├── .editorconfig
+├── .github/
+│   └── workflows/
+│       ├── checks.yml
+│       ├── labels.yml
+│       ├── release.yml
+│       ├── stale.yml
+│       └── test.yml
+├── .gitignore
+├── .npmrc
+├── .prettierignore
+├── LICENSE.md
+├── README.md
+├── bin/
+│   └── test.ts
+├── commands/
+│   ├── add.ts
+│   ├── build.ts
+│   ├── configure.ts
+│   ├── eject.ts
+│   ├── env/
+│   │   └── add.ts
+│   ├── generate_key.ts
+│   ├── inspect_rcfile.ts
+│   ├── list/
+│   │   └── routes.ts
+│   ├── make/
+│   │   ├── command.ts
+│   │   ├── controller.ts
+│   │   ├── event.ts
+│   │   ├── exception.ts
+│   │   ├── listener.ts
+│   │   ├── middleware.ts
+│   │   ├── preload.ts
+│   │   ├── provider.ts
+│   │   ├── service.ts
+│   │   ├── test.ts
+│   │   ├── transformer.ts
+│   │   ├── validator.ts
+│   │   └── view.ts
+│   ├── repl.ts
+│   ├── serve.ts
+│   └── test.ts
+├── eslint.config.js
+├── factories/
+│   ├── app.ts
+│   ├── bodyparser.ts
+│   ├── core/
+│   │   ├── ace.ts
+│   │   ├── ignitor.ts
+│   │   ├── main.ts
+│   │   └── test_utils.ts
+│   ├── encryption.ts
+│   ├── events.ts
+│   ├── hash.ts
+│   ├── http.ts
+│   ├── logger.ts
+│   └── stubs.ts
+├── funding.json
+├── index.ts
+├── modules/
+│   ├── ace/
+│   │   ├── codemods.ts
+│   │   ├── commands.ts
+│   │   ├── create_kernel.ts
+│   │   ├── kernel.ts
+│   │   └── main.ts
+│   ├── app.ts
+│   ├── bodyparser/
+│   │   ├── bodyparser_middleware.ts
+│   │   └── main.ts
+│   ├── config.ts
+│   ├── container.ts
+│   ├── dumper/
+│   │   ├── define_config.ts
+│   │   ├── dumper.ts
+│   │   ├── errors.ts
+│   │   ├── main.ts
+│   │   └── plugins/
+│   ├── encryption/
+│   │   ├── define_config.ts
+│   │   ├── drivers/
+│   │   ├── errors.ts
+│   │   └── main.ts
+│   ├── env/
+│   │   ├── editor.ts
+│   │   └── main.ts
+│   ├── events.ts
+│   ├── hash/
+│   │   ├── define_config.ts
+│   │   ├── drivers/
+│   │   ├── main.ts
+│   │   └── phc_formatter.ts
+│   ├── health.ts
+│   ├── http/
+│   │   ├── helpers.ts
+│   │   ├── main.ts
+│   │   ├── request_validator.ts
+│   │   └── url_builder_client.ts
+│   ├── logger.ts
+│   ├── repl.ts
+│   └── transformers/
+│       └── main.ts
+├── package.json
+├── providers/
+│   ├── app_provider.ts
+│   ├── edge_provider.ts
+│   ├── hash_provider.ts
+│   ├── repl_provider.ts
+│   └── vinejs_provider.ts
+├── services/
+│   ├── ace.ts
+│   ├── app.ts
+│   ├── config.ts
+│   ├── dumper.ts
+│   ├── emitter.ts
+│   ├── encryption.ts
+│   ├── hash.ts
+│   ├── logger.ts
+│   ├── repl.ts
+│   ├── router.ts
+│   ├── server.ts
+│   ├── test_utils.ts
+│   └── url_builder.ts
+├── src/
+│   ├── assembler_hooks/
+│   │   └── index_entities.ts
+│   ├── cli_formatters/
+│   │   └── routes_list.ts
+│   ├── config_provider.ts
+│   ├── debug.ts
+│   ├── exceptions.ts
+│   ├── helpers/
+│   │   ├── assert.ts
+│   │   ├── http.ts
+│   │   ├── is.ts
+│   │   ├── main.ts
+│   │   ├── string.ts
+│   │   ├── types.ts
+│   │   └── verification_token.ts
+│   ├── ignitor/
+│   │   ├── ace.ts
+│   │   ├── http.ts
+│   │   ├── main.ts
+│   │   └── test.ts
+│   ├── test_utils/
+│   │   ├── http.ts
+│   │   └── main.ts
+│   ├── types.ts
+│   ├── utils.ts
+│   └── vine.ts
+├── stubs/
+│   ├── main.ts
+│   └── make/
+│       ├── command/
+│       ├── controller/
+│       ├── event/
+│       ├── exception/
+│       ├── health/
+│       ├── listener/
+│       ├── middleware/
+│       ├── preload/
+│       ├── provider/
+│       ├── service/
+│       ├── test/
+│       ├── transformer/
+│       ├── validator/
+│       └── view/
+├── tests/
+│   ├── ace/
+│   │   ├── base_command.spec.ts
+│   │   ├── codemods.spec.ts
+│   │   └── kernel.spec.ts
+│   ├── bindings/
+│   │   ├── edge.spec.ts
+│   │   ├── repl.spec.ts
+│   │   └── vinejs.spec.ts
+│   ├── cli_formatters/
+│   │   └── routes_list.spec.ts
+│   ├── commands/
+│   │   ├── add.spec.ts
+│   │   ├── build.spec.ts
+│   │   ├── configure.spec.ts
+│   │   ├── eject.spec.ts
+│   │   ├── env_add.spec.ts
+│   │   ├── generate_key.spec.ts
+│   │   ├── inspect_rcfile.spec.ts
+│   │   ├── make_command.spec.ts
+│   │   ├── make_controller.spec.ts
+│   │   ├── make_event.spec.ts
+│   │   ├── make_exception.spec.ts
+│   │   ├── make_listener.spec.ts
+│   │   ├── make_middleware.spec.ts
+│   │   ├── make_preload.spec.ts
+│   │   ├── make_provider.spec.ts
+│   │   ├── make_service.spec.ts
+│   │   ├── make_test.spec.ts
+│   │   ├── make_transformer.spec.ts
+│   │   ├── make_validator.spec.ts
+│   │   ├── make_view.spec.ts
+│   │   ├── serve.spec.ts
+│   │   └── test.spec.ts
+│   ├── dumper/
+│   │   └── dumper.spec.ts
+│   ├── encryption/
+│   │   └── legacy.spec.ts
+│   ├── hash.spec.ts
+│   ├── helpers.spec.ts
+│   ├── helpers.ts
+│   ├── ignitor/
+│   │   ├── ace_process.spec.ts
+│   │   ├── http_server_process.spec.ts
+│   │   ├── main.spec.ts
+│   │   └── test_process.spec.ts
+│   ├── index_generator.spec.ts
+│   ├── pretty_print_error.spec.ts
+│   ├── providers.spec.ts
+│   ├── request_validator.spec.ts
+│   ├── stubs/
+│   │   ├── make_command.spec.ts
+│   │   ├── make_controller.spec.ts
+│   │   ├── make_event.spec.ts
+│   │   ├── make_exception.spec.ts
+│   │   ├── make_listener.spec.ts
+│   │   ├── make_middleware.spec.ts
+│   │   ├── make_prldfile.spec.ts
+│   │   ├── make_provider.spec.ts
+│   │   ├── make_service.spec.ts
+│   │   ├── make_test.spec.ts
+│   │   ├── make_validator.spec.ts
+│   │   └── make_view.spec.ts
+│   ├── test_utils/
+│   │   └── http.spec.ts
+│   └── verification_token.spec.ts
+├── toolkit/
+│   ├── commands/
+│   │   └── index_commands.ts
+│   └── main.ts
+├── tsconfig.json
+├── typedoc.json
+└── types/
+    ├── ace.ts
+    ├── app.ts
+    ├── bodyparser.ts
+    ├── common.ts
+    ├── container.ts
+    ├── encryption.ts
+    ├── events.ts
+    ├── hash.ts
+    ├── health.ts
+    ├── helpers.ts
+    ├── http.ts
+    ├── logger.ts
+    ├── repl.ts
+    └── transformers.ts

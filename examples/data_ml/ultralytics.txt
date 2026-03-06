@@ -1,0 +1,481 @@
+=====================================
+Repository Analysis: ultralytics
+Type: Data / ML / AI Project
+=====================================
+
+--- METADATA ---
+Name: ultralytics
+Description: Ultralytics YOLO 🚀
+Language: Python
+Topics: cli, computer-vision, deep-learning, hub, image-classification, instance-segmentation, machine-learning, object-detection, pose-estimation, python, pytorch, rotated-object-detection, segment-anything, tracking, ultralytics, yolo, yolo-world, yolo11, yolo26, yolov8
+Stars: 53982
+License: GNU Affero General Public License v3.0
+
+--- README ---
+<div align="center">
+  <p>
+    <a href="https://platform.ultralytics.com/ultralytics/yolo26" target="_blank">
+      <img width="100%" src="https://raw.githubusercontent.com/ultralytics/assets/main/yolov8/banner-yolov8.png" alt="Ultralytics YOLO banner"></a>
+  </p>
+
+[中文](https://docs.ultralytics.com/zh/) | [한국어](https://docs.ultralytics.com/ko/) | [日本語](https://docs.ultralytics.com/ja/) | [Русский](https://docs.ultralytics.com/ru/) | [Deutsch](https://docs.ultralytics.com/de/) | [Français](https://docs.ultralytics.com/fr/) | [Español](https://docs.ultralytics.com/es) | [Português](https://docs.ultralytics.com/pt/) | [Türkçe](https://docs.ultralytics.com/tr/) | [Tiếng Việt](https://docs.ultralytics.com/vi/) | [العربية](https://docs.ultralytics.com/ar/) <br>
+
+<div>
+    <a href="https://github.com/ultralytics/ultralytics/actions/workflows/ci.yml"><img src="https://github.com/ultralytics/ultralytics/actions/workflows/ci.yml/badge.svg" alt="Ultralytics CI"></a>
+    <a href="https://clickpy.clickhouse.com/dashboard/ultralytics"><img src="https://static.pepy.tech/badge/ultralytics" alt="Ultralytics Downloads"></a>
+    <a href="https://discord.com/invite/ultralytics"><img alt="Ultralytics Discord" src="https://img.shields.io/discord/1089800235347353640?logo=discord&logoColor=white&label=Discord&color=blue"></a>
+    <a href="https://community.ultralytics.com/"><img alt="Ultralytics Forums" src="https://img.shields.io/discourse/users?server=https%3A%2F%2Fcommunity.ultralytics.com&logo=discourse&label=Forums&color=blue"></a>
+    <a href="https://www.reddit.com/r/ultralytics/"><img alt="Ultralytics Reddit" src="https://img.shields.io/reddit/subreddit-subscribers/ultralytics?style=flat&logo=reddit&logoColor=white&label=Reddit&color=blue"></a>
+    <br>
+    <a href="https://console.paperspace.com/github/ultralytics/ultralytics"><img src="https://assets.paperspace.io/img/gradient-badge.svg" alt="Run Ultralytics on Gradient"></a>
+    <a href="https://colab.research.google.com/github/ultralytics/ultralytics/blob/main/examples/tutorial.ipynb"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open Ultralytics In Colab"></a>
+    <a href="https://www.kaggle.com/models/ultralytics/yolo26"><img src="https://kaggle.com/static/images/open-in-kaggle.svg" alt="Open Ultralytics In Kaggle"></a>
+    <a href="https://mybinder.org/v2/gh/ultralytics/ultralytics/HEAD?labpath=examples%2Ftutorial.ipynb"><img src="https://mybinder.org/badge_logo.svg" alt="Open Ultralytics In Binder"></a>
+</div>
+</div>
+<br>
+
+[Ultralytics](https://www.ultralytics.com/) creates cutting-edge, state-of-the-art (SOTA) [YOLO models](https://www.ultralytics.com/yolo) built on years of foundational research in computer vision and AI. Constantly updated for performance and flexibility, our models are **fast**, **accurate**, and **easy to use**. They excel at [object detection](https://docs.ultralytics.com/tasks/detect/), [tracking](https://docs.ultralytics.com/modes/track/), [instance segmentation](https://docs.ultralytics.com/tasks/segment/), [image classification](https://docs.ultralytics.com/tasks/classify/), and [pose estimation](https://docs.ultralytics.com/tasks/pose/) tasks.
+
+Find detailed documentation in the [Ultralytics Docs](https://docs.ultralytics.com/). Get support via [GitHub Issues](https://github.com/ultralytics/ultralytics/issues/new/choose). Join discussions on [Discord](https://discord.com/invite/ultralytics), [Reddit](https://www.reddit.com/r/ultralytics/), and the [Ultralytics Community Forums](https://community.ultralytics.com/)!
+
+Request an Enterprise License for commercial use at [Ultralytics Licensing](https://www.ultralytics.com/license).
+
+<a href="https://platform.ultralytics.com/ultralytics/yolo26" target="_blank">
+  <img width="100%" src="https://raw.githubusercontent.com/ultralytics/assets/refs/heads/main/yolo/performance-comparison.png" alt="YOLO26 performance plots">
+</a>
+
+<div align="center">
+  <a href="https://github.com/ultralytics"><img src="https://github.com/ultralytics/assets/raw/main/social/logo-social-github.png" width="2%" alt="Ultralytics GitHub"></a>
+  <img src="https://github.com/ultralytics/assets/raw/main/social/logo-transparent.png" width="2%" alt="space">
+  <a href="https://www.linkedin.com/company/ultralytics/"><img src="https://github.com/ultralytics/assets/raw/main/social/logo-social-linkedin.png" width="2%" alt="Ultralytics LinkedIn"></a>
+  <img src="https://github.com/ultralytics/assets/raw/main/social/logo-transparent.png" width="2%" alt="space">
+  <a href="https://twitter.com/ultralytics"><img src="https://github.com/ultralytics/assets/raw/main/social/logo-social-twitter.png" width="2%" alt="Ultralytics Twitter"></a>
+  <img src="https://github.com/ultralytics/assets/raw/main/social/logo-transparent.png" width="2%" alt="space">
+  <a href="https://www.youtube.com/ultralytics?sub_confirmation=1"><img src="https://github.com/ultralytics/assets/raw/main/social/logo-social-youtube.png" width="2%" al
+... [TRUNCATED]
+
+--- PACKAGE MANIFEST(S) ---
+
+[pyproject.toml]
+# Ultralytics 🚀 AGPL-3.0 License - https://ultralytics.com/license
+
+# Overview:
+# This pyproject.toml file manages the build, packaging, and distribution of the Ultralytics library.
+# It defines essential project metadata, dependencies, and settings used to develop and deploy the library.
+
+# Key Sections:
+# - [build-system]: Specifies the build requirements and backend (e.g., setuptools, wheel).
+# - [project]: Includes details like name, version, description, authors, dependencies and more.
+# - [project.optional-dependencies]: Provides additional, optional packages for extended features.
+# - [tool.*]: Configures settings for various tools (pytest, yapf, etc.) used in the project.
+
+# Installation:
+# The Ultralytics library can be installed using the command: 'pip install ultralytics'
+# For development purposes, you can install the package in editable mode with: 'pip install -e .'
+# This approach allows for real-time code modifications without the need for re-installation.
+
+# Documentation:
+# For comprehensive documentation and usage instructions, visit: https://docs.ultralytics.com
+
+[build-system]
+requires = ["setuptools>=70.0.0,<=81.0.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+# Project settings -----------------------------------------------------------------------------------------------------
+[project]
+name = "ultralytics"
+dynamic = ["version"]
+description = "Ultralytics YOLO 🚀 for SOTA object detection, multi-object tracking, instance segmentation, pose estimation and image classification."
+readme = "README.md"
+requires-python = ">=3.8"
+license = { "text" = "AGPL-3.0" }
+keywords = ["machine-learning", "deep-learning", "computer-vision", "ML", "DL", "AI", "YOLO", "YOLOv3", "YOLOv5", "YOLOv8", "YOLOv9", "YOLOv10", "YOLO11", "HUB", "Ultralytics"]
+authors = [
+    { name = "Glenn Jocher", email = "glenn.jocher@ultralytics.com" },
+    { name = "Jing Qiu", email = "jing.qiu@ultralytics.com" },
+]
+maintainers = [
+    { name = "Ultralytics", email = "hello@ultralytics.com" },
+]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "Intended Audience :: Education",
+    "Intended Audience :: Science/Research",
+    "License :: OSI Approved :: GNU Affero General Public License v3 or later (AGPLv3+)",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Software Development",
+    "Topic :: Scientific/Engineering",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+    "Topic :: Scientific/Engineering :: Image Recognition",
+    "Operating System :: POSIX :: Linux",
+    "Operating System :: MacOS",
+    "Operating System :: Microsoft :: Windows",
+]
+
+# Required dependencies ---------------------------------------------------------------------------------------------
+... [TRUNCATED]
+
+--- REQUIREMENTS FILES ---
+
+[examples/RTDETR-ONNXRuntime-Python/requirements.txt]
+certifi==2025.4.26
+charset-normalizer==3.4.2
+coloredlogs==15.0.1
+flatbuffers==25.2.10
+humanfriendly==10.0
+idna==3.10
+mpmath==1.3.0
+numpy==2.0.2
+onnx==1.18.0
+onnxruntime==1.19.2
+packaging==25.0
+protobuf==6.33.5
+requests==2.32.4
+sympy==1.14.0
+typing-extensions==4.14.0
+urllib3==2.6.3
+opencv-python==4.11.0.86
+
+
+[examples/YOLOv8-Action-Recognition/requirements.txt]
+# Ultralytics YOLO 🚀, AGPL-3.0 license
+
+ultralytics
+transformers
+
+
+[examples/YOLOv8-ONNXRuntime/requirements.txt]
+numpy
+opencv-python
+onnxruntime
+ultralytics
+
+
+[examples/YOLOv8-OpenCV-ONNX-Python/requirements.txt]
+numpy
+opencv-python
+ultralytics
+
+
+--- ML CONFIG FILES ---
+(No ML config files found)
+
+--- JUPYTER NOTEBOOKS ---
+  examples/heatmaps.ipynb
+  examples/hub.ipynb
+  examples/object_counting.ipynb
+  examples/object_tracking.ipynb
+  examples/tutorial.ipynb
+
+--- MODEL / TRAINING FILES ---
+  docs/model_data.py
+  ultralytics/data/dataset.py
+  ultralytics/engine/model.py
+  ultralytics/engine/trainer.py
+  ultralytics/models/fastsam/model.py
+  ultralytics/models/fastsam/predict.py
+  ultralytics/models/nas/model.py
+  ultralytics/models/nas/predict.py
+  ultralytics/models/rtdetr/model.py
+  ultralytics/models/rtdetr/predict.py
+
+--- DIRECTORY STRUCTURE (depth 2) ---
+├── .dockerignore
+├── .github/
+│   ├── ISSUE_TEMPLATE/
+│   │   ├── bug-report.yml
+│   │   ├── config.yml
+│   │   ├── feature-request.yml
+│   │   └── question.yml
+│   ├── dependabot.yml
+│   └── workflows/
+│       ├── ci.yml
+│       ├── cla.yml
+│       ├── conda-check-prs.yml
+│       ├── docker.yml
+│       ├── docs.yml
+│       ├── format.yml
+│       ├── links.yml
+│       ├── merge-main-into-prs.yml
+│       ├── mirror.yml
+│       ├── publish.yml
+│       └── stale.yml
+├── .gitignore
+├── CITATION.cff
+├── CONTRIBUTING.md
+├── LICENSE
+├── README.md
+├── README.zh-CN.md
+├── docker/
+│   ├── Dockerfile
+│   ├── Dockerfile-arm64
+│   ├── Dockerfile-conda
+│   ├── Dockerfile-cpu
+│   ├── Dockerfile-export
+│   ├── Dockerfile-jetson-jetpack4
+│   ├── Dockerfile-jetson-jetpack5
+│   ├── Dockerfile-jetson-jetpack6
+│   ├── Dockerfile-jupyter
+│   ├── Dockerfile-nvidia-arm64
+│   ├── Dockerfile-python
+│   ├── Dockerfile-python-export
+│   └── Dockerfile-runner
+├── docs/
+│   ├── README.md
+│   ├── build_docs.py
+│   ├── build_reference.py
+│   ├── coming_soon_template.md
+│   ├── en/
+│   │   ├── CNAME
+│   │   ├── datasets/
+│   │   ├── guides/
+│   │   ├── help/
+│   │   ├── index.md
+│   │   ├── integrations/
+│   │   ├── models/
+│   │   ├── modes/
+│   │   ├── platform/
+│   │   ├── quickstart.md
+│   │   ├── reference/
+│   │   ├── robots.txt
+│   │   ├── solutions/
+│   │   ├── tasks/
+│   │   ├── usage/
+│   │   └── yolov5/
+│   ├── macros/
+│   │   ├── augmentation-args.md
+│   │   ├── export-args.md
+│   │   ├── export-table.md
+│   │   ├── predict-args.md
+│   │   ├── sam-auto-annotate.md
+│   │   ├── solutions-args.md
+│   │   ├── track-args.md
+│   │   ├── train-args.md
+│   │   ├── validation-args.md
+│   │   ├── visualization-args.md
+│   │   ├── yolo-cls-perf.md
+│   │   ├── yolo-det-perf.md
+│   │   ├── yolo-obb-perf.md
+│   │   ├── yolo-pose-perf.md
+│   │   └── yolo-seg-perf.md
+│   ├── mkdocs_github_authors.yaml
+│   ├── model_data.py
+│   └── overrides/
+│       ├── javascript/
+│       ├── main.html
+│       ├── partials/
+│       └── stylesheets/
+├── examples/
+│   ├── README.md
+│   ├── RTDETR-ONNXRuntime-Python/
+│   │   ├── README.md
+│   │   ├── main.py
+│   │   └── requirements.txt
+│   ├── YOLO-Interactive-Tracking-UI/
+│   │   ├── README.md
+│   │   └── interactive_tracker.py
+│   ├── YOLO-Series-ONNXRuntime-Rust/
+│   │   ├── Cargo.toml
+│   │   ├── README.md
+│   │   └── src/
+│   ├── YOLO11-Triton-CPP/
+│   │   ├── CMakeLists.txt
+│   │   ├── README.md
+│   │   ├── inference.cpp
+│   │   ├── inference.hpp
+│   │   └── main.cpp
+│   ├── YOLOv8-Action-Recognition/
+│   │   ├── README.md
+│   │   ├── action_recognition.py
+│   │   └── requirements.txt
+│   ├── YOLOv8-CPP-Inference/
+│   │   ├── CMakeLists.txt
+│   │   ├── README.md
+│   │   ├── inference.cpp
+│   │   ├── inference.h
+│   │   └── main.cpp
+│   ├── YOLOv8-LibTorch-CPP-Inference/
+│   │   ├── CMakeLists.txt
+│   │   ├── README.md
+│   │   └── main.cc
+│   ├── YOLOv8-MNN-CPP/
+│   │   ├── CMakeLists.txt
+│   │   ├── README.md
+│   │   ├── main.cpp
+│   │   └── main_interpreter.cpp
+│   ├── YOLOv8-ONNXRuntime-CPP/
+│   │   ├── CMakeLists.txt
+│   │   ├── README.md
+│   │   ├── inference.cpp
+│   │   ├── inference.h
+│   │   └── main.cpp
+│   ├── YOLOv8-ONNXRuntime-Rust/
+│   │   ├── Cargo.toml
+│   │   ├── README.md
+│   │   └── src/
+│   ├── YOLOv8-ONNXRuntime/
+│   │   ├── README.md
+│   │   ├── main.py
+│   │   └── requirements.txt
+│   ├── YOLOv8-OpenCV-ONNX-Python/
+│   │   ├── README.md
+│   │   ├── main.py
+│   │   └── requirements.txt
+│   ├── YOLOv8-OpenVINO-CPP-Inference/
+│   │   ├── CMakeLists.txt
+│   │   ├── README.md
+│   │   ├── inference.cc
+│   │   ├── inference.h
+│   │   └── main.cc
+│   ├── YOLOv8-Region-Counter/
+│   │   ├── README.md
+│   │   └── yolov8_region_counter.py
+│   ├── YOLOv8-SAHI-Inference-Video/
+│   │   ├── README.md
+│   │   └── yolov8_sahi.py
+│   ├── YOLOv8-Segmentation-ONNXRuntime-Python/
+│   │   ├── README.md
+│   │   └── main.py
+│   ├── YOLOv8-TFLite-Python/
+│   │   ├── README.md
+│   │   └── main.py
+│   ├── heatmaps.ipynb
+│   ├── hub.ipynb
+│   ├── object_counting.ipynb
+│   ├── object_tracking.ipynb
+│   └── tutorial.ipynb
+├── mkdocs.yml
+├── pyproject.toml
+├── tests/
+│   ├── __init__.py
+│   ├── conftest.py
+│   ├── test_cli.py
+│   ├── test_cuda.py
+│   ├── test_engine.py
+│   ├── test_exports.py
+│   ├── test_integrations.py
+│   ├── test_python.py
+│   └── test_solutions.py
+└── ultralytics/
+    ├── __init__.py
+    ├── assets/
+    │   ├── bus.jpg
+    │   └── zidane.jpg
+    ├── cfg/
+    │   ├── __init__.py
+    │   ├── datasets/
+    │   ├── default.yaml
+    │   ├── models/
+    │   └── trackers/
+    ├── data/
+    │   ├── __init__.py
+    │   ├── annotator.py
+    │   ├── augment.py
+    │   ├── base.py
+    │   ├── build.py
+    │   ├── converter.py
+    │   ├── dataset.py
+    │   ├── loaders.py
+    │   ├── scripts/
+    │   ├── split.py
+    │   ├── split_dota.py
+    │   └── utils.py
+    ├── engine/
+    │   ├── __init__.py
+    │   ├── exporter.py
+    │   ├── model.py
+    │   ├── predictor.py
+    │   ├── results.py
+    │   ├── trainer.py
+    │   ├── tuner.py
+    │   └── validator.py
+    ├── hub/
+    │   ├── __init__.py
+    │   ├── auth.py
+    │   ├── google/
+    │   ├── session.py
+    │   └── utils.py
+    ├── models/
+    │   ├── __init__.py
+    │   ├── fastsam/
+    │   ├── nas/
+    │   ├── rtdetr/
+    │   ├── sam/
+    │   ├── utils/
+    │   └── yolo/
+    ├── nn/
+    │   ├── __init__.py
+    │   ├── autobackend.py
+    │   ├── modules/
+    │   ├── tasks.py
+    │   └── text_model.py
+    ├── optim/
+    │   ├── __init__.py
+    │   └── muon.py
+    ├── py.typed
+    ├── solutions/
+    │   ├── __init__.py
+    │   ├── ai_gym.py
+    │   ├── analytics.py
+    │   ├── config.py
+    │   ├── distance_calculation.py
+    │   ├── heatmap.py
+    │   ├── instance_segmentation.py
+    │   ├── object_blurrer.py
+    │   ├── object_counter.py
+    │   ├── object_cropper.py
+    │   ├── parking_management.py
+    │   ├── queue_management.py
+    │   ├── region_counter.py
+    │   ├── security_alarm.py
+    │   ├── similarity_search.py
+    │   ├── solutions.py
+    │   ├── speed_estimation.py
+    │   ├── streamlit_inference.py
+    │   ├── templates/
+    │   ├── trackzone.py
+    │   └── vision_eye.py
+    ├── trackers/
+    │   ├── README.md
+    │   ├── __init__.py
+    │   ├── basetrack.py
+    │   ├── bot_sort.py
+    │   ├── byte_tracker.py
+    │   ├── track.py
+    │   └── utils/
+    └── utils/
+        ├── __init__.py
+        ├── autobatch.py
+        ├── autodevice.py
+        ├── benchmarks.py
+        ├── callbacks/
+        ├── checks.py
+        ├── cpu.py
+        ├── dist.py
+        ├── downloads.py
+        ├── errors.py
+        ├── events.py
+        ├── export/
+        ├── files.py
+        ├── git.py
+        ├── instance.py
+        ├── logger.py
+        ├── loss.py
+        ├── metrics.py
+        ├── nms.py
+        ├── ops.py
+        ├── patches.py
+        ├── plotting.py
+        ├── tal.py
+        ├── torch_utils.py
+        ├── tqdm.py
+        ├── triton.py
+        ├── tuner.py
+        └── uploads.py

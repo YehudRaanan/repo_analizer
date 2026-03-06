@@ -1,0 +1,783 @@
+=====================================
+Repository Analysis: sqlalchemy
+Type: Library / Package / SDK
+=====================================
+
+--- METADATA ---
+Name: sqlalchemy
+Description: The Database Toolkit for Python
+Language: Python
+Topics: python, sql, sqlalchemy
+Stars: 11665
+License: MIT License
+
+--- README ---
+SQLAlchemy
+==========
+
+|PyPI| |Python| |Downloads|
+
+.. |PyPI| image:: https://img.shields.io/pypi/v/sqlalchemy
+    :target: https://pypi.org/project/sqlalchemy
+    :alt: PyPI
+
+.. |Python| image:: https://img.shields.io/pypi/pyversions/sqlalchemy
+    :target: https://pypi.org/project/sqlalchemy
+    :alt: PyPI - Python Version
+
+.. |Downloads| image:: https://static.pepy.tech/badge/sqlalchemy/month
+    :target: https://pepy.tech/project/sqlalchemy
+    :alt: PyPI - Downloads
+
+
+The Python SQL Toolkit and Object Relational Mapper
+
+Introduction
+-------------
+
+SQLAlchemy is the Python SQL toolkit and Object Relational Mapper
+that gives application developers the full power and
+flexibility of SQL. SQLAlchemy provides a full suite
+of well known enterprise-level persistence patterns,
+designed for efficient and high-performing database
+access, adapted into a simple and Pythonic domain
+language.
+
+Major SQLAlchemy features include:
+
+* An industrial strength ORM, built
+  from the core on the identity map, unit of work,
+  and data mapper patterns.   These patterns
+  allow transparent persistence of objects
+  using a declarative configuration system.
+  Domain models
+  can be constructed and manipulated naturally,
+  and changes are synchronized with the
+  current transaction automatically.
+* A relationally-oriented query system, exposing
+  the full range of SQL's capabilities
+  explicitly, including joins, subqueries,
+  correlation, and most everything else,
+  in terms of the object model.
+  Writing queries with the ORM uses the same
+  techniques of relational composition you use
+  when writing SQL.  While you can drop into
+  literal SQL at any time, it's virtually never
+  needed.
+* A comprehensive and flexible system
+  of eager loading for related collections and objects.
+  Collections are cached within a session,
+  and can be loaded on individual access, all
+  at once using joins, or by query per collection
+  across the full result set.
+* A Core SQL construction system and DBAPI
+  interaction layer.  The SQLAlchemy Core is
+  separate from the ORM and is a full database
+  abstraction layer in its own right, and includes
+  an extensible Python-based SQL expression
+  language, schema metadata, connection pooling,
+  type coercion, and custom types.
+* All primary and foreign key constraints are
+  assumed to be composite and natural.  Surrogate
+  integer primary keys are of course still the
+  norm, but SQLAlchemy never assumes or hardcodes
+  to this model.
+* Database introspection and generation.  Database
+  schemas can be "reflected" in one step into
+  Python structures representing database metadata;
+  those same structures can then generate
+  CREATE statements right back out - all within
+  the Core, independent of the ORM.
+
+SQLAlchemy's philosophy:
+
+* SQL databases behave less and less like object
+  collections the more size and performance start to
+  matter; object collections behave less and less like
+  tables and rows the more abstraction starts to matter.
+  SQLAlchemy aims to accommodate both of these
+  principles.
+* An ORM doesn't need to hide the "R".   A relational
+  database provides rich, set-based functionality
+  that should be fully exposed.   SQLAlchemy's
+  ORM provides an open-ended set of patterns
+  that allow a developer to construct a custom
+  mediation layer between a domain model and
+  a relational schema, turning the so-called
+  "object relational impedance" issue into
+  a distant memory.
+* The developer, in all cases, makes all decisions
+  regarding the design, structure, and naming conventions
+  of both the object model as well as the relational
+  schema.   SQLAlchemy only provides the means
+  to automate the execution of these decisions.
+* With SQLAlchemy, there's no such thing as
+  "the ORM generated a bad query" - you
+  retain full control over the structure of
+  queries, including how joins are organized,
+  how subqueries and correlation is used, what
+  columns are requested.  Everything SQLAlchemy
+  does is ultimately the result of a developer-initiated 
+  decision.
+* Don't use an ORM if the problem doesn't need one.
+  SQLAlchemy consists of a Core and separate ORM
+  component.   The Core offers a full SQL expression
+  language that allows Pythonic construction
+  of SQL constructs that render directly to SQL
+  strings for a target database, returning
+  result sets that are essentially enhanced DBAPI
+  cursors.
+* Transactions should be the norm.  With SQLAlchemy's
+  ORM, nothing goes to permanent storage until
+  commit() is called.  SQLAlchemy encourages applications
+  to create a consistent means of delineating
+  the start and end of a series of operations.
+* Never render a literal value in a SQL statement.
+  Bound parameters are used to the greatest degree
+  possible, allowing query optimizers to cache
+  query plans effectively and making SQL injection
+  attacks a non-issue.
+
+Documentation
+-------------
+
+Latest documentation is at:
+
+https://www.sqlalchemy.org/docs/
+
+Installation / Requirements
+-----
+... [TRUNCATED]
+
+--- PACKAGE MANIFEST(S) ---
+
+[pyproject.toml]
+[build-system]
+build-backend = "setuptools.build_meta"
+requires = [
+    "setuptools>=77.0.3",
+    "cython>=3.1; platform_python_implementation == 'CPython'", # Skip cython when using pypy
+]
+
+
+[project]
+name = "SQLAlchemy"
+description = "Database Abstraction Library"
+readme = "README.rst"
+authors = [{name = "Mike Bayer", email = "mike_mp@zzzcomputing.com"}]
+license = "MIT"
+license-files = ["LICENSE"]
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "Intended Audience :: Developers",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: 3.14",
+    "Programming Language :: Python :: Implementation :: CPython",
+    "Programming Language :: Python :: Implementation :: PyPy",
+    "Topic :: Database :: Front-Ends",
+]
+requires-python = ">=3.10"
+dependencies = [
+    "typing-extensions >= 4.6.0",
+]
+dynamic = ["version"]
+
+[project.urls]
+Homepage = "https://www.sqlalchemy.org"
+Documentation = "https://docs.sqlalchemy.org"
+Changelog = "https://docs.sqlalchemy.org/latest/changelog/index.html"
+"Source Code" = "https://github.com/sqlalchemy/sqlalchemy"
+"Issue Tracker" = "https://github.com/sqlalchemy/sqlalchemy/issues"
+Discussions = "https://github.com/sqlalchemy/sqlalchemy/discussions"
+
+[project.optional-dependencies]
+asyncio = ["greenlet>=1"]
+mypy = [
+    "mypy >= 1.19",
+    "types-greenlet >= 2",
+]
+mssql = ["pyodbc"]
+mssql-pymssql = ["pymssql"]
+mssql-pyodbc = ["pyodbc"]
+mysql = ["mysqlclient>=1.4.0"]
+mysql-connector = ["mysql-connector-python"]
+mariadb-connector = ["mariadb>=1.0.1,!=1.1.2,!=1.1.5,!=1.1.10"]
+oracle = ["oracledb>=1.0.1"]
+oracle-cxoracle = ["cx_oracle>=8"]
+oracle-oracledb = ["oracledb>=1.0.1"]
+postgresql = ["psycopg>=3.0.7,!=3.1.15"]
+postgresql-pg8000 = ["pg8000>=1.29.3"]
+postgresql-asyncpg = [
+    "sqlalchemy[asyncio]",
+    "asyncpg",
+]
+postgresql-psycopg2binary = ["psycopg2-binary"]
+postgresql-psycopg2cffi = ["psycopg2cffi"]
+postgresql-psycopg = ["psycopg>=3.0.7,!=3.1.15"]
+postgresql-psycopgbinary = ["psycopg[binary]>=3.0.7,!=3.1.15"]
+pymysql = ["pymysql"]
+cymysql = ["cymysql"]
+aiomysql = [
+    "sqlalchemy[asyncio]",
+    "aiomysql",
+]
+aioodbc = [
+    "sqlalchemy[asyncio]",
+    "aioodbc",
+]
+asyncmy = [
+    "sqlalchemy[asyncio]",
+    "asyncmy>=0.2.3,!=0.2.4,!=0.2.6",
+]
+aiosqlite = [
+    "sqlalchemy[asyncio]",
+    "aiosqlite",
+]
+sqlcipher = ["sqlcipher3_binary"]
+
+# legacy pre-pep-685 names. These are ignored by pip >= 23.3.0
+mssql_pymssql = ["sqlalchemy[mssql-pymssql]"]
+mssql_pyodbc = ["sqlalchemy[mssql-pyodbc]"]
+mysql_connector = ["sqlalchemy[mysql-connector]"]
+mariadb_connector = ["sqlalchemy[mariadb-connector]"]
+oracle_oracledb = ["sqlalchemy[oracle-oracledb]"]
+postgresql_pg8000 = ["sqlalchemy[postgresql-pg8000]"]
+postgresql_asyncpg = 
+... [TRUNCATED]
+
+[setup.py]
+from __future__ import annotations
+
+import os
+import platform
+import sys
+from typing import Any
+from typing import cast
+from typing import Dict
+from typing import TYPE_CHECKING
+
+from setuptools import setup
+
+if TYPE_CHECKING:
+    from setuptools import Extension
+
+try:
+    from Cython.Build import build_ext as _cy_build_ext
+    from Cython.Distutils.extension import Extension as _cy_Extension
+
+    HAS_CYTHON = True
+except ImportError:
+    _cy_build_ext = _cy_Extension = None
+    HAS_CYTHON = False
+
+IS_CPYTHON = platform.python_implementation() == "CPython"
+DISABLE_EXTENSION = bool(os.environ.get("DISABLE_SQLALCHEMY_CEXT"))
+REQUIRE_EXTENSION = bool(os.environ.get("REQUIRE_SQLALCHEMY_CEXT"))
+
+if DISABLE_EXTENSION and REQUIRE_EXTENSION:
+    raise RuntimeError(
+        "Cannot set both 'DISABLE_SQLALCHEMY_CEXT' and "
+        "'REQUIRE_SQLALCHEMY_CEXT' environment variables"
+    )
+
+# when adding a cython module, also update the imports in _has_cython
+# it is tested in test_setup_defines_all_files
+CYTHON_MODULES = (
+    "engine._processors_cy",
+    "engine._row_cy",
+    "engine._result_cy",
+    "engine._util_cy",
+    "sql._util_cy",
+    "util._collections_cy",
+    "util._immutabledict_cy",
+)
+
+if HAS_CYTHON and IS_CPYTHON and not DISABLE_EXTENSION:
+    assert _cy_Extension is not None
+    assert _cy_build_ext is not None
+    from Cython.Compiler import Options
+
+    Options.docstrings = False
+    Options.clear_to_none = False
+
+    cython_directives: Dict[str, Any] = {
+        "language_level": "3",
+        # "initializedcheck": False,
+    }
+
+    if sys.version_info >= (3, 13):
+        cython_directives["freethreading_compatible"] = True
+
+    module_prefix = "sqlalchemy."
+    source_prefix = "lib/sqlalchemy/"
+
+    ext_modules = cast(
+        "list[Extension]",
+        [
+            _cy_Extension(
+                f"{module_prefix}{module}",
+                sources=[f"{source_prefix}{module.replace('.', '/')}.py"],
+                cython_directives=cython_directives,
+                optional=not REQUIRE_EXTENSION,
+            )
+            for module in CYTHON_MODULES
+        ],
+    )
+
+    cmdclass = {"build_ext": _cy_build_ext}
+
+elif REQUIRE_EXTENSION:
+    reasons = []
+    if not HAS_CYTHON:
+        reasons.append("Cython is missing")
+    if not IS_CPYTHON:
+        reasons.append("Not CPython, build is supported only on it")
+    raise RuntimeError(
+        "Cython extension build is required because REQUIRE_SQLALCHEMY_CEXT "
+        f"is set but it was deselected because: {'; '.join(reasons)}; "
+        "will not degrade to pure python install"
+    )
+
+else:
+    ext_modules = []
+    cmdclass = {}
+
+setup(cmdclass=cmdclass, ext_modules=ext_modules)
+
+
+[setup.cfg]
+
+[sqla_testing]
+requirement_cls = test.requirements:DefaultRequirements
+profile_file = test/profiles.txt
+
+# name of a "loopback" link set up on the oracle database.
+# to create this, suppose your DB is scott/tiger@free.  You'd create it
+# like:
+# create public database link test_link connect to scott identified by tiger
+# using 'free';
+oracle_db_link = test_link
+# create public database link test_link2 connect to test_schema identified by tiger
+# using 'free';
+oracle_db_link2 = test_link2
+
+# host name of a postgres database that has the postgres_fdw extension.
+# to create this run:
+# CREATE EXTENSION postgres_fdw;
+# GRANT USAGE ON FOREIGN DATA WRAPPER postgres_fdw TO public;
+# this can be localhost to create a loopback foreign table
+# postgres_test_db_link = localhost
+
+[db]
+default = sqlite:///:memory:
+sqlite = sqlite:///:memory:
+sqlite_numeric = sqlite+pysqlite_numeric:///:memory:
+sqlite_dollar = sqlite+pysqlite_dollar:///:memory:
+aiosqlite = sqlite+aiosqlite:///:memory:
+sqlite_file = sqlite:///querytest.db
+aiosqlite_file = sqlite+aiosqlite:///async_querytest.db
+pysqlcipher_file = sqlite+pysqlcipher://:test@/querytest.db.enc
+postgresql = postgresql+psycopg://scott:tiger@127.0.0.1:5432/test
+psycopg2 = postgresql+psycopg2://scott:tiger@127.0.0.1:5432/test
+psycopg = postgresql+psycopg://scott:tiger@127.0.0.1:5432/test
+psycopg_async = postgresql+psycopg_async://scott:tiger@127.0.0.1:5432/test
+asyncpg = postgresql+asyncpg://scott:tiger@127.0.0.1:5432/test
+pg8000 = postgresql+pg8000://scott:tiger@127.0.0.1:5432/test
+postgresql_psycopg2cffi = postgresql+psycopg2cffi://scott:tiger@127.0.0.1:5432/test
+mysql = mysql+mysqldb://scott:tiger@127.0.0.1:3306/test?charset=utf8mb4
+pymysql = mysql+pymysql://scott:tiger@127.0.0.1:3306/test?charset=utf8mb4
+aiomysql = mysql+aiomysql://scott:tiger@127.0.0.1:3306/test?charset=utf8mb4
+asyncmy = mysql+asyncmy://scott:tiger@127.0.0.1:3306/test?charset=utf8mb4
+mariadb = mariadb+mysqldb://scott:tiger@127.0.0.1:3306/test
+mariadb_connector = mariadb+mariadbconnector://scott:tiger@127.0.0.1:3306/test
+mysql_connector = mariadb+mysqlconnector://scott:tiger@127.0.0.1:3306/test
+mssql = mssql+pyodbc://scott:tiger^5HHH@mssql2022:1433/test?driver=ODBC+Driver+18+for+SQL+Server&TrustServerCertificate=yes&Encrypt=Optional
+mssql_async = mssql+aioodbc://scott:tiger^5HHH@mssql2022:1433/test?driver=ODBC+Driver+18+for+SQL+Server&TrustServerCertificate=yes&Encrypt=Optional
+pymssql = mssql+pymssql://scott:tiger^5HHH@mssql2022:1433/test
+docker_mssql = mssql+pyodbc://scott:tiger^5HHH@127.0.0.1:1433/test?driver=ODBC+Driver+18+for+SQL+Server&TrustServerCertificate=yes&Encrypt=Optional
+oracle = oracle+oracledb://scott:tiger@oracle23c/freepdb1
+cxoracle = oracle+cx_oracle://scott:tiger@oracle23c/freepdb1
+oracledb = oracle+oracledb://scott:tiger@oracle23c/freepdb1
+oracledb_async = oracle+oracledb_async://scott:tiger@oracle23c/freepdb1
+docker_oracle = oracle+cx_oracle://scott:tiger@127.0.0.1:1521/?service_name=FREEPDB1
+
+
+--- DIRECTORY STRUCTURE (depth 2) ---
+├── .git-blame-ignore-revs
+├── .github/
+│   ├── CODE_OF_CONDUCT.md
+│   ├── CONTRIBUTING.md
+│   ├── FUNDING.yml
+│   ├── ISSUE_TEMPLATE/
+│   │   ├── bug_report.yaml
+│   │   ├── config.yml
+│   │   ├── typing.yaml
+│   │   └── use_case.yaml
+│   ├── SECURITY.md
+│   ├── dependabot.yml
+│   ├── pull_request_template.md
+│   ├── stale.yml
+│   └── workflows/
+│       ├── create-wheels.yaml
+│       ├── run-on-pr.yaml
+│       └── run-test.yaml
+├── .gitignore
+├── .gitreview
+├── .pre-commit-config.yaml
+├── AUTHORS
+├── CHANGES.rst
+├── LICENSE
+├── MANIFEST.in
+├── README.dialects.rst
+├── README.rst
+├── README.unittests.rst
+├── doc/
+│   └── build/
+│       ├── Makefile
+│       ├── changelog/
+│       ├── conf.py
+│       ├── contents.rst
+│       ├── copyright.rst
+│       ├── core/
+│       ├── dialects/
+│       ├── errors.rst
+│       ├── faq/
+│       ├── glossary.rst
+│       ├── index.rst
+│       ├── intro.rst
+│       ├── orm/
+│       ├── requirements.txt
+│       ├── sqla_arch_small.png
+│       ├── texinputs/
+│       └── tutorial/
+├── examples/
+│   ├── __init__.py
+│   ├── adjacency_list/
+│   │   ├── __init__.py
+│   │   └── adjacency_list.py
+│   ├── association/
+│   │   ├── __init__.py
+│   │   ├── basic_association.py
+│   │   ├── dict_of_sets_with_default.py
+│   │   └── proxied_association.py
+│   ├── asyncio/
+│   │   ├── __init__.py
+│   │   ├── async_orm.py
+│   │   ├── async_orm_writeonly.py
+│   │   ├── basic.py
+│   │   ├── gather_orm_statements.py
+│   │   └── greenlet_orm.py
+│   ├── custom_attributes/
+│   │   ├── __init__.py
+│   │   ├── active_column_defaults.py
+│   │   ├── custom_management.py
+│   │   └── listen_for_events.py
+│   ├── dogpile_caching/
+│   │   ├── __init__.py
+│   │   ├── advanced.py
+│   │   ├── caching_query.py
+│   │   ├── environment.py
+│   │   ├── fixture_data.py
+│   │   ├── helloworld.py
+│   │   ├── local_session_caching.py
+│   │   ├── model.py
+│   │   └── relationship_caching.py
+│   ├── dynamic_dict/
+│   │   ├── __init__.py
+│   │   └── dynamic_dict.py
+│   ├── extending_query/
+│   │   ├── __init__.py
+│   │   ├── filter_public.py
+│   │   └── temporal_range.py
+│   ├── generic_associations/
+│   │   ├── __init__.py
+│   │   ├── discriminator_on_association.py
+│   │   ├── generic_fk.py
+│   │   ├── table_per_association.py
+│   │   └── table_per_related.py
+│   ├── graphs/
+│   │   ├── __init__.py
+│   │   └── directed_graph.py
+│   ├── inheritance/
+│   │   ├── __init__.py
+│   │   ├── concrete.py
+│   │   ├── joined.py
+│   │   └── single.py
+│   ├── materialized_paths/
+│   │   ├── __init__.py
+│   │   └── materialized_paths.py
+│   ├── nested_sets/
+│   │   ├── __init__.py
+│   │   └── nested_sets.py
+│   ├── performance/
+│   │   ├── __init__.py
+│   │   ├── __main__.py
+│   │   ├── bulk_inserts.py
+│   │   ├── bulk_updates.py
+│   │   ├── large_resultsets.py
+│   │   ├── short_selects.py
+│   │   └── single_inserts.py
+│   ├── sharding/
+│   │   ├── __init__.py
+│   │   ├── asyncio.py
+│   │   ├── separate_databases.py
+│   │   ├── separate_schema_translates.py
+│   │   └── separate_tables.py
+│   ├── space_invaders/
+│   │   ├── __init__.py
+│   │   └── space_invaders.py
+│   ├── syntax_extensions/
+│   │   ├── __init__.py
+│   │   ├── qualify.py
+│   │   └── test_qualify.py
+│   ├── versioned_history/
+│   │   ├── __init__.py
+│   │   ├── history_meta.py
+│   │   └── test_versioning.py
+│   ├── versioned_rows/
+│   │   ├── __init__.py
+│   │   ├── versioned_map.py
+│   │   ├── versioned_rows.py
+│   │   ├── versioned_rows_w_versionid.py
+│   │   └── versioned_update_old_row.py
+│   └── vertical/
+│       ├── __init__.py
+│       ├── dictlike-polymorphic.py
+│       └── dictlike.py
+├── lib/
+│   └── sqlalchemy/
+│       ├── __init__.py
+│       ├── connectors/
+│       ├── dialects/
+│       ├── engine/
+│       ├── event/
+│       ├── events.py
+│       ├── exc.py
+│       ├── ext/
+│       ├── future/
+│       ├── inspection.py
+│       ├── log.py
+│       ├── orm/
+│       ├── pool/
+│       ├── py.typed
+│       ├── schema.py
+│       ├── sql/
+│       ├── testing/
+│       ├── types.py
+│       └── util/
+├── noxfile.py
+├── pyproject.toml
+├── reap_dbs.py
+├── regen_callcounts.tox.ini
+├── setup.cfg
+├── setup.py
+├── test/
+│   ├── __init__.py
+│   ├── aaa_profiling/
+│   │   ├── __init__.py
+│   │   ├── test_compiler.py
+│   │   ├── test_memusage.py
+│   │   ├── test_misc.py
+│   │   ├── test_orm.py
+│   │   ├── test_pool.py
+│   │   ├── test_resultset.py
+│   │   └── test_threading.py
+│   ├── base/
+│   │   ├── __init__.py
+│   │   ├── _concurrency_fixtures.py
+│   │   ├── test_concurrency.py
+│   │   ├── test_dependency.py
+│   │   ├── test_events.py
+│   │   ├── test_examples.py
+│   │   ├── test_except.py
+│   │   ├── test_inspect.py
+│   │   ├── test_result.py
+│   │   ├── test_tutorials.py
+│   │   ├── test_typing_utils.py
+│   │   ├── test_utils.py
+│   │   └── test_warnings.py
+│   ├── binary_data_one.dat
+│   ├── binary_data_two.dat
+│   ├── conftest.py
+│   ├── dialect/
+│   │   ├── __init__.py
+│   │   ├── mssql/
+│   │   ├── mysql/
+│   │   ├── oracle/
+│   │   ├── postgresql/
+│   │   ├── sqlite/
+│   │   ├── test_all.py
+│   │   ├── test_pyodbc.py
+│   │   └── test_suite.py
+│   ├── engine/
+│   │   ├── __init__.py
+│   │   ├── test_ddlevents.py
+│   │   ├── test_deprecations.py
+│   │   ├── test_execute.py
+│   │   ├── test_logging.py
+│   │   ├── test_parseconnect.py
+│   │   ├── test_pool.py
+│   │   ├── test_processors.py
+│   │   ├── test_reconnect.py
+│   │   ├── test_reflection.py
+│   │   └── test_transaction.py
+│   ├── ext/
+│   │   ├── __init__.py
+│   │   ├── asyncio/
+│   │   ├── declarative/
+│   │   ├── test_associationproxy.py
+│   │   ├── test_automap.py
+│   │   ├── test_baked.py
+│   │   ├── test_compiler.py
+│   │   ├── test_deprecations.py
+│   │   ├── test_extendedattr.py
+│   │   ├── test_horizontal_shard.py
+│   │   ├── test_hybrid.py
+│   │   ├── test_indexable.py
+│   │   ├── test_mutable.py
+│   │   ├── test_orderinglist.py
+│   │   └── test_serializer.py
+│   ├── orm/
+│   │   ├── __init__.py
+│   │   ├── _fixtures.py
+│   │   ├── declarative/
+│   │   ├── dml/
+│   │   ├── inheritance/
+│   │   ├── test_ac_relationships.py
+│   │   ├── test_association.py
+│   │   ├── test_assorted_eager.py
+│   │   ├── test_attributes.py
+│   │   ├── test_backref_mutations.py
+│   │   ├── test_bind.py
+│   │   ├── test_bundle.py
+│   │   ├── test_cache_key.py
+│   │   ├── test_cascade.py
+│   │   ├── test_collection.py
+│   │   ├── test_compile.py
+│   │   ├── test_composites.py
+│   │   ├── test_core_compilation.py
+│   │   ├── test_cycles.py
+│   │   ├── test_dataclasses.py
+│   │   ├── test_default_strategies.py
+│   │   ├── test_defaults.py
+│   │   ├── test_deferred.py
+│   │   ├── test_deprecations.py
+│   │   ├── test_descriptor.py
+│   │   ├── test_dynamic.py
+│   │   ├── test_eager_relations.py
+│   │   ├── test_events.py
+│   │   ├── test_expire.py
+│   │   ├── test_froms.py
+│   │   ├── test_generative.py
+│   │   ├── test_hasparent.py
+│   │   ├── test_immediate_load.py
+│   │   ├── test_inspect.py
+│   │   ├── test_instrumentation.py
+│   │   ├── test_joins.py
+│   │   ├── test_lambdas.py
+│   │   ├── test_lazy_relations.py
+│   │   ├── test_load_on_fks.py
+│   │   ├── test_loading.py
+│   │   ├── test_lockmode.py
+│   │   ├── test_manytomany.py
+│   │   ├── test_mapper.py
+│   │   ├── test_merge.py
+│   │   ├── test_naturalpks.py
+│   │   ├── test_of_type.py
+│   │   ├── test_onetoone.py
+│   │   ├── test_options.py
+│   │   ├── test_pickled.py
+│   │   ├── test_query.py
+│   │   ├── test_recursive_loaders.py
+│   │   ├── test_rel_fn.py
+│   │   ├── test_relationship_criteria.py
+│   │   ├── test_relationships.py
+│   │   ├── test_scoping.py
+│   │   ├── test_selectable.py
+│   │   ├── test_selectin_relations.py
+│   │   ├── test_session.py
+│   │   ├── test_session_state_change.py
+│   │   ├── test_subquery_relations.py
+│   │   ├── test_sync.py
+│   │   ├── test_syntax_extensions.py
+│   │   ├── test_text.py
+│   │   ├── test_transaction.py
+│   │   ├── test_tstring_py314.py
+│   │   ├── test_unitofwork.py
+│   │   ├── test_unitofworkv2.py
+│   │   ├── test_utils.py
+│   │   ├── test_validators.py
+│   │   └── test_versioning.py
+│   ├── perf/
+│   │   ├── compiled_extensions/
+│   │   ├── invalidate_stresstest.py
+│   │   ├── many_table_reflection.py
+│   │   └── orm2010.py
+│   ├── profiles.txt
+│   ├── requirements.py
+│   ├── sql/
+│   │   ├── __init__.py
+│   │   ├── test_case_statement.py
+│   │   ├── test_compare.py
+│   │   ├── test_compiler.py
+│   │   ├── test_computed.py
+│   │   ├── test_constraints.py
+│   │   ├── test_cte.py
+│   │   ├── test_ddlemit.py
+│   │   ├── test_defaults.py
+│   │   ├── test_delete.py
+│   │   ├── test_deprecations.py
+│   │   ├── test_external_traversal.py
+│   │   ├── test_from_linter.py
+│   │   ├── test_functions.py
+│   │   ├── test_identity_column.py
+│   │   ├── test_insert.py
+│   │   ├── test_insert_exec.py
+│   │   ├── test_inspect.py
+│   │   ├── test_labels.py
+│   │   ├── test_lambdas.py
+│   │   ├── test_lateral.py
+│   │   ├── test_metadata.py
+│   │   ├── test_operators.py
+│   │   ├── test_query.py
+│   │   ├── test_quote.py
+│   │   ├── test_resultset.py
+│   │   ├── test_returning.py
+│   │   ├── test_roles.py
+│   │   ├── test_select.py
+│   │   ├── test_selectable.py
+│   │   ├── test_sequences.py
+│   │   ├── test_statement_params.py
+│   │   ├── test_syntax_extensions.py
+│   │   ├── test_table_via_select.py
+│   │   ├── test_tablesample.py
+│   │   ├── test_text.py
+│   │   ├── test_tstrings_py314.py
+│   │   ├── test_type_expressions.py
+│   │   ├── test_types.py
+│   │   ├── test_update.py
+│   │   ├── test_utils.py
+│   │   └── test_values.py
+│   └── typing/
+│       ├── plain_files/
+│       ├── test_mypy.py
+│       └── test_overloads.py
+├── tools/
+│   ├── cython_imports.py
+│   ├── format_docs_code.py
+│   ├── generate_proxy_methods.py
+│   ├── generate_sql_functions.py
+│   ├── generate_tuple_map_overloads.py
+│   ├── normalize_file_headers.py
+│   ├── sync_test_files.py
+│   ├── toxnox.py
+│   ├── trace_orm_adapter.py
+│   ├── walk_packages.py
+│   └── warn_tox.py
+└── tox.ini

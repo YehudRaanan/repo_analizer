@@ -1,0 +1,2453 @@
+=====================================
+Repository Analysis: chatwoot
+Type: Web Application
+=====================================
+
+--- METADATA ---
+Name: chatwoot
+Description: Open-source live-chat, email support, omni-channel desk. An alternative to Intercom, Zendesk, Salesforce Service Cloud etc. 🔥💬
+Language: Ruby
+Topics: actioncable, chat-widget, conversation, customer-support, dashboard, design, docker, docker-image, heroku, intercom, javascript, livechat, opensource, rails, ruby, sass, vuejs, whatsapp, zendesk
+Stars: 27564
+License: Other
+
+--- README ---
+<img src="./.github/screenshots/header.png#gh-light-mode-only" width="100%" alt="Header light mode"/>
+<img src="./.github/screenshots/header-dark.png#gh-dark-mode-only" width="100%" alt="Header dark mode"/>
+
+___
+
+# Chatwoot
+
+The modern customer support platform, an open-source alternative to Intercom, Zendesk, Salesforce Service Cloud etc.
+
+<p>
+  <img src="https://img.shields.io/circleci/build/github/chatwoot/chatwoot" alt="CircleCI Badge">
+    <a href="https://hub.docker.com/r/chatwoot/chatwoot/"><img src="https://img.shields.io/docker/pulls/chatwoot/chatwoot" alt="Docker Pull Badge"></a>
+  <a href="https://hub.docker.com/r/chatwoot/chatwoot/"><img src="https://img.shields.io/docker/cloud/build/chatwoot/chatwoot" alt="Docker Build Badge"></a>
+  <img src="https://img.shields.io/github/commit-activity/m/chatwoot/chatwoot" alt="Commits-per-month">
+  <a title="Crowdin" target="_self" href="https://chatwoot.crowdin.com/chatwoot"><img src="https://badges.crowdin.net/e/37ced7eba411064bd792feb3b7a28b16/localized.svg"></a>
+  <a href="https://discord.gg/cJXdrwS"><img src="https://img.shields.io/discord/647412545203994635" alt="Discord"></a>
+  <a href="https://status.chatwoot.com"><img src="https://img.shields.io/endpoint?url=https%3A%2F%2Fraw.githubusercontent.com%2Fchatwoot%2Fstatus%2Fmaster%2Fapi%2Fchatwoot%2Fuptime.json" alt="uptime"></a>
+  <a href="https://status.chatwoot.com"><img src="https://img.shields.io/endpoint?url=https%3A%2F%2Fraw.githubusercontent.com%2Fchatwoot%2Fstatus%2Fmaster%2Fapi%2Fchatwoot%2Fresponse-time.json" alt="response time"></a>
+  <a href="https://artifacthub.io/packages/helm/chatwoot/chatwoot"><img src="https://img.shields.io/endpoint?url=https://artifacthub.io/badge/repository/artifact-hub" alt="Artifact HUB"></a>
+</p>
+
+
+<p>
+  <a href="https://heroku.com/deploy?template=https://github.com/chatwoot/chatwoot/tree/master" alt="Deploy to Heroku">
+     <img width="150" alt="Deploy" src="https://www.herokucdn.com/deploy/button.svg"/>
+  </a>
+  <a href="https://marketplace.digitalocean.com/apps/chatwoot?refcode=f2238426a2a8" alt="Deploy to DigitalOcean">
+     <img width="200" alt="Deploy to DO" src="https://www.deploytodo.com/do-btn-blue.svg"/>
+  </a>
+</p>
+
+<img src="./.github/screenshots/dashboard.png#gh-light-mode-only" width="100%" alt="Chat dashboard dark mode"/>
+<img src="./.github/screenshots/dashboard-dark.png#gh-dark-mode-only" width="100%" alt="Chat dashboard"/>
+
+---
+
+Chatwoot is the modern, open-source, and self-hosted customer support platform designed to help businesses deliver exceptional customer support experience. Built for scale and flexibility, Chatwoot gives you full control over your customer data while providing powerful tools to manage conversations across channels.
+
+### ✨ Captain – AI Agent for Support
+
+Supercharge your support with Captain, Chatwoot’s AI agent. Captain helps automate responses, handle common queries, and reduce agent workload—ensuring customers get instant, accurate answers. With Captain, your team can focus on complex conversations while routine questions are resolved automatically. Read more about Captain [here](https://chwt.app/captain-docs).
+
+### 💬 Omnichannel Support Desk
+
+Chatwoot centralizes all customer conversations into one powerful inbox, no matter where your customers reach out from. It supports live chat on your website, email, Facebook, Instagram, Twitter, WhatsApp, Telegram, Line, SMS etc.
+
+### 📚 Help center portal
+
+Publish help articles, FAQs, and guides through the built-in Help Center Portal. Enable customers to find answers on their own, reduce repetitive queries, and keep your support team focused on more complex issues.
+
+### 🗂️ Other features
+
+#### Collaboration & Productivity
+
+- Private Notes and @mentions for internal team discussions.
+- Labels to organize and categorize conversations.
+- Keyboard Shortcuts and a Command Bar for quick navigation.
+- Canned Responses to reply faster to frequently asked questions.
+- Auto-Assignment to route conversations based on agent availability.
+- Multi-lingual Support to serve customers in multiple languages.
+- Custom Views and Filters for better inbox organization.
+- Business Hours and Auto-Responders to manage response expectations.
+- Teams and Automation tools for scaling support workflows.
+- Agent Capacity Management to balance workload across the team.
+
+#### Customer Data & Segmentation
+- Contact Management with profiles and interaction history.
+- Contact Segments and Notes for targeted communication.
+- Campaigns to proactively engage customers.
+- Custom Attributes for storing additional customer data.
+- Pre-Chat Forms to collect user information before starting conversations.
+
+#### Integrations
+- Slack Integration to manage conversations directly from Slack.
+- Dialogflow Integration for chatbot automation.
+- Dashboard Apps to embed internal tools within Chatwoot.
+- Shopify Integration to view and manage customer orders right within Chatwoot.
+- Use Google Translate to translate messages from 
+... [TRUNCATED]
+
+--- PACKAGE MANIFEST(S) ---
+
+[package.json]
+{
+  "name": "@chatwoot/chatwoot",
+  "version": "4.11.1",
+  "license": "MIT",
+  "scripts": {
+    "eslint": "eslint app/**/*.{js,vue}",
+    "eslint:fix": "eslint app/**/*.{js,vue} --fix",
+    "test": "TZ=UTC vitest --no-watch --no-cache --no-coverage --logHeapUsage",
+    "test:watch": "TZ=UTC vitest --no-cache --no-coverage",
+    "test:coverage": "TZ=UTC vitest --no-watch --no-cache --coverage",
+    "start:dev": "foreman start -f ./Procfile.dev",
+    "start:test": "RAILS_ENV=test foreman start -f ./Procfile.test",
+    "dev": "overmind start -f ./Procfile.dev",
+    "ruby:prettier": "bundle exec rubocop -a",
+    "build:sdk": "BUILD_MODE=library vite build",
+    "prepare": "husky install",
+    "size": "size-limit",
+    "story:dev": "histoire dev",
+    "story:build": "histoire build",
+    "story:preview": "histoire preview",
+    "sync:i18n": "bin/sync_i18n_file_change"
+  },
+  "size-limit": [
+    {
+      "path": "public/vite/assets/widget-*.js",
+      "limit": "300 KB"
+    },
+    {
+      "path": "public/packs/js/sdk.js",
+      "limit": "40 KB"
+    }
+  ],
+  "dependencies": {
+    "@amplitude/analytics-browser": "^2.11.10",
+    "@breezystack/lamejs": "^1.2.7",
+    "@chatwoot/ninja-keys": "1.2.3",
+    "@chatwoot/prosemirror-schema": "1.3.6",
+    "@chatwoot/utils": "^0.0.52",
+    "@formkit/core": "^1.6.7",
+    "@formkit/vue": "^1.6.7",
+    "@hcaptcha/vue3-hcaptcha": "^1.3.0",
+    "@highlightjs/vue-plugin": "^2.1.0",
+    "@iconify-json/fluent": "^1.2.32",
+    "@iconify-json/material-symbols": "^1.2.10",
+    "@lk77/vue3-color": "^3.0.6",
+    "@radix-ui/colors": "^3.0.0",
+    "@rails/actioncable": "6.1.3",
+    "@rails/ujs": "^7.1.400",
+    "@scmmishra/pico-search": "0.6.0",
+    "@sentry/vue": "^8.55.0",
+    "@sindresorhus/slugify": "2.2.1",
+    "@tailwindcss/typography": "^0.5.15",
+    "@tanstack/vue-table": "^8.20.5",
+    "@twilio/voice-sdk": "^2.12.4",
+    "@vitejs/plugin-vue": "^5.1.4",
+    "@vue/compiler-sfc": "^3.5.8",
+    "@vuelidate/core": "^2.0.3",
+    "@vuelidate/validators": "^2.0.4",
+    "@vueuse/components": "^12.0.0",
+    "@vueuse/core": "^12.0.0",
+    "activestorage": "^5.2.6",
+    "axios": "^1.13.2",
+    "camelcase-keys": "^9.1.3",
+    "chart.js": "~4.4.4",
+    "color2k": "^2.0.2",
+    "company-email-validator": "^1.1.0",
+    "core-js": "3.38.1",
+    "countries-and-timezones": "^3.6.0",
+    "date-fns": "2.21.1",
+    "date-fns-tz": "^1.3.3",
+    "dompurify": "3.2.4",
+    "flag-icons": "^7.2.3",
+    "floating-vue": "^5.2.2",
+    "highlight.js": "^11.10.0",
+    "html-to-image": "^1.11.13",
+    "html2canvas": "^1.4.1",
+    "idb": "^8.0.0",
+    "js-cookie": "^3.0.5",
+    "json-logic-js": "^2.0.5",
+    "lettersanitizer": "^1.0.6",
+    "libphonenumber-js": "^1.11.9",
+    "markdown-it": "^13.0.2",
+    "markdown-it-link-attributes": "^4.0.1",
+    "md5": "^2.3.0",
+    "mitt": "^3.0.1",
+    "opus-recorder": "^8.0.5",
+    "pinia": "^3.0.4",
+    "qrcode": "^1.5.4",
+    "semver": "7.6.3",
+    "snakecase-keys": "^8.0.1",
+    "timezone-phone-codes": "^0.0.2",
+  
+... [TRUNCATED]
+
+[Gemfile]
+source 'https://rubygems.org'
+
+ruby '3.4.4'
+
+##-- base gems for rails --##
+gem 'rack-cors', '2.0.0', require: 'rack/cors'
+gem 'rails', '~> 7.1'
+# Reduces boot times through caching; required in config/boot.rb
+gem 'bootsnap', require: false
+
+##-- rails application helper gems --##
+gem 'acts-as-taggable-on'
+gem 'attr_extras'
+gem 'browser'
+gem 'hashie'
+gem 'jbuilder'
+gem 'kaminari'
+gem 'responders', '>= 3.1.1'
+gem 'rest-client'
+gem 'telephone_number'
+gem 'time_diff'
+gem 'tzinfo-data'
+gem 'valid_email2'
+gem 'email-provider-info'
+# compress javascript config.assets.js_compressor
+gem 'uglifier'
+##-- used for single column multiple binary flags in notification settings/feature flagging --##
+gem 'flag_shih_tzu'
+# Random name generator for user names
+gem 'haikunator'
+# Template parsing safely
+gem 'liquid'
+# Parse Markdown to HTML
+gem 'commonmarker'
+# Validate Data against JSON Schema
+gem 'json_schemer'
+# used in swagger build
+gem 'json_refs'
+# Rack middleware for blocking & throttling abusive requests
+gem 'rack-attack', '>= 6.7.0'
+# a utility tool for streaming, flexible and safe downloading of remote files
+gem 'down'
+# authentication type to fetch and send mail over oauth2.0
+gem 'gmail_xoauth'
+# Lock net-smtp to 0.3.4 to avoid issues with gmail_xoauth2
+gem 'net-smtp',  '~> 0.3.4'
+# Prevent CSV injection
+gem 'csv-safe'
+
+##-- for active storage --##
+gem 'aws-sdk-s3', require: false
+# original gem isn't maintained actively
+# we wanted updated version of faraday which is a dependency for slack-ruby-client
+gem 'azure-storage-blob', git: 'https://github.com/chatwoot/azure-storage-ruby', branch: 'chatwoot', require: false
+gem 'google-cloud-storage', '>= 1.48.0', require: false
+gem 'image_processing'
+
+##-- for actionmailbox --##
+gem 'aws-actionmailbox-ses', '~> 0'
+
+##-- gems for database --#
+gem 'groupdate'
+gem 'pg'
+gem 'redis'
+gem 'redis-namespace'
+# super fast record imports in bulk
+gem 'activerecord-import'
+
+gem 'searchkick'
+gem 'opensearch-ruby'
+gem 'faraday_middleware-aws-sigv4'
+
+##--- gems for server & infra configuration ---##
+gem 'dotenv-rails', '>= 3.0.0'
+gem 'foreman'
+gem 'puma'
+gem 'vite_rails'
+# metrics on heroku
+gem 'barnes'
+
+##--- gems for authentication & authorization ---##
+gem 'devise', '>= 4.9.4'
+gem 'devise-secure_password', git: 'https://github.com/chatwoot/devise-secure_password', branch: 'chatwoot'
+gem 'devise_token_auth', '>= 1.2.3'
+# two-factor authentication
+gem 'devise-two-factor', '>= 5.0.0'
+# authorization
+gem 'jwt'
+gem 'pundit'
+
+# super admin
+gem 'administrate', '>= 0.20.1'
+gem 'administrate-field-active_storage', '>= 1.0.3'
+gem 'administrate-field-belongs_to_search', '>= 0.9.0'
+
+##--- gems for pubsub service ---##
+# https://karolgalanciak.com/blog/2019/11/30/from-activerecord-callbacks-to-publish-slash-subscribe-pattern-and-event-driven-design/
+gem 'wisper', '2.0.0'
+
+##--- gems for channels ---##
+gem 'facebook-messenger'
+gem 'line-bot-api'
+gem 'twilio-ruby'
+# twitty will handle subscription of twitter account events
+# gem 'twitty', 
+... [TRUNCATED]
+
+--- WEB FRAMEWORK CONFIG ---
+
+[vite.config.ts]
+/// <reference types="vitest" />
+
+/**
+What's going on with library mode?
+
+Glad you asked, here's a quick rundown:
+
+1. vite-plugin-ruby will automatically bring all the entrypoints like dashbord and widget as input to vite.
+2. vite needs to be in library mode to build the SDK as a single file. (UMD) format and set `inlineDynamicImports` to true.
+3. But when setting `inlineDynamicImports` to true, vite will not be able to handle mutliple entrypoints.
+
+This puts us in a deadlock, now there are two ways around this, either add another separate build pipeline to
+the app using vanilla rollup or rspack or something. The second option is to remove sdk building from the main pipeline
+and build it separately using Vite itself, toggled by an ENV variable.
+
+`BUILD_MODE=library bin/vite build` should build only the SDK and save it to `public/packs/js/sdk.js`
+`bin/vite build` will build the rest of the app as usual. But exclude the SDK.
+
+We need to edit the `asset:precompile` rake task to include the SDK in the precompile list.
+*/
+import { defineConfig } from 'vite';
+import ruby from 'vite-plugin-ruby';
+import path from 'path';
+import vue from '@vitejs/plugin-vue';
+
+const isLibraryMode = process.env.BUILD_MODE === 'library';
+const isTestMode = process.env.TEST === 'true';
+
+const vueOptions = {
+  template: {
+    compilerOptions: {
+      isCustomElement: tag => ['ninja-keys'].includes(tag),
+    },
+  },
+};
+
+let plugins = [ruby(), vue(vueOptions)];
+
+if (isLibraryMode) {
+  plugins = [];
+} else if (isTestMode) {
+  plugins = [vue(vueOptions)];
+}
+
+export default defineConfig({
+  plugins: plugins,
+  build: {
+    rollupOptions: {
+      output: {
+        // [NOTE] when not in library mode, no new keys will be addedd or overwritten
+        // setting dir: isLibraryMode ? 'public/packs' : undefined will not work
+        ...(isLibraryMode
+          ? {
+              dir: 'public/packs',
+              entryFileNames: chunkInfo => {
+                if (chunkInfo.name === 'sdk') {
+                  return 'js/sdk.js';
+                }
+                return '[name].js';
+              },
+            }
+          : {}),
+        inlineDynamicImports: isLibraryMode, // Disable code-splitting for SDK
+      },
+    },
+    lib: isLibraryMode
+      ? {
+          entry: path.resolve(__dirname, './app/javascript/entrypoints/sdk.js'),
+          formats: ['iife'], // IIFE format for single file
+          name: 'sdk',
+        }
+      : undefined,
+  },
+  resolve: {
+    alias: {
+      vue: 'vue/dist/vue.esm-bundler.js',
+      components: path.resolve('./app/javascript/dashboard/components'),
+      next: path.resolve('./app/javascript/dashboard/components-next'),
+      v3: path.resolve('./app/javascript/v3'),
+      dashboard: path.resolve('./app/javascript/dashboard'),
+      helpers: path.resolve('./app/javascript/shared/helpers'),
+      shared: path.resolve('./app/javascript/shared'),
+      survey: path.resolve('./app/javascript/survey'),
+      widget: path.resolve('./app/javascript/widget'),
+... [TRUNCATED]
+
+[tailwind.config.js]
+const { slateDark } = require('@radix-ui/colors');
+import { colors } from './theme/colors';
+import { icons } from './theme/icons';
+const defaultTheme = require('tailwindcss/defaultTheme');
+const {
+  iconsPlugin,
+  getIconCollections,
+} = require('@egoist/tailwindcss-icons');
+
+const defaultSansFonts = [
+  '-apple-system',
+  'system-ui',
+  'BlinkMacSystemFont',
+  '"Segoe UI"',
+  'Roboto',
+  '"Helvetica Neue"',
+  'Tahoma',
+  'Arial',
+  'sans-serif !important',
+];
+
+const tailwindConfig = {
+  darkMode: 'class',
+  content: [
+    './enterprise/app/views/**/*.html.erb',
+    './app/javascript/widget/**/*.vue',
+    './app/javascript/v3/**/*.vue',
+    './app/javascript/dashboard/**/*.vue',
+    './app/javascript/portal/**/*.vue',
+    './app/javascript/shared/**/*.vue',
+    './app/javascript/survey/**/*.vue',
+    './app/javascript/dashboard/components-next/**/*.vue',
+    './app/javascript/dashboard/helper/**/*.js',
+    './app/javascript/dashboard/composables/**/*.js',
+    './app/javascript/dashboard/components-next/**/*.js',
+    './app/javascript/dashboard/routes/dashboard/**/**/*.js',
+    './app/views/**/*.html.erb',
+  ],
+  theme: {
+    extend: {
+      fontFamily: {
+        sans: defaultSansFonts,
+        inter: ['Inter', ...defaultSansFonts],
+        interDisplay: ['InterDisplay', ...defaultSansFonts],
+      },
+      fontWeight: {
+        420: '420',
+        440: '440',
+        460: '460',
+        520: '520',
+      },
+      typography: {
+        bubble: {
+          css: {
+            color: 'rgb(var(--slate-12))',
+            lineHeight: '1.6',
+            fontSize: '14px',
+            '*': {
+              '&:first-child': {
+                marginTop: '0',
+              },
+            },
+            overflowWrap: 'anywhere',
+
+            strong: {
+              color: 'rgb(var(--slate-12))',
+              fontWeight: '700',
+            },
+
+            b: {
+              color: 'rgb(var(--slate-12))',
+              fontWeight: '700',
+            },
+
+            h1: {
+              color: 'rgb(var(--slate-12))',
+              fontWeight: '700',
+              fontSize: '1.25rem',
+              '&:first-child': {
+                marginTop: '0',
+              },
+            },
+            h2: {
+              color: 'rgb(var(--slate-12))',
+              fontWeight: '700',
+              fontSize: '1rem',
+              '&:first-child': {
+                marginTop: '0',
+              },
+            },
+            h3: {
+              color: 'rgb(var(--slate-12))',
+              fontWeight: '700',
+              fontSize: '1rem',
+              '&:first-child': {
+                marginTop: '0',
+              },
+            },
+            hr: {
+              marginTop: '1.5em',
+              marginBottom: '1.5em',
+            },
+            a: {
+              color: 'rgb(var(--slate-12))',
+              textDecoration: 'underline',
+            },
+            ul: {
+              paddingInlineStart: '0.625em',
+            },
+            ol: {
+              paddingInlineSta
+... [TRUNCATED]
+
+[postcss.config.js]
+/* eslint-disable */
+module.exports = {
+  plugins: [
+    require('postcss-preset-env')({
+      autoprefixer: {
+        flexbox: 'no-2009',
+      },
+      stage: 3,
+    }),
+    require('postcss-import'),
+    require('tailwindcss'),
+    require('autoprefixer'),
+  ],
+};
+
+
+[.env.example]
+# Learn about the various environment variables at
+# https://www.chatwoot.com/docs/self-hosted/configuration/environment-variables/#rails-production-variables
+
+# Used to verify the integrity of signed cookies. so ensure a secure value is set
+# SECRET_KEY_BASE should be alphanumeric. Avoid special characters or symbols.
+# Use `rake secret` to generate this variable
+SECRET_KEY_BASE=replace_with_lengthy_secure_hex
+
+# Active Record Encryption keys (required for MFA/2FA functionality)
+# Generate these keys by running: rails db:encryption:init
+# IMPORTANT: Use different keys for each environment (development, staging, production)
+# ACTIVE_RECORD_ENCRYPTION_PRIMARY_KEY=
+# ACTIVE_RECORD_ENCRYPTION_DETERMINISTIC_KEY=
+# ACTIVE_RECORD_ENCRYPTION_KEY_DERIVATION_SALT=
+
+# Replace with the URL you are planning to use for your app
+FRONTEND_URL=http://0.0.0.0:3000
+# To use a dedicated URL for help center pages
+# HELPCENTER_URL=http://0.0.0.0:3000
+
+# If the variable is set, all non-authenticated pages would fallback to the default locale.
+# Whenever a new account is created, the default language will be DEFAULT_LOCALE instead of en
+# DEFAULT_LOCALE=en
+
+# If you plan to use CDN for your assets, set Asset CDN Host
+ASSET_CDN_HOST=
+
+# Force all access to the app over SSL, default is set to false
+FORCE_SSL=false
+
+# This lets you control new sign ups on your chatwoot installation
+# true : default option, allows sign ups
+# false : disables all the end points related to sign ups
+# api_only: disables the UI for signup, but you can create sign ups via the account apis
+ENABLE_ACCOUNT_SIGNUP=false
+
+# Redis config
+# specify the configs via single URL or individual variables
+# ref: https://www.iana.org/assignments/uri-schemes/prov/redis
+# You can also use the following format for the URL: redis://:password@host:port/db_number
+REDIS_URL=redis://redis:6379
+# If you are using docker-compose, set this variable's value to be any string,
+# which will be the password for the redis service running inside the docker-compose
+# to make it secure
+REDIS_PASSWORD=
+# Redis Sentinel can be used by passing list of sentinel host and ports e,g. sentinel_host1:port1,sentinel_host2:port2
+REDIS_SENTINELS=
+# Redis sentinel master name is required when using sentinel, default value is "mymaster".
+# You can find list of master using "SENTINEL masters" command
+REDIS_SENTINEL_MASTER_NAME=
+
+# By default Chatwoot will pass REDIS_PASSWORD as the password value for sentinels
+# Use the following environment variable to customize passwords for sentinels.
+# Use empty string if sentinels are configured with out passwords
+# REDIS_SENTINEL_PASSWORD=
+
+# Redis premium breakage in heroku fix
+# enable the following configuration
+# ref: https://github.com/chatwoot/chatwoot/issues/2420
+# REDIS_OPENSSL_VERIFY_MODE=none
+
+# Postgres Database config variables
+# You can leave POSTGRES_DATABASE blank. The default name of
+# the database in the production environment is chatwoot_production
+# POSTGRES_DATABASE=
+POSTGRES_HOST=pos
+... [TRUNCATED]
+
+[docker-compose.yaml]
+version: '3'
+
+services:
+  base: &base
+    build:
+      context: .
+      dockerfile: ./docker/Dockerfile
+      args:
+        BUNDLE_WITHOUT: ''
+        EXECJS_RUNTIME: 'Node'
+        RAILS_ENV: 'development'
+        RAILS_SERVE_STATIC_FILES: 'false'
+    tty: true
+    stdin_open: true
+    image: chatwoot:development
+    env_file: .env
+
+  rails:
+    <<: *base
+    build:
+      context: .
+      dockerfile: ./docker/dockerfiles/rails.Dockerfile
+    image: chatwoot-rails:development
+    volumes:
+      - ./:/app:delegated
+      - node_modules:/app/node_modules
+      - packs:/app/public/packs
+      - cache:/app/tmp/cache
+      - bundle:/usr/local/bundle
+    depends_on:
+      - postgres
+      - redis
+      - vite
+      - mailhog
+      - sidekiq
+    ports:
+      - 3000:3000
+    env_file: .env
+    environment:
+      - VITE_DEV_SERVER_HOST=vite
+      - NODE_ENV=development
+      - RAILS_ENV=development
+    entrypoint: docker/entrypoints/rails.sh
+    command: ["bundle", "exec", "rails", "s", "-p", "3000", "-b", "0.0.0.0"]
+
+  sidekiq:
+    <<: *base
+    image: chatwoot-rails:development
+    volumes:
+      - ./:/app:delegated
+      - node_modules:/app/node_modules
+      - packs:/app/public/packs
+      - cache:/app/tmp/cache
+      - bundle:/usr/local/bundle
+    depends_on:
+      - postgres
+      - redis
+      - mailhog
+    environment:
+      - NODE_ENV=development
+      - RAILS_ENV=development
+    command: ["bundle", "exec", "sidekiq", "-C", "config/sidekiq.yml"]
+
+  vite:
+    <<: *base
+    build:
+      context: .
+      dockerfile: ./docker/dockerfiles/vite.Dockerfile
+    image: chatwoot-vite:development
+    volumes:
+      - ./:/app:delegated
+      - node_modules:/app/node_modules
+      - packs:/app/public/packs
+      - cache:/app/tmp/cache
+      - bundle:/usr/local/bundle
+    ports:
+      - "3036:3036" # Vite dev server
+    environment:
+      - VITE_DEV_SERVER_HOST=0.0.0.0
+      - NODE_ENV=development
+      - RAILS_ENV=development
+    entrypoint: docker/entrypoints/vite.sh
+    command: bin/vite dev
+
+  postgres:
+    image: pgvector/pgvector:pg16
+    restart: always
+    ports:
+      - '5432:5432'
+    volumes:
+      - postgres:/data/postgres
+    environment:
+      - POSTGRES_DB=chatwoot
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=
+
+  redis:
+    image: redis:alpine
+    restart: always
+    command: ["sh", "-c", "redis-server --requirepass \"$REDIS_PASSWORD\""]
+    env_file: .env
+    volumes:
+      - redis:/data/redis
+    ports:
+      - '6379:6379'
+
+  mailhog:
+    image: mailhog/mailhog
+    ports:
+      - 1025:1025
+      - 8025:8025
+
+volumes:
+  postgres:
+  redis:
+  packs:
+  node_modules:
+  cache:
+  bundle:
+
+
+[Procfile]
+release: POSTGRES_STATEMENT_TIMEOUT=600s bundle exec rails db:chatwoot_prepare && echo $SOURCE_VERSION > .git_sha
+web: bundle exec rails ip_lookup:setup && bin/rails server -p $PORT -e $RAILS_ENV
+worker: bundle exec rails ip_lookup:setup && bundle exec sidekiq -C config/sidekiq.yml
+
+
+--- ENVIRONMENT VARIABLES (.env.example) ---
+# Learn about the various environment variables at
+# https://www.chatwoot.com/docs/self-hosted/configuration/environment-variables/#rails-production-variables
+
+# Used to verify the integrity of signed cookies. so ensure a secure value is set
+# SECRET_KEY_BASE should be alphanumeric. Avoid special characters or symbols.
+# Use `rake secret` to generate this variable
+SECRET_KEY_BASE=replace_with_lengthy_secure_hex
+
+# Active Record Encryption keys (required for MFA/2FA functionality)
+# Generate these keys by running: rails db:encryption:init
+# IMPORTANT: Use different keys for each environment (development, staging, production)
+# ACTIVE_RECORD_ENCRYPTION_PRIMARY_KEY=
+# ACTIVE_RECORD_ENCRYPTION_DETERMINISTIC_KEY=
+# ACTIVE_RECORD_ENCRYPTION_KEY_DERIVATION_SALT=
+
+# Replace with the URL you are planning to use for your app
+FRONTEND_URL=http://0.0.0.0:3000
+# To use a dedicated URL for help center pages
+# HELPCENTER_URL=http://0.0.0.0:3000
+
+# If the variable is set, all non-authenticated pages would fallback to the default locale.
+# Whenever a new account is created, the default language will be DEFAULT_LOCALE instead of en
+# DEFAULT_LOCALE=en
+
+# If you plan to use CDN for your assets, set Asset CDN Host
+ASSET_CDN_HOST=
+
+# Force all access to the app over SSL, default is set to false
+FORCE_SSL=false
+
+# This lets you control new sign ups on your chatwoot installation
+# true : default option, allows sign ups
+# false : disables all the end points related to sign ups
+# api_only: disables the UI for signup, but you can create sign ups via the account apis
+ENABLE_ACCOUNT_SIGNUP=false
+
+# Redis config
+# specify the configs via single URL or individual variables
+# ref: https://www.iana.org/assignments/uri-schemes/prov/redis
+# You can also use the following format for the URL: redis://:password@host:port/db_number
+REDIS_URL=redis://redis:6379
+# If you are using docker-compose, set this variable's value to be any string,
+# which will be the password for the redis service running inside the docker-compose
+# to make it secure
+REDIS_PASSWORD=
+# Redis Sentinel can be used by passing list of sentinel host and ports e,g. sentinel_host1:port1,sentinel_host2:port2
+REDIS_SENTINELS=
+# Redis sentinel master name is required when using sentinel, default value is "mymaster".
+# You can find list of master using "SENTINEL masters" command
+REDIS_SENTINEL_MASTER_NAME=
+
+# By default Chatwoot will pass REDIS_PASSWORD as the password value for sentinels
+# Use the following environment variable to customize passwords for sentinels.
+# Use empty string if sentinels are configured with out passwords
+# REDIS_SENTINEL_PASSWORD=
+
+# Redis premium breakage in heroku fix
+# enable the following configuration
+# ref: https://github.com/chatwoot/chatwoot/issues/2420
+# REDIS_OPENSSL_VERIFY_MODE=none
+
+# Postgres Database config variables
+# You can leave POSTGRES_DATABASE blank. The default name of
+# the database in the production environment is chatwoot_production
+# POSTGRES_DATABASE=
+POSTGRES_HOST=pos
+... [TRUNCATED]
+
+--- ROUTE / PAGE DEFINITIONS ---
+
+[app/javascript/dashboard/api/customViews.js]
+/* global axios */
+import ApiClient from './ApiClient';
+
+class CustomViewsAPI extends ApiClient {
+  constructor() {
+    super('custom_filters', { accountScoped: true });
+  }
+
+  getCustomViewsByFilterType(type) {
+    return axios.get(`${this.url}?filter_type=${type}`);
+  }
+
+  deleteCustomViews(id, type) {
+    return axios.delete(`${this.url}/${id}?filter_type=${type}`);
+  }
+}
+
+export default new CustomViewsAPI();
+
+
+[app/javascript/dashboard/components-next/Campaigns/Pages/CampaignPage/CampaignList.vue]
+<script setup>
+import CampaignCard from 'dashboard/components-next/Campaigns/CampaignCard/CampaignCard.vue';
+
+defineProps({
+  campaigns: {
+    type: Array,
+    required: true,
+  },
+  isLiveChatType: {
+    type: Boolean,
+    default: false,
+  },
+});
+
+const emit = defineEmits(['edit', 'delete']);
+
+const handleEdit = campaign => emit('edit', campaign);
+const handleDelete = campaign => emit('delete', campaign);
+</script>
+
+<template>
+  <div class="flex flex-col gap-4">
+    <CampaignCard
+      v-for="campaign in campaigns"
+      :key="campaign.id"
+      :title="campaign.title"
+      :message="campaign.message"
+      :is-enabled="campaign.enabled"
+      :status="campaign.campaign_status"
+      :sender="campaign.sender"
+      :inbox="campaign.inbox"
+      :scheduled-at="campaign.scheduled_at"
+      :is-live-chat-type="isLiveChatType"
+      @edit="handleEdit(campaign)"
+      @delete="handleDelete(campaign)"
+    />
+  </div>
+</template>
+
+
+[app/javascript/dashboard/components-next/Campaigns/Pages/CampaignPage/ConfirmDeleteCampaignDialog.vue]
+<script setup>
+import { ref } from 'vue';
+import { useStore } from 'dashboard/composables/store';
+import { useI18n } from 'vue-i18n';
+import { useAlert } from 'dashboard/composables';
+
+import Dialog from 'dashboard/components-next/dialog/Dialog.vue';
+
+const props = defineProps({
+  selectedCampaign: {
+    type: Object,
+    default: null,
+  },
+});
+
+const { t } = useI18n();
+const store = useStore();
+
+const dialogRef = ref(null);
+
+const deleteCampaign = async id => {
+  if (!id) return;
+
+  try {
+    await store.dispatch('campaigns/delete', id);
+    useAlert(t('CAMPAIGN.CONFIRM_DELETE.API.SUCCESS_MESSAGE'));
+  } catch (error) {
+    useAlert(t('CAMPAIGN.CONFIRM_DELETE.API.ERROR_MESSAGE'));
+  }
+};
+
+const handleDialogConfirm = async () => {
+  await deleteCampaign(props.selectedCampaign.id);
+  dialogRef.value?.close();
+};
+
+defineExpose({ dialogRef });
+</script>
+
+<template>
+  <Dialog
+    ref="dialogRef"
+    type="alert"
+    :title="t('CAMPAIGN.CONFIRM_DELETE.TITLE')"
+    :description="t('CAMPAIGN.CONFIRM_DELETE.DESCRIPTION')"
+    :confirm-button-label="t('CAMPAIGN.CONFIRM_DELETE.CONFIRM')"
+    @confirm="handleDialogConfirm"
+  />
+</template>
+
+
+[app/javascript/dashboard/components-next/Campaigns/Pages/CampaignPage/LiveChatCampaign/EditLiveChatCampaignDialog.vue]
+<script setup>
+import { ref, computed } from 'vue';
+import { useMapGetter, useStore } from 'dashboard/composables/store';
+import { useAlert } from 'dashboard/composables';
+import { useI18n } from 'vue-i18n';
+
+import Dialog from 'dashboard/components-next/dialog/Dialog.vue';
+import LiveChatCampaignForm from 'dashboard/components-next/Campaigns/Pages/CampaignPage/LiveChatCampaign/LiveChatCampaignForm.vue';
+
+const props = defineProps({
+  selectedCampaign: {
+    type: Object,
+    default: null,
+  },
+});
+
+const { t } = useI18n();
+const store = useStore();
+
+const dialogRef = ref(null);
+const liveChatCampaignFormRef = ref(null);
+
+const uiFlags = useMapGetter('campaigns/getUIFlags');
+const isUpdatingCampaign = computed(() => uiFlags.value.isUpdating);
+
+const isInvalidForm = computed(
+  () => liveChatCampaignFormRef.value?.isSubmitDisabled
+);
+
+const selectedCampaignId = computed(() => props.selectedCampaign.id);
+
+const updateCampaign = async campaignDetails => {
+  try {
+    await store.dispatch('campaigns/update', {
+      id: selectedCampaignId.value,
+      ...campaignDetails,
+    });
+
+    useAlert(t('CAMPAIGN.LIVE_CHAT.EDIT.FORM.API.SUCCESS_MESSAGE'));
+    dialogRef.value.close();
+  } catch (error) {
+    const errorMessage =
+      error?.response?.message ||
+      t('CAMPAIGN.LIVE_CHAT.EDIT.FORM.API.ERROR_MESSAGE');
+    useAlert(errorMessage);
+  }
+};
+
+const handleSubmit = () => {
+  updateCampaign(liveChatCampaignFormRef.value.prepareCampaignDetails());
+};
+
+defineExpose({ dialogRef });
+</script>
+
+<template>
+  <Dialog
+    ref="dialogRef"
+    type="edit"
+    :title="t('CAMPAIGN.LIVE_CHAT.EDIT.TITLE')"
+    :is-loading="isUpdatingCampaign"
+    :disable-confirm-button="isUpdatingCampaign || isInvalidForm"
+    overflow-y-auto
+    @confirm="handleSubmit"
+  >
+    <LiveChatCampaignForm
+      ref="liveChatCampaignFormRef"
+      mode="edit"
+      :selected-campaign="selectedCampaign"
+      :show-action-buttons="false"
+      @submit="handleSubmit"
+    />
+  </Dialog>
+</template>
+
+
+[app/javascript/dashboard/components-next/Campaigns/Pages/CampaignPage/LiveChatCampaign/LiveChatCampaignDialog.vue]
+<script setup>
+import { useI18n } from 'vue-i18n';
+import { useStore } from 'dashboard/composables/store';
+import { useAlert, useTrack } from 'dashboard/composables';
+import { CAMPAIGN_TYPES } from 'shared/constants/campaign.js';
+import { CAMPAIGNS_EVENTS } from 'dashboard/helper/AnalyticsHelper/events.js';
+
+import LiveChatCampaignForm from 'dashboard/components-next/Campaigns/Pages/CampaignPage/LiveChatCampaign/LiveChatCampaignForm.vue';
+
+const emit = defineEmits(['close']);
+
+const store = useStore();
+const { t } = useI18n();
+
+const addCampaign = async campaignDetails => {
+  try {
+    await store.dispatch('campaigns/create', campaignDetails);
+
+    // tracking this here instead of the store to track the type of campaign
+    useTrack(CAMPAIGNS_EVENTS.CREATE_CAMPAIGN, {
+      type: CAMPAIGN_TYPES.ONGOING,
+    });
+
+    useAlert(t('CAMPAIGN.LIVE_CHAT.CREATE.FORM.API.SUCCESS_MESSAGE'));
+  } catch (error) {
+    const errorMessage =
+      error?.response?.message ||
+      t('CAMPAIGN.LIVE_CHAT.CREATE.FORM.API.ERROR_MESSAGE');
+    useAlert(errorMessage);
+  }
+};
+
+const handleClose = () => emit('close');
+
+const handleSubmit = campaignDetails => {
+  addCampaign(campaignDetails);
+  handleClose();
+};
+</script>
+
+<template>
+  <div
+    class="w-[25rem] z-50 min-w-0 absolute top-10 ltr:right-0 rtl:left-0 bg-n-alpha-3 backdrop-blur-[100px] p-6 rounded-xl border border-n-weak shadow-md flex flex-col gap-6 max-h-[85vh] overflow-y-auto"
+  >
+    <h3 class="text-base font-medium text-n-slate-12">
+      {{ t(`CAMPAIGN.LIVE_CHAT.CREATE.TITLE`) }}
+    </h3>
+    <LiveChatCampaignForm
+      mode="create"
+      @submit="handleSubmit"
+      @cancel="handleClose"
+    />
+  </div>
+</template>
+
+
+--- DIRECTORY STRUCTURE (depth 2) ---
+├── .all-contributorsrc
+├── .browserslistrc
+├── .bundler-audit.yml
+├── .circleci/
+│   ├── config.yml
+│   └── setup_chatwoot.sql
+├── .dependabot/
+│   └── config.yml
+├── .devcontainer/
+│   ├── Dockerfile
+│   ├── Dockerfile.base
+│   ├── devcontainer.json
+│   ├── docker-compose.base.yml
+│   ├── docker-compose.yml
+│   └── scripts/
+│       └── setup.sh
+├── .dockerignore
+├── .editorconfig
+├── .env.example
+├── .eslintrc.js
+├── .github/
+│   ├── CODEOWNERS
+│   ├── FUNDING.yml
+│   ├── ISSUE_TEMPLATE/
+│   │   ├── bug_report.yml
+│   │   ├── config.yml
+│   │   └── feature_request.yml
+│   ├── PULL_REQUEST_TEMPLATE.md
+│   ├── screenshots/
+│   │   ├── dashboard-dark.png
+│   │   ├── dashboard.png
+│   │   ├── header-dark.png
+│   │   └── header.png
+│   └── workflows/
+│       ├── auto-assign-pr.yml
+│       ├── deploy_check.yml
+│       ├── frontend-fe.yml
+│       ├── lint_pr.yml
+│       ├── lock.yml
+│       ├── logging_percentage_check.yml
+│       ├── nightly_installer.yml
+│       ├── publish_codespace_image.yml
+│       ├── publish_ee_docker.yml
+│       ├── publish_foss_docker.yml
+│       ├── run_foss_spec.yml
+│       ├── run_mfa_spec.yml
+│       ├── size-limit.yml
+│       ├── stale.yml
+│       └── test_docker_build.yml
+├── .gitignore
+├── .husky/
+│   ├── pre-commit
+│   └── pre-push
+├── .nvmrc
+├── .prettierrc
+├── .qlty/
+│   ├── .gitignore
+│   ├── configs/
+│   │   ├── .hadolint.yaml
+│   │   ├── .shellcheckrc
+│   │   └── .yamllint.yaml
+│   └── qlty.toml
+├── .rspec
+├── .rubocop.yml
+├── .ruby-version
+├── .scss-lint.yml
+├── .slugignore
+├── .vscode/
+│   ├── extensions.json
+│   └── settings.json
+├── .windsurf/
+│   └── rules/
+│       └── chatwoot.md
+├── AGENTS.md
+├── CLAUDE.md
+├── CODE_OF_CONDUCT.md
+├── CONTRIBUTING.md
+├── Capfile
+├── Gemfile
+├── Gemfile.lock
+├── LICENSE
+├── Makefile
+├── Procfile
+├── Procfile.dev
+├── Procfile.test
+├── Procfile.tunnel
+├── README.md
+├── Rakefile
+├── SECURITY.md
+├── VERSION_CW
+├── VERSION_CWCTL
+├── __mocks__/
+│   └── fileMock.js
+├── app.json
+├── app/
+│   ├── actions/
+│   │   ├── contact_identify_action.rb
+│   │   └── contact_merge_action.rb
+│   ├── assets/
+│   │   ├── config/
+│   │   ├── images/
+│   │   ├── javascripts/
+│   │   └── stylesheets/
+│   ├── builders/
+│   │   ├── account_builder.rb
+│   │   ├── agent_builder.rb
+│   │   ├── campaigns/
+│   │   ├── contact_inbox_builder.rb
+│   │   ├── contact_inbox_with_contact_builder.rb
+│   │   ├── conversation_builder.rb
+│   │   ├── csat_surveys/
+│   │   ├── email/
+│   │   ├── messages/
+│   │   ├── notification_builder.rb
+│   │   ├── notification_subscription_builder.rb
+│   │   ├── v2/
+│   │   └── year_in_review_builder.rb
+│   ├── channels/
+│   │   ├── application_cable/
+│   │   └── room_channel.rb
+│   ├── controllers/
+│   │   ├── android_app_controller.rb
+│   │   ├── api/
+│   │   ├── api_controller.rb
+│   │   ├── apple_app_controller.rb
+│   │   ├── application_controller.rb
+│   │   ├── concerns/
+│   │   ├── dashboard_controller.rb
+│   │   ├── devise_overrides/
+│   │   ├── google/
+│   │   ├── health_controller.rb
+│   │   ├── instagram/
+│   │   ├── installation/
+│   │   ├── linear/
+│   │   ├── microsoft/
+│   │   ├── microsoft_controller.rb
+│   │   ├── notion/
+│   │   ├── oauth_callback_controller.rb
+│   │   ├── platform/
+│   │   ├── platform_controller.rb
+│   │   ├── public/
+│   │   ├── public_controller.rb
+│   │   ├── shopify/
+│   │   ├── slack_uploads_controller.rb
+│   │   ├── super_admin/
+│   │   ├── survey/
+│   │   ├── swagger_controller.rb
+│   │   ├── tiktok/
+│   │   ├── twilio/
+│   │   ├── twitter/
+│   │   ├── webhooks/
+│   │   ├── widget_tests_controller.rb
+│   │   └── widgets_controller.rb
+│   ├── dashboards/
+│   │   ├── access_token_dashboard.rb
+│   │   ├── account_dashboard.rb
+│   │   ├── account_user_dashboard.rb
+│   │   ├── agent_bot_dashboard.rb
+│   │   ├── installation_config_dashboard.rb
+│   │   ├── platform_app_dashboard.rb
+│   │   └── user_dashboard.rb
+│   ├── dispatchers/
+│   │   ├── async_dispatcher.rb
+│   │   ├── base_dispatcher.rb
+│   │   ├── dispatcher.rb
+│   │   └── sync_dispatcher.rb
+│   ├── drops/
+│   │   ├── account_drop.rb
+│   │   ├── base_drop.rb
+│   │   ├── contact_drop.rb
+│   │   ├── conversation_drop.rb
+│   │   ├── inbox_drop.rb
+│   │   ├── message_drop.rb
+│   │   └── user_drop.rb
+│   ├── fields/
+│   │   ├── avatar_field.rb
+│   │   ├── count_field.rb
+│   │   ├── secret_field.rb
+│   │   └── serialized_field.rb
+│   ├── finders/
+│   │   ├── conversation_finder.rb
+│   │   ├── email_channel_finder.rb
+│   │   ├── message_finder.rb
+│   │   └── notification_finder.rb
+│   ├── helpers/
+│   │   ├── api/
+│   │   ├── application_helper.rb
+│   │   ├── billing_helper.rb
+│   │   ├── cache_keys_helper.rb
+│   │   ├── contact_helper.rb
+│   │   ├── data_helper.rb
+│   │   ├── date_range_helper.rb
+│   │   ├── email_helper.rb
+│   │   ├── file_type_helper.rb
+│   │   ├── filters/
+│   │   ├── frontend_urls_helper.rb
+│   │   ├── home_helper.rb
+│   │   ├── instagram/
+│   │   ├── linear/
+│   │   ├── message_format_helper.rb
+│   │   ├── portal_helper.rb
+│   │   ├── report_helper.rb
+│   │   ├── reporting_event_helper.rb
+│   │   ├── shopify/
+│   │   ├── super_admin/
+│   │   ├── tiktok/
+│   │   ├── timezone_helper.rb
+│   │   └── widget_helper.rb
+│   ├── javascript/
+│   │   ├── dashboard/
+│   │   ├── design-system/
+│   │   ├── entrypoints/
+│   │   ├── histoire.setup.ts
+│   │   ├── portal/
+│   │   ├── sdk/
+│   │   ├── shared/
+│   │   ├── superadmin_pages/
+│   │   ├── survey/
+│   │   ├── v3/
+│   │   └── widget/
+│   ├── jobs/
+│   │   ├── account/
+│   │   ├── action_cable_broadcast_job.rb
+│   │   ├── agent_bots/
+│   │   ├── agents/
+│   │   ├── application_job.rb
+│   │   ├── auto_assignment/
+│   │   ├── avatar/
+│   │   ├── bulk_actions_job.rb
+│   │   ├── campaigns/
+│   │   ├── channels/
+│   │   ├── companies/
+│   │   ├── contact_ip_lookup_job.rb
+│   │   ├── contacts/
+│   │   ├── conversation_reply_email_job.rb
+│   │   ├── conversations/
+│   │   ├── crm/
+│   │   ├── data_import_job.rb
+│   │   ├── delete_object_job.rb
+│   │   ├── event_dispatcher_job.rb
+│   │   ├── hook_job.rb
+│   │   ├── inboxes/
+│   │   ├── internal/
+│   │   ├── labels/
+│   │   ├── macros_execution_job.rb
+│   │   ├── migration/
+│   │   ├── mutex_application_job.rb
+│   │   ├── notification/
+│   │   ├── send_on_slack_job.rb
+│   │   ├── send_reply_job.rb
+│   │   ├── slack_unfurl_job.rb
+│   │   ├── trigger_scheduled_items_job.rb
+│   │   ├── webhook_job.rb
+│   │   └── webhooks/
+│   ├── listeners/
+│   │   ├── action_cable_listener.rb
+│   │   ├── agent_bot_listener.rb
+│   │   ├── automation_rule_listener.rb
+│   │   ├── base_listener.rb
+│   │   ├── campaign_listener.rb
+│   │   ├── csat_survey_listener.rb
+│   │   ├── hook_listener.rb
+│   │   ├── installation_webhook_listener.rb
+│   │   ├── notification_listener.rb
+│   │   ├── participation_listener.rb
+│   │   ├── reporting_event_listener.rb
+│   │   └── webhook_listener.rb
+│   ├── mailboxes/
+│   │   ├── application_mailbox.rb
+│   │   ├── default_mailbox.rb
+│   │   ├── imap/
+│   │   ├── incoming_email_validity_helper.rb
+│   │   ├── mailbox_helper.rb
+│   │   └── reply_mailbox.rb
+│   ├── mailers/
+│   │   ├── administrator_notifications/
+│   │   ├── agent_notifications/
+│   │   ├── application_mailer.rb
+│   │   ├── conversation_reply_mailer.rb
+│   │   ├── conversation_reply_mailer_attachment_helper.rb
+│   │   ├── conversation_reply_mailer_helper.rb
+│   │   ├── portal_instructions_mailer.rb
+│   │   ├── references_header_builder.rb
+│   │   └── team_notifications/
+│   ├── models/
+│   │   ├── access_token.rb
+│   │   ├── account.rb
+│   │   ├── account_user.rb
+│   │   ├── agent_bot.rb
+│   │   ├── agent_bot_inbox.rb
+│   │   ├── application_record.rb
+│   │   ├── article.rb
+│   │   ├── assignment_policy.rb
+│   │   ├── attachment.rb
+│   │   ├── automation_rule.rb
+│   │   ├── campaign.rb
+│   │   ├── canned_response.rb
+│   │   ├── category.rb
+│   │   ├── channel/
+│   │   ├── concerns/
+│   │   ├── contact.rb
+│   │   ├── contact_inbox.rb
+│   │   ├── conversation.rb
+│   │   ├── conversation_participant.rb
+│   │   ├── csat_survey_response.rb
+│   │   ├── custom_attribute_definition.rb
+│   │   ├── custom_filter.rb
+│   │   ├── dashboard_app.rb
+│   │   ├── data_import.rb
+│   │   ├── email_template.rb
+│   │   ├── folder.rb
+│   │   ├── inbox.rb
+│   │   ├── inbox_assignment_policy.rb
+│   │   ├── inbox_member.rb
+│   │   ├── installation_config.rb
+│   │   ├── integrations.rb
+│   │   ├── integrations/
+│   │   ├── jsonb_attributes_length_validator.rb
+│   │   ├── kbase.rb
+│   │   ├── label.rb
+│   │   ├── macro.rb
+│   │   ├── mention.rb
+│   │   ├── message.rb
+│   │   ├── note.rb
+│   │   ├── notification.rb
+│   │   ├── notification_setting.rb
+│   │   ├── notification_subscription.rb
+│   │   ├── platform_app.rb
+│   │   ├── platform_app_permissible.rb
+│   │   ├── portal.rb
+│   │   ├── related_category.rb
+│   │   ├── reporting_event.rb
+│   │   ├── super_admin.rb
+│   │   ├── team.rb
+│   │   ├── team_member.rb
+│   │   ├── user.rb
+│   │   ├── webhook.rb
+│   │   └── working_hour.rb
+│   ├── policies/
+│   │   ├── account_policy.rb
+│   │   ├── agent_bot_policy.rb
+│   │   ├── application_policy.rb
+│   │   ├── article_policy.rb
+│   │   ├── assignment_policy_policy.rb
+│   │   ├── automation_rule_policy.rb
+│   │   ├── campaign_policy.rb
+│   │   ├── captain/
+│   │   ├── category_policy.rb
+│   │   ├── contact_policy.rb
+│   │   ├── conversation_policy.rb
+│   │   ├── csat_survey_response_policy.rb
+│   │   ├── custom_filter_policy.rb
+│   │   ├── hook_policy.rb
+│   │   ├── inbox_policy.rb
+│   │   ├── label_policy.rb
+│   │   ├── macro_policy.rb
+│   │   ├── portal_policy.rb
+│   │   ├── report_policy.rb
+│   │   ├── team_member_policy.rb
+│   │   ├── team_policy.rb
+│   │   ├── user_policy.rb
+│   │   └── webhook_policy.rb
+│   ├── presenters/
+│   │   ├── agent_bot_presenter.rb
+│   │   ├── conversations/
+│   │   ├── html_parser.rb
+│   │   ├── inbox/
+│   │   ├── mail_presenter.rb
+│   │   ├── message_content_presenter.rb
+│   │   ├── messages/
+│   │   └── reports/
+│   ├── services/
+│   │   ├── account/
+│   │   ├── account_deletion_service.rb
+│   │   ├── action_service.rb
+│   │   ├── auto_assignment/
+│   │   ├── automation_rules/
+│   │   ├── base/
+│   │   ├── base_refresh_oauth_token_service.rb
+│   │   ├── base_token_service.rb
+│   │   ├── contacts/
+│   │   ├── conversations/
+│   │   ├── crm/
+│   │   ├── csat_survey_service.rb
+│   │   ├── csat_template_management_service.rb
+│   │   ├── csat_template_name_service.rb
+│   │   ├── csat_template_utility_analysis_service.rb
+│   │   ├── csat_template_utility_rubric.rb
+│   │   ├── data_import/
+│   │   ├── email/
+│   │   ├── email_templates/
+│   │   ├── facebook/
+│   │   ├── filter_service.rb
+│   │   ├── geocoder/
+│   │   ├── google/
+│   │   ├── imap/
+│   │   ├── instagram/
+│   │   ├── internal/
+│   │   ├── ip_lookup_service.rb
+│   │   ├── labels/
+│   │   ├── line/
+│   │   ├── linear/
+│   │   ├── liquid/
+│   │   ├── llm_formatter/
+│   │   ├── macros/
+│   │   ├── mailbox/
+│   │   ├── message_templates/
+│   │   ├── messages/
+│   │   ├── mfa/
+│   │   ├── microsoft/
+│   │   ├── notification/
+│   │   ├── search_service.rb
+│   │   ├── sms/
+│   │   ├── telegram/
+│   │   ├── tiktok/
+│   │   ├── twilio/
+│   │   ├── twitter/
+│   │   ├── whatsapp/
+│   │   └── widget/
+│   └── views/
+│       ├── android_app/
+│       ├── api/
+│       ├── apple_app/
+│       ├── dashboard/
+│       ├── devise/
+│       ├── fields/
+│       ├── icons/
+│       ├── installation/
+│       ├── layouts/
+│       ├── mailers/
+│       ├── microsoft/
+│       ├── platform/
+│       ├── public/
+│       ├── super_admin/
+│       ├── survey/
+│       ├── widget_tests/
+│       └── widgets/
+├── bin/
+│   ├── bundle
+│   ├── rails
+│   ├── rake
+│   ├── setup
+│   ├── spring
+│   ├── sync_i18n_file_change
+│   ├── update
+│   ├── validate_push
+│   ├── vite
+│   └── yarn
+├── clevercloud/
+│   └── ruby.json
+├── config.ru
+├── config/
+│   ├── agents/
+│   │   └── tools.yml
+│   ├── app.yml
+│   ├── application.rb
+│   ├── boot.rb
+│   ├── cable.yml
+│   ├── database.yml
+│   ├── elastic_apm.yml
+│   ├── environment.rb
+│   ├── environments/
+│   │   ├── development.rb
+│   │   ├── production.rb
+│   │   ├── staging.rb
+│   │   └── test.rb
+│   ├── features.yml
+│   ├── initializers/
+│   │   ├── 00_init.rb
+│   │   ├── 01_inject_enterprise_edition_module.rb
+│   │   ├── 01_redis.rb
+│   │   ├── actioncable.rb
+│   │   ├── active_record_query_trace.rb
+│   │   ├── ai_agents.rb
+│   │   ├── application_controller_renderer.rb
+│   │   ├── assets.rb
+│   │   ├── audited.rb
+│   │   ├── backtrace_silencers.rb
+│   │   ├── content_security_policy.rb
+│   │   ├── cookies_serializer.rb
+│   │   ├── cors.rb
+│   │   ├── custom_error_codes.rb
+│   │   ├── datadog.rb
+│   │   ├── devise.rb
+│   │   ├── devise_token_auth.rb
+│   │   ├── event_handlers.rb
+│   │   ├── facebook_messenger.rb
+│   │   ├── feature_policy.rb
+│   │   ├── filter_parameter_logging.rb
+│   │   ├── geocoder.rb
+│   │   ├── git_sha.rb
+│   │   ├── inflections.rb
+│   │   ├── languages.rb
+│   │   ├── liquid_handler.rb
+│   │   ├── lograge.rb
+│   │   ├── mailer.rb
+│   │   ├── mime_types.rb
+│   │   ├── monkey_patches/
+│   │   ├── omniauth.rb
+│   │   ├── permissions_policy.rb
+│   │   ├── rack_attack.rb
+│   │   ├── rack_profiler.rb
+│   │   ├── rack_timeout.rb
+│   │   ├── searchkick.rb
+│   │   ├── secure_password.rb
+│   │   ├── sentry.rb
+│   │   ├── session_store.rb
+│   │   ├── sidekiq.rb
+│   │   ├── stripe.rb
+│   │   ├── warden_hooks.rb
+│   │   └── wrap_parameters.rb
+│   ├── installation_config.yml
+│   ├── integration/
+│   │   └── apps.yml
+│   ├── languages/
+│   │   └── language_map.yml
+│   ├── llm.yml
+│   ├── locales/
+│   │   ├── am.yml
+│   │   ├── ar.yml
+│   │   ├── az.yml
+│   │   ├── bg.yml
+│   │   ├── bn.yml
+│   │   ├── ca.yml
+│   │   ├── cs.yml
+│   │   ├── da.yml
+│   │   ├── de.yml
+│   │   ├── devise.am.yml
+│   │   ├── devise.ar.yml
+│   │   ├── devise.az.yml
+│   │   ├── devise.bg.yml
+│   │   ├── devise.bn.yml
+│   │   ├── devise.ca.yml
+│   │   ├── devise.cs.yml
+│   │   ├── devise.da.yml
+│   │   ├── devise.de.yml
+│   │   ├── devise.el.yml
+│   │   ├── devise.en.yml
+│   │   ├── devise.es.yml
+│   │   ├── devise.et.yml
+│   │   ├── devise.fa.yml
+│   │   ├── devise.fi.yml
+│   │   ├── devise.fr.yml
+│   │   ├── devise.he.yml
+│   │   ├── devise.hi.yml
+│   │   ├── devise.hr.yml
+│   │   ├── devise.hu.yml
+│   │   ├── devise.hy.yml
+│   │   ├── devise.id.yml
+│   │   ├── devise.is.yml
+│   │   ├── devise.it.yml
+│   │   ├── devise.ja.yml
+│   │   ├── devise.ka.yml
+│   │   ├── devise.ko.yml
+│   │   ├── devise.lt.yml
+│   │   ├── devise.lv.yml
+│   │   ├── devise.ml.yml
+│   │   ├── devise.ms.yml
+│   │   ├── devise.ne.yml
+│   │   ├── devise.nl.yml
+│   │   ├── devise.no.yml
+│   │   ├── devise.pl.yml
+│   │   ├── devise.pt.yml
+│   │   ├── devise.pt_BR.yml
+│   │   ├── devise.ro.yml
+│   │   ├── devise.ru.yml
+│   │   ├── devise.sh.yml
+│   │   ├── devise.sk.yml
+│   │   ├── devise.sl.yml
+│   │   ├── devise.sq.yml
+│   │   ├── devise.sr.yml
+│   │   ├── devise.sv.yml
+│   │   ├── devise.ta.yml
+│   │   ├── devise.th.yml
+│   │   ├── devise.tl.yml
+│   │   ├── devise.tr.yml
+│   │   ├── devise.uk.yml
+│   │   ├── devise.ur.yml
+│   │   ├── devise.ur_IN.yml
+│   │   ├── devise.vi.yml
+│   │   ├── devise.zh.yml
+│   │   ├── devise.zh_CN.yml
+│   │   ├── devise.zh_TW.yml
+│   │   ├── el.yml
+│   │   ├── en.yml
+│   │   ├── es.yml
+│   │   ├── et.yml
+│   │   ├── fa.yml
+│   │   ├── fi.yml
+│   │   ├── fr.yml
+│   │   ├── he.yml
+│   │   ├── hi.yml
+│   │   ├── hr.yml
+│   │   ├── hu.yml
+│   │   ├── hy.yml
+│   │   ├── id.yml
+│   │   ├── is.yml
+│   │   ├── it.yml
+│   │   ├── ja.yml
+│   │   ├── ka.yml
+│   │   ├── ko.yml
+│   │   ├── lt.yml
+│   │   ├── lv.yml
+│   │   ├── ml.yml
+│   │   ├── ms.yml
+│   │   ├── ne.yml
+│   │   ├── nl.yml
+│   │   ├── no.yml
+│   │   ├── pl.yml
+│   │   ├── pt.yml
+│   │   ├── pt_BR.yml
+│   │   ├── ro.yml
+│   │   ├── ru.yml
+│   │   ├── secure_password.en.yml
+│   │   ├── sh.yml
+│   │   ├── sk.yml
+│   │   ├── sl.yml
+│   │   ├── sq.yml
+│   │   ├── sr.yml
+│   │   ├── sv.yml
+│   │   ├── ta.yml
+│   │   ├── th.yml
+│   │   ├── tl.yml
+│   │   ├── tr.yml
+│   │   ├── uk.yml
+│   │   ├── ur.yml
+│   │   ├── ur_IN.yml
+│   │   ├── vi.yml
+│   │   ├── zh.yml
+│   │   ├── zh_CN.yml
+│   │   └── zh_TW.yml
+│   ├── markdown_embeds.yml
+│   ├── newrelic.yml
+│   ├── puma.rb
+│   ├── rds-ca-2019-root.pem
+│   ├── routes.rb
+│   ├── schedule.yml
+│   ├── scout_apm.yml
+│   ├── secrets.yml
+│   ├── sidekiq.yml
+│   ├── spring.rb
+│   ├── storage.yml
+│   └── vite.json
+├── crowdin.yml
+├── db/
+│   ├── migrate/
+│   │   ├── 20230426130150_init_schema.rb
+│   │   ├── 20230503101201_create_sla_policies.rb
+│   │   ├── 20230509101256_add_index_to_messages_created_at.rb
+│   │   ├── 20230510060828_add_index_to_messages_for_reportings.rb
+│   │   ├── 20230510113208_set_default_empty_string_for_contact_name.rb
+│   │   ├── 20230515051424_update_article_image_keys.rb
+│   │   ├── 20230523104139_add_partial_index_for_resolved_contacts.rb
+│   │   ├── 20230525085402_add_custom_sender_name_toggle.rb
+│   │   ├── 20230608040738_add_processed_message_content_to_messages.rb
+│   │   ├── 20230612103936_add_index_to_reporting_events.rb
+│   │   ├── 20230614044633_add_sender_name_to_in.rb
+│   │   ├── 20230620132319_add_sla_policy_to_conversations.rb
+│   │   ├── 20230620212340_add_waiting_since_to_conversations.rb
+│   │   ├── 20230706090122_sentiment_column_to_messages.rb
+│   │   ├── 20230714054138_add_api_key_sid_to_twilio_sms.rb
+│   │   ├── 20230727065605_add_partial_index_contact_account_id.rb
+│   │   ├── 20230801180936_update_default_status_in_hooks.rb
+│   │   ├── 20230905060223_add_regex_to_custom_attribute_definition.rb
+│   │   ├── 20231011041615_ensure_message_private_not_null.rb
+│   │   ├── 20231013072802_add_icon_to_categories.rb
+│   │   ├── 20231114111614_change_feature_flags_to_bigint_in_accounts.rb
+│   │   ├── 20231129091149_add_snoozed_until_to_notifications.rb
+│   │   ├── 20231201014644_remove_notifications_with_message_primary_actor.rb
+│   │   ├── 20231211010807_add_cached_labels_list.rb
+│   │   ├── 20231219000743_re_run_cache_label_job.rb
+│   │   ├── 20231219073832_add_last_activity_at_to_notifications.rb
+│   │   ├── 20231223033019_refactor_sla_policy_columns.rb
+│   │   ├── 20231223040257_create_applied_slas.rb
+│   │   ├── 20240124054340_add_contact_type_to_contacts.rb
+│   │   ├── 20240124084032_add_middle_name_and_last_name_to_contacts.rb
+│   │   ├── 20240129080827_add_location_and_country_code_to_contacts.rb
+│   │   ├── 20240131040316_remove_imap_inbox_syned_at_from_channel_email.rb
+│   │   ├── 20240207103014_change_applied_sla_sla_status_to_enum.rb
+│   │   ├── 20240213131252_add_blocked_to_contacts.rb
+│   │   ├── 20240215065844_add_meta_to_notifications.rb
+│   │   ├── 20240216055809_add_unique_index_to_applied_slas.rb
+│   │   ├── 20240306201954_change_identifier_type_in_notifications_subscriptions.rb
+│   │   ├── 20240319062553_create_sla_events.rb
+│   │   ├── 20240322071629_convert_cached_label_list_to_text.rb
+│   │   ├── 20240415210313_add_channel_web_widget_to_portals.rb
+│   │   ├── 20240515201632_index_improvements_conversations_contacts.rb
+│   │   ├── 20240516003531_add_index_for_message_type_account_date.rb
+│   │   ├── 20240726220747_add_custom_roles.rb
+│   │   ├── 20240923215335_add_locale_to_article.rb
+│   │   ├── 20241217041352_fix_old_audio_alert_data.rb
+│   │   ├── 20250104200055_create_captain_tables.rb
+│   │   ├── 20250104210328_remove_robin_tables.rb
+│   │   ├── 20250105001414_add_status_to_captain_documents.rb
+│   │   ├── 20250105005821_remove_not_null_from_captain_documents.rb
+│   │   ├── 20250107030743_add_config_to_captain_assistant.rb
+│   │   ├── 20250108031358_create_captain_inbox.rb
+│   │   ├── 20250108211541_remove_index_from_captain_assistants.rb
+│   │   ├── 20250116000103_add_status_to_captain_assistant_responses.rb
+│   │   ├── 20250116061033_convert_document_to_polymorphic_association.rb
+│   │   ├── 20250207040150_add_meta_to_attachment.rb
+│   │   ├── 20250228185548_add_internal_attributes_to_accounts.rb
+│   │   ├── 20250315202035_add_index_to_articles.rb
+│   │   ├── 20250326034635_add_instagram_channel.rb
+│   │   ├── 20250402233933_remove_portal_members.rb
+│   │   ├── 20250410061725_convert_csml_bots_to_webhook_bots.rb
+│   │   ├── 20250416182131_flip_chatwoot_v4_default_feature_flag_installation_config.rb
+│   │   ├── 20250421082927_add_settings_column_to_account.rb
+│   │   ├── 20250421085134_update_auto_resolve_to_mminutes.rb
+│   │   ├── 20250512231036_create_copilot_threads.rb
+│   │   ├── 20250512231037_create_copilot_messages.rb
+│   │   ├── 20250514045638_add_csat_config_to_inboxes.rb
+│   │   ├── 20250523024825_remove_uuid_from_copilot_threads.rb
+│   │   ├── 20250523024826_remove_user_id_from_copilot_messages.rb
+│   │   ├── 20250523031839_change_message_type_to_integer_in_copilot_messages.rb
+│   │   ├── 20250620120000_create_channel_voice.rb
+│   │   ├── 20250627195529_add_index_to_messages.rb
+│   │   ├── 20250709102213_add_template_params_to_campaigns.rb
+│   │   ├── 20250710145708_create_captain_scenarios.rb
+│   │   ├── 20250714104358_add_response_guidelines_and_guardrails_to_captain_assistants.rb
+│   │   ├── 20250722083820_add_ssl_settings_to_portals.rb
+│   │   ├── 20250722152516_add_index_on_contact_type_and_account_id_to_contacts.rb
+│   │   ├── 20250805082345_add_metadata_to_captain_documents.rb
+│   │   ├── 20250805160307_add_notifications_performance_index.rb
+│   │   ├── 20250806140000_create_assignment_policies.rb
+│   │   ├── 20250806140001_create_inbox_assignment_policies.rb
+│   │   ├── 20250806140002_create_agent_capacity_policies.rb
+│   │   ├── 20250806140003_create_inbox_capacity_limits.rb
+│   │   ├── 20250806140004_add_agent_capacity_policy_to_account_users.rb
+│   │   ├── 20250806140005_create_leaves.rb
+│   │   ├── 20250808123008_add_feature_citation_to_assistant_config.rb
+│   │   ├── 20250820130619_add_two_factor_to_users.rb
+│   │   ├── 20250822061042_add_content_templates_to_twilio_sms.rb
+│   │   ├── 20250825070005_create_account_saml_settings.rb
+│   │   ├── 20250826000000_drop_telegram_bots.rb
+│   │   ├── 20250916024703_add_allowed_domains_to_channel_widgets.rb
+│   │   ├── 20250917012759_add_verified_to_channel_email.rb
+│   │   ├── 20250929105219_create_companies.rb
+│   │   ├── 20250929132305_add_company_to_contacts.rb
+│   │   ├── 20251003091242_create_captain_custom_tools.rb
+│   │   ├── 20251010143218_add_name_to_webhooks.rb
+│   │   ├── 20251021082242_add_unique_index_to_companies_domain.rb
+│   │   ├── 20251022152158_add_index_to_conversations_identifier.rb
+│   │   ├── 20251022162159_add_assignee_agent_bot_id_to_conversations.rb
+│   │   ├── 20251027091242_add_tiktok_channel.rb
+│   │   ├── 20251111094402_add_contacts_count_to_companies.rb
+│   │   ├── 20251114173609_change_source_id_to_text.rb
+│   │   ├── 20251119161025_change_messages_source_id_to_text.rb
+│   │   ├── 20251229081141_change_webhook_url_to_text.rb
+│   │   ├── 20260112092041_remove_country_code_from_conversation_filters.rb
+│   │   ├── 20260114192518_add_internal_observations_to_csat_survey_responses.rb
+│   │   ├── 20260114201315_add_observations_audit_to_csat_survey_responses.rb
+│   │   ├── 20260120121402_enable_captain_tasks_for_existing_accounts.rb
+│   │   ├── 20260130061021_add_index_to_reporting_events_for_response_distribution.rb
+│   │   ├── 20260218075101_add_secret_to_webhooks.rb
+│   │   ├── 20260226084618_backfill_webhook_secrets.rb
+│   │   └── 20260226153427_disable_report_rollup_for_all_accounts.rb
+│   ├── schema.rb
+│   └── seeds.rb
+├── deployment/
+│   ├── chatwoot
+│   ├── chatwoot-web.1.service
+│   ├── chatwoot-web.target
+│   ├── chatwoot-worker.1.service
+│   ├── chatwoot-worker.target
+│   ├── chatwoot.target
+│   ├── nginx_chatwoot.conf
+│   ├── setup_18.04.sh
+│   └── setup_20.04.sh
+├── docker-compose.production.yaml
+├── docker-compose.test.yaml
+├── docker-compose.yaml
+├── docker/
+│   ├── Dockerfile
+│   ├── dockerfiles/
+│   │   ├── rails.Dockerfile
+│   │   └── vite.Dockerfile
+│   └── entrypoints/
+│       ├── helpers/
+│       ├── rails.sh
+│       └── vite.sh
+├── enterprise/
+│   ├── LICENSE
+│   ├── app/
+│   │   ├── builders/
+│   │   ├── controllers/
+│   │   ├── dispatchers/
+│   │   ├── drops/
+│   │   ├── fields/
+│   │   ├── finders/
+│   │   ├── helpers/
+│   │   ├── jobs/
+│   │   ├── listeners/
+│   │   ├── mailers/
+│   │   ├── models/
+│   │   ├── policies/
+│   │   ├── presenters/
+│   │   ├── services/
+│   │   └── views/
+│   ├── config/
+│   │   ├── initializers/
+│   │   ├── premium_features.yml
+│   │   └── premium_installation_config.yml
+│   ├── lib/
+│   │   ├── captain/
+│   │   ├── enterprise.rb
+│   │   ├── enterprise/
+│   │   └── tasks/
+│   └── tasks_railtie.rb
+├── histoire.config.ts
+├── lib/
+│   ├── action_view/
+│   │   └── template/
+│   ├── assets/
+│   │   └── .keep
+│   ├── base_markdown_renderer.rb
+│   ├── captain/
+│   │   ├── base_task_service.rb
+│   │   ├── csat_utility_analysis_service.rb
+│   │   ├── follow_up_service.rb
+│   │   ├── label_suggestion_service.rb
+│   │   ├── reply_suggestion_service.rb
+│   │   ├── rewrite_service.rb
+│   │   ├── summary_service.rb
+│   │   └── tool_instrumentation.rb
+│   ├── chatwoot_app.rb
+│   ├── chatwoot_captcha.rb
+│   ├── chatwoot_exception_tracker.rb
+│   ├── chatwoot_hub.rb
+│   ├── chatwoot_markdown_renderer.rb
+│   ├── config_loader.rb
+│   ├── current.rb
+│   ├── custom_exceptions/
+│   │   ├── account.rb
+│   │   ├── base.rb
+│   │   ├── custom_filter.rb
+│   │   └── pdf.rb
+│   ├── custom_markdown_renderer.rb
+│   ├── dyte.rb
+│   ├── events/
+│   │   ├── base.rb
+│   │   └── types.rb
+│   ├── exception_list.rb
+│   ├── filters/
+│   │   └── filter_keys.yml
+│   ├── global_config.rb
+│   ├── global_config_service.rb
+│   ├── integrations/
+│   │   ├── bot_processor_service.rb
+│   │   ├── captain/
+│   │   ├── dialogflow/
+│   │   ├── dyte/
+│   │   ├── facebook/
+│   │   ├── google_translate/
+│   │   ├── linear/
+│   │   ├── llm_base_service.rb
+│   │   ├── llm_instrumentation.rb
+│   │   ├── llm_instrumentation_completion_helpers.rb
+│   │   ├── llm_instrumentation_constants.rb
+│   │   ├── llm_instrumentation_helpers.rb
+│   │   ├── llm_instrumentation_spans.rb
+│   │   ├── openai/
+│   │   └── slack/
+│   ├── limits.rb
+│   ├── linear.rb
+│   ├── linear/
+│   │   ├── mutations.rb
+│   │   └── queries.rb
+│   ├── llm/
+│   │   ├── config.rb
+│   │   └── models.rb
+│   ├── llm_constants.rb
+│   ├── microsoft_graph_auth.rb
+│   ├── online_status_tracker.rb
+│   ├── opentelemetry_config.rb
+│   ├── redis/
+│   │   ├── alfred.rb
+│   │   ├── config.rb
+│   │   ├── lock_manager.rb
+│   │   └── redis_keys.rb
+│   ├── regex_helper.rb
+│   ├── seeders/
+│   │   ├── account_seeder.rb
+│   │   ├── inbox_seeder.rb
+│   │   ├── message_seeder.rb
+│   │   ├── reports/
+│   │   └── seed_data.yml
+│   ├── tasks/
+│   │   ├── .keep
+│   │   ├── apply_sla.rake
+│   │   ├── asset_clean.rake
+│   │   ├── auto_annotate_models.rake
+│   │   ├── build.rake
+│   │   ├── bulk_conversations.rake
+│   │   ├── captain_chat.rake
+│   │   ├── db_enhancements.rake
+│   │   ├── dev/
+│   │   ├── download_report.rake
+│   │   ├── generate_test_data.rake
+│   │   ├── instance_id.rake
+│   │   ├── ip_lookup.rake
+│   │   ├── mfa.rake
+│   │   ├── ops/
+│   │   ├── search_test_data.rake
+│   │   ├── seed_reports_data.rake
+│   │   ├── sidekiq_tasks.rake
+│   │   └── swagger.rake
+│   ├── test_data.rb
+│   ├── test_data/
+│   │   ├── account_creator.rb
+│   │   ├── cleanup_service.rb
+│   │   ├── constants.rb
+│   │   ├── contact_batch_service.rb
+│   │   ├── database_optimizer.rb
+│   │   ├── display_id_tracker.rb
+│   │   ├── inbox_creator.rb
+│   │   └── orchestrator.rb
+│   ├── url_helper.rb
+│   ├── vapid_service.rb
+│   └── webhooks/
+│       ├── trigger.rb
+│       └── twitter.rb
+├── log/
+│   └── .keep
+├── package.json
+├── pnpm-lock.yaml
+├── postcss.config.js
+├── public/
+│   ├── 404.html
+│   ├── 422.html
+│   ├── 500.html
+│   ├── android-icon-144x144.png
+│   ├── android-icon-192x192.png
+│   ├── android-icon-36x36.png
+│   ├── android-icon-48x48.png
+│   ├── android-icon-72x72.png
+│   ├── android-icon-96x96.png
+│   ├── apple-icon-114x114.png
+│   ├── apple-icon-120x120.png
+│   ├── apple-icon-144x144.png
+│   ├── apple-icon-152x152.png
+│   ├── apple-icon-180x180.png
+│   ├── apple-icon-57x57.png
+│   ├── apple-icon-60x60.png
+│   ├── apple-icon-72x72.png
+│   ├── apple-icon-76x76.png
+│   ├── apple-icon-precomposed.png
+│   ├── apple-icon.png
+│   ├── apple-touch-icon-precomposed.png
+│   ├── apple-touch-icon.png
+│   ├── assets/
+│   │   ├── administrate/
+│   │   └── images/
+│   ├── audio/
+│   │   ├── dashboard/
+│   │   └── widget/
+│   ├── brand-assets/
+│   │   ├── logo.svg
+│   │   ├── logo_dark.svg
+│   │   └── logo_thumbnail.svg
+│   ├── browserconfig.xml
+│   ├── dashboard/
+│   │   └── images/
+│   ├── downloads/
+│   │   └── import-contacts-sample.csv
+│   ├── favicon-16x16.png
+│   ├── favicon-32x32.png
+│   ├── favicon-512x512.png
+│   ├── favicon-96x96.png
+│   ├── favicon-badge-16x16.png
+│   ├── favicon-badge-32x32.png
+│   ├── favicon-badge-96x96.png
+│   ├── integrations/
+│   │   ├── channels/
+│   │   └── slack/
+│   ├── manifest.json
+│   ├── ms-icon-144x144.png
+│   ├── ms-icon-150x150.png
+│   ├── ms-icon-310x310.png
+│   ├── ms-icon-70x70.png
+│   ├── robots.txt
+│   └── sw.js
+├── rubocop/
+│   ├── attachment_download.rb
+│   ├── custom_cop_location.rb
+│   ├── one_class_per_file.rb
+│   └── use_from_email.rb
+├── script/
+│   ├── bulk_reindex_messages.rb
+│   ├── monitor_reindex.rb
+│   └── reindex_single_account.rb
+├── semantic.yml
+├── spec/
+│   ├── actions/
+│   │   ├── contact_identify_action_spec.rb
+│   │   └── contact_merge_action_spec.rb
+│   ├── assets/
+│   │   ├── attachment.pdf
+│   │   ├── avatar.png
+│   │   ├── contacts.csv
+│   │   ├── large_file.pdf
+│   │   ├── sample.mov
+│   │   ├── sample.mp3
+│   │   ├── sample.mp4
+│   │   ├── sample.ogg
+│   │   ├── sample.pdf
+│   │   └── sample.png
+│   ├── builders/
+│   │   ├── account_builder_spec.rb
+│   │   ├── agent_builder_spec.rb
+│   │   ├── campaigns/
+│   │   ├── contact_inbox_builder_spec.rb
+│   │   ├── contact_inbox_with_contact_builder_spec.rb
+│   │   ├── conversation_builder_spec.rb
+│   │   ├── csat_surveys/
+│   │   ├── email/
+│   │   ├── messages/
+│   │   ├── notification_builder_spec.rb
+│   │   ├── v2/
+│   │   └── year_in_review_builder_spec.rb
+│   ├── channels/
+│   │   └── room_channel_spec.rb
+│   ├── config/
+│   │   └── markdown_embeds_spec.rb
+│   ├── configs/
+│   │   └── schedule_spec.rb
+│   ├── controllers/
+│   │   ├── .keep
+│   │   ├── android_assetlinks_spec.rb
+│   │   ├── api/
+│   │   ├── api_controller_spec.rb
+│   │   ├── apple_app_spec.rb
+│   │   ├── concerns/
+│   │   ├── dashboard_controller_spec.rb
+│   │   ├── devise/
+│   │   ├── devise_overrides/
+│   │   ├── google/
+│   │   ├── health_controller_spec.rb
+│   │   ├── instagram/
+│   │   ├── installation/
+│   │   ├── linear/
+│   │   ├── microsoft/
+│   │   ├── microsoft_controller_spec.rb
+│   │   ├── notion/
+│   │   ├── platform/
+│   │   ├── public/
+│   │   ├── service/
+│   │   ├── shopify/
+│   │   ├── slack_uploads_controller_spec.rb
+│   │   ├── super_admin/
+│   │   ├── swagger_controller_spec.rb
+│   │   ├── tiktok/
+│   │   ├── twilio/
+│   │   ├── twitter/
+│   │   ├── webhooks/
+│   │   ├── widget_tests_controller_spec.rb
+│   │   └── widgets_controller_spec.rb
+│   ├── coverage_helper.rb
+│   ├── dispatchers/
+│   │   └── async_dispatcher_spec.rb
+│   ├── drops/
+│   │   ├── contact_drop_spec.rb
+│   │   └── user_drop_spec.rb
+│   ├── enterprise/
+│   │   ├── builders/
+│   │   ├── controllers/
+│   │   ├── drops/
+│   │   ├── jobs/
+│   │   ├── lib/
+│   │   ├── listeners/
+│   │   ├── mailers/
+│   │   ├── models/
+│   │   ├── policies/
+│   │   ├── presenters/
+│   │   └── services/
+│   ├── factories/
+│   │   ├── account_saml_settings.rb
+│   │   ├── account_users.rb
+│   │   ├── accounts.rb
+│   │   ├── agent_bot_inboxes.rb
+│   │   ├── agent_bots.rb
+│   │   ├── agent_capacity_policies.rb
+│   │   ├── applied_slas.rb
+│   │   ├── articles.rb
+│   │   ├── assignment_policies.rb
+│   │   ├── automation_rules.rb
+│   │   ├── bot_message/
+│   │   ├── campaigns.rb
+│   │   ├── canned_responses.rb
+│   │   ├── captain/
+│   │   ├── categories.rb
+│   │   ├── channel/
+│   │   ├── clearbit_response.rb
+│   │   ├── companies.rb
+│   │   ├── contact_inbox.rb
+│   │   ├── contacts.rb
+│   │   ├── conversation_participants.rb
+│   │   ├── conversations.rb
+│   │   ├── csat_survey_responses.rb
+│   │   ├── custom_attribute_definitions.rb
+│   │   ├── custom_filters.rb
+│   │   ├── custom_roles.rb
+│   │   ├── dashboard_app.rb
+│   │   ├── data_import.rb
+│   │   ├── email_template.rb
+│   │   ├── facebook_message/
+│   │   ├── folders.rb
+│   │   ├── inbox_assignment_policies.rb
+│   │   ├── inbox_capacity_limits.rb
+│   │   ├── inbox_members.rb
+│   │   ├── inboxes.rb
+│   │   ├── instagram/
+│   │   ├── instagram_message/
+│   │   ├── installation_config.rb
+│   │   ├── integrations/
+│   │   ├── labels.rb
+│   │   ├── macros.rb
+│   │   ├── mentions.rb
+│   │   ├── messages.rb
+│   │   ├── notes.rb
+│   │   ├── notification_subscriptions.rb
+│   │   ├── notifications.rb
+│   │   ├── platform_apps.rb
+│   │   ├── platform_apps_permissibles.rb
+│   │   ├── portals.rb
+│   │   ├── related_categories.rb
+│   │   ├── reporting_events.rb
+│   │   ├── sla_events.rb
+│   │   ├── sla_policies.rb
+│   │   ├── super_admins.rb
+│   │   ├── team_members.rb
+│   │   ├── teams.rb
+│   │   ├── twitter/
+│   │   ├── users.rb
+│   │   ├── webhooks.rb
+│   │   └── working_hours.rb
+│   ├── finders/
+│   │   ├── conversation_finder_spec.rb
+│   │   ├── email_channel_finder_spec.rb
+│   │   ├── message_finder_spec.rb
+│   │   └── notification_finder_spec.rb
+│   ├── fixtures/
+│   │   ├── .keep
+│   │   ├── accounts.yml
+│   │   ├── attachments.yml
+│   │   ├── canned_responses.yml
+│   │   ├── contacts.yml
+│   │   ├── conversations.yml
+│   │   ├── data_import/
+│   │   ├── files/
+│   │   ├── inbox_members.yml
+│   │   ├── inboxes.yml
+│   │   ├── telegram_bots.yml
+│   │   └── users.yml
+│   ├── helpers/
+│   │   ├── billing_helper_spec.rb
+│   │   ├── cache_keys_helper_spec.rb
+│   │   ├── contact_helper_spec.rb
+│   │   ├── email_helper_spec.rb
+│   │   ├── frontend_urls_helper_spec.rb
+│   │   ├── instagram/
+│   │   ├── linear/
+│   │   ├── message_format_helper_spec.rb
+│   │   ├── portal_helper_spec.rb
+│   │   ├── reporting_event_helper_spec.rb
+│   │   ├── shopify/
+│   │   └── url_helper_spec.rb
+│   ├── integration/
+│   │   └── .keep
+│   ├── jobs/
+│   │   ├── account/
+│   │   ├── agent_bots/
+│   │   ├── agents/
+│   │   ├── auto_assignment/
+│   │   ├── avatar/
+│   │   ├── bulk_actions_job_spec.rb
+│   │   ├── campaigns/
+│   │   ├── channels/
+│   │   ├── contacts/
+│   │   ├── conversation_reply_email_job_spec.rb
+│   │   ├── conversations/
+│   │   ├── crm/
+│   │   ├── data_import_job_spec.rb
+│   │   ├── delete_object_job_spec.rb
+│   │   ├── event_dispatcher_job_spec.rb
+│   │   ├── hook_job_spec.rb
+│   │   ├── inboxes/
+│   │   ├── internal/
+│   │   ├── labels/
+│   │   ├── migration/
+│   │   ├── mutex_application_job_spec.rb
+│   │   ├── notification/
+│   │   ├── send_on_slack_job_spec.rb
+│   │   ├── send_reply_job_spec.rb
+│   │   ├── slack_unfurl_job_spec.rb
+│   │   ├── trigger_scheduled_items_job_spec.rb
+│   │   ├── webhook_job_spec.rb
+│   │   └── webhooks/
+│   ├── lib/
+│   │   ├── base_markdown_renderer_spec.rb
+│   │   ├── captain/
+│   │   ├── chatwoot_captcha_spec.rb
+│   │   ├── chatwoot_exception_tracker_spec.rb
+│   │   ├── chatwoot_hub_spec.rb
+│   │   ├── chatwoot_markdown_renderer_spec.rb
+│   │   ├── config_loader_spec.rb
+│   │   ├── custom_markdown_renderer_spec.rb
+│   │   ├── dyte_spec.rb
+│   │   ├── email_templates/
+│   │   ├── global_config_service_spec.rb
+│   │   ├── global_config_spec.rb
+│   │   ├── integrations/
+│   │   ├── linear_spec.rb
+│   │   ├── online_status_tracker_spec.rb
+│   │   ├── redis/
+│   │   ├── vapid_service_spec.rb
+│   │   └── webhooks/
+│   ├── listeners/
+│   │   ├── action_cable_listener_spec.rb
+│   │   ├── agent_bot_listener_spec.rb
+│   │   ├── automation_rule_listener_labels_spec.rb
+│   │   ├── automation_rule_listener_old_spec.rb
+│   │   ├── automation_rule_listener_spec.rb
+│   │   ├── campaign_listener_spec.rb
+│   │   ├── csat_survey_listener_spec.rb
+│   │   ├── hook_listener_spec.rb
+│   │   ├── installation_webhook_listener_spec.rb
+│   │   ├── notification_listener_spec.rb
+│   │   ├── participation_listener_spec.rb
+│   │   ├── reporting_event_listener_spec.rb
+│   │   └── webhook_listener_spec.rb
+│   ├── mailboxes/
+│   │   ├── application_mailbox_spec.rb
+│   │   ├── imap/
+│   │   ├── mailbox_helper_spec.rb
+│   │   └── reply_mailbox_spec.rb
+│   ├── mailers/
+│   │   ├── .keep
+│   │   ├── administrator_notifications/
+│   │   ├── agent_notifications/
+│   │   ├── confirmation_instructions_spec.rb
+│   │   ├── conversation_reply_mailer_spec.rb
+│   │   ├── portal_instructions_mailer_spec.rb
+│   │   └── references_header_builder_spec.rb
+│   ├── models/
+│   │   ├── .keep
+│   │   ├── account_spec.rb
+│   │   ├── account_user_spec.rb
+│   │   ├── agent_bot_inbox_spec.rb
+│   │   ├── agent_bot_spec.rb
+│   │   ├── application_record_external_credentials_encryption_spec.rb
+│   │   ├── article_spec.rb
+│   │   ├── assignment_policy_spec.rb
+│   │   ├── attachment_spec.rb
+│   │   ├── automation_rule_spec.rb
+│   │   ├── campaign_spec.rb
+│   │   ├── category_spec.rb
+│   │   ├── channel/
+│   │   ├── concerns/
+│   │   ├── contact_inbox_spec.rb
+│   │   ├── contact_spec.rb
+│   │   ├── conversation_participants_spec.rb
+│   │   ├── conversation_spec.rb
+│   │   ├── csat_survey_response_spec.rb
+│   │   ├── data_import_spec.rb
+│   │   ├── enterprise/
+│   │   ├── folder_spec.rb
+│   │   ├── inbox_member_spec.rb
+│   │   ├── inbox_spec.rb
+│   │   ├── installation_config_spec.rb
+│   │   ├── integrations/
+│   │   ├── label_spec.rb
+│   │   ├── macro_spec.rb
+│   │   ├── mention_spec.rb
+│   │   ├── message_spec.rb
+│   │   ├── note_spec.rb
+│   │   ├── notification_setting_spec.rb
+│   │   ├── notification_spec.rb
+│   │   ├── platform_app_permissible_spec.rb
+│   │   ├── platform_app_spec.rb
+│   │   ├── portal_spec.rb
+│   │   ├── related_category_spec.rb
+│   │   ├── reporting_event_spec.rb
+│   │   ├── team_member_spec.rb
+│   │   ├── team_spec.rb
+│   │   ├── user_spec.rb
+│   │   ├── webhook_spec.rb
+│   │   └── working_hour_spec.rb
+│   ├── policies/
+│   │   ├── article_policy_spec.rb
+│   │   ├── category_policy_spec.rb
+│   │   ├── contact_policy_spec.rb
+│   │   ├── conversation_policy_spec.rb
+│   │   ├── csat_survey_response_policy_spec.rb
+│   │   ├── inbox_policy_spec.rb
+│   │   ├── portal_policy_spec.rb
+│   │   ├── report_policy_spec.rb
+│   │   └── user_policy_spec.rb
+│   ├── presenters/
+│   │   ├── conversations/
+│   │   ├── html_parser_spec.rb
+│   │   ├── mail_presenter_spec.rb
+│   │   ├── message_content_presenter_spec.rb
+│   │   ├── messages/
+│   │   └── reports/
+│   ├── rails_helper.rb
+│   ├── requests/
+│   │   └── api/
+│   ├── services/
+│   │   ├── account/
+│   │   ├── account_deletion_service_spec.rb
+│   │   ├── action_service_spec.rb
+│   │   ├── auto_assignment/
+│   │   ├── automation_rules/
+│   │   ├── base_token_service_spec.rb
+│   │   ├── contacts/
+│   │   ├── conversations/
+│   │   ├── crm/
+│   │   ├── csat_survey_service_spec.rb
+│   │   ├── csat_template_utility_analysis_service_spec.rb
+│   │   ├── email/
+│   │   ├── facebook/
+│   │   ├── google/
+│   │   ├── imap/
+│   │   ├── instagram/
+│   │   ├── internal/
+│   │   ├── labels/
+│   │   ├── line/
+│   │   ├── linear/
+│   │   ├── liquid/
+│   │   ├── llm_formatter/
+│   │   ├── macros/
+│   │   ├── mailbox/
+│   │   ├── message_templates/
+│   │   ├── messages/
+│   │   ├── mfa/
+│   │   ├── microsoft/
+│   │   ├── notification/
+│   │   ├── search_service_spec.rb
+│   │   ├── sms/
+│   │   ├── telegram/
+│   │   ├── tiktok/
+│   │   ├── twilio/
+│   │   ├── twitter/
+│   │   ├── whatsapp/
+│   │   └── widget/
+│   ├── spec_helper.rb
+│   ├── support/
+│   │   ├── csv_spec_helpers.rb
+│   │   ├── examples/
+│   │   ├── file_upload_helpers.rb
+│   │   ├── instagram_spec_helpers.rb
+│   │   ├── negated_matchers.rb
+│   │   ├── opensearch_check.rb
+│   │   └── slack_stubs.rb
+│   └── test_helper.rb
+├── swagger/
+│   ├── definitions/
+│   │   ├── error/
+│   │   ├── index.yml
+│   │   ├── request/
+│   │   └── resource/
+│   ├── index.html
+│   ├── index.yml
+│   ├── parameters/
+│   │   ├── account_id.yml
+│   │   ├── agent_bot_id.yml
+│   │   ├── contact_sort.yml
+│   │   ├── conversation_id.yml
+│   │   ├── conversation_uuid.yml
+│   │   ├── custom_filter_id.yml
+│   │   ├── hook_id.yml
+│   │   ├── inbox_id.yml
+│   │   ├── index.yml
+│   │   ├── message_id.yml
+│   │   ├── page.yml
+│   │   ├── platform_user_id.yml
+│   │   ├── portal_id.yml
+│   │   ├── public/
+│   │   ├── report_metric.yml
+│   │   ├── report_type.yml
+│   │   ├── source_id.yml
+│   │   ├── team_id.yml
+│   │   └── webhook_id.yml
+│   ├── paths/
+│   │   ├── application/
+│   │   ├── index.yml
+│   │   ├── platform/
+│   │   ├── profile/
+│   │   ├── public/
+│   │   └── survey/
+│   ├── swagger.json
+│   └── tag_groups/
+│       ├── application.yml
+│       ├── application_swagger.json
+│       ├── client.yml
+│       ├── client_swagger.json
+│       ├── other_swagger.json
+│       ├── others.yml
+│       ├── platform.yml
+│       └── platform_swagger.json
+├── tailwind.config.js
+├── theme/
+│   ├── colors.js
+│   └── icons.js
+├── tmp/
+│   └── .keep
+├── vendor/
+│   ├── assets/
+│   │   ├── javascripts/
+│   │   └── stylesheets/
+│   └── db/
+│       ├── .keep
+│       └── sentiment-analysis.onnx
+├── vite.config.ts
+├── vitest.setup.js
+└── workbox-config.js

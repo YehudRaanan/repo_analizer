@@ -1,0 +1,750 @@
+=====================================
+Repository Analysis: blitz
+Type: Web Application
+=====================================
+
+--- METADATA ---
+Name: blitz
+Description: ⚡️ The Missing Fullstack Toolkit for Next.js
+Language: TypeScript
+Topics: blitz, blitzjs, framework, fullstack, javascript, nextjs, prisma, prisma2, react, reactjs, typescript
+Stars: 14132
+License: MIT License
+
+--- README ---
+[![Blitz.js](https://raw.githubusercontent.com/blitz-js/art/master/github-cover-photo.png)](https://blitzjs.com)
+
+<!-- prettier-ignore-start -->
+<p align="center">
+  <a aria-label="Join our Discord Community" href="https://discord.blitzjs.com">
+    <img alt="" src="https://img.shields.io/badge/Join%20our%20community-6700EB.svg?style=for-the-badge&labelColor=000000&logoWidth=20&logo=data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAIAAAACACAYAAADDPmHLAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAQ9SURBVHgB7d3dVdtAEIbhcSpICUoH0IEogQqSVBBSAU4FSSpIOoAORAfQgSghHXzZ1U/YcMD4R9rZmf2ec3y448LyiNf27iLiGIAmPLrweC9Un3DhrzG6EarLNP09nlwJ1SOZ/lQr5N80/S/p2QMVCBf5N17XCfm1Y/rBHqjAG9PPHvBsz+mf9WAP+HLA9M/YA14cOP2payH7jpj+VCtk1wnTP+vj7xCy6cTpn7EHLMLp059iD1iD8eveJbVCNsSLheX1YA/YgOWnf8YeKB3Wmf7Ud6Fy4f/FHmtpxbl3YlC4MJ/Cj0bWdwPnPbARg+L0S54XQHS32WwuxClzd4CM0z9rPfeAuTtA5ulPXYQ7wZ04Y+oOoDD9KZc9YOoOoDj9s4dwFzgXR6w1wIPoOvPWA9buAHEJ173o3gWiy3AnuBUHLEbgmYwvAk1/wuM8vAgexThzbwPDkx7/DHwVXfFOxP2GmsKd4Ab6zPeAyU8CI7AHFmH2BRCBPXAyk18GzUrqAXCTiR4ssyj0VFw/oCU8+e+RZ33AWz6KMaYbIIWxB+JSLs1bsbkeMN0AqakHvoku9oA2sAfqBvbAQdw0QArsgb25aYBUQT3QgT2gB+yBuqGcHij2UCqXDZACe2Anlw2QYg/QAOyBuoE98CL3DZDCuK4/rh/Q7oGL6U+TOvcNkJoijN8X1C48+T+g75eQDrAH/qmqAVJgDwyqaoAUe4AGYA/UDZX3QLUNkEIZPRCd5+6BahsgVUgPROwBTSijB7jpVAvGHriHvmw9wAZ4BpX1ABvgmakHtPcbRuwBTWAPULgAV9D/jKDY9YRvwvgEaurD44uQHvAol7qBW7WKluVtIHiUS7GyvA0s6CiXDnxrpQfsgbqBS7GKk/2jYHCrVlGyfxTMrVo0ALdq1Q3sgSKofh0M9oA61a+D2QM0AHugbmAPqClmSRjK2apVVQ8UsySsoK1aHdgDesCtWnUDeyCrIpeFg1u3sylyWTi3btMA7IG6gT2wuuK3hoE9sKrit4YVslWLPaAN7IG6ocKt2zmY2h4O9sDiTG0PZw/QANy6XTewBxZj9ogYVHy025LMHhEz9cBn0We6B0yfERReBLfhx0/R1YQHPx/QBPbA0VwcEwf2wNFcHBPHHjiem3MC2QPHcXdSaJjA+KfgTPQ8hhfjBzHC40mhlzJ+Xq9lK4a4PCs43AVaGTed5mZq+iOXZwWHi3AnOj2wFWNcnxYe7gTxLtBKHuamP/J+Wnh8a5irB7ZC5Yk9gPX1QuXC+usHWqGyhYvUYR0a7zboUOFCNVhnk0krZAOW7wFOvzXhom2xnEbIHizTA1wEYhWW6YFGyC6c1gOcfg9wfA80Qj7g8B7g9HuCww+haIR8wf49wOn3Cvv9k8tGyC/s7gFOv3fY3QONkH+v9MBWqB7PeqDn9FcIT//kcitUn6kHOu/T/xfWzlQy3dEHhwAAAABJRU5ErkJggg==">
+  </a>
+<!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
+<a aria-label="All Contributors" href="#contributors-"><img alt="" src="https://img.shields.io/badge/all_contributors-436-17BB8A.svg?style=for-the-badge&labelColor=000000"></a>
+<!-- ALL-CONTRIBUTORS-BADGE:END -->
+  <a aria-label="License" href="https://github.com/blitz-js/blitz/blob/main/LICENSE">
+    <img alt="" src="https://img.shields.io/npm/l/blitz.svg?style=for-the-badge&labelColor=000000&color=blue">
+  </a>
+  <a aria-label="NPM version" href="https://www.npmjs.com/package/blitz">
+    <img alt="" src="https://img.shields.io/npm/v/blitz.svg?style=for-the-badge&labelColor=000000&color=E65528">
+  </a>
+</p>
+<!-- prettier-ignore-end -->
+
+<br>
+
+<h1 align="center">The Missing Fullstack Toolkit for Next.js</h1>
+
+<br>
+
+### Quick Start
+
+#### Install Blitz
+
+Run `npm install -g blitz` or `yarn global add blitz`
+
+_You can alternatively use [`npx`](https://www.npmjs.com/package/npx)_
+
+#### Create a New App
+
+1. `blitz new myAppName`
+2. `cd myAppName`
+3. `blitz dev`
+4. View your brand new app at http://localhost:3000
+
+<br><br>
+
+
+
+## Welcome to the Blitz Community 👋
+
+The Blitz community is warm, safe, diverse, inclusive, and fun! LGBTQ+, women, and minorities are especially welcome. Please read our [Code of Conduct](https://blitzjs.com/docs/code-of-conduct).
+
+[Join our Discord Community](https://discord.blitzjs.com) where we help each other build Blitz apps. It's also where we collaborate on building Blitz itself.
+
+For questions and longer form discussions, [post in our forum](https://github.com/blitz-js/blitz/discussions).
+
+There's still a lot of work to do, so you are especially invited to join us in building Blitz! A good place to start is [The Contributing Guide](https://blitzjs.com/docs/contributing).
+
+<br>
+
+## Financial Contributors
+
+Your financial contributions help ensure Blitz continues to be developed and maintained! We have monthly sponsorship options starting at $5/month.
+
+👉 View options and contribute at [GitHub Sponsors](https://github.com/sponsors/blitz-js), [PayPal](https://paypal.me/thebayers), or [Open Collective](https://opencollective.com/blitzjs)
+
+
+### 🌱 Seedling Sponsors
+
+<table>
+  <tr>
+ <td><a aria-label="Andreas Asprou" href="https://andreas.fyi">
+<img alt="" src="https://raw.githubusercontent.com/blitz-js/blitz/main/assets/andreas.jpg" width="40px"/>
+</a></td>
+ <td><a aria-label="Digas" href="https://digsas.com">
+<img alt="" src="https://raw.githubusercontent.com/blitz-js/blitz/main/assets/digsas.svg" width="40px"/>
+</a></td>
+ <td><a aria-label="userTrack" href="https://www.usertrack.net/?ref=blitzjs">
+<img alt="" src="https://raw.githubusercontent.com/blitz-js/blitz/main/assets/usertrack.png" width="40px"/>
+</a></td>
+ <td><a aria-label="MeetKai" href="https://meetkai.com/?ref=blitzjs">
+<img alt="" src="https://raw.githubusercontent.com/blitz-js/blitz/main/assets/meetkai.png" width="40px"/>
+</a></td>
+ <td><a aria-label="Simon Lammes" href="https://g
+... [TRUNCATED]
+
+--- PACKAGE MANIFEST(S) ---
+
+[package.json]
+{
+  "name": "blitz-root",
+  "version": "0.0.0",
+  "private": true,
+  "workspaces": [
+    "apps/*",
+    "packages/*",
+    "integration-tests/*",
+    "recipes/*"
+  ],
+  "scripts": {
+    "preinstall": "npx only-allow pnpm",
+    "prepare": "husky install",
+    "build": "turbo run build",
+    "build:apps": "turbo run buildapp --concurrency=1",
+    "dev": "turbo run dev --filter='./packages/*'",
+    "lint": "turbo run lint",
+    "test": "turbo run test",
+    "clean": "turbo run clean && rm -rf node_modules",
+    "format": "prettier --write \"**/*.{ts,tsx,md}\"",
+    "pre-publish": "changeset add && changeset version && pnpm build && git add . && git commit -v",
+    "release": "cp README.md packages/blitz && pnpm build && changeset publish",
+    "publish-release": "changeset publish && git push --follow-tags"
+  },
+  "dependencies": {
+    "@blitzjs/manypkg": "0.19.1",
+    "@changesets/cli": "2.22.0",
+    "eslint": "8.27.0",
+    "husky": "8.0.2",
+    "jsdom": "^19.0.0",
+    "lint-staged": "13.0.3",
+    "next": "15.0.1",
+    "only-allow": "1.1.0",
+    "prettier": "^2.8.8",
+    "prettier-plugin-prisma": "4.4.0",
+    "pretty-quick": "3.1.3",
+    "turbo": "1.10.9",
+    "vitest": "0.25.3",
+    "wait-on": "6.0.1"
+  },
+  "npmClient": "pnpm",
+  "packageManager": "pnpm@8.6.6",
+  "manypkg": {
+    "ignoredRules": [
+      "EXTERNAL_MISMATCH"
+    ]
+  },
+  "pnpm": {
+    "overrides": {
+      "@types/mime": "3.0.4",
+      "next": "15.0.1",
+      "@types/react": "npm:types-react@rc",
+      "@types/react-dom": "npm:types-react-dom@rc"
+    }
+  }
+}
+
+
+--- WEB FRAMEWORK CONFIG ---
+
+[tsconfig.json]
+{
+  "$schema": "https://json.schemastore.org/tsconfig",
+  "display": "Default",
+  "compilerOptions": {
+    "composite": false,
+    "declaration": true,
+    "declarationMap": true,
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "inlineSources": false,
+    "isolatedModules": true,
+    "moduleResolution": "node",
+    "noUnusedLocals": false,
+    "noUnusedParameters": false,
+    "noUncheckedIndexedAccess": true,
+    "preserveWatchOutput": true,
+    "skipLibCheck": true,
+    "strict": true,
+    "strictNullChecks": true,
+    "incremental": true,
+    "tsBuildInfoFile": ".tsbuildinfo"
+  },
+  "exclude": ["node_modules"]
+}
+
+
+--- ROUTE / PAGE DEFINITIONS ---
+
+[apps/next13/src/pages/api/auth/session.ts]
+import {api} from "../../../blitz-server"
+
+export default api((req, res, ctx) => {
+  // console.log("session", ctx.session)
+  //get cookie
+  console.dir("cookie", req.headers.cookie)
+  res.json({session: ctx.session.userId})
+})
+
+
+[apps/toolkit-app-passportjs/src/pages/404.tsx]
+import Head from "next/head"
+import { ErrorComponent } from "@blitzjs/next"
+
+// ------------------------------------------------------
+// This page is rendered if a route match is not found
+// ------------------------------------------------------
+export default function Page404() {
+  const statusCode = 404
+  const title = "This page could not be found"
+  return (
+    <>
+      <Head>
+        <title>
+          {statusCode}: {title}
+        </title>
+      </Head>
+      <ErrorComponent statusCode={statusCode} title={title} />
+    </>
+  )
+}
+
+
+[apps/toolkit-app-passportjs/src/pages/_app.tsx]
+import { ErrorFallbackProps, ErrorComponent, ErrorBoundary, AppProps } from "@blitzjs/next"
+import { AuthenticationError, AuthorizationError } from "blitz"
+import React from "react"
+import { withBlitz } from "src/blitz-client"
+
+function RootErrorFallback({ error }: ErrorFallbackProps) {
+  if (error instanceof AuthenticationError) {
+    return <div>Error: You are not authenticated</div>
+  } else if (error instanceof AuthorizationError) {
+    return (
+      <ErrorComponent
+        statusCode={error.statusCode}
+        title="Sorry, you are not authorized to access this"
+      />
+    )
+  } else {
+    return (
+      <ErrorComponent
+        statusCode={(error as any)?.statusCode || 400}
+        title={error.message || error.name}
+      />
+    )
+  }
+}
+
+function MyApp({ Component, pageProps }: AppProps) {
+  return (
+    <ErrorBoundary FallbackComponent={RootErrorFallback}>
+      <Component {...pageProps} />
+    </ErrorBoundary>
+  )
+}
+
+export default withBlitz(MyApp)
+
+
+[apps/toolkit-app-passportjs/src/pages/_document.tsx]
+import Document, { Html, Main, NextScript, Head } from "next/document"
+
+class MyDocument extends Document {
+  // Only uncomment if you need to customize this behaviour
+  // static async getInitialProps(ctx: DocumentContext) {
+  //   const initialProps = await Document.getInitialProps(ctx)
+  //   return {...initialProps}
+  // }
+  render() {
+    return (
+      <Html lang="en">
+        <Head />
+        <body>
+          <Main />
+          <NextScript />
+        </body>
+      </Html>
+    )
+  }
+}
+
+export default MyDocument
+
+
+[apps/toolkit-app-passportjs/src/pages/api/auth/[...auth].ts]
+import { passportAuth } from "@blitzjs/auth"
+import { api } from "src/blitz-server"
+import db, { User } from "db"
+import { Issuer, Strategy as OpenIdStrategy } from "openid-client"
+
+// OAuth Mock Server
+// https://github.com/axa-group/oauth2-mock-server
+
+const issuer = new Issuer({
+  issuer: "http://localhost:8080",
+  authorization_endpoint: "http://localhost:8080/authorize",
+  token_endpoint: "http://localhost:8080/token",
+  userinfo_endpoint: "http://localhost:8080/userinfo",
+  jwks_uri: "http://localhost:8080/jwks",
+})
+
+const client1 = new issuer.Client({
+  client_id: "client_id1",
+  client_secret: "client_secret1",
+  redirect_uris: ["http://localhost:3000/api/auth/mock1/callback"],
+})
+
+const client2 = new issuer.Client({
+  client_id: "client_id2",
+  client_secret: "client_secret2",
+  redirect_uris: ["http://localhost:3000/api/auth/mock2/callback"],
+})
+
+const client3 = new issuer.Client({
+  client_id: "client_id3",
+  client_secret: "client_secret3",
+  redirect_uris: ["http://localhost:3000/api/auth/localhost/callback"],
+})
+
+export default api(
+  passportAuth({
+    successRedirectUrl: "/",
+    errorRedirectUrl: "/",
+    strategies: [
+      {
+        name: "mock1",
+        strategy: new OpenIdStrategy(
+          { client: client1 },
+          // Available callback parameters
+          // https://github.com/panva/node-openid-client/blob/main/docs/README.md#strategy
+          async (_token, profile, done) => {
+            let user: User
+            try {
+              user = await db.user.findFirstOrThrow({ where: { name: { equals: "user1" } } })
+            } catch (e) {
+              user = await db.user.create({
+                data: {
+                  email: "dummy1@email.com",
+                  name: "user1",
+                  role: "USER",
+                },
+              })
+            }
+
+            const publicData = {
+              userId: user.id,
+              roles: [user.role],
+              source: "mock_client1",
+            }
+            done(undefined, { publicData })
+          }
+        ),
+      },
+      {
+        name: "mock2",
+        strategy: new OpenIdStrategy(
+          { client: client2 },
+          // Available callback parameters
+          // https://github.com/panva/node-openid-client/blob/main/docs/README.md#strategy
+          async (_token, profile, done) => {
+            let user: User
+            try {
+              user = await db.user.findFirstOrThrow({ where: { name: { equals: "user2" } } })
+            } catch (e) {
+              user = await db.user.create({
+                data: {
+                  email: "dummy2@email.com",
+                  name: "user2",
+                  role: "USER",
+                },
+              })
+            }
+
+            const publicData = {
+              userId: user.id,
+              roles: [user.role],
+              source: "mock_client2",
+            }
+            done(undefined, { publicData })
+          }
+        ),
+      },
+      {
+        // name is not set, it will use 
+... [TRUNCATED]
+
+--- DIRECTORY STRUCTURE (depth 2) ---
+├── .all-contributorsrc
+├── .changeset/
+│   ├── README.md
+│   └── config.json
+├── .eslintignore
+├── .gitattributes
+├── .github/
+│   ├── CODEOWNERS
+│   ├── FUNDING.yml
+│   ├── ISSUE_TEMPLATE/
+│   │   ├── bug_report.yml
+│   │   ├── config.yml
+│   │   └── feature_request.md
+│   ├── PULL_REQUEST_TEMPLATE.md
+│   └── workflows/
+│       ├── changeset_check.yml
+│       ├── main.yml
+│       ├── pr-release.yml
+│       └── release.yml
+├── .gitignore
+├── .husky/
+│   ├── .gitignore
+│   └── pre-commit
+├── .kodiak.toml
+├── .npmrc
+├── .prettierignore
+├── .vscode/
+│   └── settings.json
+├── CODE_OF_CONDUCT.md
+├── CONTRIBUTING.md
+├── CONTRIBUTOR_STATS.md
+├── LICENSE
+├── README.md
+├── SECURITY.md
+├── apps/
+│   ├── next13/
+│   │   ├── .env
+│   │   ├── .eslintrc.json
+│   │   ├── .gitignore
+│   │   ├── CHANGELOG.md
+│   │   ├── README.md
+│   │   ├── next.config.js
+│   │   ├── package.json
+│   │   ├── prisma/
+│   │   ├── public/
+│   │   ├── src/
+│   │   ├── tsconfig.json
+│   │   └── types.ts
+│   ├── toolkit-app-passportjs/
+│   │   ├── .editorconfig
+│   │   ├── .env
+│   │   ├── .eslintrc.js
+│   │   ├── .gitignore
+│   │   ├── .npmrc
+│   │   ├── .prettierignore
+│   │   ├── CHANGELOG.md
+│   │   ├── README.md
+│   │   ├── db/
+│   │   ├── integrations/
+│   │   ├── jest.config.js
+│   │   ├── jsconfig.json
+│   │   ├── mailers/
+│   │   ├── next-env.d.ts
+│   │   ├── next.config.js
+│   │   ├── package.json
+│   │   ├── public/
+│   │   ├── src/
+│   │   ├── test/
+│   │   ├── tsconfig.json
+│   │   └── types.ts
+│   ├── toolkit-app/
+│   │   ├── .editorconfig
+│   │   ├── .env
+│   │   ├── .eslintrc.js
+│   │   ├── .gitignore
+│   │   ├── .npmrc
+│   │   ├── .prettierignore
+│   │   ├── .vscode/
+│   │   ├── CHANGELOG.md
+│   │   ├── README.md
+│   │   ├── db/
+│   │   ├── integrations/
+│   │   ├── jsconfig.json
+│   │   ├── mailers/
+│   │   ├── next-env.d.ts
+│   │   ├── next.config.js
+│   │   ├── package.json
+│   │   ├── public/
+│   │   ├── src/
+│   │   ├── tsconfig.json
+│   │   ├── types.ts
+│   │   └── vitest.config.ts
+│   └── web/
+│       ├── .eslintrc.js
+│       ├── .gitignore
+│       ├── .npmrc
+│       ├── README.md
+│       ├── db/
+│       ├── jest.config.js
+│       ├── next-env.d.ts
+│       ├── next.config.js
+│       ├── package.json
+│       ├── src/
+│       ├── test/
+│       ├── tsconfig.json
+│       └── types.ts
+├── assets/
+│   ├── Fauna_Logo_Blue.png
+│   ├── andreas.jpg
+│   ├── boostry.svg
+│   ├── byteflow.png
+│   ├── digsas.svg
+│   ├── flightcontrol.png
+│   ├── meetkai.png
+│   ├── render-logo-color2.png
+│   ├── rit_logo.png
+│   ├── route4me.png
+│   └── usertrack.png
+├── flake.lock
+├── flake.nix
+├── integration-tests/
+│   ├── auth-with-rpc/
+│   │   ├── .env
+│   │   ├── .eslintrc.js
+│   │   ├── .gitignore
+│   │   ├── db/
+│   │   ├── next-env.d.ts
+│   │   ├── next.config.js
+│   │   ├── package.json
+│   │   ├── src/
+│   │   ├── test/
+│   │   ├── tsconfig.json
+│   │   ├── types.ts
+│   │   └── vitest.config.ts
+│   ├── auth/
+│   │   ├── .env
+│   │   ├── .eslintrc.js
+│   │   ├── .gitignore
+│   │   ├── db/
+│   │   ├── next-env.d.ts
+│   │   ├── next.config.js
+│   │   ├── package.json
+│   │   ├── pages/
+│   │   ├── src/
+│   │   ├── test/
+│   │   ├── tsconfig.json
+│   │   ├── types.ts
+│   │   └── vitest.config.ts
+│   ├── get-initial-props/
+│   │   ├── .env
+│   │   ├── .eslintrc.js
+│   │   ├── .gitignore
+│   │   ├── app/
+│   │   ├── db/
+│   │   ├── next-env.d.ts
+│   │   ├── next.config.js
+│   │   ├── package.json
+│   │   ├── pages/
+│   │   ├── test/
+│   │   ├── tsconfig.json
+│   │   ├── types.ts
+│   │   └── vitest.config.ts
+│   ├── middleware/
+│   │   ├── .env
+│   │   ├── .eslintrc.js
+│   │   ├── .gitignore
+│   │   ├── app/
+│   │   ├── middleware.ts
+│   │   ├── next-env.d.ts
+│   │   ├── next.config.js
+│   │   ├── package.json
+│   │   ├── pages/
+│   │   ├── test/
+│   │   ├── tsconfig.json
+│   │   └── vitest.config.ts
+│   ├── next-13-app-dir/
+│   │   ├── .env
+│   │   ├── .eslintrc.js
+│   │   ├── .gitignore
+│   │   ├── .vscode/
+│   │   ├── app/
+│   │   ├── db/
+│   │   ├── next-env.d.ts
+│   │   ├── next.config.js
+│   │   ├── package.json
+│   │   ├── src/
+│   │   ├── test/
+│   │   ├── tsconfig.json
+│   │   ├── types.ts
+│   │   └── vitest.config.ts
+│   ├── no-suspense/
+│   │   ├── .env
+│   │   ├── .eslintrc.js
+│   │   ├── .gitignore
+│   │   ├── app/
+│   │   ├── db/
+│   │   ├── next-env.d.ts
+│   │   ├── next.config.js
+│   │   ├── package.json
+│   │   ├── pages/
+│   │   ├── test/
+│   │   ├── tsconfig.json
+│   │   ├── types.ts
+│   │   └── vitest.config.ts
+│   ├── qm/
+│   │   ├── .env
+│   │   ├── .eslintrc.js
+│   │   ├── .gitignore
+│   │   ├── next-env.d.ts
+│   │   ├── next.config.js
+│   │   ├── package.json
+│   │   ├── test/
+│   │   ├── tsconfig.json
+│   │   └── vitest.config.ts
+│   ├── react-query-utils/
+│   │   ├── .env
+│   │   ├── .eslintrc.js
+│   │   ├── .gitignore
+│   │   ├── app/
+│   │   ├── db/
+│   │   ├── next-env.d.ts
+│   │   ├── next.config.js
+│   │   ├── package.json
+│   │   ├── pages/
+│   │   ├── test/
+│   │   ├── tsconfig.json
+│   │   └── vitest.config.ts
+│   ├── rpc-path-root/
+│   │   ├── app/
+│   │   ├── next-env.d.ts
+│   │   ├── next.config.js
+│   │   ├── package.json
+│   │   ├── pages/
+│   │   ├── test/
+│   │   ├── tsconfig.json
+│   │   └── vitest.config.ts
+│   ├── rpc/
+│   │   ├── .env
+│   │   ├── app/
+│   │   ├── next-env.d.ts
+│   │   ├── next.config.js
+│   │   ├── package.json
+│   │   ├── pages/
+│   │   ├── test/
+│   │   ├── tsconfig.json
+│   │   └── vitest.config.ts
+│   ├── trailing-slash/
+│   │   ├── .env
+│   │   ├── .eslintrc.js
+│   │   ├── .gitignore
+│   │   ├── app/
+│   │   ├── db/
+│   │   ├── next-env.d.ts
+│   │   ├── next.config.js
+│   │   ├── package.json
+│   │   ├── pages/
+│   │   ├── test/
+│   │   ├── tsconfig.json
+│   │   ├── types.ts
+│   │   └── vitest.config.ts
+│   └── utils/
+│       ├── blitz-test-utils.tsx
+│       ├── browsers/
+│       ├── next-test-utils.ts
+│       ├── next-webdriver.d.ts
+│       ├── next-webdriver.ts
+│       ├── package.json
+│       ├── tsconfig.json
+│       └── wd-chain.ts
+├── package.json
+├── packages/
+│   ├── blitz-auth/
+│   │   ├── .eslintignore
+│   │   ├── .eslintrc.js
+│   │   ├── CHANGELOG.md
+│   │   ├── README.md
+│   │   ├── build.config.ts
+│   │   ├── next-auth.d.ts
+│   │   ├── next-auth.js
+│   │   ├── package.json
+│   │   ├── secure-password.d.ts
+│   │   ├── secure-password.js
+│   │   ├── src/
+│   │   ├── tsconfig.json
+│   │   ├── turbo.json
+│   │   └── vitest.config.ts
+│   ├── blitz-next/
+│   │   ├── .eslintrc.js
+│   │   ├── CHANGELOG.md
+│   │   ├── README.md
+│   │   ├── build.config.ts
+│   │   ├── eslint.js
+│   │   ├── jest/
+│   │   ├── package.json
+│   │   ├── scripts/
+│   │   ├── src/
+│   │   ├── tsconfig.json
+│   │   ├── turbo.json
+│   │   └── utils/
+│   ├── blitz-rpc/
+│   │   ├── .eslintrc.js
+│   │   ├── CHANGELOG.md
+│   │   ├── README.md
+│   │   ├── build.config.ts
+│   │   ├── package.json
+│   │   ├── src/
+│   │   ├── test/
+│   │   ├── tsconfig.json
+│   │   ├── turbo.json
+│   │   └── utils/
+│   ├── blitz/
+│   │   ├── .eslintrc.js
+│   │   ├── CHANGELOG.md
+│   │   ├── bin/
+│   │   ├── build.config.ts
+│   │   ├── package.json
+│   │   ├── src/
+│   │   ├── tests/
+│   │   ├── tsconfig.json
+│   │   ├── turbo.json
+│   │   └── vitest.config.ts
+│   ├── codemod/
+│   │   ├── .eslintrc.js
+│   │   ├── CHANGELOG.md
+│   │   ├── bin/
+│   │   ├── build.config.ts
+│   │   ├── package.json
+│   │   ├── src/
+│   │   ├── tests/
+│   │   └── tsconfig.json
+│   ├── config/
+│   │   ├── CHANGELOG.md
+│   │   ├── README.md
+│   │   ├── eslint.js
+│   │   ├── package.json
+│   │   ├── tsconfig.base.json
+│   │   ├── tsconfig.library.json
+│   │   └── tsconfig.nextjs.json
+│   ├── generator/
+│   │   ├── .eslintignore
+│   │   ├── .eslintrc.js
+│   │   ├── .gitignore
+│   │   ├── CHANGELOG.md
+│   │   ├── README.md
+│   │   ├── build.config.ts
+│   │   ├── package.json
+│   │   ├── src/
+│   │   ├── templates/
+│   │   ├── test/
+│   │   ├── tsconfig.json
+│   │   └── types/
+│   └── pkg-template/
+│       ├── .eslintrc.js
+│       ├── build.config.ts
+│       ├── package.json
+│       ├── src/
+│       ├── test/
+│       └── tsconfig.json
+├── pnpm-lock.yaml
+├── pnpm-workspace.yaml
+├── prettier.config.js
+├── tsconfig.json
+└── turbo.json

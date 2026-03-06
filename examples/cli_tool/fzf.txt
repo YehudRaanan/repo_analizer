@@ -1,0 +1,636 @@
+=====================================
+Repository Analysis: fzf
+Type: CLI Tool
+=====================================
+
+--- METADATA ---
+Name: fzf
+Description: :cherry_blossom: A command-line fuzzy finder
+Language: Go
+Topics: bash, cli, fish, fzf, go, neovim, tmux, unix, vim, zsh
+Stars: 78330
+License: MIT License
+
+--- README ---
+<div align="center">
+  <img src="https://raw.githubusercontent.com/junegunn/i/master/fzf-color.png" alt="fzf - a command-line fuzzy finder">
+  <a href="https://github.com/junegunn/fzf/actions"><img src="https://github.com/junegunn/fzf/actions/workflows/linux.yml/badge.svg?branch=master" alt="Build Status"></a>
+  <a href="http://github.com/junegunn/fzf/releases"><img src="https://img.shields.io/github/v/tag/junegunn/fzf" alt="Version"></a>
+  <a href="https://github.com/junegunn/fzf?tab=MIT-1-ov-file#readme"><img src="https://img.shields.io/github/license/junegunn/fzf" alt="License"></a>
+  <a href="https://github.com/junegunn/fzf/graphs/contributors"><img src="https://img.shields.io/github/contributors/junegunn/fzf" alt="Contributors"></a>
+  <a href="https://github.com/sponsors/junegunn"><img src="https://img.shields.io/github/sponsors/junegunn" alt="Sponsors"></a>
+  <a href="https://github.com/junegunn/fzf/stargazers"><img src="https://img.shields.io/github/stars/junegunn/fzf?style=flat" alt="Stars"></a>
+</div>
+
+---
+
+fzf is a general-purpose command-line fuzzy finder.
+
+<img src="https://raw.githubusercontent.com/junegunn/i/master/fzf-preview.png" width=640>
+
+It's an interactive filter program for any kind of list; files, command
+history, processes, hostnames, bookmarks, git commits, etc. It implements
+a "fuzzy" matching algorithm, so you can quickly type in patterns with omitted
+characters and still get the results you want.
+
+Highlights
+----------
+
+- **Portable** — Distributed as a single binary for easy installation
+- **Fast** — Optimized to process millions of items instantly
+- **Versatile** — Fully customizable through an event-action binding mechanism
+- **All-inclusive** — Comes with integrations for Bash, Zsh, Fish, Vim, and Neovim
+
+Table of Contents
+-----------------
+
+<!-- vim-markdown-toc GFM -->
+
+* [Installation](#installation)
+    * [Using Homebrew](#using-homebrew)
+    * [Using Mise](#using-mise)
+    * [Linux packages](#linux-packages)
+    * [Windows packages](#windows-packages)
+    * [Using git](#using-git)
+    * [Binary releases](#binary-releases)
+    * [Setting up shell integration](#setting-up-shell-integration)
+    * [Vim/Neovim plugin](#vimneovim-plugin)
+* [Upgrading fzf](#upgrading-fzf)
+* [Building fzf](#building-fzf)
+* [Usage](#usage)
+    * [Using the finder](#using-the-finder)
+    * [Display modes](#display-modes)
+        * [`--height` mode](#--height-mode)
+        * [`--tmux` mode](#--tmux-mode)
+    * [Search syntax](#search-syntax)
+    * [Environment variables](#environment-variables)
+    * [Customizing the look](#customizing-the-look)
+    * [Options](#options)
+    * [Demo](#demo)
+* [Examples](#examples)
+* [Key bindings for command-line](#key-bindings-for-command-line)
+* [Fuzzy completion](#fuzzy-completion)
+    * [Files and directories](#files-and-directories)
+    * [Process IDs](#process-ids)
+    * [Host names](#host-names)
+    * [Environment variables / Aliases](#environment-variables--aliases)
+    * [Customizing fuzzy completion for bash and zsh](#customizing-fuzzy-completion-for-bash-and-zsh)
+        * [Customizing fzf options for completion](#customizing-fzf-options-for-completion)
+        * [Customizing completion source for paths and directories](#customizing-completion-source-for-paths-and-directories)
+        * [Supported commands (bash)](#supported-commands-bash)
+        * [Custom fuzzy completion](#custom-fuzzy-completion)
+    * [Fuzzy completion for fish](#fuzzy-completion-for-fish)
+* [Vim plugin](#vim-plugin)
+* [Advanced topics](#advanced-topics)
+    * [Customizing for different types of input](#customizing-for-different-types-of-input)
+    * [Performance](#performance)
+    * [Executing external programs](#executing-external-programs)
+    * [Turning into a different process](#turning-into-a-different-process)
+    * [Reloading the candidate list](#reloading-the-candidate-list)
+        * [1. Update the list of processes by pressing CTRL-R](#1-update-the-list-of-processes-by-pressing-ctrl-r)
+        * [2. Switch between sources by pressing CTRL-D or CTRL-F](#2-switch-between-sources-by-pressing-ctrl-d-or-ctrl-f)
+        * [3. Interactive ripgrep integration](#3-interactive-ripgrep-integration)
+    * [Preview window](#preview-window)
+    * [Previewing an image](#previewing-an-image)
+* [Tips](#tips)
+    * [Respecting `.gitignore`](#respecting-gitignore)
+    * [Fish shell](#fish-shell)
+    * [fzf Theme Playground](#fzf-theme-playground)
+* [Related projects](#related-projects)
+* [License](#license)
+* [Goods](#goods)
+* [Sponsors :heart:](#sponsors-heart)
+
+<!-- vim-markdown-toc -->
+
+Installation
+------------
+
+### Using Homebrew
+
+You can use [Homebrew](https://brew.sh/) (on macOS or Linux) to install fzf.
+
+```sh
+brew install fzf
+```
+
+> [!IMPORTANT]
+> To set up shell integration (key bindings and fuzzy completion),
+> see [the instructions below](#setting-up-shell-integration).
+
+fzf is also available [via MacPorts][portfile]: `sudo port install fzf`
+
+[portfile]: https://github.com/macp
+... [TRUNCATED]
+
+--- PACKAGE MANIFEST(S) ---
+
+[go.mod]
+module github.com/junegunn/fzf
+
+require (
+	github.com/charlievieth/fastwalk v1.0.14
+	github.com/gdamore/tcell/v2 v2.9.0
+	github.com/junegunn/go-shellwords v0.0.0-20250127100254-2aa3b3277741
+	github.com/mattn/go-isatty v0.0.20
+	github.com/rivo/uniseg v0.4.7
+	golang.org/x/sys v0.35.0
+	golang.org/x/term v0.34.0
+)
+
+require (
+	github.com/gdamore/encoding v1.0.1 // indirect
+	github.com/lucasb-eyer/go-colorful v1.2.0 // indirect
+	github.com/mattn/go-runewidth v0.0.16 // indirect
+	golang.org/x/text v0.28.0 // indirect
+)
+
+go 1.23.0
+
+
+[Gemfile]
+# frozen_string_literal: true
+
+source 'https://rubygems.org'
+
+gem 'minitest', '5.25.4'
+gem 'rubocop', '1.71.0'
+gem 'rubocop-minitest', '0.36.0'
+gem 'rubocop-performance', '1.23.1'
+
+
+[Makefile]
+GO             ?= go
+DOCKER         ?= docker
+GOOS           ?= $(shell $(GO) env GOOS)
+
+MAKEFILE       := $(realpath $(lastword $(MAKEFILE_LIST)))
+ROOT_DIR       := $(shell dirname $(MAKEFILE))
+SOURCES        := $(wildcard *.go src/*.go src/*/*.go shell/*sh man/man1/*.1) $(MAKEFILE)
+
+BASH_SCRIPTS   := $(ROOT_DIR)/bin/fzf-preview.sh \
+					$(ROOT_DIR)/bin/fzf-tmux \
+					$(ROOT_DIR)/install \
+					$(ROOT_DIR)/uninstall \
+					$(ROOT_DIR)/shell/common.sh \
+					$(ROOT_DIR)/shell/update.sh \
+					$(ROOT_DIR)/shell/completion.bash \
+					$(ROOT_DIR)/shell/key-bindings.bash
+
+ifdef FZF_VERSION
+VERSION        := $(FZF_VERSION)
+else
+VERSION        := $(shell git describe --abbrev=0 2> /dev/null | sed "s/^v//")
+endif
+ifeq ($(VERSION),)
+$(error Not on git repository; cannot determine $$FZF_VERSION)
+endif
+VERSION_TRIM   := $(shell echo $(VERSION) | sed "s/^v//; s/-.*//")
+VERSION_REGEX  := $(subst .,\.,$(VERSION_TRIM))
+
+ifdef FZF_REVISION
+REVISION       := $(FZF_REVISION)
+else
+REVISION       := $(shell git log -n 1 --pretty=format:%h --abbrev=8 -- $(SOURCES) 2> /dev/null)
+endif
+ifeq ($(REVISION),)
+$(error Not on git repository; cannot determine $$FZF_REVISION)
+endif
+BUILD_FLAGS    := -a -ldflags "-s -w -X main.version=$(VERSION) -X main.revision=$(REVISION)" -tags "$(TAGS)" -trimpath
+
+BINARY32       := fzf-$(GOOS)_386
+BINARY64       := fzf-$(GOOS)_amd64
+BINARYS390     := fzf-$(GOOS)_s390x
+BINARYARM5     := fzf-$(GOOS)_arm5
+BINARYARM6     := fzf-$(GOOS)_arm6
+BINARYARM7     := fzf-$(GOOS)_arm7
+BINARYARM8     := fzf-$(GOOS)_arm8
+BINARYPPC64LE  := fzf-$(GOOS)_ppc64le
+BINARYRISCV64  := fzf-$(GOOS)_riscv64
+BINARYLOONG64  := fzf-$(GOOS)_loong64
+
+# https://en.wikipedia.org/wiki/Uname
+UNAME_M := $(shell uname -m)
+ifeq ($(UNAME_M),x86_64)
+	BINARY := $(BINARY64)
+else ifeq ($(UNAME_M),amd64)
+	BINARY := $(BINARY64)
+else ifeq ($(UNAME_M),s390x)
+	BINARY := $(BINARYS390)
+else ifeq ($(UNAME_M),i686)
+	BINARY := $(BINARY32)
+else ifeq ($(UNAME_M),i386)
+	BINARY := $(BINARY32)
+else ifeq ($(UNAME_M),armv5l)
+	BINARY := $(BINARYARM5)
+else ifeq ($(UNAME_M),armv6l)
+	BINARY := $(BINARYARM6)
+else ifeq ($(UNAME_M),armv7l)
+	BINARY := $(BINARYARM7)
+else ifeq ($(UNAME_M),armv8l)
+	# armv8l is always 32-bit and should implement the armv7 ISA, so
+	# just use the same filename as for armv7.
+	BINARY := $(BINARYARM7)
+else ifeq ($(UNAME_M),arm64)
+	BINARY := $(BINARYARM8)
+else ifeq ($(UNAME_M),aarch64)
+	BINARY := $(BINARYARM8)
+else ifeq ($(UNAME_M),ppc64le)
+	BINARY := $(BINARYPPC64LE)
+else ifeq ($(UNAME_M),riscv64)
+	BINARY := $(BINARYRISCV64)
+else ifeq ($(UNAME_M),loongarch64)
+	BINARY := $(BINARYLOONG64)
+else
+$(error Build on $(UNAME_M) is not supported, yet.)
+endif
+
+all: target/$(BINARY)
+
+test: $(SOURCES)
+	SHELL=/bin/sh GOOS= $(GO) test -v -tags "$(TAGS)" \
+				github.com/junegunn/fzf/src \
+				github.com/junegunn/fzf/src/algo \
+				github.com/junegunn/fzf/src/tui \
+				github.com/junegunn/fzf/src/util
+
+itest:
+	ruby test/runner.rb
+
+bench:
+	cd src && SHELL=/bin/sh GOOS= $(GO) test -v -tags "$(TAGS
+... [TRUNCATED]
+
+--- CLI ENTRY POINTS / COMMAND DEFINITIONS ---
+
+[bin/fzf-preview.sh]
+#!/usr/bin/env bash
+#
+# The purpose of this script is to demonstrate how to preview a file or an
+# image in the preview window of fzf.
+#
+# Dependencies:
+# - https://github.com/sharkdp/bat
+# - https://github.com/hpjansson/chafa
+# - https://iterm2.com/utilities/imgcat
+
+if [[ $# -ne 1 ]]; then
+  >&2 echo "usage: $0 FILENAME[:LINENO][:IGNORED]"
+  exit 1
+fi
+
+file=${1/#\~\//$HOME/}
+
+center=0
+if [[ ! -r $file ]]; then
+  if [[ $file =~ ^(.+):([0-9]+)\ *$ ]] && [[ -r ${BASH_REMATCH[1]} ]]; then
+    file=${BASH_REMATCH[1]}
+    center=${BASH_REMATCH[2]}
+  elif [[ $file =~ ^(.+):([0-9]+):[0-9]+\ *$ ]] && [[ -r ${BASH_REMATCH[1]} ]]; then
+    file=${BASH_REMATCH[1]}
+    center=${BASH_REMATCH[2]}
+  fi
+fi
+
+type=$(file --brief --dereference --mime -- "$file")
+
+if [[ ! $type =~ image/ ]]; then
+  if [[ $type =~ =binary ]]; then
+    file "$1"
+    exit
+  fi
+
+  # Sometimes bat is installed as batcat.
+  if command -v batcat > /dev/null; then
+    batname="batcat"
+  elif command -v bat > /dev/null; then
+    batname="bat"
+  else
+    cat "$1"
+    exit
+  fi
+
+  ${batname} --style="${BAT_STYLE:-numbers}" --color=always --pager=never --highlight-line="${center:-0}" -- "$file"
+  exit
+fi
+
+dim=${FZF_PREVIEW_COLUMNS}x${FZF_PREVIEW_LINES}
+if [[ $dim == x ]]; then
+  dim=$(stty size < /dev/tty | awk '{print $2 "x" $1}')
+elif ! [[ $KITTY_WINDOW_ID ]] && ((FZF_PREVIEW_TOP + FZF_PREVIEW_LINES == $(stty size < /dev/tty | awk '{print $1}'))); then
+  # Avoid scrolling issue when the Sixel image touches the bottom of the screen
+  # * https://github.com/junegunn/fzf/issues/2544
+  dim=${FZF_PREVIEW_COLUMNS}x$((FZF_PREVIEW_LINES - 1))
+fi
+
+# 1. Use icat (from Kitty) if kitten is installed
+if [[ $KITTY_WINDOW_ID ]] || [[ $GHOSTTY_RESOURCES_DIR ]] && command -v kitten > /dev/null; then
+  # 1. 'memory' is the fastest option but if you want the image to be scrollable,
+  #    you have to use 'stream'.
+  #
+  # 2. The last line of the output is the ANSI reset code without newline.
+  #    This confuses fzf and makes it render scroll offset indicator.
+  #    So we remove the last line and append the reset code to its previous line.
+  kitten icat --clear --transfer-mode=memory --unicode-placeholder --stdin=no --place="$dim@0x0" "$file" | sed '$d' | sed $'$s/$/\e[m/'
+
+# 2. Use chafa with Sixel output
+elif command -v chafa > /dev/null; then
+  chafa -s "$dim" "$file"
+  # Add a new line character so that fzf can display multiple images in the preview window
+  echo
+
+# 3. If chafa is not found but imgcat is available, use it on iTerm2
+elif command -v imgcat > /dev/null; then
+  # NOTE: We should use https://iterm2.com/utilities/it2check to check if the
+  # user is running iTerm2. But for the sake of simplicity, we just assume
+  # that's the case here.
+  imgcat -W "${dim%%x*}" -H "${dim##*x}" "$file"
+
+# 4. Cannot find any suitable method to preview the image
+else
+  file "$file"
+fi
+
+
+[main.go]
+package main
+
+import (
+	_ "embed"
+	"fmt"
+	"os"
+	"os/exec"
+	"strings"
+
+	fzf "github.com/junegunn/fzf/src"
+	"github.com/junegunn/fzf/src/protector"
+)
+
+var version = "0.70"
+var revision = "devel"
+
+//go:embed shell/key-bindings.bash
+var bashKeyBindings []byte
+
+//go:embed shell/completion.bash
+var bashCompletion []byte
+
+//go:embed shell/key-bindings.zsh
+var zshKeyBindings []byte
+
+//go:embed shell/completion.zsh
+var zshCompletion []byte
+
+//go:embed shell/key-bindings.fish
+var fishKeyBindings []byte
+
+//go:embed shell/completion.fish
+var fishCompletion []byte
+
+//go:embed man/man1/fzf.1
+var manPage []byte
+
+func printScript(label string, content []byte) {
+	fmt.Println("### " + label + " ###")
+	fmt.Println(strings.TrimSpace(string(content)))
+	fmt.Println("### end: " + label + " ###")
+}
+
+func exit(code int, err error) {
+	if code == fzf.ExitError && err != nil {
+		fmt.Fprintln(os.Stderr, err.Error())
+	}
+	os.Exit(code)
+}
+
+func main() {
+	protector.Protect()
+
+	options, err := fzf.ParseOptions(true, os.Args[1:])
+	if err != nil {
+		exit(fzf.ExitError, err)
+		return
+	}
+	if options.Bash {
+		printScript("key-bindings.bash", bashKeyBindings)
+		printScript("completion.bash", bashCompletion)
+		return
+	}
+	if options.Zsh {
+		printScript("key-bindings.zsh", zshKeyBindings)
+		printScript("completion.zsh", zshCompletion)
+		return
+	}
+	if options.Fish {
+		printScript("key-bindings.fish", fishKeyBindings)
+		printScript("completion.fish", fishCompletion)
+		return
+	}
+	if options.Help {
+		fmt.Print(fzf.Usage)
+		return
+	}
+	if options.Version {
+		if len(revision) > 0 {
+			fmt.Printf("%s (%s)\n", version, revision)
+		} else {
+			fmt.Println(version)
+		}
+		return
+	}
+	if options.Man {
+		file := fzf.WriteTemporaryFile([]string{string(manPage)}, "\n")
+		if len(file) == 0 {
+			fmt.Print(string(manPage))
+			return
+		}
+		defer os.Remove(file)
+		cmd := exec.Command("man", file)
+		cmd.Stdin = os.Stdin
+		cmd.Stdout = os.Stdout
+		if err := cmd.Run(); err != nil {
+			fmt.Print(string(manPage))
+		}
+		return
+	}
+
+	code, err := fzf.Run(options)
+	exit(code, err)
+}
+
+
+--- SHELL COMPLETIONS & MAN PAGES ---
+  man/man1/fzf-tmux.1
+  man/man1/fzf.1
+  shell/common.fish
+  shell/completion.bash
+  shell/completion.fish
+  shell/completion.zsh
+  shell/key-bindings.bash
+  shell/key-bindings.fish
+  shell/key-bindings.zsh
+  test/lib/common.fish
+
+--- DIRECTORY STRUCTURE (depth 2) ---
+├── .editorconfig
+├── .github/
+│   ├── FUNDING.yml
+│   ├── ISSUE_TEMPLATE/
+│   │   └── issue_template.yml
+│   ├── dependabot.yml
+│   ├── labeler.yml
+│   └── workflows/
+│       ├── codeql-analysis.yml
+│       ├── depsreview.yaml
+│       ├── labeler.yml
+│       ├── linux.yml
+│       ├── macos.yml
+│       ├── sponsors.yml
+│       ├── typos.yml
+│       └── winget.yml
+├── .gitignore
+├── .goreleaser.yml
+├── .rubocop.yml
+├── .tool-versions
+├── ADVANCED.md
+├── BUILD.md
+├── CHANGELOG.md
+├── Dockerfile
+├── Gemfile
+├── Gemfile.lock
+├── LICENSE
+├── Makefile
+├── README-VIM.md
+├── README.md
+├── SECURITY.md
+├── bin/
+│   ├── fzf-preview.sh
+│   └── fzf-tmux
+├── doc/
+│   └── fzf.txt
+├── go.mod
+├── go.sum
+├── install
+├── install.ps1
+├── main.go
+├── man/
+│   └── man1/
+│       ├── fzf-tmux.1
+│       └── fzf.1
+├── plugin/
+│   └── fzf.vim
+├── shell/
+│   ├── common.fish
+│   ├── common.sh
+│   ├── completion.bash
+│   ├── completion.fish
+│   ├── completion.zsh
+│   ├── key-bindings.bash
+│   ├── key-bindings.fish
+│   ├── key-bindings.zsh
+│   └── update.sh
+├── src/
+│   ├── LICENSE
+│   ├── actiontype_string.go
+│   ├── algo/
+│   │   ├── SIMD.md
+│   │   ├── algo.go
+│   │   ├── algo_test.go
+│   │   ├── indexbyte2_amd64.go
+│   │   ├── indexbyte2_amd64.s
+│   │   ├── indexbyte2_arm64.go
+│   │   ├── indexbyte2_arm64.s
+│   │   ├── indexbyte2_other.go
+│   │   ├── indexbyte2_test.go
+│   │   └── normalize.go
+│   ├── ansi.go
+│   ├── ansi_test.go
+│   ├── cache.go
+│   ├── cache_test.go
+│   ├── chunklist.go
+│   ├── chunklist_test.go
+│   ├── constants.go
+│   ├── core.go
+│   ├── functions.go
+│   ├── history.go
+│   ├── history_test.go
+│   ├── item.go
+│   ├── item_test.go
+│   ├── matcher.go
+│   ├── merger.go
+│   ├── merger_test.go
+│   ├── options.go
+│   ├── options_no_pprof.go
+│   ├── options_pprof.go
+│   ├── options_pprof_test.go
+│   ├── options_test.go
+│   ├── pattern.go
+│   ├── pattern_test.go
+│   ├── protector/
+│   │   ├── protector.go
+│   │   └── protector_openbsd.go
+│   ├── proxy.go
+│   ├── proxy_unix.go
+│   ├── proxy_windows.go
+│   ├── reader.go
+│   ├── reader_test.go
+│   ├── result.go
+│   ├── result_others.go
+│   ├── result_test.go
+│   ├── result_x86.go
+│   ├── server.go
+│   ├── terminal.go
+│   ├── terminal_test.go
+│   ├── terminal_unix.go
+│   ├── terminal_windows.go
+│   ├── tmux.go
+│   ├── tokenizer.go
+│   ├── tokenizer_test.go
+│   ├── tui/
+│   │   ├── dummy.go
+│   │   ├── eventtype_string.go
+│   │   ├── light.go
+│   │   ├── light_test.go
+│   │   ├── light_unix.go
+│   │   ├── light_windows.go
+│   │   ├── tcell.go
+│   │   ├── tcell_test.go
+│   │   ├── ttyname_unix.go
+│   │   ├── ttyname_windows.go
+│   │   ├── tui.go
+│   │   └── tui_test.go
+│   ├── util/
+│   │   ├── atexit.go
+│   │   ├── atexit_test.go
+│   │   ├── atomicbool.go
+│   │   ├── atomicbool_test.go
+│   │   ├── chars.go
+│   │   ├── chars_test.go
+│   │   ├── concurrent_set.go
+│   │   ├── eventbox.go
+│   │   ├── eventbox_test.go
+│   │   ├── slab.go
+│   │   ├── util.go
+│   │   ├── util_test.go
+│   │   ├── util_unix.go
+│   │   └── util_windows.go
+│   ├── winpty.go
+│   └── winpty_windows.go
+├── test/
+│   ├── lib/
+│   │   ├── common.fish
+│   │   ├── common.rb
+│   │   └── common.sh
+│   ├── runner.rb
+│   ├── test_core.rb
+│   ├── test_exec.rb
+│   ├── test_filter.rb
+│   ├── test_layout.rb
+│   ├── test_preview.rb
+│   ├── test_raw.rb
+│   ├── test_server.rb
+│   ├── test_shell_integration.rb
+│   └── vim/
+│       └── fzf.vader
+├── typos.toml
+└── uninstall

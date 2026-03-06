@@ -1,0 +1,1981 @@
+=====================================
+Repository Analysis: cal.com
+Type: Web Application
+=====================================
+
+--- METADATA ---
+Name: cal.com
+Description: Scheduling infrastructure for absolutely everyone.
+Language: TypeScript
+Topics: next-auth, nextjs, open-source, postgresql, prisma, t3-stack, tailwindcss, trpc, turborepo, typescript, zod
+Stars: 40466
+License: Other
+
+--- README ---
+<!-- PROJECT LOGO -->
+<p align="center">
+  <a href="https://github.com/calcom/cal.com">
+   <img src="https://user-images.githubusercontent.com/8019099/210054112-5955e812-a76e-4160-9ddd-58f2c72f1cce.png" alt="Logo">
+  </a>
+
+  <h3 align="center">Cal.com</h3>
+
+  <p align="center">
+    The open-source Calendly successor.
+    <br />
+    <a href="https://cal.com"><strong>Learn more »</strong></a>
+    <br />
+    <br />
+    <a href="https://github.com/calcom/cal.com/discussions">Discussions</a>
+    ·
+    <a href="https://cal.com">Website</a>
+    ·
+    <a href="https://github.com/calcom/cal.com/issues">Issues</a>
+    ·
+    <a href="https://cal.com/roadmap">Roadmap</a>
+  </p>
+</p>
+
+<p align="center">
+   <a href="https://www.producthunt.com/products/cal-com"><img src="https://img.shields.io/badge/Product%20Hunt-%231%20Product%20of%20the%20Month-%23DA552E" alt="Product Hunt"></a>
+   <img src="https://api.checklyhq.com/v1/badges/groups/1120718?style=flat&theme=default" alt="Checkly QA">
+   <a href="https://status.cal.com"><img height="20px" src="https://betteruptime.com/status-badges/v1/monitor/a9kf.svg" alt="Uptime"></a>
+   <a href="https://github.com/calcom/cal.com/stargazers"><img src="https://img.shields.io/github/stars/calcom/cal.com" alt="Github Stars"></a>
+   <a href="https://news.ycombinator.com/item?id=34507672"><img src="https://img.shields.io/badge/Hacker%20News-%231-%23FF6600" alt="Hacker News"></a>
+   <a href="https://github.com/calcom/cal.com/blob/main/LICENSE"><img src="https://img.shields.io/badge/license-AGPLv3-purple" alt="License"></a>
+   <a href="https://github.com/calcom/cal.com/pulse"><img src="https://img.shields.io/github/commit-activity/m/calcom/cal.com" alt="Commits-per-month"></a>
+   <a href="https://cal.com/pricing"><img src="https://img.shields.io/badge/Pricing-Free-brightgreen" alt="Pricing"></a>
+   <a href="https://jitsu.com?utm_source=github/calcom/cal.com"><img src="https://img.shields.io/badge/Metrics_tracked_by-JITSU-AA00FF?logo=data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA4AAAAOCAYAAAAfSC3RAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAACKSURBVHgBrZDRCYAwDEQv6gCOoKO4hOCXI9QVnEZwiY5iF5GaVClaBNtioCSUvCR3tMJaxIfZgW4AGUoEPVwgPZoS0Dmgg3NBVDFNbMIsmYCak3J1jDk9iCQvsKJvkzr71N81Gj6vDT/LU2P6RhY63jcafk3YJEbgeZpiFyc/5HJKv8Ef273NSfABGbQfUZhnOSAAAAAASUVORK5CYII=" alt="Jitsu Tracked"></a>
+   <img src="https://api.checklyhq.com/v1/badges/checks/5e048048-1b51-47ba-9209-60607507622e?responseTime=true" alt="Checkly Availability" />
+   <a href="https://hub.docker.com/r/calcom/cal.com"><img src="https://img.shields.io/docker/pulls/calcom/cal.com"></a>
+   <a href="https://twitch.tv/calcomtv"><img src="https://img.shields.io/twitch/status/calcomtv?style=flat"></a>
+   <a href="https://github.com/calcom/cal.com/issues?q=is:issue+is:open+label:%22%F0%9F%99%8B%F0%9F%8F%BB%E2%80%8D%E2%99%82%EF%B8%8Fhelp+wanted%22"><img src="https://img.shields.io/badge/Help%20Wanted-Contribute-blue"></a>
+   <a href="https://cal.com/figma"><img src="https://img.shields.io/badge/Figma-Design%20System-blueviolet"></a>
+   <a href="https://contributor-covenant.org/version/1/4/code-of-conduct/ "><img src="https://img.shields.io/badge/Contributor%20Covenant-1.4-purple" /></a>
+   <a href="https://console.algora.io/org/cal/bounties?status=open"><img src="https://img.shields.io/endpoint?url=https%3A%2F%2Fconsole.algora.io%2Fapi%2Fshields%2Fcal%2Fbounties%3Fstatus%3Dopen" /></a>
+</p>
+
+<!-- ABOUT THE PROJECT -->
+
+## About the Project
+
+<img width="100%" alt="booking-screen" src="https://github.com/calcom/cal.com/assets/8019099/407e727e-ff19-4ca4-bcae-049dca05cf02">
+
+# Scheduling infrastructure for absolutely everyone
+
+The open source Calendly successor. You are in charge
+of your own data, workflow, and appearance.
+
+Calendly and other scheduling tools are awesome. It made our lives massively easier. We're using it for business meetings, seminars, yoga classes, and even calls with our families. However, most tools are very limited in terms of control and customization.
+
+That's where Cal.com comes in. Self-hosted or hosted by us. White-label by design. API-driven and ready to be deployed on your own domain. Full control of your events and data.
+
+## Recognition
+
+#### [Hacker News](https://news.ycombinator.com/from?site=cal.com)
+
+<a href="https://news.ycombinator.com/item?id=34507672">
+  <img
+    style="width: 250px; height: 54px;" width="250" height="54"
+    alt="Featured on Hacker News"
+    src="https://hackernews-badge.vercel.app/api?id=34507672"
+  />
+</a>
+
+<a href="https://news.ycombinator.com/item?id=26817795">
+  <img
+    style="width: 250px; height: 54px;" width="250" height="54"
+    alt="Featured on Hacker News"
+    src="https://hackernews-badge.vercel.app/api?id=26817795"
+  />
+</a>
+
+#### [Product Hunt](https://producthunt.com/products/cal-com?utm_source=badge-top-post-badge&utm_medium=badge)
+
+<a href="https://producthunt.com/posts/calendso?utm_source=badge-top-post-badge&utm_medium=badge&utm_souce=badge-calendso" t
+... [TRUNCATED]
+
+--- PACKAGE MANIFEST(S) ---
+
+[package.json]
+{
+  "name": "calcom-monorepo",
+  "version": "0.0.0",
+  "private": true,
+  "workspaces": [
+    "apps/*",
+    "apps/api/*",
+    "packages/*",
+    "packages/embeds/*",
+    "packages/features/*",
+    "packages/app-store",
+    "packages/app-store/*",
+    "packages/platform/*",
+    "packages/platform/examples/base",
+    "example-apps/*"
+  ],
+  "scripts": {
+    "app-store-cli": "yarn workspace @calcom/app-store-cli",
+    "app-store:build": "yarn turbo build --filter=@calcom/app-store-cli",
+    "app-store:watch": "yarn app-store-cli watch",
+    "app-store": "yarn app-store-cli cli",
+    "create-app": "yarn app-store create",
+    "edit-app": "yarn app-store edit",
+    "withEmbedPublishEnv": "NEXT_PUBLIC_EMBED_LIB_URL='https://app.cal.com/embed/embed.js' NEXT_PUBLIC_WEBAPP_URL='https://app.cal.com' yarn",
+    "publish-embed": "yarn withEmbedPublishEnv workspace @calcom/embed-core build && yarn withEmbedPublishEnv workspace @calcom/embed-snippet build && yarn workspaces foreach --from=\"@calcom/embed*\" npm publish --access=public",
+    "delete-app": "yarn app-store delete",
+    "create-app-template": "yarn app-store create-template",
+    "edit-app-template": "yarn app-store edit-template",
+    "delete-app-template": "yarn app-store delete-template",
+    "build": "turbo run build --filter=@calcom/web...",
+    "build:ai": "turbo run build --filter=\"@calcom/ai\"",
+    "clean": "find . -name node_modules -o -name .next -o -name .turbo -o -name dist -type d -prune | xargs rm -rf",
+    "db-deploy": "turbo run db-deploy",
+    "db-seed": "turbo run db-seed",
+    "db-studio": "yarn prisma studio",
+    "deploy": "turbo run deploy",
+    "dev:all": "turbo run dev --filter=\"@calcom/web\" --filter=\"@calcom/website\" --filter=\"@calcom/console\"",
+    "dev:ai": "turbo run dev --filter=\"@calcom/web\" --filter=\"@calcom/api-proxy\" --filter=\"@calcom/api\" --filter=\"@calcom/ai\"",
+    "dev:api": "turbo run dev --filter=\"@calcom/web\" --filter=\"@calcom/api-proxy\" --filter=\"@calcom/api\"",
+    "dev:api:console": "turbo run dev --filter=\"@calcom/web\" --filter=\"@calcom/api-proxy\" --filter=\"@calcom/api\" --filter=\"@calcom/console\"",
+    "dev:console": "turbo run dev --filter=\"@calcom/web\" --filter=\"@calcom/console\"",
+    "dev:swagger": "turbo run dev --filter=\"@calcom/api-proxy\" --filter=\"@calcom/api\" --filter=\"@calcom/swagger\"",
+    "dev:website": "turbo run dev --filter=\"@calcom/web\" --filter=\"@calcom/website\"",
+    "dev:trigger": "turbo run dev:trigger --filter=\"@calcom/features\"",
+    "deploy:trigger:prod": "turbo run deploy:trigger:prod --filter=\"@calcom/features\"",
+    "deploy:trigger:staging": "turbo run deploy:trigger:staging --filter=\"@calcom/features\"",
+    "dev": "turbo run dev --filter=\"@calcom/web\"",
+    "dx": "turbo run dx",
+    "i-dev": "infisical run -- turbo run dev --filter=\"@calcom/web\"",
+    "i-dx": "infisical run -- turbo run dx",
+    "i-gen-web-example-env": "infisical secrets generate-example-env --tags=web > .env.e
+... [TRUNCATED]
+
+--- WEB FRAMEWORK CONFIG ---
+
+[.env.example]
+# ********** INDEX **********
+#
+# - LICENSE (DEPRECATED)
+# - DATABASE
+# - SHARED
+#   - NEXTAUTH
+# - E-MAIL SETTINGS
+# - ORGANIZATIONS
+
+# - LICENSE (DEPRECATED) ************************************************************************************
+# https://github.com/calcom/cal.com/blob/main/LICENSE
+#
+# Summary of terms:
+# - The codebase has to stay open source, whether it was modified or not
+# - You can not repackage or sell the codebase
+# - Acquire a commercial license to remove these terms by visiting: cal.com/sales
+#
+
+# To enable enterprise-only features please add your environment variable to the .env file then make your way to /auth/setup to select your license and follow instructions.
+
+CALCOM_LICENSE_KEY=
+# Signature token for the Cal.com License API (used for self-hosted integrations)
+# We will give you a token when we provide you with a license key this ensure you and only you can communicate with the Cal.com License API for your license key
+CAL_SIGNATURE_TOKEN=
+# The route to the Cal.com License API
+CALCOM_PRIVATE_API_ROUTE="https://goblin.cal.com"
+# ***********************************************************************************************************
+
+# - DATABASE ************************************************************************************************
+DATABASE_URL="postgresql://postgres:@localhost:5450/calendso"
+# Needed to run migrations while using a connection pooler like PgBouncer
+# Use the same one as DATABASE_URL if you're not using a connection pooler
+DATABASE_DIRECT_URL="postgresql://postgres:@localhost:5450/calendso"
+INSIGHTS_DATABASE_URL=
+
+# ***********************************************************************************************************
+
+# - SHARED **************************************************************************************************
+# Set this to http://app.cal.local:3000 if you want to enable organizations, and
+# check variable ORGANIZATIONS_ENABLED at the bottom of this file
+NEXT_PUBLIC_WEBAPP_URL='http://localhost:3000'
+# Change to 'http://localhost:3001' if running the website simultaneously
+NEXT_PUBLIC_WEBSITE_URL='http://localhost:3000'
+NEXT_PUBLIC_EMBED_LIB_URL='http://localhost:3000/embed/embed.js'
+
+# To enable SAML login, set both these variables
+# @see https://github.com/calcom/cal.com/tree/main/packages/features/ee#setting-up-saml-login
+# SAML_DATABASE_URL="postgresql://postgres:@localhost:5450/cal-saml"
+SAML_DATABASE_URL=
+# SAML_ADMINS='pro@example.com'
+SAML_ADMINS=
+# NEXT_PUBLIC_HOSTED_CAL_FEATURES=1
+NEXT_PUBLIC_HOSTED_CAL_FEATURES=
+# For additional security set to a random secret and use that value as the client_secret during the OAuth 2.0 flow.
+SAML_CLIENT_SECRET_VERIFIER=
+
+# If you use Heroku to deploy Postgres (or use self-signed certs for Postgres) then uncomment the follow line.
+# @see https://devcenter.heroku.com/articles/connecting-heroku-postgres#connecting-in-node-js
+# PGSSLMODE='no-verify'
+PGSSLMODE=
+
+# Define which hostnames are expected for the app to work on
+ALLOWE
+... [TRUNCATED]
+
+[docker-compose.yml]
+# Use postgres/example user/password credentials
+
+volumes:
+  database-data:
+  redis-data:
+
+networks:
+  stack:
+    name: stack
+    external: false
+
+services:
+  database:
+    container_name: database
+    image: postgres
+    restart: always
+    volumes:
+      - database-data:/var/lib/postgresql
+    environment:
+      - POSTGRES_USER=unicorn_user
+      - POSTGRES_PASSWORD=magical_password
+      - POSTGRES_DB=calendso
+    networks:
+      - stack
+
+  redis:
+    container_name: redis
+    image: redis:latest
+    restart: always
+    volumes:
+      - redis-data:/data
+    networks:
+      - stack
+    ports:
+      - "${REDIS_PORT:-6379}:6379"
+
+  calcom:
+    image: calcom.docker.scarf.sh/calcom/cal.com
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        NEXT_PUBLIC_WEBAPP_URL: ${NEXT_PUBLIC_WEBAPP_URL}
+        NEXT_PUBLIC_API_V2_URL: ${NEXT_PUBLIC_API_V2_URL}
+        NEXT_PUBLIC_LICENSE_CONSENT: ${NEXT_PUBLIC_LICENSE_CONSENT}
+        NEXT_PUBLIC_WEBSITE_TERMS_URL: ${NEXT_PUBLIC_WEBSITE_TERMS_URL}
+        NEXT_PUBLIC_WEBSITE_PRIVACY_POLICY_URL: ${NEXT_PUBLIC_WEBSITE_PRIVACY_POLICY_URL}
+        NEXT_PUBLIC_SINGLE_ORG_SLUG: ${NEXT_PUBLIC_SINGLE_ORG_SLUG}
+        ORGANIZATIONS_ENABLED: ${ORGANIZATIONS_ENABLED}
+        CALCOM_TELEMETRY_DISABLED: ${CALCOM_TELEMETRY_DISABLED}
+        NEXTAUTH_SECRET: ${NEXTAUTH_SECRET}
+        CALENDSO_ENCRYPTION_KEY: ${CALENDSO_ENCRYPTION_KEY}
+        DATABASE_URL: ${DATABASE_URL}
+        DATABASE_DIRECT_URL: ${DATABASE_URL}
+        CSP_POLICY: ${CSP_POLICY}
+    restart: always
+    networks:
+      - stack
+    ports:
+      - 3000:3000
+    env_file: .env
+    environment:
+      - DATABASE_URL=postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@${DATABASE_HOST}/${POSTGRES_DB}
+      - DATABASE_DIRECT_URL=${DATABASE_URL}
+    depends_on:
+      - database
+
+  calcom-api:
+    container_name: calcom-api
+    build:
+      context: .
+      dockerfile: apps/api/v2/Dockerfile
+      args:
+        DATABASE_URL: ${DATABASE_URL}
+        DATABASE_DIRECT_URL: ${DATABASE_URL}
+    restart: always
+    networks:
+      - stack
+    ports:
+      - "${API_PORT:-80}:${API_PORT:-80}"
+    env_file: .env
+    environment:
+      - NODE_ENV=${NODE_ENV}
+      - API_PORT=${API_PORT:-80}
+      - API_URL=${API_URL}
+      - DATABASE_URL=postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@${DATABASE_HOST}/${POSTGRES_DB}
+      - DATABASE_READ_URL=postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@${DATABASE_HOST}/${POSTGRES_DB}
+      - DATABASE_WRITE_URL=postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@${DATABASE_HOST}/${POSTGRES_DB}
+      - DATABASE_DIRECT_URL=${DATABASE_URL}
+      - NEXTAUTH_SECRET=${NEXTAUTH_SECRET}
+      - JWT_SECRET=${JWT_SECRET}
+      - REDIS_URL=${REDIS_URL}
+      - LOG_LEVEL=${LOG_LEVEL}
+      - API_KEY_PREFIX=${API_KEY_PREFIX}
+      - WEB_APP_URL=${WEB_APP_URL}
+      - IS_E2E=${IS_E2E:-false}
+      - REWRITE_API_V2_PREFIX=${REWRITE_API_V2_PREFIX:-true}
+      - CALCOM_LICENSE_KEY=${CALCOM_LICENSE_KEY}
+      - NEXT_PUBLIC_VAPID_
+... [TRUNCATED]
+
+[Dockerfile]
+FROM --platform=$BUILDPLATFORM node:20 AS builder
+
+WORKDIR /calcom
+
+## If we want to read any ENV variable from .env file, we need to first accept and pass it as an argument to the Dockerfile
+ARG NEXT_PUBLIC_LICENSE_CONSENT
+ARG NEXT_PUBLIC_WEBSITE_TERMS_URL
+ARG NEXT_PUBLIC_WEBSITE_PRIVACY_POLICY_URL
+ARG CALCOM_TELEMETRY_DISABLED
+ARG DATABASE_URL
+ARG NEXTAUTH_SECRET=secret
+ARG CALENDSO_ENCRYPTION_KEY=secret
+ARG MAX_OLD_SPACE_SIZE=6144
+ARG NEXT_PUBLIC_API_V2_URL
+ARG CSP_POLICY
+
+## We need these variables as required by Next.js build to create rewrites
+ARG NEXT_PUBLIC_SINGLE_ORG_SLUG
+ARG ORGANIZATIONS_ENABLED
+
+ENV NEXT_PUBLIC_WEBAPP_URL=http://NEXT_PUBLIC_WEBAPP_URL_PLACEHOLDER \
+  NEXT_PUBLIC_API_V2_URL=$NEXT_PUBLIC_API_V2_URL \
+  NEXT_PUBLIC_LICENSE_CONSENT=$NEXT_PUBLIC_LICENSE_CONSENT \
+  NEXT_PUBLIC_WEBSITE_TERMS_URL=$NEXT_PUBLIC_WEBSITE_TERMS_URL \
+  NEXT_PUBLIC_WEBSITE_PRIVACY_POLICY_URL=$NEXT_PUBLIC_WEBSITE_PRIVACY_POLICY_URL \
+  CALCOM_TELEMETRY_DISABLED=$CALCOM_TELEMETRY_DISABLED \
+  DATABASE_URL=$DATABASE_URL \
+  DATABASE_DIRECT_URL=$DATABASE_URL \
+  NEXTAUTH_SECRET=${NEXTAUTH_SECRET} \
+  CALENDSO_ENCRYPTION_KEY=${CALENDSO_ENCRYPTION_KEY} \
+  NEXT_PUBLIC_SINGLE_ORG_SLUG=$NEXT_PUBLIC_SINGLE_ORG_SLUG \
+  ORGANIZATIONS_ENABLED=$ORGANIZATIONS_ENABLED \
+  NODE_OPTIONS=--max-old-space-size=${MAX_OLD_SPACE_SIZE} \
+  BUILD_STANDALONE=true \
+  CSP_POLICY=$CSP_POLICY
+
+COPY package.json yarn.lock .yarnrc.yml playwright.config.ts turbo.json i18n.json ./
+COPY .yarn ./.yarn
+COPY apps/web ./apps/web
+COPY apps/api/v2 ./apps/api/v2
+COPY packages ./packages
+
+RUN yarn config set httpTimeout 1200000
+RUN npx turbo prune --scope=@calcom/web --scope=@calcom/trpc --docker
+RUN yarn install
+# Build and make embed servable from web/public/embed folder
+RUN yarn workspace @calcom/trpc run build
+RUN yarn --cwd packages/embeds/embed-core workspace @calcom/embed-core run build
+RUN yarn --cwd apps/web workspace @calcom/web run copy-app-store-static
+RUN yarn --cwd apps/web workspace @calcom/web run build
+RUN rm -rf node_modules/.cache .yarn/cache apps/web/.next/cache
+
+FROM node:20 AS builder-two
+
+WORKDIR /calcom
+ARG NEXT_PUBLIC_WEBAPP_URL=http://localhost:3000
+
+ENV NODE_ENV=production
+
+COPY package.json .yarnrc.yml turbo.json i18n.json ./
+COPY .yarn ./.yarn
+COPY --from=builder /calcom/yarn.lock ./yarn.lock
+COPY --from=builder /calcom/node_modules ./node_modules
+COPY --from=builder /calcom/packages ./packages
+COPY --from=builder /calcom/apps/web ./apps/web
+COPY --from=builder /calcom/packages/prisma/schema.prisma ./prisma/schema.prisma
+COPY scripts scripts
+RUN chmod +x scripts/*
+
+# Save value used during this build stage. If NEXT_PUBLIC_WEBAPP_URL and BUILT_NEXT_PUBLIC_WEBAPP_URL differ at
+# run-time, then start.sh will find/replace static values again.
+ENV NEXT_PUBLIC_WEBAPP_URL=$NEXT_PUBLIC_WEBAPP_URL \
+  BUILT_NEXT_PUBLIC_WEBAPP_URL=$NEXT_PUBLIC_WEBAPP_URL
+
+RUN scripts/replace-placeholder.sh http://NEXT_PUBLIC_WEBAPP_URL_PLACEHOLDER ${NEXT_PUBLIC_WEBAPP_URL}
+
+FROM node:2
+... [TRUNCATED]
+
+[Procfile]
+web: npx turbo run @calcom/web#start
+
+
+--- ENVIRONMENT VARIABLES (.env.example) ---
+# ********** INDEX **********
+#
+# - LICENSE (DEPRECATED)
+# - DATABASE
+# - SHARED
+#   - NEXTAUTH
+# - E-MAIL SETTINGS
+# - ORGANIZATIONS
+
+# - LICENSE (DEPRECATED) ************************************************************************************
+# https://github.com/calcom/cal.com/blob/main/LICENSE
+#
+# Summary of terms:
+# - The codebase has to stay open source, whether it was modified or not
+# - You can not repackage or sell the codebase
+# - Acquire a commercial license to remove these terms by visiting: cal.com/sales
+#
+
+# To enable enterprise-only features please add your environment variable to the .env file then make your way to /auth/setup to select your license and follow instructions.
+
+CALCOM_LICENSE_KEY=
+# Signature token for the Cal.com License API (used for self-hosted integrations)
+# We will give you a token when we provide you with a license key this ensure you and only you can communicate with the Cal.com License API for your license key
+CAL_SIGNATURE_TOKEN=
+# The route to the Cal.com License API
+CALCOM_PRIVATE_API_ROUTE="https://goblin.cal.com"
+# ***********************************************************************************************************
+
+# - DATABASE ************************************************************************************************
+DATABASE_URL="postgresql://postgres:@localhost:5450/calendso"
+# Needed to run migrations while using a connection pooler like PgBouncer
+# Use the same one as DATABASE_URL if you're not using a connection pooler
+DATABASE_DIRECT_URL="postgresql://postgres:@localhost:5450/calendso"
+INSIGHTS_DATABASE_URL=
+
+# ***********************************************************************************************************
+
+# - SHARED **************************************************************************************************
+# Set this to http://app.cal.local:3000 if you want to enable organizations, and
+# check variable ORGANIZATIONS_ENABLED at the bottom of this file
+NEXT_PUBLIC_WEBAPP_URL='http://localhost:3000'
+# Change to 'http://localhost:3001' if running the website simultaneously
+NEXT_PUBLIC_WEBSITE_URL='http://localhost:3000'
+NEXT_PUBLIC_EMBED_LIB_URL='http://localhost:3000/embed/embed.js'
+
+# To enable SAML login, set both these variables
+# @see https://github.com/calcom/cal.com/tree/main/packages/features/ee#setting-up-saml-login
+# SAML_DATABASE_URL="postgresql://postgres:@localhost:5450/cal-saml"
+SAML_DATABASE_URL=
+# SAML_ADMINS='pro@example.com'
+SAML_ADMINS=
+# NEXT_PUBLIC_HOSTED_CAL_FEATURES=1
+NEXT_PUBLIC_HOSTED_CAL_FEATURES=
+# For additional security set to a random secret and use that value as the client_secret during the OAuth 2.0 flow.
+SAML_CLIENT_SECRET_VERIFIER=
+
+# If you use Heroku to deploy Postgres (or use self-signed certs for Postgres) then uncomment the follow line.
+# @see https://devcenter.heroku.com/articles/connecting-heroku-postgres#connecting-in-node-js
+# PGSSLMODE='no-verify'
+PGSSLMODE=
+
+# Define which hostnames are expected for the app to work on
+ALLOWE
+... [TRUNCATED]
+
+--- ROUTE / PAGE DEFINITIONS ---
+
+[apps/api/v1/pages/api/api-keys/[id]/_auth-middleware.ts]
+import type { NextApiRequest } from "next";
+
+import { HttpError } from "@calcom/lib/http-error";
+import prisma from "@calcom/prisma";
+
+import { schemaQueryIdAsString } from "~/lib/validations/shared/queryIdString";
+
+export async function authMiddleware(req: NextApiRequest) {
+  const { userId, isSystemWideAdmin } = req;
+  const { id } = schemaQueryIdAsString.parse(req.query);
+  // Admin can check any api key
+  if (isSystemWideAdmin) return;
+  // Check if user can access the api key
+  const apiKey = await prisma.apiKey.findFirst({
+    where: { id, userId },
+  });
+  if (!apiKey) throw new HttpError({ statusCode: 404, message: "API key not found" });
+}
+
+
+[apps/api/v1/pages/api/api-keys/[id]/_delete.ts]
+import type { NextApiRequest } from "next";
+
+import { defaultResponder } from "@calcom/lib/server/defaultResponder";
+import prisma from "@calcom/prisma";
+
+import { schemaQueryIdAsString } from "~/lib/validations/shared/queryIdString";
+
+async function deleteHandler(req: NextApiRequest) {
+  const { query } = req;
+  const { id } = schemaQueryIdAsString.parse(query);
+  await prisma.apiKey.delete({ where: { id } });
+  return { message: `ApiKey with id: ${id} deleted` };
+}
+
+export default defaultResponder(deleteHandler);
+
+
+[apps/api/v1/pages/api/api-keys/[id]/_get.ts]
+import type { NextApiRequest } from "next";
+
+import { defaultResponder } from "@calcom/lib/server/defaultResponder";
+import prisma from "@calcom/prisma";
+
+import { apiKeyPublicSchema } from "~/lib/validations/api-key";
+import { schemaQueryIdAsString } from "~/lib/validations/shared/queryIdString";
+
+async function getHandler(req: NextApiRequest) {
+  const { query } = req;
+  const { id } = schemaQueryIdAsString.parse(query);
+  const api_key = await prisma.apiKey.findUniqueOrThrow({ where: { id } });
+  return { api_key: apiKeyPublicSchema.parse(api_key) };
+}
+
+export default defaultResponder(getHandler);
+
+
+[apps/api/v1/pages/api/api-keys/[id]/_patch.ts]
+import type { NextApiRequest } from "next";
+
+import { defaultResponder } from "@calcom/lib/server/defaultResponder";
+import prisma from "@calcom/prisma";
+
+import { apiKeyEditBodySchema, apiKeyPublicSchema } from "~/lib/validations/api-key";
+import { schemaQueryIdAsString } from "~/lib/validations/shared/queryIdString";
+
+async function patchHandler(req: NextApiRequest) {
+  const { body } = req;
+  const { id } = schemaQueryIdAsString.parse(req.query);
+  const data = apiKeyEditBodySchema.parse(body);
+  const api_key = await prisma.apiKey.update({ where: { id }, data });
+  return { api_key: apiKeyPublicSchema.parse(api_key) };
+}
+
+export default defaultResponder(patchHandler);
+
+
+[apps/api/v1/pages/api/api-keys/[id]/index.ts]
+import type { NextApiRequest, NextApiResponse } from "next";
+
+import { defaultHandler } from "@calcom/lib/server/defaultHandler";
+import { defaultResponder } from "@calcom/lib/server/defaultResponder";
+
+import { withMiddleware } from "~/lib/helpers/withMiddleware";
+
+import { authMiddleware } from "./_auth-middleware";
+
+export default withMiddleware()(
+  defaultResponder(async (req: NextApiRequest, res: NextApiResponse) => {
+    await authMiddleware(req);
+    return defaultHandler({
+      GET: import("./_get"),
+      PATCH: import("./_patch"),
+      DELETE: import("./_delete"),
+    })(req, res);
+  })
+);
+
+
+--- DIRECTORY STRUCTURE (depth 2) ---
+├── .changeset/
+│   ├── README.md
+│   ├── config.json
+│   └── tender-birds-think.md
+├── .claude/
+│   ├── rules
+│   ├── settings.json
+│   └── skills
+├── .cursor/
+│   ├── rules
+│   └── skills
+├── .dockerignore
+├── .editorconfig
+├── .env.appStore.example
+├── .env.example
+├── .gitattributes
+├── .github/
+│   ├── CODEOWNERS
+│   ├── ISSUE_TEMPLATE/
+│   │   ├── bug_report.md
+│   │   ├── config.yml
+│   │   └── feature_request.md
+│   ├── PULL_REQUEST_TEMPLATE.md
+│   ├── actions/
+│   │   ├── cache-build-key/
+│   │   ├── cache-build/
+│   │   ├── cache-checkout/
+│   │   ├── cache-db-key/
+│   │   ├── cache-db/
+│   │   ├── devin-session/
+│   │   ├── docker-build-and-test/
+│   │   ├── yarn-install/
+│   │   └── yarn-playwright-install/
+│   ├── labeler.yml
+│   ├── matchers/
+│   │   └── tsc-absolute.json
+│   ├── oasdiff-err-ignore.txt
+│   └── workflows/
+│       ├── all-checks.yml
+│       ├── api-v1-production-build.yml
+│       ├── api-v2-production-build.yml
+│       ├── api-v2-unit-tests.yml
+│       ├── atoms-production-build.yml
+│       ├── cache-clean.yml
+│       ├── changesets.yml
+│       ├── check-api-v2-breaking-changes.yml
+│       ├── check-prisma-migrations.yml
+│       ├── check-types.yml
+│       ├── cleanup-report.yml
+│       ├── cleanup.yml
+│       ├── cron-bookingReminder.yml
+│       ├── cron-changeTimeZone.yml
+│       ├── cron-checkSmsPrices.yml
+│       ├── cron-downgradeUsers.yml
+│       ├── cron-monthlyDigestEmail.yml
+│       ├── cron-scheduleEmailReminders.yml
+│       ├── cron-scheduleSMSReminders.yml
+│       ├── cron-scheduleWhatsappReminders.yml
+│       ├── cron-stale-issue.yml
+│       ├── cron-syncAppMeta.yml
+│       ├── cron-webhooks-triggers.yml
+│       ├── cubic-devin-review-trigger.yml
+│       ├── cubic-devin-review.yml
+│       ├── delete-blacksmith-cache.yml
+│       ├── devin-conflict-resolver.yml
+│       ├── docs-build.yml
+│       ├── draft-release.yml
+│       ├── e2e-api-v2.yml
+│       ├── e2e-app-store.yml
+│       ├── e2e-atoms.yml
+│       ├── e2e-embed-react.yml
+│       ├── e2e-embed.yml
+│       ├── e2e-report.yml
+│       ├── e2e.yml
+│       ├── i18n.yml
+│       ├── integration-tests.yml
+│       ├── labeler.yml
+│       ├── lint.yml
+│       ├── merge-reports.yml
+│       ├── nextjs-bundle-analysis-annotation.yml
+│       ├── nextjs-bundle-analysis.yml
+│       ├── on-changes-requested.yml
+│       ├── performance-tests.yml
+│       ├── post-release.yml
+│       ├── pr.yml
+│       ├── production-build-without-database.yml
+│       ├── publish-report.yml
+│       ├── re-draft.yml
+│       ├── release-docker.yaml
+│       ├── run-ci.yml
+│       ├── security-audit.yml
+│       ├── semantic-pull-requests.yml
+│       ├── setup-db.yml
+│       ├── stale-pr-devin-completion.yml
+│       ├── sync-agents-to-devin.yml
+│       ├── unit-tests.yml
+│       └── validate-agents-format.yml
+├── .gitignore
+├── .gitpod.yml
+├── .husky/
+│   └── pre-commit
+├── .kodiak.toml
+├── .npmrc
+├── .opencode/
+│   └── skill/
+│       ├── vercel-react-best-practices/
+│       └── web-design-guidelines/
+├── .snaplet/
+│   ├── config.json
+│   ├── manifest.json
+│   └── transform.ts
+├── .vscode/
+│   ├── extensions.json
+│   ├── launch.json
+│   ├── settings.json
+│   └── tasks.json
+├── .well-known/
+│   └── security.txt
+├── .yarn/
+│   ├── patches/
+│   │   ├── @prisma-client-npm-5.4.2-fca489b2dc.patch
+│   │   ├── dayjs-npm-1.11.2-644b12fe04.patch
+│   │   ├── dayjs-npm-1.11.4-97921cd375.patch
+│   │   ├── libphonenumber-js+1.12.38.patch
+│   │   └── next-i18next-npm-13.3.0-bf25b0943c.patch
+│   ├── releases/
+│   │   └── yarn-4.12.0.cjs
+│   └── versions/
+│       ├── 007c7b0d.yml
+│       ├── 01c8201c.yml
+│       ├── 059cfbdb.yml
+│       ├── 06b8876d.yml
+│       ├── 09fae648.yml
+│       ├── 0bd21dbb.yml
+│       ├── 0d245976.yml
+│       ├── 0de8a967.yml
+│       ├── 0f1f259c.yml
+│       ├── 0f63a127.yml
+│       ├── 1085cfbb.yml
+│       ├── 11f5fac8.yml
+│       ├── 1242b9a5.yml
+│       ├── 131c302f.yml
+│       ├── 13de130d.yml
+│       ├── 147baf84.yml
+│       ├── 149f872f.yml
+│       ├── 14a3a33b.yml
+│       ├── 178162d8.yml
+│       ├── 19a4f764.yml
+│       ├── 1a9c19c8.yml
+│       ├── 1ab55dcd.yml
+│       ├── 1b1ef70b.yml
+│       ├── 1e31ccad.yml
+│       ├── 1e3ec1e6.yml
+│       ├── 1fde234b.yml
+│       ├── 21cf7a53.yml
+│       ├── 22da2bd7.yml
+│       ├── 2324e59b.yml
+│       ├── 23ae8c6d.yml
+│       ├── 26346cfc.yml
+│       ├── 27b1f95d.yml
+│       ├── 27d0f682.yml
+│       ├── 29203aec.yml
+│       ├── 2992178c.yml
+│       ├── 2c96dd9e.yml
+│       ├── 2e2dc381.yml
+│       ├── 2e3d771e.yml
+│       ├── 2ed81126.yml
+│       ├── 306bf815.yml
+│       ├── 307fc3c8.yml
+│       ├── 326552b8.yml
+│       ├── 32a5a051.yml
+│       ├── 33c2d9f7.yml
+│       ├── 33edd1e6.yml
+│       ├── 345522f7.yml
+│       ├── 34be8820.yml
+│       ├── 351279b7.yml
+│       ├── 3524136b.yml
+│       ├── 35256f20.yml
+│       ├── 354f3ba3.yml
+│       ├── 357e4313.yml
+│       ├── 373b099b.yml
+│       ├── 3a60c02f.yml
+│       ├── 3c2036fd.yml
+│       ├── 3d3aec2b.yml
+│       ├── 3d5d65c3.yml
+│       ├── 3dd68160.yml
+│       ├── 41683203.yml
+│       ├── 41d26656.yml
+│       ├── 437d6d08.yml
+│       ├── 446af0f7.yml
+│       ├── 456894bb.yml
+│       ├── 45e15b36.yml
+│       ├── 46a9369f.yml
+│       ├── 492e4e82.yml
+│       ├── 4a56dcaa.yml
+│       ├── 4b30916e.yml
+│       ├── 4c59e15e.yml
+│       ├── 4c7f3bfe.yml
+│       ├── 4cb6bf9f.yml
+│       ├── 4eff452f.yml
+│       ├── 4f0b582f.yml
+│       ├── 52e3b28d.yml
+│       ├── 53571344.yml
+│       ├── 54a3a129.yml
+│       ├── 55a2e9af.yml
+│       ├── 5939e821.yml
+│       ├── 59e6cbe4.yml
+│       ├── 5be06cbe.yml
+│       ├── 5cae75a1.yml
+│       ├── 5d55574e.yml
+│       ├── 60ad8d80.yml
+│       ├── 63b22516.yml
+│       ├── 64ddc608.yml
+│       ├── 66c88679.yml
+│       ├── 6768b38c.yml
+│       ├── 68111b65.yml
+│       ├── 68190699.yml
+│       ├── 6b3f68c6.yml
+│       ├── 6c0e495f.yml
+│       ├── 6e4fa8f3.yml
+│       ├── 6e890e70.yml
+│       ├── 72651de2.yml
+│       ├── 727b22e1.yml
+│       ├── 734d2c7a.yml
+│       ├── 7370f650.yml
+│       ├── 74098419.yml
+│       ├── 74629f39.yml
+│       ├── 75b5be8a.yml
+│       ├── 761ec3c3.yml
+│       ├── 7bde6700.yml
+│       ├── 7c85b77c.yml
+│       ├── 7eb92f4b.yml
+│       ├── 7ec29ab0.yml
+│       ├── 81bea150.yml
+│       ├── 838ac9b8.yml
+│       ├── 8463d5f2.yml
+│       ├── 85a860e5.yml
+│       ├── 86355425.yml
+│       ├── 872aa10a.yml
+│       ├── 87c7867f.yml
+│       ├── 8864696c.yml
+│       ├── 89efa242.yml
+│       ├── 8b30ee17.yml
+│       ├── 8baeaa21.yml
+│       ├── 8bfeefef.yml
+│       ├── 8c8f795b.yml
+│       ├── 8c9cdea6.yml
+│       ├── 8e04affb.yml
+│       ├── 8f24426c.yml
+│       ├── 8f39691b.yml
+│       ├── 8f86d7b6.yml
+│       ├── 907efed3.yml
+│       ├── 912b839e.yml
+│       ├── 91cb93eb.yml
+│       ├── 94d54193.yml
+│       ├── 9511a7f4.yml
+│       ├── 95b6ac81.yml
+│       ├── 95d946a0.yml
+│       ├── 9610b638.yml
+│       ├── 967d61fb.yml
+│       ├── 96bd4a2c.yml
+│       ├── 97a32d13.yml
+│       ├── 98703c4b.yml
+│       ├── 9973477a.yml
+│       ├── 99843d84.yml
+│       ├── 9b8b9b1b.yml
+│       ├── 9d6f8fc6.yml
+│       ├── 9ed0b1fc.yml
+│       ├── a0c2a49a.yml
+│       ├── a1693f8b.yml
+│       ├── a1fc426b.yml
+│       ├── a33020ce.yml
+│       ├── a34274f5.yml
+│       ├── a6aae389.yml
+│       ├── a784da6c.yml
+│       ├── a7dbc946.yml
+│       ├── aa332bc0.yml
+│       ├── ab66eddc.yml
+│       ├── acdee5f7.yml
+│       ├── ad85e404.yml
+│       ├── ae17c961.yml
+│       ├── aecb4352.yml
+│       ├── b0121b13.yml
+│       ├── b0b51a46.yml
+│       ├── b10adad6.yml
+│       ├── b1103ee7.yml
+│       ├── b110ad01.yml
+│       ├── b17fdbcb.yml
+│       ├── b301530f.yml
+│       ├── b346451d.yml
+│       ├── b6b7b5dc.yml
+│       ├── b7d8df6e.yml
+│       ├── bb2542ec.yml
+│       ├── bce640f5.yml
+│       ├── be7c001d.yml
+│       ├── be9e9950.yml
+│       ├── befbca2c.yml
+│       ├── bf31351f.yml
+│       ├── c02d84cf.yml
+│       ├── c041b45d.yml
+│       ├── c08cbab0.yml
+│       ├── c0a99150.yml
+│       ├── c1580c31.yml
+│       ├── c2cf509a.yml
+│       ├── c2e72c83.yml
+│       ├── c477de5a.yml
+│       ├── c4efa799.yml
+│       ├── c7258b42.yml
+│       ├── c8975f9d.yml
+│       ├── c92a78d0.yml
+│       ├── c950a729.yml
+│       ├── ca409778.yml
+│       ├── cb2dfdbc.yml
+│       ├── cbc203a6.yml
+│       ├── cceb2606.yml
+│       ├── cdc88443.yml
+│       ├── cdd57cfd.yml
+│       ├── cde01623.yml
+│       ├── cf104ceb.yml
+│       ├── d05ae1e0.yml
+│       ├── d0fafd39.yml
+│       ├── d15e647d.yml
+│       ├── d1e07a23.yml
+│       ├── d483660a.yml
+│       ├── d8a9566d.yml
+│       ├── d9b6bedd.yml
+│       ├── dcddf8c9.yml
+│       ├── ded81131.yml
+│       ├── df39e9bf.yml
+│       ├── df607603.yml
+│       ├── df8c1d7f.yml
+│       ├── e11ed2da.yml
+│       ├── e2b13f5d.yml
+│       ├── e376493f.yml
+│       ├── e387aeae.yml
+│       ├── e5255dda.yml
+│       ├── e96b6c01.yml
+│       ├── eb32fb15.yml
+│       ├── ebd55a76.yml
+│       ├── ecf390c8.yml
+│       ├── ed177bfa.yml
+│       ├── ed1c4f13.yml
+│       ├── ee059230.yml
+│       ├── ee325f65.yml
+│       ├── ee671844.yml
+│       ├── ef07ed23.yml
+│       ├── f0a154de.yml
+│       ├── f164e842.yml
+│       ├── f396afcd.yml
+│       ├── f41279d2.yml
+│       ├── f4499d35.yml
+│       ├── f57307f8.yml
+│       ├── f5a004b3.yml
+│       ├── f6d5d745.yml
+│       ├── f7534fef.yml
+│       ├── f92a7769.yml
+│       ├── f9a5236e.yml
+│       ├── fa1a370a.yml
+│       ├── fa70f6c1.yml
+│       ├── fc9f64e8.yml
+│       ├── fcc3519d.yml
+│       └── fe6969b2.yml
+├── .yarnrc.yml
+├── AGENTS.md
+├── CLAUDE.md
+├── CODE_OF_CONDUCT.md
+├── CONTRIBUTING.md
+├── Dockerfile
+├── LICENSE
+├── PERMISSIONS.md
+├── Procfile
+├── README.md
+├── SECURITY.md
+├── SPEC-WORKFLOW.md
+├── __checks__/
+│   ├── README.md
+│   ├── calcom-dashboard.check.js
+│   ├── csp-login.spec.ts
+│   ├── location-link.check.js
+│   └── organization.spec.ts
+├── agents/
+│   ├── README.md
+│   ├── commands.md
+│   ├── knowledge-base.md
+│   ├── rules/
+│   │   ├── README.md
+│   │   ├── _sections.md
+│   │   ├── _template.md
+│   │   ├── api-no-breaking-changes.md
+│   │   ├── api-thin-controllers.md
+│   │   ├── architecture-circular-dependencies.md
+│   │   ├── architecture-feature-boundaries.md
+│   │   ├── architecture-features-modules.md
+│   │   ├── architecture-page-level-auth.md
+│   │   ├── architecture-vertical-slices.md
+│   │   ├── ci-check-failures.md
+│   │   ├── ci-git-workflow.md
+│   │   ├── ci-type-check-first.md
+│   │   ├── culture-accountability.md
+│   │   ├── culture-leverage-ai.md
+│   │   ├── data-dto-boundaries.md
+│   │   ├── data-prefer-select-over-include.md
+│   │   ├── data-prisma-feature-flags.md
+│   │   ├── data-prisma-migrations.md
+│   │   ├── data-repository-methods.md
+│   │   ├── data-repository-pattern.md
+│   │   ├── patterns-app-store.md
+│   │   ├── patterns-dependency-injection.md
+│   │   ├── patterns-factory-pattern.md
+│   │   ├── patterns-trigger-dev.md
+│   │   ├── patterns-workflow-triggers.md
+│   │   ├── performance-avoid-quadratic.md
+│   │   ├── performance-dayjs-usage.md
+│   │   ├── performance-scheduling-complexity.md
+│   │   ├── quality-avoid-barrel-imports.md
+│   │   ├── quality-code-comments.md
+│   │   ├── quality-code-review.md
+│   │   ├── quality-error-handling.md
+│   │   ├── quality-imports.md
+│   │   ├── quality-no-followup-prs.md
+│   │   ├── quality-pr-creation.md
+│   │   ├── quality-review-checklist.md
+│   │   ├── quality-simplicity.md
+│   │   ├── quality-thorough-code-review.md
+│   │   ├── reference-file-locations.md
+│   │   ├── reference-local-dev.md
+│   │   ├── testing-coverage-requirements.md
+│   │   ├── testing-incremental.md
+│   │   ├── testing-mocking.md
+│   │   ├── testing-playwright.md
+│   │   └── testing-timezone.md
+│   └── skills/
+│       ├── calcom-api/
+│       ├── vercel-react-best-practices/
+│       └── web-design-guidelines/
+├── app.json
+├── apps/
+│   ├── api/
+│   │   ├── index.js
+│   │   ├── package.json
+│   │   ├── v1/
+│   │   └── v2/
+│   └── web/
+│       ├── .dockerignore
+│       ├── .gitignore
+│       ├── CHANGELOG.md
+│       ├── app/
+│       ├── calendso.yaml
+│       ├── components.json
+│       ├── components/
+│       ├── cron-tester.ts
+│       ├── docs/
+│       ├── fonts/
+│       ├── getNextjsOrgRewriteConfig.ts
+│       ├── instrumentation-client.ts
+│       ├── instrumentation.ts
+│       ├── lib/
+│       ├── modules/
+│       ├── next.config.ts
+│       ├── package.json
+│       ├── pages/
+│       ├── pagesAndRewritePaths.ts
+│       ├── playwright/
+│       ├── postcss.config.mjs
+│       ├── project.toml
+│       ├── proxy.test.ts
+│       ├── proxy.ts
+│       ├── public/
+│       ├── scripts/
+│       ├── sentry.edge.config.ts
+│       ├── sentry.server.config.ts
+│       ├── server/
+│       ├── styles/
+│       ├── test-results/
+│       ├── test/
+│       ├── trigger.version.ts
+│       ├── tsconfig.json
+│       └── vercel.json
+├── biome-staged.json
+├── biome.json
+├── checkly.config.ts
+├── deploy/
+│   ├── README.md
+│   ├── codespaces/
+│   │   └── install.sh
+│   └── install.sh
+├── docker-compose.yml
+├── docs/
+│   ├── README.md
+│   ├── api-reference/
+│   │   ├── v1/
+│   │   └── v2/
+│   ├── developing/
+│   │   ├── guides/
+│   │   ├── local-development.mdx
+│   │   └── open-source-contribution/
+│   ├── docs.json
+│   ├── favicon.png
+│   ├── favicon.svg
+│   ├── images/
+│   │   ├── 1667924409-dynamic-workflows_puiikg.svg
+│   │   ├── Assignment.png
+│   │   ├── Availability.png
+│   │   ├── Cal.com_pfasr5.svg
+│   │   ├── DestinationCalendar.png
+│   │   ├── EventSetup.png
+│   │   ├── Landing_Page.png
+│   │   ├── Platform_banner.png
+│   │   ├── Platform_dashboard.png
+│   │   ├── Platform_plans.png
+│   │   ├── Platform_signup.png
+│   │   ├── Platform_subscribe.png
+│   │   ├── Recording_2022-12-16_at_18.37.54_ldf2el.gif
+│   │   ├── Recurring.png
+│   │   ├── SelectedCalendar.png
+│   │   ├── Signup_page.png
+│   │   ├── StripeConnect.png
+│   │   ├── StripeConnected.png
+│   │   ├── Team_Availability.png
+│   │   ├── apple_calendar_atom.png
+│   │   ├── apple_calendar_modal.png
+│   │   ├── availabilities.png
+│   │   ├── availability_settings.png
+│   │   ├── availability_settings_atom.png
+│   │   ├── book-with-cal-dark_osayta.svg
+│   │   ├── book-with-cal-light_kqtoky.svg
+│   │   ├── booker.png
+│   │   ├── booker_atom.png
+│   │   ├── booking-page.png
+│   │   ├── calendar_settings_atom.png
+│   │   ├── checks-passed.png
+│   │   ├── date_overrides.png
+│   │   ├── date_overrides_added.png
+│   │   ├── date_overrides_modal.png
+│   │   ├── deploy-elestio.png
+│   │   ├── deploy-northflank.svg
+│   │   ├── deploy-railway.svg
+│   │   ├── deploy-render.svg
+│   │   ├── destination_calendar_settings.png
+│   │   ├── disable-default-email-1.png
+│   │   ├── disable-default-email-2.png
+│   │   ├── disable-default-email-3.png
+│   │   ├── gcal_atom.png
+│   │   ├── gcal_connect_atom.png
+│   │   ├── gcal_connect_atom_classname.png
+│   │   ├── get_schedule.png
+│   │   ├── hero-dark.svg
+│   │   ├── hero-light.svg
+│   │   ├── high-priority.svg
+│   │   ├── i1144x588-DMzoXoeMhoFx_luyjfk.png
+│   │   ├── i1144x588-pmMgK85oqUKp_o1e6l4.png
+│   │   ├── i1280x250-dXnl-QuzSMbl_xydd9y.png
+│   │   ├── i1436x808-0nKukNzRRdrO_pyvmqa.png
+│   │   ├── i1440x865-EzE4OB5J-IE0_aqui8e.png
+│   │   ├── i1440x865-O6cdyRL2PjhC_ekdzts.png
+│   │   ├── i1440x865-OGEnJZJWYYaT_vlbcoc.png
+│   │   ├── i1440x865-uHGxkJQLhcQJ_gesom1.png
+│   │   ├── i1440x865-wCPoQ4wsQacm_mp8gzw.png
+│   │   ├── i1440x910-pNoAmSPnktzZ_ecaypm.webp
+│   │   ├── i1599x807-x2DRUUT-DkbF_yljih9.png
+│   │   ├── i1599x929-tUttNKwBum0Z_p1vwkt.png
+│   │   ├── i1600x1076-4DSndgM6Yyvv_gxmy7w.png
+│   │   ├── i1600x1161-lj8HI2WajBon_ppgcoi.png
+│   │   ├── i1600x120-WfEdMhsOOLSg_sitk6a.png
+│   │   ├── i1600x1253-8BQ3KGqrqGTp_xrhqzd.png
+│   │   ├── i1600x1287-XKGU-PMvAkrB_zq004d.png
+│   │   ├── i1600x141-u3PhP4xiRb84_qgagos.png
+│   │   ├── i1600x380-Exh1QWe7r2We_olub0g.png
+│   │   ├── i1600x600-Bt00AJE4uNcL_hiqcp9.png
+│   │   ├── i1600x600-Z8AAymlAKVce_i4nxdb.png
+│   │   ├── i1600x784-4szl8RRLxFIG_rvkfwz.png
+│   │   ├── i1600x784-tETfwb4pQED0_hddfvi.png
+│   │   ├── i1600x813-fFKsveiL2GuM_wk8cv1.png
+│   │   ├── i1600x899--qO8QnRKDrjU_kyp2hw.png
+│   │   ├── i1600x899-0PXSUpvs2z-W_wox48k.png
+│   │   ├── i1600x899-2GVNR4Q0fjRI_smxuoj.png
+│   │   ├── i1600x899-55XOS7BonfK3_bh1e5t.png
+│   │   ├── i1600x899-AlmOt5E4diMC_nkjeb4.png
+│   │   ├── i1600x899-C7et3rTz2nGC_zkie4g.png
+│   │   ├── i1600x899-DllqhV6w_3Vj_oxtjov.png
+│   │   ├── i1600x899-HIol7m7sT4zB_lqidld.png
+│   │   ├── i1600x899-KJO6snZjx1mL_pdfq1l.png
+│   │   ├── i1600x899-NNeD2mH2_Zb6_mxmah8.png
+│   │   ├── i1600x899-RzQm726OebFh_pej5va.png
+│   │   ├── i1600x899-Ty_oorQmXnjJ_cm5ysq.png
+│   │   ├── i1600x899-UbaoT5R8c9Dq_st91js.png
+│   │   ├── i1600x899-e_I3OOSl6l2B_zphipk.png
+│   │   ├── i1600x899-ft-Tc1-rtnzD_nijrmb.png
+│   │   ├── i1600x899-hfWqQvPszL3z_klomel.png
+│   │   ├── i1600x899-j1Js2xXV665U_gkxhvi.png
+│   │   ├── i1600x899-jFm4d0m-YSZS_gxjbj9.png
+│   │   ├── i1600x899-lK5qA-PWor5w_nda2mw.png
+│   │   ├── i1600x899-mIkRTG3JZGA-_t2q4de.png
+│   │   ├── i1600x899-oXaqBFnOdR-p_kvdzt6.png
+│   │   ├── i1600x899-sGCDXGlvVYT4_uwhpa8.png
+│   │   ├── i1600x899-tqxx1R_u8ZX8_pmcadu.png
+│   │   ├── i1600x899-wVkiblWj8CDH_iwhwrd.png
+│   │   ├── i1600x899-yn-lgJSvElO2_hxc61t.png
+│   │   ├── i1600x900--1flu1Jm22OG_agrtll.png
+│   │   ├── i1600x900--3fBUUG0u9EU_rnylaj.png
+│   │   ├── i1600x900--EhZhhVDENeT_d5hqpa.png
+│   │   ├── i1600x900--rsrw7G9JKrW_d8fm8m.png
+│   │   ├── i1600x900-0UQQmiszv6Ol_pz3ogv.png
+│   │   ├── i1600x900-0xbwqaAe_V2R_pumupp.png
+│   │   ├── i1600x900-18YHphbgt72V_sgiczh.png
+│   │   ├── i1600x900-2ycOJD9-F10d_qualm1.png
+│   │   ├── i1600x900-47y0alnT10YZ_fzzmcz.png
+│   │   ├── i1600x900-4QPYQbLxNfhM_h61gn0.png
+│   │   ├── i1600x900-4WD80WUzPKcm_gxphaa.png
+│   │   ├── i1600x900-4xL_INEpD40Q_vfxmvv.png
+│   │   ├── i1600x900-5uEMac44YaIi_fqr7ov.png
+│   │   ├── i1600x900-6CcRzVIWmCTJ_dnnrqu.png
+│   │   ├── i1600x900-7Tu-5CT7VJ-n_dqkwhl.png
+│   │   ├── i1600x900-8KLW-ewrcf-6_qkibok.png
+│   │   ├── i1600x900-8ufcUyCOVwV6_hdudno.png
+│   │   ├── i1600x900-APQPQxcN1aZt_m0casf.png
+│   │   ├── i1600x900-BEH3mBiQAI9x_uh9ogi.png
+│   │   ├── i1600x900-BHVM1jwFyc0Q_bd5zvm.png
+│   │   ├── i1600x900-BLQh5zDyQGTt_uebqir.png
+│   │   ├── i1600x900-BgMltGEPb6Na_ovq8ua.png
+│   │   ├── i1600x900-CYkkzVSEXUuc_epdmrm.png
+│   │   ├── i1600x900-C_UH53xMxD-i_qiunh8.png
+│   │   ├── i1600x900-E4RcIPb1_bYp_hcpsya.png
+│   │   ├── i1600x900-FLwHauFSTfJy_hoqypx.png
+│   │   ├── i1600x900-GN1NLgrcf5r4_tmhni3.png
+│   │   ├── i1600x900-GsO3fgUZ0Qbl_aguqa8.png
+│   │   ├── i1600x900-I68apHEG1aUi_r85ufb.png
+│   │   ├── i1600x900-IQ6S7Rq9d94T_d5vl8m.png
+│   │   ├── i1600x900-IfRWYg8XuCMI_tkwyft.png
+│   │   ├── i1600x900-J5qFBokTBwco_fmjcru.png
+│   │   ├── i1600x900-J9PsGW5M9u6y_ovzalk.png
+│   │   ├── i1600x900-Jlnk4oK6linw_jectdb.png
+│   │   ├── i1600x900-LOniVJNguQth_oibmdv.png
+│   │   ├── i1600x900-PNSh9u2m_QV2_v80gvk.png
+│   │   ├── i1600x900-QbUHBH6KLhJ0_njjln8.png
+│   │   ├── i1600x900-RDSMehJ8vTwZ_zcals5.png
+│   │   ├── i1600x900-RzNl_eQIOUZ7_qmawjw.png
+│   │   ├── i1600x900-SlwW0Q2EHsOA_zu35mw.png
+│   │   ├── i1600x900-TOyuB4IVrvj9_ciusy5.png
+│   │   ├── i1600x900-TVdNc-x2ILeF_j1yhir.png
+│   │   ├── i1600x900-TqgDJpBoiR-C_onrwit.png
+│   │   ├── i1600x900-UcoZykKljPsG_pftvub.png
+│   │   ├── i1600x900-V3uoAv_cFR4n_tmadtm.png
+│   │   ├── i1600x900-WAFfPUiF_FSM_rsqssy.png
+│   │   ├── i1600x900-WWEmqSwAOD4e_zntxhy.png
+│   │   ├── i1600x900-WumEaU2paE4q_k8709s.png
+│   │   ├── i1600x900-YhAs1gRVQJwU_wf80pn.png
+│   │   ├── i1600x900-_HaS0Jg5aZvj_dgdyhl.png
+│   │   ├── i1600x900-_e9Av_BR4yzA_qecpmk.png
+│   │   ├── i1600x900-akHcmOHfAXkX_g7isuj.png
+│   │   ├── i1600x900-b5emq7AZJs03_cnctxl.png
+│   │   ├── i1600x900-borJe29sxBQD_acs2bv.png
+│   │   ├── i1600x900-c6HXJn-S_2Gc_oqfadd.png
+│   │   ├── i1600x900-e7gzhDg2A7wR_hxib3m.png
+│   │   ├── i1600x900-ezpeqXGnhBPd_b8s0ou.png
+│   │   ├── i1600x900-h7erbVhGt9X5_uth9oa.png
+│   │   ├── i1600x900-hFpSqIX3Hvsw_gsg746.png
+│   │   ├── i1600x900-hVOD3f4YnzbC_bnf3hi.png
+│   │   ├── i1600x900-ibCXjqOd05ZH_qycqgt.png
+│   │   ├── i1600x900-iihnWwzsuARg_llvldw.png
+│   │   ├── i1600x900-jJW-bepHRrIu_ghr5au.png
+│   │   ├── i1600x900-jTlC4G2v-FyV_ujxqws.png
+│   │   ├── i1600x900-jVFhWIwoSrqR_pcsvgw.png
+│   │   ├── i1600x900-je1Ro4IEzLFM_gm67e9.png
+│   │   ├── i1600x900-k5I7jhKC_ej8_pmjpxc.png
+│   │   ├── i1600x900-ls8hPziT2EoL_k02oac.png
+│   │   ├── i1600x900-lyOWGLVGiBPA_iia5p8.png
+│   │   ├── i1600x900-mdLN0kkooRVB_juid5h.png
+│   │   ├── i1600x900-nPCQKbW_wsVq_abagc2.png
+│   │   ├── i1600x900-oVjaQ0tU3AnO_wrzp85.png
+│   │   ├── i1600x900-pDo66wyQ4Zxc_zmljxo.png
+│   │   ├── i1600x900-pVQwZTGaR5hD_gydirn.png
+│   │   ├── i1600x900-qJHsVoNdhG4E_cbx1zr.png
+│   │   ├── i1600x900-sPtSh0GS1Fh8_uxplud.png
+│   │   ├── i1600x900-sw0cvLcwYOXe_uwukmo.png
+│   │   ├── i1600x900-t8KSO9n6gszI_awkmub.png
+│   │   ├── i1600x900-uzADteTYBNdE_dtrrdz.png
+│   │   ├── i1600x900-vYzr65Ib7Uv9_jjyzah.png
+│   │   ├── i1600x900-wrIlZkLdZ6kL_wf7mxn.png
+│   │   ├── i1600x900-z2MekYaA6oWf_nzivcl.png
+│   │   ├── i613x610-AY-VfSOKXkSF_nbmcsu.png
+│   │   ├── i631x742-lNQTiHBjCByM_atlmdf.png
+│   │   ├── i634x321-1Yns9vlEhaTg_uwwwlk.png
+│   │   ├── i805x289-9ZjOQDA70FMu_zjot71.png
+│   │   ├── i817x190--uQ-QNjQv7N-_dhazio.png
+│   │   ├── i958x1232-mgsIib6PZJLt_zobva8.png
+│   │   ├── i958x1232-mgsIib6PZJLt_zobva8.webp
+│   │   ├── i973x933-2xQuLlTcg2xz_cvs7li.png
+│   │   ├── list_event_types_light.png
+│   │   ├── low-priority.svg
+│   │   ├── me_data.png
+│   │   ├── medium-priority.svg
+│   │   ├── oauth-zapier.png
+│   │   ├── outlook_calendar.png
+│   │   ├── platform/
+│   │   ├── scim/
+│   │   ├── selected_calendar_settings.png
+│   │   ├── urgent-priority.svg
+│   │   └── useMe.png
+│   ├── introduction.mdx
+│   ├── logo/
+│   │   ├── dark.svg
+│   │   └── light.svg
+│   ├── platform/
+│   │   ├── atoms/
+│   │   ├── bookings-hooks.mdx
+│   │   ├── calendars-hooks.mdx
+│   │   ├── event-types-hooks.mdx
+│   │   ├── faq.mdx
+│   │   ├── guides/
+│   │   ├── introduction.mdx
+│   │   ├── quickstart.mdx
+│   │   └── user-or-team-related-hooks.mdx
+│   ├── self-hosting/
+│   │   ├── apps/
+│   │   ├── database-migrations.mdx
+│   │   ├── deployments/
+│   │   ├── docker.mdx
+│   │   ├── guides/
+│   │   ├── installation.mdx
+│   │   ├── license-key.mdx
+│   │   ├── sso-setup.mdx
+│   │   └── upgrading.mdx
+│   └── snippets/
+│       └── snippet-intro.mdx
+├── example-apps/
+│   └── credential-sync/
+│       ├── .env.example
+│       ├── README.md
+│       ├── constants.ts
+│       ├── lib/
+│       ├── next-env.d.ts
+│       ├── next.config.js
+│       ├── package.json
+│       ├── pages/
+│       └── tsconfig.json
+├── gh.env
+├── headless-routing-to-booking-flow.md
+├── i18n-unused.config.js
+├── i18n.json
+├── i18n.lock
+├── lint-staged.config.mjs
+├── package.json
+├── packages/
+│   ├── app-store-cli/
+│   │   ├── .gitignore
+│   │   ├── README.md
+│   │   ├── SAMPLE_COMMANDS.md
+│   │   ├── package.json
+│   │   ├── src/
+│   │   └── tsconfig.json
+│   ├── app-store/
+│   │   ├── .gitignore
+│   │   ├── AppDependencyComponent.test.tsx
+│   │   ├── AppDependencyComponent.tsx
+│   │   ├── BookingPageTagManager.test.tsx
+│   │   ├── BookingPageTagManager.tsx
+│   │   ├── CONTRIBUTING.md
+│   │   ├── EventTypeAppContext.tsx
+│   │   ├── InstallAppButton.tsx
+│   │   ├── InstallAppButtonWithoutPlanCheck.tsx
+│   │   ├── _appRegistry.ts
+│   │   ├── _components/
+│   │   ├── _lib/
+│   │   ├── _pages/
+│   │   ├── _utils/
+│   │   ├── alby/
+│   │   ├── amie/
+│   │   ├── analytics.services.generated.ts
+│   │   ├── appStoreMetaData.ts
+│   │   ├── applecalendar/
+│   │   ├── apps.browser.generated.tsx
+│   │   ├── apps.keys-schemas.generated.ts
+│   │   ├── apps.metadata.generated.ts
+│   │   ├── apps.schemas.generated.ts
+│   │   ├── apps.server.generated.ts
+│   │   ├── attio/
+│   │   ├── autocheckin/
+│   │   ├── baa-for-hipaa/
+│   │   ├── basecamp3/
+│   │   ├── bolna/
+│   │   ├── bookerApps.metadata.generated.ts
+│   │   ├── bookerAppsMetaData.ts
+│   │   ├── btcpayserver/
+│   │   ├── caldavcalendar/
+│   │   ├── calendar.services.generated.ts
+│   │   ├── campfire/
+│   │   ├── caretta/
+│   │   ├── chatbase/
+│   │   ├── clic/
+│   │   ├── closecom/
+│   │   ├── constants.ts
+│   │   ├── crm.apps.generated.ts
+│   │   ├── cron/
+│   │   ├── dailyvideo/
+│   │   ├── databuddy/
+│   │   ├── deel/
+│   │   ├── delegationCredential.test.ts
+│   │   ├── delegationCredential.ts
+│   │   ├── demodesk/
+│   │   ├── dialpad/
+│   │   ├── discord/
+│   │   ├── dub/
+│   │   ├── eightxeight/
+│   │   ├── element-call/
+│   │   ├── elevenlabs/
+│   │   ├── eventTypeAppCardZod.ts
+│   │   ├── exchange2013calendar/
+│   │   ├── exchange2016calendar/
+│   │   ├── exchangecalendar/
+│   │   ├── facetime/
+│   │   ├── fathom/
+│   │   ├── feishucalendar/
+│   │   ├── fonio-ai/
+│   │   ├── framer/
+│   │   ├── ga4/
+│   │   ├── getAppAssetFullPath.ts
+│   │   ├── getNormalizedAppMetadata.ts
+│   │   ├── getVideoAdapters.ts
+│   │   ├── giphy/
+│   │   ├── googlecalendar/
+│   │   ├── googlevideo/
+│   │   ├── granola/
+│   │   ├── greetmate-ai/
+│   │   ├── gtm/
+│   │   ├── hitpay/
+│   │   ├── horizon-workrooms/
+│   │   ├── hubspot/
+│   │   ├── huddle01video/
+│   │   ├── ics-feedcalendar/
+│   │   ├── insihts/
+│   │   ├── intercom/
+│   │   ├── jelly/
+│   │   ├── jitsivideo/
+│   │   ├── larkcalendar/
+│   │   ├── lindy/
+│   │   ├── linear/
+│   │   ├── locations.ts
+│   │   ├── make/
+│   │   ├── matomo/
+│   │   ├── metapixel/
+│   │   ├── millis-ai/
+│   │   ├── mirotalk/
+│   │   ├── mock-payment-app/
+│   │   ├── monobot/
+│   │   ├── n8n/
+│   │   ├── nextcloudtalk/
+│   │   ├── office365calendar/
+│   │   ├── office365video/
+│   │   ├── package.json
+│   │   ├── payment.services.generated.ts
+│   │   ├── paypal/
+│   │   ├── ping/
+│   │   ├── pipedream/
+│   │   ├── pipedrive-crm/
+│   │   ├── plausible/
+│   │   ├── posthog/
+│   │   ├── qr_code/
+│   │   ├── raycast/
+│   │   ├── redirect-apps.generated.ts
+│   │   ├── retell-ai/
+│   │   ├── riverside/
+│   │   ├── roam/
+│   │   ├── routing-forms/
+│   │   ├── salesforce/
+│   │   ├── salesroom/
+│   │   ├── sendgrid/
+│   │   ├── server.ts
+│   │   ├── shimmervideo/
+│   │   ├── signal/
+│   │   ├── sirius_video/
+│   │   ├── skype/
+│   │   ├── stripepayment/
+│   │   ├── sylapsvideo/
+│   │   ├── synthflow/
+│   │   ├── tandemvideo/
+│   │   ├── telegram/
+│   │   ├── telli/
+│   │   ├── templates/
+│   │   ├── test-setup.ts
+│   │   ├── tests/
+│   │   ├── tsconfig.build.json
+│   │   ├── tsconfig.build.tsbuildinfo
+│   │   ├── tsconfig.json
+│   │   ├── twipla/
+│   │   ├── types.d.ts
+│   │   ├── umami/
+│   │   ├── utils.test.ts
+│   │   ├── utils.ts
+│   │   ├── video.adapters.generated.ts
+│   │   ├── vimcal/
+│   │   ├── vital/
+│   │   ├── weather_in_your_calendar/
+│   │   ├── webex/
+│   │   ├── whatsapp/
+│   │   ├── whereby/
+│   │   ├── wipemycalother/
+│   │   ├── wordpress/
+│   │   ├── zapier/
+│   │   ├── zod-utils.ts
+│   │   ├── zoho-bigin/
+│   │   ├── zohocalendar/
+│   │   ├── zohocrm/
+│   │   └── zoomvideo/
+│   ├── config/
+│   │   ├── package.json
+│   │   └── theme/
+│   ├── coss-ui/
+│   │   ├── components.json
+│   │   ├── migration_guide.md
+│   │   ├── package.json
+│   │   ├── radix_shadcn_migration_guide.md
+│   │   ├── src/
+│   │   └── tsconfig.json
+│   ├── dayjs/
+│   │   ├── __mocks__/
+│   │   ├── index.ts
+│   │   ├── locales.ts
+│   │   ├── package.json
+│   │   ├── plugins/
+│   │   └── tsconfig.json
+│   ├── debugging/
+│   │   ├── components/
+│   │   ├── index.tsx
+│   │   ├── package.json
+│   │   └── tsconfig.json
+│   ├── ee/
+│   │   ├── di/
+│   │   └── prisma-extensions/
+│   ├── emails/
+│   │   ├── README.md
+│   │   ├── auth-email-service.ts
+│   │   ├── billing-email-service.ts
+│   │   ├── daily-video-emails.ts
+│   │   ├── docker-compose.yml
+│   │   ├── email-manager.test.ts
+│   │   ├── email-manager.ts
+│   │   ├── email-types.ts
+│   │   ├── integration-email-service.ts
+│   │   ├── lib/
+│   │   ├── oauth-email-service.ts
+│   │   ├── organization-email-service.ts
+│   │   ├── package.json
+│   │   ├── recording-email-service.ts
+│   │   ├── src/
+│   │   ├── templates/
+│   │   ├── tsconfig.json
+│   │   └── workflow-email-service.ts
+│   ├── embeds/
+│   │   ├── LIFECYCLE.md
+│   │   ├── README.md
+│   │   ├── embed-core/
+│   │   ├── embed-handshake.mermaid
+│   │   ├── embed-message-protocol.mermaid
+│   │   ├── embed-react/
+│   │   ├── embed-snippet/
+│   │   ├── inline-embed-lifecycle.mermaid
+│   │   ├── modal-embed-lifecycle.mermaid
+│   │   ├── modal-prerendering-flow.mermaid
+│   │   └── vite.config.js
+│   ├── features/
+│   │   ├── CalendarEventBuilder.test.ts
+│   │   ├── CalendarEventBuilder.ts
+│   │   ├── apps/
+│   │   ├── assignment-reason/
+│   │   ├── attributes/
+│   │   ├── auth/
+│   │   ├── availability/
+│   │   ├── blocklist/
+│   │   ├── booking-audit/
+│   │   ├── bookingReference/
+│   │   ├── bookingReport/
+│   │   ├── bookings/
+│   │   ├── bot-detection/
+│   │   ├── busyTimes/
+│   │   ├── cache/
+│   │   ├── calAIPhone/
+│   │   ├── calVideoSettings/
+│   │   ├── calendar-subscription/
+│   │   ├── calendars/
+│   │   ├── cityTimezones/
+│   │   ├── components/
+│   │   ├── conferencing/
+│   │   ├── credentials/
+│   │   ├── credits/
+│   │   ├── crmManager/
+│   │   ├── data-table/
+│   │   ├── delegation-credentials/
+│   │   ├── deployment/
+│   │   ├── di/
+│   │   ├── ee/
+│   │   ├── embed/
+│   │   ├── eventTypeTranslation/
+│   │   ├── eventtypes/
+│   │   ├── feature-opt-in/
+│   │   ├── filters/
+│   │   ├── flags/
+│   │   ├── form-builder/
+│   │   ├── form/
+│   │   ├── get-cal-video-reference.test.ts
+│   │   ├── get-cal-video-reference.ts
+│   │   ├── handleCreatePhoneCall.ts
+│   │   ├── handleMarkNoShow.test.ts
+│   │   ├── handleMarkNoShow.ts
+│   │   ├── hashedLink/
+│   │   ├── holidays/
+│   │   ├── host/
+│   │   ├── index.ts
+│   │   ├── insights/
+│   │   ├── instant-meeting/
+│   │   ├── isValidEmail.ts
+│   │   ├── links/
+│   │   ├── membership/
+│   │   ├── noShow/
+│   │   ├── notifications/
+│   │   ├── oauth/
+│   │   ├── onboarding/
+│   │   ├── ooo/
+│   │   ├── organizations/
+│   │   ├── package.json
+│   │   ├── pbac/
+│   │   ├── platform-oauth-client/
+│   │   ├── profile/
+│   │   ├── redis/
+│   │   ├── routing-forms/
+│   │   ├── routing-trace/
+│   │   ├── schedules/
+│   │   ├── selectedCalendar/
+│   │   ├── selectedSlots/
+│   │   ├── settings/
+│   │   ├── slots/
+│   │   ├── tasker/
+│   │   ├── timezone/
+│   │   ├── translation/
+│   │   ├── travelSchedule/
+│   │   ├── trigger.config.ts
+│   │   ├── troubleshooter/
+│   │   ├── tsconfig.json
+│   │   ├── users/
+│   │   ├── video-call-guest/
+│   │   ├── watchlist/
+│   │   ├── webhooks/
+│   │   ├── workflows/
+│   │   └── workspace-platform/
+│   ├── i18n/
+│   │   ├── locales/
+│   │   ├── next-i18next.config.d.ts
+│   │   ├── next-i18next.config.js
+│   │   ├── next-i18next.config.test.ts
+│   │   ├── package.json
+│   │   ├── server.test.ts
+│   │   └── server.ts
+│   ├── kysely/
+│   │   ├── .gitignore
+│   │   ├── README.md
+│   │   ├── index.ts
+│   │   ├── package.json
+│   │   └── utils/
+│   ├── lib/
+│   │   ├── CalEventParser.test.ts
+│   │   ├── CalEventParser.ts
+│   │   ├── CalendarAppError.ts
+│   │   ├── CalendarService.test.ts
+│   │   ├── CalendarService.ts
+│   │   ├── CloseCom.ts
+│   │   ├── CloseComeUtils.ts
+│   │   ├── OgImages.test.ts
+│   │   ├── OgImages.tsx
+│   │   ├── Sendgrid.ts
+│   │   ├── WebAppURL.ts
+│   │   ├── __mocks__/
+│   │   ├── __tests__/
+│   │   ├── apps/
+│   │   ├── array.test.ts
+│   │   ├── array.ts
+│   │   ├── auth/
+│   │   ├── availability.ts
+│   │   ├── bookings/
+│   │   ├── browser/
+│   │   ├── buildCalEventFromBooking.ts
+│   │   ├── builders/
+│   │   ├── checkIfItFallbackImage.ts
+│   │   ├── checkRateLimitAndThrowError.test.ts
+│   │   ├── checkRateLimitAndThrowError.ts
+│   │   ├── components/
+│   │   ├── connectedCalendar.ts
+│   │   ├── constants.ts
+│   │   ├── contructEmailFromPhoneNumber.ts
+│   │   ├── convertToNewDurationType.test.ts
+│   │   ├── convertToNewDurationType.ts
+│   │   ├── cookie.ts
+│   │   ├── crmManager/
+│   │   ├── crypto.test.ts
+│   │   ├── crypto.ts
+│   │   ├── crypto/
+│   │   ├── csvUtils.ts
+│   │   ├── currencyConversions.ts
+│   │   ├── cva/
+│   │   ├── dateTimeFormatter.test.ts
+│   │   ├── dateTimeFormatter.ts
+│   │   ├── dayjs/
+│   │   ├── dbReadResponseSchema.ts
+│   │   ├── default-cookies.ts
+│   │   ├── defaultAvatarImage.ts
+│   │   ├── delegationCredential.ts
+│   │   ├── deriveAppDictKeyFromType.ts
+│   │   ├── domainManager/
+│   │   ├── dto/
+│   │   ├── emailSchema.ts
+│   │   ├── entityPermissionUtils.shared.ts
+│   │   ├── env.ts
+│   │   ├── errorCodes.ts
+│   │   ├── errors.ts
+│   │   ├── extract-base-email.ts
+│   │   ├── fetch-wrapper.ts
+│   │   ├── fetchUsername.ts
+│   │   ├── fetchWithTimeout.ts
+│   │   ├── findDurationType.ts
+│   │   ├── formatCalendarEvent.ts
+│   │   ├── formatPhoneNumber.ts
+│   │   ├── formbricks.ts
+│   │   ├── fromEntriesWithDuplicateKeys.ts
+│   │   ├── generateHashedLink.ts
+│   │   ├── getAdditionalEmailHeaders.ts
+│   │   ├── getAvatarUrl.ts
+│   │   ├── getBooking.tsx
+│   │   ├── getBrandColours.test.ts
+│   │   ├── getBrandColours.tsx
+│   │   ├── getCalcomUrl.ts
+│   │   ├── getClientErrorFromUnknown.ts
+│   │   ├── getIP.test.ts
+│   │   ├── getIP.ts
+│   │   ├── getMetadataHelpers.ts
+│   │   ├── getOrgIdFromMemberOrTeamId.ts
+│   │   ├── getReplyToEmail.test.ts
+│   │   ├── getReplyToEmail.ts
+│   │   ├── getReplyToHeader.ts
+│   │   ├── getSafe.ts
+│   │   ├── getSafeRedirectUrl.test.ts
+│   │   ├── getSafeRedirectUrl.ts
+│   │   ├── getTeamIdFromEventType.ts
+│   │   ├── getTldPlus1.ts
+│   │   ├── getValidRhfFieldName.test.ts
+│   │   ├── getValidRhfFieldName.ts
+│   │   ├── gtm.ts
+│   │   ├── hasEditPermissionForUser.ts
+│   │   ├── hasKeyInMetadata.ts
+│   │   ├── hashedLinksUtils.ts
+│   │   ├── holidays/
+│   │   ├── hooks/
+│   │   ├── http-error.ts
+│   │   ├── i18n.ts
+│   │   ├── idempotencyKey/
+│   │   ├── intervalLimits/
+│   │   ├── intervalTree.ts
+│   │   ├── invertLogoOnDark.ts
+│   │   ├── isEqual.ts
+│   │   ├── isEventTypeColor.ts
+│   │   ├── isKeyInObject.ts
+│   │   ├── isMac.ts
+│   │   ├── isOutOfBounds.timezone.test.ts
+│   │   ├── isOutOfBounds.tsx
+│   │   ├── isPrismaObj.ts
+│   │   ├── isProblematicTimezone.ts
+│   │   ├── isRecurringEvent.ts
+│   │   ├── isSmsCalEmail.ts
+│   │   ├── jest.config.json
+│   │   ├── jsonUtils.ts
+│   │   ├── logger.server.ts
+│   │   ├── logger.ts
+│   │   ├── markdownIt.ts
+│   │   ├── markdownToSafeHTML.ts
+│   │   ├── markdownToSafeHTMLClient.ts
+│   │   ├── navigateInTopWindow.ts
+│   │   ├── next-seo.config.ts
+│   │   ├── notEmpty.ts
+│   │   ├── objectKeys.ts
+│   │   ├── package.json
+│   │   ├── parse-dates.ts
+│   │   ├── parse-zone.ts
+│   │   ├── payment/
+│   │   ├── perf.ts
+│   │   ├── piiFreeData.ts
+│   │   ├── pkce.test.ts
+│   │   ├── pkce.ts
+│   │   ├── random.test.ts
+│   │   ├── random.ts
+│   │   ├── raqb/
+│   │   ├── rateLimit.ts
+│   │   ├── recentImpersonations.ts
+│   │   ├── recurringStrings.ts
+│   │   ├── redactError.ts
+│   │   ├── redactSensitiveData.test.ts
+│   │   ├── redactSensitiveData.ts
+│   │   ├── redirect.ts
+│   │   ├── retellAIFetcher.ts
+│   │   ├── safeStringify.ts
+│   │   ├── sanitizeCalendarObject.ts
+│   │   ├── schedules/
+│   │   ├── sdk-event.ts
+│   │   ├── sentryWrapper.ts
+│   │   ├── server/
+│   │   ├── serverConfig.ts
+│   │   ├── service/
+│   │   ├── slugify-lenient.ts
+│   │   ├── slugify.test.ts
+│   │   ├── slugify.ts
+│   │   ├── smsLockState.ts
+│   │   ├── ssrfProtection.test.ts
+│   │   ├── ssrfProtection.ts
+│   │   ├── stripMarkdown.ts
+│   │   ├── stripe-error.ts
+│   │   ├── sync/
+│   │   ├── tasker/
+│   │   ├── telemetry.ts
+│   │   ├── test/
+│   │   ├── testEmails.ts
+│   │   ├── testSMS.ts
+│   │   ├── text.test.ts
+│   │   ├── text.ts
+│   │   ├── timeFormat.ts
+│   │   ├── timeShift.ts
+│   │   ├── timeZones.ts
+│   │   ├── timezone.ts
+│   │   ├── timezoneConstants.ts
+│   │   ├── totp.ts
+│   │   ├── tracing/
+│   │   ├── tracking/
+│   │   ├── translationConstants.ts
+│   │   ├── triggerDevLogger.ts
+│   │   ├── tsconfig.json
+│   │   ├── tsconfig.test.json
+│   │   ├── turndownService.ts
+│   │   ├── unstable_cache/
+│   │   ├── validateBookerLayouts.ts
+│   │   ├── videoTokens.ts
+│   │   ├── webstorage.ts
+│   │   ├── weekday.test.ts
+│   │   ├── weekday.ts
+│   │   ├── weekstart.test.ts
+│   │   ├── weekstart.ts
+│   │   └── zod/
+│   ├── platform/
+│   │   ├── atoms/
+│   │   ├── constants/
+│   │   ├── enums/
+│   │   ├── examples/
+│   │   ├── libraries/
+│   │   ├── types/
+│   │   └── utils/
+│   ├── prisma/
+│   │   ├── .env
+│   │   ├── __mocks__/
+│   │   ├── auto-migrations.ts
+│   │   ├── cleanup-pbac.ts
+│   │   ├── client/
+│   │   ├── delete-app.ts
+│   │   ├── docker-compose.yml
+│   │   ├── enum-generator.ts
+│   │   ├── extensions/
+│   │   ├── index.ts
+│   │   ├── is-prisma-available-check.ts
+│   │   ├── migrations/
+│   │   ├── package.json
+│   │   ├── run-enum-generator.js
+│   │   ├── schema.prisma
+│   │   ├── seed-pbac-only.ts
+│   │   ├── selects/
+│   │   ├── sql/
+│   │   ├── zod-utils.test.ts
+│   │   └── zod-utils.ts
+│   ├── sms/
+│   │   ├── attendee/
+│   │   ├── sms-manager.ts
+│   │   └── test/
+│   ├── testing/
+│   │   ├── package.json
+│   │   ├── performance/
+│   │   ├── scripts/
+│   │   ├── src/
+│   │   └── tsconfig.json
+│   ├── trpc/
+│   │   ├── .gitignore
+│   │   ├── components/
+│   │   ├── index.ts
+│   │   ├── package.json
+│   │   ├── react/
+│   │   ├── server/
+│   │   ├── tsconfig.json
+│   │   ├── tsconfig.react.json
+│   │   ├── tsconfig.server.build.json
+│   │   ├── tsconfig.server.build.tsbuildinfo
+│   │   └── tsconfig.server.json
+│   ├── tsconfig/
+│   │   ├── README.md
+│   │   ├── base.json
+│   │   ├── nextjs.json
+│   │   ├── package.json
+│   │   └── react-library.json
+│   ├── types/
+│   │   ├── @wojtekmaj__react-daterange-picker.d.ts
+│   │   ├── AnalyticsService.d.ts
+│   │   ├── App.d.ts
+│   │   ├── AppGetServerSideProps.d.ts
+│   │   ├── AppHandler.d.ts
+│   │   ├── AppMetaSchema.ts
+│   │   ├── BufferedBusyTime.d.ts
+│   │   ├── Calendar.d.ts
+│   │   ├── Credential.d.ts
+│   │   ├── CredentialOwner.d.ts
+│   │   ├── CrmService.d.ts
+│   │   ├── Event.d.ts
+│   │   ├── EventManager.d.ts
+│   │   ├── Json.d.ts
+│   │   ├── JsonObject.d.ts
+│   │   ├── PaymentService.d.ts
+│   │   ├── UserProfile.d.ts
+│   │   ├── VideoApiAdapter.d.ts
+│   │   ├── business-days-plugin.d.ts
+│   │   ├── data-table.d.ts
+│   │   ├── environment.d.ts
+│   │   ├── ical.d.ts
+│   │   ├── inferSSRProps.d.ts
+│   │   ├── next-auth.d.ts
+│   │   ├── next.d.ts
+│   │   ├── oauth.d.ts
+│   │   ├── package.json
+│   │   ├── schedule.d.ts
+│   │   ├── tanstack-table.d.ts
+│   │   ├── tsconfig.json
+│   │   ├── utils.d.ts
+│   │   └── window.d.ts
+│   └── ui/
+│       ├── .gitignore
+│       ├── classNames.ts
+│       ├── components/
+│       ├── package.json
+│       ├── scripts/
+│       ├── styles/
+│       └── tsconfig.json
+├── playwright.config.ts
+├── scripts/
+│   ├── auto-grant.sql
+│   ├── connection-activity.sql
+│   ├── delete-empty-google-credentials.sql
+│   ├── devin/
+│   │   ├── delete-all-devin-knowledge.ts
+│   │   ├── export-devin-knowledge.ts
+│   │   ├── parse-local-knowledge.ts
+│   │   ├── sync-knowledge-to-devin.ts
+│   │   └── validate-local-knowledge.ts
+│   ├── find-email-case-insensitive-duplicates.sql
+│   ├── get-table-storage-sizes.sql
+│   ├── prepare-local-for-delegation-credentials-testing.js
+│   ├── pull-coss-ui-components.ts
+│   ├── reassign-attributes.ts
+│   ├── replace-placeholder.sh
+│   ├── seed-app-store.ts
+│   ├── seed-booking-audit.ts
+│   ├── seed-huge-event-types.ts
+│   ├── seed-insights.ts
+│   ├── seed-load-test-form-reponses.ts
+│   ├── seed-pbac-organization.ts
+│   ├── seed-performance-testing.ts
+│   ├── seed-utils.ts
+│   ├── seed.ts
+│   ├── staging-deploy.sh
+│   ├── start.sh
+│   ├── test-gcal-webhooks.sh
+│   ├── vercel.sh
+│   └── wait-for-it.sh
+├── setupVitest.ts
+├── specs/
+│   ├── README.md
+│   ├── _templates/
+│   │   ├── AGENTS.md
+│   │   ├── CLAUDE.md
+│   │   ├── decisions.md
+│   │   ├── design.md
+│   │   ├── docs/
+│   │   ├── future-work.md
+│   │   ├── implementation.md
+│   │   └── prompts.md
+│   ├── cancellation-reason-requirement/
+│   │   ├── CLAUDE.md
+│   │   ├── decisions.md
+│   │   ├── design.md
+│   │   ├── docs/
+│   │   ├── future-work.md
+│   │   └── implementation.md
+│   └── workflow-translation/
+│       ├── CLAUDE.md
+│       ├── decisions.md
+│       ├── design.md
+│       ├── docs/
+│       ├── future-work.md
+│       ├── implementation.md
+│       └── prompts.md
+├── turbo.json
+├── vitest-mocks/
+│   ├── svg-hashes.json
+│   └── tailwind.generated.css
+├── vitest.config.mts
+├── vitest.workspace.ts
+└── yarn.lock

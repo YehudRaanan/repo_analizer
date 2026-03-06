@@ -1,0 +1,564 @@
+=====================================
+Repository Analysis: bottom
+Type: CLI Tool
+=====================================
+
+--- METADATA ---
+Name: bottom
+Description: Yet another cross-platform graphical process/system monitor.
+Language: Rust
+Topics: bottom, btm, cli, cross-platform, monitoring, rust, terminal, top, tui
+Stars: 12980
+License: MIT License
+
+--- README ---
+<div align="center">
+  <h1>bottom (btm)</h1>
+
+  <p>
+    A customizable cross-platform graphical process/system monitor for the terminal.<br />Supports Linux, macOS, and Windows. Inspired by <a href=https://github.com/aksakalli/gtop>gtop</a>, <a href=https://github.com/xxxserxxx/gotop>gotop</a>, and <a href=https://github.com/htop-dev/htop>htop</a>.
+  </p>
+
+[<img src="https://img.shields.io/github/checks-status/ClementTsang/bottom/main?style=flat-square&logo=github" alt="CI status">](https://github.com/ClementTsang/bottom/actions?query=branch%3Amain)
+[<img src="https://img.shields.io/crates/v/bottom.svg?style=flat-square" alt="crates.io link">](https://crates.io/crates/bottom)
+[<img src="https://img.shields.io/badge/docs-stable-66c2a5?style=flat-square&labelColor=555555&logoColor=white" alt="Stable documentation">](https://bottom.pages.dev/stable)
+[<img src="https://img.shields.io/badge/docs-nightly-88c0d0?style=flat-square&labelColor=555555&logoColor=white" alt="Nightly documentation">](https://bottom.pages.dev/nightly)
+[<img src="https://img.shields.io/badge/docs-mirror-8A2BE2?style=flat-square&labelColor=555555&logoColor=white" alt="Doc mirror on GitHub Pages">](https://clementtsang.github.io/bottom/stable)
+
+</div>
+
+<div align="center">
+  <img src="assets/demo.gif" alt="Quick demo recording showing off bottom's searching, expanding, and process killing."/>
+  <p>
+    <sub>
+      Demo using the <a href="https://github.com/morhetz/gruvbox">Gruvbox</a> theme (<code>--theme gruvbox</code>), along with <a href="https://www.ibm.com/plex/">IBM Plex Mono</a> and <a href="https://sw.kovidgoyal.net/kitty/">Kitty</a>
+    </sub>
+  </p>
+</div>
+
+## Table of contents <!-- omit in toc -->
+
+- [Features](#features)
+- [Support](#support)
+  - [Official](#official)
+  - [Unofficial](#unofficial)
+- [Installation](#installation)
+  - [Cargo](#cargo)
+  - [Alpine](#alpine)
+  - [Arch Linux](#arch-linux)
+  - [Debian / Ubuntu](#debian--ubuntu)
+  - [Exherbo Linux](#exherbo-linux)
+  - [Fedora / CentOS / AlmaLinux / Rocky Linux](#fedora--centos--almalinux--rocky-linux)
+    - [COPR](#copr)
+    - [Terra](#terra)
+    - [RPM](#rpm)
+  - [Gentoo](#gentoo)
+  - [Nix](#nix)
+  - [openSUSE](#opensuse)
+  - [Snap](#snap)
+  - [Solus](#solus)
+  - [Void](#void)
+  - [gah](#gah)
+  - [Homebrew](#homebrew)
+  - [MacPorts](#macports)
+  - [Chocolatey](#chocolatey)
+  - [Scoop](#scoop)
+  - [winget](#winget)
+  - [Windows installer](#windows-installer)
+  - [Conda](#conda)
+  - [mise](#mise)
+  - [Pre-built binaries](#pre-built-binaries)
+    - [Auto-completion](#auto-completion)
+- [Usage](#usage)
+- [Configuration](#configuration)
+- [Troubleshooting](#troubleshooting)
+- [Documentation](#documentation)
+- [Contribution](#contribution)
+  - [Contributors](#contributors)
+- [Thanks](#thanks)
+
+## Features
+
+As (yet another) process/system visualization and management application, bottom supports the typical features:
+
+- Graphical visualization widgets for:
+
+  - [CPU usage](https://bottom.pages.dev/nightly/usage/widgets/cpu/) over time, at an average and per-core level
+  - [RAM and swap usage](https://bottom.pages.dev/nightly/usage/widgets/memory/) over time
+  - [Network I/O usage](https://bottom.pages.dev/nightly/usage/widgets/network/) over time
+
+  with support for zooming in/out the current time interval displayed.
+
+- Widgets for displaying info about:
+
+  - [Disk capacity/usage](https://bottom.pages.dev/nightly/usage/widgets/disk/)
+  - [Temperature sensors](https://bottom.pages.dev/nightly/usage/widgets/temperature/)
+  - [Battery usage](https://bottom.pages.dev/nightly/usage/widgets/battery/)
+
+- [A process widget](https://bottom.pages.dev/nightly/usage/widgets/process/) for displaying, sorting, and searching info about processes, as well as support for:
+
+  - [Kill signals](https://bottom.pages.dev/nightly/usage/widgets/process/#process-termination)
+  - [Tree mode](https://bottom.pages.dev/nightly/usage/widgets/process/#tree-mode)
+
+- [Cross-platform support](https://github.com/ClementTsang/bottom#support) for Linux, macOS, and Windows, with more planned in the future.
+
+- [Customizable behaviour](https://bottom.pages.dev/nightly/configuration/command-line-options/) that can be controlled with command-line options or a config file, such as:
+
+  - Custom and built-in colour themes
+  - Customizing widget behaviour
+  - Changing the layout of widgets
+  - Filtering out entries in some widgets
+
+- And more:
+
+  - [An htop-inspired basic mode](https://bottom.pages.dev/nightly/usage/basic-mode/)
+  - [Expansion, which focuses on just one widget](https://bottom.pages.dev/nightly/usage/general-usage/#expansion)
+
+- And more!
+
+You can find more details in [the documentation](https://bottom.pages.dev/nightly/usage/general-usage/).
+
+## Support
+
+### Official
+
+bottom _officially_ supports the following operating systems and corresponding architectures:
+
+- macOS (`x86_64`, `aarch64`)
+- Linux (`x86_64`, `i686`, `aarch64`)
+- Windows (`x86_64`, `i686`)
+
+These platforms are tested to work for the most 
+... [TRUNCATED]
+
+--- PACKAGE MANIFEST(S) ---
+
+[Cargo.toml]
+[package]
+name = "bottom"
+version = "0.12.3"
+repository = "https://github.com/ClementTsang/bottom"
+license = "MIT"
+description = "A customizable cross-platform graphical process/system monitor for the terminal. Supports Linux, macOS, and Windows."
+documentation = "https://bottom.pages.dev/stable"
+readme = "README.md"
+default-run = "btm"
+build = "build.rs"
+authors = ["Clement Tsang <cjhtsang@uwaterloo.ca>"]
+keywords = ["cross-platform", "monitoring", "cli", "top", "tui"]
+categories = ["command-line-utilities", "visualization"]
+exclude = [
+    ".cargo-husky/",
+    ".github/",
+    ".idea/",
+    ".vscode/",
+    "assets/",
+    "desktop/",
+    "docs/",
+    "flamegraphs/",
+    "sample_configs/",
+    "schema/",
+    "scripts/",
+    "wix/",
+    ".all-contributorsrc",
+    ".cirrus.yml",
+    ".gitignore",
+    ".markdownlint.json",
+    "CHANGELOG.md",
+    "clippy.toml",
+    "codecov.yml",
+    "CONTRIBUTING.md",
+    "Cross.toml",
+    "debug.log",
+    "flamegraph.svg",
+    "profile.json.gz",
+    "rustfmt.toml",
+]
+edition = "2024"
+# The oldest version I've tested that should still build - note this is not an official MSRV!
+rust-version = "1.85"
+
+[lib]
+test = true
+doctest = true
+doc = true
+
+[[bin]]
+name = "btm"
+path = "src/bin/main.rs"
+doc = false
+
+[[bin]]
+name = "schema"
+path = "src/bin/schema.rs"
+test = false
+doctest = false
+doc = false
+required-features = ["generate_schema"]
+
+[features]
+# Used for general builds.
+battery = ["starship-battery"]
+nvidia = ["nvml-wrapper"]
+gpu = ["nvidia"]
+zfs = []
+deploy = ["battery", "gpu", "zfs"]
+default = ["deploy"]
+
+# Should not be included in builds.
+logging = ["fern", "log", "time"]
+generate_schema = ["schemars", "serde_json", "strum"]
+
+[dependencies]
+anyhow = "1.0.101"
+cfg-if = "1.0.4"
+clap = { version = "4.5.57", features = ["default", "cargo", "wrap_help", "derive"] }
+concat-string = "1.0.1"
+crossterm = "0.29.0"
+ctrlc = { version = "3.5.0", features = ["termination"] }
+dirs = "6.0.0"
+humantime = "2.3.0"
+indexmap = "2.13.0"
+indoc = "2.0.7"
+itertools = "0.14.0"
+nohash = "0.2.0"
+nvml-wrapper = { version = "0.11.0", optional = true, features = ["legacy-functions"] }
+ratatui-core = "0.1.0"
+regex = "1.12.3"
+rustc-hash = "2.1.1"
+serde = { version = "1.0.228", features = ["derive"] }
+starship-battery = { version = "0.10.3", optional = true }
+sysinfo = "=0.38.0"
+timeless = "0.0.14-alpha"
+toml_edit = { version = "0.24.0", features = ["serde"] }
+tui = { version = "0.30.0", package = "ratatui", features = [
+    "unstable-rendered-line-info",
+    "layout-cache",
+    "crossterm",
+] }
+unicode-ellipsis = "0.3.0"
+unicode-segmentation = "1.12.0"
+unicode-width = "0.2.2"
+
+# Used for logging. Mostly a debugging tool.
+fern = { version = "0.7.1", optional = true }
+log = { version = "0.4.29", optional = true }
+time = { version = "0.3.47", features = ["local-offset", "formatting", "macros"], optional = true }
+
+# These are just used for JSON schema generation.
+schemars = { version = "1.2.1", optional = true }
+serde_json = { version = "1.0.149", o
+... [TRUNCATED]
+
+--- CLI ENTRY POINTS / COMMAND DEFINITIONS ---
+
+[src/app.rs]
+pub mod data;
+pub mod filter;
+pub mod layout_manager;
+pub mod states;
+
+use std::time::Instant;
+
+use concat_string::concat_string;
+use data::*;
+use filter::*;
+use layout_manager::*;
+use rustc_hash::FxHashMap as HashMap;
+pub use states::*;
+use unicode_segmentation::{GraphemeCursor, UnicodeSegmentation};
+
+use crate::{
+    canvas::{
+        components::time_graph::LegendPosition, dialogs::process_kill_dialog::ProcessKillDialog,
+    },
+    constants,
+    utils::data_units::DataUnit,
+    widgets::{ProcWidgetColumn, ProcWidgetMode, TreeCollapsed},
+};
+
+const STALE_MIN_MILLISECONDS: u64 = 30 * 1000; // Lowest is 30 seconds
+
+#[derive(Debug, Clone, Eq, PartialEq, Default, Copy)]
+pub enum AxisScaling {
+    #[default]
+    Log,
+    Linear,
+}
+
+/// AppConfigFields is meant to cover basic fields that would normally be set
+/// by config files or launch options.
+#[derive(Debug, Default, Eq, PartialEq)]
+pub struct AppConfigFields {
+    pub update_rate: u64,
+    pub temperature_type: TemperatureType,
+    pub use_dot: bool,
+    pub cpu_left_legend: bool,
+    pub show_average_cpu: bool, // TODO: Unify this in CPU options
+    pub use_current_cpu_total: bool,
+    pub unnormalized_cpu: bool,
+    pub get_process_threads: bool,
+    pub use_basic_mode: bool,
+    pub default_time_value: u64,
+    pub time_interval: u64,
+    pub hide_time: bool,
+    pub autohide_time: bool,
+    pub use_old_network_legend: bool,
+    pub table_gap: u16,
+    pub disable_click: bool,
+    pub disable_keys: bool,
+    pub enable_gpu: bool,
+    pub enable_cache_memory: bool,
+    pub show_table_scroll_position: bool,
+    #[cfg(any(target_os = "linux", target_os = "macos", target_os = "freebsd"))]
+    pub is_advanced_kill: bool,
+    pub is_read_only: bool,
+    #[cfg(target_os = "linux")]
+    pub hide_k_threads: bool,
+    #[cfg(feature = "zfs")]
+    pub free_arc: bool,
+    pub memory_legend_position: Option<LegendPosition>,
+    // TODO: Remove these, move network details state-side.
+    pub network_unit_type: DataUnit,
+    pub network_legend_position: Option<LegendPosition>,
+    pub network_scale_type: AxisScaling,
+    pub network_use_binary_prefix: bool,
+    pub retention_ms: u64,
+    pub dedicated_average_row: bool,
+    pub default_tree_collapse: bool,
+}
+
+/// For filtering out information
+#[derive(Debug, Clone)]
+pub struct DataFilters {
+    pub disk_filter: Option<Filter>,
+    pub mount_filter: Option<Filter>,
+    pub temp_filter: Option<Filter>,
+    pub net_filter: Option<Filter>,
+}
+
+pub struct App {
+    awaiting_second_char: bool,
+    second_char: Option<char>,
+    pub data_store: DataStore,
+    last_key_press: Instant,
+    pub(crate) process_kill_dialog: ProcessKillDialog,
+    pub help_dialog_state: AppHelpDialogState,
+    pub is_expanded: bool,
+    pub is_force_redraw: bool,
+    pub is_determining_widget_boundary: bool,
+    pub basic_mode_use_percent: bool,
+    pub states: AppWidgetStates,
+    pub app_config_fields: AppConfigFields,
+    pub widget_map: HashMap<u64, BottomWidget>,
+    pub current_wid
+... [TRUNCATED]
+
+--- SHELL COMPLETIONS & MAN PAGES ---
+(None found)
+
+--- DIRECTORY STRUCTURE (depth 2) ---
+├── .all-contributorsrc
+├── .cargo/
+│   └── config.toml
+├── .cirrus.yml
+├── .github/
+│   ├── ISSUE_TEMPLATE/
+│   │   ├── bug_report.yml
+│   │   ├── config.yml
+│   │   ├── feature_request.yml
+│   │   └── packaging.yml
+│   ├── actions/
+│   │   └── test-bsd-target/
+│   ├── ci/
+│   │   └── rust_version.txt
+│   ├── pull_request_template.md
+│   └── workflows/
+│       ├── bsd_vm_check.yml
+│       ├── build_releases.yml
+│       ├── ci.yml
+│       ├── clear_workflow_cache.yml
+│       ├── coverage.yml
+│       ├── deployment.yml
+│       ├── docs.yml
+│       ├── nightly.yml
+│       ├── post_release.yml
+│       ├── publish_github_pages.yml
+│       ├── test_docs.yml
+│       └── validate_schema.yml
+├── .gitignore
+├── .markdownlint.json
+├── CHANGELOG.md
+├── CONTRIBUTING.md
+├── Cargo.lock
+├── Cargo.toml
+├── Cross.toml
+├── LICENSE
+├── README.md
+├── assets/
+│   ├── demo.gif
+│   └── icons/
+│       ├── bottom-system-monitor.svg
+│       └── bottom.ico
+├── build.rs
+├── clippy.toml
+├── codecov.yml
+├── desktop/
+│   └── bottom.desktop
+├── docs/
+│   ├── .gitignore
+│   ├── README.md
+│   ├── content/
+│   │   ├── assets/
+│   │   ├── configuration/
+│   │   ├── contribution/
+│   │   ├── index.md
+│   │   ├── nightly-release.md
+│   │   ├── stylesheets/
+│   │   ├── support/
+│   │   ├── troubleshooting.md
+│   │   └── usage/
+│   ├── hooks/
+│   │   ├── nightly_banner.py
+│   │   └── nightly_redirect.py
+│   ├── mike.sh
+│   ├── mkdocs.yml
+│   ├── overrides/
+│   │   └── main.html
+│   ├── requirements.txt
+│   └── serve.sh
+├── rustfmt.toml
+├── sample_configs/
+│   ├── default_config.toml
+│   └── demo_config.toml
+├── schema/
+│   ├── README.md
+│   ├── nightly/
+│   │   └── bottom.json
+│   ├── v0.10/
+│   │   └── bottom.json
+│   ├── v0.11/
+│   │   └── bottom.json
+│   ├── v0.12.0/
+│   │   └── bottom.json
+│   └── v0.9/
+│       └── bottom.json
+├── scripts/
+│   ├── ci/
+│   │   ├── bsd_tests.sh
+│   │   ├── ci_bsd.sh
+│   │   ├── cirrus_release.py
+│   │   └── configure_git.sh
+│   ├── clear_cache.py
+│   ├── hooks/
+│   │   ├── README.md
+│   │   └── pre-push
+│   ├── schema/
+│   │   ├── bad_file.toml
+│   │   ├── generate.sh
+│   │   ├── nightly.sh
+│   │   ├── requirements.txt
+│   │   └── validator.py
+│   └── windows/
+│       └── choco/
+├── src/
+│   ├── app.rs
+│   ├── app/
+│   │   ├── data/
+│   │   ├── filter.rs
+│   │   ├── layout_manager.rs
+│   │   └── states.rs
+│   ├── bin/
+│   │   ├── main.rs
+│   │   └── schema.rs
+│   ├── canvas.rs
+│   ├── canvas/
+│   │   ├── components/
+│   │   ├── dialogs/
+│   │   ├── drawing_utils.rs
+│   │   └── widgets/
+│   ├── collection.rs
+│   ├── collection/
+│   │   ├── amd.rs
+│   │   ├── amd/
+│   │   ├── batteries.rs
+│   │   ├── cpu.rs
+│   │   ├── cpu/
+│   │   ├── disks.rs
+│   │   ├── disks/
+│   │   ├── error.rs
+│   │   ├── linux/
+│   │   ├── memory.rs
+│   │   ├── memory/
+│   │   ├── network.rs
+│   │   ├── network/
+│   │   ├── nvidia.rs
+│   │   ├── processes.rs
+│   │   ├── processes/
+│   │   ├── temperature.rs
+│   │   └── temperature/
+│   ├── constants.rs
+│   ├── event.rs
+│   ├── lib.rs
+│   ├── options.rs
+│   ├── options/
+│   │   ├── args.rs
+│   │   ├── config.rs
+│   │   ├── config/
+│   │   └── error.rs
+│   ├── utils/
+│   │   ├── cancellation_token.rs
+│   │   ├── conversion.rs
+│   │   ├── data_units.rs
+│   │   ├── general.rs
+│   │   ├── logging.rs
+│   │   ├── process_killer.rs
+│   │   └── strings.rs
+│   └── widgets/
+│       ├── battery_info.rs
+│       ├── cpu_graph.rs
+│       ├── disk_table.rs
+│       ├── mem_graph.rs
+│       ├── mod.rs
+│       ├── network_graph.rs
+│       ├── process_table.rs
+│       ├── process_table/
+│       └── temperature_table.rs
+├── tests/
+│   ├── integration/
+│   │   ├── arg_tests.rs
+│   │   ├── invalid_config_tests.rs
+│   │   ├── layout_movement_tests.rs
+│   │   ├── main.rs
+│   │   ├── util.rs
+│   │   └── valid_config_tests.rs
+│   ├── invalid_configs/
+│   │   ├── duplicate_temp_type.toml
+│   │   ├── empty_layout.toml
+│   │   ├── invalid_colour_hex.toml
+│   │   ├── invalid_colour_hex_2.toml
+│   │   ├── invalid_colour_hex_3.toml
+│   │   ├── invalid_colour_name.toml
+│   │   ├── invalid_colour_rgb.toml
+│   │   ├── invalid_colour_rgb_2.toml
+│   │   ├── invalid_colour_string.toml
+│   │   ├── invalid_default_widget_count.toml
+│   │   ├── invalid_disk_column.toml
+│   │   ├── invalid_layout_widget_type.toml
+│   │   ├── invalid_process_column.toml
+│   │   ├── lone_default_widget_count.toml
+│   │   └── toml_mismatch_type.toml
+│   └── valid_configs/
+│       ├── all_proc.toml
+│       ├── cpu_doughnut.toml
+│       ├── empty_config.toml
+│       ├── filtering.toml
+│       ├── many_proc.toml
+│       ├── os_specific/
+│       ├── proc_columns.toml
+│       ├── styling.toml
+│       ├── styling_2.toml
+│       └── theme.toml
+└── wix/
+    ├── License.rtf
+    └── main.wxs

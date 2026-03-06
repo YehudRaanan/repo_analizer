@@ -1,0 +1,696 @@
+=====================================
+Repository Analysis: taxonomy
+Type: Web Application
+=====================================
+
+--- METADATA ---
+Name: taxonomy
+Description: An open source application built using the new router, server components and everything new in Next.js 13.
+Language: TypeScript
+Topics: nextauthjs, nextjs, prisma, radix-ui, tailwindcss, typescript, vercel
+Stars: 19173
+License: MIT License
+
+--- README ---
+# Taxonomy
+
+An open source application built using the new router, server components and everything new in Next.js 13.
+
+> **Warning**
+> This app is a work in progress. I'm building this in public. You can follow the progress on Twitter [@shadcn](https://twitter.com/shadcn).
+> See the roadmap below.
+
+## About this project
+
+This project as an experiment to see how a modern app (with features like authentication, subscriptions, API routes, static pages for docs ...etc) would work in Next.js 13 and server components.
+
+**This is not a starter template.**
+
+A few people have asked me to turn this into a starter. I think we could do that once the new features are out of beta.
+
+## Note on Performance
+
+> **Warning**
+> This app is using the unstable releases for Next.js 13 and React 18. The new router and app dir is still in beta and not production-ready.
+> **Expect some performance hits when testing the dashboard**.
+> If you see something broken, you can ping me [@shadcn](https://twitter.com/shadcn).
+
+## Features
+
+- New `/app` dir,
+- Routing, Layouts, Nested Layouts and Layout Groups
+- Data Fetching, Caching and Mutation
+- Loading UI
+- Route handlers
+- Metadata files
+- Server and Client Components
+- API Routes and Middlewares
+- Authentication using **NextAuth.js**
+- ORM using **Prisma**
+- Database on **PlanetScale**
+- UI Components built using **Radix UI**
+- Documentation and blog using **MDX** and **Contentlayer**
+- Subscriptions using **Stripe**
+- Styled using **Tailwind CSS**
+- Validations using **Zod**
+- Written in **TypeScript**
+
+## Roadmap
+
+- [x] ~Add MDX support for basic pages~
+- [x] ~Build marketing pages~
+- [x] ~Subscriptions using Stripe~
+- [x] ~Responsive styles~
+- [x] ~Add OG image for blog using @vercel/og~
+- [x] Dark mode
+
+## Known Issues
+
+A list of things not working right now:
+
+1. ~GitHub authentication (use email)~
+2. ~[Prisma: Error: ENOENT: no such file or directory, open '/var/task/.next/server/chunks/schema.prisma'](https://github.com/prisma/prisma/issues/16117)~
+3. ~[Next.js 13: Client side navigation does not update head](https://github.com/vercel/next.js/issues/42414)~
+4. [Cannot use opengraph-image.tsx inside catch-all routes](https://github.com/vercel/next.js/issues/48162)
+
+## Why not tRPC, Turborepo or X?
+
+I might add this later. For now, I want to see how far we can get using Next.js only.
+
+If you have some suggestions, feel free to create an issue.
+
+## Running Locally
+
+1. Install dependencies using pnpm:
+
+```sh
+pnpm install
+```
+
+2. Copy `.env.example` to `.env.local` and update the variables.
+
+```sh
+cp .env.example .env.local
+```
+
+3. Start the development server:
+
+```sh
+pnpm dev
+```
+
+## License
+
+Licensed under the [MIT license](https://github.com/shadcn/taxonomy/blob/main/LICENSE.md).
+
+
+--- PACKAGE MANIFEST(S) ---
+
+[package.json]
+{
+  "name": "taxonomy",
+  "version": "0.2.0",
+  "private": true,
+  "author": {
+    "name": "shadcn",
+    "url": "https://twitter.com/shadcn"
+  },
+  "scripts": {
+    "dev": "concurrently \"contentlayer dev\" \"next dev\"",
+    "build": "contentlayer build && next build",
+    "turbo": "next dev --turbo",
+    "start": "next start",
+    "lint": "next lint",
+    "preview": "next build && next start",
+    "postinstall": "prisma generate"
+  },
+  "dependencies": {
+    "@editorjs/code": "^2.8.0",
+    "@editorjs/editorjs": "^2.26.5",
+    "@editorjs/embed": "^2.5.3",
+    "@editorjs/header": "^2.7.0",
+    "@editorjs/inline-code": "^1.4.0",
+    "@editorjs/link": "^2.5.0",
+    "@editorjs/list": "^1.8.0",
+    "@editorjs/paragraph": "^2.9.0",
+    "@editorjs/table": "^2.2.1",
+    "@hookform/resolvers": "^3.1.0",
+    "@next-auth/prisma-adapter": "^1.0.6",
+    "@prisma/client": "^4.13.0",
+    "@radix-ui/react-accessible-icon": "^1.0.2",
+    "@radix-ui/react-accordion": "^1.1.1",
+    "@radix-ui/react-alert-dialog": "^1.0.3",
+    "@radix-ui/react-aspect-ratio": "^1.0.2",
+    "@radix-ui/react-avatar": "^1.0.2",
+    "@radix-ui/react-checkbox": "^1.0.3",
+    "@radix-ui/react-collapsible": "^1.0.2",
+    "@radix-ui/react-context-menu": "^2.1.3",
+    "@radix-ui/react-dialog": "^1.0.3",
+    "@radix-ui/react-dropdown-menu": "^2.0.4",
+    "@radix-ui/react-hover-card": "^1.0.5",
+    "@radix-ui/react-label": "^2.0.1",
+    "@radix-ui/react-menubar": "^1.0.2",
+    "@radix-ui/react-navigation-menu": "^1.1.2",
+    "@radix-ui/react-popover": "^1.0.5",
+    "@radix-ui/react-progress": "^1.0.2",
+    "@radix-ui/react-radio-group": "^1.1.2",
+    "@radix-ui/react-scroll-area": "^1.0.3",
+    "@radix-ui/react-select": "^1.2.1",
+    "@radix-ui/react-separator": "^1.0.2",
+    "@radix-ui/react-slider": "^1.1.1",
+    "@radix-ui/react-slot": "^1.0.1",
+    "@radix-ui/react-switch": "^1.0.2",
+    "@radix-ui/react-tabs": "^1.0.3",
+    "@radix-ui/react-toast": "^1.1.3",
+    "@radix-ui/react-toggle": "^1.0.2",
+    "@radix-ui/react-toggle-group": "^1.0.3",
+    "@radix-ui/react-tooltip": "^1.0.5",
+    "@t3-oss/env-nextjs": "^0.2.2",
+    "@typescript-eslint/parser": "^5.59.0",
+    "@vercel/analytics": "^1.0.0",
+    "@vercel/og": "^0.0.21",
+    "class-variance-authority": "^0.4.0",
+    "clsx": "^1.2.1",
+    "cmdk": "^0.1.22",
+    "concurrently": "^8.0.1",
+    "contentlayer": "^0.3.1",
+    "date-fns": "^2.29.3",
+    "lucide-react": "^0.92.0",
+    "next": "13.3.2-canary.13",
+    "next-auth": "4.22.1",
+    "next-contentlayer": "^0.3.1",
+    "next-themes": "^0.2.1",
+    "nodemailer": "^6.9.1",
+    "postmark": "^3.0.15",
+    "prop-types": "^15.8.1",
+    "react": "^18.2.0",
+    "react-day-picker": "^8.7.1",
+    "react-dom": "^18.2.0",
+    "react-editor-js": "^2.1.0",
+    "react-hook-form": "^7.43.9",
+    "react-textarea-autosize": "^8.4.1",
+    "sharp": "^0.31.3",
+    "shiki": "^0.11.1",
+    "stripe": "^11.18.0",
+    "tailwind-merge": "^1.12.0",
+    "tailwindcss-animate": "^1.0.5",
+    "zod": "^3.21.4"
+  },
+  
+... [TRUNCATED]
+
+--- WEB FRAMEWORK CONFIG ---
+
+[next.config.mjs]
+import { withContentlayer } from "next-contentlayer"
+
+import "./env.mjs"
+
+/** @type {import('next').NextConfig} */
+const nextConfig = {
+  reactStrictMode: true,
+  images: {
+    domains: ["avatars.githubusercontent.com"],
+  },
+  experimental: {
+    appDir: true,
+    serverComponentsExternalPackages: ["@prisma/client"],
+  },
+}
+
+export default withContentlayer(nextConfig)
+
+
+[tsconfig.json]
+{
+  "compilerOptions": {
+    "target": "es5",
+    "lib": ["dom", "dom.iterable", "esnext"],
+    "allowJs": true,
+    "skipLibCheck": true,
+    "strict": false,
+    "forceConsistentCasingInFileNames": true,
+    "noEmit": true,
+    "esModuleInterop": true,
+    "module": "esnext",
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "jsx": "preserve",
+    "incremental": true,
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./*"],
+      "contentlayer/generated": ["./.contentlayer/generated"]
+    },
+    "plugins": [
+      {
+        "name": "next"
+      }
+    ],
+    "strictNullChecks": true
+  },
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    ".next/types/**/*.ts",
+    ".contentlayer/generated"
+  ],
+  "exclude": ["node_modules"]
+}
+
+
+[tailwind.config.js]
+const { fontFamily } = require("tailwindcss/defaultTheme")
+
+/** @type {import('tailwindcss').Config} */
+module.exports = {
+  content: [
+    "./app/**/*.{ts,tsx}",
+    "./components/**/*.{ts,tsx}",
+    "./ui/**/*.{ts,tsx}",
+    "./content/**/*.{md,mdx}",
+  ],
+  darkMode: ["class"],
+  theme: {
+    container: {
+      center: true,
+      padding: "2rem",
+      screens: {
+        "2xl": "1400px",
+      },
+    },
+    extend: {
+      colors: {
+        border: "hsl(var(--border))",
+        input: "hsl(var(--input))",
+        ring: "hsl(var(--ring))",
+        background: "hsl(var(--background))",
+        foreground: "hsl(var(--foreground))",
+        primary: {
+          DEFAULT: "hsl(var(--primary))",
+          foreground: "hsl(var(--primary-foreground))",
+        },
+        secondary: {
+          DEFAULT: "hsl(var(--secondary))",
+          foreground: "hsl(var(--secondary-foreground))",
+        },
+        destructive: {
+          DEFAULT: "hsl(var(--destructive))",
+          foreground: "hsl(var(--destructive-foreground))",
+        },
+        muted: {
+          DEFAULT: "hsl(var(--muted))",
+          foreground: "hsl(var(--muted-foreground))",
+        },
+        accent: {
+          DEFAULT: "hsl(var(--accent))",
+          foreground: "hsl(var(--accent-foreground))",
+        },
+        popover: {
+          DEFAULT: "hsl(var(--popover))",
+          foreground: "hsl(var(--popover-foreground))",
+        },
+        card: {
+          DEFAULT: "hsl(var(--card))",
+          foreground: "hsl(var(--card-foreground))",
+        },
+      },
+      borderRadius: {
+        lg: `var(--radius)`,
+        md: `calc(var(--radius) - 2px)`,
+        sm: "calc(var(--radius) - 4px)",
+      },
+      fontFamily: {
+        sans: ["var(--font-sans)", ...fontFamily.sans],
+        heading: ["var(--font-heading)", ...fontFamily.sans],
+      },
+      keyframes: {
+        "accordion-down": {
+          from: { height: 0 },
+          to: { height: "var(--radix-accordion-content-height)" },
+        },
+        "accordion-up": {
+          from: { height: "var(--radix-accordion-content-height)" },
+          to: { height: 0 },
+        },
+      },
+      animation: {
+        "accordion-down": "accordion-down 0.2s ease-out",
+        "accordion-up": "accordion-up 0.2s ease-out",
+      },
+    },
+  },
+  plugins: [require("tailwindcss-animate"), require("@tailwindcss/typography")],
+}
+
+
+[postcss.config.js]
+module.exports = {
+  plugins: {
+    tailwindcss: {},
+    autoprefixer: {},
+  },
+}
+
+
+[.env.example]
+# -----------------------------------------------------------------------------
+# App
+# -----------------------------------------------------------------------------
+NEXT_PUBLIC_APP_URL=http://localhost:3000
+
+# -----------------------------------------------------------------------------
+# Authentication (NextAuth.js)
+# -----------------------------------------------------------------------------
+NEXTAUTH_URL=http://localhost:3000
+NEXTAUTH_SECRET=
+
+GITHUB_CLIENT_ID=
+GITHUB_CLIENT_SECRET=
+GITHUB_ACCESS_TOKEN=
+
+# -----------------------------------------------------------------------------
+# Database (MySQL - PlanetScale)
+# -----------------------------------------------------------------------------
+DATABASE_URL="mysql://root:root@localhost:3306/taxonomy?schema=public"
+
+# -----------------------------------------------------------------------------
+# Email (Postmark)
+# -----------------------------------------------------------------------------
+SMTP_FROM=
+POSTMARK_API_TOKEN=
+POSTMARK_SIGN_IN_TEMPLATE=
+POSTMARK_ACTIVATION_TEMPLATE=
+
+# -----------------------------------------------------------------------------
+# Subscriptions (Stripe)
+# -----------------------------------------------------------------------------
+STRIPE_API_KEY=
+STRIPE_WEBHOOK_SECRET=
+STRIPE_PRO_MONTHLY_PLAN_ID=
+
+--- ENVIRONMENT VARIABLES (.env.example) ---
+# -----------------------------------------------------------------------------
+# App
+# -----------------------------------------------------------------------------
+NEXT_PUBLIC_APP_URL=http://localhost:3000
+
+# -----------------------------------------------------------------------------
+# Authentication (NextAuth.js)
+# -----------------------------------------------------------------------------
+NEXTAUTH_URL=http://localhost:3000
+NEXTAUTH_SECRET=
+
+GITHUB_CLIENT_ID=
+GITHUB_CLIENT_SECRET=
+GITHUB_ACCESS_TOKEN=
+
+# -----------------------------------------------------------------------------
+# Database (MySQL - PlanetScale)
+# -----------------------------------------------------------------------------
+DATABASE_URL="mysql://root:root@localhost:3306/taxonomy?schema=public"
+
+# -----------------------------------------------------------------------------
+# Email (Postmark)
+# -----------------------------------------------------------------------------
+SMTP_FROM=
+POSTMARK_API_TOKEN=
+POSTMARK_SIGN_IN_TEMPLATE=
+POSTMARK_ACTIVATION_TEMPLATE=
+
+# -----------------------------------------------------------------------------
+# Subscriptions (Stripe)
+# -----------------------------------------------------------------------------
+STRIPE_API_KEY=
+STRIPE_WEBHOOK_SECRET=
+STRIPE_PRO_MONTHLY_PLAN_ID=
+
+--- ROUTE / PAGE DEFINITIONS ---
+
+[content/pages/privacy.mdx]
+---
+title: Privacy
+description: The Privacy Policy for Taxonomy App.
+---
+
+Blandit libero volutpat sed cras ornare arcu. Cursus sit amet dictum sit amet. Nunc vel risus commodo viverra maecenas accumsan. Libero id faucibus nisl tincidunt eget nullam non nisi est. Varius quam quisque id diam vel quam. Id donec ultrices tincidunt arcu non.
+
+## Consent
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Volutpat sed cras ornare arcu. Nibh ipsum consequat nisl vel pretium lectus quam id leo. A arcu cursus vitae congue. Amet justo donec enim diam. Vel pharetra vel turpis nunc eget lorem. Gravida quis blandit turpis cursus in. Semper auctor neque vitae tempus. Elementum facilisis leo vel fringilla est ullamcorper eget nulla. Imperdiet nulla malesuada pellentesque elit eget.
+
+Felis donec et odio pellentesque diam volutpat commodo sed.
+
+Tortor consequat id porta nibh. Fames ac turpis egestas maecenas pharetra convallis posuere morbi leo. Scelerisque fermentum dui faucibus in. Tortor posuere ac ut consequat semper viverra.
+
+## Information we collect
+
+Amet justo donec enim diam. In hendrerit gravida rutrum quisque non. Hac habitasse platea dictumst quisque sagittis purus sit.
+
+## How we use your Information
+
+Ut sem nulla pharetra diam sit amet nisl suscipit adipiscing. Consectetur adipiscing elit pellentesque habitant. Ut tristique et egestas quis ipsum suspendisse ultrices gravida.
+
+
+[content/pages/terms.mdx]
+---
+title: Terms & Conditions
+description: Read our terms and conditions.
+---
+
+Lorem ipsumMagna fermentum iaculis eu non diam. Vitae purus faucibus ornare suspendisse sed nisi lacus sed. In nibh mauris cursus mattis molestie a iaculis at. Enim sit amet venenatis urna. Eget sit amet tellus cras adipiscing.
+
+## Legal Notices
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Volutpat sed cras ornare arcu. Nibh ipsum consequat nisl vel pretium lectus quam id leo. A arcu cursus vitae congue. Amet justo donec enim diam. Vel pharetra vel turpis nunc eget lorem. Gravida quis blandit turpis cursus in. Semper auctor neque vitae tempus. Elementum facilisis leo vel fringilla est ullamcorper eget nulla. Imperdiet nulla malesuada pellentesque elit eget.
+
+Felis donec et odio pellentesque diam volutpat commodo sed.
+
+Tortor consequat id porta nibh. Fames ac turpis egestas maecenas pharetra convallis posuere morbi leo. Scelerisque fermentum dui faucibus in. Tortor posuere ac ut consequat semper viverra.
+
+## Warranty Disclaimer
+
+Tellus in hac habitasse platea dictumst vestibulum. Faucibus in ornare quam viverra. Viverra aliquet eget sit amet tellus cras adipiscing. Erat nam at lectus urna duis convallis convallis tellus. Bibendum est ultricies integer quis auctor elit sed vulputate.
+
+Nisl condimentum id venenatis a condimentum vitae. Ac auctor augue mauris augue neque gravida in fermentum. Arcu felis bibendum ut tristique. Tempor commodo ullamcorper a lacus vestibulum sed arcu non.
+
+## General
+
+Magna fermentum iaculis eu non diam. Vitae purus faucibus ornare suspendisse sed nisi lacus sed. In nibh mauris cursus mattis molestie a iaculis at. Enim sit amet venenatis urna. Eget sit amet tellus cras adipiscing.
+
+Sed lectus vestibulum mattis ullamcorper velit. Id diam vel quam elementum pulvinar. In iaculis nunc sed augue lacus viverra. In hendrerit gravida rutrum quisque non tellus. Nisl purus in mollis nunc.
+
+## Disclaimer
+
+Amet justo donec enim diam. In hendrerit gravida rutrum quisque non. Hac habitasse platea dictumst quisque sagittis purus sit. Faucibus ornare suspendisse sed nisi lacus. Nulla porttitor massa id neque aliquam vestibulum. Ante in nibh mauris cursus mattis molestie a. Mi tempus imperdiet nulla malesuada.
+
+
+[pages/api/auth/[...nextauth].ts]
+import NextAuth from "next-auth"
+
+import { authOptions } from "@/lib/auth"
+
+// @see ./lib/auth
+export default NextAuth(authOptions)
+
+
+--- DIRECTORY STRUCTURE (depth 2) ---
+├── .commitlintrc.json
+├── .editorconfig
+├── .env.example
+├── .eslintrc.json
+├── .gitignore
+├── .husky/
+│   ├── commit-msg
+│   └── pre-commit
+├── .nvmrc
+├── .prettierignore
+├── LICENSE.md
+├── README.md
+├── app/
+│   ├── (auth)/
+│   │   ├── layout.tsx
+│   │   ├── login/
+│   │   └── register/
+│   ├── (dashboard)/
+│   │   └── dashboard/
+│   ├── (docs)/
+│   │   ├── docs/
+│   │   ├── guides/
+│   │   └── layout.tsx
+│   ├── (editor)/
+│   │   └── editor/
+│   ├── (marketing)/
+│   │   ├── [...slug]/
+│   │   ├── blog/
+│   │   ├── layout.tsx
+│   │   ├── page.tsx
+│   │   └── pricing/
+│   ├── api/
+│   │   ├── auth/
+│   │   ├── og/
+│   │   ├── posts/
+│   │   ├── users/
+│   │   └── webhooks/
+│   ├── layout.tsx
+│   ├── opengraph-image.jpg
+│   └── robots.ts
+├── assets/
+│   └── fonts/
+│       ├── CalSans-SemiBold.ttf
+│       ├── CalSans-SemiBold.woff
+│       ├── CalSans-SemiBold.woff2
+│       ├── Inter-Bold.ttf
+│       └── Inter-Regular.ttf
+├── components/
+│   ├── analytics.tsx
+│   ├── billing-form.tsx
+│   ├── callout.tsx
+│   ├── card-skeleton.tsx
+│   ├── editor.tsx
+│   ├── empty-placeholder.tsx
+│   ├── header.tsx
+│   ├── icons.tsx
+│   ├── main-nav.tsx
+│   ├── mdx-card.tsx
+│   ├── mdx-components.tsx
+│   ├── mobile-nav.tsx
+│   ├── mode-toggle.tsx
+│   ├── nav.tsx
+│   ├── page-header.tsx
+│   ├── pager.tsx
+│   ├── post-create-button.tsx
+│   ├── post-item.tsx
+│   ├── post-operations.tsx
+│   ├── search.tsx
+│   ├── shell.tsx
+│   ├── sidebar-nav.tsx
+│   ├── site-footer.tsx
+│   ├── tailwind-indicator.tsx
+│   ├── theme-provider.tsx
+│   ├── toc.tsx
+│   ├── ui/
+│   │   ├── accordion.tsx
+│   │   ├── alert-dialog.tsx
+│   │   ├── alert.tsx
+│   │   ├── aspect-ratio.tsx
+│   │   ├── avatar.tsx
+│   │   ├── badge.tsx
+│   │   ├── button.tsx
+│   │   ├── calendar.tsx
+│   │   ├── card.tsx
+│   │   ├── checkbox.tsx
+│   │   ├── collapsible.tsx
+│   │   ├── command.tsx
+│   │   ├── context-menu.tsx
+│   │   ├── dialog.tsx
+│   │   ├── dropdown-menu.tsx
+│   │   ├── hover-card.tsx
+│   │   ├── input.tsx
+│   │   ├── label.tsx
+│   │   ├── menubar.tsx
+│   │   ├── navigation-menu.tsx
+│   │   ├── popover.tsx
+│   │   ├── progress.tsx
+│   │   ├── radio-group.tsx
+│   │   ├── scroll-area.tsx
+│   │   ├── select.tsx
+│   │   ├── separator.tsx
+│   │   ├── sheet.tsx
+│   │   ├── skeleton.tsx
+│   │   ├── slider.tsx
+│   │   ├── switch.tsx
+│   │   ├── tabs.tsx
+│   │   ├── textarea.tsx
+│   │   ├── toast.tsx
+│   │   ├── toaster.tsx
+│   │   ├── toggle.tsx
+│   │   ├── tooltip.tsx
+│   │   └── use-toast.ts
+│   ├── user-account-nav.tsx
+│   ├── user-auth-form.tsx
+│   ├── user-avatar.tsx
+│   └── user-name-form.tsx
+├── config/
+│   ├── dashboard.ts
+│   ├── docs.ts
+│   ├── marketing.ts
+│   ├── site.ts
+│   └── subscriptions.ts
+├── content/
+│   ├── authors/
+│   │   └── shadcn.mdx
+│   ├── blog/
+│   │   ├── deploying-next-apps.mdx
+│   │   ├── dynamic-routing-static-regeneration.mdx
+│   │   ├── preview-mode-headless-cms.mdx
+│   │   └── server-client-components.mdx
+│   ├── docs/
+│   │   ├── documentation/
+│   │   ├── in-progress.mdx
+│   │   └── index.mdx
+│   ├── guides/
+│   │   ├── build-blog-using-contentlayer-mdx.mdx
+│   │   └── using-next-auth-next-13.mdx
+│   └── pages/
+│       ├── privacy.mdx
+│       └── terms.mdx
+├── contentlayer.config.js
+├── env.mjs
+├── hooks/
+│   ├── use-lock-body.ts
+│   └── use-mounted.ts
+├── lib/
+│   ├── auth.ts
+│   ├── db.ts
+│   ├── exceptions.ts
+│   ├── session.ts
+│   ├── stripe.ts
+│   ├── subscription.ts
+│   ├── toc.ts
+│   ├── utils.ts
+│   └── validations/
+│       ├── auth.ts
+│       ├── og.ts
+│       ├── post.ts
+│       └── user.ts
+├── middleware.ts
+├── next.config.mjs
+├── package.json
+├── pages/
+│   └── api/
+│       └── auth/
+├── pnpm-lock.yaml
+├── postcss.config.js
+├── prettier.config.js
+├── prisma/
+│   ├── migrations/
+│   │   ├── 20221021182747_init/
+│   │   ├── 20221118173244_add_stripe_columns/
+│   │   └── migration_lock.toml
+│   └── schema.prisma
+├── public/
+│   ├── android-chrome-192x192.png
+│   ├── android-chrome-512x512.png
+│   ├── apple-touch-icon.png
+│   ├── favicon-16x16.png
+│   ├── favicon-32x32.png
+│   ├── favicon.ico
+│   ├── images/
+│   │   ├── avatars/
+│   │   ├── blog/
+│   │   └── hero.png
+│   ├── og.jpg
+│   ├── site.webmanifest
+│   └── vercel.svg
+├── styles/
+│   ├── editor.css
+│   ├── globals.css
+│   └── mdx.css
+├── tailwind.config.js
+├── tsconfig.json
+└── types/
+    ├── index.d.ts
+    └── next-auth.d.ts

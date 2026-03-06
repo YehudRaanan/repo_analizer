@@ -1,0 +1,322 @@
+=====================================
+REPO CLASSIFICATION SIGNALS
+=====================================
+
+--- METADATA ---
+Name: supabase
+Description: The Postgres development platform. Supabase gives you a dedicated Postgres database to build your web, mobile, and AI applications.
+Primary language: TypeScript
+Topics: ai, alternative, auth, database, deno, embeddings, example, firebase, nextjs, oauth2, pgvector, postgis, postgres, postgresql, postgrest, realtime, supabase, vectors, websockets
+
+--- ROOT FILES (signal matches) ---
+Web App:     (none)
+Backend:     (none)
+Library:     (none)
+CLI:         (none)
+Data/ML:     (none)
+Infra:       (none)
+
+--- TOP-LEVEL DIRECTORIES (signal matches) ---
+Web App:     (none)
+Backend:     (none)
+Library:     (none)
+CLI:         (none)
+Data/ML:     (none)
+Infra:       (none)
+
+--- ALL TOP-LEVEL DIRECTORIES ---
+.agents, .claude, .cursor, .github, apps
+
+--- TYPE-SPECIFIC EXTENSION COUNTS ---
+Web App extensions (.tsx, .jsx, .vue, .svelte): 127
+Data/ML extensions (.ipynb): 0
+Infra extensions (.tf, .hcl): 0
+Backend extensions (.proto, .graphql): 0
+
+--- TOP FILE EXTENSIONS (by count) ---
+  .tsx: 127
+  .mdx: 92
+  .md: 61
+  .yml: 43
+  .svg: 30
+  .png: 28
+  .ts: 13
+  .woff2: 7
+  .json: 5
+  .gitignore: 2
+  .ico: 2
+  .cjs: 2
+  .sh: 1
+  .claude/skills/vitest: 1
+  .mdc: 1
+
+--- BOOLEAN PATTERN CHECKS ---
+  pages or app dir: no
+  components dir: no
+  cmd or bin dir: no
+  src bin: no
+  run train scripts: no
+  ipynb files: no
+  model training files: no
+  tf files: no
+  k8s manifests: no
+  ansible playbooks: no
+  route controller dirs: no
+  db migrations: no
+  openapi spec: no
+  src and tests: no
+  examples dir: no
+  dockerfile: no
+  ci cd: yes
+  completions or manpages: no
+
+
+[get_dependencies('')]
+(no dependency/manifest files found at repo root)
+
+---
+
+[get_directory('')]
+Contents of /(root):
+  [dir] .agents
+  [dir] .claude
+  [dir] .cursor
+  [dir] .github
+  [dir] apps
+  [dir] blocks
+  [dir] docker
+  [dir] e2e
+  [dir] examples
+  [dir] i18n
+  [dir] packages
+  [dir] patches
+  [dir] scripts
+  [dir] supa-mdx-lint
+  [dir] supabase
+  [file] .cursorignore
+  [file] .dockerignore
+  [file] .gitignore
+  [file] .misspell-fixer.ignore
+  [file] .npmrc
+  [file] .nvmrc
+  [file] .prettierignore
+  [file] CONTRIBUTING.md
+  [file] DEVELOPERS.md
+  [file] LICENSE
+  [file] Makefile
+  [file] README.md
+  [file] SECURITY.md
+  [file] knip.jsonc
+  [file] package.json
+  [file] pnpm-lock.yaml
+  [file] pnpm-workspace.yaml
+  [file] prettier.config.mjs
+  [file] supa-mdx-lint.config.toml
+  [file] tsconfig.json
+  [file] turbo.json
+
+---
+
+[get_file('package.json')]
+{
+  "name": "supabase",
+  "description": "The Postgres Development Platform.",
+  "version": "0.0.0",
+  "author": "Supabase, Inc.",
+  "license": "Apache-2.0",
+  "private": true,
+  "scripts": {
+    "preinstall": "npx only-allow pnpm",
+    "build": "turbo run build",
+    "build:studio": "turbo run build --filter=studio",
+    "build:design-system": "turbo run build --filter=design-system",
+    "build:docs": "turbo run build --filter=docs",
+    "clean": "turbo run clean --parallel && rimraf -G node_modules/{*,.bin,.modules.yaml}",
+    "dev": "turbo run dev --parallel",
+    "dev:studio": "turbo run dev --filter=studio --parallel",
+    "dev:studio-local": "pnpm setup:cli && NODE_ENV=test pnpm --prefix ./apps/studio dev",
+    "dev:docs": "turbo run dev --filter=docs --parallel",
+    "dev:www": "turbo run dev --filter=www --parallel",
+    "dev:design-system": "turbo run dev --filter=design-system --parallel",
+    "lint": "turbo run lint",
+    "typecheck": "turbo --continue typecheck",
+    "test:prettier": "SORT_IMPORTS=false prettier --cache --check '{apps,packages,blocks}/**/*.{js,jsx,ts,tsx,css,md,json}'",
+    "format": "SORT_IMPORTS=false prettier --cache --write '{apps,packages,blocks}/**/*.{js,jsx,ts,tsx,css,md,mdx,json}'",
+    "test:docs": "turbo run test --filter=docs",
+    "test:ui": "turbo run test --filter=ui",
+    "test:ui-patterns": "turbo run test --filter=ui-patterns",
+    "test:studio": "turbo run test --filter=studio",
+    "test:studio:watch": "turbo run test --filter=studio -- watch",
+    "e2e:setup:cli": "supabase stop --all --no-backup ; supabase start --exclude studio && if [ -z \"${CI}\" ]; then supabase db reset; fi && supabase status --output json > keys.json && node scripts/generateLocalEnv.js",
+    "e2e:setup:selfhosted": "SKIP_ASSET_UPLOAD=1 pnpm e2e:setup:cli && NODE_ENV=test NODE_OPTIONS=\"--max-old-space-size=4096\" pnpm run build:studio && NODE_ENV=test pnpm --prefix ./apps/studio start",
+    "e2e:setup:platform": "SKIP_ASSET_UPLOAD=1 NODE_OPTIONS=\"--max-old-space-size=4096\" pnpm run build:studio && pnpm --prefix ./apps/studio start",
+    "e2e": "pnpm --prefix e2e/studio run e2e",
+    "e2e:ui": "pnpm --prefix e2e/studio run e2e:ui",
+    "perf:kong": "ab -t 5 -c 20 -T application/json http://localhost:8000/",
+    "perf:meta": "ab -t 5 -c 20 -T application/json http://localhost:5555/tables",
+    "setup:cli": "supabase start -x studio && supabase status --output json > keys.json && node scripts/generateLocalEnv.js",
+    "generate:types": "supabase gen types typescript --local > ./supabase/functions/common/database-types.ts",
+    "api:codegen": "cd packages/api-types && pnpm run codegen",
+    "knip": "pnpx knip@~5.50.0",
+    "authorize-vercel-deploys": "tsx scripts/authorizeVercelDeploys.ts"
+  },
+  "devDependencies": {
+    "@aws-sdk/client-secrets-manager": "^3.823.0",
+    "@ianvs/prettier-plugin-sort-imports": "^4.7.0",
+    "@types/node": "catalog:",
+    "eslint": "^9.0.0",
+    "prettier": "3.2.4",
+    "prettier-plugin-sql-cst": "^0.11.0",
+    "rimraf": "^6.0.0",
+    "sass": "^1.72.0",
+    "supabase": "^2.76.10",
+    "supports-color": "^8.0.0",
+    "tailwindcss": "catalog:",
+    "tsx": "catalog:",
+    "turbo": "2.3.3",
+    "typescript": "catalog:",
+    "zod": "catalog:"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/supabase/supabase.git"
+  },
+  "engines": {
+    "pnpm": "10.24",
+    "node": ">=22"
+  },
+  "keywords": [
+    "postgres",
+    "firebase",
+    "storage",
+    "functions",
+    "database",
+    "auth"
+  ],
+  "packageManager": "pnpm@10.24.0"
+}
+
+
+---
+
+[get_directory('apps')]
+Contents of /apps:
+  [dir] design-system
+  [dir] docs
+  [dir] learn
+  [dir] studio
+  [dir] ui-library
+  [dir] www
+
+---
+
+[get_directory('apps/studio')]
+Contents of /apps/studio:
+  [dir] .github
+  [dir] __mocks__
+  [dir] components
+  [dir] data
+  [dir] evals
+  [dir] fonts
+  [dir] hooks
+  [dir] lib
+  [dir] pages
+  [dir] public
+  [dir] scripts
+  [dir] state
+  [dir] static-data
+  [dir] styles
+  [dir] tests
+  [dir] types
+  [file] .env
+  [file] .gitignore
+  [file] Dockerfile
+  [file] README.md
+  [file] csp.js
+  [file] docker-entrypoint.sh
+  [file] eslint.config.cjs
+  [file] instrumentation-client.test.ts
+  [file] instrumentation-client.ts
+  [file] instrumentation.ts
+  [file] next.config.js
+  [file] package.json
+  [file] postcss.config.js
+  [file] proxy.ts
+  [file] sentry.edge.config.ts
+  [file] sentry.server.config.ts
+  [file] tailwind.config.js
+  [file] tsconfig.json
+  [file] vitest.config.ts
+
+---
+
+[get_directory('apps/studio/lib')]
+Contents of /apps/studio/lib:
+  [dir] ai
+  [dir] api
+  [dir] constants
+  [dir] telemetry
+  [file] auth.tsx
+  [file] base64url.ts
+  [file] breadcrumbs.test.ts
+  [file] breadcrumbs.ts
+  [file] cloudprovider-utils.test.ts
+  [file] cloudprovider-utils.ts
+  [file] data-api-types.ts
+  [file] error-reporting.test.ts
+  [file] error-reporting.ts
+  [file] formatSql.test.ts
+  [file] formatSql.ts
+  [file] get-error-message.test.ts
+  [file] get-error-message.ts
+  [file] github.test.ts
+  [file] github.ts
+  [file] gotrue.test.ts
+  [file] gotrue.ts
+  [file] helpers.test.ts
+  [file] helpers.ts
+  [file] http-status-codes.test.ts
+  [file] http-status-codes.ts
+  [file] integration-utils.test.ts
+  [file] integration-utils.ts
+  [file] isNonNullable.test.ts
+  [file] isNonNullable.ts
+  [file] migration-utils.test.ts
+  [file] migration-utils.ts
+  [file] mime.test.ts
+  [file] mime.ts
+  [file] navigation.test.ts
+  [file] navigation.ts
+  [file] password-strength.test.ts
+  [file] password-strength.ts
+  [file] pg-format.test.ts
+  [file] pg-format.ts
+  [file] pingPostgrest.test.ts
+  [file] pingPostgrest.ts
+  [file] posthog.test.ts
+  [file] posthog.ts
+  [file] profile.tsx
+  [file] project-supabase-client.test.ts
+  [file] project-supabase-client.ts
+  [file] project.tsx
+  [file] ringBuffer.test.ts
+  [file] ringBuffer.ts
+  [file] role-impersonation.test.ts
+  [file] role-impersonation.ts
+  [file] sanitize.test.ts
+  [file] sanitize.ts
+  [file] semver.test.ts
+  [file] semver.ts
+  [file] sql-event-parser.test.ts
+  [file] sql-event-parser.ts
+  [file] sql-identifier-quoting.test.ts
+  [file] sql-identifier-quoting.ts
+  [file] sql-parameters.test.ts
+  [file] sql-parameters.ts
+  [file] telemetry.tsx
+  [file] toast-errors.tsx
+  [file] type-helpers.ts
+  [file] upload.test.ts
+  [file] upload.ts
+  [file] void.test.ts
+  [file] void.ts

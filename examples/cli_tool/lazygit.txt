@@ -1,0 +1,728 @@
+=====================================
+Repository Analysis: lazygit
+Type: CLI Tool
+=====================================
+
+--- METADATA ---
+Name: lazygit
+Description: simple terminal UI for git commands
+Language: Go
+Topics: cli, git, terminal
+Stars: 73584
+License: MIT License
+
+--- README ---
+<div align="center">
+<sup>Special thanks to:</sup>
+<br>
+<br>
+<a href="https://www.warp.dev/?utm_source=github&utm_medium=referral&utm_campaign=lazygit_20231023">
+  <div>
+    <img src="https://github.com/warpdotdev/brand-assets/blob/main/Github/Sponsor/Warp-Github-LG-02.png?raw=true" width="400" alt="Warp">
+  </div>
+  <b>Warp, the intelligent terminal</b>
+  <br>
+  <b>Available for MacOS and Linux</b>
+  <br>
+  <div>
+    <sup>Visit warp.dev to learn more.</sup>
+  </div>
+</a>
+<br>
+<hr>
+<a href="https://tuple.app/lazygit">
+  <div>
+    <img src="../assets/tuple.png" width="400" alt="Tuple">
+  </div>
+  <b>Tuple, the premier screen sharing app for developers on macOS and Windows.</b>
+</a>
+<br>
+<hr>
+<br>
+<a href="https://www.subble.com">
+  <div>
+    <img src="../assets/subble.webp" width="400" alt="Subble">
+  </div>
+  <b>I (Jesse) co-founded Subble to save your company time and money by finding unused and over-provisioned SaaS licences. Check it out!</b>
+</a>
+<br>
+
+<hr>
+</div>
+
+<p align="center">
+  <img width="536" src="https://user-images.githubusercontent.com/8456633/174470852-339b5011-5800-4bb9-a628-ff230aa8cd4e.png">
+</p>
+
+<div align="center">
+
+A simple terminal UI for git commands
+<br/>
+
+[![GitHub Releases](https://img.shields.io/github/downloads/jesseduffield/lazygit/total)](https://github.com/jesseduffield/lazygit/releases) [![Go Report Card](https://goreportcard.com/badge/github.com/jesseduffield/lazygit)](https://goreportcard.com/report/github.com/jesseduffield/lazygit) [![Codacy Badge](https://app.codacy.com/project/badge/Grade/f46416b715d74622895657935fcada21)](https://app.codacy.com/gh/jesseduffield/lazygit/dashboard?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_grade) [![Codacy Badge](https://app.codacy.com/project/badge/Coverage/f46416b715d74622895657935fcada21)](https://app.codacy.com/gh/jesseduffield/lazygit/dashboard?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_coverage) [![golangci-lint](https://img.shields.io/badge/linted%20by-golangci--lint-brightgreen)](https://golangci-lint.run/) [![GitHub tag](https://img.shields.io/github/v/tag/jesseduffield/lazygit?color=blue)](https://github.com/jesseduffield/lazygit/releases/latest) [![homebrew](https://img.shields.io/homebrew/v/lazygit?color=blue)](https://formulae.brew.sh/formula/lazygit)
+
+![commit_and_push](../assets/demo/commit_and_push-compressed.gif)
+
+</div>
+
+## Sponsors
+
+<p align="center">
+ Maintenance of this project is made possible by all the <a href="https://github.com/jesseduffield/lazygit/graphs/contributors">contributors</a> and <a href="https://github.com/sponsors/jesseduffield">sponsors</a>. If you'd like to sponsor this project and have your avatar or company logo appear below <a href="https://github.com/sponsors/jesseduffield">click here</a>. 💙
+</p>
+
+<p align="center">
+<!-- sponsors --><a href="https://github.com/intabulas"><img src="https://github.com/intabulas.png" width="60px" alt="Mark Lussier" /></a><a href="https://github.com/peppy"><img src="https://github.com/peppy.png" width="60px" alt="Dean Herbert" /></a><a href="https://github.com/piot"><img src="https://github.com/piot.png" width="60px" alt="Peter Bjorklund" /></a><a href="https://github.com/rgwood"><img src="https://github.com/rgwood.png" width="60px" alt="Reilly Wood" /></a><a href="https://github.com/oliverguenther"><img src="https://github.com/oliverguenther.png" width="60px" alt="Oliver Günther" /></a><a href="https://github.com/pawanjay176"><img src="https://github.com/pawanjay176.png" width="60px" alt="Pawan Dhananjay" /></a><a href="https://github.com/naoey"><img src="https://github.com/naoey.png" width="60px" alt="" /></a><a href="https://github.com/carstengehling"><img src="https://github.com/carstengehling.png" width="60px" alt="Carsten Gehling" /></a><a href="https://github.com/Xetera"><img src="https://github.com/Xetera.png" width="60px" alt="" /></a><a href="https://github.com/nartc"><img src="https://github.com/nartc.png" width="60px" alt="Chau Tran" /></a><a href="https://github.com/matejcik"><img src="https://github.com/matejcik.png" width="60px" alt="matejcik" /></a><a href="https://github.com/lucatume"><img src="https://github.com/lucatume.png" width="60px" alt="theAverageDev (Luca Tumedei)" /></a><a href="https://github.com/IvanZuy"><img src="https://github.com/IvanZuy.png" width="60px" alt="" /></a><a href="https://github.com/nicholascloud"><img src="https://github.com/nicholascloud.png" width="60px" alt="Nicholas Cloud" /></a><a href="https://github.com/ava1ar"><img src="https://github.com/ava1ar.png" width="60px" alt="Aliaksandr Stelmachonak" /></a><a href="https://github.com/pedropombeiro"><img src="https://github.com/pedropombeiro.png" width="60px" alt="Pedro Pombeiro" /></a><a href="https://github.com/bburgy"><img src="https://github.com/bburgy.png" width="60px" alt="Burgy Benjamin" /></a><a href="https://github.com/JoeKlemmer"><img src="https://github.com/JoeKlemmer.png" width="60px" alt="Joe Klemmer" /></a><
+... [TRUNCATED]
+
+--- PACKAGE MANIFEST(S) ---
+
+[go.mod]
+module github.com/jesseduffield/lazygit
+
+go 1.25.0
+
+// This is necessary to ignore test files when executing gofumpt.
+ignore ./test
+
+require (
+	dario.cat/mergo v1.0.1
+	github.com/adrg/xdg v0.4.0
+	github.com/atotto/clipboard v0.1.4
+	github.com/aybabtme/humanlog v0.4.1
+	github.com/cloudfoundry/jibber_jabber v0.0.0-20151120183258-bcc4c8345a21
+	github.com/creack/pty v1.1.11
+	github.com/gdamore/tcell/v2 v2.13.8
+	github.com/go-errors/errors v1.5.1
+	github.com/gookit/color v1.4.2
+	github.com/integrii/flaggy v1.4.0
+	github.com/jesseduffield/generics v0.0.0-20250517122708-b0b4a53a6f5c
+	github.com/jesseduffield/go-git/v5 v5.14.1-0.20250407170251-e1a013310ccd
+	github.com/jesseduffield/gocui v0.3.1-0.20260128194906-9d8c3cdfac18
+	github.com/jesseduffield/lazycore v0.0.0-20221012050358-03d2e40243c5
+	github.com/kardianos/osext v0.0.0-20190222173326-2bc1f35cddc0
+	github.com/karimkhaleel/jsonschema v0.0.0-20231001195015-d933f0d94ea3
+	github.com/kyokomi/emoji/v2 v2.2.8
+	github.com/lucasb-eyer/go-colorful v1.3.0
+	github.com/mgutz/str v1.2.0
+	github.com/mitchellh/go-ps v1.0.0
+	github.com/rivo/uniseg v0.4.7
+	github.com/sahilm/fuzzy v0.1.0
+	github.com/samber/lo v1.31.0
+	github.com/sanity-io/litter v1.5.2
+	github.com/sasha-s/go-deadlock v0.3.6
+	github.com/sirupsen/logrus v1.9.3
+	github.com/spf13/afero v1.9.5
+	github.com/spkg/bom v0.0.0-20160624110644-59b7046e48ad
+	github.com/stefanhaller/git-todo-parser v0.0.7-0.20250905083220-c50528f08304
+	github.com/stretchr/testify v1.10.0
+	github.com/xo/terminfo v0.0.0-20210125001918-ca9a967f8778
+	golang.org/x/exp v0.0.0-20240719175910-8a7402abbf56
+	golang.org/x/sync v0.19.0
+	golang.org/x/sys v0.40.0
+	gopkg.in/ozeidan/fuzzy-patricia.v3 v3.0.0
+	gopkg.in/yaml.v3 v3.0.1
+)
+
+require (
+	github.com/Microsoft/go-winio v0.6.2 // indirect
+	github.com/ProtonMail/go-crypto v1.1.6 // indirect
+	github.com/bahlo/generic-list-go v0.2.0 // indirect
+	github.com/buger/jsonparser v1.1.1 // indirect
+	github.com/cloudflare/circl v1.6.1 // indirect
+	github.com/cyphar/filepath-securejoin v0.4.1 // indirect
+	github.com/davecgh/go-spew v1.1.1 // indirect
+	github.com/emirpasic/gods v1.18.1 // indirect
+	github.com/fatih/color v1.9.0 // indirect
+	github.com/gdamore/encoding v1.0.1 // indirect
+	github.com/go-git/gcfg v1.5.1-0.20230307220236-3a3c6141e376 // indirect
+	github.com/go-git/go-billy/v5 v5.6.2 // indirect
+	github.com/go-logfmt/logfmt v0.5.0 // indirect
+	github.com/golang/groupcache v0.0.0-20241129210726-2c02b8208cf8 // indirect
+	github.com/hpcloud/tail v1.0.0 // indirect
+	github.com/invopop/jsonschema v0.10.0 // indirect
+	github.com/jbenet/go-context v0.0.0-20150711004518-d14ea06fba99 // indirect
+	github.com/kevinburke/ssh_config v1.2.0 // indirect
+	github.com/kr/logfmt v0.0.0-20140226030751-b84e30acd515 // indirect
+	github.com/kylelemons/godebug v1.1.0 // indirect
+	github.com/mailru/easyjson v0.7.7 // indirect
+	github.com/mattn/go-colorable v0.1.11 // indirect
+	github.com/mattn/go-isatty v0.0.14 // indirect
+	github.com/onsi/ginkgo v1.10.3 // indirect
+
+... [TRUNCATED]
+
+[Makefile]
+.PHONY: all
+all: build
+
+.PHONY: build
+build:
+	go build -gcflags='all=-N -l'
+
+.PHONY: install
+install:
+	go install
+
+.PHONY: run
+run: build
+	./lazygit
+
+# Run `make run-debug` in one terminal tab and `make print-log` in another to view the program and its log output side by side
+.PHONY: run-debug
+run-debug:
+	go run main.go -debug
+
+.PHONY: print-log
+print-log:
+	go run main.go --logs
+
+.PHONY: unit-test
+unit-test:
+	go test ./... -short
+
+.PHONY: test
+test: unit-test integration-test-all
+
+# Generate all our auto-generated files (test list, cheatsheets, maybe other things in the future)
+.PHONY: generate
+generate:
+	go generate ./...
+
+.PHONY: format
+format:
+	gofumpt -l -w .
+
+.PHONY: lint
+lint:
+	./scripts/golangci-lint-shim.sh run
+
+# For more details about integration test, see https://github.com/jesseduffield/lazygit/blob/master/pkg/integration/README.md.
+.PHONY: integration-test-tui
+integration-test-tui:
+	go run cmd/integration_test/main.go tui $(filter-out $@,$(MAKECMDGOALS))
+
+.PHONY: integration-test-cli
+integration-test-cli:
+	go run cmd/integration_test/main.go cli $(filter-out $@,$(MAKECMDGOALS))
+
+.PHONY: integration-test-all
+integration-test-all:
+	go test pkg/integration/clients/*.go
+
+.PHONY: bump-gocui
+bump-gocui:
+	scripts/bump_gocui.sh
+
+.PHONY: bump-lazycore
+bump-lazycore:
+	scripts/bump_lazycore.sh
+
+.PHONY: record-demo
+record-demo:
+	demo/record_demo.sh $(filter-out $@,$(MAKECMDGOALS))
+
+.PHONY: vendor
+vendor:
+	go mod vendor && go mod tidy
+
+
+--- CLI ENTRY POINTS / COMMAND DEFINITIONS ---
+
+[cmd/i18n/main.go]
+package main
+
+import (
+	"encoding/json"
+	"log"
+	"os"
+
+	"github.com/jesseduffield/lazygit/pkg/i18n"
+)
+
+func saveLanguageFileToJson(tr *i18n.TranslationSet, filepath string) error {
+	jsonData, err := json.MarshalIndent(tr, "", "  ")
+	if err != nil {
+		return err
+	}
+
+	jsonData = append(jsonData, '\n')
+	return os.WriteFile(filepath, jsonData, 0o644)
+}
+
+func main() {
+	err := saveLanguageFileToJson(i18n.EnglishTranslationSet(), "en.json")
+	if err != nil {
+		log.Fatal(err)
+	}
+}
+
+
+[cmd/integration_test/main.go]
+package main
+
+import (
+	"fmt"
+	"log"
+	"os"
+
+	"github.com/jesseduffield/lazygit/pkg/integration/clients"
+)
+
+var usage = `
+Usage:
+	See https://github.com/jesseduffield/lazygit/tree/master/pkg/integration/README.md
+
+	CLI mode:
+		> go run cmd/integration_test/main.go cli [--slow] [--sandbox] <test1> <test2> ...
+	If you pass no test names, it runs all tests
+	Accepted environment variables:
+	INPUT_DELAY (e.g. 200): the number of milliseconds to wait between keypresses or mouse clicks
+
+	TUI mode:
+		> go run cmd/integration_test/main.go tui
+	This will open up a terminal UI where you can run tests
+
+	Help:
+		> go run cmd/integration_test/main.go help
+`
+
+type flagInfo struct {
+	name string // name of the flag; can be used with "-" or "--"
+	flag *bool  // a pointer to the variable that should be set to true when this flag is passed
+}
+
+// Takes the args that you want to parse (excluding the program name and any
+// subcommands), and returns the remaining args with the flags removed
+func parseFlags(args []string, flags []flagInfo) []string {
+outer:
+	for len(args) > 0 {
+		for _, f := range flags {
+			if args[0] == "-"+f.name || args[0] == "--"+f.name {
+				*f.flag = true
+				args = args[1:]
+				continue outer
+			}
+		}
+		break
+	}
+
+	return args
+}
+
+func main() {
+	if len(os.Args) < 2 {
+		log.Fatal(usage)
+	}
+
+	switch os.Args[1] {
+	case "help":
+		fmt.Println(usage)
+	case "cli":
+		slow := false
+		sandbox := false
+		waitForDebugger := false
+		raceDetector := false
+		testNames := parseFlags(os.Args[2:], []flagInfo{
+			{"slow", &slow},
+			{"sandbox", &sandbox},
+			{"debug", &waitForDebugger},
+			{"race", &raceDetector},
+		})
+		clients.RunCLI(testNames, slow, sandbox, waitForDebugger, raceDetector)
+	case "tui":
+		raceDetector := false
+		remainingArgs := parseFlags(os.Args[2:], []flagInfo{
+			{"race", &raceDetector},
+		})
+		if len(remainingArgs) > 0 {
+			log.Fatal("tui only supports the -race argument.")
+		}
+		clients.RunTUI(raceDetector)
+	default:
+		log.Fatal(usage)
+	}
+}
+
+
+[main.go]
+package main
+
+import (
+	"github.com/jesseduffield/lazygit/pkg/app"
+)
+
+// These values may be set by the build script via the LDFLAGS argument
+var (
+	commit      string
+	date        string
+	version     string
+	buildSource = "unknown"
+)
+
+func main() {
+	ldFlagsBuildInfo := &app.BuildInfo{
+		Commit:      commit,
+		Date:        date,
+		Version:     version,
+		BuildSource: buildSource,
+	}
+
+	app.Start(ldFlagsBuildInfo, nil)
+}
+
+
+--- SHELL COMPLETIONS & MAN PAGES ---
+  vendor/github.com/creack/pty/mktypes.bash
+  vendor/golang.org/x/sys/windows/mkerrors.bash
+  vendor/golang.org/x/sys/windows/mkknownfolderids.bash
+
+--- DIRECTORY STRUCTURE (depth 2) ---
+├── .codespellrc
+├── .devcontainer/
+│   ├── Dockerfile
+│   └── devcontainer.json
+├── .editorconfig
+├── .gitattributes
+├── .github/
+│   ├── FUNDING.yml
+│   ├── ISSUE_TEMPLATE/
+│   │   ├── bug_report.md
+│   │   ├── discussion.md
+│   │   └── feature_request.md
+│   ├── dependabot.yml
+│   ├── pull_request_template.md
+│   ├── release.yml
+│   └── workflows/
+│       ├── check-required-label.yml
+│       ├── ci.yml
+│       ├── close-issues.yml
+│       ├── codespell.yml
+│       ├── release.yml
+│       └── sponsors.yml
+├── .gitignore
+├── .golangci.yml
+├── .goreleaser.yml
+├── .vscode/
+│   ├── debugger_config.yml
+│   ├── launch.json
+│   ├── settings.json
+│   └── tasks.json
+├── CODE-OF-CONDUCT.md
+├── CONTRIBUTING.md
+├── Dockerfile
+├── LICENSE
+├── Makefile
+├── README.md
+├── VISION.md
+├── cmd/
+│   ├── i18n/
+│   │   └── main.go
+│   └── integration_test/
+│       └── main.go
+├── default.nix
+├── demo/
+│   ├── README.md
+│   ├── config.yml
+│   └── record_demo.sh
+├── docs-master/
+│   ├── Config.md
+│   ├── Custom_Command_Keybindings.md
+│   ├── Custom_Pagers.md
+│   ├── Fixup_Commits.md
+│   ├── README.md
+│   ├── Range_Select.md
+│   ├── Searching.md
+│   ├── Stacked_Branches.md
+│   ├── Undoing.md
+│   ├── dev/
+│   │   ├── Busy.md
+│   │   ├── Codebase_Guide.md
+│   │   ├── Demo_Recordings.md
+│   │   ├── Find_Base_Commit_For_Fixup_Design.md
+│   │   ├── Integration_Tests.md
+│   │   ├── Profiling.md
+│   │   └── README.md
+│   └── keybindings/
+│       ├── Custom_Keybindings.md
+│       ├── Keybindings_en.md
+│       ├── Keybindings_ja.md
+│       ├── Keybindings_ko.md
+│       ├── Keybindings_nl.md
+│       ├── Keybindings_pl.md
+│       ├── Keybindings_pt.md
+│       ├── Keybindings_ru.md
+│       ├── Keybindings_zh-CN.md
+│       └── Keybindings_zh-TW.md
+├── docs/
+│   ├── Config.md
+│   ├── Custom_Command_Keybindings.md
+│   ├── Custom_Pagers.md
+│   ├── Fixup_Commits.md
+│   ├── README.md
+│   ├── Range_Select.md
+│   ├── Searching.md
+│   ├── Stacked_Branches.md
+│   ├── Undoing.md
+│   ├── dev/
+│   │   ├── Busy.md
+│   │   ├── Codebase_Guide.md
+│   │   ├── Demo_Recordings.md
+│   │   ├── Find_Base_Commit_For_Fixup_Design.md
+│   │   ├── Integration_Tests.md
+│   │   ├── Profiling.md
+│   │   └── README.md
+│   └── keybindings/
+│       ├── Custom_Keybindings.md
+│       ├── Keybindings_en.md
+│       ├── Keybindings_ja.md
+│       ├── Keybindings_ko.md
+│       ├── Keybindings_nl.md
+│       ├── Keybindings_pl.md
+│       ├── Keybindings_pt.md
+│       ├── Keybindings_ru.md
+│       ├── Keybindings_zh-CN.md
+│       └── Keybindings_zh-TW.md
+├── flake.lock
+├── flake.nix
+├── go.mod
+├── go.sum
+├── main.go
+├── pkg/
+│   ├── app/
+│   │   ├── app.go
+│   │   ├── daemon/
+│   │   ├── entry_point.go
+│   │   ├── errors.go
+│   │   └── types/
+│   ├── cheatsheet/
+│   │   ├── generate.go
+│   │   ├── generate_test.go
+│   │   └── generator.go
+│   ├── commands/
+│   │   ├── git.go
+│   │   ├── git_cmd_obj_builder.go
+│   │   ├── git_cmd_obj_runner.go
+│   │   ├── git_commands/
+│   │   ├── git_config/
+│   │   ├── hosting_service/
+│   │   ├── models/
+│   │   ├── oscommands/
+│   │   ├── patch/
+│   │   └── testdata/
+│   ├── common/
+│   │   ├── common.go
+│   │   └── dummies.go
+│   ├── config/
+│   │   ├── app_config.go
+│   │   ├── app_config_test.go
+│   │   ├── config_default_platform.go
+│   │   ├── config_linux.go
+│   │   ├── config_windows.go
+│   │   ├── dummies.go
+│   │   ├── editor_presets.go
+│   │   ├── editor_presets_test.go
+│   │   ├── keynames.go
+│   │   ├── pager_config.go
+│   │   ├── user_config.go
+│   │   ├── user_config_validation.go
+│   │   └── user_config_validation_test.go
+│   ├── constants/
+│   │   └── links.go
+│   ├── env/
+│   │   └── env.go
+│   ├── fakes/
+│   │   └── log.go
+│   ├── gui/
+│   │   ├── background.go
+│   │   ├── command_log_panel.go
+│   │   ├── context.go
+│   │   ├── context/
+│   │   ├── context_config.go
+│   │   ├── controllers.go
+│   │   ├── controllers/
+│   │   ├── dummies.go
+│   │   ├── editors.go
+│   │   ├── extras_panel.go
+│   │   ├── filetree/
+│   │   ├── global_handlers.go
+│   │   ├── gui.go
+│   │   ├── gui_common.go
+│   │   ├── gui_driver.go
+│   │   ├── information_panel.go
+│   │   ├── keybindings.go
+│   │   ├── keybindings/
+│   │   ├── layout.go
+│   │   ├── main_panels.go
+│   │   ├── menu_panel.go
+│   │   ├── mergeconflicts/
+│   │   ├── modes/
+│   │   ├── options_map.go
+│   │   ├── patch_exploring/
+│   │   ├── popup/
+│   │   ├── presentation/
+│   │   ├── pty.go
+│   │   ├── pty_windows.go
+│   │   ├── recent_repos_panel.go
+│   │   ├── services/
+│   │   ├── status/
+│   │   ├── style/
+│   │   ├── tasks_adapter.go
+│   │   ├── test_mode.go
+│   │   ├── types/
+│   │   ├── view_helpers.go
+│   │   └── views.go
+│   ├── i18n/
+│   │   ├── english.go
+│   │   ├── i18n.go
+│   │   ├── i18n_test.go
+│   │   └── translations/
+│   ├── integration/
+│   │   ├── README.md
+│   │   ├── clients/
+│   │   ├── components/
+│   │   ├── tests/
+│   │   └── types/
+│   ├── jsonschema/
+│   │   ├── generate.go
+│   │   ├── generate_config_docs.go
+│   │   └── generator.go
+│   ├── logs/
+│   │   ├── logs.go
+│   │   └── tail/
+│   ├── snake/
+│   │   ├── snake.go
+│   │   └── snake_test.go
+│   ├── tasks/
+│   │   ├── async_handler.go
+│   │   ├── async_handler_test.go
+│   │   ├── tasks.go
+│   │   └── tasks_test.go
+│   ├── theme/
+│   │   ├── gocui.go
+│   │   ├── style.go
+│   │   ├── style_test.go
+│   │   └── theme.go
+│   ├── updates/
+│   │   └── updates.go
+│   └── utils/
+│       ├── color.go
+│       ├── color_test.go
+│       ├── date.go
+│       ├── date_test.go
+│       ├── dummies.go
+│       ├── errors.go
+│       ├── formatting.go
+│       ├── formatting_test.go
+│       ├── history_buffer.go
+│       ├── history_buffer_test.go
+│       ├── io.go
+│       ├── io_test.go
+│       ├── lines.go
+│       ├── lines_test.go
+│       ├── once_writer.go
+│       ├── once_writer_test.go
+│       ├── rebase_todo.go
+│       ├── rebase_todo_test.go
+│       ├── regexp.go
+│       ├── regexp_test.go
+│       ├── search.go
+│       ├── search_test.go
+│       ├── slice.go
+│       ├── slice_test.go
+│       ├── string_pool.go
+│       ├── string_stack.go
+│       ├── template.go
+│       ├── template_test.go
+│       ├── thread_safe_map.go
+│       ├── thread_safe_map_test.go
+│       ├── utils.go
+│       ├── utils_test.go
+│       └── yaml_utils/
+├── schema-master/
+│   └── config.json
+├── schema/
+│   └── config.json
+├── scripts/
+│   ├── bisect.sh
+│   ├── bump_gocui.sh
+│   ├── bump_lazycore.sh
+│   ├── bump_modules.sh
+│   ├── check_filenames.sh
+│   ├── check_for_fixups.sh
+│   ├── golangci-lint-shim.sh
+│   ├── record_demo.sh
+│   ├── run_integration_tests.sh
+│   ├── update_docs_for_release.sh
+│   └── update_language_files.sh
+├── shell.nix
+├── test/
+│   ├── .gitconfig
+│   ├── README.md
+│   ├── default_test_config/
+│   │   └── config.yml
+│   ├── files/
+│   │   └── pre-push
+│   └── global_git_config
+└── vendor/
+    ├── dario.cat/
+    │   └── mergo/
+    ├── github.com/
+    │   ├── Microsoft/
+    │   ├── ProtonMail/
+    │   ├── adrg/
+    │   ├── atotto/
+    │   ├── aybabtme/
+    │   ├── bahlo/
+    │   ├── buger/
+    │   ├── cloudflare/
+    │   ├── cloudfoundry/
+    │   ├── creack/
+    │   ├── cyphar/
+    │   ├── davecgh/
+    │   ├── emirpasic/
+    │   ├── fatih/
+    │   ├── gdamore/
+    │   ├── go-errors/
+    │   ├── go-git/
+    │   ├── go-logfmt/
+    │   ├── golang/
+    │   ├── gookit/
+    │   ├── integrii/
+    │   ├── jbenet/
+    │   ├── jesseduffield/
+    │   ├── kardianos/
+    │   ├── karimkhaleel/
+    │   ├── kevinburke/
+    │   ├── kr/
+    │   ├── kyokomi/
+    │   ├── lucasb-eyer/
+    │   ├── mailru/
+    │   ├── mattn/
+    │   ├── mgutz/
+    │   ├── mitchellh/
+    │   ├── petermattis/
+    │   ├── pjbgf/
+    │   ├── pmezard/
+    │   ├── rivo/
+    │   ├── sahilm/
+    │   ├── samber/
+    │   ├── sanity-io/
+    │   ├── sasha-s/
+    │   ├── sergi/
+    │   ├── sirupsen/
+    │   ├── skeema/
+    │   ├── spf13/
+    │   ├── spkg/
+    │   ├── stefanhaller/
+    │   ├── stretchr/
+    │   ├── wk8/
+    │   ├── xanzy/
+    │   └── xo/
+    ├── golang.org/
+    │   └── x/
+    ├── gopkg.in/
+    │   ├── ozeidan/
+    │   ├── warnings.v0/
+    │   └── yaml.v3/
+    └── modules.txt

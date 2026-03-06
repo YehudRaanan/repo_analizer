@@ -1,0 +1,780 @@
+=====================================
+Repository Analysis: formbricks
+Type: Web Application
+=====================================
+
+--- METADATA ---
+Name: formbricks
+Description: Open Source Qualtrics Alternative
+Language: TypeScript
+Topics: experience-management, form, forms, nextjs, open-source, react, reactjs, survey, survey-analysis, survey-data, survey-form, surveys, tailwindcss, turborepo, typeform, typescript, xm
+Stars: 11945
+License: Other
+
+--- README ---
+<div id="top"></div>
+
+<p align="center">Help us grow and star us on Github! ⭐️</p>
+
+<p align="center">
+
+<a href="https://formbricks.com">
+
+<img width="120" alt="Open Source Privacy First Experience Management Solution Qualtrics Alternative Logo" src="https://github.com/formbricks/formbricks/assets/72809645/0086704f-bee7-4d38-9cc8-fa42ee59e004">
+
+</a>
+
+<h3 align="center">Formbricks</h3>
+
+<p align="center">
+The Open Source Qualtrics Alternative
+<br />
+<a href="https://formbricks.com/">Website</a>
+</p>
+</p>
+
+<p align="center">
+<a href="https://github.com/formbricks/formbricks/blob/main/LICENSE"><img src="https://img.shields.io/badge/License-AGPL-purple" alt="License"></a> <a href="https://github.com/formbricks/formbricks/stargazers"><img src="https://img.shields.io/github/stars/formbricks/formbricks?logo=github" alt="Github Stars"></a>
+<a href="https://insights.linuxfoundation.org/project/formbricks"><img src="https://insights.linuxfoundation.org/api/badge/health-score?project=formbricks"></a>
+<a href="https://news.ycombinator.com/item?id=32303986"><img src="https://img.shields.io/badge/Hacker%20News-122-%23FF6600" alt="Hacker News"></a>
+<a href="[https://www.producthunt.com/products/formbricks](https://www.producthunt.com/posts/formbricks)"><img src="https://img.shields.io/badge/Product%20Hunt-455-orange?logo=producthunt&logoColor=%23fff" alt="Product Hunt"></a>
+<a href="https://github.blog/2023-04-12-github-accelerator-our-first-cohort-and-whats-next/"><img src="https://img.shields.io/badge/2023-blue?logo=github&label=Github%20Accelerator" alt="Github Accelerator"></a>
+<a href="https://github.com/formbricks/formbricks/issues?q=is:issue+is:open+label:%22%F0%9F%99%8B%F0%9F%8F%BB%E2%80%8D%E2%99%82%EF%B8%8Fhelp+wanted%22"><img src="https://img.shields.io/badge/Help%20Wanted-Contribute-blue"></a>
+</p>
+
+<br/>
+
+<div style="background-color:#f8fafc; border-radius:5px;">
+<p align="center">
+<i>Trusted by</i><br/>
+  <img width="867" alt="clients-hi-res" src="https://github.com/formbricks/formbricks/assets/72809645/924d3693-f66a-4063-bb31-6e5789a8175a">
+</p>
+<div>
+
+<p align="center">
+<a href="https://trendshift.io/repositories/2570" target="_blank"><img src="https://trendshift.io/api/badge/repositories/2570" alt="Trendshift Badge for formbricks/formbricks" style="width: 250px; height: 55px;" width="250" height="55"/></a>
+</p>
+
+## ✨ About Formbricks
+
+<img width="1527" alt="formbricks-sneak" src="https://github-production-user-asset-6210df.s3.amazonaws.com/675065/249441967-ccb89ea3-82b4-4bf2-8d2c-528721ec313b.png">
+
+Formbricks provides a free and open source surveying platform. Gather feedback at every point in the user journey with beautiful in-app, website, link and email surveys. Build on top of Formbricks or leverage prebuilt data analysis capabilities.
+
+**Try it out in the cloud at [formbricks.com](https://app.formbricks.com/auth/signup)**
+
+## 💪 Mission: Empower your team, craft an irresistible experience.
+
+Formbricks is both a free and open source survey platform - and a privacy-first experience management platform. Use in-app, website, link and email surveys to gather user and customer insights at every point of their journey. Leverage Formbricks Insight Platform or build your own. Life's too short for mediocre UX.
+
+### Table of Contents
+
+- [Features](#features)
+
+- [Getting Started](#getting-started)
+
+- [Cloud Version](#cloud-version)
+
+- [Self-hosted Version](#self-hosted-version)
+
+- [Development](#development)
+
+- [Contribution](#contribution)
+
+- [Contact](#contact-us)
+
+- [Security](#security)
+
+- [License](#license)
+
+<a id="features"></a>
+
+### Features
+
+- 📲 Create **conversion-optimized surveys** with our no-code editor with several question types.
+
+- 📚 Choose from a variety of best-practice **templates**.
+
+- 👩🏻 Launch and **target your surveys to specific user groups** without changing your application code.
+
+- 🔗 Create shareable **link surveys**.
+
+- 👨‍👩‍👦 Invite your organization members to **collaborate** on your surveys.
+
+- 🔌 Integrate Formbricks with **Slack, Notion, Zapier, n8n and more**.
+
+- 🔒 All **open source**, transparent and self-hostable.
+
+### Built on Open Source
+
+- 💻 [Typescript](https://www.typescriptlang.org/)
+
+- 🚀 [Next.js](https://nextjs.org/)
+
+- ⚛️ [React](https://reactjs.org/)
+
+- 🎨 [TailwindCSS](https://tailwindcss.com/)
+
+- 📚 [Prisma](https://prisma.io/)
+
+- 🔒 [Auth.js](https://authjs.dev/)
+
+- 🧘‍♂️ [Zod](https://zod.dev/)
+
+- 🐛 [Vitest](https://vitest.dev/)
+
+<a id="getting-started"></a>
+
+## 🚀 Getting started
+
+We've got several options depending on your need to help you quickly get started with Formbricks.
+
+<a id="cloud-version"></a>
+
+### ☁️ Cloud Version
+
+Formbricks has a hosted cloud offering with a generous free plan to get you up and running as quickly as possible. To get started, please visit [formbricks.com](https://app.formbricks.com/auth/signup).
+
+<a id="self-hosted-version"></a>
+
+### 🐳 Self-hosting Formbricks
+
+Formbricks is available Open-Source under AGPLv3 license. You can host Formbric
+... [TRUNCATED]
+
+--- PACKAGE MANIFEST(S) ---
+
+[package.json]
+{
+  "name": "formbricks",
+  "version": "0.0.0",
+  "private": true,
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "prisma": {
+    "schema": "packages/database/schema.prisma"
+  },
+  "scripts": {
+    "agents:update": "npx @next/codemod@canary agents-md --output AGENTS.md",
+    "clean:all": "turbo run clean && rimraf node_modules pnpm-lock.yaml .turbo coverage out",
+    "clean": "turbo run clean && rimraf node_modules .turbo coverage out",
+    "build": "turbo run build",
+    "build:dev": "turbo run build:dev",
+    "db:migrate:dev": "turbo run db:migrate:dev",
+    "db:migrate:deploy": "turbo run db:migrate:deploy",
+    "db:start": "turbo run db:start",
+    "db:push": "turbo run db:push",
+    "db:seed": "turbo run db:seed",
+    "db:seed:clear": "turbo run db:seed -- -- --clear",
+    "db:up": "docker compose -f docker-compose.dev.yml up -d",
+    "db:down": "docker compose -f docker-compose.dev.yml down",
+    "go": "pnpm db:up && turbo run go --concurrency 20",
+    "dev": "turbo run dev --parallel",
+    "pre-commit": "lint-staged",
+    "start": "turbo run start --parallel",
+    "format": "prettier --write \"**/*.{ts,tsx,md}\"",
+    "generate": "turbo run generate",
+    "lint": "turbo run lint",
+    "test": "turbo run test --no-cache",
+    "test:coverage": "turbo run test:coverage --no-cache",
+    "test:e2e": "playwright test",
+    "test-e2e:azure": "pnpm test:e2e -c playwright.service.config.ts --workers=10",
+    "prepare": "husky install",
+    "storybook": "turbo run storybook",
+    "fb-migrate-dev": "pnpm --filter @formbricks/database create-migration && pnpm prisma generate",
+    "i18n:surveys:generate": "pnpm --filter @formbricks/surveys i18n:generate",
+    "i18n:web:generate": "pnpm --filter @formbricks/web i18n:generate",
+    "generate-translations": "pnpm i18n:web:generate && pnpm i18n:surveys:generate",
+    "scan-translations": "pnpm --filter @formbricks/i18n-utils scan-translations",
+    "i18n": "pnpm generate-translations && pnpm scan-translations",
+    "i18n:validate": "pnpm scan-translations"
+  },
+  "dependencies": {
+    "react": "19.2.4",
+    "react-dom": "19.2.4"
+  },
+  "devDependencies": {
+    "@azure/playwright": "1.1.2",
+    "@formbricks/eslint-config": "workspace:*",
+    "@playwright/test": "1.58.2",
+    "eslint": "8.57.1",
+    "husky": "9.1.7",
+    "lint-staged": "16.3.1",
+    "rimraf": "6.1.3",
+    "tsx": "4.21.0",
+    "turbo": "2.8.12"
+  },
+  "lint-staged": {
+    "(apps|packages)/**/*.{js,ts,jsx,tsx}": [
+      "prettier --write"
+    ],
+    "*.json": [
+      "prettier --write"
+    ],
+    "packages/database/schema.prisma": [
+      "prisma format"
+    ]
+  },
+  "engines": {
+    "node": ">=20.0.0"
+  },
+  "packageManager": "pnpm@10.30.3",
+  "nextBundleAnalysis": {
+    "budget": 358400,
+    "budgetPercentIncreaseRed": 20,
+    "minimumChangeThreshold": 0,
+    "showDetails": true
+  },
+  "pnpm": {
+    "overrides": {
+      "axios": ">=1.12.2",
+      "uuid": "11.1.0",
+      "node-forge": ">=1.3.2",
+      "tar-fs": "2.1.4",
+      "tar":
+... [TRUNCATED]
+
+--- WEB FRAMEWORK CONFIG ---
+
+[.env.example]
+########################################################################
+# ------------ MANDATORY (CHANGE ACCORDING TO YOUR SETUP) ------------ #
+########################################################################
+
+############
+#  BASICS  #
+############
+
+WEBAPP_URL=http://localhost:3000
+
+# Required for next-auth. Should be the same as WEBAPP_URL
+# If your pplication uses a custom base path, specify the route to the API endpoint in full, e.g. NEXTAUTH_URL=https://example.com/custom-route/api/auth
+NEXTAUTH_URL=http://localhost:3000
+
+# Can be used to deploy the application under a sub-path of a domain. This can only be set at build time
+# BASE_PATH=
+
+# Encryption keys
+# Please set both for now, we will change this in the future
+
+# You can use: `openssl rand -hex 32` to generate one
+ENCRYPTION_KEY=
+
+# @see: https://next-auth.js.org/configuration/options#nextauth_secret
+# You can use: `openssl rand -hex 32` to generate a secure one
+NEXTAUTH_SECRET=
+
+# API Secret for running cron jobs. (mandatory)
+# You can use: `openssl rand -hex 32` to generate a secure one
+CRON_SECRET=
+
+# Set the minimum log level(debug, info, warn, error, fatal)
+LOG_LEVEL=info
+
+##############
+#  DATABASE  #
+##############
+
+DATABASE_URL='postgresql://postgres:postgres@localhost:5432/formbricks?schema=public'
+
+################
+#  MAIL SETUP  #
+################
+
+# Necessary if email verification and password reset are enabled.
+# See optional configurations below if you want to disable these features.
+
+MAIL_FROM=noreply@example.com
+MAIL_FROM_NAME=Formbricks
+SMTP_HOST=localhost
+SMTP_PORT=1025
+# Enable SMTP_SECURE_ENABLED for TLS (port 465)
+SMTP_SECURE_ENABLED=0
+SMTP_USER=smtpUser
+SMTP_PASSWORD=smtpPassword
+
+# If set to 0, the server will not require SMTP_USER and SMTP_PASSWORD(default is 1)
+# SMTP_AUTHENTICATED=
+
+# If set to 0, the server will accept connections without requiring authorization from the list of supplied CAs (default is 1). 
+# SMTP_REJECT_UNAUTHORIZED_TLS=0
+
+########################################################################
+# ------------------------------ OPTIONAL -----------------------------#
+########################################################################
+
+# Uncomment the variables you would like to use and customize the values.
+
+##############
+# S3 STORAGE #
+##############
+
+# S3 Storage is required for the file upload in serverless environments like Vercel
+S3_ACCESS_KEY=
+S3_SECRET_KEY=
+S3_REGION=
+S3_BUCKET_NAME=
+# Configure a third party S3 compatible storage service endpoint like StorJ leave empty if you use Amazon S3
+# e.g., https://gateway.storjshare.io
+S3_ENDPOINT_URL=
+# Force path style for S3 compatible storage (0 for disabled, 1 for enabled)
+S3_FORCE_PATH_STYLE=0
+
+# Set this URL to add a public domain for all your client facing routes(default is WEBAPP_URL)
+# PUBLIC_URL=https://survey.example.com
+
+#####################
+# Disable Features  #
+#####################
+
+# Email Verification. If you enable Email Verification you have to setup SMTP-S
+... [TRUNCATED]
+
+--- ENVIRONMENT VARIABLES (.env.example) ---
+########################################################################
+# ------------ MANDATORY (CHANGE ACCORDING TO YOUR SETUP) ------------ #
+########################################################################
+
+############
+#  BASICS  #
+############
+
+WEBAPP_URL=http://localhost:3000
+
+# Required for next-auth. Should be the same as WEBAPP_URL
+# If your pplication uses a custom base path, specify the route to the API endpoint in full, e.g. NEXTAUTH_URL=https://example.com/custom-route/api/auth
+NEXTAUTH_URL=http://localhost:3000
+
+# Can be used to deploy the application under a sub-path of a domain. This can only be set at build time
+# BASE_PATH=
+
+# Encryption keys
+# Please set both for now, we will change this in the future
+
+# You can use: `openssl rand -hex 32` to generate one
+ENCRYPTION_KEY=
+
+# @see: https://next-auth.js.org/configuration/options#nextauth_secret
+# You can use: `openssl rand -hex 32` to generate a secure one
+NEXTAUTH_SECRET=
+
+# API Secret for running cron jobs. (mandatory)
+# You can use: `openssl rand -hex 32` to generate a secure one
+CRON_SECRET=
+
+# Set the minimum log level(debug, info, warn, error, fatal)
+LOG_LEVEL=info
+
+##############
+#  DATABASE  #
+##############
+
+DATABASE_URL='postgresql://postgres:postgres@localhost:5432/formbricks?schema=public'
+
+################
+#  MAIL SETUP  #
+################
+
+# Necessary if email verification and password reset are enabled.
+# See optional configurations below if you want to disable these features.
+
+MAIL_FROM=noreply@example.com
+MAIL_FROM_NAME=Formbricks
+SMTP_HOST=localhost
+SMTP_PORT=1025
+# Enable SMTP_SECURE_ENABLED for TLS (port 465)
+SMTP_SECURE_ENABLED=0
+SMTP_USER=smtpUser
+SMTP_PASSWORD=smtpPassword
+
+# If set to 0, the server will not require SMTP_USER and SMTP_PASSWORD(default is 1)
+# SMTP_AUTHENTICATED=
+
+# If set to 0, the server will accept connections without requiring authorization from the list of supplied CAs (default is 1). 
+# SMTP_REJECT_UNAUTHORIZED_TLS=0
+
+########################################################################
+# ------------------------------ OPTIONAL -----------------------------#
+########################################################################
+
+# Uncomment the variables you would like to use and customize the values.
+
+##############
+# S3 STORAGE #
+##############
+
+# S3 Storage is required for the file upload in serverless environments like Vercel
+S3_ACCESS_KEY=
+S3_SECRET_KEY=
+S3_REGION=
+S3_BUCKET_NAME=
+# Configure a third party S3 compatible storage service endpoint like StorJ leave empty if you use Amazon S3
+# e.g., https://gateway.storjshare.io
+S3_ENDPOINT_URL=
+# Force path style for S3 compatible storage (0 for disabled, 1 for enabled)
+S3_FORCE_PATH_STYLE=0
+
+# Set this URL to add a public domain for all your client facing routes(default is WEBAPP_URL)
+# PUBLIC_URL=https://survey.example.com
+
+#####################
+# Disable Features  #
+#####################
+
+# Email Verification. If you enable Email Verification you have to setup SMTP-S
+... [TRUNCATED]
+
+--- ROUTE / PAGE DEFINITIONS ---
+(No route files found)
+
+--- DIRECTORY STRUCTURE (depth 2) ---
+├── .changeset/
+│   └── config.json
+├── .cursor/
+│   └── commands/
+│       └── create-question.md
+├── .devcontainer/
+│   └── devcontainer.json
+├── .dockerignore
+├── .env.example
+├── .eslintignore
+├── .eslintrc.cjs
+├── .github/
+│   ├── ISSUE_TEMPLATE/
+│   │   ├── bug_report.yml
+│   │   ├── config.yml
+│   │   └── feature_request.yml
+│   ├── actions/
+│   │   ├── build-and-push-docker/
+│   │   ├── cache-build-web/
+│   │   ├── dangerous-git-checkout/
+│   │   ├── docker-build-setup/
+│   │   ├── resolve-docker-version/
+│   │   └── update-package-version/
+│   ├── labeler.yml
+│   ├── pull_request_template.md
+│   └── workflows/
+│       ├── build-and-push-ecr.yml
+│       ├── build-web.yml
+│       ├── chromatic.yml
+│       ├── deploy-formbricks-cloud.yml
+│       ├── docker-build-validation.yml
+│       ├── docker-security-scan.yml
+│       ├── e2e.yml
+│       ├── formbricks-release.yml
+│       ├── lint.yml
+│       ├── move-stable-tag.yml
+│       ├── pr-size-check.yml
+│       ├── pr.yml
+│       ├── release-docker-github-experimental.yml
+│       ├── release-docker-github.yml
+│       ├── release-helm-chart.yml
+│       ├── semantic-pull-requests.yml
+│       ├── sonarqube.yml
+│       ├── test.yml
+│       └── translation-check.yml
+├── .gitignore
+├── .gitpod/
+│   ├── init.bash
+│   ├── setup-demo.bash
+│   └── setup-web.bash
+├── .husky/
+│   └── pre-commit
+├── .npmrc
+├── .nvmrc
+├── .prettierrc.js
+├── .vercelignore
+├── .vscode/
+│   ├── extensions.json
+│   ├── launch.json
+│   └── settings.json
+├── AGENTS.md
+├── CODE_OF_CONDUCT.md
+├── CONTRIBUTING.md
+├── LICENSE
+├── README.md
+├── SECURITY.md
+├── apps/
+│   ├── storybook/
+│   │   ├── .eslintrc.cjs
+│   │   ├── .gitignore
+│   │   ├── .storybook/
+│   │   ├── README.md
+│   │   ├── index.html
+│   │   ├── package.json
+│   │   ├── src/
+│   │   ├── tailwind.config.js
+│   │   ├── tsconfig.json
+│   │   ├── tsconfig.node.json
+│   │   └── vite.config.ts
+│   └── web/
+│       ├── .env
+│       ├── .eslintignore
+│       ├── .eslintrc.js
+│       ├── .gitignore
+│       ├── .prettierrc.js
+│       ├── Dockerfile
+│       ├── app/
+│       ├── components.json
+│       ├── i18n.json
+│       ├── i18n.lock
+│       ├── images/
+│       ├── instrumentation-node.ts
+│       ├── instrumentation.ts
+│       ├── lib/
+│       ├── lingodotdev/
+│       ├── locales/
+│       ├── modules/
+│       ├── next.config.mjs
+│       ├── package.json
+│       ├── playwright/
+│       ├── postcss.config.js
+│       ├── prometheus.yml
+│       ├── proxy.ts
+│       ├── public/
+│       ├── scripts/
+│       ├── sentry.edge.config.ts
+│       ├── sentry.server.config.ts
+│       ├── tailwind.config.js
+│       ├── tsconfig.json
+│       ├── vendor/
+│       ├── vercel.json
+│       ├── vite.config.mts
+│       └── vitestSetup.ts
+├── charts/
+│   └── formbricks/
+│       ├── Chart.lock
+│       ├── Chart.yaml
+│       ├── README.md
+│       ├── charts/
+│       ├── templates/
+│       └── values.yaml
+├── docker-compose.dev.yml
+├── docker/
+│   ├── README.md
+│   ├── docker-compose.yml
+│   ├── formbricks.sh
+│   └── migrate-to-v4.sh
+├── docs/
+│   ├── README.md
+│   ├── api-reference/
+│   │   ├── client-api--display/
+│   │   ├── client-api--people/
+│   │   ├── client-api--response/
+│   │   ├── generate-key.mdx
+│   │   ├── health/
+│   │   ├── management-api--action-class/
+│   │   ├── management-api--attribute-class/
+│   │   ├── management-api--contact-attribute-keys/
+│   │   ├── management-api--contact-attributes/
+│   │   ├── management-api--contacts/
+│   │   ├── management-api--me/
+│   │   ├── management-api--people/
+│   │   ├── management-api--response/
+│   │   ├── management-api--storage/
+│   │   ├── management-api--survey/
+│   │   ├── management-api--webhook/
+│   │   ├── openapi.json
+│   │   ├── rest-api.mdx
+│   │   └── test-key.mdx
+│   ├── api-v2-reference/
+│   │   ├── introduction.mdx
+│   │   └── openapi.yml
+│   ├── development/
+│   │   ├── contribution/
+│   │   ├── guides/
+│   │   ├── local-setup/
+│   │   ├── overview.mdx
+│   │   ├── standards/
+│   │   ├── support/
+│   │   └── technical-handbook/
+│   ├── docs.json
+│   ├── images/
+│   │   ├── api-reference/
+│   │   ├── development/
+│   │   ├── favicon.svg
+│   │   ├── logo-dark.svg
+│   │   ├── logo-light.svg
+│   │   ├── self-hosting/
+│   │   └── xm-and-surveys/
+│   ├── overview/
+│   │   ├── images/
+│   │   ├── introduction.mdx
+│   │   ├── open-source.mdx
+│   │   └── what-is-formbricks.mdx
+│   ├── self-hosting/
+│   │   ├── advanced/
+│   │   ├── auth-behavior.mdx
+│   │   ├── configuration/
+│   │   ├── overview.mdx
+│   │   └── setup/
+│   └── xm-and-surveys/
+│       ├── core-features/
+│       ├── overview.mdx
+│       ├── surveys/
+│       └── xm/
+├── openapi.yml
+├── package.json
+├── packages/
+│   ├── cache/
+│   │   ├── .cursor/
+│   │   ├── .eslintrc.cjs
+│   │   ├── package.json
+│   │   ├── src/
+│   │   ├── tsconfig.json
+│   │   ├── types/
+│   │   └── vite.config.ts
+│   ├── config-eslint/
+│   │   ├── README.md
+│   │   ├── legacy-library.js
+│   │   ├── legacy-next.js
+│   │   ├── legacy-react.js
+│   │   ├── library.js
+│   │   ├── next.js
+│   │   ├── package.json
+│   │   └── react.js
+│   ├── config-prettier/
+│   │   ├── package.json
+│   │   └── prettier-preset.js
+│   ├── config-typescript/
+│   │   ├── base.json
+│   │   ├── js-library.json
+│   │   ├── nextjs.json
+│   │   ├── node16.json
+│   │   ├── package.json
+│   │   ├── react-library.json
+│   │   └── react-native-library.json
+│   ├── database/
+│   │   ├── .eslintrc.cjs
+│   │   ├── README.md
+│   │   ├── json-types.ts
+│   │   ├── migration/
+│   │   ├── package.json
+│   │   ├── schema.prisma
+│   │   ├── src/
+│   │   ├── tsconfig.json
+│   │   ├── types/
+│   │   ├── vite.config.ts
+│   │   └── zod/
+│   ├── email/
+│   │   ├── .eslintrc.cjs
+│   │   ├── .prettierrc.cjs
+│   │   ├── README.md
+│   │   ├── emails/
+│   │   ├── package.json
+│   │   ├── src/
+│   │   ├── tailwind.config.js
+│   │   └── tsconfig.json
+│   ├── i18n-utils/
+│   │   ├── .eslintrc.cjs
+│   │   ├── .gitignore
+│   │   ├── package.json
+│   │   ├── src/
+│   │   ├── tsconfig.json
+│   │   └── vite.config.ts
+│   ├── js-core/
+│   │   ├── .eslintrc.cjs
+│   │   ├── .gitignore
+│   │   ├── .prettierrc.cjs
+│   │   ├── README.md
+│   │   ├── package.json
+│   │   ├── src/
+│   │   ├── tsconfig.json
+│   │   ├── vite.config.ts
+│   │   └── vitest.setup.ts
+│   ├── logger/
+│   │   ├── .eslintrc.cjs
+│   │   ├── .gitignore
+│   │   ├── package.json
+│   │   ├── src/
+│   │   ├── tsconfig.json
+│   │   ├── types/
+│   │   └── vite.config.ts
+│   ├── storage/
+│   │   ├── .cursor/
+│   │   ├── .eslintrc.cjs
+│   │   ├── package.json
+│   │   ├── src/
+│   │   ├── tsconfig.json
+│   │   ├── types/
+│   │   └── vite.config.ts
+│   ├── survey-ui/
+│   │   ├── .eslintrc.cjs
+│   │   ├── .gitignore
+│   │   ├── README.md
+│   │   ├── components.json
+│   │   ├── images/
+│   │   ├── package.json
+│   │   ├── postcss.config.mjs
+│   │   ├── src/
+│   │   ├── tailwind.config.ts
+│   │   ├── tsconfig.json
+│   │   └── vite.config.mts
+│   ├── surveys/
+│   │   ├── .eslintrc.cjs
+│   │   ├── .gitignore
+│   │   ├── README.md
+│   │   ├── i18n.json
+│   │   ├── i18n.lock
+│   │   ├── locales/
+│   │   ├── package.json
+│   │   ├── postcss.config.cjs
+│   │   ├── src/
+│   │   ├── tailwind.config.cjs
+│   │   ├── tsconfig.json
+│   │   ├── vite.config.mts
+│   │   └── vitestSetup.ts
+│   ├── types/
+│   │   ├── .eslintrc.cjs
+│   │   ├── account.ts
+│   │   ├── action-classes.ts
+│   │   ├── activity.ts
+│   │   ├── api-key.ts
+│   │   ├── attributes.ts
+│   │   ├── auth.ts
+│   │   ├── common.ts
+│   │   ├── contact-attribute-key.ts
+│   │   ├── contact-attribute.ts
+│   │   ├── displays.ts
+│   │   ├── email.ts
+│   │   ├── environment.ts
+│   │   ├── error-handlers.ts
+│   │   ├── errors.ts
+│   │   ├── formbricks-surveys.ts
+│   │   ├── i18n.ts
+│   │   ├── integration/
+│   │   ├── js.ts
+│   │   ├── memberships.ts
+│   │   ├── next-auth.d.ts
+│   │   ├── organizations.ts
+│   │   ├── package.json
+│   │   ├── people.ts
+│   │   ├── project.ts
+│   │   ├── quota.ts
+│   │   ├── responses.ts
+│   │   ├── segment.ts
+│   │   ├── storage.ts
+│   │   ├── styling.ts
+│   │   ├── surveys.d.ts
+│   │   ├── surveys/
+│   │   ├── tags.ts
+│   │   ├── templates.ts
+│   │   ├── tsconfig.json
+│   │   ├── user.ts
+│   │   └── video.d.ts
+│   └── vite-plugins/
+│       ├── .eslintrc.cjs
+│       ├── copy-compiled-assets/
+│       ├── package.json
+│       └── tsconfig.json
+├── patches/
+│   └── next-auth@4.24.13.patch
+├── playwright.config.ts
+├── playwright.service.config.ts
+├── pnpm-lock.yaml
+├── pnpm-workspace.yaml
+├── sonar-project.properties
+├── turbo.json
+└── vitest.workspace.ts

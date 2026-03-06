@@ -1,0 +1,591 @@
+=====================================
+Repository Analysis: dbt-core
+Type: Data / ML / AI Project
+=====================================
+
+--- METADATA ---
+Name: dbt-core
+Description: dbt enables data analysts and engineers to transform their data using the same practices that software engineers use to build applications.
+Language: Python
+Topics: analytics, business-intelligence, data-modeling, dbt-viewpoint, elt, pypa, slack
+Stars: 12342
+License: Other
+
+--- README ---
+<p align="center">
+  <img src="https://raw.githubusercontent.com/dbt-labs/dbt-core/fa1ea14ddfb1d5ae319d5141844910dd53ab2834/etc/dbt-core.svg" alt="dbt logo" width="750"/>
+</p>
+<p align="center">
+  <a href="https://github.com/dbt-labs/dbt-core/actions/workflows/main.yml">
+    <img src="https://github.com/dbt-labs/dbt-core/actions/workflows/main.yml/badge.svg?event=push" alt="CI Badge"/>
+  </a>
+  <a href="https://www.bestpractices.dev/projects/11095"><img src="https://www.bestpractices.dev/projects/11095/badge"></a>
+</p>
+
+**[dbt](https://www.getdbt.com/)** enables data analysts and engineers to transform their data using the same practices that software engineers use to build applications.
+
+![architecture](https://github.com/dbt-labs/dbt-core/blob/202cb7e51e218c7b29eb3b11ad058bd56b7739de/etc/dbt-transform.png)
+
+## Understanding dbt
+
+Analysts using dbt can transform their data by simply writing select statements, while dbt handles turning these statements into tables and views in a data warehouse.
+
+These select statements, or "models", form a dbt project. Models frequently build on top of one another – dbt makes it easy to [manage relationships](https://docs.getdbt.com/docs/ref) between models, and [visualize these relationships](https://docs.getdbt.com/docs/documentation), as well as assure the quality of your transformations through [testing](https://docs.getdbt.com/docs/testing).
+
+![dbt dag](https://raw.githubusercontent.com/dbt-labs/dbt-core/6c6649f9129d5d108aa3b0526f634cd8f3a9d1ed/etc/dbt-dag.png)
+
+## Getting started
+
+- [Install dbt Core](https://docs.getdbt.com/docs/get-started/installation) or explore the [dbt Cloud CLI](https://docs.getdbt.com/docs/cloud/cloud-cli-installation), a command-line interface powered by [dbt Cloud](https://docs.getdbt.com/docs/cloud/about-cloud/dbt-cloud-features) that enhances collaboration.
+- Read the [introduction](https://docs.getdbt.com/docs/introduction/) and [viewpoint](https://docs.getdbt.com/docs/about/viewpoint/)
+
+## Join the dbt Community
+
+- Be part of the conversation in the [dbt Community Slack](http://community.getdbt.com/)
+- Read more on the [dbt Community Discourse](https://discourse.getdbt.com)
+
+## Reporting bugs and contributing code
+
+- Want to report a bug or request a feature? Let us know and open [an issue](https://github.com/dbt-labs/dbt-core/issues/new/choose)
+- Want to help us build dbt? Check out the [Contributing Guide](https://github.com/dbt-labs/dbt-core/blob/HEAD/CONTRIBUTING.md)
+
+## Code of Conduct
+
+Everyone interacting in the dbt project's codebases, issue trackers, chat rooms, and mailing lists is expected to follow the [dbt Code of Conduct](https://docs.getdbt.com/community/resources/code-of-conduct).
+
+
+--- PACKAGE MANIFEST(S) ---
+
+[pyproject.toml]
+# Root-level pyproject.toml for tool configurations
+# Packaging configuration is in core/pyproject.toml
+# This file exists so tools like mypy and black can find their config when run from root
+
+[tool.mypy]
+# TODO: widen range of files as we fix issues
+files = 'core/dbt'
+mypy_path = "third-party-stubs/"
+namespace_packages = true
+
+[tool.black]
+line-length = 99
+target-version = ['py38']
+
+# flake8 config is in .flake8 (flake8 4.0.1 has limited pyproject.toml support).  Add here when we add support for flake8 >=5
+
+[tool.isort]
+profile = "black"
+extend_skip_glob = [
+    ".github/*",
+    "third-party-stubs/*",
+    "scripts/*",
+]
+known_first_party = [
+    "dbt",
+    "dbt_adapters",
+    "dbt_common",
+    "dbt_extractor",
+    "dbt_semantic_interfaces",
+]
+
+
+[requirements.txt]
+./core
+
+
+--- REQUIREMENTS FILES ---
+
+[requirements.txt]
+./core
+
+
+--- ML CONFIG FILES ---
+
+[docker-compose.yml]
+##
+#  This compose file is used for local development and adapter testing only.
+#  See `/docker` for a generic and production-ready docker file
+##
+
+version: "3.5"
+services:
+  database:
+    image: postgres
+    shm_size: 1gb
+    environment:
+      POSTGRES_USER: "root"
+      POSTGRES_PASSWORD: "password"
+      POSTGRES_DB: "dbt"
+    ports:
+      - "5432:5432"
+
+  test:
+    build:
+      context: .
+      dockerfile: Dockerfile.test
+      args:
+        # Run `make .env` to set $USER_ID and $GROUP_ID
+        USER_ID: ${USER_ID:-}
+        GROUP_ID: ${GROUP_ID:-}
+    command: "bash -c 'cd core && hatch run ci:unit-tests'"
+    environment:
+      POSTGRES_TEST_HOST: "database"
+    volumes:
+      - .:/usr/app
+    working_dir: /usr/app
+    depends_on:
+      - database
+
+
+--- JUPYTER NOTEBOOKS ---
+(No notebooks found)
+
+--- MODEL / TRAINING FILES ---
+  core/dbt/artifacts/resources/v1/model.py
+  core/dbt/artifacts/resources/v1/semantic_model.py
+  core/dbt/contracts/graph/model_config.py
+  core/dbt/parser/models.py
+  core/dbt/task/run_operation.py
+  tests/functional/artifacts/expected_run_results.py
+
+--- DIRECTORY STRUCTURE (depth 2) ---
+├── .changes/
+│   ├── 0.0.0.md
+│   ├── README.md
+│   ├── header.tpl.md
+│   └── unreleased/
+│       ├── .gitkeep
+│       ├── Dependencies-20251118-155354.yaml
+│       ├── Dependencies-20251217-151349.yaml
+│       ├── Dependencies-20251219-153804.yaml
+│       ├── Dependencies-20260113-135442.yaml
+│       ├── Dependencies-20260113-143057.yaml
+│       ├── Dependencies-20260121-171712.yaml
+│       ├── Dependencies-20260302-130425.yaml
+│       ├── Features-20251006-140352.yaml
+│       ├── Features-20251111-103504.yaml
+│       ├── Features-20251117-141053.yaml
+│       ├── Features-20251201-165209.yaml
+│       ├── Features-20251203-122926.yaml
+│       ├── Features-20251210-202001.yaml
+│       ├── Features-20260115-131115.yaml
+│       ├── Features-20260119-210143.yaml
+│       ├── Features-20260123-173805.yaml
+│       ├── Features-20260126-164458.yaml
+│       ├── Features-20260127-114149.yaml
+│       ├── Features-20260127-214617.yaml
+│       ├── Features-20260128-125727.yaml
+│       ├── Features-20260128-172052.yaml
+│       ├── Features-20260129-110711.yaml
+│       ├── Features-20260129-114832.yaml
+│       ├── Features-20260129-175432.yaml
+│       ├── Features-20260129-185659.yaml
+│       ├── Features-20260205-105228.yaml
+│       ├── Features-20260212-232728.yaml
+│       ├── Features-20260219-133321.yaml
+│       ├── Features-9041.yaml
+│       ├── Fixes-20250922-151726.yaml
+│       ├── Fixes-20251117-140649.yaml
+│       ├── Fixes-20251117-185025.yaml
+│       ├── Fixes-20251118-171106.yaml
+│       ├── Fixes-20251119-195034.yaml
+│       ├── Fixes-20251124-155629.yaml
+│       ├── Fixes-20251124-155756.yaml
+│       ├── Fixes-20251124-170855.yaml
+│       ├── Fixes-20251125-120246.yaml
+│       ├── Fixes-20251125-122020.yaml
+│       ├── Fixes-20251127-141308.yaml
+│       ├── Fixes-20251127-145929.yaml
+│       ├── Fixes-20251127-170124.yaml
+│       ├── Fixes-20251128-102129.yaml
+│       ├── Fixes-20251128-122838.yaml
+│       ├── Fixes-20251128-161937.yaml
+│       ├── Fixes-20251128-163144.yaml
+│       ├── Fixes-20251202-133705.yaml
+│       ├── Fixes-20251204-094753.yaml
+│       ├── Fixes-20251209-175031.yaml
+│       ├── Fixes-20251210-143935.yaml
+│       ├── Fixes-20251216-120727.yaml
+│       ├── Fixes-20251217-002813.yaml
+│       ├── Fixes-20251217-105918.yaml
+│       ├── Fixes-20251219-184405.yaml
+│       ├── Fixes-20260109-141332.yaml
+│       ├── Fixes-20260113-161742.yaml
+│       ├── Fixes-20260124-212300.yaml
+│       ├── Fixes-20260125-113244.yaml
+│       ├── Fixes-20260126-160659.yaml
+│       ├── Fixes-20260202-123453.yaml
+│       ├── Fixes-20260202-153835.yaml
+│       ├── Fixes-20260204-184553.yaml
+│       ├── Fixes-20260204-211128.yaml
+│       ├── Fixes-20260205-120000.yaml
+│       ├── Fixes-20260206-204257.yaml
+│       ├── Fixes-20260210-154042.yaml
+│       ├── Fixes-20260216-230817.yaml
+│       ├── Fixes-20260219-012414.yaml
+│       ├── Fixes-20260219-131833.yaml
+│       ├── Fixes-20260219-170000.yaml
+│       ├── Fixes-20260223-132342.yaml
+│       ├── Fixes-20260223-161820.yaml
+│       ├── Fixes-20260224-115546.yaml
+│       ├── Fixes-20260224-180000.yaml
+│       ├── Fixes-20260224-231047.yaml
+│       ├── Fixes-20260225-203131.yaml
+│       ├── Fixes-20260226-163836.yaml
+│       ├── Fixes-20260227-133424.yaml
+│       ├── Fixes-20260303-114528.yaml
+│       ├── Under the Hood-20250929-151159.yaml
+│       ├── Under the Hood-20251119-110110.yaml
+│       ├── Under the Hood-20251121-140515.yaml
+│       ├── Under the Hood-20251209-131857.yaml
+│       ├── Under the Hood-20251215-155046.yaml
+│       ├── Under the Hood-20260205-200835.yaml
+│       ├── Under the Hood-20260210-151244.yaml
+│       ├── Under the Hood-20260214-181659.yaml
+│       ├── Under the Hood-20260220-170741.yaml
+│       └── Under the Hood-20260223-121653.yaml
+├── .changie.yaml
+├── .dockerignore
+├── .flake8
+├── .git-blame-ignore-revs
+├── .gitattributes
+├── .github/
+│   ├── CODEOWNERS
+│   ├── ISSUE_TEMPLATE/
+│   │   ├── bug-report.yml
+│   │   ├── code-docs.yml
+│   │   ├── config.yml
+│   │   ├── feature-request.yml
+│   │   ├── implementation-ticket.yml
+│   │   └── regression-report.yml
+│   ├── _README.md
+│   ├── actions/
+│   │   ├── latest-wrangler/
+│   │   └── setup-postgres-windows/
+│   ├── dbt-postgres-testing.yml
+│   ├── dependabot.yml
+│   ├── pull_request_template.md
+│   └── workflows/
+│       ├── artifact-reviews.yml
+│       ├── auto-respond-bug-reports.yml
+│       ├── backport.yml
+│       ├── bot-changelog.yml
+│       ├── changelog-existence.yml
+│       ├── check-artifact-changes.yml
+│       ├── community-label.yml
+│       ├── cut-release-branch.yml
+│       ├── docs-issue.yml
+│       ├── main.yml
+│       ├── nightly-release.yml
+│       ├── release-branch-tests.yml
+│       ├── release.yml
+│       ├── repository-cleanup.yml
+│       ├── schema-check.yml
+│       ├── stale.yml
+│       ├── structured-logging-schema-check.yml
+│       ├── test-repeater.yml
+│       └── triage-labels.yml
+├── .gitignore
+├── .pre-commit-config.yaml
+├── ARCHITECTURE.md
+├── CHANGELOG.md
+├── CONTRIBUTING.md
+├── Dockerfile.test
+├── LICENSE
+├── Makefile
+├── README.md
+├── SECURITY.md
+├── codecov.yml
+├── core/
+│   ├── LICENSE
+│   ├── README.md
+│   ├── dbt/
+│   │   ├── README.md
+│   │   ├── __init__.py
+│   │   ├── __version__.py
+│   │   ├── _pydantic_shim.py
+│   │   ├── artifacts/
+│   │   ├── cli/
+│   │   ├── clients/
+│   │   ├── compilation.py
+│   │   ├── config/
+│   │   ├── constants.py
+│   │   ├── context/
+│   │   ├── contracts/
+│   │   ├── deprecations.py
+│   │   ├── deps/
+│   │   ├── docs/
+│   │   ├── env_vars.py
+│   │   ├── event_time/
+│   │   ├── events/
+│   │   ├── exceptions.py
+│   │   ├── flags.py
+│   │   ├── graph/
+│   │   ├── hooks.py
+│   │   ├── include/
+│   │   ├── internal_deprecations.py
+│   │   ├── jsonschemas/
+│   │   ├── links.py
+│   │   ├── materializations/
+│   │   ├── mp_context.py
+│   │   ├── node_types.py
+│   │   ├── parser/
+│   │   ├── plugins/
+│   │   ├── profiler.py
+│   │   ├── py.typed
+│   │   ├── runners/
+│   │   ├── selected_resources.py
+│   │   ├── task/
+│   │   ├── tests/
+│   │   ├── tracking.py
+│   │   ├── utils/
+│   │   └── version.py
+│   ├── hatch.toml
+│   └── pyproject.toml
+├── docker-compose.yml
+├── docker/
+│   ├── Dockerfile
+│   ├── README.md
+│   └── test.sh
+├── docs/
+│   ├── arch/
+│   │   ├── 1_Overview.md
+│   │   ├── 2_CLI.md
+│   │   ├── 3.1_Partial_Parsing.md
+│   │   ├── 3.2_Deferral.md
+│   │   ├── 3_Parsing.md
+│   │   ├── 4.1_Task_Framework.md
+│   │   ├── 4.2_Graph_Compilation.md
+│   │   ├── 4.3_Node_Selection.md
+│   │   ├── 4.4_Node_Compilation.md
+│   │   ├── 4.5_Node_Materialization.md
+│   │   ├── 4_Execution.md
+│   │   ├── 5_Adapter.md
+│   │   ├── 6.10_dbt_compile.md
+│   │   ├── 6.11_dbt_source.md
+│   │   ├── 6.12_dbt_run-operation.md
+│   │   ├── 6.13_dbt_init.md
+│   │   ├── 6.14_dbt_list.md
+│   │   ├── 6.15_dbt_retry.md
+│   │   ├── 6.16_dbt_clone.md
+│   │   ├── 6.17_dbt_debug.md
+│   │   ├── 6.18_dbt_clean.md
+│   │   ├── 6.1_dbt_parse.md
+│   │   ├── 6.2_dbt_run.md
+│   │   ├── 6.3_dbt_build.md
+│   │   ├── 6.4_dbt_seed.md
+│   │   ├── 6.5_dbt_snapshot.md
+│   │   ├── 6.6_dbt_test.md
+│   │   ├── 6.7_dbt_show.md
+│   │   ├── 6.8_dbt_deps.md
+│   │   ├── 6.9_dbt_docs.md
+│   │   ├── 6_Commands.md
+│   │   ├── 7_Artifacts.md
+│   │   ├── 8_Versioning_Branching_Strategy.md
+│   │   └── images/
+│   ├── guides/
+│   │   ├── behavior-change-flags.md
+│   │   └── parsing-vs-compilation-vs-runtime.md
+│   ├── images/
+│   │   ├── dbt-arch.png
+│   │   ├── dbt-core.svg
+│   │   ├── dbt-dag.png
+│   │   └── dbt-transform.png
+│   └── roadmap/
+│       ├── 2022-05-dbt-a-core-story.md
+│       ├── 2022-08-back-for-more.md
+│       ├── 2023-02-back-to-basics.md
+│       ├── 2023-11-dbt-tng.md
+│       ├── 2024-12-play-on.md
+│       ├── 2025-05-new-engine-same-language.md
+│       └── 2025-12-magic-to-do.md
+├── hatch.toml
+├── pyproject.toml
+├── pytest.ini
+├── requirements.txt
+├── schemas/
+│   └── dbt/
+│       ├── catalog/
+│       ├── manifest/
+│       ├── run-results/
+│       └── sources/
+├── scripts/
+│   ├── check_libyaml.py
+│   ├── collect-artifact-schema.py
+│   ├── collect-dbt-contexts.py
+│   ├── env-setup.sh
+│   ├── migrate-adapters.py
+│   ├── pre-commit-hooks/
+│   │   └── no_versioned_artifact_resource_imports.py
+│   ├── setup_db.sh
+│   └── update_dev_packages.sh
+├── tests/
+│   ├── __init__.py
+│   ├── conftest.py
+│   ├── data/
+│   │   └── __init__.py
+│   ├── fixtures/
+│   │   ├── __init__.py
+│   │   ├── dbt_integration_project.py
+│   │   ├── jaffle_shop.py
+│   │   └── jaffle_shop_data/
+│   ├── functional/
+│   │   ├── README.md
+│   │   ├── __init__.py
+│   │   ├── access/
+│   │   ├── analysis/
+│   │   ├── artifacts/
+│   │   ├── assertions/
+│   │   ├── basic/
+│   │   ├── build_command/
+│   │   ├── catalogs/
+│   │   ├── clean/
+│   │   ├── cli/
+│   │   ├── colors/
+│   │   ├── column_quoting/
+│   │   ├── compile/
+│   │   ├── configs/
+│   │   ├── conftest.py
+│   │   ├── constraints/
+│   │   ├── context_methods/
+│   │   ├── contracts/
+│   │   ├── custom_aliases/
+│   │   ├── custom_schemas/
+│   │   ├── custom_singular_tests/
+│   │   ├── custom_target_path/
+│   │   ├── cycles/
+│   │   ├── data_test_patch/
+│   │   ├── data_tests/
+│   │   ├── dbt_runner/
+│   │   ├── defer_state/
+│   │   ├── dependencies/
+│   │   ├── deprecations/
+│   │   ├── deps/
+│   │   ├── docs/
+│   │   ├── duplicates/
+│   │   ├── events/
+│   │   ├── exit_codes/
+│   │   ├── experimental_parser/
+│   │   ├── exposures/
+│   │   ├── external_reference/
+│   │   ├── fail_fast/
+│   │   ├── fixtures.py
+│   │   ├── fixtures/
+│   │   ├── functions/
+│   │   ├── generic_test_description/
+│   │   ├── graph_selection/
+│   │   ├── incremental_schema_tests/
+│   │   ├── init/
+│   │   ├── invalid_model_tests/
+│   │   ├── list/
+│   │   ├── logging/
+│   │   ├── macros/
+│   │   ├── manifest_validations/
+│   │   ├── materializations/
+│   │   ├── metrics/
+│   │   ├── microbatch/
+│   │   ├── minimal_cli/
+│   │   ├── model_config/
+│   │   ├── partial_parsing/
+│   │   ├── permission/
+│   │   ├── postgres/
+│   │   ├── primary_keys/
+│   │   ├── profiles/
+│   │   ├── record/
+│   │   ├── ref_override/
+│   │   ├── relation_names/
+│   │   ├── relation_quoting/
+│   │   ├── retry/
+│   │   ├── run_operations/
+│   │   ├── run_query/
+│   │   ├── sample_mode/
+│   │   ├── saved_queries/
+│   │   ├── schema/
+│   │   ├── schema_tests/
+│   │   ├── seeds/
+│   │   ├── selected_resources/
+│   │   ├── selectors/
+│   │   ├── semantic_models/
+│   │   ├── severity/
+│   │   ├── show/
+│   │   ├── snapshots/
+│   │   ├── source_overrides/
+│   │   ├── sources/
+│   │   ├── statements/
+│   │   ├── test_empty.py
+│   │   ├── test_project.py
+│   │   ├── test_selection/
+│   │   ├── test_singular_tests.py
+│   │   ├── threading/
+│   │   ├── time_spines/
+│   │   ├── timezones/
+│   │   ├── unit_testing/
+│   │   └── utils.py
+│   └── unit/
+│       ├── README.md
+│       ├── __init__.py
+│       ├── artifacts/
+│       ├── cli/
+│       ├── clients/
+│       ├── config/
+│       ├── conftest.py
+│       ├── context/
+│       ├── contracts/
+│       ├── deps/
+│       ├── event_time/
+│       ├── events/
+│       ├── fixtures.py
+│       ├── graph/
+│       ├── materializations/
+│       ├── mock_adapter.py
+│       ├── parser/
+│       ├── plugins/
+│       ├── task/
+│       ├── test_artifact_upload.py
+│       ├── test_behavior_flags.py
+│       ├── test_compilation.py
+│       ├── test_deprecations.py
+│       ├── test_env_vars.py
+│       ├── test_events.py
+│       ├── test_functions.py
+│       ├── test_graph_selection.py
+│       ├── test_internal_deprecations.py
+│       ├── test_invocation_id.py
+│       ├── test_jsonschemas.py
+│       ├── test_macro_types.py
+│       ├── test_node_types.py
+│       ├── test_semantic_layer_nodes_satisfy_protocols.py
+│       ├── test_tracking.py
+│       ├── test_utils.py
+│       ├── test_version.py
+│       └── utils/
+└── third-party-stubs/
+    ├── agate/
+    │   ├── __init__.pyi
+    │   └── data_types.pyi
+    ├── cdecimal/
+    │   └── __init__.pyi
+    ├── daff/
+    │   └── __init__.pyi
+    ├── mashumaro/
+    │   ├── __init__.pyi
+    │   ├── config.pyi
+    │   ├── core/
+    │   ├── dialect.pyi
+    │   ├── exceptions.pyi
+    │   ├── helper.pyi
+    │   ├── jsonschema/
+    │   ├── mixins/
+    │   └── types.pyi
+    ├── msgpack/
+    │   ├── __init__.pyi
+    │   ├── _version.pyi
+    │   ├── exceptions.pyi
+    │   ├── ext.pyi
+    │   └── fallback.pyi
+    ├── snowplow_tracker/
+    │   └── __init__.pyi
+    └── sqlparse/
+        ├── __init__.pyi
+        ├── sql.pyi
+        └── tokens.pyi

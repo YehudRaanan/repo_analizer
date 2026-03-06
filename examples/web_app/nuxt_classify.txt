@@ -1,0 +1,70 @@
+=====================================
+REPO CLASSIFICATION SIGNALS
+=====================================
+
+--- METADATA ---
+Name: nuxt
+Description: The Full-Stack Vue Framework.
+Primary language: TypeScript
+Topics: csr, framework, full-stack, hacktoberfest, hybrid, node, nuxt, server-rendering, ssg, ssr, static-site-generator, universal, vue
+
+--- ROOT FILES (signal matches) ---
+Web App:     nuxt.config.ts
+Backend:     (none)
+Library:     package.json
+CLI:         (none)
+Data/ML:     (none)
+Infra:       (none)
+
+--- TOP-LEVEL DIRECTORIES (signal matches) ---
+Web App:     (none)
+Backend:     (none)
+Library:     docs, examples, test
+CLI:         (none)
+Data/ML:     (none)
+Infra:       (none)
+
+--- ALL TOP-LEVEL DIRECTORIES ---
+.devcontainer, .github, .gitpod, .idea, .stackblitz, .vscode, docs, examples, packages, patches, playground, scripts, test
+
+--- TYPE-SPECIFIC EXTENSION COUNTS ---
+Web App extensions (.tsx, .jsx, .vue, .svelte): 314
+Data/ML extensions (.ipynb): 0
+Infra extensions (.tf, .hcl): 0
+Backend extensions (.proto, .graphql): 0
+
+--- TOP FILE EXTENSIONS (by count) ---
+  .ts: 604
+  .vue: 313
+  .md: 233
+  .json: 55
+  .yml: 52
+  .svg: 33
+  .gitignore: 8
+  .js: 8
+  .html: 7
+  .png: 6
+  .css: 6
+  .mjs: 4
+  .snap: 4
+  .yaml: 3
+  .xml: 2
+
+--- BOOLEAN PATTERN CHECKS ---
+  pages or app dir: no
+  components dir: no
+  cmd or bin dir: no
+  src bin: no
+  run train scripts: no
+  ipynb files: no
+  model training files: no
+  tf files: no
+  k8s manifests: no
+  ansible playbooks: no
+  route controller dirs: no
+  db migrations: yes
+  openapi spec: no
+  src and tests: no
+  examples dir: yes
+  dockerfile: no
+  ci cd: yes

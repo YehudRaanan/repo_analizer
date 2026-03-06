@@ -1,0 +1,1903 @@
+=====================================
+Repository Analysis: ToolJet
+Type: Backend / API Service
+=====================================
+
+--- METADATA ---
+Name: ToolJet
+Description: ToolJet is the open-source foundation of ToolJet AI - the AI-native platform for building internal tools, dashboard, business applications, workflows and AI agents 🚀
+Language: JavaScript
+Topics: ai-app-builder, docker, hacktoberfest, internal-applications, internal-project, internal-tool, internal-tools, javascript, kubernetes, low-code, low-code-development-platform, low-code-framework, no-code, nodejs, reactjs, self-hosted, typescript, web-development-tools, workflow-automation
+Stars: 37547
+License: GNU Affero General Public License v3.0
+
+--- README ---
+ToolJet is the open-source foundation of ToolJet AI - the AI-native platform for building and deploying internal tools, workflows and AI agents. The community edition provides a powerful visual builder, drag-and-drop UI, and integrations with databases, APIs, SaaS apps, and object storage. For AI-powered UI generation, query building, debugging, and enterprise features, see ToolJet AI.
+
+ :star: If you find ToolJet useful, please consider giving us a star on GitHub! Your support helps us continue to innovate and deliver exciting features.
+
+![Docker Cloud Build Status](https://img.shields.io/docker/automated/tooljet/tooljet-ce)
+![Number of GitHub contributors](https://img.shields.io/github/contributors/tooljet/tooljet)
+[![Number of GitHub issues that are open](https://img.shields.io/github/issues/ToolJet/ToolJet)](https://github.com/ToolJet/ToolJet/issues)
+[![Number of GitHub stars](https://img.shields.io/github/stars/ToolJet/ToolJet)](https://github.com/ToolJet/ToolJet/stargazers)
+![Number of GitHub closed issues](https://img.shields.io/github/issues-closed/tooljet/tooljet)
+![Number of GitHub pull requests that are open](https://img.shields.io/github/issues-pr-raw/tooljet/tooljet)
+![GitHub release; latest by date](https://img.shields.io/github/v/release/tooljet/tooljet)
+![GitHub commit activity](https://img.shields.io/github/commit-activity/m/tooljet/tooljet)
+[![GitHub license which is AGPL license](https://img.shields.io/github/license/ToolJet/ToolJet)](https://github.com/ToolJet/ToolJet)
+[![Follow us on X, formerly Twitter](https://img.shields.io/twitter/follow/ToolJet?style=social)](https://twitter.com/ToolJet)
+
+<p align="center">
+    <img src="docs/static/img/readme/banner.png" alt="Tooljet dashboard showing inventory and orders"/>
+</p>
+
+<p align="center">
+    <img src="docs/static/img/readme/flowchart.png"/>
+</p>
+
+## Features  
+
+### Community Edition (CE)  
+- **Visual App Builder:** 60+ responsive components (Tables, Charts, Forms, Lists, Progress Bars, and more).  
+- **ToolJet Database:** Built-in no-code database.  
+- **Multi-page Apps & Multiplayer Editing:** Build complex apps collaboratively.  
+- **80+ Data Sources:** Connect to databases, APIs, cloud storage, and SaaS tools.  
+- **Flexible Deployment:** Self-host with Docker, Kubernetes, AWS, GCP, Azure, and more.  
+- **Collaboration Tools:** Inline comments, mentions, and granular access control.  
+- **Extensibility:** Create plugins and connectors with the [ToolJet CLI](https://www.npmjs.com/package/@tooljet/cli).  
+- **Code Anywhere:** Run JavaScript and Python inside your apps.  
+- **Secure by Design:** AES-256-GCM encryption, proxy-only data flow, SSO support.  
+
+### ToolJet AI (Enterprise)  
+Everything in CE, plus:  
+- **AI App Generation:** Create apps instantly from natural language prompts.  
+- **AI Query Builder:** Generate and transform queries with AI assistance.  
+- **AI Debugging:** Identify and fix issues with one click.  
+- **Agent Builder:** Create intelligent agents to automate workflows and orchestrate processes.  
+- **Enterprise-grade Security & Compliance:** SOC 2 and GDPR readiness, audit logs, and advanced access control.
+- **User Management:** Role-based access (RBAC), custom groups, and granular app/data permissions.  
+- **Multi-environment Management:** Seamless dev/stage/prod environments.  
+- **GitSync & CI/CD:** Integrate with GitHub/GitLab for version control and streamlined deployments.  
+- **Branding & Customization:** White-labeling, and custom theming for organizational branding.  
+- **Fine-Grained Access Control:** Secure data and actions at the row, component, page, and query levels.  
+- **Embedded Apps:** Embed ToolJet apps securely within other applications or portals.  
+- **Enterprise Support:** SLAs, priority bug fixes, and onboarding assistance.  
+
+<hr>
+
+## Quickstart
+The easiest way to get started with ToolJet is by creating a [ToolJet Cloud](https://tooljet.com) account. ToolJet Cloud offers a hosted solution of ToolJet. If you want to self-host ToolJet, kindly proceed to [deployment documentation](https://docs.tooljet.com/docs/setup/).
+
+### Try using Docker
+Want to give ToolJet a quick spin on your local machine? You can run the following command from your terminal to have ToolJet up and running right away.
+
+
+```bash
+docker run \
+  --name tooljet \
+  --restart unless-stopped \
+  -p 80:80 \
+  --platform linux/amd64 \
+  -v tooljet_data:/var/lib/postgresql/13/main \
+  tooljet/try:ee-lts-latest
+```
+
+*For users upgrading their ToolJet version, we recommend choosing the LTS version over the latest version. The LTS version ensures stability with production bug fixes, security patches, and performance enhancements.*
+
+## Tutorials and examples
+
+[Time Tracker Application](https://docs.tooljet.com/docs/#quickstart-guide)<br>
+[Build your own CMS using low-code](https://blog.tooljet.com/build-cms-using-lowcode-and-mongodb/)<br>
+[AWS S3 Browser](https://blog.tooljet.com/build-an-aws-s3-broswer-with-tooljet/)<br>
+
+## D
+... [TRUNCATED]
+
+--- PACKAGE MANIFEST(S) ---
+
+[package.json]
+{
+  "name": "tooljet",
+  "version": "1.18.0",
+  "description": "ToolJet is an open-source low-code framework to build and deploy internal tools.",
+  "engines": {
+    "node": "22.15.1",
+    "npm": "10.9.2"
+  },
+  "lint-staged": {
+    "./frontend/src/**/*.{js,jsx}": [
+      "eslint --fix"
+    ],
+    "./server/{src,test,plugins,scripts,migrations}/**/*.ts": [
+      "eslint --fix"
+    ],
+    "./plugins/{packages}/**/*.ts": [
+      "eslint --fix"
+    ]
+  },
+  "devDependencies": {
+    "@tooljet/cli": "^0.0.13",
+    "cypress-real-events": "^1.15.0",
+    "eslint": "^9.28.0",
+    "eslint-plugin-jest": "^28.13.3",
+    "eslint-plugin-prettier": "^5.4.1",
+    "husky": "^9.1.7",
+    "lint-staged": "^16.1.0",
+    "shadcn": "^3.0.0"
+  },
+  "scripts": {
+    "prebuild:plugins": "npm run install:plugins",
+    "install:plugins": "npm --prefix plugins install",
+    "build:plugins": "npm --prefix plugins run build",
+    "prebuild:plugins:prod": "npm run install:plugins",
+    "build:plugins:prod": "NODE_ENV=production npm run build:plugins",
+    "postbuild:plugins:prod": "npm --prefix plugins prune --production",
+    "prebuild:frontend": "npm --prefix frontend install --production=false",
+    "build:frontend": "NODE_ENV=production npm --prefix frontend run build",
+    "postbuild:frontend": "npm --prefix frontend prune --production",
+    "prebuild:server": "npm --prefix server install --production=false",
+    "build:server": "NODE_ENV=production npm --prefix server run build",
+    "postbuild:server": "npm --prefix server prune --production",
+    "build": "npm run build:plugins:prod && npm run build:frontend && npm run build:server",
+    "start:prod": "npm --prefix server run start:prod",
+    "cloud:setup": "npm run db:setup && npm run plugins:install && npm run plugins:uninstall && npm run plugins:reload",
+    "cloud:setup:prod": "npm run db:setup:prod && npm run plugins:install:prod && npm run plugins:uninstall:prod && npm run plugins:reload:prod",
+    "db:create": "npm --prefix server run db:create",
+    "db:create:prod": "npm --prefix server run db:create:prod",
+    "db:migrate": "npm --prefix server run db:migrate",
+    "db:migrate:prod": "npm --prefix server run db:migrate:prod",
+    "db:seed": "npm --prefix server run db:seed",
+    "db:seed:prod": "npm --prefix server run db:seed:prod",
+    "db:setup": "npm --prefix server run db:setup",
+    "db:setup:prod": "npm --prefix server run db:setup:prod",
+    "db:reset": "npm --prefix server run db:reset",
+    "db:drop": "npm --prefix server run db:drop",
+    "deploy": "cp -a frontend/build/. public/",
+    "worker:prod": "npm --prefix server run worker:prod",
+    "plugins:install": "npm --prefix server run plugins:install",
+    "plugins:install:prod": "npm --prefix server run plugins:install:prod",
+    "plugins:uninstall": "npm --prefix server run plugins:uninstall",
+    "plugins:uninstall:prod": "npm --prefix server run plugins:uninstall:prod",
+    "plugins:reload": "npm --prefix server run plugins:reload",
+    "plugin
+... [TRUNCATED]
+
+--- BACKEND CONFIG FILES ---
+
+[docker-compose.yaml]
+version: "3"
+
+services:
+  plugins:
+    build:
+      context: ./
+      dockerfile: ./docker/plugins.Dockerfile.dev
+    image: tooljet-plugins:development
+    container_name: plugins
+    platform: linux/x86_64
+    volumes:
+      - ./plugins:/app/plugins
+    command: npm run --prefix plugins start
+
+  client:
+    build:
+      context: ./
+      dockerfile: ./docker/client.Dockerfile.dev
+    image: tooljet-client:development
+    container_name: client
+    platform: linux/x86_64
+    volumes:
+      - ./frontend:/app/frontend:delegated
+      - ./plugins:/app/plugins
+      - /app/frontend/node_modules/
+    ports:
+      - 8082:8082
+    environment:
+      - WEBPACKER_DEV_SERVER_HOST=0.0.0.0
+      - NODE_ENV=development
+      - SERVE_CLIENT=false
+    command: npm run --prefix frontend start
+
+  server:
+    build:
+      context: ./
+      dockerfile: ./docker/server.Dockerfile.dev
+    image: tooljet-server:development
+    container_name: server
+    platform: linux/x86_64
+    depends_on:
+      - postgres
+    env_file:
+      - .env
+    volumes:
+      - ./server:/app/server:delegated
+      - ./plugins:/app/plugins
+      - /app/server/node_modules/
+      - ./.env:/app/.env
+      - ./.env.test:/app/.env.test
+    ports:
+      - 3000:3000
+    environment:
+      - SERVE_CLIENT=false
+      - FORCE_COLOR=1
+    command: npm run --prefix server start:dev
+
+  postgrest:
+    container_name: postgrest
+    image: postgrest/postgrest:v12.0.2
+    ports:
+      - "3002:3002"
+    env_file:
+      - .env
+    depends_on:
+      - postgres
+
+  postgres:
+    container_name: ${PG_HOST}
+    image: postgres:13
+    restart: always
+    ports:
+      - 5432:5432
+    volumes:
+      - postgres:/data/postgres
+    env_file: .env
+    environment:
+      - POSTGRES_USER=${PG_USER}
+      - POSTGRES_PASSWORD=${PG_PASS}
+
+  redis:
+    container_name: redis
+    image: redis:6.2
+    restart: always
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 1G
+    env_file:
+      - .env
+    environment:
+      - MASTER=redis
+      - REDIS_USER=${REDIS_USER}
+      - REDIS_PASSWORD=${REDIS_PASSWORD}
+
+volumes:
+  postgres:
+  redis:
+
+
+[.env.example]
+# Create .env from this example file and replace values for the environment.
+# The application expects a separate .env.test for test environment configuration
+# Get detailed information about each variable here: https://docs.tooljet.com/docs/setup/env-vars
+
+# TOOLJET_EDITION=ee
+
+TOOLJET_HOST=http://localhost:8082
+LOCKBOX_MASTER_KEY=0000000000000000000000000000000000000000000000000000000000000000
+SECRET_KEY_BASE=replace_with_secret_key_base
+
+## Configure a hostname for the server
+SERVER_HOST=<hostname>
+
+# DATABASE CONFIG
+ORM_LOGGING=
+PG_DB=<db name>
+PG_USER=<db username>
+PG_HOST=<db host>
+PG_PASS=<db password>
+
+
+#DATABASE CONFIG using string
+# If you intent you use the string and if the connection does not support ssl. Please use the below format.
+# postgres://username:password@hostname:port/database_name?sslmode=disable
+
+
+# TOOLJET DATABASE
+TOOLJET_DB=
+TOOLJET_DB_USER=
+TOOLJET_DB_HOST=
+TOOLJET_DB_PASS=
+TOOLJET_DB_RECONFIG=true
+TOOLJET_DB_STATEMENT_TIMEOUT=60000
+
+PGRST_HOST=
+PGRST_JWT_SECRET=
+PGRST_DB_PRE_CONFIG=postgrest.pre_config
+
+# Checks every 24 hours to see if a new version of ToolJet is available
+# (Enabled by default. Set false to disable)
+CHECK_FOR_UPDATES=true
+
+# Checks every 24 hours to update app telemetry data to ToolJet hub.
+# (Telemetry is enabled by default. Set value to true to disable.)
+# DISABLE_TOOLJET_TELEMETRY=false
+
+GOOGLE_CLIENT_ID=
+GOOGLE_CLIENT_SECRET=
+
+# EMAIL CONFIGURATION
+DEFAULT_FROM_EMAIL=hello@tooljet.io
+# Set this value true to get preview email on cevelopment env
+SMTP_DISABLED=
+SMTP_USERNAME=
+SMTP_PASSWORD=
+SMTP_DOMAIN=
+SMTP_PORT=
+
+# DISABLE USER SIGNUPS (true or false). only applicable if Multi-Workspace feature is enabled
+DISABLE_SIGNUPS=
+
+
+# OBSERVABILITY
+APM_VENDOR=
+SENTRY_DNS=
+SENTRY_DEBUG=
+
+# FEATURE TOGGLE
+COMMENT_FEATURE_ENABLE=
+ENABLE_MULTIPLAYER_EDITING=true
+
+
+# SSO (Applicable only for Multi-Workspace)
+SSO_GOOGLE_OAUTH2_CLIENT_ID=
+SSO_GIT_OAUTH2_CLIENT_ID=
+SSO_GIT_OAUTH2_CLIENT_SECRET=
+SSO_GIT_OAUTH2_HOST=
+SSO_ACCEPTED_DOMAINS=
+SSO_DISABLE_SIGNUPS=
+
+#ONBOARDING
+ENABLE_ONBOARDING_QUESTIONS_FOR_ALL_SIGN_UPS=
+
+#session expiry in minutes
+USER_SESSION_EXPIRY=
+
+#Disable app embed feature, if true then private and public app embed is not allowed
+DISABLE_APP_EMBED=
+
+# if true then private app embed is allowed
+ENABLE_PRIVATE_APP_EMBED=
+
+#Enable cors else restricted to TOOLJET_HOST. Set the value true if you are serving front end from diffrent host
+ENABLE_CORS=
+
+# cloud specific variables
+ORGANIZATION_LICENSE_URL=
+ORGANIZATION_LICENSE_API_KEY=
+
+#pat session expiry in minutes
+PAT_SESSION_EXPIRY=
+
+#pat expiry in days
+PAT_EXPIRY=
+
+
+--- API ROUTE / ENDPOINT DEFINITIONS ---
+
+[cypress-tests/cypress/constants/texts/listview.js]
+export const listviewText = {
+  defaultWidgetName: "Listview1",
+  showBottomBorder: "Show bottom border",
+  rowHeight: "Row height",
+  noEventHandlerMessage: "No event handlers",
+  listData: "List data",
+};
+
+
+[frontend/.storybook/preview.js]
+/** @type { import('@storybook/react-webpack5').Preview } */
+
+import "../src/_styles/theme.scss";
+import "./preview.scss";
+import { withColorScheme, withRouter } from "./decorators"; // Import the decorators
+
+const preview = {
+  parameters: {
+    actions: { argTypesRegex: "^on[A-Z].*" },
+    controls: {
+      matchers: {
+        color: /(background|color)$/i,
+        date: /Date$/,
+      },
+    },
+  },
+  decorators: [withRouter, withColorScheme], // Adding the decorators to the decorators array
+};
+
+export default preview;
+
+
+[frontend/src/AppBuilder/WidgetManager/widgets/listview.js]
+export const listviewConfig = {
+  name: 'Listview',
+  displayName: 'List View',
+  description: 'List multiple items',
+  defaultSize: {
+    width: 15,
+    height: 450,
+  },
+  defaultChildren: [
+    {
+      componentName: 'Image',
+      layout: {
+        top: 10,
+        left: 3,
+        height: 80,
+        width: 6,
+      },
+      properties: ['source'],
+      accessorKey: 'imageURL',
+    },
+    {
+      componentName: 'Text',
+      layout: {
+        top: 30,
+        left: 11,
+        height: 30,
+        width: 12,
+      },
+      properties: ['text'],
+      accessorKey: 'text',
+    },
+    {
+      componentName: 'Button',
+      layout: {
+        top: 30,
+        left: 25,
+        height: 30,
+        width: 17,
+      },
+      // incrementWidth: 2,
+      properties: ['text'],
+      accessorKey: 'buttonText',
+    },
+  ],
+  component: 'Listview',
+  others: {
+    showOnDesktop: { type: 'toggle', displayName: 'Show on desktop' },
+    showOnMobile: { type: 'toggle', displayName: 'Show on mobile' },
+  },
+  properties: {
+    dataSourceSelector: {
+      type: 'dropdownMenu',
+      displayName: 'Data source',
+      options: [{ name: 'Raw JSON', value: 'rawJson' }],
+      validation: { schema: { type: 'union', schemas: [{ type: 'string' }, { type: 'array' }, { type: 'object' }] } },
+      newLine: true,
+    },
+    data: {
+      type: 'code',
+      displayName: ' ',
+      validation: {
+        schema: {
+          type: 'union',
+          schemas: [
+            { type: 'array', element: { type: 'object' } },
+            { type: 'array', element: { type: 'string' } },
+          ],
+        },
+        defaultValue: "[{text: 'Sample text 1'}]",
+      },
+      conditionallyRender: {
+        key: 'dataSourceSelector',
+        value: 'rawJson',
+      },
+    },
+    dynamicHeight: {
+      type: 'toggle',
+      displayName: 'Dynamic height',
+      validation: {
+        schema: { type: 'boolean' },
+        defaultValue: false,
+      },
+      section: 'additionalActions',
+    },
+    mode: {
+      type: 'select',
+      displayName: 'Mode',
+      options: [
+        { name: 'list', value: 'list' },
+        { name: 'grid', value: 'grid' },
+      ],
+      validation: {
+        schema: { type: 'string' },
+        defaultValue: 'list',
+      },
+    },
+    columns: {
+      type: 'number',
+      displayName: 'Columns',
+      validation: {
+        schema: { type: 'number' },
+        defaultValue: 3,
+      },
+      conditionallyRender: {
+        key: 'mode',
+        value: 'grid',
+      },
+    },
+    rowHeight: {
+      type: 'code',
+      displayName: 'Row height',
+      validation: {
+        schema: { type: 'number' },
+        defaultValue: 100,
+      },
+    },
+    showBorder: {
+      type: 'code',
+      displayName: 'Show bottom border',
+      validation: {
+        schema: { type: 'boolean' },
+        defaultValue: true,
+      },
+      conditionallyRender: {
+        key: 'mode',
+        value: 'list',
+      },
+    },
+    enablePagination: {
+      type: 'toggle',
+      displayName: 'E
+... [TRUNCATED]
+
+[frontend/src/Editor/WidgetManager/configs/listview.js]
+export const listviewConfig = {
+  name: 'Listview',
+  displayName: 'List View',
+  description: 'List multiple items',
+  defaultSize: {
+    width: 30,
+    height: 300,
+  },
+  defaultChildren: [
+    {
+      componentName: 'Image',
+      layout: {
+        top: 15,
+        left: 3,
+        height: 100,
+        width: 7,
+      },
+      properties: ['source'],
+      accessorKey: 'imageURL',
+    },
+    {
+      componentName: 'Text',
+      layout: {
+        top: 50,
+        left: 11,
+        height: 30,
+        width: 4,
+      },
+      properties: ['text'],
+      accessorKey: 'text',
+    },
+    {
+      componentName: 'Button',
+      layout: {
+        top: 50,
+        left: 26,
+        height: 30,
+      },
+      incrementWidth: 2,
+      properties: ['text'],
+      accessorKey: 'buttonText',
+    },
+  ],
+  component: 'Listview',
+  others: {
+    showOnDesktop: { type: 'toggle', displayName: 'Show on desktop' },
+    showOnMobile: { type: 'toggle', displayName: 'Show on mobile' },
+  },
+  properties: {
+    data: {
+      type: 'code',
+      displayName: 'List data',
+      validation: {
+        schema: {
+          type: 'union',
+          schemas: [
+            { type: 'array', element: { type: 'object' } },
+            { type: 'array', element: { type: 'string' } },
+          ],
+        },
+        defaultValue: "[{text: 'Sample text 1'}]",
+      },
+    },
+    mode: {
+      type: 'select',
+      displayName: 'Mode',
+      options: [
+        { name: 'list', value: 'list' },
+        { name: 'grid', value: 'grid' },
+      ],
+      validation: {
+        schema: { type: 'string' },
+        defaultValue: 'list',
+      },
+    },
+    columns: {
+      type: 'number',
+      displayName: 'Columns',
+      validation: {
+        schema: { type: 'number' },
+        defaultValue: 3,
+      },
+      conditionallyRender: {
+        key: 'mode',
+        value: 'grid',
+      },
+    },
+    rowHeight: {
+      type: 'code',
+      displayName: 'Row height',
+      validation: {
+        schema: { type: 'number' },
+        defaultValue: 100,
+      },
+    },
+    showBorder: {
+      type: 'code',
+      displayName: 'Show bottom border',
+      validation: {
+        schema: { type: 'boolean' },
+        defaultValue: true,
+      },
+      conditionallyRender: {
+        key: 'mode',
+        value: 'list',
+      },
+    },
+    enablePagination: {
+      type: 'toggle',
+      displayName: 'Enable pagination',
+      validation: {
+        schema: { type: 'boolean' },
+        defaultValue: false,
+      },
+    },
+    rowsPerPage: {
+      type: 'code',
+      displayName: 'Rows per page',
+      validation: {
+        schema: { type: 'number' },
+        defaultValue: 10,
+      },
+    },
+  },
+  events: {
+    onRowClicked: { displayName: 'Row clicked (Deprecated)' },
+    onRecordClicked: { displayName: 'Record clicked' },
+  },
+  styles: {
+    backgroundColor: {
+      type: 'colorSwatches',
+      displayName: 'Background color',
+      validation: {
+        schema: { type: 'string' },
+        defaultValue: '#fff',
+... [TRUNCATED]
+
+[frontend/src/Routes/AdminRoute.jsx]
+import React, { useEffect } from 'react';
+import { RouteLoader } from './RouteLoader';
+import { useSessionManagement } from '@/_hooks/useSessionManagement';
+import { useNavigate } from 'react-router-dom';
+export const AdminRoute = ({ children, navigate }) => {
+  const { isLoading, isValidSession, session, setLoading } = useSessionManagement({
+    disableValidSessionCallback: true,
+  });
+  const { admin } = session;
+  const defaultNavigate = useNavigate();
+  const navigateTo = navigate || defaultNavigate;
+  useEffect(() => {
+    if (isValidSession && admin !== null) {
+      if (!admin) {
+        return navigateTo(
+          {
+            pathname: '/',
+            state: { from: location },
+          },
+          { replace: true }
+        );
+      }
+      setLoading(false);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isValidSession, admin]);
+
+  return <RouteLoader isLoading={isLoading}>{children}</RouteLoader>;
+};
+// To Do Later : remove the navigate prop dependency and use navigate in Route itself
+
+
+[frontend/src/Routes/AppsRoute.jsx]
+/*
+ AppRoute component should handle all editor and preview route related cases.
+*/
+import React, { useEffect, useState } from 'react';
+import { RouteLoader } from './RouteLoader';
+import { useSessionManagement } from '@/_hooks/useSessionManagement';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
+import { handleAppAccess } from '@/_helpers/handleAppAccess';
+import { getQueryParams } from '@/_helpers/routes';
+import queryString from 'query-string';
+import useStore from '@/AppBuilder/_stores/store';
+import { useMobileRouteGuard } from '@/_hooks/useMobileRouteGuard';
+import { MobileEmptyState } from './MobileBlock';
+import { authenticationService } from '@/_services';
+import { getEnvironmentAccessFromPermissions, getSafeEnvironment } from '@/_helpers/environmentAccess';
+
+export const AppsRoute = ({ children, componentType, darkMode }) => {
+  const params = useParams();
+  const location = useLocation();
+  const [extraProps, setExtraProps] = useState({});
+  const { isLoading, isValidSession, isInvalidSession, setLoading } = useSessionManagement({
+    disableValidSessionCallback: true,
+    /* Only for preiview / released apps */
+    disableInValidSessionCallback: componentType !== 'editor',
+  });
+  const clonedElement = React.cloneElement(children, extraProps);
+  const navigate = useNavigate();
+  const switchPage = useStore((state) => state.switchPage);
+  const { shouldBlockMobile } = useMobileRouteGuard();
+  /* 
+   any extra logic specifc to the route can be done 
+   when the session is valid state updates to true.
+  */
+  useEffect(() => {
+    if (isValidSession) {
+      onValidSession();
+    }
+
+    // handle back and forward navigation
+    window.addEventListener('popstate', handleBrowserNavigation);
+    return () => window.removeEventListener('popstate', handleBrowserNavigation);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isValidSession]);
+
+  useEffect(() => {
+    if (isInvalidSession) {
+      setLoading(false);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isInvalidSession]);
+
+  /* 
+   validate the app access if the route either /apps/ or /application/ and 
+   user has a valid session also user isn't switching between pages on editor 
+*/
+  const onValidSession = async () => {
+    const isSwitchingPages = location.state?.isSwitchingPage;
+
+    if (!isSwitchingPages) {
+      const { slug, versionId, environmentId, pageHandle } = params;
+      /* Validate the app permissions */
+      let accessDetails = await handleAppAccess(componentType, slug, versionId, environmentId);
+      const { versionName, environmentName, id: appId, ...restDetails } = accessDetails;
+      if (versionName) {
+        const restQueryParams = getQueryParams();
+        const envFromUrl = restQueryParams.env;
+
+        // Get user's environment access permissions
+        const session = authenticationService.currentSessionValue;
+        const perms = session?.app_group_permissions;
+        const hasEditPermiss
+... [TRUNCATED]
+
+[frontend/src/Routes/AuthRoute.jsx]
+import React, { useEffect, useState } from 'react';
+import { RouteLoader } from './RouteLoader';
+import { useSessionManagement } from '@/_hooks/useSessionManagement';
+import { getPathname, getRedirectURL } from '@/_helpers/routes';
+import { authenticationService, loginConfigsService, sessionService } from '@/_services';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
+import {
+  resetToDefaultWhiteLabels,
+  retrieveWhiteLabelFavicon,
+  retrieveWhiteLabelText,
+  setFaviconAndTitle,
+} from '@white-label/whiteLabelling';
+
+export const AuthRoute = ({ children }) => {
+  const { isLoading, session, isValidSession, isInvalidSession, setLoading } = useSessionManagement({
+    disableInValidSessionCallback: true,
+    disableValidSessionCallback: true,
+    stopProcess: true,
+  });
+  const { id, isUserLoggingIn } = session;
+  const [isGettingConfigs, setGettingConfig] = useState(true);
+  const instanceDefaultConfigs = {
+    form: {
+      enable_sign_up: true,
+      enabled: true,
+    },
+  };
+  const [configs, setConfigs] = useState(instanceDefaultConfigs);
+  const [organizationId, setOrganizationId] = useState();
+  const [currentOrganizationName, setOrganizationName] = useState();
+  const params = useParams();
+  const { organizationId: organizationSlug } = params;
+  const location = useLocation();
+  const isSignUpRoute = location.pathname.startsWith('/signup');
+  const navigate = useNavigate();
+
+  useEffect(
+    () => {
+      initialize();
+    },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [location.pathname]
+  );
+
+  useEffect(
+    () => onValidSession(),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [isGettingConfigs, isValidSession, id]
+  );
+
+  useEffect(() => {
+    const isComingFromPasswordReset =
+      location?.state?.from === '/reset-password' || location?.state?.from === '/forgot-password';
+    if ((isInvalidSession || isComingFromPasswordReset) && !isGettingConfigs) setLoading(false);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isInvalidSession, isGettingConfigs]);
+
+  const initialize = () => {
+    const isSuperAdminLogin = location.pathname.startsWith('/login/super-admin');
+    const shouldGetConfigs = !isSuperAdminLogin;
+    authenticationService.deleteAllAuthCookies();
+    if (shouldGetConfigs) {
+      fetchOrganizationDetails();
+    } else {
+      setGettingConfig(false);
+    }
+    const pathname = location.pathname;
+    verifyWhiteLabeling(pathname);
+  };
+
+  const verifyWhiteLabeling = (pathname) => {
+    // TODO: assume this code only needs for cloud.
+    // const signupRegex = /^\/signup\/[^/]+$/;
+    // const loginRegex = /^\/login\/[^/]+$/;
+    // if (!signupRegex.test(pathname) && !loginRegex.test(pathname)) {
+    //   resetToDefaultWhiteLabels();
+    // }
+    setFaviconAndTitle(location);
+  };
+
+  const fetchOrganizationDetails = () => {
+    loginConfigsService.getOrganizationConfigs(organizationSlug).then(
+      (configs) => {
+        setOrganizationId(conf
+... [TRUNCATED]
+
+--- DATABASE SCHEMA / MODEL FILES ---
+  server/data-migrations/1721236971725-MoveToolJetDatabaseTablesFromPublicToTenantSchema.ts
+  server/data-migrations/1742369436314-StepsV2Migration.ts
+  server/migrations/1625814801415-MaybeCreateExtension.ts
+  server/migrations/1625814801416-CreateOrganizations.ts
+  server/migrations/1625814801417-CreateUsers.ts
+
+--- DIRECTORY STRUCTURE (depth 2) ---
+├── .do/
+│   └── deploy.template.yaml
+├── .dockerignore
+├── .env.example
+├── .eslintignore
+├── .gitattributes
+├── .gitconfig
+├── .github/
+│   ├── ISSUE_TEMPLATE/
+│   │   ├── 01_bug_report.md
+│   │   ├── 02-feature_request.md
+│   │   ├── 03_documentation_report.yml
+│   │   ├── 04_test_specification.md
+│   │   ├── 05_refactor_code_base.md
+│   │   └── config.yml
+│   └── workflows/
+│       ├── ci.yml
+│       ├── cloud-frontend-cf-pages-prod.yml
+│       ├── cloud-frontend-cf-pages-stage.yml
+│       ├── cloud-frontend-gcp.yml
+│       ├── cloud-frontend.yml
+│       ├── code-coverage.yml
+│       ├── cypress-appbuilder.yml
+│       ├── cypress-marketplace.yml
+│       ├── cypress-platform.yml
+│       ├── deploy-to-stage.yml
+│       ├── docker-release.yml
+│       ├── docs-netlify.yml
+│       ├── docs-pr-app.yml
+│       ├── maketplace-plugins-deploy.yml
+│       ├── manual-docker-build.yml
+│       ├── marketplace-plugins-deploy-production.yml
+│       ├── merging-pr.yml
+│       ├── packer-build.yml
+│       ├── render-path-suspend.yml
+│       ├── render-preview-deploy-v2.yml
+│       ├── render-preview-deploy.yml
+│       ├── render-suspend-labeler.yml
+│       ├── review-path-deploy.yml
+│       ├── stale-docs-pr-render-deploys.yml
+│       ├── update-test-system.yml
+│       ├── updating-dockertag.yml
+│       └── vulnerability-ci.yml
+├── .gitignore
+├── .gitmodules
+├── .husky/
+│   ├── .gitignore
+│   └── pre-commit
+├── .nvmrc
+├── .slugignore
+├── .version
+├── .vscode/
+│   ├── extension.json
+│   ├── launch.json
+│   ├── settings.json
+│   └── tasks.json
+├── CODEOWNERS
+├── CODE_OF_CONDUCT.md
+├── CONTRIBUTING.md
+├── LICENSE
+├── README.md
+├── SECURITY.md
+├── cli/
+│   ├── .eslintrc.js
+│   ├── .gitignore
+│   ├── README.md
+│   ├── bin/
+│   │   ├── dev
+│   │   ├── dev.cmd
+│   │   ├── run
+│   │   └── run.cmd
+│   ├── package-lock.json
+│   ├── package.json
+│   ├── src/
+│   │   └── commands/
+│   └── tsconfig.json
+├── cypress-tests/
+│   ├── .gitignore
+│   ├── cypress-app-builder.config.js
+│   ├── cypress-ee-platform.config.js
+│   ├── cypress-marketplace.config.js
+│   ├── cypress-platform.config.js
+│   ├── cypress-run.config.js
+│   ├── cypress.Dockerfile
+│   ├── cypress.config.js
+│   ├── cypress.env.example
+│   ├── cypress/
+│   │   ├── commands/
+│   │   ├── constants/
+│   │   ├── e2e/
+│   │   ├── fixtures/
+│   │   ├── plugins/
+│   │   ├── support/
+│   │   └── webpack.config.js
+│   ├── package-lock.json
+│   ├── package.json
+│   ├── proxy.nginx
+│   └── subpath.nginx
+├── dependabot.yml
+├── deploy/
+│   ├── docker/
+│   │   ├── docker-compose-with-built-in-postgresql/
+│   │   ├── docker-compose-with-external-postgresql/
+│   │   ├── play-with-docker.yml
+│   │   └── supervisord.conf
+│   ├── ec2/
+│   │   └── ee/
+│   ├── helm/
+│   │   ├── .gitignore
+│   │   ├── Chart.lock
+│   │   ├── Chart.yaml
+│   │   ├── README.md
+│   │   ├── templates/
+│   │   └── values.yaml
+│   ├── kubernetes/
+│   │   ├── AKS/
+│   │   ├── GKE/
+│   │   ├── deployment.yaml
+│   │   ├── postgrest.yaml
+│   │   └── service.yaml
+│   └── openshift/
+│       ├── deployment.yaml
+│       ├── postgrest.yaml
+│       └── service.yaml
+├── docker-compose-debug.yaml
+├── docker-compose.yaml
+├── docker/
+│   ├── .env.internal.example
+│   ├── LTS/
+│   │   ├── cloud/
+│   │   └── ee/
+│   ├── ce-entrypoint.sh
+│   ├── ce-preview.Dockerfile
+│   ├── ce-production.Dockerfile
+│   ├── client.Dockerfile
+│   ├── client.Dockerfile.dev
+│   ├── internal.sh
+│   ├── plugins.Dockerfile.dev
+│   ├── postgrest.render.Dockerfile
+│   ├── pre-release/
+│   │   └── ee/
+│   ├── server.Dockerfile
+│   └── server.Dockerfile.dev
+├── docs/
+│   ├── .gitignore
+│   ├── .nvmrc
+│   ├── README.md
+│   ├── babel.config.js
+│   ├── build-latest-version.sh
+│   ├── docs/
+│   │   ├── actions/
+│   │   ├── app-builder/
+│   │   ├── build-with-ai/
+│   │   ├── contributing-guide/
+│   │   ├── data-sources/
+│   │   ├── development-lifecycle/
+│   │   ├── doc-home-page.mdx
+│   │   ├── getting-started/
+│   │   ├── homePageData.js
+│   │   ├── homepage.css
+│   │   ├── how-to/
+│   │   ├── marketplace/
+│   │   ├── project-overview/
+│   │   ├── security/
+│   │   ├── setup/
+│   │   ├── tj-setup/
+│   │   ├── tooljet-api.md
+│   │   ├── tooljet-db/
+│   │   ├── tooljetcli.md
+│   │   ├── tracking.md
+│   │   ├── tutorial/
+│   │   ├── user-management/
+│   │   ├── versions.md
+│   │   ├── widgets/
+│   │   └── workflows/
+│   ├── docusaurus.config.js
+│   ├── firebase.json
+│   ├── netlify.toml
+│   ├── openapi/
+│   │   └── scim/
+│   ├── package-lock.json
+│   ├── package.json
+│   ├── postcss.config.js
+│   ├── regenerate_lts_table.sh
+│   ├── sidebars.js
+│   ├── src/
+│   │   ├── components/
+│   │   ├── css/
+│   │   ├── pages/
+│   │   ├── plugins/
+│   │   └── theme/
+│   ├── static/
+│   │   ├── .nojekyll
+│   │   ├── _redirects
+│   │   ├── img/
+│   │   ├── robots.txt
+│   │   └── scroll-sidebar.js
+│   ├── tailwind.config.js
+│   ├── versioned_docs/
+│   │   ├── version-1.x.x/
+│   │   ├── version-2.0.0/
+│   │   ├── version-2.1.0/
+│   │   ├── version-2.10.0/
+│   │   ├── version-2.11.0/
+│   │   ├── version-2.12.0/
+│   │   ├── version-2.13.0/
+│   │   ├── version-2.14.0/
+│   │   ├── version-2.15.0/
+│   │   ├── version-2.16.0/
+│   │   ├── version-2.17.0/
+│   │   ├── version-2.18.0/
+│   │   ├── version-2.19.0/
+│   │   ├── version-2.2.0/
+│   │   ├── version-2.22.0/
+│   │   ├── version-2.23.0/
+│   │   ├── version-2.24.0/
+│   │   ├── version-2.25.0/
+│   │   ├── version-2.27.0/
+│   │   ├── version-2.29.0/
+│   │   ├── version-2.3.0/
+│   │   ├── version-2.30.0/
+│   │   ├── version-2.33.0/
+│   │   ├── version-2.34.0/
+│   │   ├── version-2.35.0/
+│   │   ├── version-2.36.0/
+│   │   ├── version-2.39.0/
+│   │   ├── version-2.4.0/
+│   │   ├── version-2.43.0/
+│   │   ├── version-2.5.0/
+│   │   ├── version-2.50.0-LTS/
+│   │   ├── version-2.6.0/
+│   │   ├── version-2.61.0/
+│   │   ├── version-2.62.0/
+│   │   ├── version-2.65.0/
+│   │   ├── version-2.68.0/
+│   │   ├── version-2.7.0/
+│   │   ├── version-2.8.0/
+│   │   ├── version-2.9.0/
+│   │   ├── version-2.9.4/
+│   │   ├── version-3.0.0-LTS/
+│   │   ├── version-3.16.0-LTS/
+│   │   └── version-3.5.0-LTS/
+│   ├── versioned_sidebars/
+│   │   ├── version-1.x.x-sidebars.json
+│   │   ├── version-2.0.0-sidebars.json
+│   │   ├── version-2.1.0-sidebars.json
+│   │   ├── version-2.10.0-sidebars.json
+│   │   ├── version-2.11.0-sidebars.json
+│   │   ├── version-2.12.0-sidebars.json
+│   │   ├── version-2.13.0-sidebars.json
+│   │   ├── version-2.14.0-sidebars.json
+│   │   ├── version-2.15.0-sidebars.json
+│   │   ├── version-2.16.0-sidebars.json
+│   │   ├── version-2.17.0-sidebars.json
+│   │   ├── version-2.18.0-sidebars.json
+│   │   ├── version-2.19.0-sidebars.json
+│   │   ├── version-2.2.0-sidebars.json
+│   │   ├── version-2.22.0-sidebars.json
+│   │   ├── version-2.23.0-sidebars.json
+│   │   ├── version-2.24.0-sidebars.json
+│   │   ├── version-2.25.0-sidebars.json
+│   │   ├── version-2.27.0-sidebars.json
+│   │   ├── version-2.29.0-sidebars.json
+│   │   ├── version-2.3.0-sidebars.json
+│   │   ├── version-2.30.0-sidebars.json
+│   │   ├── version-2.33.0-sidebars.json
+│   │   ├── version-2.34.0-sidebars.json
+│   │   ├── version-2.35.0-sidebars.json
+│   │   ├── version-2.36.0-sidebars.json
+│   │   ├── version-2.39.0-sidebars.json
+│   │   ├── version-2.4.0-sidebars.json
+│   │   ├── version-2.43.0-sidebars.json
+│   │   ├── version-2.5.0-sidebars.json
+│   │   ├── version-2.50.0-LTS-sidebars.json
+│   │   ├── version-2.6.0-sidebars.json
+│   │   ├── version-2.61.0-sidebars.json
+│   │   ├── version-2.62.0-sidebars.json
+│   │   ├── version-2.65.0-sidebars.json
+│   │   ├── version-2.68.0-sidebars.json
+│   │   ├── version-2.7.0-sidebars.json
+│   │   ├── version-2.8.0-sidebars.json
+│   │   ├── version-2.9.0-sidebars.json
+│   │   ├── version-2.9.4-sidebars.json
+│   │   ├── version-3.0.0-LTS-sidebars.json
+│   │   ├── version-3.16.0-LTS-sidebars.json
+│   │   └── version-3.5.0-LTS-sidebars.json
+│   ├── versions.json
+│   └── versionsArchived.json
+├── frontend/
+│   ├── .dockerignore
+│   ├── .eslintignore
+│   ├── .eslintrc.js
+│   ├── .gitignore
+│   ├── .storybook/
+│   │   ├── decorators.jsx
+│   │   ├── main.js
+│   │   ├── preview.js
+│   │   └── preview.scss
+│   ├── .version
+│   ├── __mocks__/
+│   │   └── svg.js
+│   ├── assets/
+│   │   ├── csv/
+│   │   ├── fonts/
+│   │   ├── images/
+│   │   ├── libs/
+│   │   └── translations/
+│   ├── babel.config.js
+│   ├── components.json
+│   ├── config/
+│   │   ├── entrypoint.sh
+│   │   └── nginx.conf.template
+│   ├── ee
+│   ├── firebase.json
+│   ├── jsconfig.json
+│   ├── netlify.toml
+│   ├── package-lock.json
+│   ├── package.json
+│   ├── postcss.config.js
+│   ├── src/
+│   │   ├── App/
+│   │   ├── AppBuilder/
+│   │   ├── AppLoader/
+│   │   ├── ConfirmationPage/
+│   │   ├── Editor/
+│   │   ├── ForgotPassword/
+│   │   ├── GetStarted/
+│   │   ├── HomePage/
+│   │   ├── LicenseTooltip/
+│   │   ├── MarketplacePage/
+│   │   ├── Oauth/
+│   │   ├── Oauth2/
+│   │   ├── OnBoardingForm/
+│   │   ├── OrganizationSettingsPage/
+│   │   ├── ResetPassword/
+│   │   ├── Routes/
+│   │   ├── SettingsPage/
+│   │   ├── SuccessInfoScreen/
+│   │   ├── ToolJetUI/
+│   │   ├── TooljetDatabase/
+│   │   ├── WorkflowEditor/
+│   │   ├── WorkspaceConstants/
+│   │   ├── _components/
+│   │   ├── _helpers/
+│   │   ├── _hoc/
+│   │   ├── _hooks/
+│   │   ├── _lib/
+│   │   ├── _services/
+│   │   ├── _stores/
+│   │   ├── _styles/
+│   │   ├── _ui/
+│   │   ├── _utils/
+│   │   ├── components/
+│   │   ├── index.ejs
+│   │   ├── index.jsx
+│   │   ├── lib/
+│   │   ├── modules/
+│   │   ├── stories/
+│   │   ├── styles/
+│   │   └── wdyr.js
+│   ├── tailwind.config.js
+│   └── webpack.config.js
+├── marketplace/
+│   ├── .eslintignore
+│   ├── .eslintrc
+│   ├── .gitignore
+│   ├── README.md
+│   ├── _templates/
+│   │   └── plugin/
+│   ├── lerna.json
+│   ├── package-lock.json
+│   ├── package.json
+│   ├── plugins/
+│   │   ├── aftership/
+│   │   ├── anthropic/
+│   │   ├── authorizenet/
+│   │   ├── aws-bedrock/
+│   │   ├── aws-lambda/
+│   │   ├── awsredshift/
+│   │   ├── azurerepos/
+│   │   ├── clickup/
+│   │   ├── cohere/
+│   │   ├── common/
+│   │   ├── couchbase/
+│   │   ├── easypost/
+│   │   ├── engagespot/
+│   │   ├── fedex/
+│   │   ├── gemini/
+│   │   ├── github/
+│   │   ├── gmail/
+│   │   ├── googlecalendar/
+│   │   ├── harperdb/
+│   │   ├── hubspot/
+│   │   ├── hugging_face/
+│   │   ├── jira/
+│   │   ├── microsoft_graph/
+│   │   ├── mistral_ai/
+│   │   ├── openai/
+│   │   ├── pinecone/
+│   │   ├── plivo/
+│   │   ├── pocketbase/
+│   │   ├── portkey/
+│   │   ├── presto/
+│   │   ├── prometheus/
+│   │   ├── qdrant/
+│   │   ├── s3/
+│   │   ├── salesforce/
+│   │   ├── sharepoint/
+│   │   ├── spanner/
+│   │   ├── supabase/
+│   │   ├── textract/
+│   │   ├── ups/
+│   │   └── weaviate/
+│   ├── scripts/
+│   │   └── upload-to-s3.js
+│   └── tsconfig.json
+├── netlify.toml
+├── package-lock.json
+├── package.json
+├── plugins/
+│   ├── .eslintignore
+│   ├── .eslintrc.js
+│   ├── .gitignore
+│   ├── README.md
+│   ├── _templates/
+│   │   └── plugin/
+│   ├── build-packages.js
+│   ├── clean-packages.js
+│   ├── create-client-entry.js
+│   ├── create-operations-file.js
+│   ├── create-server-entry.js
+│   ├── jest.config.js
+│   ├── lerna.json
+│   ├── package-lock.json
+│   ├── package.json
+│   ├── packages/
+│   │   ├── airtable/
+│   │   ├── amazonses/
+│   │   ├── appwrite/
+│   │   ├── athena/
+│   │   ├── azureblobstorage/
+│   │   ├── baserow/
+│   │   ├── bigquery/
+│   │   ├── clickhouse/
+│   │   ├── common/
+│   │   ├── cosmosdb/
+│   │   ├── couchdb/
+│   │   ├── databricks/
+│   │   ├── dynamodb/
+│   │   ├── elasticsearch/
+│   │   ├── firestore/
+│   │   ├── gcs/
+│   │   ├── googlesheets/
+│   │   ├── graphql/
+│   │   ├── grpc/
+│   │   ├── grpcv2/
+│   │   ├── influxdb/
+│   │   ├── mailgun/
+│   │   ├── mariadb/
+│   │   ├── minio/
+│   │   ├── mongodb/
+│   │   ├── mssql/
+│   │   ├── mysql/
+│   │   ├── n8n/
+│   │   ├── nocodb/
+│   │   ├── notion/
+│   │   ├── openapi/
+│   │   ├── oracledb/
+│   │   ├── postgresql/
+│   │   ├── redis/
+│   │   ├── restapi/
+│   │   ├── rethinkdb/
+│   │   ├── s3/
+│   │   ├── saphana/
+│   │   ├── sendgrid/
+│   │   ├── slack/
+│   │   ├── smtp/
+│   │   ├── snowflake/
+│   │   ├── stripe/
+│   │   ├── twilio/
+│   │   ├── typesense/
+│   │   ├── woocommerce/
+│   │   └── zendesk/
+│   ├── schemas/
+│   │   ├── manifest.schema.json
+│   │   └── operations.schema.json
+│   └── tsconfig.json
+├── queryPanel/
+│   ├── queryEditorRegression.cy.js
+│   └── queryManagerRegression.cy.js
+├── release-scripts/
+│   ├── bump-minor-version-lts.sh
+│   ├── create-release.sh
+│   ├── resolve-conflicts-submodules.sh
+│   └── tag-and-push.sh
+├── render.yaml
+├── server/
+│   ├── .eslintrc.js
+│   ├── .gitignore
+│   ├── .node-version
+│   ├── .npmrc
+│   ├── .version
+│   ├── README.md
+│   ├── data-migration-config.ts
+│   ├── data-migrations/
+│   │   ├── 1625814801430-UpdateDefinitionsForEvents.ts
+│   │   ├── 1629971478272-UpdateDefinitionsForTableActionEvent.ts
+│   │   ├── 1630003364070-TurnOnSSLForEveryPostgresDataSource.ts
+│   │   ├── 1632468258787-PopulateUserGroupsFromOrganizationRoles.ts
+│   │   ├── 1633370361564-SetShowBulkSelectorToTrue.ts
+│   │   ├── 1633431766605-SetHighlightSelectedRowToFalseForExistingTables.ts
+│   │   ├── 1634729050892-BackfillAppCreateAndAppDeletePermissionsAsTruthyForAdminGroup.ts
+│   │   ├── 1634848932643-SetTableCellSpacingToCompact.ts
+│   │   ├── 1636372753632-RebaseWidgetWidthAndLeftOffsetForResponsiveCanvas.ts
+│   │   ├── 1636609569079-BackfillFolderCreatePermissionsAsTruthyForAdminGroup.ts
+│   │   ├── 1638255797809-SetLoadingStateToFalseForExistingTables.ts
+│   │   ├── 1638796825499-BackfillFolderCreatePermissionsAsTruthyForMissedAdminGroup.ts
+│   │   ├── 1638941376844-SetMultiselectProperties.ts
+│   │   ├── 1639038616546-UpdateDefinitionsForGlobalSettings.ts
+│   │   ├── 1639734070615-BackfillDataSourcesAndQueriesForAppVersions.ts
+│   │   ├── 1640683693031-BackfillCalendarWeekDateFormat.ts
+│   │   ├── 1641446596775-SetImageBorderTypeToNone.ts
+│   │   ├── 1644229722021-SetFxActiveToTrueForFxFieldsConvertedToUI.ts
+│   │   ├── 1650485473528-PopulateSSOConfigs.ts
+│   │   ├── 1651820577708-PopulateTextSize.ts
+│   │   ├── 1653472569828-addedInstructionTextPropInFilePickerWidget.ts
+│   │   ├── 1653474337657-BackfillFolderDeleteFolderUpdatePermissionsAsTruthyForAdminGroup.ts
+│   │   ├── 1654150855780-BackfillAddOrgEnvironmentVariablesGroupPermissions.ts
+│   │   ├── 1654596810662-ConvertAllUserEmailsToLowercaseAndDeleteDuplicateUsers.ts
+│   │   ├── 1655279771926-listViewWidgetAddingBorderRadiusProperty.ts
+│   │   ├── 1656061763136-modal-properties.ts
+│   │   ├── 1656924847186-addingCssPropsToTextWidget.ts
+│   │   ├── 1661331234770-RestructureTableColumnSizesAndActionsToHaveAValueKeyThatPointsToItsContents.ts
+│   │   ├── 1663581777527-ModalWidget-size.ts
+│   │   ├── 1663689836425-instanceSettings.ts
+│   │   ├── 1666814745413-updateUserStatus.ts
+│   │   ├── 1667076251897-BackfillDataSources.ts
+│   │   ├── 1668521091918-ChangeDefinitionStructureForMultiPage.ts
+│   │   ├── 1669054493160-moveDataSourceOptionsToEnvironment.ts
+│   │   ├── 1669055405494-removePluginFromDataQuery.ts
+│   │   ├── 1669293520796-ConnectExistingCommentThreadsToPageIds.ts
+│   │   ├── 1669919175280-removeRepetitionInDataSourceAndQuery.ts
+│   │   ├── 1675368628629-AddAppVersionIdColumnToDataQueries.ts
+│   │   ├── 1675368628726-BackfillAppVersionToDataQueries.ts
+│   │   ├── 1675844361117-CleanupDataSourceOptionData.ts
+│   │   ├── 1675844361118-MigrateEnvironmentsUnderWorkspace.ts
+│   │   ├── 1676545162064-BackfillRunpyDatasources.ts
+│   │   ├── 1677822012965-AlterOrganizationIdInAppEnvironments.ts
+│   │   ├── 1679604241777-ReplaceTooljetDbTableNamesWithId.ts
+│   │   ├── 1680789366109-backfillDatasourceAdminPermissions.ts
+│   │   ├── 1681463532466-addMultipleEnvForCEcreatedApps.ts
+│   │   ├── 1682011503431-AddNewColumnsToInstanceSettings.ts
+│   │   ├── 1682045191971-BackfillInstanceSettingsColumns.ts
+│   │   ├── 1683022868045-environmentDataSourceMappingFix.ts
+│   │   ├── 1683136077244-AddUniqueConstraintToWorkspaceName.ts
+│   │   ├── 1683148731897-BackfillLicenseKeyFromEnv.ts
+│   │   ├── 1684145489093-AddUniqueConstraintToFolderName.ts
+│   │   ├── 1684157120658-AddUniqueConstraintToAppName.ts
+│   │   ├── 1686826460358-BackFillAppEnvironmentsPriorityColumn.ts
+│   │   ├── 1686829426671-BackFillCurrentEnvironmentId.ts
+│   │   ├── 1687188169091-UpdateOracleDbOptionsWithInstantClientVersion.ts
+│   │   ├── 1687720044583-BackfillAddOrgEnvironmentConstantsGroupPermissions.ts
+│   │   ├── 1688977149516-ListviewDefaultMode.ts
+│   │   ├── 1690830899563-UpdateMysqlDatasourceForSocketConnection.ts
+│   │   ├── 1692973078520-CellSizeRegularCondensed.ts
+│   │   ├── 1692974311591-TableRowCellStyle.ts
+│   │   ├── 1693288308041-organizationUsersRemoveDuplicates.ts
+│   │   ├── 1693309526388-addUniqueKeyConstrainForOrganizationUsers.ts
+│   │   ├── 1693368672418-addEnableMultiplayerSettingsInInstanceSettings.ts
+│   │   ├── 1693574568333-AddWhiteLabelsInInstanceSettings.ts
+│   │   ├── 1696841694689-AddCommentsInInstanceSettings.ts
+│   │   ├── 1697107564294-UpdateFolderUniqueConstriant.ts
+│   │   ├── 1697473340856-MigrateAppsDefinitionSchemaTransition.ts
+│   │   ├── 1698223506925-AddUniqueAppSlugIfDontExist.ts
+│   │   ├── 1698737393421-UpdateCurrentEnvIdOfCeCreatedApps.ts
+│   │   ├── 1698841869350-PopulateCEOrgConstantsToOtherEnvs.ts
+│   │   ├── 1698843356891-UpdateFirstUserAsSuperAdminForCEInstances.ts
+│   │   ├── 1702419267642-AddCustomLogoutUrl.ts
+│   │   ├── 1705379107714-AddAppNameAppTypeWorkspaceConstraint.ts
+│   │   ├── 1706012625969-AddEnableWorkspaceLoginConfigInInstanceSettings.ts
+│   │   ├── 1706012702739-AddEnableSignUpInInstanceSettings.ts
+│   │   ├── 1706012772483-AddAllowedDomainsInInstanceSettings.ts
+│   │   ├── 1706024347284-AddInstanceLevelSSOInSSOConfigs.ts
+│   │   ├── 1706113492448-AddConfigScopeInInstanceSettings.ts
+│   │   ├── 1707466537651-MoveVisibilityDisabledStatesToProperties.ts
+│   │   ├── 1709618105785-EncryptValuesForExistingOrganizationConstants.ts
+│   │   ├── 1710780718114-AddGracePeriodExpiryDateColumnInOrganizationLicenseTable.ts
+│   │   ├── 1711523460586-DisableSignUpIfPersonalWorkspaceNotAllowed.ts
+│   │   ├── 1711528858371-MoveTableVisibilityDisabledToStyles.ts
+│   │   ├── 1713874179417-subscriptionImprovements.ts
+│   │   ├── 1715105945504-ReplaceTjDbPrimaryKeyConstraintsForExistingTables.ts
+│   │   ├── 1715248567720-MoveCheckboxToggleDisabledToProperties.ts
+│   │   ├── 1716551121164-addSMTPConfigsToTable.ts
+│   │   ├── 1718100845287-AddOrgThemesforOrganizations.ts
+│   │   ├── 1718357264489-MoveHiddenFieldInAppVersionsToPageSettings.ts
+│   │   ├── 1718542399701-UpdateInternalTablesConfigurationsColumn.ts
+│   │   ├── 1720352990850-CreateDefaultGroupInExistingWorkspace.ts
+│   │   ├── 1720365772516-AddingUsersToRespectiveRolesBuilderAndEndUsers.ts
+│   │   ├── 1720434737529-MigrateCustomGroupToNewUserGroup.ts
+│   │   ├── 1720513124281-DropGroupPermissionsOlderRelatedTables.ts
+│   │   ├── 1721236971725-MoveToolJetDatabaseTablesFromPublicToTenantSchema.ts
+│   │   ├── 1722357931487-AddTypeAsConstantForExistingOrgConsts.ts
+│   │   ├── 1722619519787-addSMTPFromEmailToInstanceSettings.ts
+│   │   ├── 1722661249798-instanceSettingsDataTypeCorrection.ts
+│   │   ├── 1723636080272-AddAutomaticSSOLoginInInstanceSettings.ts
+│   │   ├── 1724060238202-addAppThemsv2Fields.ts
+│   │   ├── 1724931663807-AddOrganizationIdInUserDetails.ts
+│   │   ├── 1726649944702-AddConnectionTypeToSampleDataSources.ts
+│   │   ├── 1731279588337-ReplaceTheSampleDBConnectionValues.ts
+│   │   ├── 1731283187529-PopulateManualConnectionTypeForOldPostgresDs.ts
+│   │   ├── 1732273175402-AddSMTPEnvConfiguredToTable.ts
+│   │   ├── 1733274999001-AddEnvironmentPermissions.ts
+│   │   ├── 1733275000001-BackfillEnvironmentPermissionsForBuilders.ts
+│   │   ├── 1733771653728-MoveVisibilityDisabledStatesToPropertiesDaterangePicker.ts
+│   │   ├── 1736448327127-MoveVisibilityDisabledStatesToPropertiesTextarea.ts
+│   │   ├── 1736921797727-MoveInstanceWhiteLabelsToWhiteLabelsEntity.ts
+│   │   ├── 1737039401111-UpdateVisibilityFrIconComponent.ts
+│   │   ├── 1737041314335-UpdateVisibilityDisabledTooltipPaddingShapeForImageComponent.ts
+│   │   ├── 1738759782116-AddPlanToOrganizationLicense.ts
+│   │   ├── 1738833975655-AddPlanToOrganizationSubscription.ts
+│   │   ├── 1740401100000-SetDefaultWorkspace.ts
+│   │   ├── 1742215016773-InsertDataGithubSSH.ts
+│   │   ├── 1742369436314-StepsV2Migration.ts
+│   │   ├── 1742369617678-EnforceNewBasicPlanLimits.ts
+│   │   ├── 1742905945987-UpdateGlobalDataSources.ts
+│   │   ├── 1743053824028-MoveVisibilityDisabledStatesDividerLink.ts
+│   │   ├── 1745318714733-DeprecateLocalStaticDataSources.ts
+│   │   ├── 1745409452884-AddMissingStaticDataSources.ts
+│   │   ├── 1745409631920-AddDataSourceConstraintsForStatic.ts
+│   │   ├── 1746728238308-SetDefaultSessionTypeToUser.ts
+│   │   ├── 1747338135635-BackfillSlackAppOption.ts
+│   │   ├── 1748331051836-AddAiGenerationFlagsInApp.ts
+│   │   ├── 1748542504137-AddArtifactsTable.ts
+│   │   ├── 1749711866124-MigrateEnabledFlagToProviderColumns.ts
+│   │   ├── 1750659565297-MigrateHiddenValueFromBooleanToJson.ts
+│   │   ├── 1750761058803-RenameTJDefaultThemeTOTooljet.ts
+│   │   ├── 1751258388314-UpdateRestApiClientAuthInOauth.ts
+│   │   ├── 1751280222525-UpdateSalesforceSourceOptions.ts
+│   │   ├── 1751283157638-MoveHideHeaderAndAddPositionToPageSettings.ts
+│   │   ├── 1751315254641-BackfillDynamicOptionsPropertyForTabs.ts
+│   │   ├── 1751342006499-UpdateSnowflakeSourceOptions.ts
+│   │   ├── 1752298708040-RenameTooljetThemeToToolJet.ts
+│   │   ├── 1752307477010-AddMissingSurfaceThemeToDefault.ts
+│   │   ├── 1752403387878-MigrateFormVisibilityHeaderFooterProperties.ts
+│   │   ├── 1752404494845-MigrateContainerVisibilityProperties.ts
+│   │   ├── 1752434805432-MigrateVisibilityDisabledHighlightedStatesForTabs.ts
+│   │   ├── 1752568937074-MigrationVisibilityDisabledStateFilepicker.ts
+│   │   ├── 1752624000001-MigrateGroupSyncData.ts
+│   │   ├── 1752749046662-EncrpyGoogleCalendarClientSecret.ts
+│   │   ├── 1754048735123-MigrateSSHBranchColumnData.ts
+│   │   ├── 1754379601025-StatisticsVersion2.ts
+│   │   ├── 1754940735810-DeprecateInputWidgetTypeOfField.ts
+│   │   ├── 1754999194042-UpdateWorkflowPermissionsForAdminAndBuilder.ts
+│   │   ├── 1756697039957-UpdateStatusCodeDefaultValueForWorkflowResponseNode.ts
+│   │   ├── 1756792368199-MigrateStarRatingProperties.ts
+│   │   ├── 1756814928001-MoveVisibilityAndSetAdvancedTrueForTags.ts
+│   │   ├── 1756814928003-MoveVisibilityForHtmlComponent.ts
+│   │   ├── 1757501461678-UpdateOrganizationAiCredits.ts
+│   │   ├── 1757505548285-UpdateSelfhostAiCredits.ts
+│   │   ├── 1758009004418-AddWorkflowGranularPermissionsToExistingAdminGroups.ts
+│   │   ├── 1758192692905-AddApiKeytoSelfhostCustomer.ts
+│   │   ├── 1758457644900-MigrateCircularProgressbarProperties.ts
+│   │   ├── 1758569631987-UpdateTooltipForKanbanComponent.ts
+│   │   ├── 1758793442013-UpdateAppVersionStatusAndFields.ts
+│   │   ├── 1759169380218-BackfillGoogleSheetDatasourceAuthenticationType.ts
+│   │   ├── 1760693571486-BackfillMicrosoftGraphDatasourceScopeToHaveOfflineAccessForRefreshToken.ts
+│   │   ├── 1761556597329-AddGrantTypeKeyInSSOConfig.ts
+│   │   ├── 1762517351039-PopulateOIDCCustomScopes.ts
+│   │   ├── 1762770971766-RenameGrantTypeKeyInSSOConfig.ts
+│   │   ├── 1762960587101-AddGroupSyncEnabledToSAMLConfigs.ts
+│   │   ├── 1763837608217-AddLdapGroupSyncToggle.ts
+│   │   ├── 1764047424500-BackfillMongoDBDatasourceNewFields.ts
+│   │   ├── 1764930484535-UpdateShowFlagForCurrencyInput.ts
+│   │   ├── 1765313746517-BackfillDefaultComponentStyles.ts
+│   │   ├── 1765358668387-UpdateDefaultThemeBorderWeakValue.ts
+│   │   ├── 1765958549099-AddGranularDomainSettings.ts
+│   │   ├── 1767856819817-BackfillCommonBackgroundColorForTabs.ts
+│   │   ├── LockMigrationsTable1.ts
+│   │   └── LockMigrationsTable2.ts
+│   ├── ee
+│   ├── eslint.config.js
+│   ├── jest.config.ts
+│   ├── lib/
+│   │   ├── single-page-to-and-from-multipage-definition-conversion.ts
+│   │   ├── utils.js
+│   │   └── utils.ts
+│   ├── local-ce-entrypoint.sh
+│   ├── migrations/
+│   │   ├── 1625814801415-MaybeCreateExtension.ts
+│   │   ├── 1625814801416-CreateOrganizations.ts
+│   │   ├── 1625814801417-CreateUsers.ts
+│   │   ├── 1625814801419-CreateApps.ts
+│   │   ├── 1625814801420-CreateAppVersions.ts
+│   │   ├── 1625814801421-CreateCredentials.ts
+│   │   ├── 1625814801422-CreateFolders.ts
+│   │   ├── 1625814801423-CreateFolderApps.ts
+│   │   ├── 1625814801424-CreateMetadata.ts
+│   │   ├── 1625814801425-CreateOrganizationUsers.ts
+│   │   ├── 1625814801426-CreateAppUsers.ts
+│   │   ├── 1625814801427-CreateDataSources.ts
+│   │   ├── 1625814801428-CreateDataQueries.ts
+│   │   ├── 1625814801429-CreateDataSourceUserOauth2s.ts
+│   │   ├── 1632047749315-AddSsoIdToUser.ts
+│   │   ├── 1632382322381-CreateGroupPermissions.ts
+│   │   ├── 1632383798339-CreateUserGroupPermissions.ts
+│   │   ├── 1632384954344-CreateAppGroupPermissions.ts
+│   │   ├── 1632740447353-CreateThreadMigration.ts
+│   │   ├── 1634626774513-CreateCommentMigration.ts
+│   │   ├── 1634724636255-AddAppCreateAndAppDeleteToGroupPermissions.ts
+│   │   ├── 1636607624055-AddFolderCreatePermissionToGroupPermissions.ts
+│   │   ├── 1637909008629-CreateAuditLogs.ts
+│   │   ├── 1639645231497-AddAppVersionIdColumnToDataSources.ts
+│   │   ├── 1639645243080-AddAppVersionIdColumnToDataQueries.ts
+│   │   ├── 1639734070614-AddApplicationIconColumn.ts
+│   │   ├── 1642432246029-CreateSSOField.ts
+│   │   ├── 1643117336290-AddRoleToUser.ts
+│   │   ├── 1645864719155-MultiOrganization.ts
+│   │   ├── 1646823984673-OrganizationConfigs.ts
+│   │   ├── 1649860649643-AddIsMaintenanceOnToApp.ts
+│   │   ├── 1650455299630-OrganizationEnableSignup.ts
+│   │   ├── 1651048832554-AddAvatarIdToUser.ts
+│   │   ├── 1651056032050-CreateFiles.ts
+│   │   ├── 1651056032052-CreatePlugins.ts
+│   │   ├── 1652541462886-CreateOrgEnvironmentVariablesTable.ts
+│   │   ├── 1652768881087-AddPluginToDataSource.ts
+│   │   ├── 1652768887877-AddPluginToDataQuery.ts
+│   │   ├── 1653391166172-AddFolderUpdateAndDeletePermissionsToGroupPermissions.ts
+│   │   ├── 1654150623035-AddOrgEnvironmentVariablesGroupPermissions.ts
+│   │   ├── 1655320273619-PasswordPolicyRetryCount.ts
+│   │   ├── 1655726247638-AddUniqueConstraintToVersionName.ts
+│   │   ├── 1656083459220-tabsWidth.ts
+│   │   ├── 1656268228782-OrganizationsInheritSSO.ts
+│   │   ├── 1656312830147-CreateCommentUsers.ts
+│   │   ├── 1661342016413-AddOrganizationIdToDataSources.ts
+│   │   ├── 1661448846469-AddReadOnDashboardToAppGroupPermissions.ts
+│   │   ├── 1662542808902-CreateInstanceSettings.ts
+│   │   ├── 1664352379065-AddFieldsToUser.ts
+│   │   ├── 1664535394458-addForeignKeyForCommentUsers.ts
+│   │   ├── 1664535394459-addForeignKeyForPlugin.ts
+│   │   ├── 1666763190092-addUserStatusAndSource.ts
+│   │   ├── 1667070216520-createEnvironments.ts
+│   │   ├── 1667075911289-createDatasourceOptions.ts
+│   │   ├── 1667364798950-CreateInternalTables.ts
+│   │   ├── 1669280005881-AddPageIdToThreads.ts
+│   │   ├── 1671815159504-addDataSourceType.ts
+│   │   ├── 1673424772525-ChangeReadOnDashboardColumnName.ts
+│   │   ├── 1674131104527-addUserType.ts
+│   │   ├── 1674571190772-AddTypeToApp.ts
+│   │   ├── 1675073833444-AddTypeToFolder.ts
+│   │   ├── 1675179628075-AddScopeColumnToDataSources.ts
+│   │   ├── 1675664360064-addOpenidToSourceTypeIfNotExist.ts
+│   │   ├── 1675842611112-AddOrganizationIdInAppEnvironments.ts
+│   │   ├── 1676983958469-CreateWorkflowExecutionEntity.ts
+│   │   ├── 1676987682532-CreateWorkflowExecutionNodeEntity.ts
+│   │   ├── 1677077719475-CreateWorkflowExecutionEdgeEntity.ts
+│   │   ├── 1677232734374-AddStartNodeToWorkflowExecution.ts
+│   │   ├── 1677820920004-DropAppVersionIdInAppEnvironments.ts
+│   │   ├── 1678261179234-addUserSession.ts
+│   │   ├── 1678790363938-AddPhoneNumberToUsers.ts
+│   │   ├── 1680152466161-CreateDatasourceGroupPermission.ts
+│   │   ├── 1680156219906-addUserDetailsTable.ts
+│   │   ├── 1680160847536-AddDataSourceCreateAndDataSourceDeleteToGroupPermission.ts
+│   │   ├── 1685952833787-AddSlugToWorkspace.ts
+│   │   ├── 1686818129241-AddPriorityAndEnabledColumnsToAppEnvironments.ts
+│   │   ├── 1686827869361-CustomStyles.ts
+│   │   ├── 1686829292855-AddCurrentEnvironmentIdToAppVersions.ts
+│   │   ├── 1687363681284-CreateOrgEnvironmentConstantsTable.ts
+│   │   ├── 1687383173997-AddOrgEnvironmentConstantGroupPermission.ts
+│   │   ├── 1689181992983-UpdateSourceEnumOfUsersTable.ts
+│   │   ├── 1691004576222-UpdateAppVersionEntity.ts
+│   │   ├── 1691004576333-CreatePageTable.ts
+│   │   ├── 1691004706564-CreateEventHandlerTable.ts
+│   │   ├── 1691006952074-CreateComponentTable.ts
+│   │   ├── 1691007037021-CreateLayoutTable.ts
+│   │   ├── 1693392455485-CreateSelfhostCustomerLicenses.ts
+│   │   ├── 1693810306405-createAppGitTable.ts
+│   │   ├── 1693813384059-AddSAMLToSourceEnumOfUsersTable.ts
+│   │   ├── 1694072385007-CreateSAMLResponseTable.ts
+│   │   ├── 1695015661737-AddingOrganizationGitTablet.ts
+│   │   ├── 1697017670727-AddCreationModeFieldInAppTable.ts
+│   │   ├── 1698603800358-AddOwnerInOrganizations.ts
+│   │   ├── 1698825925206-AddWebhookDetailsToApps.ts
+│   │   ├── 1698848739145-AddOrganizationLicenseTable.ts
+│   │   ├── 1699893808728-AddPromotedFromToVersions.ts
+│   │   ├── 1700198867548-AddTableForOrganizationsPayments.ts
+│   │   ├── 1702196735455-AddAutoLayoutFlagToPagesTable.ts
+│   │   ├── 1702314869907-AddWhiteLabellingsettings.ts
+│   │   ├── 1704258217404-AddWorkSpaceStatusColumn.ts
+│   │   ├── 1706643884614-ChangeTypeOfFolderName.ts
+│   │   ├── 1707112483331-renameWhiteLabellingTableColumns.ts
+│   │   ├── 1708320592518-AddAutoCommitColumnToOrgGitTable.ts
+│   │   ├── 1708701418094-UpdateSSOConfigsTable.ts
+│   │   ├── 1708923006176-CreateOrganizationSubscriptionTable.ts
+│   │   ├── 1708923006576-CreateInvoiceTable.ts
+│   │   ├── 1708936138819-AddKeyTypeColumnsToOrgGit.ts
+│   │   ├── 1709794417386-AddUpdatedAtColumnToLayouts.ts
+│   │   ├── 1710321318372-AlterTypeColumnOfDataSourceTable.ts
+│   │   ├── 1714015513342-AddGroupPermissionsTable.ts
+│   │   ├── 1714015541245-AddGroupUsersTable.ts
+│   │   ├── 1714015564318-AddGranularPermissionsTable.ts
+│   │   ├── 1714015596201-AddAppsGroupPermissionsTable.ts
+│   │   ├── 1714015615904-AddGroupAppsTable.ts
+│   │   ├── 1714626631309-CreateSampleDataSourceToExistingWorkspace.ts
+│   │   ├── 1714999026964-AddWorkspace_signupToSource.ts
+│   │   ├── 1716885935683-CreateOrganizationThemes.ts
+│   │   ├── 1716890766240-AddPageSettingsColumnToAppVersionTable.ts
+│   │   ├── 1716921638529-AddIconFieldToPagesTable.ts
+│   │   ├── 1716975639914-AddSourceToOrganizationUsers.ts
+│   │   ├── 1718264886184-EnableAggregationInTooljetDatabase.ts
+│   │   ├── 1718357264489-MoveHiddenFieldInAppVersionsToPageSettings.ts
+│   │   ├── 1718529294184-AddConfigurationColumnToInternalTables.ts
+│   │   ├── 1718704694211-addLastLoggedInToUserSession.ts
+│   │   ├── 1721235304092-AddTooljetDatabaseTenantPasswordColumnToOrganizations.ts
+│   │   ├── 1721310882702-AddOrganizationIdAndUserMetadataInUserDetails.ts
+│   │   ├── 1721716375696-AddDataSourcesGroupPermissionsTable.ts
+│   │   ├── 1721716629902-AddGroupDataSourceTable.ts
+│   │   ├── 1722357506889-AddTypeInOrganizationConstants.ts
+│   │   ├── 1722934934124-AddStatusToWorkflowExecution.ts
+│   │   ├── 1723720691704-AddAutomaticSsoLoginInOrganizations.ts
+│   │   ├── 1724735428510-AddColumnsForPageGroupstoPagesTable.ts
+│   │   ├── 1725283619932-IncreaseLiceseKeySize.ts
+│   │   ├── 1725539906587-CreateOnboardingDetailsTable.ts
+│   │   ├── 1725540058378-AddOnboardingStatusToUsers.ts
+│   │   ├── 1730434774100-AddWorkflowScheduleTable.ts
+│   │   ├── 1736486065698-AddSupportForInstanceLevelWhiteLabels.ts
+│   │   ├── 1737530238311-CreateTablesForToojetAiConversations.ts
+│   │   ├── 1738235725332-AddAutoActivatedToUsers.ts
+│   │   ├── 1738580108540-CreateSelfhostCustomers.ts
+│   │   ├── 1738580526309-CreateSelfhostCustomersAIFeature.ts
+│   │   ├── 1738580661737-CreateOrganizationsAIFeature.ts
+│   │   ├── 1739252958127-AddAIChatPrompts.ts
+│   │   ├── 1740028959193-AddUniqueConstraintToOrganizationId.ts
+│   │   ├── 1740401000000-AddIsDefaultToOrganizations.ts
+│   │   ├── 1742209024000-CreateTableGithubSSH.ts
+│   │   ├── 1742215405123-CreateTableGithubHTTPS.ts
+│   │   ├── 1742215921099-AddGitTypeEnumColumn.ts
+│   │   ├── 1744097765065-UpdateContainerHeaderProperty.ts
+│   │   ├── 1744610362161-CreatePagePermissions.ts
+│   │   ├── 1744611380594-CreatePageUsers.ts
+│   │   ├── 1744630818000-AddEnabledFlagAppGit.ts
+│   │   ├── 1746518671022-CreateTableGitLab.ts
+│   │   ├── 1746520805456-AddResourceDataAudit.ts
+│   │   ├── 1746526306001-AddGitLabEnum.ts
+│   │   ├── 1746705301652-AddWorkflowPermissionsInGroupPermissions.ts
+│   │   ├── 1746705371665-AddWorkflowTypeInResourceType.ts
+│   │   ├── 1746705448788-AddAppTypeInAppsGroupPermissions.ts
+│   │   ├── 1746727457618-CreateUserPersonalAccessTokensTable.ts
+│   │   ├── 1746728003499-AddSessionTypeAndPatIdToUserSessions.ts
+│   │   ├── 1747133448781-AddPluginIdUniqueConstraint.ts
+│   │   ├── 1747759439358-CreateQueryPermissions.ts
+│   │   ├── 1747763331564-CreateQueryUsers.ts
+│   │   ├── 1747923859030-AddEnabledColumnProviderTable.ts
+│   │   ├── 1748501592120-AddSSHBranchColumn.ts
+│   │   ├── 1748509644056-CreateComponentPermissions.ts
+│   │   ├── 1748509665915-CreateComponentUsers.ts
+│   │   ├── 1749766539146-ModifyPagesTableForDifferentNavs.ts
+│   │   ├── 1749810303901-AddPromoteAndReleaseAppColumn.ts
+│   │   ├── 1752624000000-CreateSsoConfigOidcGroupSync.ts
+│   │   ├── 1753084800000-AllowMultipleOIDCConfigs.ts
+│   │   ├── 1754283161900-IncreaseWhiteLabellingLogoFaviconSize.ts
+│   │   ├── 1755863999455-CreateWorkflowBundlesTable.ts
+│   │   ├── 1756984957003-CreateAppHistoryTable.ts
+│   │   ├── 1757059846627-AddWalletTypeToOrganizationAI.ts
+│   │   ├── 1757315333187-AddWalletTypeForSelfhostAI.ts
+│   │   ├── 1757488747540-AddOrganizationAICreditHistory.ts
+│   │   ├── 1757488858256-AddSelfhostAICreditHistory.ts
+│   │   ├── 1758793442012-AddAppVersionEntity.ts
+│   │   ├── 1763533360052-AddEmailOtps.ts
+│   │   ├── 1766135986762-AddWorkflowExecutionIndexes.ts
+│   │   ├── 1766224841342-AddPasswordDomainColumnsToOrganizations.ts
+│   │   ├── LockMigrationsTable1.ts
+│   │   └── LockMigrationsTable2.ts
+│   ├── nest-cli.json
+│   ├── ormconfig.ts
+│   ├── package-lock.json
+│   ├── package.json
+│   ├── scripts/
+│   │   ├── boot.sh
+│   │   ├── ce-preview.sh
+│   │   ├── create-database.ts
+│   │   ├── database-config-utils.ts
+│   │   ├── digitalocean-postbuild.sh
+│   │   ├── drop-database.ts
+│   │   ├── env-utils.ts
+│   │   ├── init-db-boot.sh
+│   │   ├── plugins-install.ts
+│   │   ├── plugins-reload.ts
+│   │   ├── plugins-uninstall.ts
+│   │   ├── populate-sample-db.ts
+│   │   ├── preview.sh
+│   │   ├── rotate-lockbox-key.ts
+│   │   ├── sample-db-config-reset.ts
+│   │   ├── seeds.ts
+│   │   ├── services/
+│   │   └── wait-for-it.sh
+│   ├── src/
+│   │   ├── assets/
+│   │   ├── constants/
+│   │   ├── dto/
+│   │   ├── entities/
+│   │   ├── helpers/
+│   │   ├── mails/
+│   │   ├── main.ts
+│   │   ├── migration-helpers/
+│   │   ├── modules/
+│   │   └── otel/
+│   ├── templates/
+│   │   ├── admin-panel-tooljet-db/
+│   │   ├── advanced-data-visualization/
+│   │   ├── ai-powered-code-explainer/
+│   │   ├── ai-powered-reimbursement-tracker-with-ocr/
+│   │   ├── ai-powered-sql-query-generator/
+│   │   ├── applicant-tracking-system/
+│   │   ├── aws-s3-file-explorer/
+│   │   ├── base64-encoder-decoder/
+│   │   ├── bill-of-materials/
+│   │   ├── bug-tracker/
+│   │   ├── business-intelligence-dashboard-postgresql/
+│   │   ├── colour-palette-generator/
+│   │   ├── course-management-system/
+│   │   ├── customer-support-admin/
+│   │   ├── customer-ticketing-form/
+│   │   ├── digital-asset-management/
+│   │   ├── digital-marketing-campaign-manager/
+│   │   ├── documentation-checklist/
+│   │   ├── employee-directory/
+│   │   ├── employee-feedback/
+│   │   ├── employee-time-tracker/
+│   │   ├── expense-tracker-admin/
+│   │   ├── expense-tracker-portal/
+│   │   ├── finance-underwriting-admin/
+│   │   ├── finance-underwriting-user-form/
+│   │   ├── google-cloud-storage-explorer/
+│   │   ├── image-converter/
+│   │   ├── index.ts
+│   │   ├── inventory-management-airtable/
+│   │   ├── inventory-management-postgresql/
+│   │   ├── inventory-management-tooljet-db/
+│   │   ├── invoice-tracker-and-generator/
+│   │   ├── job-application-tracker/
+│   │   ├── json-formatter/
+│   │   ├── kpi-management-dashboard-airtable/
+│   │   ├── kpi-management-dashboard-tooljet-db/
+│   │   ├── lead-management-system/
+│   │   ├── leave-management-system-for-admins/
+│   │   ├── leave-management-system-for-employees/
+│   │   ├── library-management-system/
+│   │   ├── lorem-ipsum-generator/
+│   │   ├── mortgage-calculator/
+│   │   ├── onboard_sample_app.json
+│   │   ├── personal-finance-tracker/
+│   │   ├── placeholder-image-generator/
+│   │   ├── postgresql-database-explorer/
+│   │   ├── promo-code-management-postgresql/
+│   │   ├── promo-code-management/
+│   │   ├── real-estate-management/
+│   │   ├── release-notes/
+│   │   ├── saas-license-management/
+│   │   ├── sales-analytics-dashboard-snowflake/
+│   │   ├── sales-analytics-dashboard-tooljet-db/
+│   │   ├── sample_app_def.json
+│   │   ├── simple-marketplace-admin/
+│   │   ├── simple-marketplace/
+│   │   ├── sql-query-formatter/
+│   │   ├── strong-password-generator/
+│   │   ├── student-attendance-tracker/
+│   │   ├── student-management-system/
+│   │   ├── supply-chain-management/
+│   │   ├── task-management-system/
+│   │   ├── template-converter.js
+│   │   ├── transportation-logistics-tracker/
+│   │   ├── url-splitter-and-parser/
+│   │   └── utf-8-encoder-and-decoder/
+│   ├── test/
+│   │   ├── __fixtures__/
+│   │   ├── __mocks__/
+│   │   ├── controllers/
+│   │   ├── jest-e2e.json
+│   │   ├── modules/
+│   │   ├── services/
+│   │   ├── test.helper.ts
+│   │   ├── tooljet-db-test.helper.ts
+│   │   └── workflows.helper.ts
+│   ├── tsconfig.build.json
+│   └── tsconfig.json
+├── terraform/
+│   ├── AMI_EC2/
+│   │   ├── ec2.tf
+│   │   ├── output.tf
+│   │   ├── sg.tf
+│   │   ├── terraform.tfvars
+│   │   └── variables.tf
+│   ├── Azure_VM/
+│   │   ├── install_tooljet.sh
+│   │   ├── main.tf
+│   │   ├── output.tf
+│   │   ├── terraform.tfvars
+│   │   └── variables.tf
+│   ├── EC2/
+│   │   ├── datasource.tf
+│   │   ├── ec2.tf
+│   │   ├── install_tooljet.sh
+│   │   ├── output.tf
+│   │   ├── sg.tf
+│   │   ├── terraform.tfvars
+│   │   └── variables.tf
+│   ├── ECS/
+│   │   ├── data.tf
+│   │   ├── main.tf
+│   │   ├── redis.tf
+│   │   ├── terraform.tfvars
+│   │   └── variables.tf
+│   └── GCP/
+│       ├── install_tooljet.sh
+│       ├── instance.tf
+│       ├── outputs.tf
+│       ├── terraform.tfvars
+│       └── variables.tf
+└── update-version.js

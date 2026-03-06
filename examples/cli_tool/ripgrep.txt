@@ -1,0 +1,389 @@
+=====================================
+Repository Analysis: ripgrep
+Type: CLI Tool
+=====================================
+
+--- METADATA ---
+Name: ripgrep
+Description: ripgrep recursively searches directories for a regex pattern while respecting your gitignore
+Language: Rust
+Topics: cli, command-line, command-line-tool, gitignore, grep, recursively-search, regex, ripgrep, rust, search
+Stars: 60576
+License: The Unlicense
+
+--- README ---
+ripgrep (rg)
+------------
+ripgrep is a line-oriented search tool that recursively searches the current
+directory for a regex pattern. By default, ripgrep will respect gitignore rules
+and automatically skip hidden files/directories and binary files. (To disable
+all automatic filtering by default, use `rg -uuu`.) ripgrep has first class
+support on Windows, macOS and Linux, with binary downloads available for [every
+release](https://github.com/BurntSushi/ripgrep/releases). ripgrep is similar to
+other popular search tools like The Silver Searcher, ack and grep.
+
+[![Build status](https://github.com/BurntSushi/ripgrep/workflows/ci/badge.svg)](https://github.com/BurntSushi/ripgrep/actions)
+[![Crates.io](https://img.shields.io/crates/v/ripgrep.svg)](https://crates.io/crates/ripgrep)
+[![Packaging status](https://repology.org/badge/tiny-repos/ripgrep.svg)](https://repology.org/project/ripgrep/badges)
+
+Dual-licensed under MIT or the [UNLICENSE](https://unlicense.org).
+
+
+### CHANGELOG
+
+Please see the [CHANGELOG](CHANGELOG.md) for a release history.
+
+### Documentation quick links
+
+* [Installation](#installation)
+* [User Guide](GUIDE.md)
+* [Frequently Asked Questions](FAQ.md)
+* [Regex syntax](https://docs.rs/regex/1/regex/#syntax)
+* [Configuration files](GUIDE.md#configuration-file)
+* [Shell completions](FAQ.md#complete)
+* [Building](#building)
+* [Translations](#translations)
+
+
+### Screenshot of search results
+
+[![A screenshot of a sample search with ripgrep](https://burntsushi.net/stuff/ripgrep1.png)](https://burntsushi.net/stuff/ripgrep1.png)
+
+
+### Quick examples comparing tools
+
+This example searches the entire
+[Linux kernel source tree](https://github.com/BurntSushi/linux)
+(after running `make defconfig && make -j8`) for `[A-Z]+_SUSPEND`, where
+all matches must be words. Timings were collected on a system with an Intel
+i9-12900K 5.2 GHz.
+
+Please remember that a single benchmark is never enough! See my
+[blog post on ripgrep](https://blog.burntsushi.net/ripgrep/)
+for a very detailed comparison with more benchmarks and analysis.
+
+| Tool | Command | Line count | Time |
+| ---- | ------- | ---------- | ---- |
+| ripgrep (Unicode) | `rg -n -w '[A-Z]+_SUSPEND'` | 536 | **0.082s** (1.00x) |
+| [hypergrep](https://github.com/p-ranav/hypergrep) | `hgrep -n -w '[A-Z]+_SUSPEND'` | 536 | 0.167s (2.04x) |
+| [git grep](https://www.kernel.org/pub/software/scm/git/docs/git-grep.html) | `git grep -P -n -w '[A-Z]+_SUSPEND'` | 536 | 0.273s (3.34x) |
+| [The Silver Searcher](https://github.com/ggreer/the_silver_searcher) | `ag -w '[A-Z]+_SUSPEND'` | 534 | 0.443s (5.43x) |
+| [ugrep](https://github.com/Genivia/ugrep) | `ugrep -r --ignore-files --no-hidden -I -w '[A-Z]+_SUSPEND'` | 536 | 0.639s (7.82x) |
+| [git grep](https://www.kernel.org/pub/software/scm/git/docs/git-grep.html) | `LC_ALL=C git grep -E -n -w '[A-Z]+_SUSPEND'` | 536 | 0.727s (8.91x) |
+| [git grep (Unicode)](https://www.kernel.org/pub/software/scm/git/docs/git-grep.html) | `LC_ALL=en_US.UTF-8 git grep -E -n -w '[A-Z]+_SUSPEND'` | 536 | 2.670s (32.70x) |
+| [ack](https://github.com/beyondgrep/ack3) | `ack -w '[A-Z]+_SUSPEND'` | 2677 | 2.935s (35.94x) |
+
+Here's another benchmark on the same corpus as above that disregards gitignore
+files and searches with a whitelist instead. The corpus is the same as in the
+previous benchmark, and the flags passed to each command ensure that they are
+doing equivalent work:
+
+| Tool | Command | Line count | Time |
+| ---- | ------- | ---------- | ---- |
+| ripgrep | `rg -uuu -tc -n -w '[A-Z]+_SUSPEND'` | 447 | **0.063s** (1.00x) |
+| [ugrep](https://github.com/Genivia/ugrep) | `ugrep -r -n --include='*.c' --include='*.h' -w '[A-Z]+_SUSPEND'` | 447 | 0.607s (9.62x) |
+| [GNU grep](https://www.gnu.org/software/grep/) | `grep -E -r -n --include='*.c' --include='*.h' -w '[A-Z]+_SUSPEND'` | 447 | 0.674s (10.69x) |
+
+Now we'll move to searching on single large file. Here is a straight-up
+comparison between ripgrep, ugrep and GNU grep on a file cached in memory
+(~13GB, [`OpenSubtitles.raw.en.gz`](http://opus.nlpl.eu/download.php?f=OpenSubtitles/v2018/mono/OpenSubtitles.raw.en.gz), decompressed):
+
+| Tool | Command | Line count | Time |
+| ---- | ------- | ---------- | ---- |
+| ripgrep (Unicode) | `rg -w 'Sherlock [A-Z]\w+'` | 7882 | **1.042s** (1.00x) |
+| [ugrep](https://github.com/Genivia/ugrep) | `ugrep -w 'Sherlock [A-Z]\w+'` | 7882 | 1.339s (1.28x) |
+| [GNU grep (Unicode)](https://www.gnu.org/software/grep/) | `LC_ALL=en_US.UTF-8 egrep -w 'Sherlock [A-Z]\w+'` | 7882 | 6.577s (6.31x) |
+
+In the above benchmark, passing the `-n` flag (for showing line numbers)
+increases the times to `1.664s` for ripgrep and `9.484s` for GNU grep. ugrep
+times are unaffected by the presence or absence of `-n`.
+
+Beware of performance cliffs though:
+
+| Tool | Command | Line count | Time |
+| ---- | ------- | ---------- | ---- |
+| ripgrep (Unicode) | `rg -w '[A-Z]\w+ Sherlock [A-Z]\w+'` | 485 | **1.053s** (1.00x) |
+| [GNU grep (Unicode)](https://www.gnu.org/software/grep/) | `LC_ALL=e
+... [TRUNCATED]
+
+--- PACKAGE MANIFEST(S) ---
+
+[Cargo.toml]
+[package]
+name = "ripgrep"
+version = "15.1.0"  #:version
+authors = ["Andrew Gallant <jamslam@gmail.com>"]
+description = """
+ripgrep is a line-oriented search tool that recursively searches the current
+directory for a regex pattern while respecting gitignore rules. ripgrep has
+first class support on Windows, macOS and Linux.
+"""
+documentation = "https://github.com/BurntSushi/ripgrep"
+homepage = "https://github.com/BurntSushi/ripgrep"
+repository = "https://github.com/BurntSushi/ripgrep"
+keywords = ["regex", "grep", "egrep", "search", "pattern"]
+categories = ["command-line-utilities", "text-processing"]
+license = "Unlicense OR MIT"
+exclude = [
+  "HomebrewFormula",
+  "/.github/",
+  "/ci/",
+  "/pkg/brew",
+  "/benchsuite/",
+  "/scripts/",
+  "/crates/fuzz",
+]
+build = "build.rs"
+autotests = false
+edition = "2024"
+rust-version = "1.85"
+
+[[bin]]
+bench = false
+path = "crates/core/main.rs"
+name = "rg"
+
+[[test]]
+name = "integration"
+path = "tests/tests.rs"
+
+[workspace]
+members = [
+  "crates/globset",
+  "crates/grep",
+  "crates/cli",
+  "crates/matcher",
+  "crates/pcre2",
+  "crates/printer",
+  "crates/regex",
+  "crates/searcher",
+  "crates/ignore",
+]
+
+[dependencies]
+anyhow = "1.0.75"
+bstr = "1.7.0"
+grep = { version = "0.4.1", path = "crates/grep" }
+ignore = { version = "0.4.24", path = "crates/ignore" }
+lexopt = "0.3.0"
+log = "0.4.5"
+serde_json = "1.0.23"
+termcolor = "1.1.0"
+textwrap = { version = "0.16.0", default-features = false }
+
+[target.'cfg(all(target_env = "musl", target_pointer_width = "64"))'.dependencies.tikv-jemallocator]
+version = "0.6.0"
+
+[dev-dependencies]
+serde = "1.0.77"
+serde_derive = "1.0.77"
+walkdir = "2"
+
+[features]
+pcre2 = ["grep/pcre2"]
+
+[profile.release]
+debug = 1
+
+[profile.release-lto]
+inherits = "release"
+opt-level = 3
+debug = "none"
+strip = "symbols"
+debug-assertions = false
+overflow-checks = false
+lto = "fat"
+panic = "abort"
+incremental = false
+codegen-units = 1
+
+[profile.deb]
+inherits = "release-lto"
+
+[package.metadata.deb]
+features = ["pcre2"]
+section = "utils"
+assets = [
+  ["target/release/rg", "usr/bin/", "755"],
+  ["COPYING", "usr/share/doc/ripgrep/", "644"],
+  ["LICENSE-MIT", "usr/share/doc/ripgrep/", "644"],
+  ["UNLICENSE", "usr/share/doc/ripgrep/", "644"],
+  ["CHANGELOG.md", "usr/share/doc/ripgrep/CHANGELOG", "644"],
+  ["README.md", "usr/share/doc/ripgrep/README", "644"],
+  ["FAQ.md", "usr/share/doc/ripgrep/FAQ", "644"],
+  # The man page is automatically generated by ripgrep's build process, so
+  # this file isn't actually committed. Instead, to create a dpkg, either
+  # create a deployment/deb directory and copy the man page to it, or use the
+  # 'ci/build-deb' script.
+  ["deployment/deb/rg.1", "usr/share/man/man1/rg.1", "644"],
+  # Similarly for shell completions.
+  ["deployment/deb/rg.bash", "usr/share/bash-completion/completions/rg", "644"],
+  ["deployment/deb/rg.fish", "usr/share/fish/vendor_completions.d/rg.fish", "644"],
+  ["deployment/deb/_rg", "usr/share/zsh/vendor-completions/", "644"],
+]
+extended-description = """\
+... [TRUNCATED]
+
+--- CLI ENTRY POINTS / COMMAND DEFINITIONS ---
+(No CLI entry points found)
+
+--- SHELL COMPLETIONS & MAN PAGES ---
+  crates/core/flags/complete/prelude.fish
+  crates/core/flags/complete/rg.zsh
+  crates/core/flags/doc/template.rg.1
+
+--- DIRECTORY STRUCTURE (depth 2) ---
+├── .cargo/
+│   └── config.toml
+├── .github/
+│   ├── FUNDING.yml
+│   ├── ISSUE_TEMPLATE/
+│   │   ├── bug_report.yml
+│   │   ├── config.yml
+│   │   └── feature_request.md
+│   └── workflows/
+│       ├── ci.yml
+│       └── release.yml
+├── .gitignore
+├── .ignore
+├── CHANGELOG.md
+├── COPYING
+├── Cargo.lock
+├── Cargo.toml
+├── FAQ.md
+├── GUIDE.md
+├── HomebrewFormula
+├── LICENSE-MIT
+├── README.md
+├── RELEASE-CHECKLIST.md
+├── UNLICENSE
+├── benchsuite/
+│   ├── benchsuite
+│   └── runs/
+│       ├── 2016-09-17-ubuntu1604-ec2/
+│       ├── 2016-09-20-ubuntu1604-ec2/
+│       ├── 2016-09-22-archlinux-cheetah/
+│       ├── 2016-12-24-archlinux-cheetah-glibc-jemalloc/
+│       ├── 2016-12-24-archlinux-cheetah-glibc-system/
+│       ├── 2016-12-24-archlinux-cheetah-musl-jemalloc/
+│       ├── 2016-12-24-archlinux-cheetah-musl-system/
+│       ├── 2016-12-24-archlinux-cheetah/
+│       ├── 2016-12-30-archlinux-cheetah/
+│       ├── 2018-01-08-archlinux-cheetah/
+│       ├── 2020-10-14-archlinux-frink/
+│       └── 2022-12-16-archlinux-duff/
+├── build.rs
+├── ci/
+│   ├── sha256-releases
+│   ├── test-complete
+│   ├── ubuntu-install-packages
+│   └── utils.sh
+├── crates/
+│   ├── cli/
+│   │   ├── Cargo.toml
+│   │   ├── LICENSE-MIT
+│   │   ├── README.md
+│   │   ├── UNLICENSE
+│   │   └── src/
+│   ├── core/
+│   │   ├── README.md
+│   │   ├── flags/
+│   │   ├── haystack.rs
+│   │   ├── logger.rs
+│   │   ├── main.rs
+│   │   ├── messages.rs
+│   │   └── search.rs
+│   ├── globset/
+│   │   ├── COPYING
+│   │   ├── Cargo.toml
+│   │   ├── LICENSE-MIT
+│   │   ├── README.md
+│   │   ├── UNLICENSE
+│   │   ├── benches/
+│   │   └── src/
+│   ├── grep/
+│   │   ├── COPYING
+│   │   ├── Cargo.toml
+│   │   ├── LICENSE-MIT
+│   │   ├── README.md
+│   │   ├── UNLICENSE
+│   │   ├── examples/
+│   │   └── src/
+│   ├── ignore/
+│   │   ├── COPYING
+│   │   ├── Cargo.toml
+│   │   ├── LICENSE-MIT
+│   │   ├── README.md
+│   │   ├── UNLICENSE
+│   │   ├── examples/
+│   │   ├── src/
+│   │   └── tests/
+│   ├── matcher/
+│   │   ├── Cargo.toml
+│   │   ├── LICENSE-MIT
+│   │   ├── README.md
+│   │   ├── UNLICENSE
+│   │   ├── src/
+│   │   └── tests/
+│   ├── pcre2/
+│   │   ├── Cargo.toml
+│   │   ├── LICENSE-MIT
+│   │   ├── README.md
+│   │   ├── UNLICENSE
+│   │   └── src/
+│   ├── printer/
+│   │   ├── Cargo.toml
+│   │   ├── LICENSE-MIT
+│   │   ├── README.md
+│   │   ├── UNLICENSE
+│   │   └── src/
+│   ├── regex/
+│   │   ├── Cargo.toml
+│   │   ├── LICENSE-MIT
+│   │   ├── README.md
+│   │   ├── UNLICENSE
+│   │   └── src/
+│   └── searcher/
+│       ├── Cargo.toml
+│       ├── LICENSE-MIT
+│       ├── README.md
+│       ├── UNLICENSE
+│       ├── examples/
+│       └── src/
+├── fuzz/
+│   ├── .gitignore
+│   ├── Cargo.lock
+│   ├── Cargo.toml
+│   ├── README.md
+│   └── fuzz_targets/
+│       └── fuzz_glob.rs
+├── pkg/
+│   ├── brew/
+│   │   └── ripgrep-bin.rb
+│   └── windows/
+│       ├── Manifest.xml
+│       └── README.md
+├── rustfmt.toml
+├── scripts/
+│   └── copy-examples
+└── tests/
+    ├── binary.rs
+    ├── data/
+    │   ├── sherlock-nul.txt
+    │   ├── sherlock.Z
+    │   ├── sherlock.br
+    │   ├── sherlock.bz2
+    │   ├── sherlock.gz
+    │   ├── sherlock.lz4
+    │   ├── sherlock.lzma
+    │   ├── sherlock.xz
+    │   └── sherlock.zst
+    ├── feature.rs
+    ├── hay.rs
+    ├── json.rs
+    ├── macros.rs
+    ├── misc.rs
+    ├── multiline.rs
+    ├── regression.rs
+    ├── tests.rs
+    └── util.rs

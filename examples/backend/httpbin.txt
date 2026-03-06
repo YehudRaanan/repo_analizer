@@ -1,0 +1,256 @@
+=====================================
+REPO CLASSIFICATION SIGNALS
+=====================================
+
+--- METADATA ---
+Name: httpbin
+Description: HTTP Request & Response Service, written in Python + Flask.
+Primary language: Python
+Topics: api, http, http-server, httpbin, json, python, service, testing
+
+--- ROOT FILES (signal matches) ---
+Web App:     (none)
+Backend:     Procfile
+Library:     setup.cfg, setup.py
+CLI:         (none)
+Data/ML:     (none)
+Infra:       (none)
+
+--- TOP-LEVEL DIRECTORIES (signal matches) ---
+Web App:     (none)
+Backend:     (none)
+Library:     (none)
+CLI:         (none)
+Data/ML:     (none)
+Infra:       (none)
+
+--- ALL TOP-LEVEL DIRECTORIES ---
+httpbin
+
+--- TYPE-SPECIFIC EXTENSION COUNTS ---
+Web App extensions (.tsx, .jsx, .vue, .svelte): 0
+Data/ML extensions (.ipynb): 0
+Infra extensions (.tf, .hcl): 0
+Backend extensions (.proto, .graphql): 0
+
+--- TOP FILE EXTENSIONS (by count) ---
+  .py: 8
+  .html: 7
+  .yml: 2
+  .json: 2
+  .txt: 2
+  .dockerignore: 1
+  .gitignore: 1
+  .in: 1
+  .lock: 1
+  .md: 1
+  .ico: 1
+  .jpg: 1
+  .png: 1
+  .svg: 1
+  .webp: 1
+
+--- BOOLEAN PATTERN CHECKS ---
+  pages or app dir: no
+  components dir: no
+  cmd or bin dir: no
+  src bin: no
+  run train scripts: no
+  ipynb files: no
+  model training files: no
+  tf files: no
+  k8s manifests: no
+  ansible playbooks: no
+  route controller dirs: no
+  db migrations: no
+  openapi spec: no
+  src and tests: no
+  examples dir: no
+  dockerfile: yes
+  ci cd: yes
+  completions or manpages: no
+
+
+[get_dependencies('')]
+(no dependency/manifest files found at repo root)
+
+---
+
+[get_directory('')]
+Contents of /(root):
+  [dir] httpbin
+  [file] .dockerignore
+  [file] .gitignore
+  [file] .travis.yml
+  [file] AUTHORS
+  [file] Dockerfile
+  [file] LICENSE
+  [file] MANIFEST.in
+  [file] Pipfile
+  [file] Pipfile.lock
+  [file] Procfile
+  [file] README.md
+  [file] app.json
+  [file] docker-compose.yml
+  [file] now.json
+  [file] runtime.txt
+  [file] setup.cfg
+  [file] setup.py
+  [file] test_httpbin.py
+  [file] tox.ini
+
+---
+
+[get_directory('httpbin')]
+Contents of /httpbin:
+  [dir] static
+  [dir] templates
+  [file] VERSION
+  [file] __init__.py
+  [file] core.py
+  [file] filters.py
+  [file] helpers.py
+  [file] structures.py
+  [file] utils.py
+
+---
+
+[get_file('httpbin/core.py')]
+# -*- coding: utf-8 -*-
+
+"""
+httpbin.core
+~~~~~~~~~~~~
+
+This module provides the core HttpBin experience.
+"""
+
+import base64
+import json
+import os
+import random
+import time
+import uuid
+import argparse
+
+from flask import (
+    Flask,
+    Response,
+    request,
+    render_template,
+    redirect,
+    jsonify as flask_jsonify,
+    make_response,
+    url_for,
+    abort,
+)
+from six.moves import range as xrange
+from werkzeug.datastructures import WWWAuthenticate, MultiDict
+from werkzeug.http import http_date
+from werkzeug.wrappers import BaseResponse
+from werkzeug.http import parse_authorization_header
+from flasgger import Swagger, NO_SANITIZER
+
+from . import filters
+from .helpers import (
+    get_headers,
+    status_code,
+    get_dict,
+    get_request_range,
+    check_basic_auth,
+    check_digest_auth,
+    secure_cookie,
+    H,
+    ROBOT_TXT,
+    ANGRY_ASCII,
+    parse_multi_value_header,
+    next_stale_after_value,
+    digest_challenge_response,
+)
+from .utils import weighted_choice
+from .structures import CaseInsensitiveDict
+
+with open(
+    os.path.join(os.path.realpath(os.path.dirname(__file__)), "VERSION")
+) as version_file:
+    version = version_file.read().strip()
+
+ENV_COOKIES = (
+    "_gauges_unique",
+    "_gauges_unique_year",
+    "_gauges_unique_month",
+    "_gauges_unique_day",
+    "_gauges_unique_hour",
+    "__utmz",
+    "__utma",
+    "__utmb",
+)
+
+
+def jsonify(*args, **kwargs):
+    response = flask_jsonify(*args, **kwargs)
+    if not response.data.endswith(b"\n"):
+        response.data += b"\n"
+    return response
+
+
+# Prevent WSGI from correcting the casing of the Location header
+BaseResponse.autocorrect_location_header = False
+
+# Find the correct template folder when running from a different location
+tmpl_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), "templates")
+
+app = Flask(__name__, template_folder=tmpl_dir)
+app.debug = bool(os.environ.get("DEBUG"))
+app.config["JSONIFY_PRETTYPRINT_REGULAR"] = True
+
+app.add_template_global("HTTPBIN_TRACKING" in os.environ, name="tracking_enabled")
+
+app.config["SWAGGER"] = {"title": "httpbin.org", "uiversion": 3}
+
+template = {
+    "swagger": "2.0",
+    "info": {
+        "title": "httpbin.org",
+        "description": (
+            "A simple HTTP Request & Response Service."
+            "<br/> <br/> <b>Run locally: </b> <code>$ docker run -p 80:80 kennethreitz/httpbin</code>"
+        ),
+        "contact": {
+            "responsibleOrganization": "Kenneth Reitz",
+            "responsibleDeveloper": "Kenneth Reitz",
+            "email": "me@kennethreitz.org",
+            "url": "https://kennethreitz.org",
+        },
+        # "termsOfService": "http://me.com/terms",
+        "version": version,
+    },
+    "host": "httpbin.org",  # overrides localhost:5000
+    "basePath": "/",  # base bash for blueprint registration
+    "schemes": ["https"],
+    "protocol": "https",
+    "tags": [
+        {
+            "name": "HTTP Methods",
+            "description": "Testing different HTTP verbs",
+            # 'externalDocs': {'description': 'Learn more', 'url': 'https://www.w3.org/Protocols/rfc2616/rfc2616-sec9.html'}
+        },
+        {"name": "Auth", "description": "Auth methods"},
+        {
+            "name": "Status codes",
+            "description": "Generates responses with given status code",
+        },
+        {"name": "Request inspection", "description": "Inspect the request data"},
+        {
+            "name": "Response inspection",
+            "description": "Inspect the response data like caching and headers",
+        },
+        {
+            "name": "Response formats",
+            "description": "Returns responses in different data formats",
+        },
+        {"name": "Dynamic data", "description": "Generates random and dynamic data"},
+        {"name": "Cookies", "description": "Creates, reads and deletes Cookies"},
+        {"name": "Images", "description": "Returns different image formats"},
+        {"name": "Redirects", "description": "Returns different redirect response
+... [TRUNCATED — showing first 4000 chars]

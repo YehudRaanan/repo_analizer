@@ -1,0 +1,1336 @@
+=====================================
+Repository Analysis: spark
+Type: Data / ML / AI Project
+=====================================
+
+--- METADATA ---
+Name: spark
+Description: Apache Spark - A unified analytics engine for large-scale data processing
+Language: Scala
+Topics: big-data, java, jdbc, python, r, scala, spark, sql
+Stars: 42932
+License: Apache License 2.0
+
+--- README ---
+# Apache Spark
+
+Spark is a unified analytics engine for large-scale data processing. It provides
+high-level APIs in Scala, Java, Python, and R (Deprecated), and an optimized engine that
+supports general computation graphs for data analysis. It also supports a
+rich set of higher-level tools including Spark SQL for SQL and DataFrames,
+pandas API on Spark for pandas workloads, MLlib for machine learning, GraphX for graph processing,
+and Structured Streaming for stream processing.
+
+- Official version: <https://spark.apache.org/>
+- Development version: <https://apache.github.io/spark/>
+
+[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
+[![Maven Central](https://img.shields.io/maven-central/v/org.apache.spark/spark-core_2.13.svg?filter=!*preview*)](https://search.maven.org/search?q=g:org.apache.spark)
+[![Java](https://img.shields.io/badge/Java-17+-orange.svg)](https://adoptium.net/temurin/releases/?version=17)
+[![GitHub Actions Build](https://github.com/apache/spark/actions/workflows/build_main.yml/badge.svg)](https://github.com/apache/spark/actions/workflows/build_main.yml)
+[![PySpark Coverage](https://codecov.io/gh/apache/spark/branch/master/graph/badge.svg)](https://codecov.io/gh/apache/spark)
+[![PyPI Downloads](https://static.pepy.tech/personalized-badge/pyspark?period=month&units=international_system&left_color=black&right_color=orange&left_text=PyPI%20downloads)](https://pypi.org/project/pyspark/)
+
+
+## Online Documentation
+
+You can find the latest Spark documentation, including a programming
+guide, on the [project web page](https://spark.apache.org/documentation.html).
+This README file only contains basic setup instructions.
+
+## Build Pipeline Status
+
+| Branch     | Status                                                                                                                                                                                                          |
+|------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| master     | [![GitHub Actions Build](https://github.com/apache/spark/actions/workflows/release.yml/badge.svg)](https://github.com/apache/spark/actions/workflows/release.yml)                                               |
+|            | [![GitHub Actions Build](https://github.com/apache/spark/actions/workflows/publish_snapshot.yml/badge.svg)](https://github.com/apache/spark/actions/workflows/publish_snapshot.yml)                             |
+|            | [![GitHub Actions Build](https://github.com/apache/spark/actions/workflows/build_infra_images_cache.yml/badge.svg)](https://github.com/apache/spark/actions/workflows/build_infra_images_cache.yml)             |
+|            | [![GitHub Actions Build](https://github.com/apache/spark/actions/workflows/build_java21.yml/badge.svg)](https://github.com/apache/spark/actions/workflows/build_java21.yml)                                     |
+|            | [![GitHub Actions Build](https://github.com/apache/spark/actions/workflows/build_java25.yml/badge.svg)](https://github.com/apache/spark/actions/workflows/build_java25.yml)                                     |
+|            | [![GitHub Actions Build](https://github.com/apache/spark/actions/workflows/build_non_ansi.yml/badge.svg)](https://github.com/apache/spark/actions/workflows/build_non_ansi.yml)                                 |
+|            | [![GitHub Actions Build](https://github.com/apache/spark/actions/workflows/build_uds.yml/badge.svg)](https://github.com/apache/spark/actions/workflows/build_uds.yml)                                           |
+|            | [![GitHub Actions Build](https://github.com/apache/spark/actions/workflows/build_rockdb_as_ui_backend.yml/badge.svg)](https://github.com/apache/spark/actions/workflows/build_rockdb_as_ui_backend.yml)         |
+|            | [![GitHub Actions Build](https://github.com/apache/spark/actions/workflows/build_maven.yml/badge.svg)](https://github.com/apache/spark/actions/workflows/build_maven.yml)                                       |
+|            | [![GitHub Actions Build](https://github.com/apache/spark/actions/workflows/build_maven_java21.yml/badge.svg)](https://github.com/apache/spark/actions/workflows/build_maven_java21.yml)                         |
+|            | [![GitHub Actions Build](https://github.com/apache/spark/actions/workflows/build_maven_java25.yml/badge.svg)](https://github.com/apache/spark/actions/workflows/build_maven_java25.yml)                         |
+|            | [![GitHub Actions Build](https://github.com/apache/spark/actions/workflows/build_maven_java21_macos26.yml/badge.svg)](https://github.com/apache/spark/actions/workflows/build_maven_java21_macos26.yml)         |
+|            | [![GitHub Actions Build](https://github.com/apache/spark/actions/workflows/build_maven_j
+... [TRUNCATED]
+
+--- PACKAGE MANIFEST(S) ---
+
+[pyproject.toml]
+#
+# Licensed to the Apache Software Foundation (ASF) under one or more
+# contributor license agreements.  See the NOTICE file distributed with
+# this work for additional information regarding copyright ownership.
+# The ASF licenses this file to You under the Apache License, Version 2.0
+# (the "License"); you may not use this file except in compliance with
+# the License.  You may obtain a copy of the License at
+#
+#    http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#
+
+[tool.ruff]
+exclude = [
+    "*/target/*",
+    "**/*.ipynb",
+    "docs/.local_ruby_bundle/",
+    "*python/pyspark/cloudpickle/*.py",
+    "*python/pyspark/ml/deepspeed/tests/*.py",
+    "*python/docs/build/*",
+    "*python/docs/source/conf.py",
+    "*python/.eggs/*",
+    "dist/*",
+    ".git/*",
+    "*python/pyspark/sql/pandas/functions.pyi",
+    "*python/pyspark/sql/column.pyi",
+    "*python/pyspark/worker.pyi",
+    "*python/pyspark/java_gateway.pyi",
+    "*python/pyspark/sql/connect/proto/*",
+    "*python/pyspark/sql/streaming/proto/*",
+    "*venv*/*",
+]
+
+[tool.ruff.lint]
+extend-select = [
+    "G010",  # logging-warn
+    # ambiguous unicode character
+    "RUF001",  # string
+    "RUF002",  # docstring
+    "RUF003",  # comment
+    # ambiguous unicode character end
+    "RUF100",  # unused-noqa
+]
+ignore = [
+    "E402", # Module top level import is disabled for optional import check, etc.
+    # TODO
+    "E721", # Use isinstance for type comparison, too many for now.
+    "E741", # Ambiguous variables like l, I or O.
+]
+
+[tool.ruff.lint.per-file-ignores]
+    # E501 is ignored as shared.py is auto-generated.
+    "python/pyspark/ml/param/shared.py" = ["E501"]
+    # E501 is ignored as we should keep the json string format in error_classes.py.
+    "python/pyspark/errors/error_classes.py" = ["E501"]
+    # Examples contain some unused variables.
+    "examples/src/main/python/sql/datasource.py" = ["F841"]
+
+[tool.black]
+# When changing the version, we have to update
+# GitHub workflow version and dev/reformat-python
+required-version = "23.12.1"
+line-length = 100
+target-version = ['py39']
+include = '\.pyi?$'
+extend-exclude = 'cloudpickle|error_classes.py'
+
+
+--- REQUIREMENTS FILES ---
+
+[dev/requirements.txt]
+# PySpark dependencies (required)
+py4j>=0.10.9.9
+
+# PySpark dependencies (optional)
+numpy>=1.22
+pyarrow>=18.0.0
+six==1.16.0
+pandas>=2.2.0
+scipy>=1.8.0
+plotly<6.0.0
+mlflow>=2.3.1
+scikit-learn
+matplotlib
+memory-profiler>=0.61.0
+pyyaml>=3.11
+
+# PySpark test dependencies
+unittest-xml-reporting
+openpyxl
+
+# PySpark test dependencies (optional)
+asv
+coverage
+tabulate
+
+# Linter
+ruff==0.14.8
+mypy==1.19.1
+pytest-mypy-plugins==3.2.0
+# See SPARK-38680.
+pandas-stubs>=2.2.0
+scipy-stubs;
+types-PyYAML
+
+# Documentation (SQL)
+mkdocs
+
+# Documentation (Python)
+pydata_sphinx_theme>=0.13
+ipython
+nbsphinx
+numpydoc
+jinja2
+sphinx==4.5.0
+# With sphinx 4.5.0, we need to set the upperbound version of sphinxcontrib*, it should be removed after upgrading sphinx>=5
+sphinxcontrib-applehelp<=1.0.4
+sphinxcontrib-devhelp<=1.0.2
+sphinxcontrib-htmlhelp<=2.0.1
+sphinxcontrib-jsmath<=1.0.1
+sphinxcontrib-qthelp<=1.0.3
+sphinxcontrib-serializinghtml<=1.1.5
+sphinx-plotly-directive
+sphinx-copybutton
+docutils<0.18.0
+markupsafe
+
+# Development scripts
+jira>=3.5.2
+PyGithub
+
+# pandas API on Spark Code formatter.
+black==23.12.1
+py
+
+# Spark Connect (required)
+grpcio>=1.76.0
+grpcio-status>=1.76.0
+googleapis-common-protos>=1.71.0
+protobuf==6.33.5
+zstandard>=0.25.0
+
+# Spark Connect python proto generation plugin (optional)
+mypy-protobuf==3.3.0
+googleapis-common-protos-stubs==2.2.0
+grpc-stubs==1.24.11
+
+# Debug for Spark and Spark Connect
+graphviz==0.20.3
+flameprof==0.4
+viztracer
+debugpy
+pystack>=1.6.0; sys_platform=='linux'
+psutil
+
+# TorchDistributor dependencies
+torch
+torchvision
+torcheval
+
+# DeepspeedTorchDistributor dependencies
+deepspeed; sys_platform != 'darwin'
+
+
+--- ML CONFIG FILES ---
+(No ML config files found)
+
+--- JUPYTER NOTEBOOKS ---
+  python/docs/source/getting_started/quickstart_connect.ipynb
+  python/docs/source/getting_started/quickstart_df.ipynb
+  python/docs/source/getting_started/quickstart_ps.ipynb
+  python/docs/source/getting_started/testing_pyspark.ipynb
+  python/docs/source/user_guide/ansi_migration_guide.ipynb
+  python/docs/source/user_guide/bugbusting.ipynb
+  python/docs/source/user_guide/dataframes.ipynb
+  python/docs/source/user_guide/dataprep.ipynb
+  python/docs/source/user_guide/loadandbehold.ipynb
+  python/docs/source/user_guide/sql.ipynb
+
+--- MODEL / TRAINING FILES ---
+  examples/src/main/python/ml/train_validation_split.py
+  examples/src/main/python/mllib/gaussian_mixture_model.py
+  python/benchmarks/bench_eval_type.py
+  python/pyspark/ml/model_cache.py
+  python/pyspark/sql/worker/commit_data_source_write.py
+  python/pyspark/sql/worker/create_data_source.py
+  python/pyspark/sql/worker/data_source_pushdown_filters.py
+  python/pyspark/sql/worker/lookup_data_sources.py
+  python/pyspark/sql/worker/plan_data_source_read.py
+  python/pyspark/sql/worker/write_into_data_source.py
+
+--- DIRECTORY STRUCTURE (depth 2) ---
+├── .asf.yaml
+├── .gitattributes
+├── .github/
+│   ├── PULL_REQUEST_TEMPLATE
+│   └── workflows/
+│       ├── benchmark.yml
+│       ├── build_and_test.yml
+│       ├── build_branch35.yml
+│       ├── build_branch35_python.yml
+│       ├── build_branch40.yml
+│       ├── build_branch40_java21.yml
+│       ├── build_branch40_maven.yml
+│       ├── build_branch40_maven_java21.yml
+│       ├── build_branch40_non_ansi.yml
+│       ├── build_branch40_python.yml
+│       ├── build_branch40_python_pypy3.10.yml
+│       ├── build_branch41.yml
+│       ├── build_branch41_java21.yml
+│       ├── build_branch41_maven.yml
+│       ├── build_branch41_maven_java21.yml
+│       ├── build_branch41_non_ansi.yml
+│       ├── build_branch41_python.yml
+│       ├── build_branch41_python_3.14.yml
+│       ├── build_branch41_python_pypy3.10.yml
+│       ├── build_coverage.yml
+│       ├── build_infra_images_cache.yml
+│       ├── build_java21.yml
+│       ├── build_java25.yml
+│       ├── build_main.yml
+│       ├── build_maven.yml
+│       ├── build_maven_java21.yml
+│       ├── build_maven_java21_arm.yml
+│       ├── build_maven_java21_macos26.yml
+│       ├── build_maven_java25.yml
+│       ├── build_non_ansi.yml
+│       ├── build_python_3.10.yml
+│       ├── build_python_3.11.yml
+│       ├── build_python_3.12_arm.yml
+│       ├── build_python_3.12_classic_only.yml
+│       ├── build_python_3.12_macos26.yml
+│       ├── build_python_3.12_pandas_3.yml
+│       ├── build_python_3.13.yml
+│       ├── build_python_3.14.yml
+│       ├── build_python_3.14_nogil.yml
+│       ├── build_python_connect.yml
+│       ├── build_python_connect40.yml
+│       ├── build_python_minimum.yml
+│       ├── build_python_ps_minimum.yml
+│       ├── build_python_pypy3.10.yml
+│       ├── build_python_pypy3.11.yml
+│       ├── build_rockdb_as_ui_backend.yml
+│       ├── build_sparkr_window.yml
+│       ├── build_uds.yml
+│       ├── images/
+│       ├── maven_test.yml
+│       ├── notify_test_workflow.yml
+│       ├── pages.yml
+│       ├── publish_snapshot.yml
+│       ├── python_hosted_runner_test.yml
+│       ├── release.yml
+│       ├── stale.yml
+│       ├── test_report.yml
+│       └── update_build_status.yml
+├── .gitignore
+├── .mvn/
+│   ├── extensions.xml
+│   ├── jvm.config
+│   └── maven.config
+├── .nojekyll
+├── .pre-commit-config.yaml
+├── .sbtopts
+├── AGENTS.md
+├── CONTRIBUTING.md
+├── LICENSE
+├── LICENSE-binary
+├── NOTICE
+├── NOTICE-binary
+├── R/
+│   ├── .gitignore
+│   ├── CRAN_RELEASE.md
+│   ├── DOCUMENTATION.md
+│   ├── WINDOWS.md
+│   ├── check-cran.sh
+│   ├── create-docs.sh
+│   ├── create-rd.sh
+│   ├── find-r.sh
+│   ├── install-dev.bat
+│   ├── install-dev.sh
+│   ├── install-source-package.sh
+│   ├── log4j2.properties
+│   ├── pkg/
+│   │   ├── .Rbuildignore
+│   │   ├── .gitignore
+│   │   ├── .lintr
+│   │   ├── DESCRIPTION
+│   │   ├── NAMESPACE
+│   │   ├── R/
+│   │   ├── README.md
+│   │   ├── inst/
+│   │   ├── pkgdown/
+│   │   ├── src-native/
+│   │   ├── tests/
+│   │   └── vignettes/
+│   └── run-tests.sh
+├── README.md
+├── assembly/
+│   └── pom.xml
+├── bin/
+│   ├── beeline
+│   ├── beeline.cmd
+│   ├── docker-image-tool.sh
+│   ├── find-spark-home
+│   ├── find-spark-home.cmd
+│   ├── load-spark-env.cmd
+│   ├── load-spark-env.sh
+│   ├── pyspark
+│   ├── pyspark.cmd
+│   ├── pyspark2.cmd
+│   ├── run-example
+│   ├── run-example.cmd
+│   ├── spark-class
+│   ├── spark-class.cmd
+│   ├── spark-class2.cmd
+│   ├── spark-connect-shell
+│   ├── spark-pipelines
+│   ├── spark-shell
+│   ├── spark-shell.cmd
+│   ├── spark-shell2.cmd
+│   ├── spark-sql
+│   ├── spark-sql.cmd
+│   ├── spark-sql2.cmd
+│   ├── spark-submit
+│   ├── spark-submit.cmd
+│   ├── spark-submit2.cmd
+│   ├── sparkR
+│   ├── sparkR.cmd
+│   └── sparkR2.cmd
+├── binder/
+│   ├── Dockerfile
+│   └── postBuild
+├── build/
+│   ├── mvn
+│   ├── sbt
+│   ├── sbt-launch-lib.bash
+│   ├── spark-build-info
+│   ├── spark-build-info.ps1
+│   └── util.sh
+├── common/
+│   ├── kvstore/
+│   │   ├── pom.xml
+│   │   └── src/
+│   ├── network-common/
+│   │   ├── pom.xml
+│   │   └── src/
+│   ├── network-shuffle/
+│   │   ├── pom.xml
+│   │   └── src/
+│   ├── network-yarn/
+│   │   ├── pom.xml
+│   │   └── src/
+│   ├── sketch/
+│   │   ├── pom.xml
+│   │   └── src/
+│   ├── tags/
+│   │   ├── README.md
+│   │   ├── pom.xml
+│   │   └── src/
+│   ├── unsafe/
+│   │   ├── pom.xml
+│   │   └── src/
+│   ├── utils-java/
+│   │   ├── pom.xml
+│   │   └── src/
+│   ├── utils/
+│   │   ├── pom.xml
+│   │   └── src/
+│   └── variant/
+│       ├── README.md
+│       ├── pom.xml
+│       └── src/
+├── conf/
+│   ├── fairscheduler.xml.template
+│   ├── log4j2-json-layout.properties.template
+│   ├── log4j2.properties.template
+│   ├── metrics.properties.template
+│   ├── spark-defaults.conf.template
+│   ├── spark-env.sh.template
+│   └── workers.template
+├── connector/
+│   ├── avro/
+│   │   ├── benchmarks/
+│   │   ├── pom.xml
+│   │   └── src/
+│   ├── docker-integration-tests/
+│   │   ├── README.md
+│   │   ├── pom.xml
+│   │   └── src/
+│   ├── kafka-0-10-assembly/
+│   │   └── pom.xml
+│   ├── kafka-0-10-sql/
+│   │   ├── pom.xml
+│   │   └── src/
+│   ├── kafka-0-10-token-provider/
+│   │   ├── pom.xml
+│   │   └── src/
+│   ├── kafka-0-10/
+│   │   ├── pom.xml
+│   │   └── src/
+│   ├── kinesis-asl-assembly/
+│   │   └── pom.xml
+│   ├── kinesis-asl/
+│   │   ├── pom.xml
+│   │   └── src/
+│   ├── profiler/
+│   │   ├── README.md
+│   │   ├── pom.xml
+│   │   └── src/
+│   ├── protobuf/
+│   │   ├── README.md
+│   │   ├── pom.xml
+│   │   └── src/
+│   └── spark-ganglia-lgpl/
+│       ├── pom.xml
+│       └── src/
+├── core/
+│   ├── benchmarks/
+│   │   ├── ChecksumBenchmark-jdk21-results.txt
+│   │   ├── ChecksumBenchmark-jdk25-results.txt
+│   │   ├── ChecksumBenchmark-results.txt
+│   │   ├── CoalescedRDDBenchmark-jdk21-results.txt
+│   │   ├── CoalescedRDDBenchmark-jdk25-results.txt
+│   │   ├── CoalescedRDDBenchmark-results.txt
+│   │   ├── KryoBenchmark-jdk21-results.txt
+│   │   ├── KryoBenchmark-jdk25-results.txt
+│   │   ├── KryoBenchmark-results.txt
+│   │   ├── KryoIteratorBenchmark-jdk21-results.txt
+│   │   ├── KryoIteratorBenchmark-jdk25-results.txt
+│   │   ├── KryoIteratorBenchmark-results.txt
+│   │   ├── KryoSerializerBenchmark-jdk21-results.txt
+│   │   ├── KryoSerializerBenchmark-jdk25-results.txt
+│   │   ├── KryoSerializerBenchmark-results.txt
+│   │   ├── LZ4TPCDSDataBenchmark-jdk21-results.txt
+│   │   ├── LZ4TPCDSDataBenchmark-jdk25-results.txt
+│   │   ├── LZ4TPCDSDataBenchmark-results.txt
+│   │   ├── LZFBenchmark-jdk21-results.txt
+│   │   ├── LZFBenchmark-jdk25-results.txt
+│   │   ├── LZFBenchmark-results.txt
+│   │   ├── MapStatusesConvertBenchmark-jdk21-results.txt
+│   │   ├── MapStatusesConvertBenchmark-jdk25-results.txt
+│   │   ├── MapStatusesConvertBenchmark-results.txt
+│   │   ├── MapStatusesSerDeserBenchmark-jdk21-results.txt
+│   │   ├── MapStatusesSerDeserBenchmark-jdk25-results.txt
+│   │   ├── MapStatusesSerDeserBenchmark-results.txt
+│   │   ├── PercentileHeapBenchmark-jdk21-results.txt
+│   │   ├── PercentileHeapBenchmark-jdk25-results.txt
+│   │   ├── PercentileHeapBenchmark-results.txt
+│   │   ├── PersistenceEngineBenchmark-jdk21-results.txt
+│   │   ├── PersistenceEngineBenchmark-jdk25-results.txt
+│   │   ├── PersistenceEngineBenchmark-results.txt
+│   │   ├── PlatformBenchmark-jdk21-results.txt
+│   │   ├── PlatformBenchmark-jdk25-results.txt
+│   │   ├── PlatformBenchmark-results.txt
+│   │   ├── PropertiesCloneBenchmark-jdk21-results.txt
+│   │   ├── PropertiesCloneBenchmark-jdk25-results.txt
+│   │   ├── PropertiesCloneBenchmark-results.txt
+│   │   ├── RocksDBBenchmark-jdk21-results.txt
+│   │   ├── RocksDBBenchmark-jdk25-results.txt
+│   │   ├── RocksDBBenchmark-results.txt
+│   │   ├── SorterBenchmark-jdk21-results.txt
+│   │   ├── SorterBenchmark-jdk25-results.txt
+│   │   ├── SorterBenchmark-results.txt
+│   │   ├── XORShiftRandomBenchmark-jdk21-results.txt
+│   │   ├── XORShiftRandomBenchmark-jdk25-results.txt
+│   │   ├── XORShiftRandomBenchmark-results.txt
+│   │   ├── ZStandardBenchmark-jdk21-results.txt
+│   │   ├── ZStandardBenchmark-jdk25-results.txt
+│   │   ├── ZStandardBenchmark-results.txt
+│   │   ├── ZStandardTPCDSDataBenchmark-jdk21-results.txt
+│   │   ├── ZStandardTPCDSDataBenchmark-jdk25-results.txt
+│   │   └── ZStandardTPCDSDataBenchmark-results.txt
+│   ├── pom.xml
+│   └── src/
+│       ├── main/
+│       └── test/
+├── data/
+│   ├── artifact-tests/
+│   │   ├── crc/
+│   │   ├── junitLargeJar.jar
+│   │   └── smallJar.jar
+│   ├── graphx/
+│   │   ├── followers.txt
+│   │   └── users.txt
+│   ├── mllib/
+│   │   ├── als/
+│   │   ├── gmm_data.txt
+│   │   ├── images/
+│   │   ├── kmeans_data.txt
+│   │   ├── pagerank_data.txt
+│   │   ├── pic_data.txt
+│   │   ├── ridge-data/
+│   │   ├── sample_binary_classification_data.txt
+│   │   ├── sample_fpgrowth.txt
+│   │   ├── sample_isotonic_regression_libsvm_data.txt
+│   │   ├── sample_kmeans_data.txt
+│   │   ├── sample_lda_data.txt
+│   │   ├── sample_lda_libsvm_data.txt
+│   │   ├── sample_libsvm_data.txt
+│   │   ├── sample_linear_regression_data.txt
+│   │   ├── sample_movielens_data.txt
+│   │   ├── sample_multiclass_classification_data.txt
+│   │   ├── sample_svm_data.txt
+│   │   └── streaming_kmeans_data_test.txt
+│   └── streaming/
+│       └── AFINN-111.txt
+├── dev/
+│   ├── .rat-excludes
+│   ├── .scalafmt.conf
+│   ├── README.md
+│   ├── change-scala-version.sh
+│   ├── check-license
+│   ├── check-protos.py
+│   ├── check_pyspark_custom_errors.py
+│   ├── checkstyle-suppressions.xml
+│   ├── checkstyle.xml
+│   ├── connect-gen-protos.sh
+│   ├── connect-jvm-client-mima-check
+│   ├── create-release/
+│   │   ├── announce.tmpl
+│   │   ├── do-release-docker.sh
+│   │   ├── do-release.sh
+│   │   ├── generate-contributors.py
+│   │   ├── generate-llms-txt.py
+│   │   ├── release-build.sh
+│   │   ├── release-tag.sh
+│   │   ├── release-util.sh
+│   │   ├── releaseutils.py
+│   │   ├── spark-rm/
+│   │   └── vote.tmpl
+│   ├── create_spark_jira.py
+│   ├── deps/
+│   │   └── spark-deps-hadoop-3-hive-2.3
+│   ├── eslint.js
+│   ├── free_disk_space
+│   ├── free_disk_space_container
+│   ├── gen-protos.sh
+│   ├── infra/
+│   │   └── Dockerfile
+│   ├── is-changed.py
+│   ├── java-file-header
+│   ├── lint-java
+│   ├── lint-js
+│   ├── lint-python
+│   ├── lint-r
+│   ├── lint-r.R
+│   ├── lint-scala
+│   ├── make-distribution.sh
+│   ├── merge_spark_pr.py
+│   ├── mima
+│   ├── package-lock.json
+│   ├── package.json
+│   ├── pip-sanity-check.py
+│   ├── protobuf-breaking-changes-check.sh
+│   ├── py-cleanup
+│   ├── reformat-python
+│   ├── requirements.txt
+│   ├── run-pip-tests
+│   ├── run-tests
+│   ├── run-tests.py
+│   ├── sbt-checkstyle
+│   ├── scalafmt
+│   ├── scalastyle
+│   ├── spark-test-image-util/
+│   │   └── docs/
+│   ├── spark-test-image/
+│   │   ├── docs/
+│   │   ├── lint/
+│   │   ├── pypy-310/
+│   │   ├── pypy-311/
+│   │   ├── python-310/
+│   │   ├── python-311/
+│   │   ├── python-312-classic-only/
+│   │   ├── python-312-pandas-3/
+│   │   ├── python-312/
+│   │   ├── python-313/
+│   │   ├── python-314-nogil/
+│   │   ├── python-314/
+│   │   ├── python-minimum/
+│   │   ├── python-ps-minimum/
+│   │   └── sparkr/
+│   ├── sparktestsupport/
+│   │   ├── __init__.py
+│   │   ├── modules.py
+│   │   ├── shellutils.py
+│   │   ├── toposort.py
+│   │   └── utils.py
+│   ├── streaming-gen-protos.sh
+│   ├── structured_logging_style.py
+│   ├── test-classes.txt
+│   ├── test-dependencies.sh
+│   ├── test-jars.txt
+│   └── tox.ini
+├── docs/
+│   ├── .bundle/
+│   │   └── config
+│   ├── .gitignore
+│   ├── 404.md
+│   ├── Gemfile
+│   ├── Gemfile.lock
+│   ├── README.md
+│   ├── _config.yml
+│   ├── _data/
+│   │   ├── menu-migration.yaml
+│   │   ├── menu-ml.yaml
+│   │   ├── menu-mllib.yaml
+│   │   ├── menu-sql.yaml
+│   │   └── menu-streaming.yaml
+│   ├── _includes/
+│   │   ├── nav-left-wrapper-migration.html
+│   │   ├── nav-left-wrapper-ml.html
+│   │   ├── nav-left-wrapper-sql.html
+│   │   ├── nav-left-wrapper-streaming.html
+│   │   └── nav-left.html
+│   ├── _layouts/
+│   │   ├── global.html
+│   │   └── redirect.html
+│   ├── _plugins/
+│   │   ├── build-error-docs.py
+│   │   ├── build_api_docs.rb
+│   │   ├── conditonal_includes.rb
+│   │   ├── include_example.rb
+│   │   └── production_tag.rb
+│   ├── app-dev-spark-connect.md
+│   ├── building-spark.md
+│   ├── cloud-integration.md
+│   ├── cluster-overview.md
+│   ├── configuration.md
+│   ├── control-flow/
+│   │   ├── case-stmt.md
+│   │   ├── close-stmt.md
+│   │   ├── compound-stmt.md
+│   │   ├── fetch-stmt.md
+│   │   ├── for-stmt.md
+│   │   ├── if-stmt.md
+│   │   ├── iterate-stmt.md
+│   │   ├── leave-stmt.md
+│   │   ├── loop-stmt.md
+│   │   ├── open-stmt.md
+│   │   ├── repeat-stmt.md
+│   │   └── while-stmt.md
+│   ├── core-migration-guide.md
+│   ├── css/
+│   │   ├── api-docs.css
+│   │   ├── api-javadocs.css
+│   │   ├── bootstrap.min.css
+│   │   ├── bootstrap.min.css.map
+│   │   ├── custom.css
+│   │   ├── docsearch.css
+│   │   ├── docsearch.min.css
+│   │   ├── docsearch.min.css.map
+│   │   └── pygments-default.css
+│   ├── declarative-pipelines-programming-guide.md
+│   ├── graphx-programming-guide.md
+│   ├── hadoop-provided.md
+│   ├── hardware-provisioning.md
+│   ├── img/
+│   │   ├── AllJobsPageDetail1.png
+│   │   ├── AllJobsPageDetail2.png
+│   │   ├── AllJobsPageDetail3.png
+│   │   ├── AllStagesPageDetail1.png
+│   │   ├── AllStagesPageDetail2.png
+│   │   ├── AllStagesPageDetail3.png
+│   │   ├── AllStagesPageDetail4.png
+│   │   ├── AllStagesPageDetail5.png
+│   │   ├── AllStagesPageDetail6.png
+│   │   ├── AllStagesPageDetail7.png
+│   │   ├── AllStagesPageDetail8.png
+│   │   ├── AllStagesPageDetail9.png
+│   │   ├── JDBCServer1.png
+│   │   ├── JDBCServer2.png
+│   │   ├── JDBCServer3.png
+│   │   ├── JobPageDetail1.png
+│   │   ├── JobPageDetail2.png
+│   │   ├── JobPageDetail3.png
+│   │   ├── async-progress.png
+│   │   ├── cluster-overview.png
+│   │   ├── cluster-overview.pptx
+│   │   ├── declarative-pipelines-dataflow-graph.png
+│   │   ├── edge_cut_vs_vertex_cut.png
+│   │   ├── extending-spark-connect-labelled.png
+│   │   ├── extending-spark-connect.png
+│   │   ├── glyphicons-halflings-white.png
+│   │   ├── glyphicons-halflings.png
+│   │   ├── graphx_figures.pptx
+│   │   ├── graphx_logo.png
+│   │   ├── java-sm.png
+│   │   ├── k8s-cluster-mode.png
+│   │   ├── ml-Pipeline.png
+│   │   ├── ml-PipelineModel.png
+│   │   ├── ml-Pipelines.pptx
+│   │   ├── property_graph.png
+│   │   ├── pycharm-with-pyspark1.png
+│   │   ├── pycharm-with-pyspark2.png
+│   │   ├── pycharm-with-pyspark3.png
+│   │   ├── pyspark-components.pptx
+│   │   ├── pyspark-machine_learning.png
+│   │   ├── pyspark-pandas_api_on_spark.png
+│   │   ├── pyspark-pandas_on_spark-transform_apply.pptx
+│   │   ├── pyspark-pandas_on_spark-transform_apply1.png
+│   │   ├── pyspark-pandas_on_spark-transform_apply2.png
+│   │   ├── pyspark-pandas_on_spark-transform_apply3.png
+│   │   ├── pyspark-pandas_on_spark-transform_apply4.png
+│   │   ├── pyspark-python_spark_connect_client.png
+│   │   ├── pyspark-remote-debug1.png
+│   │   ├── pyspark-remote-debug2.png
+│   │   ├── pyspark-spark_core_and_rdds.png
+│   │   ├── pyspark-spark_sql_and_dataframes.png
+│   │   ├── pyspark-structured_streaming.png
+│   │   ├── pyspark-udf-profile.png
+│   │   ├── python-sm.png
+│   │   ├── scala-sm.png
+│   │   ├── spark-connect-api.png
+│   │   ├── spark-connect-communication.png
+│   │   ├── spark-connect-gotchas-antipattern.png
+│   │   ├── spark-webui-accumulators.png
+│   │   ├── streaming-arch.png
+│   │   ├── streaming-dstream-ops.png
+│   │   ├── streaming-dstream-window.png
+│   │   ├── streaming-dstream.png
+│   │   ├── streaming-figures.pptx
+│   │   ├── streaming-flow.png
+│   │   ├── streaming-kinesis-arch.png
+│   │   ├── structured-streaming-example-model.png
+│   │   ├── structured-streaming-late-data.png
+│   │   ├── structured-streaming-model.png
+│   │   ├── structured-streaming-stream-as-a-table.png
+│   │   ├── structured-streaming-time-window-types.jpg
+│   │   ├── structured-streaming-watermark-append-mode.png
+│   │   ├── structured-streaming-watermark-update-mode.png
+│   │   ├── structured-streaming-window.png
+│   │   ├── structured-streaming.pptx
+│   │   ├── triplet.png
+│   │   ├── type-precedence-list.png
+│   │   ├── vertex_routing_edge_tables.png
+│   │   ├── webui-env-class.png
+│   │   ├── webui-env-hadoop.png
+│   │   ├── webui-env-sys.png
+│   │   ├── webui-env-tab.png
+│   │   ├── webui-exe-err.png
+│   │   ├── webui-exe-tab.png
+│   │   ├── webui-exe-thread.png
+│   │   ├── webui-sql-dag.png
+│   │   ├── webui-sql-plan.png
+│   │   ├── webui-sql-tab.png
+│   │   ├── webui-storage-detail.png
+│   │   ├── webui-storage-tab.png
+│   │   ├── webui-structured-streaming-detail.png
+│   │   └── webui-structured-streaming-detail2.png
+│   ├── index.md
+│   ├── job-scheduling.md
+│   ├── js/
+│   │   ├── api-docs.js
+│   │   ├── api-javadocs.js
+│   │   ├── main.js
+│   │   └── vendor/
+│   ├── migration-guide.md
+│   ├── ml-advanced.md
+│   ├── ml-ann.md
+│   ├── ml-classification-regression.md
+│   ├── ml-clustering.md
+│   ├── ml-collaborative-filtering.md
+│   ├── ml-datasource.md
+│   ├── ml-decision-tree.md
+│   ├── ml-ensembles.md
+│   ├── ml-features.md
+│   ├── ml-frequent-pattern-mining.md
+│   ├── ml-guide.md
+│   ├── ml-linalg-guide.md
+│   ├── ml-linear-methods.md
+│   ├── ml-migration-guide.md
+│   ├── ml-pipeline.md
+│   ├── ml-security.md
+│   ├── ml-statistics.md
+│   ├── ml-survival-regression.md
+│   ├── ml-tuning.md
+│   ├── mllib-classification-regression.md
+│   ├── mllib-clustering.md
+│   ├── mllib-collaborative-filtering.md
+│   ├── mllib-data-types.md
+│   ├── mllib-decision-tree.md
+│   ├── mllib-dimensionality-reduction.md
+│   ├── mllib-ensembles.md
+│   ├── mllib-evaluation-metrics.md
+│   ├── mllib-feature-extraction.md
+│   ├── mllib-frequent-pattern-mining.md
+│   ├── mllib-guide.md
+│   ├── mllib-isotonic-regression.md
+│   ├── mllib-linear-methods.md
+│   ├── mllib-naive-bayes.md
+│   ├── mllib-optimization.md
+│   ├── mllib-pmml-model-export.md
+│   ├── mllib-statistics.md
+│   ├── monitoring.md
+│   ├── programming-guide.md
+│   ├── pyspark-migration-guide.md
+│   ├── quick-start.md
+│   ├── rdd-programming-guide.md
+│   ├── running-on-kubernetes.md
+│   ├── running-on-yarn.md
+│   ├── security.md
+│   ├── spark-connect-gotchas.md
+│   ├── spark-connect-overview.md
+│   ├── spark-standalone.md
+│   ├── sparkr-migration-guide.md
+│   ├── sparkr.md
+│   ├── sql-data-sources-avro.md
+│   ├── sql-data-sources-binaryFile.md
+│   ├── sql-data-sources-csv.md
+│   ├── sql-data-sources-generic-options.md
+│   ├── sql-data-sources-hive-tables.md
+│   ├── sql-data-sources-jdbc.md
+│   ├── sql-data-sources-json.md
+│   ├── sql-data-sources-load-save-functions.md
+│   ├── sql-data-sources-orc.md
+│   ├── sql-data-sources-parquet.md
+│   ├── sql-data-sources-protobuf.md
+│   ├── sql-data-sources-text.md
+│   ├── sql-data-sources-troubleshooting.md
+│   ├── sql-data-sources-xml.md
+│   ├── sql-data-sources.md
+│   ├── sql-distributed-sql-engine-spark-sql-cli.md
+│   ├── sql-distributed-sql-engine.md
+│   ├── sql-error-conditions.md
+│   ├── sql-getting-started.md
+│   ├── sql-migration-guide.md
+│   ├── sql-performance-tuning.md
+│   ├── sql-pipe-syntax.md
+│   ├── sql-programming-guide.md
+│   ├── sql-pyspark-pandas-with-arrow.md
+│   ├── sql-ref-ansi-compliance.md
+│   ├── sql-ref-datatypes.md
+│   ├── sql-ref-datetime-pattern.md
+│   ├── sql-ref-function-invocation.md
+│   ├── sql-ref-functions-builtin.md
+│   ├── sql-ref-functions-udf-aggregate.md
+│   ├── sql-ref-functions-udf-hive.md
+│   ├── sql-ref-functions-udf-scalar.md
+│   ├── sql-ref-functions.md
+│   ├── sql-ref-identifier-clause.md
+│   ├── sql-ref-identifier.md
+│   ├── sql-ref-literals.md
+│   ├── sql-ref-name-resolution.md
+│   ├── sql-ref-null-semantics.md
+│   ├── sql-ref-number-pattern.md
+│   ├── sql-ref-operators.md
+│   ├── sql-ref-parameter-markers.md
+│   ├── sql-ref-scripting.md
+│   ├── sql-ref-sketch-aggregates.md
+│   ├── sql-ref-syntax-aux-analyze-table.md
+│   ├── sql-ref-syntax-aux-cache-cache-table.md
+│   ├── sql-ref-syntax-aux-cache-clear-cache.md
+│   ├── sql-ref-syntax-aux-cache-refresh-function.md
+│   ├── sql-ref-syntax-aux-cache-refresh-table.md
+│   ├── sql-ref-syntax-aux-cache-refresh.md
+│   ├── sql-ref-syntax-aux-cache-uncache-table.md
+│   ├── sql-ref-syntax-aux-cache.md
+│   ├── sql-ref-syntax-aux-conf-mgmt-reset.md
+│   ├── sql-ref-syntax-aux-conf-mgmt-set-timezone.md
+│   ├── sql-ref-syntax-aux-conf-mgmt-set.md
+│   ├── sql-ref-syntax-aux-conf-mgmt.md
+│   ├── sql-ref-syntax-aux-describe-database.md
+│   ├── sql-ref-syntax-aux-describe-function.md
+│   ├── sql-ref-syntax-aux-describe-query.md
+│   ├── sql-ref-syntax-aux-describe-table.md
+│   ├── sql-ref-syntax-aux-describe.md
+│   ├── sql-ref-syntax-aux-exec-imm.md
+│   ├── sql-ref-syntax-aux-resource-mgmt-add-archive.md
+│   ├── sql-ref-syntax-aux-resource-mgmt-add-file.md
+│   ├── sql-ref-syntax-aux-resource-mgmt-add-jar.md
+│   ├── sql-ref-syntax-aux-resource-mgmt-list-archive.md
+│   ├── sql-ref-syntax-aux-resource-mgmt-list-file.md
+│   ├── sql-ref-syntax-aux-resource-mgmt-list-jar.md
+│   ├── sql-ref-syntax-aux-resource-mgmt.md
+│   ├── sql-ref-syntax-aux-set-var.md
+│   ├── sql-ref-syntax-aux-show-columns.md
+│   ├── sql-ref-syntax-aux-show-create-table.md
+│   ├── sql-ref-syntax-aux-show-databases.md
+│   ├── sql-ref-syntax-aux-show-functions.md
+│   ├── sql-ref-syntax-aux-show-partitions.md
+│   ├── sql-ref-syntax-aux-show-table.md
+│   ├── sql-ref-syntax-aux-show-tables.md
+│   ├── sql-ref-syntax-aux-show-tblproperties.md
+│   ├── sql-ref-syntax-aux-show-views.md
+│   ├── sql-ref-syntax-aux-show.md
+│   ├── sql-ref-syntax-ddl-alter-database.md
+│   ├── sql-ref-syntax-ddl-alter-table.md
+│   ├── sql-ref-syntax-ddl-alter-view.md
+│   ├── sql-ref-syntax-ddl-create-database.md
+│   ├── sql-ref-syntax-ddl-create-function.md
+│   ├── sql-ref-syntax-ddl-create-sql-function.md
+│   ├── sql-ref-syntax-ddl-create-table-datasource.md
+│   ├── sql-ref-syntax-ddl-create-table-hiveformat.md
+│   ├── sql-ref-syntax-ddl-create-table-like.md
+│   ├── sql-ref-syntax-ddl-create-table.md
+│   ├── sql-ref-syntax-ddl-create-view.md
+│   ├── sql-ref-syntax-ddl-declare-variable.md
+│   ├── sql-ref-syntax-ddl-drop-database.md
+│   ├── sql-ref-syntax-ddl-drop-function.md
+│   ├── sql-ref-syntax-ddl-drop-table.md
+│   ├── sql-ref-syntax-ddl-drop-variable.md
+│   ├── sql-ref-syntax-ddl-drop-view.md
+│   ├── sql-ref-syntax-ddl-repair-table.md
+│   ├── sql-ref-syntax-ddl-truncate-table.md
+│   ├── sql-ref-syntax-ddl-usedb.md
+│   ├── sql-ref-syntax-dml-insert-overwrite-directory.md
+│   ├── sql-ref-syntax-dml-insert-table.md
+│   ├── sql-ref-syntax-dml-load.md
+│   ├── sql-ref-syntax-hive-format.md
+│   ├── sql-ref-syntax-qry-explain.md
+│   ├── sql-ref-syntax-qry-select-aggregate.md
+│   ├── sql-ref-syntax-qry-select-case.md
+│   ├── sql-ref-syntax-qry-select-clusterby.md
+│   ├── sql-ref-syntax-qry-select-cte.md
+│   ├── sql-ref-syntax-qry-select-distribute-by.md
+│   ├── sql-ref-syntax-qry-select-file.md
+│   ├── sql-ref-syntax-qry-select-groupby.md
+│   ├── sql-ref-syntax-qry-select-having.md
+│   ├── sql-ref-syntax-qry-select-hints.md
+│   ├── sql-ref-syntax-qry-select-inline-table.md
+│   ├── sql-ref-syntax-qry-select-join.md
+│   ├── sql-ref-syntax-qry-select-lateral-subquery.md
+│   ├── sql-ref-syntax-qry-select-lateral-view.md
+│   ├── sql-ref-syntax-qry-select-like.md
+│   ├── sql-ref-syntax-qry-select-limit.md
+│   ├── sql-ref-syntax-qry-select-offset.md
+│   ├── sql-ref-syntax-qry-select-orderby.md
+│   ├── sql-ref-syntax-qry-select-pivot.md
+│   ├── sql-ref-syntax-qry-select-sampling.md
+│   ├── sql-ref-syntax-qry-select-setops.md
+│   ├── sql-ref-syntax-qry-select-sortby.md
+│   ├── sql-ref-syntax-qry-select-subqueries.md
+│   ├── sql-ref-syntax-qry-select-transform.md
+│   ├── sql-ref-syntax-qry-select-tvf.md
+│   ├── sql-ref-syntax-qry-select-unpivot.md
+│   ├── sql-ref-syntax-qry-select-where.md
+│   ├── sql-ref-syntax-qry-select-window.md
+│   ├── sql-ref-syntax-qry-select.md
+│   ├── sql-ref-syntax-qry-star.md
+│   ├── sql-ref-syntax.md
+│   ├── sql-ref.md
+│   ├── ss-migration-guide.md
+│   ├── storage-openstack-swift.md
+│   ├── streaming-custom-receivers.md
+│   ├── streaming-kafka-0-10-integration.md
+│   ├── streaming-kafka-integration.md
+│   ├── streaming-kinesis-integration.md
+│   ├── streaming-programming-guide.md
+│   ├── streaming/
+│   │   ├── additional-information.md
+│   │   ├── apis-on-dataframes-and-datasets.md
+│   │   ├── getting-started.md
+│   │   ├── index.md
+│   │   ├── performance-tips.md
+│   │   ├── ss-migration-guide.md
+│   │   ├── structured-streaming-kafka-integration.md
+│   │   ├── structured-streaming-state-data-source.md
+│   │   └── structured-streaming-transform-with-state.md
+│   ├── structured-streaming-kafka-integration.md
+│   ├── structured-streaming-programming-guide.md
+│   ├── submitting-applications.md
+│   ├── tuning.md
+│   └── web-ui.md
+├── examples/
+│   ├── pom.xml
+│   └── src/
+│       └── main/
+├── graphx/
+│   ├── pom.xml
+│   └── src/
+│       ├── main/
+│       └── test/
+├── hadoop-cloud/
+│   ├── README.md
+│   ├── pom.xml
+│   └── src/
+│       ├── main/
+│       └── test/
+├── launcher/
+│   ├── pom.xml
+│   └── src/
+│       ├── main/
+│       └── test/
+├── licenses-binary/
+│   ├── LICENSE-AnchorJS.txt
+│   ├── LICENSE-CC0.txt
+│   ├── LICENSE-JLargeArrays.txt
+│   ├── LICENSE-JTransforms.txt
+│   ├── LICENSE-antlr.txt
+│   ├── LICENSE-arpack.txt
+│   ├── LICENSE-automaton.txt
+│   ├── LICENSE-blas.txt
+│   ├── LICENSE-bootstrap.txt
+│   ├── LICENSE-cloudpickle.txt
+│   ├── LICENSE-d3.min.js.txt
+│   ├── LICENSE-dagre-d3.txt
+│   ├── LICENSE-datatables.txt
+│   ├── LICENSE-dnsjava.txt
+│   ├── LICENSE-f2j.txt
+│   ├── LICENSE-graphlib-dot.txt
+│   ├── LICENSE-icu4j.txt
+│   ├── LICENSE-istack-commons-runtime.txt
+│   ├── LICENSE-jakarta-annotation-api
+│   ├── LICENSE-jakarta-servlet-api.txt
+│   ├── LICENSE-jakarta-ws-rs-api
+│   ├── LICENSE-jakarta.activation-api.txt
+│   ├── LICENSE-jakarta.xml.bind-api.txt
+│   ├── LICENSE-janino.txt
+│   ├── LICENSE-javassist.html
+│   ├── LICENSE-javax-transaction-transaction-api.txt
+│   ├── LICENSE-javolution.txt
+│   ├── LICENSE-jaxb-runtime.txt
+│   ├── LICENSE-jline.txt
+│   ├── LICENSE-jline3.txt
+│   ├── LICENSE-join.txt
+│   ├── LICENSE-jquery.txt
+│   ├── LICENSE-json-formatter.txt
+│   ├── LICENSE-jsp-api.txt
+│   ├── LICENSE-kryo.txt
+│   ├── LICENSE-leveldbjni.txt
+│   ├── LICENSE-loose-version.txt
+│   ├── LICENSE-machinist.txt
+│   ├── LICENSE-matchMedia-polyfill.txt
+│   ├── LICENSE-minlog.txt
+│   ├── LICENSE-modernizr.txt
+│   ├── LICENSE-mustache.txt
+│   ├── LICENSE-paranamer.txt
+│   ├── LICENSE-pmml-model.txt
+│   ├── LICENSE-protobuf.txt
+│   ├── LICENSE-py4j.txt
+│   ├── LICENSE-pyrolite.txt
+│   ├── LICENSE-re2j.txt
+│   ├── LICENSE-reflectasm.txt
+│   ├── LICENSE-respond.txt
+│   ├── LICENSE-sbt-launch-lib.txt
+│   ├── LICENSE-scopt.txt
+│   ├── LICENSE-slf4j.txt
+│   ├── LICENSE-sorttable.js.txt
+│   ├── LICENSE-spire.txt
+│   ├── LICENSE-vis-timeline.txt
+│   ├── LICENSE-xmlenc.txt
+│   ├── LICENSE-xz.txt
+│   ├── LICENSE-zstd-jni.txt
+│   └── LICENSE-zstd.txt
+├── licenses/
+│   ├── LICENSE-AnchorJS.txt
+│   ├── LICENSE-CC0.txt
+│   ├── LICENSE-bootstrap.txt
+│   ├── LICENSE-cloudpickle.txt
+│   ├── LICENSE-d3.min.js.txt
+│   ├── LICENSE-dagre-d3.txt
+│   ├── LICENSE-datatables.txt
+│   ├── LICENSE-graphlib-dot.txt
+│   ├── LICENSE-jdom.txt
+│   ├── LICENSE-join.txt
+│   ├── LICENSE-jquery.txt
+│   ├── LICENSE-json-formatter.txt
+│   ├── LICENSE-loose-version.txt
+│   ├── LICENSE-matchMedia-polyfill.txt
+│   ├── LICENSE-modernizr.txt
+│   ├── LICENSE-mustache.txt
+│   ├── LICENSE-py4j.txt
+│   ├── LICENSE-respond.txt
+│   ├── LICENSE-sbt-launch-lib.txt
+│   ├── LICENSE-sorttable.js.txt
+│   ├── LICENSE-vis-timeline.txt
+│   └── LICENSE-xz.txt
+├── mllib-local/
+│   ├── benchmarks/
+│   │   ├── BLASBenchmark-jdk21-results.txt
+│   │   ├── BLASBenchmark-jdk25-results.txt
+│   │   └── BLASBenchmark-results.txt
+│   ├── pom.xml
+│   └── src/
+│       ├── main/
+│       └── test/
+├── mllib/
+│   ├── benchmarks/
+│   │   ├── UDTSerializationBenchmark-jdk21-results.txt
+│   │   ├── UDTSerializationBenchmark-jdk25-results.txt
+│   │   └── UDTSerializationBenchmark-results.txt
+│   ├── pom.xml
+│   └── src/
+│       ├── main/
+│       └── test/
+├── pom.xml
+├── project/
+│   ├── MimaBuild.scala
+│   ├── MimaExcludes.scala
+│   ├── SparkBuild.scala
+│   ├── build.properties
+│   └── plugins.sbt
+├── pyproject.toml
+├── python/
+│   ├── .coveragerc
+│   ├── .gitignore
+│   ├── MANIFEST.in
+│   ├── README.md
+│   ├── benchmarks/
+│   │   ├── README.md
+│   │   ├── __init__.py
+│   │   ├── asv.conf.json
+│   │   ├── bench_arrow.py
+│   │   └── bench_eval_type.py
+│   ├── conf_viztracer/
+│   │   ├── daemon_viztracer.py
+│   │   └── spark-defaults.conf
+│   ├── conf_vscode/
+│   │   ├── README.md
+│   │   └── sitecustomize.py
+│   ├── docs/
+│   │   ├── Makefile
+│   │   ├── make.bat
+│   │   ├── make2.bat
+│   │   └── source/
+│   ├── lib/
+│   │   ├── PY4J_LICENSE.txt
+│   │   └── py4j-0.10.9.9-src.zip
+│   ├── mypy.ini
+│   ├── packaging/
+│   │   ├── classic/
+│   │   ├── client/
+│   │   └── connect/
+│   ├── pyspark/
+│   │   ├── __init__.py
+│   │   ├── _globals.py
+│   │   ├── _typing.pyi
+│   │   ├── accumulators.py
+│   │   ├── cloudpickle/
+│   │   ├── conf.py
+│   │   ├── core/
+│   │   ├── daemon.py
+│   │   ├── errors/
+│   │   ├── errors_doc_gen.py
+│   │   ├── find_spark_home.py
+│   │   ├── install.py
+│   │   ├── instrumentation_utils.py
+│   │   ├── java_gateway.py
+│   │   ├── join.py
+│   │   ├── logger/
+│   │   ├── loose_version.py
+│   │   ├── ml/
+│   │   ├── mllib/
+│   │   ├── pandas/
+│   │   ├── pipelines/
+│   │   ├── profiler.py
+│   │   ├── py.typed
+│   │   ├── rddsampler.py
+│   │   ├── resource/
+│   │   ├── resultiterable.py
+│   │   ├── serializers.py
+│   │   ├── shell.py
+│   │   ├── shuffle.py
+│   │   ├── sql/
+│   │   ├── statcounter.py
+│   │   ├── storagelevel.py
+│   │   ├── streaming/
+│   │   ├── taskcontext.py
+│   │   ├── testing/
+│   │   ├── tests/
+│   │   ├── threaddump.py
+│   │   ├── traceback_utils.py
+│   │   ├── util.py
+│   │   ├── version.py
+│   │   ├── worker.py
+│   │   └── worker_util.py
+│   ├── run-tests
+│   ├── run-tests-with-coverage
+│   ├── run-tests.py
+│   ├── run-with-viztracer
+│   ├── run-with-vscode-breakpoints
+│   ├── test_coverage/
+│   │   └── sitecustomize.py
+│   └── test_support/
+│       ├── SimpleHTTPServer.py
+│       ├── hello/
+│       ├── log4j2.properties
+│       ├── pytorch_training_test_file.py
+│       ├── sql/
+│       ├── userlib-0.1.zip
+│       └── userlibrary.py
+├── repl/
+│   ├── pom.xml
+│   └── src/
+│       ├── main/
+│       └── test/
+├── resource-managers/
+│   ├── kubernetes/
+│   │   ├── core/
+│   │   ├── docker/
+│   │   └── integration-tests/
+│   └── yarn/
+│       ├── pom.xml
+│       └── src/
+├── sbin/
+│   ├── decommission-worker.sh
+│   ├── spark-config.sh
+│   ├── spark-daemon.sh
+│   ├── spark-daemons.sh
+│   ├── start-all.sh
+│   ├── start-connect-server.sh
+│   ├── start-history-server.sh
+│   ├── start-master.sh
+│   ├── start-thriftserver.sh
+│   ├── start-worker.sh
+│   ├── start-workers.sh
+│   ├── stop-all.sh
+│   ├── stop-connect-server.sh
+│   ├── stop-history-server.sh
+│   ├── stop-master.sh
+│   ├── stop-thriftserver.sh
+│   ├── stop-worker.sh
+│   ├── stop-workers.sh
+│   └── workers.sh
+├── scalastyle-config.xml
+├── sql/
+│   ├── README.md
+│   ├── api/
+│   │   ├── pom.xml
+│   │   └── src/
+│   ├── catalyst/
+│   │   ├── benchmarks/
+│   │   ├── pom.xml
+│   │   └── src/
+│   ├── connect/
+│   │   ├── README.md
+│   │   ├── bin/
+│   │   ├── client/
+│   │   ├── common/
+│   │   ├── docs/
+│   │   ├── server/
+│   │   └── shims/
+│   ├── core/
+│   │   ├── benchmarks/
+│   │   ├── pom.xml
+│   │   └── src/
+│   ├── create-docs.sh
+│   ├── gen-sql-api-docs.py
+│   ├── gen-sql-config-docs.py
+│   ├── gen-sql-functions-docs.py
+│   ├── hive-thriftserver/
+│   │   ├── pom.xml
+│   │   └── src/
+│   ├── hive/
+│   │   ├── benchmarks/
+│   │   ├── compatibility/
+│   │   ├── pom.xml
+│   │   └── src/
+│   └── pipelines/
+│       ├── pom.xml
+│       └── src/
+├── streaming/
+│   ├── pom.xml
+│   └── src/
+│       ├── main/
+│       └── test/
+├── tools/
+│   ├── pom.xml
+│   └── src/
+│       └── main/
+└── ui-test/
+    ├── package-lock.json
+    ├── package.json
+    └── tests/
+        ├── csp-compliance.test.js
+        ├── flamegraph.test.js
+        ├── scroll-button.test.js
+        ├── structured-streaming-page.test.js
+        └── utils.test.js

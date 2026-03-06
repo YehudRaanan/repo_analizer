@@ -1,0 +1,1046 @@
+=====================================
+Repository Analysis: immich
+Type: Web Application
+=====================================
+
+--- METADATA ---
+Name: immich
+Description: High performance self-hosted photo and video management solution.
+Language: TypeScript
+Topics: backup-tool, flutter, google-photos, google-photos-alternative, javascript, mobile-app, nestjs, nodejs, photo-gallery, photos, photos-management, self-hosted, svelte, sveltekit, typescript, videos
+Stars: 94101
+License: GNU Affero General Public License v3.0
+
+--- README ---
+<p align="center"> 
+  <br/>
+  <a href="https://opensource.org/license/agpl-v3"><img src="https://img.shields.io/badge/License-AGPL_v3-blue.svg?color=3F51B5&style=for-the-badge&label=License&logoColor=000000&labelColor=ececec" alt="License: AGPLv3"></a>
+  <a href="https://discord.immich.app">
+    <img src="https://img.shields.io/discord/979116623879368755.svg?label=Discord&logo=Discord&style=for-the-badge&logoColor=000000&labelColor=ececec" alt="Discord"/>
+  </a>
+  <br/>
+  <br/>
+</p>
+
+<p align="center">
+<img src="design/immich-logo-stacked-light.svg" width="300" title="Login With Custom URL">
+</p>
+<h3 align="center">High performance self-hosted photo and video management solution</h3>
+<br/>
+<a href="https://immich.app">
+<img src="design/immich-screenshots.png" title="Main Screenshot">
+</a>
+<br/>
+
+<p align="center">
+  <a href="readme_i18n/README_ca_ES.md">Català</a>
+  <a href="readme_i18n/README_es_ES.md">Español</a>
+  <a href="readme_i18n/README_fr_FR.md">Français</a>
+  <a href="readme_i18n/README_it_IT.md">Italiano</a>
+  <a href="readme_i18n/README_ja_JP.md">日本語</a>
+  <a href="readme_i18n/README_ko_KR.md">한국어</a>
+  <a href="readme_i18n/README_de_DE.md">Deutsch</a>
+  <a href="readme_i18n/README_nl_NL.md">Nederlands</a>
+  <a href="readme_i18n/README_tr_TR.md">Türkçe</a>
+  <a href="readme_i18n/README_zh_CN.md">简体中文</a>
+  <a href="readme_i18n/README_zh_TW.md">正體中文</a>
+  <a href="readme_i18n/README_uk_UA.md">Українська</a>
+  <a href="readme_i18n/README_ru_RU.md">Русский</a>
+  <a href="readme_i18n/README_pt_BR.md">Português Brasileiro</a>
+  <a href="readme_i18n/README_sv_SE.md">Svenska</a>
+  <a href="readme_i18n/README_ar_JO.md">العربية</a>
+  <a href="readme_i18n/README_vi_VN.md">Tiếng Việt</a>
+  <a href="readme_i18n/README_th_TH.md">ภาษาไทย</a>
+</p>
+
+
+> [!WARNING]
+> ⚠️ Always follow [3-2-1](https://www.backblaze.com/blog/the-3-2-1-backup-strategy/) backup plan for your precious photos and videos!
+> 
+ 
+
+> [!NOTE]
+> You can find the main documentation, including installation guides, at https://immich.app/.
+
+## Links
+
+- [Documentation](https://docs.immich.app/)
+- [About](https://docs.immich.app/overview/introduction)
+- [Installation](https://docs.immich.app/install/requirements)
+- [Roadmap](https://immich.app/roadmap)
+- [Demo](#demo)
+- [Features](#features)
+- [Translations](https://docs.immich.app/developer/translations)
+- [Contributing](https://docs.immich.app/overview/support-the-project)
+
+## Demo
+
+Access the demo [here](https://demo.immich.app). For the mobile app, you can use `https://demo.immich.app` for the `Server Endpoint URL`.
+
+### Login credentials
+
+| Email           | Password |
+| --------------- | -------- |
+| demo@immich.app | demo     |
+
+## Features
+
+| Features                                     | Mobile | Web |
+| :------------------------------------------- | ------ | --- |
+| Upload and view videos and photos            | Yes    | Yes |
+| Auto backup when the app is opened           | Yes    | N/A |
+| Prevent duplication of assets                | Yes    | Yes |
+| Selective album(s) for backup                | Yes    | N/A |
+| Download photos and videos to local device   | Yes    | Yes |
+| Multi-user support                           | Yes    | Yes |
+| Album and Shared albums                      | Yes    | Yes |
+| Scrubbable/draggable scrollbar               | Yes    | Yes |
+| Support raw formats                          | Yes    | Yes |
+| Metadata view (EXIF, map)                    | Yes    | Yes |
+| Search by metadata, objects, faces, and CLIP | Yes    | Yes |
+| Administrative functions (user management)   | No     | Yes |
+| Background backup                            | Yes    | N/A |
+| Virtual scroll                               | Yes    | Yes |
+| OAuth support                                | Yes    | Yes |
+| API Keys                                     | N/A    | Yes |
+| LivePhoto/MotionPhoto backup and playback    | Yes    | Yes |
+| Support 360 degree image display             | No     | Yes |
+| User-defined storage structure               | Yes    | Yes |
+| Public Sharing                               | Yes    | Yes |
+| Archive and Favorites                        | Yes    | Yes |
+| Global Map                                   | Yes    | Yes |
+| Partner Sharing                              | Yes    | Yes |
+| Facial recognition and clustering            | Yes    | Yes |
+| Memories (x years ago)                       | Yes    | Yes |
+| Offline support                              | Yes    | No  |
+| Read-only gallery                            | Yes    | Yes |
+| Stacked Photos                               | Yes    | Yes |
+| Tags                                         | No     | Yes |
+| Folder View                                  | Yes    | Yes |
+
+## Translations
+
+Read more about translations [here](https://docs.immich.app/developer/translations).
+
+<a href="https://hosted.weblate.org/engage/immich/">
+<img src="https://hosted.weblate.org/widget/immich/immich/multi-auto.svg" alt="Translation
+... [TRUNCATED]
+
+--- PACKAGE MANIFEST(S) ---
+
+[package.json]
+{
+  "name": "immich-monorepo",
+  "version": "2.5.6",
+  "description": "Monorepo for Immich",
+  "private": true,
+  "packageManager": "pnpm@10.30.3+sha512.c961d1e0a2d8e354ecaa5166b822516668b7f44cb5bd95122d590dd81922f606f5473b6d23ec4a5be05e7fcd18e8488d47d978bbe981872f1145d06e9a740017",
+  "engines": {
+    "pnpm": ">=10.0.0"
+  }
+}
+
+
+--- WEB FRAMEWORK CONFIG ---
+(No web config files found)
+
+--- ROUTE / PAGE DEFINITIONS ---
+
+[docs/src/pages/errors.md]
+# Errors
+
+## TypeORM Upgrade
+
+If you encountered "Migrations failed: Error: Invalid upgrade path" then perform an intermediate upgrade to `v1.132.3` first.
+
+:::tip
+We recommend users upgrade to `v1.132.3` since it does not have any breaking changes or bugs on this upgrade path.
+:::
+
+In order to update to Immich `v1.137.0` or above, the application must be started at least once on a version in the range between `1.132.0` and `1.136.0`. Doing so will complete database schema upgrades that are required for `v1.137.0` (and above). After Immich has successfully updated to a version in this range, you can now attempt to update to `v1.137.0` (or above).
+
+:::caution
+Avoid `v1.136.0` if upgrading from `v1.131.0` (or earlier) due to a bug blocking this upgrade in some installations.
+:::
+
+## Inconsistent Media Location
+
+:::caution
+This error is related to the location of media files _inside the container_. Never move files on the host system when you run into this error message.
+:::
+
+Immich automatically tries to detect where your Immich data is located. On start up, it compares the detected media location with the file paths in the database and throws an Inconsistent Media Location error when they do not match.
+
+To fix this issue, verify that the `IMMICH_MEDIA_LOCATION` environment variable and `UPLOAD_LOCATION` volume mount are in sync with the database paths.
+
+If you would like to migrate from one media location to another, simply successfully start Immich on `v1.136.0` or later, then do the following steps:
+
+1. Stop Immich
+2. Update `IMMICH_MEDIA_LOCATION` to the new location
+3. Update the right-hand side of the `UPLOAD_LOCATION` volume mount to the new location
+4. Start up Immich
+
+After version `1.136.0`, Immich can detect when a media location has moved and will automatically update the database paths to keep them in sync.
+
+## Schema drift
+
+Schema drift is when the database schema is out of sync with the code. This could be the result of manual database tinkering, issues during a database restore, or something else. Schema drift can lead to data corruption, application bugs, and other unpredictable behavior. Please reconcile the differences as soon as possible. Specifically, missing `CONSTRAINT`s can result in duplicate assets being uploaded, since the server relies on a checksum `CONSTRAINT` to prevent duplicates.
+
+
+[docs/src/pages/index.tsx]
+import { Redirect } from '@docusaurus/router';
+
+export default function Home(): JSX.Element {
+  return <Redirect to="/overview/quick-start" />;
+}
+
+
+[docs/src/pages/privacy-policy.tsx]
+import React from 'react';
+import Layout from '@theme/Layout';
+function HomepageHeader() {
+  return (
+    <header>
+      <section className="max-w-[900px] m-4 p-4 md:p-6 md:m-auto md:my-12 border border-red-400 rounded-2xl  bg-slate-200 dark:bg-immich-dark-gray">
+        <section>
+          <h1>Privacy Policy</h1>
+          <p>Last updated: July 31st 2024</p>
+          <p>
+            Welcome to Immich. We are committed to respecting your privacy. This Privacy Policy sets out how we collect,
+            use, and share information when you use our Immich app.
+          </p>
+        </section>
+
+        {/* 1. Scope of This Policy */}
+        <section>
+          <h2>1. Scope of This Policy</h2>
+          <p>
+            This Privacy Policy applies to the Immich app ("we", "our", or "us") and covers our collection, use, and
+            disclosure of your information. This Policy does not cover any third-party websites, services, or
+            applications that can be accessed through our app, or third-party services you may access through Immich.
+          </p>
+        </section>
+
+        {/* 2. Information We Collect */}
+        <section>
+          <h2>2. Information We Collect</h2>
+          <div>
+            <p>
+              <strong>Locally Stored Data</strong>: Immich stores all your photos, albums, settings, and locally on your
+              device. We do not have access to this data, nor do we transmit or store it on any of our servers.
+            </p>
+          </div>
+
+          <div>
+            <p>
+              <strong>Purchase Information:</strong> When you make a purchase within the{' '}
+              <a href="https://buy.immich.app">https://buy.immich.app</a>, we collect the following information for tax
+              calculation purposes:
+            </p>
+            <ul>
+              <li>Country of origin</li>
+              <li>Postal code (if the user is from Canada or the United States)</li>
+            </ul>
+          </div>
+        </section>
+
+        {/* 3. Use of Your Information */}
+        <section>
+          <h2>3. Use of Your Information</h2>
+          <p>
+            <strong>Tax Calculation:</strong> The country of origin and postal code (for users from Canada or the United
+            States) are collected solely for determining the applicable tax rates on your purchase.
+          </p>
+        </section>
+
+        {/* 4. Sharing of Your Information */}
+        <section>
+          <h2>4. Sharing of Your Information</h2>
+          <ul>
+            <li>
+              <strong>Tax Authorities:</strong> The purchase information may be shared with tax authorities as required
+              by law.
+            </li>
+            <li>
+              <strong>Payment Providers:</strong> The purchase information may be shared with payment providers where
+              required.
+            </li>
+          </ul>
+        </section>
+
+        {/* 5. Changes to This Policy */}
+        <section>
+          <h2>5. Changes to This Policy</h2>
+ 
+... [TRUNCATED]
+
+[mobile/lib/pages/album/album_additional_shared_user_selection.page.dart]
+import 'package:auto_route/auto_route.dart';
+import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:immich_mobile/domain/models/user.model.dart';
+import 'package:immich_mobile/entities/album.entity.dart';
+import 'package:immich_mobile/extensions/asyncvalue_extensions.dart';
+import 'package:immich_mobile/extensions/build_context_extensions.dart';
+import 'package:immich_mobile/providers/album/suggested_shared_users.provider.dart';
+import 'package:immich_mobile/widgets/common/user_circle_avatar.dart';
+
+@RoutePage()
+class AlbumAdditionalSharedUserSelectionPage extends HookConsumerWidget {
+  final Album album;
+
+  const AlbumAdditionalSharedUserSelectionPage({super.key, required this.album});
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final AsyncValue<List<UserDto>> suggestedShareUsers = ref.watch(otherUsersProvider);
+    final sharedUsersList = useState<Set<UserDto>>({});
+
+    addNewUsersHandler() {
+      context.maybePop(sharedUsersList.value.map((e) => e.id).toList());
+    }
+
+    buildTileIcon(UserDto user) {
+      if (sharedUsersList.value.contains(user)) {
+        return CircleAvatar(backgroundColor: context.primaryColor, child: const Icon(Icons.check_rounded, size: 25));
+      } else {
+        return UserCircleAvatar(user: user);
+      }
+    }
+
+    buildUserList(List<UserDto> users) {
+      List<Widget> usersChip = [];
+
+      for (var user in sharedUsersList.value) {
+        usersChip.add(
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 8.0),
+            child: Chip(
+              backgroundColor: context.primaryColor.withValues(alpha: 0.15),
+              label: Text(user.name, style: const TextStyle(fontSize: 12, fontWeight: FontWeight.bold)),
+            ),
+          ),
+        );
+      }
+      return ListView(
+        children: [
+          Wrap(children: [...usersChip]),
+          Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Text(
+              'suggestions'.tr(),
+              style: const TextStyle(fontSize: 14, color: Colors.grey, fontWeight: FontWeight.bold),
+            ),
+          ),
+          ListView.builder(
+            primary: false,
+            shrinkWrap: true,
+            itemBuilder: ((context, index) {
+              return ListTile(
+                leading: buildTileIcon(users[index]),
+                dense: true,
+                title: Text(users[index].name, style: const TextStyle(fontSize: 14, fontWeight: FontWeight.bold)),
+                subtitle: Text(users[index].email, style: const TextStyle(fontSize: 12)),
+                onTap: () {
+                  if (sharedUsersList.value.contains(users[index])) {
+                    sharedUsersList.value = sharedUsersList.value
+                        .where((selectedUser) => selectedUser.id != users[index].id)
+                
+... [TRUNCATED]
+
+[mobile/lib/pages/album/album_asset_selection.page.dart]
+import 'package:auto_route/auto_route.dart';
+import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:immich_mobile/entities/asset.entity.dart';
+import 'package:immich_mobile/extensions/asyncvalue_extensions.dart';
+import 'package:immich_mobile/extensions/build_context_extensions.dart';
+import 'package:immich_mobile/models/albums/asset_selection_page_result.model.dart';
+import 'package:immich_mobile/providers/timeline.provider.dart';
+import 'package:immich_mobile/widgets/asset_grid/asset_grid_data_structure.dart';
+import 'package:immich_mobile/widgets/asset_grid/immich_asset_grid.dart';
+
+@RoutePage()
+class AlbumAssetSelectionPage extends HookConsumerWidget {
+  const AlbumAssetSelectionPage({super.key, required this.existingAssets, this.canDeselect = false});
+
+  final Set<Asset> existingAssets;
+  final bool canDeselect;
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final assetSelectionRenderList = ref.watch(assetSelectionTimelineProvider);
+    final selected = useState<Set<Asset>>(existingAssets);
+    final selectionEnabledHook = useState(true);
+
+    Widget buildBody(RenderList renderList) {
+      return ImmichAssetGrid(
+        renderList: renderList,
+        listener: (active, assets) {
+          selectionEnabledHook.value = active;
+          selected.value = assets;
+        },
+        selectionActive: true,
+        preselectedAssets: existingAssets,
+        canDeselect: canDeselect,
+        showMultiSelectIndicator: false,
+      );
+    }
+
+    return Scaffold(
+      appBar: AppBar(
+        elevation: 0,
+        leading: IconButton(
+          icon: const Icon(Icons.close_rounded),
+          onPressed: () {
+            AutoRouter.of(context).popForced(null);
+          },
+        ),
+        title: selected.value.isEmpty
+            ? const Text('add_photos', style: TextStyle(fontSize: 18)).tr()
+            : const Text(
+                'share_assets_selected',
+                style: TextStyle(fontSize: 18),
+              ).tr(namedArgs: {'count': selected.value.length.toString()}),
+        centerTitle: false,
+        actions: [
+          if (selected.value.isNotEmpty || canDeselect)
+            TextButton(
+              onPressed: () {
+                var payload = AssetSelectionPageResult(selectedAssets: selected.value);
+                AutoRouter.of(context).popForced<AssetSelectionPageResult>(payload);
+              },
+              child: Text(
+                canDeselect ? "done" : "add",
+                style: TextStyle(fontWeight: FontWeight.bold, color: context.primaryColor),
+              ).tr(),
+            ),
+        ],
+      ),
+      body: assetSelectionRenderList.widgetWhen(onData: (data) => buildBody(data)),
+    );
+  }
+}
+
+
+--- DIRECTORY STRUCTURE (depth 2) ---
+├── .devcontainer/
+│   ├── devcontainer.json
+│   ├── mobile/
+│   │   ├── container-compose-overrides.yml
+│   │   └── devcontainer.json
+│   └── server/
+│       ├── container-common.sh
+│       ├── container-compose-overrides.yml
+│       ├── container-start-backend.sh
+│       └── container-start-frontend.sh
+├── .dockerignore
+├── .editorconfig
+├── .gitattributes
+├── .github/
+│   ├── .nvmrc
+│   ├── .prettierignore
+│   ├── DISCUSSION_TEMPLATE/
+│   │   └── feature-request.yaml
+│   ├── FUNDING.yml
+│   ├── ISSUE_TEMPLATE/
+│   │   ├── bug_report.yaml
+│   │   └── config.yml
+│   ├── PULL_REQUEST_TEMPLATE/
+│   │   └── config.yml
+│   ├── labeler.yml
+│   ├── mise.toml
+│   ├── package.json
+│   ├── pull_request_template.md
+│   ├── release.yml
+│   └── workflows/
+│       ├── build-mobile.yml
+│       ├── cache-cleanup.yml
+│       ├── check-openapi.yml
+│       ├── cli.yml
+│       ├── close-duplicates.yml
+│       ├── close-llm-pr.yml
+│       ├── codeql-analysis.yml
+│       ├── docker.yml
+│       ├── docs-build.yml
+│       ├── docs-deploy.yml
+│       ├── docs-destroy.yml
+│       ├── fix-format.yml
+│       ├── merge-translations.yml
+│       ├── org-pr-require-conventional-commit.yml
+│       ├── org-zizmor.yml
+│       ├── pr-label-validation.yml
+│       ├── pr-labeler.yml
+│       ├── prepare-release.yml
+│       ├── preview-label.yaml
+│       ├── release-pr.yml
+│       ├── release.yml
+│       ├── sdk.yml
+│       ├── static_analysis.yml
+│       ├── test.yml
+│       └── weblate-lock.yml
+├── .gitignore
+├── .gitmodules
+├── .pnpmfile.cjs
+├── .vscode/
+│   ├── extensions.json
+│   ├── launch.json
+│   └── settings.json
+├── CODEOWNERS
+├── CODE_OF_CONDUCT.md
+├── CONTRIBUTING.md
+├── LICENSE
+├── Makefile
+├── README.md
+├── SECURITY.md
+├── cli/
+│   ├── .editorconfig
+│   ├── .gitignore
+│   ├── .npmignore
+│   ├── .nvmrc
+│   ├── .prettierignore
+│   ├── .prettierrc
+│   ├── Dockerfile
+│   ├── LICENSE
+│   ├── README.md
+│   ├── bin/
+│   │   └── immich
+│   ├── eslint.config.mjs
+│   ├── mise.toml
+│   ├── package.json
+│   ├── src/
+│   │   ├── commands/
+│   │   ├── index.ts
+│   │   ├── queue.ts
+│   │   ├── utils.spec.ts
+│   │   └── utils.ts
+│   ├── tsconfig.json
+│   └── vite.config.ts
+├── deployment/
+│   ├── .env
+│   ├── .gitignore
+│   ├── mise.toml
+│   ├── modules/
+│   │   └── cloudflare/
+│   └── state.hcl
+├── design/
+│   ├── .DS_Store
+│   ├── immich-logo-inline-dark.png
+│   ├── immich-logo-inline-dark.svg
+│   ├── immich-logo-inline-light.png
+│   ├── immich-logo-inline-light.svg
+│   ├── immich-logo-stacked-dark.png
+│   ├── immich-logo-stacked-dark.svg
+│   ├── immich-logo-stacked-light.png
+│   ├── immich-logo-stacked-light.svg
+│   ├── immich-logo.png
+│   ├── immich-logo.svg
+│   ├── immich-screenshots.png
+│   ├── immich-text-dark.png
+│   └── immich-text-light.png
+├── docker/
+│   ├── .gitignore
+│   ├── README.md
+│   ├── docker-compose.dev.yml
+│   ├── docker-compose.prod.yml
+│   ├── docker-compose.rootless.yml
+│   ├── docker-compose.yml
+│   ├── example.env
+│   ├── hwaccel.ml.yml
+│   ├── hwaccel.transcoding.yml
+│   └── prometheus.yml
+├── docs/
+│   ├── .gitignore
+│   ├── .nvmrc
+│   ├── .prettierignore
+│   ├── .prettierrc
+│   ├── README.md
+│   ├── babel.config.js
+│   ├── docs/
+│   │   ├── FAQ.mdx
+│   │   ├── administration/
+│   │   ├── api.md
+│   │   ├── developer/
+│   │   ├── features/
+│   │   ├── guides/
+│   │   ├── install/
+│   │   ├── overview/
+│   │   └── partials/
+│   ├── docusaurus.config.js
+│   ├── mise.toml
+│   ├── package.json
+│   ├── sidebars.js
+│   ├── src/
+│   │   ├── components/
+│   │   ├── css/
+│   │   ├── pages/
+│   │   └── theme/
+│   ├── static/
+│   │   ├── .nojekyll
+│   │   ├── CNAME
+│   │   ├── _redirects
+│   │   ├── archived-versions.json
+│   │   ├── fonts/
+│   │   └── img/
+│   ├── tailwind.config.js
+│   └── tsconfig.json
+├── e2e-auth-server/
+│   ├── Dockerfile
+│   ├── auth-server.ts
+│   ├── package.json
+│   └── startup.ts
+├── e2e/
+│   ├── .gitignore
+│   ├── .nvmrc
+│   ├── .prettierignore
+│   ├── .prettierrc
+│   ├── docker-compose.dev.yml
+│   ├── docker-compose.yml
+│   ├── eslint.config.mjs
+│   ├── mise.toml
+│   ├── package.json
+│   ├── playwright.config.ts
+│   ├── src/
+│   │   ├── docker-compose.ts
+│   │   ├── fixtures.ts
+│   │   ├── generators.ts
+│   │   ├── responses.ts
+│   │   ├── specs/
+│   │   ├── ui/
+│   │   └── utils.ts
+│   ├── test-assets
+│   ├── tsconfig.json
+│   ├── vitest.config.ts
+│   └── vitest.maintenance.config.ts
+├── fastlane/
+│   ├── README.md
+│   └── metadata
+├── i18n/
+│   ├── .prettierrc
+│   ├── af.json
+│   ├── ar.json
+│   ├── az.json
+│   ├── be.json
+│   ├── bg.json
+│   ├── bi.json
+│   ├── bn.json
+│   ├── br.json
+│   ├── ca.json
+│   ├── cs.json
+│   ├── cv.json
+│   ├── da.json
+│   ├── de.json
+│   ├── de_CH.json
+│   ├── el.json
+│   ├── en.json
+│   ├── eo.json
+│   ├── es.json
+│   ├── et.json
+│   ├── eu.json
+│   ├── fa.json
+│   ├── fi.json
+│   ├── fil.json
+│   ├── fr.json
+│   ├── ga.json
+│   ├── gl.json
+│   ├── gsw.json
+│   ├── gu.json
+│   ├── he.json
+│   ├── hi.json
+│   ├── hr.json
+│   ├── hu.json
+│   ├── hy.json
+│   ├── id.json
+│   ├── is.json
+│   ├── it.json
+│   ├── ja.json
+│   ├── ka.json
+│   ├── kk.json
+│   ├── km.json
+│   ├── kmr.json
+│   ├── kn.json
+│   ├── ko.json
+│   ├── lb.json
+│   ├── lt.json
+│   ├── lv.json
+│   ├── mfa.json
+│   ├── mk.json
+│   ├── ml.json
+│   ├── mn.json
+│   ├── mr.json
+│   ├── ms.json
+│   ├── nb_NO.json
+│   ├── nl.json
+│   ├── nn.json
+│   ├── pa.json
+│   ├── package.json
+│   ├── pl.json
+│   ├── pt.json
+│   ├── pt_BR.json
+│   ├── ro.json
+│   ├── ru.json
+│   ├── si.json
+│   ├── sk.json
+│   ├── sl.json
+│   ├── sq.json
+│   ├── sr_Cyrl.json
+│   ├── sr_Latn.json
+│   ├── sv.json
+│   ├── ta.json
+│   ├── te.json
+│   ├── th.json
+│   ├── tr.json
+│   ├── uk.json
+│   ├── ur.json
+│   ├── uz.json
+│   ├── vi.json
+│   ├── yue_Hant.json
+│   ├── zh_Hans.json
+│   └── zh_Hant.json
+├── install.sh
+├── machine-learning/
+│   ├── .dockerignore
+│   ├── .gitignore
+│   ├── .python-version
+│   ├── Dockerfile
+│   ├── README.md
+│   ├── README_es_ES.md
+│   ├── README_fr_FR.md
+│   ├── ann/
+│   │   ├── __init__.py
+│   │   ├── ann.cpp
+│   │   ├── build.sh
+│   │   └── export/
+│   ├── conftest.py
+│   ├── immich_ml/
+│   │   ├── __init__.py
+│   │   ├── __main__.py
+│   │   ├── config.py
+│   │   ├── gunicorn_conf.py
+│   │   ├── log_conf.json
+│   │   ├── main.py
+│   │   ├── models/
+│   │   ├── schemas.py
+│   │   └── sessions/
+│   ├── locustfile.py
+│   ├── pyproject.toml
+│   ├── responses.json
+│   ├── scripts/
+│   │   ├── configure-apt.sh
+│   │   └── healthcheck.py
+│   ├── test_main.py
+│   └── uv.lock
+├── misc/
+│   └── release/
+│       ├── archive-version.js
+│       ├── notes.tmpl
+│       └── pump-version.sh
+├── mise.toml
+├── mobile/
+│   ├── .gitignore
+│   ├── .isar
+│   ├── .isar-cargo.lock
+│   ├── .metadata
+│   ├── .vscode/
+│   │   └── settings.json
+│   ├── README.md
+│   ├── analysis_options.yaml
+│   ├── android/
+│   │   ├── .gitignore
+│   │   ├── Gemfile
+│   │   ├── Gemfile.lock
+│   │   ├── app/
+│   │   ├── build.gradle
+│   │   ├── fastlane/
+│   │   ├── gradle.properties
+│   │   ├── gradle/
+│   │   ├── metadata/
+│   │   └── settings.gradle
+│   ├── assets/
+│   │   ├── immich-logo-android-adaptive-icon.png
+│   │   ├── immich-logo-inline-dark.png
+│   │   ├── immich-logo-inline-dark.svg
+│   │   ├── immich-logo-inline-light.png
+│   │   ├── immich-logo-inline-light.svg
+│   │   ├── immich-logo-w-bg-android.png
+│   │   ├── immich-logo-w-bg.png
+│   │   ├── immich-logo.json
+│   │   ├── immich-logo.png
+│   │   ├── immich-logo.svg
+│   │   ├── immich-splash-android12.png
+│   │   ├── immich-splash.png
+│   │   ├── immich-text-dark.png
+│   │   ├── immich-text-light.png
+│   │   ├── lighthouse.png
+│   │   ├── location-pin.png
+│   │   ├── polaroid-dark.png
+│   │   └── polaroid-light.png
+│   ├── bin/
+│   │   └── generate_keys.dart
+│   ├── build.yaml
+│   ├── dart_test.yaml
+│   ├── dcm_global.yaml
+│   ├── devtools_options.yaml
+│   ├── drift_schemas/
+│   │   └── main/
+│   ├── flutter_native_splash.yaml
+│   ├── fonts/
+│   │   ├── GoogleSans/
+│   │   ├── GoogleSansCode/
+│   │   ├── Inconsolata-Regular.ttf
+│   │   └── overpass/
+│   ├── immich_lint/
+│   │   ├── analysis_options.yaml
+│   │   ├── lib/
+│   │   ├── pubspec.lock
+│   │   └── pubspec.yaml
+│   ├── integration_test/
+│   │   ├── module_login/
+│   │   └── test_utils/
+│   ├── ios/
+│   │   ├── .gitignore
+│   │   ├── Flutter/
+│   │   ├── Gemfile
+│   │   ├── Podfile
+│   │   ├── Podfile.lock
+│   │   ├── Runner.xcodeproj/
+│   │   ├── Runner.xcworkspace/
+│   │   ├── Runner/
+│   │   ├── ShareExtension/
+│   │   ├── WidgetExtension/
+│   │   ├── ci_scripts/
+│   │   └── fastlane/
+│   ├── lib/
+│   │   ├── constants/
+│   │   ├── domain/
+│   │   ├── entities/
+│   │   ├── extensions/
+│   │   ├── infrastructure/
+│   │   ├── interfaces/
+│   │   ├── main.dart
+│   │   ├── mixins/
+│   │   ├── models/
+│   │   ├── pages/
+│   │   ├── platform/
+│   │   ├── presentation/
+│   │   ├── providers/
+│   │   ├── repositories/
+│   │   ├── routing/
+│   │   ├── services/
+│   │   ├── theme/
+│   │   ├── utils/
+│   │   ├── widgets/
+│   │   └── wm_executor.dart
+│   ├── makefile
+│   ├── mise.toml
+│   ├── openapi/
+│   │   ├── .gitignore
+│   │   ├── .openapi-generator-ignore
+│   │   ├── .openapi-generator/
+│   │   ├── .travis.yml
+│   │   ├── README.md
+│   │   ├── git_push.sh
+│   │   ├── lib/
+│   │   └── pubspec.yaml
+│   ├── packages/
+│   │   └── ui/
+│   ├── pigeon/
+│   │   ├── background_worker_api.dart
+│   │   ├── background_worker_lock_api.dart
+│   │   ├── connectivity_api.dart
+│   │   ├── local_image_api.dart
+│   │   ├── native_sync_api.dart
+│   │   ├── network_api.dart
+│   │   └── remote_image_api.dart
+│   ├── pubspec.lock
+│   ├── pubspec.yaml
+│   ├── scripts/
+│   │   ├── check_i18n_keys.py
+│   │   ├── fdroid_build_isar.sh
+│   │   └── fdroid_update_isar.sh
+│   └── test/
+│       ├── api.mocks.dart
+│       ├── domain/
+│       ├── drift/
+│       ├── dto.mocks.dart
+│       ├── fixtures/
+│       ├── infrastructure/
+│       ├── medium/
+│       ├── mock_http_override.dart
+│       ├── mocks/
+│       ├── modules/
+│       ├── pages/
+│       ├── presentation/
+│       ├── repository.mocks.dart
+│       ├── service.mocks.dart
+│       ├── services/
+│       ├── test_utils.dart
+│       ├── test_utils/
+│       ├── utils/
+│       └── widget_tester_extensions.dart
+├── open-api/
+│   ├── bin/
+│   │   └── generate-open-api.sh
+│   ├── immich-openapi-specs.json
+│   ├── openapitools.json
+│   ├── patch/
+│   │   ├── api.dart.patch
+│   │   ├── api_client.dart.patch
+│   │   └── pubspec_immich_mobile.yaml.patch
+│   ├── templates/
+│   │   └── mobile/
+│   └── typescript-sdk/
+│       ├── .npmignore
+│       ├── .nvmrc
+│       ├── README.md
+│       ├── package.json
+│       ├── src/
+│       └── tsconfig.json
+├── package.json
+├── plugins/
+│   ├── .gitignore
+│   ├── LICENSE
+│   ├── esbuild.js
+│   ├── manifest.json
+│   ├── mise.toml
+│   ├── package-lock.json
+│   ├── package.json
+│   ├── src/
+│   │   ├── index.d.ts
+│   │   └── index.ts
+│   └── tsconfig.json
+├── pnpm-lock.yaml
+├── pnpm-workspace.yaml
+├── readme_i18n/
+│   ├── README_ar_JO.md
+│   ├── README_ca_ES.md
+│   ├── README_de_DE.md
+│   ├── README_es_ES.md
+│   ├── README_fr_FR.md
+│   ├── README_it_IT.md
+│   ├── README_ja_JP.md
+│   ├── README_ko_KR.md
+│   ├── README_nl_NL.md
+│   ├── README_pt_BR.md
+│   ├── README_ru_RU.md
+│   ├── README_sv_SE.md
+│   ├── README_th_TH.md
+│   ├── README_tr_TR.md
+│   ├── README_uk_UA.md
+│   ├── README_vi_VN.md
+│   ├── README_zh_CN.md
+│   └── README_zh_TW.md
+├── renovate.json
+├── server/
+│   ├── .gitignore
+│   ├── .npmignore
+│   ├── .nvmrc
+│   ├── .prettierignore
+│   ├── .prettierrc
+│   ├── Dockerfile
+│   ├── Dockerfile.dev
+│   ├── bin/
+│   │   ├── get-cpus.sh
+│   │   ├── immich-admin
+│   │   ├── immich-dev
+│   │   ├── immich-healthcheck
+│   │   └── start.sh
+│   ├── eslint.config.mjs
+│   ├── mise.toml
+│   ├── nest-cli.json
+│   ├── package.json
+│   ├── resources/
+│   │   ├── style-dark.json
+│   │   └── style-light.json
+│   ├── src/
+│   │   ├── app.common.ts
+│   │   ├── app.module.ts
+│   │   ├── bin/
+│   │   ├── commands/
+│   │   ├── config.ts
+│   │   ├── constants.ts
+│   │   ├── controllers/
+│   │   ├── cores/
+│   │   ├── database.ts
+│   │   ├── decorators.ts
+│   │   ├── dtos/
+│   │   ├── emails/
+│   │   ├── enum.ts
+│   │   ├── main.ts
+│   │   ├── maintenance/
+│   │   ├── middleware/
+│   │   ├── plugins.ts
+│   │   ├── queries/
+│   │   ├── repositories/
+│   │   ├── schema/
+│   │   ├── services/
+│   │   ├── types.ts
+│   │   ├── types/
+│   │   ├── utils/
+│   │   ├── validation.spec.ts
+│   │   ├── validation.ts
+│   │   └── workers/
+│   ├── test/
+│   │   ├── factories/
+│   │   ├── fixtures/
+│   │   ├── mappers.ts
+│   │   ├── medium.factory.ts
+│   │   ├── medium/
+│   │   ├── repositories/
+│   │   ├── small.factory.ts
+│   │   ├── utils.ts
+│   │   ├── vitest.config.medium.mjs
+│   │   └── vitest.config.mjs
+│   ├── tsconfig.build.json
+│   └── tsconfig.json
+└── web/
+    ├── .browserslistrc
+    ├── .dockerignore
+    ├── .gitignore
+    ├── .npmrc
+    ├── .nvmrc
+    ├── .prettierignore
+    ├── .prettierrc
+    ├── README.md
+    ├── bin/
+    │   └── immich-web
+    ├── eslint.config.js
+    ├── mise.toml
+    ├── package.json
+    ├── src/
+    │   ├── app.css
+    │   ├── app.d.ts
+    │   ├── app.html
+    │   ├── hooks.client.ts
+    │   ├── hooks.server.ts
+    │   ├── lib/
+    │   ├── params/
+    │   ├── routes/
+    │   ├── service-worker/
+    │   └── test-data/
+    ├── static/
+    │   ├── .well-known/
+    │   ├── apple-icon-180.png
+    │   ├── dark_skeleton.png
+    │   ├── favicon-144.png
+    │   ├── favicon-16.png
+    │   ├── favicon-32.png
+    │   ├── favicon-48.png
+    │   ├── favicon-96.png
+    │   ├── favicon.ico
+    │   ├── favicon.png
+    │   ├── feature-panel.png
+    │   ├── light_skeleton.png
+    │   ├── manifest-icon-192.maskable.png
+    │   ├── manifest-icon-512.maskable.png
+    │   ├── manifest.json
+    │   └── robots.txt
+    ├── svelte.config.js
+    ├── tests/
+    │   └── helpers.ts
+    ├── tsconfig.json
+    └── vite.config.ts

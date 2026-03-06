@@ -1,0 +1,1378 @@
+=====================================
+Repository Analysis: parse-server
+Type: Backend / API Service
+=====================================
+
+--- METADATA ---
+Name: parse-server
+Description: Parse Server for Node.js / Express
+Language: JavaScript
+Topics: baas, backend, file-storage, graphql, graphql-api, graphql-relay, graphql-server, hacktoberfest, mbaas, mongodb, nodejs, notifications, object-storage, parse-platform, parse-server, postgres, relay, rest-api
+Stars: 21388
+License: Apache License 2.0
+
+--- README ---
+![parse-repository-header-server](https://user-images.githubusercontent.com/5673677/138278489-7d0cebc5-1e31-4d3c-8ffb-53efcda6f29d.png)
+
+---
+
+[![Build Status](https://github.com/parse-community/parse-server/actions/workflows/ci.yml/badge.svg?branch=alpha)](https://github.com/parse-community/parse-server/actions/workflows/ci.yml?query=workflow%3Aci+branch%3Aalpha)
+[![Build Status](https://github.com/parse-community/parse-server/actions/workflows/ci.yml/badge.svg?branch=release)](https://github.com/parse-community/parse-server/actions/workflows/ci.yml?query=workflow%3Aci+branch%3Arelease)
+[![Snyk Badge](https://snyk.io/test/github/parse-community/parse-server/badge.svg)](https://snyk.io/test/github/parse-community/parse-server)
+[![Coverage](https://codecov.io/github/parse-community/parse-server/branch/alpha/graph/badge.svg)](https://app.codecov.io/github/parse-community/parse-server/tree/alpha)
+[![auto-release](https://img.shields.io/badge/%F0%9F%9A%80-auto--release-9e34eb.svg)](https://github.com/parse-community/parse-dashboard/releases)
+
+[![Node Version](https://img.shields.io/badge/nodejs-20,_22,_24-green.svg?logo=node.js&style=flat)](https://nodejs.org)
+[![MongoDB Version](https://img.shields.io/badge/mongodb-7,_8-green.svg?logo=mongodb&style=flat)](https://www.mongodb.com)
+[![Postgres Version](https://img.shields.io/badge/postgresql-16,_17,_18-green.svg?logo=postgresql&style=flat)](https://www.postgresql.org)
+
+[![npm latest version](https://img.shields.io/npm/v/parse-server/latest.svg)](https://www.npmjs.com/package/parse-server)
+[![npm alpha version](https://img.shields.io/npm/v/parse-server/alpha.svg)](https://www.npmjs.com/package/parse-server)
+
+[![Backers on Open Collective](https://opencollective.com/parse-server/backers/badge.svg)][open-collective-link]
+[![Sponsors on Open Collective](https://opencollective.com/parse-server/sponsors/badge.svg)][open-collective-link]
+[![Forum](https://img.shields.io/discourse/https/community.parseplatform.org/topics.svg)](https://community.parseplatform.org/c/parse-server)
+[![Twitter](https://img.shields.io/twitter/follow/ParsePlatform.svg?label=Follow&style=social)](https://twitter.com/intent/follow?screen_name=ParsePlatform)
+[![Chat](https://img.shields.io/badge/Chat-Join!-%23fff?style=social&logo=slack)](https://chat.parseplatform.org)
+
+---
+
+Parse Server is an open source backend that can be deployed to any infrastructure that can run Node.js. Parse Server works with the Express web application framework. It can be added to existing web applications, or run by itself.
+
+The full documentation for Parse Server is available in the [wiki](https://github.com/parse-community/parse-server/wiki). The [Parse Server guide](http://docs.parseplatform.org/parse-server/guide/) is a good place to get started. An [API reference](http://parseplatform.org/parse-server/api/) and [Cloud Code guide](https://docs.parseplatform.org/cloudcode/guide/) are also available. If you're interested in developing for Parse Server, the [Development guide](http://docs.parseplatform.org/parse-server/guide/#development-guide) will help you get set up.
+
+---
+
+A big _thank you_ 🙏 to our [sponsors](#sponsors) and [backers](#backers) who support the development of Parse Platform!
+
+#### Bronze Sponsors
+
+[![Bronze Sponsors](https://opencollective.com/parse-server/tiers/bronze-sponsor.svg?avatarHeight=36&button=false)](https://opencollective.com/parse-server/contribute/bronze-sponsor-10559)
+
+---
+
+- [Flavors \& Branches](#flavors--branches)
+  - [Long Term Support](#long-term-support)
+- [Getting Started](#getting-started)
+  - [Running Parse Server](#running-parse-server)
+    - [Compatibility](#compatibility)
+      - [Node.js](#nodejs)
+      - [MongoDB](#mongodb)
+      - [PostgreSQL](#postgresql)
+    - [Locally](#locally)
+    - [Docker Container](#docker-container)
+    - [Saving and Querying Objects](#saving-and-querying-objects)
+    - [Connect an SDK](#connect-an-sdk)
+  - [Running Parse Server elsewhere](#running-parse-server-elsewhere)
+    - [Sample Application](#sample-application)
+    - [Parse Server + Express](#parse-server--express)
+  - [Parse Server Health](#parse-server-health)
+    - [Status Values](#status-values)
+- [Configuration](#configuration)
+  - [Basic Options](#basic-options)
+  - [Client Key Options](#client-key-options)
+  - [Access Scopes](#access-scopes)
+  - [Email Verification and Password Reset](#email-verification-and-password-reset)
+  - [Password and Account Policy](#password-and-account-policy)
+  - [Custom Routes](#custom-routes)
+    - [Example](#example)
+    - [Reserved Paths](#reserved-paths)
+    - [Parameters](#parameters)
+  - [Custom Pages](#custom-pages)
+  - [Using Environment Variables](#using-environment-variables)
+  - [Available Adapters](#available-adapters)
+  - [Configuring File Adapters](#configuring-file-adapters)
+    - [Restricting File URL Domains](#restricting-file-url-domains)
+  - [Idempotency Enforcement](#idempotency-enforcement)
+  - [Localization](#localization)
+    - 
+... [TRUNCATED]
+
+--- PACKAGE MANIFEST(S) ---
+
+[package.json]
+{
+  "name": "parse-server",
+  "version": "9.5.0-alpha.10",
+  "description": "An express module providing a Parse-compatible API server",
+  "main": "lib/index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/parse-community/parse-server"
+  },
+  "files": [
+    "bin/",
+    "lib/",
+    "public/",
+    "views/",
+    "LICENSE",
+    "NOTICE",
+    "postinstall.js",
+    "README.md",
+    "types"
+  ],
+  "license": "Apache-2.0",
+  "dependencies": {
+    "@apollo/server": "5.4.0",
+    "@as-integrations/express5": "1.1.2",
+    "@graphql-tools/merge": "9.0.24",
+    "@graphql-tools/schema": "10.0.23",
+    "@graphql-tools/utils": "10.8.6",
+    "@parse/fs-files-adapter": "3.0.0",
+    "@parse/push-adapter": "8.3.1",
+    "bcryptjs": "3.0.3",
+    "commander": "14.0.3",
+    "cors": "2.8.6",
+    "deepcopy": "2.1.0",
+    "express": "5.2.1",
+    "express-rate-limit": "8.2.1",
+    "follow-redirects": "1.15.9",
+    "graphql": "16.11.0",
+    "graphql-list-fields": "2.0.4",
+    "graphql-relay": "0.10.2",
+    "graphql-upload": "15.0.2",
+    "intersect": "1.0.1",
+    "jsonwebtoken": "9.0.2",
+    "jwks-rsa": "3.2.0",
+    "ldapjs": "3.0.7",
+    "lodash": "4.17.23",
+    "lru-cache": "10.4.0",
+    "mime": "4.0.7",
+    "mongodb": "7.1.0",
+    "mustache": "4.2.0",
+    "otpauth": "9.4.0",
+    "parse": "8.5.0",
+    "path-to-regexp": "8.3.0",
+    "pg-monitor": "3.1.0",
+    "pg-promise": "12.6.0",
+    "pluralize": "8.0.0",
+    "punycode": "2.3.1",
+    "rate-limit-redis": "4.2.0",
+    "redis": "5.10.0",
+    "semver": "7.7.2",
+    "subscriptions-transport-ws": "0.11.0",
+    "tv4": "1.3.0",
+    "uuid": "11.1.0",
+    "winston": "3.19.0",
+    "winston-daily-rotate-file": "5.0.0",
+    "ws": "8.18.2"
+  },
+  "devDependencies": {
+    "@actions/core": "3.0.0",
+    "@apollo/client": "3.13.8",
+    "@babel/cli": "7.27.0",
+    "@babel/core": "7.29.0",
+    "@babel/eslint-parser": "7.28.6",
+    "@babel/plugin-proposal-object-rest-spread": "7.20.7",
+    "@babel/plugin-transform-flow-strip-types": "7.27.1",
+    "@babel/preset-env": "7.27.2",
+    "@babel/preset-typescript": "7.27.1",
+    "@saithodev/semantic-release-backmerge": "4.0.1",
+    "@semantic-release/changelog": "6.0.3",
+    "@semantic-release/commit-analyzer": "13.0.1",
+    "@semantic-release/git": "10.0.1",
+    "@semantic-release/github": "11.0.3",
+    "@semantic-release/npm": "12.0.1",
+    "@semantic-release/release-notes-generator": "14.1.0",
+    "all-node-versions": "13.0.1",
+    "apollo-upload-client": "18.0.1",
+    "clean-jsdoc-theme": "4.3.0",
+    "cross-env": "7.0.3",
+    "deep-diff": "1.0.2",
+    "eslint": "9.27.0",
+    "eslint-plugin-expect-type": "0.6.2",
+    "eslint-plugin-unused-imports": "4.4.1",
+    "form-data": "4.0.5",
+    "globals": "17.3.0",
+    "graphql-tag": "2.12.6",
+    "jasmine": "5.7.1",
+    "jasmine-spec-reporter": "7.0.0",
+    "jsdoc": "4.0.4",
+    "jsdoc-babel": "0.5.0",
+    "lint-staged": "16.1.0",
+    "m": "1.10.0",
+    "madge": "8.0.0",
+    "mock-files-adapter": "file:spec/dependencies/mock-fi
+... [TRUNCATED]
+
+--- BACKEND CONFIG FILES ---
+
+[Dockerfile]
+############################################################
+# Build stage
+############################################################
+FROM node:20.19.0-alpine3.20 AS build
+
+RUN apk --no-cache add \
+   build-base \
+   git \
+   python3
+
+WORKDIR /tmp
+
+# Copy package.json first to benefit from layer caching
+COPY package*.json ./
+
+# Copy src to have config files for install
+COPY . .
+
+# Install without scripts
+RUN npm ci --omit=dev --ignore-scripts \
+    # Copy production node_modules aside for later
+ && cp -R node_modules prod_node_modules \
+    # Install all dependencies
+ && npm ci \
+    # Run build steps
+ && npm run build
+
+############################################################
+# Release stage
+############################################################
+FROM node:20.19.0-alpine3.20 AS release
+
+VOLUME /parse-server/cloud /parse-server/config
+
+WORKDIR /parse-server
+
+# Copy build stage folders
+COPY --from=build /tmp/prod_node_modules /parse-server/node_modules
+COPY --from=build /tmp/lib lib
+
+COPY package*.json ./
+COPY bin bin
+COPY public public
+COPY views views
+RUN mkdir -p logs && chown -R node: logs
+
+ENV PORT=1337
+USER node
+EXPOSE $PORT
+
+ENTRYPOINT ["node", "./bin/parse-server"]
+
+
+--- API ROUTE / ENDPOINT DEFINITIONS ---
+
+[src/Controllers/AdaptableController.js]
+/*
+AdaptableController.js
+
+AdaptableController is the base class for all controllers
+that support adapter,
+The super class takes care of creating the right instance for the adapter
+based on the parameters passed
+
+ */
+
+// _adapter is private, use Symbol
+var _adapter = Symbol();
+
+export class AdaptableController {
+  constructor(adapter, appId, options) {
+    this.options = options;
+    this.appId = appId;
+    this.adapter = adapter;
+  }
+
+  set adapter(adapter) {
+    this.validateAdapter(adapter);
+    this[_adapter] = adapter;
+  }
+
+  get adapter() {
+    return this[_adapter];
+  }
+
+  expectedAdapterType() {
+    throw new Error('Subclasses should implement expectedAdapterType()');
+  }
+
+  validateAdapter(adapter) {
+    AdaptableController.validateAdapter(adapter, this);
+  }
+
+  static validateAdapter(adapter, self, ExpectedType) {
+    if (!adapter) {
+      throw new Error(this.constructor.name + ' requires an adapter');
+    }
+
+    const Type = ExpectedType || self.expectedAdapterType();
+    // Allow skipping for testing
+    if (!Type) {
+      return;
+    }
+
+    // Makes sure the prototype matches
+    const mismatches = Object.getOwnPropertyNames(Type.prototype).reduce((obj, key) => {
+      // Skip getters — they provide optional defaults that adapters don't need to implement
+      const descriptor = Object.getOwnPropertyDescriptor(Type.prototype, key);
+      if (descriptor && typeof descriptor.get === 'function') {
+        return obj;
+      }
+      const adapterType = typeof adapter[key];
+      const expectedType = typeof Type.prototype[key];
+      if (adapterType !== expectedType) {
+        obj[key] = {
+          expected: expectedType,
+          actual: adapterType,
+        };
+      }
+      return obj;
+    }, {});
+
+    if (Object.keys(mismatches).length > 0) {
+      throw new Error("Adapter prototype don't match expected prototype", adapter, mismatches);
+    }
+  }
+}
+
+export default AdaptableController;
+
+
+[src/Controllers/AnalyticsController.js]
+import AdaptableController from './AdaptableController';
+import { AnalyticsAdapter } from '../Adapters/Analytics/AnalyticsAdapter';
+
+export class AnalyticsController extends AdaptableController {
+  appOpened(req) {
+    return Promise.resolve()
+      .then(() => {
+        return this.adapter.appOpened(req.body || {}, req);
+      })
+      .then(response => {
+        return { response: response || {} };
+      })
+      .catch(() => {
+        return { response: {} };
+      });
+  }
+
+  trackEvent(req) {
+    return Promise.resolve()
+      .then(() => {
+        return this.adapter.trackEvent(req.params.eventName, req.body || {}, req);
+      })
+      .then(response => {
+        return { response: response || {} };
+      })
+      .catch(() => {
+        return { response: {} };
+      });
+  }
+
+  expectedAdapterType() {
+    return AnalyticsAdapter;
+  }
+}
+
+export default AnalyticsController;
+
+
+[src/Controllers/CacheController.js]
+import AdaptableController from './AdaptableController';
+import CacheAdapter from '../Adapters/Cache/CacheAdapter';
+
+const KEY_SEPARATOR_CHAR = ':';
+
+function joinKeys(...keys) {
+  return keys.join(KEY_SEPARATOR_CHAR);
+}
+
+/**
+ * Prefix all calls to the cache via a prefix string, useful when grouping Cache by object type.
+ *
+ * eg "Role" or "Session"
+ */
+export class SubCache {
+  constructor(prefix, cacheController, ttl) {
+    this.prefix = prefix;
+    this.cache = cacheController;
+    this.ttl = ttl;
+  }
+
+  get(key) {
+    const cacheKey = joinKeys(this.prefix, key);
+    return this.cache.get(cacheKey);
+  }
+
+  put(key, value, ttl) {
+    const cacheKey = joinKeys(this.prefix, key);
+    return this.cache.put(cacheKey, value, ttl);
+  }
+
+  del(key) {
+    const cacheKey = joinKeys(this.prefix, key);
+    return this.cache.del(cacheKey);
+  }
+
+  clear() {
+    return this.cache.clear();
+  }
+}
+
+export class CacheController extends AdaptableController {
+  constructor(adapter, appId, options = {}) {
+    super(adapter, appId, options);
+
+    this.role = new SubCache('role', this);
+    this.user = new SubCache('user', this);
+    this.graphQL = new SubCache('graphQL', this);
+  }
+
+  get(key) {
+    const cacheKey = joinKeys(this.appId, key);
+    return this.adapter.get(cacheKey).then(null, () => Promise.resolve(null));
+  }
+
+  put(key, value, ttl) {
+    const cacheKey = joinKeys(this.appId, key);
+    return this.adapter.put(cacheKey, value, ttl);
+  }
+
+  del(key) {
+    const cacheKey = joinKeys(this.appId, key);
+    return this.adapter.del(cacheKey);
+  }
+
+  clear() {
+    return this.adapter.clear();
+  }
+
+  expectedAdapterType() {
+    return CacheAdapter;
+  }
+}
+
+export default CacheController;
+
+
+[src/Controllers/DatabaseController.js]
+﻿// @flow
+// A database adapter that works with data exported from the hosted
+// Parse database.
+
+// @flow-disable-next
+import { Parse } from 'parse/node';
+// @flow-disable-next
+import _ from 'lodash';
+// @flow-disable-next
+import intersect from 'intersect';
+// @flow-disable-next
+import deepcopy from 'deepcopy';
+import logger from '../logger';
+import Utils from '../Utils';
+import * as SchemaController from './SchemaController';
+import { StorageAdapter } from '../Adapters/Storage/StorageAdapter';
+import MongoStorageAdapter from '../Adapters/Storage/Mongo/MongoStorageAdapter';
+import PostgresStorageAdapter from '../Adapters/Storage/Postgres/PostgresStorageAdapter';
+import SchemaCache from '../Adapters/Cache/SchemaCache';
+import type { LoadSchemaOptions } from './types';
+import type { ParseServerOptions } from '../Options';
+import type { QueryOptions, FullQueryOptions } from '../Adapters/Storage/StorageAdapter';
+import { createSanitizedError } from '../Error';
+
+function addWriteACL(query, acl) {
+  const newQuery = _.cloneDeep(query);
+  //Can't be any existing '_wperm' query, we don't allow client queries on that, no need to $and
+  newQuery._wperm = { $in: [null, ...acl] };
+  return newQuery;
+}
+
+function addReadACL(query, acl) {
+  const newQuery = _.cloneDeep(query);
+  //Can't be any existing '_rperm' query, we don't allow client queries on that, no need to $and
+  newQuery._rperm = { $in: [null, '*', ...acl] };
+  return newQuery;
+}
+
+// Transforms a REST API formatted ACL object to our two-field mongo format.
+const transformObjectACL = ({ ACL, ...result }) => {
+  if (!ACL) {
+    return result;
+  }
+
+  result._wperm = [];
+  result._rperm = [];
+
+  for (const entry in ACL) {
+    if (ACL[entry].read) {
+      result._rperm.push(entry);
+    }
+    if (ACL[entry].write) {
+      result._wperm.push(entry);
+    }
+  }
+  return result;
+};
+
+const specialQueryKeys = ['$and', '$or', '$nor', '_rperm', '_wperm'];
+const specialMasterQueryKeys = [
+  ...specialQueryKeys,
+  '_email_verify_token',
+  '_perishable_token',
+  '_tombstone',
+  '_email_verify_token_expires_at',
+  '_failed_login_count',
+  '_account_lockout_expires_at',
+  '_password_changed_at',
+  '_password_history',
+];
+
+const validateQuery = (
+  query: any,
+  isMaster: boolean,
+  isMaintenance: boolean,
+  update: boolean
+): void => {
+  if (isMaintenance) {
+    isMaster = true;
+  }
+  if (query.ACL) {
+    throw new Parse.Error(Parse.Error.INVALID_QUERY, 'Cannot query on ACL.');
+  }
+
+  if (query.$or) {
+    if (query.$or instanceof Array) {
+      query.$or.forEach(value => validateQuery(value, isMaster, isMaintenance, update));
+    } else {
+      throw new Parse.Error(Parse.Error.INVALID_QUERY, 'Bad $or format - use an array value.');
+    }
+  }
+
+  if (query.$and) {
+    if (query.$and instanceof Array) {
+      query.$and.forEach(value => validateQuery(value, isMaster, isMaintenance, update));
+    } else {
+      throw new Parse.Error(Parse.Error.INVALID_QUERY, 'Bad $and format - use an array value.');
+    }
+  }
+
+  if (qu
+... [TRUNCATED]
+
+[src/Controllers/FilesController.js]
+// FilesController.js
+import { randomHexString } from '../cryptoUtils';
+import AdaptableController from './AdaptableController';
+import { validateFilename, FilesAdapter } from '../Adapters/Files/FilesAdapter';
+import path from 'path';
+const Parse = require('parse/node').Parse;
+
+const legacyFilesRegex = new RegExp(
+  '^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}-.*'
+);
+
+export class FilesController extends AdaptableController {
+  getFileData(config, filename) {
+    return this.adapter.getFileData(filename);
+  }
+
+  async createFile(config, filename, data, contentType, options) {
+    const extname = path.extname(filename);
+
+    const hasExtension = extname.length > 0;
+    const mime = (await import('mime')).default
+    if (!hasExtension && contentType && mime.getExtension(contentType)) {
+      filename = filename + '.' + mime.getExtension(contentType);
+    } else if (hasExtension && !contentType) {
+      contentType = mime.getType(filename);
+    }
+
+    if (!this.options.preserveFileName) {
+      filename = randomHexString(32) + '_' + filename;
+    }
+
+    // Prepend directory if provided
+    if (options && options.directory) {
+      filename = options.directory + '/' + filename;
+      delete options.directory;
+    }
+
+    // Fallback: buffer stream for adapters that don't support streaming
+    if (typeof data?.pipe === 'function' && !this.adapter.supportsStreaming) {
+      data = await new Promise((resolve, reject) => {
+        const chunks = [];
+        data.on('data', chunk => chunks.push(chunk));
+        data.on('end', () => resolve(Buffer.concat(chunks)));
+        data.on('error', reject);
+      });
+    }
+
+    const location = await this.adapter.getFileLocation(config, filename);
+    await this.adapter.createFile(filename, data, contentType, options);
+    return {
+      url: location,
+      name: filename,
+    }
+  }
+
+  deleteFile(config, filename) {
+    return this.adapter.deleteFile(filename);
+  }
+
+  getMetadata(filename) {
+    if (typeof this.adapter.getMetadata === 'function') {
+      return this.adapter.getMetadata(filename);
+    }
+    return Promise.resolve({});
+  }
+
+  /**
+   * Find file references in REST-format object and adds the url key
+   * with the current mount point and app id.
+   * Object may be a single object or list of REST-format objects.
+   */
+  async expandFilesInObject(config, object) {
+    if (object instanceof Array) {
+      const promises = object.map(obj => this.expandFilesInObject(config, obj));
+      await Promise.all(promises);
+      return;
+    }
+    if (typeof object !== 'object') {
+      return;
+    }
+    for (const key in object) {
+      const fileObject = object[key];
+      if (fileObject && fileObject['__type'] === 'File') {
+        if (fileObject['url']) {
+          continue;
+        }
+        const filename = fileObject['name'];
+        // all filenames starting with "tfss-" should be from files.parsetfss.com
+        // all filenames starting with a "-" seperated UUID should be fr
+... [TRUNCATED]
+
+[src/Controllers/HooksController.js]
+/** @flow weak */
+
+import * as triggers from '../triggers';
+// @flow-disable-next
+import * as Parse from 'parse/node';
+// @flow-disable-next
+import request from '../request';
+import { logger } from '../logger';
+import http from 'http';
+import https from 'https';
+
+const DefaultHooksCollectionName = '_Hooks';
+const HTTPAgents = {
+  http: new http.Agent({ keepAlive: true }),
+  https: new https.Agent({ keepAlive: true }),
+};
+
+export class HooksController {
+  _applicationId: string;
+  _webhookKey: string;
+  database: any;
+
+  constructor(applicationId: string, databaseController, webhookKey) {
+    this._applicationId = applicationId;
+    this._webhookKey = webhookKey;
+    this.database = databaseController;
+  }
+
+  load() {
+    return this._getHooks().then(hooks => {
+      hooks = hooks || [];
+      hooks.forEach(hook => {
+        this.addHookToTriggers(hook);
+      });
+    });
+  }
+
+  getFunction(functionName) {
+    return this._getHooks({ functionName: functionName }).then(results => results[0]);
+  }
+
+  getFunctions() {
+    return this._getHooks({ functionName: { $exists: true } });
+  }
+
+  getTrigger(className, triggerName) {
+    return this._getHooks({
+      className: className,
+      triggerName: triggerName,
+    }).then(results => results[0]);
+  }
+
+  getTriggers() {
+    return this._getHooks({
+      className: { $exists: true },
+      triggerName: { $exists: true },
+    });
+  }
+
+  deleteFunction(functionName) {
+    triggers.removeFunction(functionName, this._applicationId);
+    return this._removeHooks({ functionName: functionName });
+  }
+
+  deleteTrigger(className, triggerName) {
+    triggers.removeTrigger(triggerName, className, this._applicationId);
+    return this._removeHooks({
+      className: className,
+      triggerName: triggerName,
+    });
+  }
+
+  _getHooks(query = {}) {
+    return this.database.find(DefaultHooksCollectionName, query).then(results => {
+      return results.map(result => {
+        delete result.objectId;
+        return result;
+      });
+    });
+  }
+
+  _removeHooks(query) {
+    return this.database.destroy(DefaultHooksCollectionName, query).then(() => {
+      return Promise.resolve({});
+    });
+  }
+
+  saveHook(hook) {
+    var query;
+    if (hook.functionName && hook.url) {
+      query = { functionName: hook.functionName };
+    } else if (hook.triggerName && hook.className && hook.url) {
+      query = { className: hook.className, triggerName: hook.triggerName };
+    } else {
+      throw new Parse.Error(143, 'invalid hook declaration');
+    }
+    return this.database
+      .update(DefaultHooksCollectionName, query, hook, { upsert: true })
+      .then(() => {
+        return Promise.resolve(hook);
+      });
+  }
+
+  addHookToTriggers(hook) {
+    var wrappedFunction = wrapToHTTPRequest(hook, this._webhookKey);
+    wrappedFunction.url = hook.url;
+    if (hook.className) {
+      triggers.addTrigger(hook.triggerName, hook.className, wrappedFunction, this._applicationId);
+    } else {
+      triggers.addFunction(hook.functionName, wrapp
+... [TRUNCATED]
+
+[src/Controllers/LiveQueryController.js]
+import { ParseCloudCodePublisher } from '../LiveQuery/ParseCloudCodePublisher';
+import { LiveQueryOptions } from '../Options';
+import { getClassName } from './../triggers';
+export class LiveQueryController {
+  classNames: any;
+  liveQueryPublisher: any;
+
+  constructor(config: ?LiveQueryOptions) {
+    // If config is empty, we just assume no classs needs to be registered as LiveQuery
+    if (!config || !config.classNames) {
+      this.classNames = new Set();
+    } else if (config.classNames instanceof Array) {
+      const classNames = config.classNames.map(name => {
+        const _name = getClassName(name);
+        return new RegExp(`^${_name}$`);
+      });
+      this.classNames = new Set(classNames);
+    } else {
+      throw 'liveQuery.classes should be an array of string';
+    }
+    this.liveQueryPublisher = new ParseCloudCodePublisher(config);
+  }
+
+  connect() {
+    return this.liveQueryPublisher.connect();
+  }
+
+  onAfterSave(
+    className: string,
+    currentObject: any,
+    originalObject: any,
+    classLevelPermissions: ?any
+  ) {
+    if (!this.hasLiveQuery(className)) {
+      return;
+    }
+    const req = this._makePublisherRequest(currentObject, originalObject, classLevelPermissions);
+    this.liveQueryPublisher.onCloudCodeAfterSave(req);
+  }
+
+  onAfterDelete(
+    className: string,
+    currentObject: any,
+    originalObject: any,
+    classLevelPermissions: any
+  ) {
+    if (!this.hasLiveQuery(className)) {
+      return;
+    }
+    const req = this._makePublisherRequest(currentObject, originalObject, classLevelPermissions);
+    this.liveQueryPublisher.onCloudCodeAfterDelete(req);
+  }
+
+  hasLiveQuery(className: string): boolean {
+    for (const name of this.classNames) {
+      if (name.test(className)) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  clearCachedRoles(user: any) {
+    if (!user) {
+      return;
+    }
+    return this.liveQueryPublisher.onClearCachedRoles(user);
+  }
+
+  _makePublisherRequest(currentObject: any, originalObject: any, classLevelPermissions: ?any): any {
+    const req = {
+      object: currentObject,
+    };
+    if (currentObject) {
+      req.original = originalObject;
+    }
+    if (classLevelPermissions) {
+      req.classLevelPermissions = classLevelPermissions;
+    }
+    return req;
+  }
+}
+
+export default LiveQueryController;
+
+
+[src/Controllers/LoggerController.js]
+import { Parse } from 'parse/node';
+import AdaptableController from './AdaptableController';
+import { LoggerAdapter } from '../Adapters/Logger/LoggerAdapter';
+
+const MILLISECONDS_IN_A_DAY = 24 * 60 * 60 * 1000;
+const LOG_STRING_TRUNCATE_LENGTH = 1000;
+const truncationMarker = '... (truncated)';
+
+export const LogLevel = {
+  INFO: 'info',
+  ERROR: 'error',
+};
+
+export const LogOrder = {
+  DESCENDING: 'desc',
+  ASCENDING: 'asc',
+};
+
+export const logLevels = ['error', 'warn', 'info', 'debug', 'verbose', 'silly', 'silent'];
+
+export class LoggerController extends AdaptableController {
+  constructor(adapter, appId, options = { logLevel: 'info' }) {
+    super(adapter, appId, options);
+    let level = 'info';
+    if (options.verbose) {
+      level = 'verbose';
+    }
+    if (options.logLevel) {
+      level = options.logLevel;
+    }
+    const index = logLevels.indexOf(level); // info by default
+    logLevels.forEach((level, levelIndex) => {
+      if (levelIndex > index) {
+        // silence the levels that are > maxIndex
+        this[level] = () => {};
+      }
+    });
+  }
+
+  maskSensitiveUrl(path) {
+    const urlString = 'http://localhost' + path; // prepend dummy string to make a real URL
+    const urlObj = new URL(urlString);
+    const query = urlObj.searchParams;
+    let sanitizedQuery = '?';
+
+    for (const [key, value] of query) {
+      if (key !== 'password') {
+        // normal value
+        sanitizedQuery += key + '=' + value + '&';
+      } else {
+        // password value, redact it
+        sanitizedQuery += key + '=' + '********' + '&';
+      }
+    }
+
+    // trim last character, ? or &
+    sanitizedQuery = sanitizedQuery.slice(0, -1);
+
+    // return original path name with sanitized params attached
+    return urlObj.pathname + sanitizedQuery;
+  }
+
+  maskSensitive(argArray) {
+    return argArray.map(e => {
+      if (!e) {
+        return e;
+      }
+
+      if (typeof e === 'string') {
+        return e.replace(/(password".?:.?")[^"]*"/g, '$1********"');
+      }
+      // else it is an object...
+
+      // check the url
+      if (e.url) {
+        // for strings
+        if (typeof e.url === 'string') {
+          e.url = this.maskSensitiveUrl(e.url);
+        } else if (Array.isArray(e.url)) {
+          // for strings in array
+          e.url = e.url.map(item => {
+            if (typeof item === 'string') {
+              return this.maskSensitiveUrl(item);
+            }
+
+            return item;
+          });
+        }
+      }
+
+      if (e.body) {
+        for (const key of Object.keys(e.body)) {
+          if (key === 'password') {
+            e.body[key] = '********';
+            break;
+          }
+        }
+      }
+
+      if (e.params) {
+        for (const key of Object.keys(e.params)) {
+          if (key === 'password') {
+            e.params[key] = '********';
+            break;
+          }
+        }
+      }
+
+      return e;
+    });
+  }
+
+  log(level, args) {
+    // make the passed in arguments object an array with the spread operator
+    args = this.maskS
+... [TRUNCATED]
+
+--- DATABASE SCHEMA / MODEL FILES ---
+  src/GraphQL/ParseGraphQLSchema.js
+  src/GraphQL/loaders/defaultRelaySchema.js
+  src/LiveQuery/RequestSchema.js
+  src/SchemaMigrations/Migrations.js
+
+--- DIRECTORY STRUCTURE (depth 2) ---
+├── .babelrc
+├── .dockerignore
+├── .flowconfig
+├── .gitattributes
+├── .github/
+│   ├── ISSUE_TEMPLATE/
+│   │   ├── ---1-report-an-issue.md
+│   │   ├── ---2-feature-request.md
+│   │   └── config.yml
+│   ├── dependabot.yml
+│   ├── parse-server-logo.png
+│   ├── pull_request_template.md
+│   └── workflows/
+│       ├── ci-automated-check-environment.yml
+│       ├── ci-performance.yml
+│       ├── ci.yml
+│       ├── release-automated.yml
+│       ├── release-manual-docker.yml
+│       ├── release-manual-docs.yml
+│       └── release-prepare-monthly.yml
+├── .gitignore
+├── .madgerc
+├── .npmignore
+├── .nvmrc
+├── .nycrc
+├── .prettierrc
+├── .releaserc.js
+├── .releaserc/
+│   ├── commit.hbs
+│   ├── footer.hbs
+│   ├── header.hbs
+│   └── template.hbs
+├── 6.0.0.md
+├── 8.0.0.md
+├── 9.0.0.md
+├── CHANGELOG.md
+├── CODE_OF_CONDUCT.md
+├── CONTRIBUTING.md
+├── DEPRECATIONS.md
+├── Dockerfile
+├── LICENSE
+├── NOTICE
+├── README.md
+├── SECURITY.md
+├── benchmark/
+│   ├── MongoLatencyWrapper.js
+│   └── performance.js
+├── bin/
+│   ├── parse-live-query-server
+│   └── parse-server
+├── bootstrap.sh
+├── changelogs/
+│   ├── CHANGELOG_alpha.md
+│   ├── CHANGELOG_beta.md
+│   └── CHANGELOG_release.md
+├── ci/
+│   ├── CiVersionCheck.js
+│   ├── ciCheck.js
+│   ├── definitionsCheck.js
+│   ├── nodeEngineCheck.js
+│   └── uninstallDevDeps.sh
+├── eslint.config.js
+├── jsconfig.json
+├── jsdoc-conf.json
+├── package-lock.json
+├── package.json
+├── postinstall.js
+├── public/
+│   ├── custom_json.html
+│   ├── custom_json.json
+│   ├── custom_page.html
+│   ├── de-AT/
+│   │   ├── email_verification_link_expired.html
+│   │   ├── email_verification_link_invalid.html
+│   │   ├── email_verification_send_fail.html
+│   │   ├── email_verification_send_success.html
+│   │   ├── email_verification_success.html
+│   │   ├── password_reset.html
+│   │   ├── password_reset_link_invalid.html
+│   │   └── password_reset_success.html
+│   ├── de/
+│   │   ├── email_verification_link_expired.html
+│   │   ├── email_verification_link_invalid.html
+│   │   ├── email_verification_send_fail.html
+│   │   ├── email_verification_send_success.html
+│   │   ├── email_verification_success.html
+│   │   ├── password_reset.html
+│   │   ├── password_reset_link_invalid.html
+│   │   └── password_reset_success.html
+│   ├── email_verification_link_expired.html
+│   ├── email_verification_link_invalid.html
+│   ├── email_verification_send_fail.html
+│   ├── email_verification_send_success.html
+│   ├── email_verification_success.html
+│   ├── password_reset.html
+│   ├── password_reset_link_invalid.html
+│   └── password_reset_success.html
+├── release_docs.sh
+├── resources/
+│   └── buildConfigDefinitions.js
+├── scripts/
+│   ├── before_script_postgres.sh
+│   └── before_script_postgres_conf.sh
+├── spec/
+│   ├── .babelrc
+│   ├── AccountLockoutPolicy.spec.js
+│   ├── AdaptableController.spec.js
+│   ├── AdapterLoader.spec.js
+│   ├── Adapters/
+│   │   └── Auth/
+│   ├── AggregateRouter.spec.js
+│   ├── Analytics.spec.js
+│   ├── AudienceRouter.spec.js
+│   ├── Auth.spec.js
+│   ├── AuthenticationAdapters.spec.js
+│   ├── AuthenticationAdaptersV2.spec.js
+│   ├── CLI.spec.js
+│   ├── CacheController.spec.js
+│   ├── Client.spec.js
+│   ├── ClientSDK.spec.js
+│   ├── CloudCode.Validator.spec.js
+│   ├── CloudCode.spec.js
+│   ├── CloudCodeLogger.spec.js
+│   ├── DatabaseController.spec.js
+│   ├── DefinedSchemas.spec.js
+│   ├── Deprecator.spec.js
+│   ├── EmailVerificationToken.spec.js
+│   ├── EnableExpressErrorHandler.spec.js
+│   ├── EventEmitterPubSub.spec.js
+│   ├── FileUrlValidator.spec.js
+│   ├── FilesController.spec.js
+│   ├── GridFSBucketStorageAdapter.spec.js
+│   ├── HTTPRequest.spec.js
+│   ├── Idempotency.spec.js
+│   ├── InMemoryCache.spec.js
+│   ├── InMemoryCacheAdapter.spec.js
+│   ├── InstallationsRouter.spec.js
+│   ├── JobSchedule.spec.js
+│   ├── LdapAuth.spec.js
+│   ├── Logger.spec.js
+│   ├── LoggerController.spec.js
+│   ├── LogsRouter.spec.js
+│   ├── Middlewares.spec.js
+│   ├── MongoSchemaCollectionAdapter.spec.js
+│   ├── MongoStorageAdapter.spec.js
+│   ├── MongoTransform.spec.js
+│   ├── NullCacheAdapter.spec.js
+│   ├── OAuth1.spec.js
+│   ├── PagesRouter.spec.js
+│   ├── Parse.Push.spec.js
+│   ├── ParseACL.spec.js
+│   ├── ParseAPI.spec.js
+│   ├── ParseCloudCodePublisher.spec.js
+│   ├── ParseConfigKey.spec.js
+│   ├── ParseFile.spec.js
+│   ├── ParseGeoPoint.spec.js
+│   ├── ParseGlobalConfig.spec.js
+│   ├── ParseGraphQLClassNameTransformer.spec.js
+│   ├── ParseGraphQLController.spec.js
+│   ├── ParseGraphQLSchema.spec.js
+│   ├── ParseGraphQLServer.spec.js
+│   ├── ParseHooks.spec.js
+│   ├── ParseInstallation.spec.js
+│   ├── ParseLiveQuery.spec.js
+│   ├── ParseLiveQueryRedis.spec.js
+│   ├── ParseLiveQueryServer.spec.js
+│   ├── ParseObject.spec.js
+│   ├── ParsePolygon.spec.js
+│   ├── ParsePubSub.spec.js
+│   ├── ParseQuery.Aggregate.spec.js
+│   ├── ParseQuery.Comment.spec.js
+│   ├── ParseQuery.FullTextSearch.spec.js
+│   ├── ParseQuery.hint.spec.js
+│   ├── ParseQuery.spec.js
+│   ├── ParseRelation.spec.js
+│   ├── ParseRole.spec.js
+│   ├── ParseServer.spec.js
+│   ├── ParseServerRESTController.spec.js
+│   ├── ParseSession.spec.js
+│   ├── ParseUser.spec.js
+│   ├── ParseWebSocket.spec.js
+│   ├── ParseWebSocketServer.spec.js
+│   ├── PasswordPolicy.spec.js
+│   ├── PointerPermissions.spec.js
+│   ├── PostgresConfigParser.spec.js
+│   ├── PostgresInitOptions.spec.js
+│   ├── PostgresStorageAdapter.spec.js
+│   ├── PromiseRouter.spec.js
+│   ├── ProtectedFields.spec.js
+│   ├── PurchaseValidation.spec.js
+│   ├── PushController.spec.js
+│   ├── PushQueue.spec.js
+│   ├── PushRouter.spec.js
+│   ├── PushWorker.spec.js
+│   ├── QueryTools.spec.js
+│   ├── RateLimit.spec.js
+│   ├── ReadPreferenceOption.spec.js
+│   ├── RedisCacheAdapter.spec.js
+│   ├── RedisPubSub.spec.js
+│   ├── RegexVulnerabilities.spec.js
+│   ├── RestQuery.spec.js
+│   ├── RevocableSessionsUpgrade.spec.js
+│   ├── Schema.spec.js
+│   ├── SchemaPerformance.spec.js
+│   ├── SecurityCheck.spec.js
+│   ├── SecurityCheckGroups.spec.js
+│   ├── SessionTokenCache.spec.js
+│   ├── Subscription.spec.js
+│   ├── Uniqueness.spec.js
+│   ├── UserController.spec.js
+│   ├── UserPII.spec.js
+│   ├── Utils.spec.js
+│   ├── ValidationAndPasswordsReset.spec.js
+│   ├── VerifyUserPassword.spec.js
+│   ├── WinstonLoggerAdapter.spec.js
+│   ├── batch.spec.js
+│   ├── buildConfigDefinitions.spec.js
+│   ├── cloud/
+│   │   ├── cloudCodeAbsoluteFile.js
+│   │   ├── cloudCodeModuleFile.js
+│   │   └── cloudCodeRelativeFile.js
+│   ├── configs/
+│   │   ├── CLIConfig.json
+│   │   ├── CLIConfigApps.json
+│   │   ├── CLIConfigAuth.json
+│   │   ├── CLIConfigFail.json
+│   │   ├── CLIConfigFailTooManyApps.json
+│   │   └── CLIConfigUnknownArg.json
+│   ├── cryptoUtils.spec.js
+│   ├── defaultGraphQLTypes.spec.js
+│   ├── dependencies/
+│   │   ├── mock-files-adapter/
+│   │   └── mock-mail-adapter/
+│   ├── eslint.config.js
+│   ├── features.spec.js
+│   ├── graphQLObjectsQueries.js
+│   ├── helper.js
+│   ├── index.spec.js
+│   ├── parsers.spec.js
+│   ├── rest.spec.js
+│   ├── schemas.spec.js
+│   ├── support/
+│   │   ├── CurrentSpecReporter.js
+│   │   ├── CustomAuth.js
+│   │   ├── CustomAuthFunction.js
+│   │   ├── CustomMiddleware.js
+│   │   ├── FailingServer.js
+│   │   ├── MockAdapter.js
+│   │   ├── MockDatabaseAdapter.js
+│   │   ├── MockEmailAdapter.js
+│   │   ├── MockEmailAdapterWithOptions.js
+│   │   ├── MockLdapServer.js
+│   │   ├── MockPushAdapter.js
+│   │   ├── cert/
+│   │   ├── dev.js
+│   │   ├── jasmine.json
+│   │   ├── lorem.txt
+│   │   └── myoauth.js
+│   └── vulnerabilities.spec.js
+├── src/
+│   ├── AccountLockout.js
+│   ├── Adapters/
+│   │   ├── AdapterLoader.js
+│   │   ├── Analytics/
+│   │   ├── Auth/
+│   │   ├── Cache/
+│   │   ├── Email/
+│   │   ├── Files/
+│   │   ├── Logger/
+│   │   ├── MessageQueue/
+│   │   ├── PubSub/
+│   │   ├── Push/
+│   │   ├── Storage/
+│   │   └── WebSocketServer/
+│   ├── Auth.js
+│   ├── ClientSDK.js
+│   ├── Config.js
+│   ├── Controllers/
+│   │   ├── AdaptableController.js
+│   │   ├── AnalyticsController.js
+│   │   ├── CacheController.js
+│   │   ├── DatabaseController.js
+│   │   ├── FilesController.js
+│   │   ├── HooksController.js
+│   │   ├── LiveQueryController.js
+│   │   ├── LoggerController.js
+│   │   ├── ParseGraphQLController.js
+│   │   ├── PushController.js
+│   │   ├── SchemaController.js
+│   │   ├── UserController.js
+│   │   ├── index.js
+│   │   └── types.js
+│   ├── Deprecator/
+│   │   ├── Deprecations.js
+│   │   └── Deprecator.js
+│   ├── Error.js
+│   ├── FileUrlValidator.js
+│   ├── GraphQL/
+│   │   ├── ParseGraphQLSchema.js
+│   │   ├── ParseGraphQLServer.js
+│   │   ├── helpers/
+│   │   ├── loaders/
+│   │   ├── parseGraphQLUtils.js
+│   │   └── transformers/
+│   ├── KeyPromiseQueue.js
+│   ├── LiveQuery/
+│   │   ├── Client.js
+│   │   ├── Id.js
+│   │   ├── ParseCloudCodePublisher.js
+│   │   ├── ParseLiveQueryServer.ts
+│   │   ├── ParsePubSub.js
+│   │   ├── ParseWebSocketServer.js
+│   │   ├── QueryTools.js
+│   │   ├── RequestSchema.js
+│   │   ├── SessionTokenCache.js
+│   │   ├── Subscription.js
+│   │   └── equalObjects.js
+│   ├── Options/
+│   │   ├── Definitions.js
+│   │   ├── docs.js
+│   │   ├── index.js
+│   │   └── parsers.js
+│   ├── Page.js
+│   ├── ParseMessageQueue.js
+│   ├── ParseServer.ts
+│   ├── ParseServerRESTController.js
+│   ├── PromiseRouter.js
+│   ├── Push/
+│   │   ├── PushQueue.js
+│   │   ├── PushWorker.js
+│   │   └── utils.js
+│   ├── RestQuery.js
+│   ├── RestWrite.js
+│   ├── Routers/
+│   │   ├── AggregateRouter.js
+│   │   ├── AnalyticsRouter.js
+│   │   ├── AudiencesRouter.js
+│   │   ├── ClassesRouter.js
+│   │   ├── CloudCodeRouter.js
+│   │   ├── FeaturesRouter.js
+│   │   ├── FilesRouter.js
+│   │   ├── FunctionsRouter.js
+│   │   ├── GlobalConfigRouter.js
+│   │   ├── GraphQLRouter.js
+│   │   ├── HooksRouter.js
+│   │   ├── IAPValidationRouter.js
+│   │   ├── InstallationsRouter.js
+│   │   ├── LogsRouter.js
+│   │   ├── PagesRouter.js
+│   │   ├── PurgeRouter.js
+│   │   ├── PushRouter.js
+│   │   ├── RolesRouter.js
+│   │   ├── SchemasRouter.js
+│   │   ├── SecurityRouter.js
+│   │   ├── SessionsRouter.js
+│   │   └── UsersRouter.js
+│   ├── SchemaMigrations/
+│   │   ├── DefinedSchemas.js
+│   │   └── Migrations.js
+│   ├── Security/
+│   │   ├── Check.js
+│   │   ├── CheckGroup.js
+│   │   ├── CheckGroups/
+│   │   └── CheckRunner.js
+│   ├── SharedRest.js
+│   ├── StatusHandler.js
+│   ├── TestUtils.js
+│   ├── Utils.js
+│   ├── batch.js
+│   ├── cache.js
+│   ├── cli/
+│   │   ├── definitions/
+│   │   ├── parse-live-query-server.js
+│   │   ├── parse-server.js
+│   │   └── utils/
+│   ├── cloud-code/
+│   │   ├── Parse.Cloud.js
+│   │   └── Parse.Server.js
+│   ├── cryptoUtils.js
+│   ├── defaults.js
+│   ├── deprecated.js
+│   ├── index.ts
+│   ├── logger.ts
+│   ├── middlewares.js
+│   ├── password.js
+│   ├── request.js
+│   ├── requiredParameter.js
+│   ├── rest.js
+│   ├── triggers.js
+│   └── vendor/
+│       ├── README.md
+│       └── mongodbUrl.js
+├── tsconfig.json
+├── types/
+│   ├── @types/
+│   │   ├── @parse/
+│   │   └── deepcopy/
+│   ├── LiveQuery/
+│   │   └── ParseLiveQueryServer.d.ts
+│   ├── Options/
+│   │   └── index.d.ts
+│   ├── ParseServer.d.ts
+│   ├── eslint.config.mjs
+│   ├── index.d.ts
+│   ├── logger.d.ts
+│   ├── tests.ts
+│   └── tsconfig.json
+└── views/
+    └── choose_password

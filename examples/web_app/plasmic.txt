@@ -1,0 +1,1850 @@
+=====================================
+Repository Analysis: plasmic
+Type: Web Application
+=====================================
+
+--- METADATA ---
+Name: plasmic
+Description: Visual builder for React. Build apps, websites, and content. Integrate with your codebase.
+Language: TypeScript
+Topics: builder, cms, design, design-systems, design-tools, drag-drop, frontend, gatsby, headless, headless-cms, jamstack, lowcode, nextjs, nocode, page-builder, react, ui-builder, wysiwyg
+Stars: 6670
+License: MIT License
+
+--- README ---
+<!-- AUTO-GENERATED-CONTENT:START (STARTER) -->
+<p align="center">
+  <a href="https://www.plasmic.app">
+    <img alt="Plasmic" role="img" src="https://static1.plasmic.app/brand/2023/logo-cropped.png" width="120">
+  </a>
+</p>
+<h1 align="center">
+  Plasmic
+</h1>
+<h3 align="center">
+  The open-source visual builder for your codebase.
+</h3>
+<p align="center">
+  Build beautiful apps and websites incredibly fast.
+</p>
+<p align="center">
+  Drag and drop your own components, integrate with your codebase.
+</p>
+<p align="center">
+  Break through the low-code ceiling.
+</p>
+
+<p>&nbsp;</p>
+
+<p align="center">
+  <a href="https://www.plasmic.app">
+    <img src="https://user-images.githubusercontent.com/7129/146098801-0691ff13-e302-40fb-827e-90488a7a28b4.gif"/>
+  </a>
+</p>
+
+<p align="center">
+  <a href="https://docs.plasmic.app/learn/quickstart">
+    <img src="https://user-images.githubusercontent.com/7129/139351025-8acd6f6d-8e32-4486-982e-a6f26a53d865.png"/>
+  </a>
+</p>
+
+<p align="center">
+  <a href="https://github.com/plasmicapp/plasmic"><img alt="License" src="https://img.shields.io/github/license/plasmicapp/plasmic" /></a>
+  <a href="https://www.npmjs.com/package/@plasmicapp/loader-react"><img alt="Types" src="https://img.shields.io/npm/types/@plasmicapp/loader-react" /></a>
+  <a href="https://github.com/prettier/prettier"><img alt="code style: prettier" src="https://img.shields.io/badge/code_style-prettier-ff69b4.svg" /></a>
+  <a href="https://github.com/plasmicapp/plasmic/pulls"><img alt="PRs Welcome" src="https://img.shields.io/badge/PRs-welcome-brightgreen.svg" /></a>
+</p>
+
+## Quick links
+
+- [Website](https://www.plasmic.app/)
+- [Documentation][docs]
+- [Quickstart][quickstart]
+- [Plasmic Forum][forum]
+- [Slack Community][slack]
+
+[docs]: https://www.plasmic.app/learn/
+[quickstart]: https://www.plasmic.app/learn/quickstart/
+[forum]: https://forum.plasmic.app/
+[slack]: https://www.plasmic.app/slack
+
+## See Plasmic in action
+
+- Vercel marketing page: https://youtu.be/itvbmgLZvcM (live app: https://vercel-workflow.vercel.app)
+
+- Apple.com: https://apple.plasmic.run
+
+- Shopify headless storefront: https://commerce.plasmic.run
+
+- Twitter clone: https://youtu.be/rpdjrFuVMog (live app: https://twitter.plasmic.run)
+
+- Service desk app: https://youtu.be/rYqSpUEJSTw (live app: https://tickets.plasmic.run)
+
+- Interview with Lee Robinson, Plasmic as a visual CMS: https://www.youtube.com/watch?v=pcVzNR6FBAQ
+
+- Emails with React.Email: coming soon
+
+## What is Plasmic?
+
+Plasmic is a visual builder for the web.
+
+It enables rapidly designing and building applications and websites--code optional.
+
+Main use cases:
+
+- Content management: let marketing drag/drop your React components to build landing pages in your Next.js website, with design guardrails
+
+- Applications: let developers and technical users quickly build internal tools, client portals, and business software
+
+- Website builder and design tool that doesn’t limit you to some built-in ecommerce platform, CMS, or hosting
+
+Plasmic is powerful, with a deep feature set that scales to complex projects.
+And with codebase integration, it removes the ceiling typically associated with low-code tools.
+
+## What makes Plasmic special?
+
+Plasmic combines some seemingly disparate genres:
+
+- Webflow, Wordpress and other site builders
+- Retool and other tool builders
+- Glide and no-code app builders
+- Contentful and other CMSes
+
+Today these are different tools to specialize in, but the line between, say, a website and an application is blurry (consider an ecommerce storefront with user logins). With the right foundations, we think these can be unified—Plasmic’s UI can adapt to different levels of control for different personas/tasks.
+
+But more importantly, unlike existing tools, Plasmic integrates with codebases. This is critical to making low-code scale past the complexity ceiling that all such tools (including Plasmic) have. You can drag and drop existing complex React components, and you can visually create new UIs/components within traditionally-coded applications, seamlessly weaving code and no-code.
+
+Some feature highlights:
+
+- **Full design freedom** and speedy modern design tool UX.
+- **Integrate with codebases** to drag/drop existing React components, publish screens into existing applications, and extend/customize Plasmic Studio.
+- Create **rich stateful interactions and behavior**.
+- Connect with **arbitrary data source and backend integrations**.
+- **Powerful abstractions** like components, variants, slots, composable state management, and more that promote composition and let you build and maintain at scale.
+- **Customizable headless design system components** powered by [react-aria](https://react-spectrum.adobe.com/react-aria/).
+- **Content creator mode**: give specific collaborators a more simplified editing experience with design guardrails.
+- **Open integrations**: choose your own CMS, ecommerce platform, hosting provider, and more.
+- Deep collaboration with multiplayer, branch
+... [TRUNCATED]
+
+--- PACKAGE MANIFEST(S) ---
+
+[package.json]
+{
+  "name": "plasmic-monorepo",
+  "private": true,
+  "scripts": {
+    "prepare": "husky",
+    "bootstrap": "bash scripts/bootstrap.sh",
+    "bootstrap:platform": "yarn db:setup ; yarn setup-all ; yarn db:reset ; yarn setup-all",
+    "bump": "echo 'Use the jenkins job release_public_packages instead: https://jenkins.aws.plasmic.app/job/release_public_packages/'",
+    "claude": "echo 'Running tests before starting...' && if { [ -f /.dockerenv ] || [ -f /run/.containerenv ]; } && ! curl -s --max-time 5 https://example1.com >/dev/null 2>&1; then claude --dangerously-skip-permissions --mcp-config=.claude/.mcp.json; else echo 'Claude may only be run in a Docker container with general network firewall, see .devcontainer/README.md'; exit 1; fi",
+    "codex": "echo 'Running tests before starting...' && if { [ -f /.dockerenv ] || [ -f /run/.containerenv ]; } && ! curl -s --max-time 5 https://example1.com >/dev/null 2>&1; then codex --full-auto; else echo 'Codex may only be run in a Docker container with general network firewall, see .devcontainer/README.md'; exit 1; fi",
+    "db:reset": "cd platform/wab && yarn db:reset",
+    "db:setup": "cd platform/wab && yarn db:setup",
+    "deps": "lerna list --include-dependencies --scope",
+    "dev": "cd platform/wab && yarn dev",
+    "dev:reset": "yarn setup && yarn db:reset && yarn dev",
+    "format": "yarn prettier --write",
+    "lint": "yarn eslint --fix",
+    "e2e": "cd platform/wab && yarn cypress open",
+    "e2e:headless": "cd platform/wab && yarn cypress run",
+    "knip:deps": "NODE_ENV=test NODE_OPTIONS=\"--max-old-space-size=10000\" knip --include dependencies",
+    "local-canary": "yarn local-unpublish && lerna publish --canary --yes --include-merged-tags --no-git-tag-version --no-push --registry=http://localhost:4873 --force-publish",
+    "local-publish": "./scripts/local-publish.sh",
+    "local-unpublish": "lerna exec -- npm unpublish -f --registry=\"http://localhost:4873/\" \"\\${LERNA_PACKAGE_NAME}\"",
+    "make": "cd platform/wab && make",
+    "release": "echo 'Use the jenkins job release_public_packages instead: https://jenkins.aws.plasmic.app/job/release_public_packages/'",
+    "setup": "yarn && yarn setup:wab && yarn setup:sub && yarn setup:react-web-bundle && yarn setup:live-frame && yarn setup:loader-bundle-env && yarn setup:loader-html-hydrate && yarn make",
+    "setup-all": "yarn setup && yarn setup:canvas-packages && cd platform/wab && yarn typeorm migration:run && yarn migrate-dev-bundles && yarn plume:dev update",
+    "setup:canvas-packages": "cd platform/canvas-packages && for d in internal_pkgs/*; do if [ -d \"$d\" ]; then cd $d && yarn && cd -; fi done && yarn && yarn build",
+    "setup:live-frame": "cd platform/live-frame && yarn && yarn build",
+    "setup:loader-bundle-env": "cd platform/loader-bundle-env && yarn",
+    "setup:loader-html-hydrate": "cd platform/loader-html-hydrate && yarn && yarn build && cp build/* ../wab/public/static/js/",
+    "setup:react-web-bundle": "cd platform/re
+... [TRUNCATED]
+
+--- WEB FRAMEWORK CONFIG ---
+
+[docker-compose.yml]
+services:
+  # PostgreSQL database
+  plasmic-db:
+    image: postgres:15
+    restart: always
+    environment:
+      - POSTGRES_PASSWORD=SEKRET
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./platform/wab/tools/docker-dev/db-setup.bash:/docker-entrypoint-initdb.d/db-setup.sh
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+      timeout: 10s
+      retries: 5
+
+  # Plasmic WAB (Web App Builder)
+  plasmic-wab:
+    build:
+      context: .
+      dockerfile: ./platform/wab/tools/docker-dev/Dockerfile.dev.aio
+    command: # Override the default dockerfile startup command here for debugging purpose
+    - |
+      jq '(.host = "plasmic-db") | (.password //= "SEKRET")' ormconfig.json > tmp.json && mv tmp.json ormconfig.json && \
+      yarn typeorm migration:run && \
+      yarn seed && \
+      cd /plasmic && \
+      yarn dev
+    volumes:
+      # 1. Mount your local source code into the container
+      - .:/plasmic
+      # 2. Use named volumes to preserve built container files from being overwritten by unbuilt local code
+      # --- Node Modules (Existing) ---
+      - plasmic_node_modules:/plasmic/node_modules
+      - plasmic_wab_node_modules:/plasmic/platform/wab/node_modules
+      - plasmic_sub_node_modules:/plasmic/platform/sub/node_modules
+      - plasmic_canvas_node_modules:/plasmic/platform/canvas-packages/node_modules
+      - plasmic_live_frame_node_modules:/plasmic/platform/live-frame/node_modules
+      - plasmic_react_web_bundle_node_modules:/plasmic/platform/react-web-bundle/node_modules
+      - plasmic_loader_bundle_env_node_modules:/plasmic/platform/loader-bundle-env/node_modules
+      - plasmic_loader_html_hydrate_node_modules:/plasmic/platform/loader-html-hydrate/node_modules
+
+      # --- Generated files ---
+      - plasmic_public:/plasmic/platform/wab/public
+      - plasmic_wab_client:/plasmic/platform/wab/src/wab/client
+      - plasmic_wab_gen:/plasmic/platform/wab/src/wab/gen
+      - plasmic_wab_shared_model:/plasmic/platform/wab/src/wab/shared/model
+      - plasmic_generated_styles:/plasmic/platform/wab/src/wab/styles
+
+      # --- Build Caches ---
+      - plasmic_playwright_cache:/home/plasmic/.cache/ms-playwright
+    ports:
+      - "3003:3003"
+      - "3004:3004"
+      - "3005:3005"
+      - "9229:9229"
+    depends_on:
+      plasmic-db:
+        condition: service_healthy
+    environment:
+      - DATABASE_URI=postgres://wab:SEKRET@plasmic-db:5432/wab
+      - WAB_DBNAME=plasmic-db
+      - WAB_DBPASSWORD=SEKRET
+      - NODE_ENV=development
+      # This environment variable makes file watching more reliable.
+      - CHOKIDAR_USEPOLLING=true
+    tty: true
+    stdin_open: true
+
+volumes:
+  postgres_data:
+  plasmic_node_modules:
+  plasmic_wab_node_modules:
+  plasmic_sub_node_modules:
+  plasmic_canvas_node_modules:
+  plasmic_live_frame_node_modules:
+  plasmic_react_web_bundle_node_modules:
+  plasmic_loader_bundle_env_node_modules:
+  plasmic_loader_html_hydrate_no
+... [TRUNCATED]
+
+--- ROUTE / PAGE DEFINITIONS ---
+
+[examples/ab-testing-split-io/pages/[[...catchall]].tsx]
+import * as React from "react";
+import {
+  PlasmicComponent,
+  extractPlasmicQueryData,
+  ComponentRenderData,
+  PlasmicRootProvider,
+} from "@plasmicapp/loader-nextjs";
+import type { GetStaticPaths, GetStaticProps } from "next";
+
+// Import Split SDK
+import {
+  withSplitFactory,
+  SplitTreatments,
+} from "@splitsoftware/splitio-react";
+
+import Error from "next/error";
+import { useRouter } from "next/router";
+import { PLASMIC } from "../plasmic-init";
+
+// Reference: https://help.split.io/hc/en-us/articles/360038825091-React-SDK
+
+const factory: SplitIO.IBrowserSettings = {
+  core: {
+    authorizationKey: "AUTHORIZATION_KEY",
+    key: "CUSTOMER_ID",
+  },
+};
+
+// Feature name that you want to use for the Split treatment
+// This should match the name of the feature in Split
+const featureName = "my_ab_test";
+
+function PlasmicLoaderPage(props: {
+  plasmicData?: ComponentRenderData;
+  queryCache?: Record<string, any>;
+}) {
+  const { plasmicData, queryCache } = props;
+  const router = useRouter();
+  if (!plasmicData || plasmicData.entryCompMetas.length === 0) {
+    return <Error statusCode={404} />;
+  }
+  const pageMeta = plasmicData.entryCompMetas[0];
+  return (
+    // Wrap the PlasmicRootProvider in SplitTreatments
+    <SplitTreatments names={[featureName]}>
+      {({ treatments, isReady }) => {
+        if (isReady) {
+          return (
+            <PlasmicRootProvider
+              loader={PLASMIC}
+              prefetchedData={plasmicData}
+              prefetchedQueryData={queryCache}
+              pageParams={pageMeta.params}
+              pageQuery={router.query}
+              variation={{
+                // Pass the Split treatment to the PlasmicRootProvider
+                // It's required to prefix the feature name with "ext."
+                // Both the name of the feature in Split and the name of the external id in Plasmic must match
+                [`ext.${featureName}`]: treatments[featureName].treatment,
+              }}
+            >
+              <PlasmicComponent component={pageMeta.displayName} />
+            </PlasmicRootProvider>
+          );
+        }
+
+        return null;
+      }}
+    </SplitTreatments>
+  );
+}
+
+// Wrap the PlasmicLoaderPage in withSplitFactory
+export default withSplitFactory(factory)(PlasmicLoaderPage);
+
+export const getStaticProps: GetStaticProps = async (context) => {
+  const { catchall } = context.params ?? {};
+  const plasmicPath =
+    typeof catchall === "string"
+      ? catchall
+      : Array.isArray(catchall)
+      ? `/${catchall.join("/")}`
+      : "/";
+  const plasmicData = await PLASMIC.maybeFetchComponentData(plasmicPath);
+  if (!plasmicData) {
+    // non-Plasmic catch-all
+    return { props: {} };
+  }
+  const pageMeta = plasmicData.entryCompMetas[0];
+  // Cache the necessary data fetched for the page
+  const queryCache = await extractPlasmicQueryData(
+    <PlasmicRootProvider
+      loader={PLASMIC}
+      prefetchedData={plasmicData}
+      pageParams={pageMeta.params}
+    >
+      <PlasmicComponent componen
+... [TRUNCATED]
+
+[examples/ab-testing-split-io/pages/client-side.tsx]
+import * as React from "react";
+import {
+  PlasmicComponent,
+  ComponentRenderData,
+  PlasmicRootProvider,
+} from "@plasmicapp/loader-nextjs";
+import type { GetStaticProps } from "next";
+
+import Error from "next/error";
+import { useRouter } from "next/router";
+import { PLASMIC } from "../plasmic-init";
+
+import {
+  withSplitFactory,
+  SplitTreatments,
+} from "@splitsoftware/splitio-react";
+
+// Reference: https://help.split.io/hc/en-us/articles/360038825091-React-SDK
+
+const splitIOSettings: SplitIO.IBrowserSettings = {
+  core: {
+    authorizationKey: "AUTHORIZATION_KEY",
+    key: "CUSTOMER_ID",
+  },
+};
+
+// Feature name that you want to use for the Split treatment
+// This should match the name of the feature in Split
+const featureName = "my_ab_test";
+
+function PlasmicLoaderPage(props: { plasmicData?: ComponentRenderData }) {
+  const { plasmicData } = props;
+  const router = useRouter();
+
+  if (!plasmicData || plasmicData.entryCompMetas.length === 0) {
+    return <Error statusCode={404} />;
+  }
+  const pageMeta = plasmicData.entryCompMetas[0];
+
+  return (
+    // Wrap the PlasmicRootProvider in SplitTreatments
+    <SplitTreatments names={[featureName]}>
+      {({ treatments, isReady }) => {
+        if (isReady) {
+          return (
+            <PlasmicRootProvider
+              loader={PLASMIC}
+              prefetchedData={plasmicData}
+              pageParams={pageMeta.params}
+              pageQuery={router.query}
+              variation={{
+                // Pass the Split treatment to the PlasmicRootProvider
+                // It's required to prefix the feature name with "ext."
+                // Both the name of the feature in Split and the name of the external id in Plasmic must match
+                [`ext.${featureName}`]: treatments[featureName].treatment,
+              }}
+            >
+              <PlasmicComponent component={pageMeta.displayName} />
+            </PlasmicRootProvider>
+          );
+        }
+
+        return null;
+      }}
+    </SplitTreatments>
+  );
+}
+
+export default withSplitFactory(splitIOSettings)(PlasmicLoaderPage);
+
+export const getStaticProps: GetStaticProps = async () => {
+  const plasmicData = await PLASMIC.maybeFetchComponentData("Homepage");
+  if (!plasmicData) {
+    // Component not found
+    return { props: {} };
+  }
+  // Use revalidate if you want incremental static regeneration
+  return { props: { plasmicData }, revalidate: 60 };
+};
+
+
+[examples/ab-testing-split-io/pages/plasmic-host.tsx]
+import * as React from "react";
+import { PlasmicCanvasHost } from "@plasmicapp/loader-nextjs";
+import { PLASMIC } from "../plasmic-init";
+
+export default function PlasmicHost() {
+  return PLASMIC && <PlasmicCanvasHost />;
+}
+
+
+[examples/ab-testing-split-io/pages/server-side.tsx]
+import * as React from "react";
+import {
+  PlasmicComponent,
+  ComponentRenderData,
+  PlasmicRootProvider,
+} from "@plasmicapp/loader-nextjs";
+import type { GetServerSideProps } from "next";
+
+import Error from "next/error";
+import { useRouter } from "next/router";
+import { PLASMIC } from "../plasmic-init";
+
+import { SplitFactory } from "@splitsoftware/splitio";
+
+// Reference: https://help.split.io/hc/en-us/articles/360020564931-Node-js-SDK
+
+// Feature name that you want to use for the Split treatment
+// This should match the name of the feature in Split
+const featureName = "my_ab_test";
+
+export default function PlasmicLoaderPage(props: {
+  plasmicData?: ComponentRenderData;
+  variation?: Record<string, string>;
+}) {
+  const { plasmicData, variation } = props;
+  const router = useRouter();
+
+  if (!plasmicData || plasmicData.entryCompMetas.length === 0) {
+    return <Error statusCode={404} />;
+  }
+  const pageMeta = plasmicData.entryCompMetas[0];
+
+  return (
+    <PlasmicRootProvider
+      loader={PLASMIC}
+      prefetchedData={plasmicData}
+      pageParams={pageMeta.params}
+      pageQuery={router.query}
+      variation={variation}
+    >
+      <PlasmicComponent component={pageMeta.displayName} />
+    </PlasmicRootProvider>
+  );
+}
+
+export const getServerSideProps: GetServerSideProps = async () => {
+  const plasmicData = await PLASMIC.maybeFetchComponentData("Homepage");
+  if (!plasmicData) {
+    return { props: {} };
+  }
+
+  // Initialize Split SDK
+  const splitFactory = SplitFactory({
+    core: {
+      authorizationKey: "AUTHORIZATION_KEY",
+    },
+  });
+  const client = splitFactory.client();
+  await client.ready();
+
+  // Get the Split treatment
+  const treatments = client.getTreatments("CUSTOMER_ID", [featureName]);
+
+  // Pass the Split treatment to the PlasmicRootProvider
+  // It's required to prefix the feature name with "ext."
+  // Both the name of the feature in Split and the name of the external id in Plasmic must match
+  const variation = {
+    [`ext.${featureName}`]: treatments[featureName],
+  };
+
+  return { props: { plasmicData, variation } };
+};
+
+
+[examples/basic-state-management/pages/[[...catchall]].tsx]
+import {
+  ComponentRenderData,
+  extractPlasmicQueryData,
+  PlasmicComponent,
+  PlasmicRootProvider,
+} from "@plasmicapp/loader-nextjs";
+import { GetStaticPaths, GetStaticProps } from "next";
+
+import Error from "next/error";
+import { PLASMIC } from "../plasmic-init";
+
+export default function PlasmicLoaderPage(props: {
+  plasmicData?: ComponentRenderData;
+  queryCache?: Record<string, any>;
+}) {
+  const { plasmicData, queryCache } = props;
+  if (!plasmicData || plasmicData.entryCompMetas.length === 0) {
+    return <Error statusCode={404} />;
+  }
+  return (
+    <PlasmicRootProvider
+      loader={PLASMIC}
+      prefetchedData={plasmicData}
+      prefetchedQueryData={queryCache}
+    >
+      <PlasmicComponent component={plasmicData.entryCompMetas[0].displayName} />
+    </PlasmicRootProvider>
+  );
+}
+
+export const getStaticProps: GetStaticProps = async (context) => {
+  const { catchall } = context.params ?? {};
+  const plasmicPath =
+    typeof catchall === "string"
+      ? catchall
+      : Array.isArray(catchall)
+      ? `/${catchall.join("/")}`
+      : "/";
+  const plasmicData = await PLASMIC.maybeFetchComponentData(plasmicPath);
+  if (!plasmicData) {
+    // non-Plasmic catch-all
+    return { props: {} };
+  }
+  // Cache the necessary data fetched for the page
+  const queryCache = await extractPlasmicQueryData(
+    <PlasmicRootProvider loader={PLASMIC} prefetchedData={plasmicData}>
+      <PlasmicComponent component={plasmicData.entryCompMetas[0].displayName} />
+    </PlasmicRootProvider>
+  );
+  // Use revalidate if you want incremental static regeneration
+  return { props: { plasmicData, queryCache }, revalidate: 60 };
+};
+
+export const getStaticPaths: GetStaticPaths = async () => {
+  const pageModules = await PLASMIC.fetchPages();
+  return {
+    paths: pageModules.map((mod) => ({
+      params: {
+        catchall: mod.path.substring(1).split("/"),
+      },
+    })),
+
+    // Turn on "fallback: 'blocking'" if you would like new paths created
+    // in Plasmic to be automatically available
+    fallback: false,
+  };
+};
+
+
+--- DIRECTORY STRUCTURE (depth 2) ---
+├── .envrc
+├── .eslintignore
+├── .eslintrc.js
+├── .eslintrc.react.js
+├── .github/
+│   └── workflows/
+│       └── cla.yaml
+├── .gitignore
+├── .gitreview
+├── .lintstagedrc.js
+├── .nxignore
+├── .prettierignore
+├── .prettierrc
+├── .regula.yaml
+├── .tool-versions
+├── CLAUDE.md
+├── CONTRIBUTING.md
+├── LICENSE.md
+├── LICENSE.platform.md
+├── README.md
+├── build.mjs
+├── copy.bash
+├── docker-compose.yml
+├── docs/
+│   └── contributing/
+│       ├── corporate-cla.md
+│       ├── individual-cla.md
+│       └── platform/
+├── examples/
+│   ├── ab-testing-split-io/
+│   │   ├── .eslintrc.json
+│   │   ├── .gitignore
+│   │   ├── README.md
+│   │   ├── next.config.js
+│   │   ├── package-lock.json
+│   │   ├── package.json
+│   │   ├── pages/
+│   │   ├── plasmic-init.ts
+│   │   ├── public/
+│   │   ├── styles/
+│   │   └── tsconfig.json
+│   ├── basic-state-management/
+│   │   ├── .eslintrc.json
+│   │   ├── .gitignore
+│   │   ├── README.md
+│   │   ├── components/
+│   │   ├── next.config.js
+│   │   ├── package.json
+│   │   ├── pages/
+│   │   ├── plasmic-init.ts
+│   │   ├── public/
+│   │   ├── styles/
+│   │   ├── tsconfig.json
+│   │   └── yarn.lock
+│   ├── build-time-targeting/
+│   │   ├── .eslintrc.json
+│   │   ├── .gitignore
+│   │   ├── README.md
+│   │   ├── middleware.ts
+│   │   ├── next.config.js
+│   │   ├── package-lock.json
+│   │   ├── package.json
+│   │   ├── pages/
+│   │   ├── plasmic-init.ts
+│   │   ├── public/
+│   │   ├── styles/
+│   │   ├── tsconfig.json
+│   │   └── yarn.lock
+│   ├── cloudinary-custom-control/
+│   │   ├── .eslintrc.json
+│   │   ├── .gitignore
+│   │   ├── README.md
+│   │   ├── components/
+│   │   ├── next.config.js
+│   │   ├── package-lock.json
+│   │   ├── package.json
+│   │   ├── pages/
+│   │   ├── plasmic-init.ts
+│   │   ├── public/
+│   │   ├── styles/
+│   │   └── tsconfig.json
+│   ├── contentful/
+│   │   ├── .eslintrc.json
+│   │   ├── .gitignore
+│   │   ├── README.md
+│   │   ├── components/
+│   │   ├── lib/
+│   │   ├── next-env.d.ts
+│   │   ├── next.config.js
+│   │   ├── package.json
+│   │   ├── pages/
+│   │   ├── plasmic-init.ts
+│   │   ├── public/
+│   │   ├── styles/
+│   │   ├── tsconfig.json
+│   │   └── yarn.lock
+│   ├── custom-targeting-codegen/
+│   │   ├── .eslintrc.json
+│   │   ├── .gitignore
+│   │   ├── README.md
+│   │   ├── components/
+│   │   ├── middleware.ts
+│   │   ├── next.config.js
+│   │   ├── package.json
+│   │   ├── pages/
+│   │   ├── plasmic.json
+│   │   ├── plasmic.lock
+│   │   ├── public/
+│   │   ├── styles/
+│   │   ├── tsconfig.json
+│   │   └── yarn.lock
+│   ├── custom-targeting/
+│   │   ├── .eslintrc.json
+│   │   ├── .gitignore
+│   │   ├── README.md
+│   │   ├── middleware.ts
+│   │   ├── next.config.js
+│   │   ├── package.json
+│   │   ├── pages/
+│   │   ├── plasmic-init.ts
+│   │   ├── public/
+│   │   ├── styles/
+│   │   ├── tsconfig.json
+│   │   └── yarn.lock
+│   ├── dynamic-multistep-forms/
+│   │   ├── .eslintrc.json
+│   │   ├── .gitignore
+│   │   ├── README.md
+│   │   ├── components/
+│   │   ├── next.config.js
+│   │   ├── package.json
+│   │   ├── pages/
+│   │   ├── plasmic-init.ts
+│   │   ├── public/
+│   │   ├── styles/
+│   │   ├── tsconfig.json
+│   │   └── yarn.lock
+│   ├── flexible-tabs/
+│   │   ├── .eslintrc.json
+│   │   ├── .gitignore
+│   │   ├── README.md
+│   │   ├── components/
+│   │   ├── next.config.js
+│   │   ├── package.json
+│   │   ├── pages/
+│   │   ├── plasmic-init.ts
+│   │   ├── public/
+│   │   ├── styles/
+│   │   ├── tsconfig.json
+│   │   └── yarn.lock
+│   ├── google-analytics-variation-tracking/
+│   │   ├── .eslintrc.json
+│   │   ├── .gitignore
+│   │   ├── README.md
+│   │   ├── middleware.ts
+│   │   ├── next.config.js
+│   │   ├── package-lock.json
+│   │   ├── package.json
+│   │   ├── pages/
+│   │   ├── plasmic-init.ts
+│   │   ├── public/
+│   │   ├── styles/
+│   │   ├── tsconfig.json
+│   │   └── yarn.lock
+│   ├── hydrogen-example/
+│   │   ├── .gitignore
+│   │   ├── README.md
+│   │   ├── hydrogen.config.ts
+│   │   ├── index.html
+│   │   ├── mini-oxygen.config.json
+│   │   ├── package.json
+│   │   ├── public/
+│   │   ├── src/
+│   │   ├── tsconfig.json
+│   │   ├── vite.config.js
+│   │   └── yarn.lock
+│   ├── hydrogen-oxygen-with-buildtime-codegen/
+│   │   ├── .eslintignore
+│   │   ├── .eslintrc.js
+│   │   ├── .gitignore
+│   │   ├── .graphqlrc.yml
+│   │   ├── .npmrc
+│   │   ├── README.md
+│   │   ├── app/
+│   │   ├── package-lock.json
+│   │   ├── package.json
+│   │   ├── plasmic-empty.json
+│   │   ├── public/
+│   │   ├── remix.config.js
+│   │   ├── remix.env.d.ts
+│   │   ├── server.ts
+│   │   └── tsconfig.json
+│   ├── nextjs-example/
+│   │   ├── .eslintrc.json
+│   │   ├── .gitignore
+│   │   ├── README.md
+│   │   ├── app/
+│   │   ├── components/
+│   │   ├── next.config.js
+│   │   ├── package.json
+│   │   ├── pages/
+│   │   ├── plasmic-init-client.tsx
+│   │   ├── plasmic-init.ts
+│   │   ├── public/
+│   │   ├── styles/
+│   │   ├── tsconfig.json
+│   │   └── yarn.lock
+│   ├── nextjs-i18n-i18next/
+│   │   ├── .gitignore
+│   │   ├── README.md
+│   │   ├── i18n.tsx
+│   │   ├── next-i18next.config.js
+│   │   ├── next.config.js
+│   │   ├── package-lock.json
+│   │   ├── package.json
+│   │   ├── pages/
+│   │   ├── plasmic-init.ts
+│   │   ├── public/
+│   │   ├── styles/
+│   │   └── tsconfig.json
+│   ├── nextjs-i18n-intl/
+│   │   ├── .gitignore
+│   │   ├── README.md
+│   │   ├── i18n.tsx
+│   │   ├── locales/
+│   │   ├── next.config.js
+│   │   ├── package-lock.json
+│   │   ├── package.json
+│   │   ├── pages/
+│   │   ├── plasmic-init.ts
+│   │   ├── public/
+│   │   ├── styles/
+│   │   └── tsconfig.json
+│   ├── nextjs-i18n-lingui/
+│   │   ├── .gitignore
+│   │   ├── .linguirc
+│   │   ├── README.md
+│   │   ├── i18n.tsx
+│   │   ├── locales/
+│   │   ├── next.config.js
+│   │   ├── package-lock.json
+│   │   ├── package.json
+│   │   ├── pages/
+│   │   ├── plasmic-init.ts
+│   │   ├── public/
+│   │   ├── styles/
+│   │   └── tsconfig.json
+│   ├── nextjs-rive/
+│   │   ├── .eslintrc.json
+│   │   ├── .gitignore
+│   │   ├── README.md
+│   │   ├── next.config.mjs
+│   │   ├── package.json
+│   │   ├── pages/
+│   │   ├── plasmic-init.ts
+│   │   ├── public/
+│   │   ├── styles/
+│   │   ├── tsconfig.json
+│   │   └── yarn.lock
+│   ├── optimized-multi-project-setup/
+│   │   ├── .eslintrc.json
+│   │   ├── .gitignore
+│   │   ├── README.md
+│   │   ├── components/
+│   │   ├── next.config.js
+│   │   ├── next.config.mjs
+│   │   ├── package-lock.json
+│   │   ├── package.json
+│   │   ├── pages/
+│   │   ├── plasmic-init.ts
+│   │   ├── public/
+│   │   ├── styles/
+│   │   └── tsconfig.json
+│   ├── plasmic-cms-custom-components/
+│   │   ├── .eslintrc.json
+│   │   ├── .gitignore
+│   │   ├── README.md
+│   │   ├── components/
+│   │   ├── next.config.js
+│   │   ├── package-lock.json
+│   │   ├── package.json
+│   │   ├── pages/
+│   │   ├── plasmic-init.ts
+│   │   ├── public/
+│   │   ├── styles/
+│   │   └── tsconfig.json
+│   ├── plasmic-cms-gatsby/
+│   │   ├── .gitignore
+│   │   ├── README.md
+│   │   ├── gatsby-config.ts
+│   │   ├── gatsby-node.ts
+│   │   ├── gatsby-ssr.tsx
+│   │   ├── package.json
+│   │   ├── src/
+│   │   ├── tsconfig.json
+│   │   └── yarn.lock
+│   ├── plasmic-cms-i18n/
+│   │   ├── .eslintrc.json
+│   │   ├── .gitignore
+│   │   ├── README.md
+│   │   ├── next.config.mjs
+│   │   ├── package.json
+│   │   ├── pages/
+│   │   ├── plasmic-init.ts
+│   │   ├── tsconfig.json
+│   │   └── yarn.lock
+│   ├── plasmic-cms-nextjs/
+│   │   ├── .eslintrc.json
+│   │   ├── .gitignore
+│   │   ├── README.md
+│   │   ├── components/
+│   │   ├── next.config.js
+│   │   ├── package.json
+│   │   ├── pages/
+│   │   ├── plasmic-init.ts
+│   │   ├── public/
+│   │   ├── styles/
+│   │   ├── tsconfig.json
+│   │   └── yarn.lock
+│   ├── plasmicflix/
+│   │   ├── .env.example
+│   │   ├── .gitignore
+│   │   ├── README.md
+│   │   ├── code-components/
+│   │   ├── helper/
+│   │   ├── next-env.d.ts
+│   │   ├── next.config.js
+│   │   ├── package.json
+│   │   ├── pages/
+│   │   ├── plasmic-init.ts
+│   │   ├── public/
+│   │   ├── styles/
+│   │   ├── tsconfig.json
+│   │   └── yarn.lock
+│   ├── preact-minimal/
+│   │   ├── .gitignore
+│   │   ├── README.md
+│   │   ├── index.html
+│   │   ├── package.json
+│   │   ├── src/
+│   │   ├── tsconfig.json
+│   │   ├── vite.config.ts
+│   │   └── yarn.lock
+│   ├── react-dnd-custom-controls/
+│   │   ├── .eslintrc.json
+│   │   ├── .gitignore
+│   │   ├── README.md
+│   │   ├── components/
+│   │   ├── next-env.d.ts
+│   │   ├── next.config.js
+│   │   ├── package.json
+│   │   ├── pages/
+│   │   ├── plasmic-init.tsx
+│   │   ├── public/
+│   │   ├── styles/
+│   │   ├── tsconfig.json
+│   │   └── yarn.lock
+│   ├── react-dnd/
+│   │   ├── .eslintrc.json
+│   │   ├── .gitignore
+│   │   ├── README.md
+│   │   ├── components/
+│   │   ├── next-env.d.ts
+│   │   ├── next.config.js
+│   │   ├── package.json
+│   │   ├── pages/
+│   │   ├── plasmic-init.ts
+│   │   ├── public/
+│   │   ├── styles/
+│   │   ├── tsconfig.json
+│   │   └── yarn.lock
+│   ├── react-email/
+│   │   ├── .eslintrc.json
+│   │   ├── .gitignore
+│   │   ├── README.md
+│   │   ├── next.config.js
+│   │   ├── package-lock.json
+│   │   ├── package.json
+│   │   ├── pages/
+│   │   ├── plasmic-init.ts
+│   │   ├── public/
+│   │   ├── styles/
+│   │   └── tsconfig.json
+│   ├── react-minimal/
+│   │   ├── .gitignore
+│   │   ├── README.md
+│   │   ├── index.html
+│   │   ├── package.json
+│   │   ├── src/
+│   │   ├── tsconfig.json
+│   │   └── yarn.lock
+│   ├── sanity-io/
+│   │   ├── .eslintrc.json
+│   │   ├── .gitignore
+│   │   ├── README.md
+│   │   ├── components/
+│   │   ├── next-env.d.ts
+│   │   ├── next.config.js
+│   │   ├── package.json
+│   │   ├── pages/
+│   │   ├── plasmic-init.ts
+│   │   ├── public/
+│   │   ├── styles/
+│   │   ├── tsconfig.json
+│   │   └── yarn.lock
+│   ├── scroll-aware-navbar/
+│   │   ├── .eslintrc.json
+│   │   ├── .gitignore
+│   │   ├── README.md
+│   │   ├── components/
+│   │   ├── next.config.js
+│   │   ├── package-lock.json
+│   │   ├── package.json
+│   │   ├── pages/
+│   │   ├── plasmic-init.ts
+│   │   ├── public/
+│   │   ├── styles/
+│   │   └── tsconfig.json
+│   ├── supabase-auth-nextjs-pages-codegen/
+│   │   ├── .env.local.example
+│   │   ├── .eslintrc.json
+│   │   ├── .gitignore
+│   │   ├── README.md
+│   │   ├── components/
+│   │   ├── next.config.js
+│   │   ├── package-lock.json
+│   │   ├── package.json
+│   │   ├── pages/
+│   │   ├── plasmic.json
+│   │   ├── plasmic.lock
+│   │   ├── public/
+│   │   ├── styles/
+│   │   ├── tsconfig.json
+│   │   ├── utils/
+│   │   └── yarn.lock
+│   ├── supabase-auth-nextjs-pages-loader/
+│   │   ├── .env.local.example
+│   │   ├── .eslintrc.json
+│   │   ├── .gitignore
+│   │   ├── README.md
+│   │   ├── components/
+│   │   ├── next.config.js
+│   │   ├── package.json
+│   │   ├── pages/
+│   │   ├── plasmic-init.ts
+│   │   ├── public/
+│   │   ├── styles/
+│   │   ├── tsconfig.json
+│   │   ├── utils/
+│   │   └── yarn.lock
+│   ├── supabase-demo/
+│   │   ├── .env.example
+│   │   ├── .eslintrc.json
+│   │   ├── .gitignore
+│   │   ├── README.md
+│   │   ├── components/
+│   │   ├── next-env.d.ts
+│   │   ├── package.json
+│   │   ├── pages/
+│   │   ├── plasmic-init.ts
+│   │   ├── public/
+│   │   ├── scripts/
+│   │   ├── styles/
+│   │   ├── tsconfig.json
+│   │   ├── util/
+│   │   └── yarn.lock
+│   └── vercel-workflow/
+│       ├── .eslintrc.json
+│       ├── .gitignore
+│       ├── README.md
+│       ├── components/
+│       ├── next-env.d.ts
+│       ├── next.config.js
+│       ├── package.json
+│       ├── pages/
+│       ├── plasmic-init.ts
+│       ├── public/
+│       ├── styles/
+│       ├── tsconfig.json
+│       └── yarn.lock
+├── jest-transform-esbuild.js
+├── jest.config.js
+├── knip.ts
+├── lerna.json
+├── nx.json
+├── package.json
+├── packages/
+│   ├── auth-api/
+│   │   ├── .gitignore
+│   │   ├── LICENSE
+│   │   ├── README.md
+│   │   ├── api/
+│   │   ├── package.json
+│   │   ├── src/
+│   │   └── tsconfig.json
+│   ├── auth-react/
+│   │   ├── .gitignore
+│   │   ├── LICENSE
+│   │   ├── README.md
+│   │   ├── api/
+│   │   ├── package.json
+│   │   ├── src/
+│   │   └── tsconfig.json
+│   ├── cli/
+│   │   ├── .gitignore
+│   │   ├── .npmignore
+│   │   ├── README
+│   │   ├── README.md
+│   │   ├── build.sh
+│   │   ├── import-meta-url.js
+│   │   ├── jest.config.js
+│   │   ├── package.json
+│   │   ├── src/
+│   │   ├── testData/
+│   │   ├── tsconfig-transform.json
+│   │   └── tsconfig.json
+│   ├── create-plasmic-app/
+│   │   ├── .gitignore
+│   │   ├── .tool-versions
+│   │   ├── README.md
+│   │   ├── cpa-out/
+│   │   ├── package.json
+│   │   ├── run-cpa.ts
+│   │   ├── src/
+│   │   └── tsconfig.json
+│   ├── data-sources-context/
+│   │   ├── .gitignore
+│   │   ├── LICENSE
+│   │   ├── README.md
+│   │   ├── api/
+│   │   ├── package.json
+│   │   ├── src/
+│   │   └── tsconfig.json
+│   ├── data-sources/
+│   │   ├── .gitignore
+│   │   ├── LICENSE
+│   │   ├── README.md
+│   │   ├── api/
+│   │   ├── package.json
+│   │   ├── src/
+│   │   └── tsconfig.json
+│   ├── host/
+│   │   ├── .gitignore
+│   │   ├── .npmignore
+│   │   ├── README.md
+│   │   ├── package.json
+│   │   ├── registerComponent/
+│   │   ├── registerFunction/
+│   │   ├── registerGlobalContext/
+│   │   ├── registerToken/
+│   │   ├── registerTrait/
+│   │   ├── rollup.config.mjs
+│   │   ├── src/
+│   │   ├── tsconfig.json
+│   │   └── update_version.sh
+│   ├── loader-angular/
+│   │   ├── README.md
+│   │   └── package.json
+│   ├── loader-core/
+│   │   ├── .gitignore
+│   │   ├── LICENSE
+│   │   ├── README.md
+│   │   ├── api/
+│   │   ├── package.json
+│   │   ├── src/
+│   │   └── tsconfig.json
+│   ├── loader-edge/
+│   │   ├── .gitignore
+│   │   ├── LICENSE
+│   │   ├── README.md
+│   │   ├── api/
+│   │   ├── package.json
+│   │   ├── src/
+│   │   └── tsconfig.json
+│   ├── loader-fetcher/
+│   │   ├── .gitignore
+│   │   ├── LICENSE
+│   │   ├── README.md
+│   │   ├── api/
+│   │   ├── package.json
+│   │   ├── src/
+│   │   └── tsconfig.json
+│   ├── loader-gatsby/
+│   │   ├── .gitignore
+│   │   ├── LICENSE
+│   │   ├── README.md
+│   │   ├── api/
+│   │   ├── gatsby-node.js
+│   │   ├── gatsby-ssr.js
+│   │   ├── package.json
+│   │   ├── src/
+│   │   └── tsconfig.json
+│   ├── loader-nextjs/
+│   │   ├── .eslintrc.js
+│   │   ├── .gitignore
+│   │   ├── LICENSE
+│   │   ├── README.md
+│   │   ├── api/
+│   │   ├── edge.d.ts
+│   │   ├── index.d.ts
+│   │   ├── package.json
+│   │   ├── react-server-conditional.d.ts
+│   │   ├── react-server.d.ts
+│   │   ├── src/
+│   │   └── tsconfig.json
+│   ├── loader-react/
+│   │   ├── .gitignore
+│   │   ├── LICENSE
+│   │   ├── README.md
+│   │   ├── api/
+│   │   ├── index.d.ts
+│   │   ├── package.json
+│   │   ├── react-server-conditional.d.ts
+│   │   ├── react-server.d.ts
+│   │   ├── src/
+│   │   └── tsconfig.json
+│   ├── loader-splits/
+│   │   ├── .gitignore
+│   │   ├── LICENSE
+│   │   ├── README.md
+│   │   ├── api/
+│   │   ├── package.json
+│   │   ├── src/
+│   │   └── tsconfig.json
+│   ├── loader-svelte/
+│   │   ├── README.md
+│   │   └── package.json
+│   ├── loader-vue/
+│   │   ├── README.md
+│   │   └── package.json
+│   ├── nextjs-app-router/
+│   │   ├── .gitignore
+│   │   ├── README.codegen.md
+│   │   ├── README.md
+│   │   ├── api/
+│   │   ├── package.json
+│   │   ├── src/
+│   │   └── tsconfig.json
+│   ├── plasmic/
+│   │   ├── README
+│   │   ├── index.js
+│   │   └── package.json
+│   ├── prepass/
+│   │   ├── .gitignore
+│   │   ├── package.json
+│   │   ├── src/
+│   │   ├── tsconfig.json
+│   │   └── yarn.lock
+│   ├── query/
+│   │   ├── .gitignore
+│   │   ├── LICENSE
+│   │   ├── README.md
+│   │   ├── api/
+│   │   ├── package.json
+│   │   ├── src/
+│   │   └── tsconfig.json
+│   ├── react-web-runtime/
+│   │   ├── .gitignore
+│   │   ├── jsx-dev-runtime/
+│   │   ├── jsx-runtime/
+│   │   ├── package.json
+│   │   ├── rollup.config.mjs
+│   │   ├── src/
+│   │   ├── tsconfig.json
+│   │   └── yarn.lock
+│   ├── react-web/
+│   │   ├── .babelrc.json
+│   │   ├── .gitignore
+│   │   ├── .npmignore
+│   │   ├── .storybook/
+│   │   ├── README.md
+│   │   ├── lib/
+│   │   ├── package.json
+│   │   ├── rollup.config.mjs
+│   │   ├── skinny/
+│   │   ├── src/
+│   │   └── tsconfig.json
+│   └── watcher/
+│       ├── .gitignore
+│       ├── LICENSE
+│       ├── README.md
+│       ├── api/
+│       ├── package.json
+│       ├── src/
+│       └── tsconfig.json
+├── plasmicpkgs-dev/
+│   ├── .env.example
+│   ├── .gitignore
+│   ├── README.md
+│   ├── app/
+│   │   ├── [[...catchall]]/
+│   │   ├── layout.tsx
+│   │   └── plasmic-host/
+│   ├── next.config.js
+│   ├── package.json
+│   ├── plasmic-init-client.tsx
+│   ├── plasmic-init.ts
+│   ├── plasmic-register-dev-meta.ts
+│   └── tsconfig.json
+├── plasmicpkgs/
+│   ├── README.md
+│   ├── airtable/
+│   │   ├── .gitignore
+│   │   ├── .npmignore
+│   │   ├── README.md
+│   │   ├── package.json
+│   │   ├── src/
+│   │   └── tsconfig.json
+│   ├── antd/
+│   │   ├── .gitignore
+│   │   ├── .npmignore
+│   │   ├── README.md
+│   │   ├── package.json
+│   │   ├── rollup.config.mjs
+│   │   ├── skinny/
+│   │   ├── src/
+│   │   └── tsconfig.json
+│   ├── antd5/
+│   │   ├── .babelrc.json
+│   │   ├── .gitignore
+│   │   ├── .storybook/
+│   │   ├── __tests__/
+│   │   ├── package.json
+│   │   ├── rollup.config.mjs
+│   │   ├── skinny/
+│   │   ├── src/
+│   │   └── tsconfig.json
+│   ├── chakra-ui/
+│   │   ├── .gitignore
+│   │   ├── LICENSE
+│   │   ├── README.md
+│   │   ├── package.json
+│   │   ├── rollup.config.mjs
+│   │   ├── src/
+│   │   └── tsconfig.json
+│   ├── cms/
+│   │   ├── README.md
+│   │   ├── api/
+│   │   ├── package.json
+│   │   ├── src/
+│   │   └── tsconfig.json
+│   ├── commerce-providers/
+│   │   ├── commerce/
+│   │   ├── commercetools/
+│   │   ├── local/
+│   │   ├── saleor/
+│   │   ├── shopify/
+│   │   └── swell/
+│   ├── contentful/
+│   │   ├── README.md
+│   │   ├── api/
+│   │   ├── package.json
+│   │   ├── src/
+│   │   └── tsconfig.json
+│   ├── dnd-kit/
+│   │   ├── .gitignore
+│   │   ├── LICENSE
+│   │   ├── README.md
+│   │   ├── package.json
+│   │   ├── src/
+│   │   └── tsconfig.json
+│   ├── fetch/
+│   │   ├── .gitignore
+│   │   ├── api/
+│   │   ├── package.json
+│   │   ├── src/
+│   │   └── tsconfig.json
+│   ├── framer-motion/
+│   │   ├── .gitignore
+│   │   ├── .npmignore
+│   │   ├── README.md
+│   │   ├── package.json
+│   │   ├── src/
+│   │   └── tsconfig.json
+│   ├── google-maps/
+│   │   ├── .gitignore
+│   │   ├── LICENSE
+│   │   ├── README.md
+│   │   ├── package.json
+│   │   ├── src/
+│   │   └── tsconfig.json
+│   ├── graphql/
+│   │   ├── .gitignore
+│   │   ├── api/
+│   │   ├── package.json
+│   │   ├── src/
+│   │   └── tsconfig.json
+│   ├── keen-slider/
+│   │   ├── .gitignore
+│   │   ├── LICENSE
+│   │   ├── README.md
+│   │   ├── package.json
+│   │   ├── src/
+│   │   └── tsconfig.json
+│   ├── lottie-react/
+│   │   ├── .gitignore
+│   │   ├── .npmignore
+│   │   ├── README.md
+│   │   ├── package.json
+│   │   ├── src/
+│   │   └── tsconfig.json
+│   ├── mailchimp/
+│   │   ├── .gitignore
+│   │   ├── LICENSE
+│   │   ├── README.md
+│   │   ├── package.json
+│   │   ├── src/
+│   │   └── tsconfig.json
+│   ├── plasmic-basic-components/
+│   │   ├── .gitignore
+│   │   ├── .npmignore
+│   │   ├── .storybook/
+│   │   ├── README.md
+│   │   ├── package.json
+│   │   ├── src/
+│   │   └── tsconfig.json
+│   ├── plasmic-calendly/
+│   │   ├── .gitignore
+│   │   ├── LICENSE
+│   │   ├── README.md
+│   │   ├── package.json
+│   │   ├── src/
+│   │   └── tsconfig.json
+│   ├── plasmic-cms/
+│   │   ├── .gitignore
+│   │   ├── .npmignore
+│   │   ├── README.md
+│   │   ├── api/
+│   │   ├── package.json
+│   │   ├── src/
+│   │   └── tsconfig.json
+│   ├── plasmic-content-stack/
+│   │   ├── .gitignore
+│   │   ├── LICENSE
+│   │   ├── README.md
+│   │   ├── package.json
+│   │   ├── src/
+│   │   └── tsconfig.json
+│   ├── plasmic-contentful/
+│   │   ├── .gitignore
+│   │   ├── LICENSE
+│   │   ├── README.md
+│   │   ├── api/
+│   │   ├── package.json
+│   │   ├── src/
+│   │   └── tsconfig.json
+│   ├── plasmic-embed-css/
+│   │   ├── .gitignore
+│   │   ├── .npmignore
+│   │   ├── README.md
+│   │   ├── package.json
+│   │   ├── src/
+│   │   └── tsconfig.json
+│   ├── plasmic-eventbrite/
+│   │   ├── .gitignore
+│   │   ├── LICENSE
+│   │   ├── README.md
+│   │   ├── package.json
+│   │   ├── src/
+│   │   └── tsconfig.json
+│   ├── plasmic-giphy/
+│   │   ├── .gitignore
+│   │   ├── LICENSE
+│   │   ├── README.md
+│   │   ├── package.json
+│   │   ├── src/
+│   │   └── tsconfig.json
+│   ├── plasmic-graphcms/
+│   │   ├── .gitignore
+│   │   ├── LICENSE
+│   │   ├── README.md
+│   │   ├── package.json
+│   │   ├── src/
+│   │   └── tsconfig.json
+│   ├── plasmic-hubspot/
+│   │   ├── .gitignore
+│   │   ├── LICENSE
+│   │   ├── README.md
+│   │   ├── package.json
+│   │   ├── src/
+│   │   └── tsconfig.json
+│   ├── plasmic-intercom/
+│   │   ├── .gitignore
+│   │   ├── LICENSE
+│   │   ├── README.md
+│   │   ├── package.json
+│   │   ├── src/
+│   │   └── tsconfig.json
+│   ├── plasmic-link-preview/
+│   │   ├── .gitignore
+│   │   ├── .npmignore
+│   │   ├── README.md
+│   │   ├── package.json
+│   │   ├── src/
+│   │   └── tsconfig.json
+│   ├── plasmic-nav/
+│   │   ├── .gitignore
+│   │   ├── .npmignore
+│   │   ├── README.md
+│   │   ├── package.json
+│   │   ├── src/
+│   │   └── tsconfig.json
+│   ├── plasmic-pigeon-maps/
+│   │   ├── .gitignore
+│   │   ├── LICENSE
+│   │   ├── README.md
+│   │   ├── package.json
+│   │   ├── src/
+│   │   └── tsconfig.json
+│   ├── plasmic-query/
+│   │   ├── .gitignore
+│   │   ├── .npmignore
+│   │   ├── README.md
+│   │   ├── package.json
+│   │   ├── src/
+│   │   └── tsconfig.json
+│   ├── plasmic-rich-components/
+│   │   ├── .gitignore
+│   │   ├── .npmignore
+│   │   ├── README.md
+│   │   ├── package.json
+│   │   ├── rollup.config.mjs
+│   │   ├── src/
+│   │   └── tsconfig.json
+│   ├── plasmic-sanity-io/
+│   │   ├── .gitignore
+│   │   ├── .npmignore
+│   │   ├── README.md
+│   │   ├── package.json
+│   │   ├── src/
+│   │   └── tsconfig.json
+│   ├── plasmic-soundcloud/
+│   │   ├── .gitignore
+│   │   ├── LICENSE
+│   │   ├── README.md
+│   │   ├── package.json
+│   │   ├── src/
+│   │   └── tsconfig.json
+│   ├── plasmic-strapi/
+│   │   ├── .gitignore
+│   │   ├── LICENSE
+│   │   ├── README.md
+│   │   ├── api/
+│   │   ├── package.json
+│   │   ├── src/
+│   │   └── tsconfig.json
+│   ├── plasmic-tabs/
+│   │   ├── .gitignore
+│   │   ├── LICENSE
+│   │   ├── README.md
+│   │   ├── package.json
+│   │   ├── src/
+│   │   └── tsconfig.json
+│   ├── plasmic-typeform/
+│   │   ├── .gitignore
+│   │   ├── LICENSE
+│   │   ├── README.md
+│   │   ├── package.json
+│   │   ├── src/
+│   │   └── tsconfig.json
+│   ├── plasmic-wordpress-graphql/
+│   │   ├── .gitignore
+│   │   ├── LICENSE
+│   │   ├── README.md
+│   │   ├── package.json
+│   │   ├── src/
+│   │   └── tsconfig.json
+│   ├── plasmic-wordpress/
+│   │   ├── .gitignore
+│   │   ├── LICENSE
+│   │   ├── README.md
+│   │   ├── api/
+│   │   ├── package.json
+│   │   ├── src/
+│   │   └── tsconfig.json
+│   ├── plasmic-yotpo/
+│   │   ├── .gitignore
+│   │   ├── LICENSE
+│   │   ├── README.md
+│   │   ├── package.json
+│   │   ├── src/
+│   │   └── tsconfig.json
+│   ├── radix-ui/
+│   │   ├── .gitignore
+│   │   ├── LICENSE
+│   │   ├── README.md
+│   │   ├── package.json
+│   │   ├── src/
+│   │   └── tsconfig.json
+│   ├── react-aria/
+│   │   ├── .gitignore
+│   │   ├── .storybook/
+│   │   ├── package.json
+│   │   ├── rollup.config.mjs
+│   │   ├── src/
+│   │   └── tsconfig.json
+│   ├── react-audio-player/
+│   │   ├── .gitignore
+│   │   ├── LICENSE
+│   │   ├── README.md
+│   │   ├── package.json
+│   │   ├── src/
+│   │   └── tsconfig.json
+│   ├── react-awesome-reveal/
+│   │   ├── .gitignore
+│   │   ├── .npmignore
+│   │   ├── README.md
+│   │   ├── package.json
+│   │   ├── src/
+│   │   └── tsconfig.json
+│   ├── react-chartjs-2/
+│   │   ├── .gitignore
+│   │   ├── .npmignore
+│   │   ├── README.md
+│   │   ├── package.json
+│   │   ├── src/
+│   │   └── tsconfig.json
+│   ├── react-parallax-tilt/
+│   │   ├── .gitignore
+│   │   ├── .npmignore
+│   │   ├── README.md
+│   │   ├── package.json
+│   │   ├── src/
+│   │   └── tsconfig.json
+│   ├── react-quill/
+│   │   ├── .gitignore
+│   │   ├── .npmignore
+│   │   ├── README.md
+│   │   ├── package.json
+│   │   ├── src/
+│   │   └── tsconfig.json
+│   ├── react-scroll-parallax/
+│   │   ├── .gitignore
+│   │   ├── .npmignore
+│   │   ├── README.md
+│   │   ├── package.json
+│   │   ├── src/
+│   │   └── tsconfig.json
+│   ├── react-slick/
+│   │   ├── .gitignore
+│   │   ├── .npmignore
+│   │   ├── README.md
+│   │   ├── package.json
+│   │   ├── src/
+│   │   └── tsconfig.json
+│   ├── react-twitter-widgets/
+│   │   ├── .gitignore
+│   │   ├── .npmignore
+│   │   ├── README.md
+│   │   ├── package.json
+│   │   ├── src/
+│   │   └── tsconfig.json
+│   ├── react-youtube/
+│   │   ├── .gitignore
+│   │   ├── .npmignore
+│   │   ├── README.md
+│   │   ├── package.json
+│   │   ├── src/
+│   │   └── tsconfig.json
+│   ├── rive/
+│   │   ├── .gitignore
+│   │   ├── .npmignore
+│   │   ├── README.md
+│   │   ├── package.json
+│   │   ├── src/
+│   │   └── tsconfig.json
+│   ├── spotify/
+│   │   ├── .gitignore
+│   │   ├── LICENSE
+│   │   ├── README.md
+│   │   ├── package.json
+│   │   ├── src/
+│   │   └── tsconfig.json
+│   ├── strapi/
+│   │   ├── .gitignore
+│   │   ├── api/
+│   │   ├── package.json
+│   │   ├── src/
+│   │   └── tsconfig.json
+│   ├── tiptap/
+│   │   ├── .gitignore
+│   │   ├── README.md
+│   │   ├── package.json
+│   │   ├── rollup.config.mjs
+│   │   ├── src/
+│   │   └── tsconfig.json
+│   ├── vanilla-cookieconsent/
+│   │   ├── .gitignore
+│   │   ├── README.md
+│   │   ├── api/
+│   │   ├── package.json
+│   │   ├── src/
+│   │   └── tsconfig.json
+│   └── wordpress/
+│       ├── README.md
+│       ├── api/
+│       ├── package.json
+│       ├── src/
+│       ├── tsconfig.json
+│       └── yarn.lock
+├── platform/
+│   ├── canvas-packages/
+│   │   ├── .gitignore
+│   │   ├── build-parallel.sh
+│   │   ├── esbuild.js
+│   │   ├── hostlessList.json
+│   │   ├── internal_pkgs/
+│   │   ├── makePkgTypes.js
+│   │   ├── package.json
+│   │   ├── src/
+│   │   ├── tsconfig.json
+│   │   ├── typedPkgsList.json
+│   │   └── yarn.lock
+│   ├── host-test/
+│   │   ├── .eslintrc
+│   │   ├── .gitignore
+│   │   ├── README.md
+│   │   ├── code-components/
+│   │   ├── next-env.d.ts
+│   │   ├── next.config.js
+│   │   ├── package.json
+│   │   ├── pages/
+│   │   ├── public/
+│   │   ├── tsconfig.json
+│   │   └── yarn.lock
+│   ├── integration-tests/
+│   │   ├── .dockerignore
+│   │   ├── .gitignore
+│   │   ├── Dockerfile
+│   │   ├── README.md
+│   │   ├── babel.config.js
+│   │   ├── jest.config.js
+│   │   ├── package.json
+│   │   ├── src/
+│   │   └── yarn.lock
+│   ├── live-frame/
+│   │   ├── .gitignore
+│   │   ├── package.json
+│   │   ├── rollup.config.js
+│   │   ├── src/
+│   │   ├── tsconfig.json
+│   │   └── yarn.lock
+│   ├── loader-bundle-env/
+│   │   ├── internal_pkgs/
+│   │   ├── package.json
+│   │   ├── patches/
+│   │   └── yarn.lock
+│   ├── loader-html-hydrate/
+│   │   ├── .gitignore
+│   │   ├── package.json
+│   │   ├── rollup.config.js
+│   │   ├── src/
+│   │   ├── tsconfig.json
+│   │   └── yarn.lock
+│   ├── loader-tests/
+│   │   ├── .dockerignore
+│   │   ├── .gitignore
+│   │   ├── Dockerfile
+│   │   ├── README
+│   │   ├── babel.config.js
+│   │   ├── cypress.config.ts
+│   │   ├── cypress/
+│   │   ├── data/
+│   │   ├── jest.config.js
+│   │   ├── package.json
+│   │   ├── playwright.config.ts
+│   │   ├── scripts/
+│   │   ├── src/
+│   │   ├── tsconfig.json
+│   │   └── yarn.lock
+│   ├── react-renderer/
+│   │   ├── .dockerignore
+│   │   ├── .gitignore
+│   │   ├── Dockerfile
+│   │   ├── addon.cc
+│   │   ├── binding.gyp
+│   │   ├── config.h
+│   │   ├── noop.cc
+│   │   ├── package.json
+│   │   ├── sec.js
+│   │   ├── seccomp-bpf.h
+│   │   ├── seccomp.cc
+│   │   ├── seccomp.h
+│   │   ├── src/
+│   │   ├── syscall-names.h
+│   │   ├── syscall-reporter.c
+│   │   ├── syscall-reporter.h
+│   │   ├── tools/
+│   │   ├── tsconfig.json
+│   │   └── yarn.lock
+│   ├── react-web-bundle/
+│   │   ├── .gitignore
+│   │   ├── package.json
+│   │   ├── rollup.config.js
+│   │   ├── src/
+│   │   ├── tsconfig.json
+│   │   └── yarn.lock
+│   ├── sub/
+│   │   ├── .gitignore
+│   │   ├── .idea/
+│   │   ├── package.json
+│   │   ├── public/
+│   │   ├── src/
+│   │   ├── tsconfig.json
+│   │   ├── webpack.base.config.js
+│   │   ├── webpack.dev.config.js
+│   │   ├── webpack.prod.config.js
+│   │   └── yarn.lock
+│   └── wab/
+│       ├── .env.example
+│       ├── .gitignore
+│       ├── .storybook/
+│       ├── CLAUDE.md
+│       ├── Dockerfile
+│       ├── GridStyleParser.pegjs
+│       ├── Makefile
+│       ├── README.md
+│       ├── __mocks__/
+│       ├── cssPegParser.pegcoffee
+│       ├── cypress/
+│       ├── deps/
+│       ├── export/
+│       ├── funcTplParser.pegcoffee
+│       ├── jest.config.ts
+│       ├── modelPegParser.pegcoffee
+│       ├── ormconfig.json
+│       ├── package.json
+│       ├── patches/
+│       ├── plasmic.json
+│       ├── plasmic.lock
+│       ├── playwright/
+│       ├── pm2-dev.config.js
+│       ├── pm2-test.config.js
+│       ├── public/
+│       ├── rsbuild.config.ts
+│       ├── setup.bash
+│       ├── src/
+│       ├── theme.less
+│       ├── tools/
+│       ├── tsconfig.ide.json
+│       ├── tsconfig.json
+│       ├── tsconfig.main.json
+│       ├── tsconfig.prod.json
+│       ├── tsconfig.server.json
+│       ├── tsconfig.test.json
+│       ├── tsconfig.tools.json
+│       ├── us-west-2-bundle.pem
+│       └── yarn.lock
+├── scripts/
+│   ├── bootstrap.sh
+│   ├── internal-react-slick.patch
+│   ├── local-publish.sh
+│   ├── publish-api-doc-model.sh
+│   └── upgrade-internal.bash
+├── sweep.yaml
+├── tsconfig.types.json
+├── tstyche.config.json
+└── yarn.lock

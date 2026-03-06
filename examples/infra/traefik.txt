@@ -1,0 +1,1354 @@
+=====================================
+Repository Analysis: traefik
+Type: Backend / API Service
+=====================================
+
+--- METADATA ---
+Name: traefik
+Description: The Cloud Native Application Proxy
+Language: Go
+Topics: consul, docker, etcd, go, golang, kubernetes, letsencrypt, load-balancer, marathon, mesos, microservice, reverse-proxy, traefik, zookeeper
+Stars: 62057
+License: MIT License
+
+--- README ---
+
+<p align="center">
+    <picture>
+      <source media="(prefers-color-scheme: dark)" srcset="docs/content/assets/img/traefik.logo-dark.png">
+      <source media="(prefers-color-scheme: light)" srcset="docs/content/assets/img/traefik.logo.png">
+      <img alt="Traefik" title="Traefik" src="docs/content/assets/img/traefik.logo.png">
+    </picture>
+</p>
+
+[![Docs](https://img.shields.io/badge/docs-current-brightgreen.svg)](https://doc.traefik.io/traefik)
+[![Go Report Card](https://goreportcard.com/badge/traefik/traefik)](https://goreportcard.com/report/traefik/traefik)
+[![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/traefik/traefik/blob/master/LICENSE.md)
+[![Join the community support forum at https://community.traefik.io/](https://img.shields.io/badge/style-register-green.svg?style=social&label=Discourse)](https://community.traefik.io/)
+[![Twitter](https://img.shields.io/twitter/follow/traefik.svg?style=social)](https://twitter.com/intent/follow?screen_name=traefik)
+
+Traefik (pronounced _traffic_) is a modern HTTP reverse proxy and load balancer that makes deploying microservices easy.
+Traefik integrates with your existing infrastructure components ([Docker](https://www.docker.com/), [Swarm mode](https://docs.docker.com/engine/swarm/), [Kubernetes](https://kubernetes.io), [Consul](https://www.consul.io/), [Etcd](https://coreos.com/etcd/), [Rancher v2](https://rancher.com), [Amazon ECS](https://aws.amazon.com/ecs), ...) and configures itself automatically and dynamically.
+Pointing Traefik at your orchestrator should be the _only_ configuration step you need.
+
+---
+
+. **[Overview](#overview)** .
+**[Features](#features)** .
+**[Supported backends](#supported-backends)** .
+**[Quickstart](#quickstart)** .
+**[Web UI](#web-ui)** .
+**[Documentation](#documentation)** .
+
+. **[Support](#support)** .
+**[Release cycle](#release-cycle)** .
+**[Contributing](#contributing)** .
+**[Maintainers](#maintainers)** .
+**[Credits](#credits)** .
+
+---
+
+:warning: When migrating to a new major version of Traefik, please refer to the [migration guide](https://doc.traefik.io/traefik/migrate/v2-to-v3/) to ensure a smooth transition and to be aware of any breaking changes.
+
+
+## Overview
+
+Imagine that you have deployed a bunch of microservices with the help of an orchestrator (like Swarm or Kubernetes) or a service registry (like etcd or consul).
+Now you want users to access these microservices, and you need a reverse proxy.
+
+Traditional reverse-proxies require that you configure _each_ route that will connect paths and subdomains to _each_ microservice. 
+In an environment where you add, remove, kill, upgrade, or scale your services _many_ times a day, the task of keeping the routes up to date becomes tedious. 
+
+**This is when Traefik can help you!**
+
+Traefik listens to your service registry/orchestrator API and instantly generates the routes so your microservices are connected to the outside world -- without further intervention from your part. 
+
+**Run Traefik and let it do the work for you!** 
+_(But if you'd rather configure some of your routes manually, Traefik supports that too!)_
+
+![Architecture](docs/content/assets/img/traefik-architecture.png)
+
+## Features
+
+- Continuously updates its configuration (No restarts!)
+- Supports multiple load balancing algorithms
+- Provides HTTPS to your microservices by leveraging [Let's Encrypt](https://letsencrypt.org) (wildcard certificates support)
+- Circuit breakers, retry
+- See the magic through its clean web UI
+- WebSocket, HTTP/2, gRPC ready
+- Provides metrics (Rest, Prometheus, Datadog, Statsd, InfluxDB 2.X)
+- Keeps access logs (JSON, CLF)
+- Fast
+- Exposes a Rest API
+- Packaged as a single binary file (made with :heart: with go) and available as an [official](https://hub.docker.com/r/_/traefik/) docker image
+
+## Supported Backends
+
+- [Docker](https://doc.traefik.io/traefik/providers/docker/) / [Swarm mode](https://doc.traefik.io/traefik/providers/docker/)
+- [Kubernetes](https://doc.traefik.io/traefik/providers/kubernetes-crd/)
+- [ECS](https://doc.traefik.io/traefik/providers/ecs/)
+- [File](https://doc.traefik.io/traefik/providers/file/)
+
+## Quickstart
+
+To get your hands on Traefik, you can use the [5-Minute Quickstart](https://doc.traefik.io/traefik/getting-started/quick-start/) in our documentation (you will need Docker).
+
+## Web UI
+
+You can access the simple HTML frontend of Traefik.
+
+![Web UI Providers](docs/content/assets/img/webui-dashboard.png)
+
+## Documentation
+
+You can find the complete documentation of Traefik v3 at [https://doc.traefik.io/traefik/](https://doc.traefik.io/traefik/).
+
+## Support
+
+To get community support, you can:
+
+- join the Traefik community forum: [![Join the chat at https://community.traefik.io/](https://img.shields.io/badge/style-register-green.svg?style=social&label=Discourse)](https://community.traefik.io/)
+
+If you need commercial support, please contact [Traefik.io](https://traefik.io) by mail: <mailto:support@traefik.io>.
+
+## Downlo
+... [TRUNCATED]
+
+--- PACKAGE MANIFEST(S) ---
+
+[go.mod]
+module github.com/traefik/traefik/v3
+
+go 1.25.0
+
+require (
+	github.com/BurntSushi/toml v1.6.0
+	github.com/Masterminds/sprig/v3 v3.2.3
+	github.com/abbot/go-http-auth v0.0.0-00010101000000-000000000000 // No tag on the repo.
+	github.com/andybalholm/brotli v1.1.1
+	github.com/armon/go-socks5 v0.0.0-20160902184237-e75332964ef5
+	github.com/aws/aws-sdk-go-v2 v1.41.1
+	github.com/aws/aws-sdk-go-v2/config v1.32.8
+	github.com/aws/aws-sdk-go-v2/credentials v1.19.8
+	github.com/aws/aws-sdk-go-v2/service/ec2 v1.203.1
+	github.com/aws/aws-sdk-go-v2/service/ecs v1.53.15
+	github.com/aws/aws-sdk-go-v2/service/ssm v1.56.13
+	github.com/aws/smithy-go v1.24.0
+	github.com/cenkalti/backoff/v4 v4.3.0
+	github.com/containous/alice v0.0.0-20181107144136-d83ebdd94cbd // No tag on the repo.
+	github.com/coreos/go-systemd/v22 v22.5.0
+	github.com/docker/cli v28.3.3+incompatible
+	github.com/docker/docker v28.3.3+incompatible
+	github.com/docker/go-connections v0.5.0
+	github.com/fatih/structs v1.1.0
+	github.com/fsnotify/fsnotify v1.9.0
+	github.com/go-acme/lego/v4 v4.32.0
+	github.com/go-kit/kit v0.13.0
+	github.com/go-kit/log v0.2.1
+	github.com/golang/protobuf v1.5.4
+	github.com/google/go-github/v28 v28.1.1
+	github.com/gorilla/mux v1.8.1
+	github.com/gorilla/websocket v1.5.4-0.20250319132907-e064f32e3674
+	github.com/hashicorp/consul/api v1.26.1
+	github.com/hashicorp/go-hclog v1.6.3
+	github.com/hashicorp/go-multierror v1.1.1
+	github.com/hashicorp/go-retryablehttp v0.7.8
+	github.com/hashicorp/go-version v1.8.0
+	github.com/hashicorp/nomad/api v0.0.0-20231213195942-64e3dca9274b // No tag on the repo.
+	github.com/http-wasm/http-wasm-host-go v0.7.0
+	github.com/huandu/xstrings v1.5.0
+	github.com/influxdata/influxdb-client-go/v2 v2.7.0
+	github.com/influxdata/influxdb1-client v0.0.0-20200827194710-b269163b24ab // No tag on the repo.
+	github.com/klauspost/compress v1.18.0
+	github.com/kvtools/consul v1.0.2
+	github.com/kvtools/etcdv3 v1.0.3
+	github.com/kvtools/redis v1.2.0
+	github.com/kvtools/valkeyrie v1.0.0
+	github.com/kvtools/zookeeper v1.0.2
+	github.com/mailgun/ttlmap v0.0.0-20170619185759-c1c17f74874f // No tag on the repo.
+	github.com/miekg/dns v1.1.72
+	github.com/mitchellh/copystructure v1.2.0
+	github.com/mitchellh/hashstructure v1.0.0
+	github.com/mitchellh/mapstructure v1.5.1-0.20231216201459-8508981c8b6c // No tag on the repo.
+	github.com/patrickmn/go-cache v2.1.0+incompatible
+	github.com/pires/go-proxyproto v0.8.1
+	github.com/pmezard/go-difflib v1.0.1-0.20181226105442-5d4384ee4fb2 // No tag on the repo.
+	github.com/prometheus/client_golang v1.23.0
+	github.com/prometheus/client_model v0.6.2
+	github.com/quic-go/quic-go v0.59.0
+	github.com/redis/go-redis/v9 v9.8.0
+	github.com/rs/zerolog v1.33.0
+	github.com/sirupsen/logrus v1.9.3
+	github.com/spiffe/go-spiffe/v2 v2.6.0
+	github.com/stealthrocket/wasi-go v0.8.0
+	github.com/stealthrocket/wazergo v0.19.1
+	github.com/stretchr/testify v1.11.1
+	github.com/stvp/go-udp-testing v0.0.0-20201019212854-469649b16807 // No tag on the repo.
+	github.com/tailsc
+... [TRUNCATED]
+
+--- BACKEND CONFIG FILES ---
+
+[Dockerfile]
+# syntax=docker/dockerfile:1.2
+FROM alpine:3.23
+
+RUN apk add --no-cache --no-progress ca-certificates tzdata
+
+ARG TARGETPLATFORM
+COPY ./dist/$TARGETPLATFORM/traefik /
+
+EXPOSE 80
+VOLUME ["/tmp"]
+
+ENTRYPOINT ["/traefik"]
+
+
+--- API ROUTE / ENDPOINT DEFINITIONS ---
+
+[docs/content/routing/routers/.markdownlint.json]
+{
+    "extends": "../../../.markdownlint.json",
+    "MD024": false
+}
+
+
+[docs/content/routing/routers/index.md]
+---
+title: "Traefik Routers Documentation"
+description: "In Traefik Proxy, a router is in charge of connecting incoming requests to the Services that can handle them. Read the technical documentation."
+---
+
+# Routers
+
+Connecting Requests to Services
+{: .subtitle }
+
+![routers](../../assets/img/routers.png)
+
+A router is in charge of connecting incoming requests to the services that can handle them.
+In the process, routers may use pieces of [middleware](../../middlewares/overview.md) to update the request,
+or act before forwarding the request to the service.
+
+## Configuration Example
+
+??? example "Requests /foo are Handled by service-foo -- Using the [File Provider](../../providers/file.md)"
+
+    ```yaml tab="YAML"
+    ## Dynamic configuration
+    http:
+      routers:
+        my-router:
+          rule: "Path(`/foo`)"
+          service: service-foo
+    ```
+
+    ```toml tab="TOML"
+    ## Dynamic configuration
+    [http.routers]
+      [http.routers.my-router]
+        rule = "Path(`/foo`)"
+        service = "service-foo"
+    ```
+
+??? example "Forwarding all (non-tls) requests on port 3306 to a database service"
+
+    **Dynamic Configuration**
+
+    ```yaml tab="File (YAML)"
+    ## Dynamic configuration
+    tcp:
+      routers:
+        to-database:
+          entryPoints:
+            - "mysql"
+          # Catch every request (only available rule for non-tls routers. See below.)
+          rule: "HostSNI(`*`)"
+          service: database
+    ```
+
+    ```toml tab="File (TOML)"
+    ## Dynamic configuration
+    [tcp]
+      [tcp.routers]
+        [tcp.routers.to-database]
+          entryPoints = ["mysql"]
+          # Catch every request (only available rule for non-tls routers. See below.)
+          rule = "HostSNI(`*`)"
+          service = "database"
+    ```
+
+    **Static Configuration**
+
+    ```yaml tab="File (YAML)"
+    ## Static configuration
+    entryPoints:
+      web:
+        address: ":80"
+      mysql:
+        address: ":3306"
+    ```
+
+    ```toml tab="File (TOML)"
+    ## Static configuration
+    [entryPoints]
+      [entryPoints.web]
+        address = ":80"
+      [entryPoints.mysql]
+        address = ":3306"
+    ```
+
+    ```bash tab="CLI"
+    ## Static configuration
+    --entryPoints.web.address=:80
+    --entryPoints.mysql.address=:3306
+    ```
+
+## Configuring HTTP Routers
+
+!!! warning "The character `@` is not authorized in the router name"
+
+### EntryPoints
+
+If not specified, HTTP routers will accept requests from all EntryPoints in the [list of default EntryPoints](../entrypoints.md#asdefault).
+If you want to limit the router scope to a set of entry points, set the `entryPoints` option.
+
+??? example "Listens to Every EntryPoint"
+
+    **Dynamic Configuration**
+
+    ```yaml tab="File (YAML)"
+    ## Dynamic configuration
+    http:
+      routers:
+        Router-1:
+          # By default, routers listen to every EntryPoints.
+          rule: "Host(`example.com`)"
+          service: "service-1"
+    ```
+
+    ```toml tab="File (TOML)"
+    ## Dynamic configuration
+ 
+... [TRUNCATED]
+
+[pkg/api/handler_overview.go]
+package api
+
+import (
+	"encoding/json"
+	"net/http"
+	"reflect"
+
+	"github.com/rs/zerolog/log"
+	"github.com/traefik/traefik/v3/pkg/config/runtime"
+	"github.com/traefik/traefik/v3/pkg/config/static"
+)
+
+type schemeOverview struct {
+	Routers     *section `json:"routers,omitempty"`
+	Services    *section `json:"services,omitempty"`
+	Middlewares *section `json:"middlewares,omitempty"`
+}
+
+type section struct {
+	Total    int `json:"total"`
+	Warnings int `json:"warnings"`
+	Errors   int `json:"errors"`
+}
+
+type features struct {
+	Tracing   string `json:"tracing"`
+	Metrics   string `json:"metrics"`
+	AccessLog bool   `json:"accessLog"`
+	// TODO add certificates resolvers
+}
+
+type overview struct {
+	HTTP      schemeOverview `json:"http"`
+	TCP       schemeOverview `json:"tcp"`
+	UDP       schemeOverview `json:"udp"`
+	Features  features       `json:"features,omitempty"`
+	Providers []string       `json:"providers,omitempty"`
+}
+
+func (h Handler) getOverview(rw http.ResponseWriter, request *http.Request) {
+	result := overview{
+		HTTP: schemeOverview{
+			Routers:     getHTTPRouterSection(h.runtimeConfiguration.Routers),
+			Services:    getHTTPServiceSection(h.runtimeConfiguration.Services),
+			Middlewares: getHTTPMiddlewareSection(h.runtimeConfiguration.Middlewares),
+		},
+		TCP: schemeOverview{
+			Routers:     getTCPRouterSection(h.runtimeConfiguration.TCPRouters),
+			Services:    getTCPServiceSection(h.runtimeConfiguration.TCPServices),
+			Middlewares: getTCPMiddlewareSection(h.runtimeConfiguration.TCPMiddlewares),
+		},
+		UDP: schemeOverview{
+			Routers:  getUDPRouterSection(h.runtimeConfiguration.UDPRouters),
+			Services: getUDPServiceSection(h.runtimeConfiguration.UDPServices),
+		},
+		Features:  getFeatures(h.staticConfig),
+		Providers: getProviders(h.staticConfig),
+	}
+
+	rw.Header().Set("Content-Type", "application/json")
+
+	err := json.NewEncoder(rw).Encode(result)
+	if err != nil {
+		log.Ctx(request.Context()).Error().Err(err).Send()
+		writeError(rw, err.Error(), http.StatusInternalServerError)
+	}
+}
+
+func getHTTPRouterSection(routers map[string]*runtime.RouterInfo) *section {
+	var countErrors int
+	var countWarnings int
+	for _, rt := range routers {
+		switch rt.Status {
+		case runtime.StatusDisabled:
+			countErrors++
+		case runtime.StatusWarning:
+			countWarnings++
+		}
+	}
+
+	return &section{
+		Total:    len(routers),
+		Warnings: countWarnings,
+		Errors:   countErrors,
+	}
+}
+
+func getHTTPServiceSection(services map[string]*runtime.ServiceInfo) *section {
+	var countErrors int
+	var countWarnings int
+	for _, svc := range services {
+		switch svc.Status {
+		case runtime.StatusDisabled:
+			countErrors++
+		case runtime.StatusWarning:
+			countWarnings++
+		}
+	}
+
+	return &section{
+		Total:    len(services),
+		Warnings: countWarnings,
+		Errors:   countErrors,
+	}
+}
+
+func getHTTPMiddlewareSection(middlewares map[string]*runtime.MiddlewareInfo) *section {
+	var countErrors int
+	var countWarnings int
+	for _, mid := range middlewares {
+		switch mid.Status {
+		case runtime.StatusDisabled:
+
+... [TRUNCATED]
+
+[pkg/provider/kubernetes/crd/generated/applyconfiguration/traefikio/v1alpha1/ingressroute.go]
+/*
+The MIT License (MIT)
+
+Copyright (c) 2016-2020 Containous SAS; 2020-2026 Traefik Labs
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
+*/
+
+// Code generated by applyconfiguration-gen. DO NOT EDIT.
+
+package v1alpha1
+
+import (
+	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
+	types "k8s.io/apimachinery/pkg/types"
+	v1 "k8s.io/client-go/applyconfigurations/meta/v1"
+)
+
+// IngressRouteApplyConfiguration represents a declarative configuration of the IngressRoute type for use
+// with apply.
+type IngressRouteApplyConfiguration struct {
+	v1.TypeMetaApplyConfiguration    `json:",inline"`
+	*v1.ObjectMetaApplyConfiguration `json:"metadata,omitempty"`
+	Spec                             *IngressRouteSpecApplyConfiguration `json:"spec,omitempty"`
+}
+
+// IngressRoute constructs a declarative configuration of the IngressRoute type for use with
+// apply.
+func IngressRoute(name, namespace string) *IngressRouteApplyConfiguration {
+	b := &IngressRouteApplyConfiguration{}
+	b.WithName(name)
+	b.WithNamespace(namespace)
+	b.WithKind("IngressRoute")
+	b.WithAPIVersion("traefik.io/v1alpha1")
+	return b
+}
+func (b IngressRouteApplyConfiguration) IsApplyConfiguration() {}
+
+// WithKind sets the Kind field in the declarative configuration to the given value
+// and returns the receiver, so that objects can be built by chaining "With" function invocations.
+// If called multiple times, the Kind field is set to the value of the last call.
+func (b *IngressRouteApplyConfiguration) WithKind(value string) *IngressRouteApplyConfiguration {
+	b.TypeMetaApplyConfiguration.Kind = &value
+	return b
+}
+
+// WithAPIVersion sets the APIVersion field in the declarative configuration to the given value
+// and returns the receiver, so that objects can be built by chaining "With" function invocations.
+// If called multiple times, the APIVersion field is set to the value of the last call.
+func (b *IngressRouteApplyConfiguration) WithAPIVersion(value string) *IngressRouteApplyConfiguration {
+	b.TypeMetaApplyConfiguration.APIVersion = &value
+	return b
+}
+... [TRUNCATED]
+
+[pkg/provider/kubernetes/crd/generated/applyconfiguration/traefikio/v1alpha1/route.go]
+/*
+The MIT License (MIT)
+
+Copyright (c) 2016-2020 Containous SAS; 2020-2026 Traefik Labs
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
+*/
+
+// Code generated by applyconfiguration-gen. DO NOT EDIT.
+
+package v1alpha1
+
+import (
+	dynamic "github.com/traefik/traefik/v3/pkg/config/dynamic"
+)
+
+// RouteApplyConfiguration represents a declarative configuration of the Route type for use
+// with apply.
+type RouteApplyConfiguration struct {
+	Match         *string                            `json:"match,omitempty"`
+	Kind          *string                            `json:"kind,omitempty"`
+	Priority      *int                               `json:"priority,omitempty"`
+	Syntax        *string                            `json:"syntax,omitempty"`
+	Services      []ServiceApplyConfiguration        `json:"services,omitempty"`
+	Middlewares   []MiddlewareRefApplyConfiguration  `json:"middlewares,omitempty"`
+	Observability *dynamic.RouterObservabilityConfig `json:"observability,omitempty"`
+}
+
+// RouteApplyConfiguration constructs a declarative configuration of the Route type for use with
+// apply.
+func Route() *RouteApplyConfiguration {
+	return &RouteApplyConfiguration{}
+}
+
+// WithMatch sets the Match field in the declarative configuration to the given value
+// and returns the receiver, so that objects can be built by chaining "With" function invocations.
+// If called multiple times, the Match field is set to the value of the last call.
+func (b *RouteApplyConfiguration) WithMatch(value string) *RouteApplyConfiguration {
+	b.Match = &value
+	return b
+}
+
+// WithKind sets the Kind field in the declarative configuration to the given value
+// and returns the receiver, so that objects can be built by chaining "With" function invocations.
+// If called multiple times, the Kind field is set to the value of the last call.
+func (b *RouteApplyConfiguration) WithKind(value string) *RouteApplyConfiguration {
+	b.Kind = &value
+	return b
+}
+
+// WithPriority sets the Priority field in the declarative configuration to the given value
+/
+... [TRUNCATED]
+
+[pkg/provider/kubernetes/crd/generated/clientset/versioned/typed/traefikio/v1alpha1/fake/fake_ingressroute.go]
+/*
+The MIT License (MIT)
+
+Copyright (c) 2016-2020 Containous SAS; 2020-2026 Traefik Labs
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
+*/
+
+// Code generated by client-gen. DO NOT EDIT.
+
+package fake
+
+import (
+	traefikiov1alpha1 "github.com/traefik/traefik/v3/pkg/provider/kubernetes/crd/generated/applyconfiguration/traefikio/v1alpha1"
+	typedtraefikiov1alpha1 "github.com/traefik/traefik/v3/pkg/provider/kubernetes/crd/generated/clientset/versioned/typed/traefikio/v1alpha1"
+	v1alpha1 "github.com/traefik/traefik/v3/pkg/provider/kubernetes/crd/traefikio/v1alpha1"
+	gentype "k8s.io/client-go/gentype"
+)
+
+// fakeIngressRoutes implements IngressRouteInterface
+type fakeIngressRoutes struct {
+	*gentype.FakeClientWithListAndApply[*v1alpha1.IngressRoute, *v1alpha1.IngressRouteList, *traefikiov1alpha1.IngressRouteApplyConfiguration]
+	Fake *FakeTraefikV1alpha1
+}
+
+func newFakeIngressRoutes(fake *FakeTraefikV1alpha1, namespace string) typedtraefikiov1alpha1.IngressRouteInterface {
+	return &fakeIngressRoutes{
+		gentype.NewFakeClientWithListAndApply[*v1alpha1.IngressRoute, *v1alpha1.IngressRouteList, *traefikiov1alpha1.IngressRouteApplyConfiguration](
+			fake.Fake,
+			namespace,
+			v1alpha1.SchemeGroupVersion.WithResource("ingressroutes"),
+			v1alpha1.SchemeGroupVersion.WithKind("IngressRoute"),
+			func() *v1alpha1.IngressRoute { return &v1alpha1.IngressRoute{} },
+			func() *v1alpha1.IngressRouteList { return &v1alpha1.IngressRouteList{} },
+			func(dst, src *v1alpha1.IngressRouteList) { dst.ListMeta = src.ListMeta },
+			func(list *v1alpha1.IngressRouteList) []*v1alpha1.IngressRoute {
+				return gentype.ToPointerSlice(list.Items)
+			},
+			func(list *v1alpha1.IngressRouteList, items []*v1alpha1.IngressRoute) {
+				list.Items = gentype.FromPointerSlice(items)
+			},
+		),
+		fake,
+	}
+}
+
+
+[pkg/provider/kubernetes/crd/generated/clientset/versioned/typed/traefikio/v1alpha1/ingressroute.go]
+/*
+The MIT License (MIT)
+
+Copyright (c) 2016-2020 Containous SAS; 2020-2026 Traefik Labs
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
+*/
+
+// Code generated by client-gen. DO NOT EDIT.
+
+package v1alpha1
+
+import (
+	context "context"
+
+	applyconfigurationtraefikiov1alpha1 "github.com/traefik/traefik/v3/pkg/provider/kubernetes/crd/generated/applyconfiguration/traefikio/v1alpha1"
+	scheme "github.com/traefik/traefik/v3/pkg/provider/kubernetes/crd/generated/clientset/versioned/scheme"
+	traefikiov1alpha1 "github.com/traefik/traefik/v3/pkg/provider/kubernetes/crd/traefikio/v1alpha1"
+	v1 "k8s.io/apimachinery/pkg/apis/meta/v1"
+	types "k8s.io/apimachinery/pkg/types"
+	watch "k8s.io/apimachinery/pkg/watch"
+	gentype "k8s.io/client-go/gentype"
+)
+
+// IngressRoutesGetter has a method to return a IngressRouteInterface.
+// A group's client should implement this interface.
+type IngressRoutesGetter interface {
+	IngressRoutes(namespace string) IngressRouteInterface
+}
+
+// IngressRouteInterface has methods to work with IngressRoute resources.
+type IngressRouteInterface interface {
+	Create(ctx context.Context, ingressRoute *traefikiov1alpha1.IngressRoute, opts v1.CreateOptions) (*traefikiov1alpha1.IngressRoute, error)
+	Update(ctx context.Context, ingressRoute *traefikiov1alpha1.IngressRoute, opts v1.UpdateOptions) (*traefikiov1alpha1.IngressRoute, error)
+	Delete(ctx context.Context, name string, opts v1.DeleteOptions) error
+	DeleteCollection(ctx context.Context, opts v1.DeleteOptions, listOpts v1.ListOptions) error
+	Get(ctx context.Context, name string, opts v1.GetOptions) (*traefikiov1alpha1.IngressRoute, error)
+	List(ctx context.Context, opts v1.ListOptions) (*traefikiov1alpha1.IngressRouteList, error)
+	Watch(ctx context.Context, opts v1.ListOptions) (watch.Interface, error)
+	Patch(ctx context.Context, name string, pt types.PatchType, data []byte, opts v1.PatchOptions, subresources ...string) (result *traefikiov1alpha1.IngressRoute, err error)
+	Apply(ctx context.Context, ingressRoute *applyconfigurationtraefiki
+... [TRUNCATED]
+
+[pkg/provider/kubernetes/crd/generated/informers/externalversions/traefikio/v1alpha1/ingressroute.go]
+/*
+The MIT License (MIT)
+
+Copyright (c) 2016-2020 Containous SAS; 2020-2026 Traefik Labs
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
+*/
+
+// Code generated by informer-gen. DO NOT EDIT.
+
+package v1alpha1
+
+import (
+	context "context"
+	time "time"
+
+	versioned "github.com/traefik/traefik/v3/pkg/provider/kubernetes/crd/generated/clientset/versioned"
+	internalinterfaces "github.com/traefik/traefik/v3/pkg/provider/kubernetes/crd/generated/informers/externalversions/internalinterfaces"
+	traefikiov1alpha1 "github.com/traefik/traefik/v3/pkg/provider/kubernetes/crd/generated/listers/traefikio/v1alpha1"
+	crdtraefikiov1alpha1 "github.com/traefik/traefik/v3/pkg/provider/kubernetes/crd/traefikio/v1alpha1"
+	v1 "k8s.io/apimachinery/pkg/apis/meta/v1"
+	runtime "k8s.io/apimachinery/pkg/runtime"
+	watch "k8s.io/apimachinery/pkg/watch"
+	cache "k8s.io/client-go/tools/cache"
+)
+
+// IngressRouteInformer provides access to a shared informer and lister for
+// IngressRoutes.
+type IngressRouteInformer interface {
+	Informer() cache.SharedIndexInformer
+	Lister() traefikiov1alpha1.IngressRouteLister
+}
+
+type ingressRouteInformer struct {
+	factory          internalinterfaces.SharedInformerFactory
+	tweakListOptions internalinterfaces.TweakListOptionsFunc
+	namespace        string
+}
+
+// NewIngressRouteInformer constructs a new informer for IngressRoute type.
+// Always prefer using an informer factory to get a shared informer instead of getting an independent
+// one. This reduces memory footprint and number of connections to the server.
+func NewIngressRouteInformer(client versioned.Interface, namespace string, resyncPeriod time.Duration, indexers cache.Indexers) cache.SharedIndexInformer {
+	return NewFilteredIngressRouteInformer(client, namespace, resyncPeriod, indexers, nil)
+}
+
+// NewFilteredIngressRouteInformer constructs a new informer for IngressRoute type.
+// Always prefer using an informer factory to get a shared informer instead of getting an independent
+// one. This reduces memory footprint and number of connections 
+... [TRUNCATED]
+
+--- DATABASE SCHEMA / MODEL FILES ---
+(None found)
+
+--- DIRECTORY STRUCTURE (depth 2) ---
+├── .dockerignore
+├── .gitattributes
+├── .github/
+│   ├── FUNDING.yml
+│   ├── ISSUE_TEMPLATE.md
+│   ├── ISSUE_TEMPLATE/
+│   │   ├── bug_report.yml
+│   │   ├── config.yml
+│   │   └── feature-request.yml
+│   ├── PULL_REQUEST_TEMPLATE.md
+│   ├── PULL_REQUEST_TEMPLATE/
+│   │   ├── mergeback.md
+│   │   └── release.md
+│   └── workflows/
+│       ├── build.yaml
+│       ├── check_doc.yaml
+│       ├── codeql.yml
+│       ├── documentation.yaml
+│       ├── experimental.yaml
+│       ├── release.yaml
+│       ├── sync-docker-images.yaml
+│       ├── template-webui.yaml
+│       ├── test-gateway-api-conformance.yaml
+│       ├── test-integration.yaml
+│       ├── test-knative-conformance.yaml
+│       ├── test-unit.yaml
+│       └── validate.yaml
+├── .gitignore
+├── .go-version
+├── .golangci.yml
+├── .goreleaser.yml.tmpl
+├── CHANGELOG.md
+├── CODE_OF_CONDUCT.md
+├── CONTRIBUTING.md
+├── Dockerfile
+├── LICENSE.md
+├── Makefile
+├── README.md
+├── SECURITY.md
+├── cmd/
+│   ├── configuration.go
+│   ├── healthcheck/
+│   │   └── healthcheck.go
+│   ├── internal/
+│   │   └── gen/
+│   ├── traefik/
+│   │   ├── logger.go
+│   │   ├── plugins.go
+│   │   ├── traefik.go
+│   │   └── traefik_test.go
+│   └── version/
+│       └── version.go
+├── contrib/
+│   ├── grafana/
+│   │   ├── traefik-kubernetes.json
+│   │   └── traefik.json
+│   └── systemd/
+│       └── traefik.service
+├── docs/
+│   ├── .dockerignore
+│   ├── .markdownlint.json
+│   ├── Makefile
+│   ├── check.Dockerfile
+│   ├── content/
+│   │   ├── assets/
+│   │   ├── contributing/
+│   │   ├── deprecation/
+│   │   ├── expose/
+│   │   ├── extend/
+│   │   ├── features/
+│   │   ├── getting-started/
+│   │   ├── govern/
+│   │   ├── https/
+│   │   ├── includes/
+│   │   ├── index.md
+│   │   ├── middlewares/
+│   │   ├── migrate/
+│   │   ├── observability/
+│   │   ├── observe/
+│   │   ├── operations/
+│   │   ├── plugins/
+│   │   ├── providers/
+│   │   ├── reference/
+│   │   ├── routing/
+│   │   ├── secure/
+│   │   ├── security/
+│   │   ├── setup/
+│   │   └── user-guides/
+│   ├── docs.Dockerfile
+│   ├── mkdocs.yml
+│   ├── readme.md
+│   ├── requirements.txt
+│   └── scripts/
+│       ├── lint-yaml.sh
+│       ├── lint.sh
+│       └── verify.sh
+├── generate.go
+├── go.mod
+├── go.sum
+├── integration/
+│   ├── access_log_test.go
+│   ├── acme_test.go
+│   ├── conf_throttling_test.go
+│   ├── consul_catalog_test.go
+│   ├── consul_test.go
+│   ├── docker_compose_test.go
+│   ├── docker_test.go
+│   ├── dual_logging_test.go
+│   ├── error_pages_test.go
+│   ├── etcd_test.go
+│   ├── fake_dns_server.go
+│   ├── file_test.go
+│   ├── fixtures/
+│   │   ├── access_log/
+│   │   ├── access_log_json_config.toml
+│   │   ├── acme/
+│   │   ├── consul/
+│   │   ├── consul_catalog/
+│   │   ├── custom_ping_termination_status_code.toml
+│   │   ├── docker/
+│   │   ├── dual_logging/
+│   │   ├── error_pages/
+│   │   ├── etcd/
+│   │   ├── failover.toml
+│   │   ├── failover_statuscode.toml
+│   │   ├── file/
+│   │   ├── gateway-api-conformance/
+│   │   ├── grpc/
+│   │   ├── headers/
+│   │   ├── healthcheck/
+│   │   ├── highest_random_weight.toml
+│   │   ├── http/
+│   │   ├── https/
+│   │   ├── invalid_configuration.toml
+│   │   ├── k8s/
+│   │   ├── k8s_crd.toml
+│   │   ├── k8s_crd_label_selector.toml
+│   │   ├── k8s_default.toml
+│   │   ├── k8s_gateway.toml
+│   │   ├── k8s_ingress_label_selector.toml
+│   │   ├── k8s_ingressclass.toml
+│   │   ├── k8s_ingressclass_disabled.toml
+│   │   ├── knative/
+│   │   ├── leasttime_server.toml
+│   │   ├── mirror.toml
+│   │   ├── multiple_provider.toml
+│   │   ├── multiprovider.toml
+│   │   ├── ocsp/
+│   │   ├── proxy-protocol/
+│   │   ├── ratelimit/
+│   │   ├── redis/
+│   │   ├── reqacceptgrace.toml
+│   │   ├── rest/
+│   │   ├── retry/
+│   │   ├── router_errors.toml
+│   │   ├── routing/
+│   │   ├── service_errors.toml
+│   │   ├── service_middleware.toml
+│   │   ├── simple_allowlist.toml
+│   │   ├── simple_auth.toml
+│   │   ├── simple_contenttype.toml
+│   │   ├── simple_ddos.toml
+│   │   ├── simple_debug_log.toml
+│   │   ├── simple_default.toml
+│   │   ├── simple_deny.toml
+│   │   ├── simple_encode_semicolons.toml
+│   │   ├── simple_encoded_chars.toml
+│   │   ├── simple_fastproxy.toml
+│   │   ├── simple_hostresolver.toml
+│   │   ├── simple_max_header_size.toml
+│   │   ├── simple_metrics_with_buffer_middleware.toml
+│   │   ├── simple_muxer.toml
+│   │   ├── simple_sanitize_path.toml
+│   │   ├── simple_secure_api.toml
+│   │   ├── simple_stats.toml
+│   │   ├── simple_web.toml
+│   │   ├── simple_whitelist.toml
+│   │   ├── tcp/
+│   │   ├── tcp_healthcheck/
+│   │   ├── test.pdf
+│   │   ├── throttling/
+│   │   ├── timeout/
+│   │   ├── tlsclientheaders/
+│   │   ├── tracing/
+│   │   ├── traefik_log_config.toml
+│   │   ├── udp/
+│   │   ├── websocket/
+│   │   ├── with_default_rule_syntax.toml
+│   │   ├── without_default_rule_syntax.toml
+│   │   ├── wrr.toml
+│   │   ├── wrr_server.toml
+│   │   ├── wrr_sticky.toml
+│   │   ├── x_forwarded_for.toml
+│   │   ├── x_forwarded_for_enabled.toml
+│   │   ├── x_forwarded_for_fastproxy.toml
+│   │   ├── x_forwarded_for_fastproxy_enabled.toml
+│   │   └── zookeeper/
+│   ├── gateway-api-conformance-reports/
+│   │   └── v1.4.0/
+│   ├── gateway_api_conformance_test.go
+│   ├── grpc_test.go
+│   ├── headers_test.go
+│   ├── healthcheck_test.go
+│   ├── helloworld/
+│   │   ├── helloworld.pb.go
+│   │   └── helloworld.proto
+│   ├── hostresolver_test.go
+│   ├── http_test.go
+│   ├── https_test.go
+│   ├── integration_test.go
+│   ├── k8s_test.go
+│   ├── keepalive_test.go
+│   ├── knative_conformance_test.go
+│   ├── log_rotation_test.go
+│   ├── proxy_protocol_test.go
+│   ├── ratelimit_test.go
+│   ├── redis_sentinel_test.go
+│   ├── redis_test.go
+│   ├── resources/
+│   │   ├── compose/
+│   │   └── tls/
+│   ├── rest_test.go
+│   ├── retry_test.go
+│   ├── routing_test.go
+│   ├── simple_test.go
+│   ├── tcp_healthcheck_test.go
+│   ├── tcp_test.go
+│   ├── testdata/
+│   │   ├── rawdata-consul.json
+│   │   ├── rawdata-crd-label-selector.json
+│   │   ├── rawdata-crd.json
+│   │   ├── rawdata-etcd.json
+│   │   ├── rawdata-gateway.json
+│   │   ├── rawdata-ingress-label-selector.json
+│   │   ├── rawdata-ingress.json
+│   │   ├── rawdata-ingressclass-disabled.json
+│   │   ├── rawdata-ingressclass.json
+│   │   ├── rawdata-redis.json
+│   │   └── rawdata-zk.json
+│   ├── timeout_test.go
+│   ├── tls_client_headers_test.go
+│   ├── tracing_test.go
+│   ├── try/
+│   │   ├── condition.go
+│   │   └── try.go
+│   ├── udp_test.go
+│   ├── websocket_test.go
+│   └── zk_test.go
+├── internal/
+│   ├── anchors.go
+│   ├── gendoc.go
+│   ├── release/
+│   │   └── release.go
+│   └── testsci/
+│       └── genmatrix.go
+├── pkg/
+│   ├── api/
+│   │   ├── criterion.go
+│   │   ├── dashboard/
+│   │   ├── debug.go
+│   │   ├── handler.go
+│   │   ├── handler_entrypoint.go
+│   │   ├── handler_entrypoint_test.go
+│   │   ├── handler_http.go
+│   │   ├── handler_http_test.go
+│   │   ├── handler_overview.go
+│   │   ├── handler_overview_test.go
+│   │   ├── handler_support_dump.go
+│   │   ├── handler_support_dump_test.go
+│   │   ├── handler_tcp.go
+│   │   ├── handler_tcp_test.go
+│   │   ├── handler_test.go
+│   │   ├── handler_udp.go
+│   │   ├── handler_udp_test.go
+│   │   ├── sort.go
+│   │   ├── sort_test.go
+│   │   └── testdata/
+│   ├── cli/
+│   │   ├── deprecation.go
+│   │   ├── deprecation_test.go
+│   │   ├── fixtures/
+│   │   ├── loader_env.go
+│   │   ├── loader_file.go
+│   │   └── loader_flag.go
+│   ├── collector/
+│   │   ├── collector.go
+│   │   ├── collector_test.go
+│   │   └── hydratation/
+│   ├── config/
+│   │   ├── dynamic/
+│   │   ├── kv/
+│   │   ├── label/
+│   │   ├── runtime/
+│   │   └── static/
+│   ├── healthcheck/
+│   │   ├── healthcheck.go
+│   │   ├── healthcheck_tcp.go
+│   │   ├── healthcheck_tcp_test.go
+│   │   ├── healthcheck_test.go
+│   │   └── mock_test.go
+│   ├── ip/
+│   │   ├── checker.go
+│   │   ├── checker_test.go
+│   │   ├── strategy.go
+│   │   └── strategy_test.go
+│   ├── job/
+│   │   ├── job.go
+│   │   └── job_test.go
+│   ├── middlewares/
+│   │   ├── accesslog/
+│   │   ├── addprefix/
+│   │   ├── auth/
+│   │   ├── buffering/
+│   │   ├── capture/
+│   │   ├── chain/
+│   │   ├── circuitbreaker/
+│   │   ├── compress/
+│   │   ├── contenttype/
+│   │   ├── customerrors/
+│   │   ├── denyrouterrecursion/
+│   │   ├── encodedcharacters/
+│   │   ├── extractor.go
+│   │   ├── forwardedheaders/
+│   │   ├── gatewayapi/
+│   │   ├── grpcweb/
+│   │   ├── handler_switcher.go
+│   │   ├── headers/
+│   │   ├── inflightreq/
+│   │   ├── ingressnginx/
+│   │   ├── ipallowlist/
+│   │   ├── ipwhitelist/
+│   │   ├── metrics/
+│   │   ├── middleware.go
+│   │   ├── observability/
+│   │   ├── passtlsclientcert/
+│   │   ├── ratelimiter/
+│   │   ├── recovery/
+│   │   ├── redirect/
+│   │   ├── replacepath/
+│   │   ├── replacepathregex/
+│   │   ├── requestdecorator/
+│   │   ├── response_modifier.go
+│   │   ├── retry/
+│   │   ├── snicheck/
+│   │   ├── stateful.go
+│   │   ├── stripprefix/
+│   │   ├── stripprefixregex/
+│   │   └── tcp/
+│   ├── muxer/
+│   │   ├── http/
+│   │   └── tcp/
+│   ├── observability/
+│   │   ├── logs/
+│   │   ├── metrics/
+│   │   ├── observability.go
+│   │   ├── tracing/
+│   │   └── types/
+│   ├── ping/
+│   │   └── ping.go
+│   ├── plugins/
+│   │   ├── builder.go
+│   │   ├── downloader.go
+│   │   ├── downloader_test.go
+│   │   ├── fixtures/
+│   │   ├── manager.go
+│   │   ├── manager_test.go
+│   │   ├── middlewarewasm.go
+│   │   ├── middlewarewasm_test.go
+│   │   ├── middlewareyaegi.go
+│   │   ├── middlewareyaegi_test.go
+│   │   ├── plugins.go
+│   │   ├── plugins_test.go
+│   │   ├── providers.go
+│   │   ├── types.go
+│   │   ├── wasip.go
+│   │   └── wasip_mock.go
+│   ├── provider/
+│   │   ├── acme/
+│   │   ├── aggregator/
+│   │   ├── configuration.go
+│   │   ├── constraints/
+│   │   ├── consulcatalog/
+│   │   ├── docker/
+│   │   ├── ecs/
+│   │   ├── file/
+│   │   ├── http/
+│   │   ├── kubernetes/
+│   │   ├── kv/
+│   │   ├── merge.go
+│   │   ├── merge_test.go
+│   │   ├── nomad/
+│   │   ├── provider.go
+│   │   ├── rest/
+│   │   ├── tailscale/
+│   │   └── traefik/
+│   ├── proxy/
+│   │   ├── fast/
+│   │   ├── httputil/
+│   │   ├── smart_builder.go
+│   │   └── smart_builder_test.go
+│   ├── redactor/
+│   │   ├── redactor.go
+│   │   ├── redactor_config_test.go
+│   │   ├── redactor_doOnJSON_test.go
+│   │   ├── redactor_doOnStruct_test.go
+│   │   └── testdata/
+│   ├── rules/
+│   │   ├── parser.go
+│   │   └── parser_test.go
+│   ├── safe/
+│   │   ├── routine.go
+│   │   ├── routine_test.go
+│   │   ├── safe.go
+│   │   └── safe_test.go
+│   ├── server/
+│   │   ├── aggregator.go
+│   │   ├── aggregator_test.go
+│   │   ├── configurationwatcher.go
+│   │   ├── configurationwatcher_test.go
+│   │   ├── cookie/
+│   │   ├── keep_alive_middleware.go
+│   │   ├── middleware/
+│   │   ├── provider/
+│   │   ├── recursion/
+│   │   ├── router/
+│   │   ├── routerfactory.go
+│   │   ├── routerfactory_test.go
+│   │   ├── server.go
+│   │   ├── server_entrypoint_listenconfig_other.go
+│   │   ├── server_entrypoint_listenconfig_other_test.go
+│   │   ├── server_entrypoint_listenconfig_unix.go
+│   │   ├── server_entrypoint_listenconfig_unix_sockopt_freebsd.go
+│   │   ├── server_entrypoint_listenconfig_unix_sockopt_other.go
+│   │   ├── server_entrypoint_listenconfig_unix_test.go
+│   │   ├── server_entrypoint_tcp.go
+│   │   ├── server_entrypoint_tcp_http3.go
+│   │   ├── server_entrypoint_tcp_http3_test.go
+│   │   ├── server_entrypoint_tcp_test.go
+│   │   ├── server_entrypoint_udp.go
+│   │   ├── server_entrypoint_udp_test.go
+│   │   ├── server_signals.go
+│   │   ├── server_signals_windows.go
+│   │   ├── service/
+│   │   ├── socket_activation.go
+│   │   ├── socket_activation_unix.go
+│   │   └── socket_activation_windows.go
+│   ├── tcp/
+│   │   ├── chain.go
+│   │   ├── chain_test.go
+│   │   ├── dialer.go
+│   │   ├── dialer_test.go
+│   │   ├── handler.go
+│   │   ├── proxy.go
+│   │   ├── proxy_test.go
+│   │   ├── proxy_unix.go
+│   │   ├── proxy_windows.go
+│   │   ├── switcher.go
+│   │   ├── tls.go
+│   │   ├── wrr_load_balancer.go
+│   │   └── wrr_load_balancer_test.go
+│   ├── testhelpers/
+│   │   ├── config.go
+│   │   ├── helpers.go
+│   │   └── metrics.go
+│   ├── tls/
+│   │   ├── certificate.go
+│   │   ├── certificate_store.go
+│   │   ├── certificate_store_test.go
+│   │   ├── certificate_test.go
+│   │   ├── cipher.go
+│   │   ├── cipher_test.go
+│   │   ├── generate/
+│   │   ├── ocsp.go
+│   │   ├── ocsp_test.go
+│   │   ├── tls.go
+│   │   ├── tlsmanager.go
+│   │   ├── tlsmanager_test.go
+│   │   ├── version.go
+│   │   └── zz_generated.deepcopy.go
+│   ├── types/
+│   │   ├── domain_test.go
+│   │   ├── domains.go
+│   │   ├── file_or_content.go
+│   │   ├── fixtures/
+│   │   ├── host_resolver.go
+│   │   ├── http_code_range.go
+│   │   ├── k8sdetector.go
+│   │   ├── route_appender.go
+│   │   ├── tls.go
+│   │   ├── tls_test.go
+│   │   └── zz_generated.deepcopy.go
+│   ├── udp/
+│   │   ├── conn.go
+│   │   ├── conn_test.go
+│   │   ├── handler.go
+│   │   ├── proxy.go
+│   │   ├── proxy_test.go
+│   │   ├── switcher.go
+│   │   └── wrr_load_balancer.go
+│   └── version/
+│       └── version.go
+├── script/
+│   ├── boilerplate.go.tmpl
+│   ├── code-gen.sh
+│   ├── crossbinary-default.sh
+│   ├── deploy.sh
+│   ├── gcg/
+│   │   ├── readme.md
+│   │   ├── traefik-bugfix.toml
+│   │   ├── traefik-final-release-part1.toml
+│   │   ├── traefik-final-release-part2.toml
+│   │   ├── traefik-rc-first.toml
+│   │   └── traefik-rc-new.toml
+│   ├── validate-misspell.sh
+│   ├── validate-shell-script.sh
+│   └── validate-vendor.sh
+├── traefik.sample.toml
+├── traefik.sample.yml
+└── webui/
+    ├── .editorconfig
+    ├── .env.sample
+    ├── .gitignore
+    ├── .nvmrc
+    ├── .prettierrc.json
+    ├── .yarnrc.yml
+    ├── buildx.Dockerfile
+    ├── embed.go
+    ├── eslint.config.mjs
+    ├── index.dev.html
+    ├── index.html
+    ├── package.json
+    ├── public/
+    │   ├── browserconfig.xml
+    │   ├── favicon-16x16.png
+    │   ├── favicon-32x32.png
+    │   ├── favicon.ico
+    │   ├── icons/
+    │   ├── img/
+    │   ├── manifest.json
+    │   ├── mockServiceWorker.js
+    │   └── robots.txt
+    ├── readme.md
+    ├── src/
+    │   ├── App.spec.tsx
+    │   ├── App.tsx
+    │   ├── components/
+    │   ├── contexts/
+    │   ├── hooks/
+    │   ├── index.tsx
+    │   ├── layout/
+    │   ├── libs/
+    │   ├── mocks/
+    │   ├── pages/
+    │   ├── routes.tsx
+    │   ├── types/
+    │   ├── utils/
+    │   └── vite-env.d.ts
+    ├── static/
+    │   └── DONT-EDIT-FILES-IN-THIS-DIRECTORY.md
+    ├── test/
+    │   └── setup.ts
+    ├── tsconfig.json
+    ├── tsconfig.node.json
+    ├── vite.config.ts
+    └── yarn.lock

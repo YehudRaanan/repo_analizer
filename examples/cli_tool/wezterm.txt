@@ -1,0 +1,1181 @@
+=====================================
+Repository Analysis: wezterm
+Type: CLI Tool
+=====================================
+
+--- METADATA ---
+Name: wezterm
+Description: A GPU-accelerated cross-platform terminal emulator and multiplexer written by @wez and implemented in Rust
+Language: Rust
+Topics: rust, serial, serial-port, terminal, terminal-emulator, terminal-emulators
+Stars: 24669
+License: Other
+
+--- README ---
+# Wez's Terminal
+
+<img height="128" alt="WezTerm Icon" src="https://raw.githubusercontent.com/wezterm/wezterm/main/assets/icon/wezterm-icon.svg" align="left"> *A GPU-accelerated cross-platform terminal emulator and multiplexer written by <a href="https://github.com/wez">@wez</a> and implemented in <a href="https://www.rust-lang.org/">Rust</a>*
+
+User facing docs and guide at: https://wezterm.org/
+
+![Screenshot](docs/screenshots/two.png)
+
+*Screenshot of wezterm on macOS, running vim*
+
+## Installation
+
+https://wezterm.org/installation
+
+## Getting help
+
+This is a spare time project, so please bear with me.  There are a couple of channels for support:
+
+* You can use the [GitHub issue tracker](https://github.com/wezterm/wezterm/issues) to see if someone else has a similar issue, or to file a new one.
+* Start or join a thread in our [GitHub Discussions](https://github.com/wezterm/wezterm/discussions); if you have general
+  questions or want to chat with other wezterm users, you're welcome here!
+* There is a [Matrix room via Element.io](https://app.element.io/#/room/#wezterm:matrix.org)
+  for (potentially!) real time discussions.
+
+The GitHub Discussions and Element/Gitter rooms are better suited for questions
+than bug reports, but don't be afraid to use whichever you are most comfortable
+using and we'll work it out.
+
+## Supporting the Project
+
+If you use and like WezTerm, please consider sponsoring it: your support helps
+to cover the fees required to maintain the project and to validate the time
+spent working on it!
+
+[Read more about sponsoring](https://wezterm.org/sponsor.html).
+
+* [![Sponsor WezTerm](https://img.shields.io/github/sponsors/wez?label=Sponsor%20WezTerm&logo=github&style=for-the-badge)](https://github.com/sponsors/wez)
+* [Patreon](https://patreon.com/WezFurlong)
+* [Ko-Fi](https://ko-fi.com/wezfurlong)
+* [Liberapay](https://liberapay.com/wez)
+
+
+--- PACKAGE MANIFEST(S) ---
+
+[Cargo.toml]
+[workspace]
+members = [
+  "bidi",
+  "bidi/generate",
+  "strip-ansi-escapes",
+  "sync-color-schemes",
+  "deps/cairo",
+  "wezterm",
+  "wezterm-blob-leases",
+  "wezterm-cell",
+  "wezterm-escape-parser",
+  "wezterm-dynamic",
+  "wezterm-gui",
+  "wezterm-mux-server",
+  "wezterm-open-url",
+  "wezterm-ssh",
+  "wezterm-surface",
+  "wezterm-uds",
+]
+resolver = "2"
+exclude = [
+  "termwiz/codegen",
+  "wezterm-char-props/codegen",
+]
+
+[profile.release]
+opt-level = 3
+# debug = 2
+
+[profile.dev]
+# https://jakedeichert.com/blog/reducing-rust-incremental-compilation-times-on-macos-by-70-percent/
+# Disabled because it breaks builds on Windows
+#split-debuginfo = "unpacked"
+
+[workspace.dependencies]
+ahash = "0.8"
+anyhow = "1.0"
+assert_fs = "1.0.4"
+async-channel = "2.3"
+async-executor = "1.11"
+async-io = "2.3"
+async-task = "4.7"
+async-trait = "0.1"
+async_ossl = { path = "async_ossl" }
+backtrace = "0.3"
+base64 = {version="0.22", default-features=false }
+base91 = { path = "base91" }
+battery = { path = "lua-api-crates/battery" }
+benchmarking = "0.4"
+bintree = { path = "bintree" }
+bitflags = "1.3"
+block2 = "0.6"
+bstr = "1.0"
+bytemuck = { version="1.4", features=["derive"]}
+bytes = "1.0"
+cairo-rs = {version="0.18", default-features=false} # See patch.crates-io section
+camino = "1.0"
+cassowary = "0.3"
+cc = {version="1.0", features = ["parallel"]}
+cgl = "0.3"
+chrono = {version="0.4", default-features=false, features=["unstable-locales", "serde"]}
+clap = {version="4.0", features=["derive"]}
+clap_complete = "4.4"
+clap_complete_fig = "4.0"
+clipboard-win = "2.2"
+cocoa = "=0.25.0"
+codec = { path = "codec" }
+color-funcs = { path = "lua-api-crates/color-funcs" }
+colorgrad = "0.6"
+config = { path = "config" }
+core-foundation = "=0.10.0"
+core-graphics = "=0.24.0"
+core-text = "=21.0.0"
+criterion = "0.5"
+crossbeam = "0.8"
+csscolorparser = "0.6"
+deltae = "0.3"
+dhat = "0.3"
+dirs-next = "2.0"
+dns-lookup = "2.0"
+downcast-rs = "1.0"
+dwrote = "0.11"
+embed-resource = "1.7"
+emojis = "0.6"
+encoding_rs = "0.8"
+enum-display-derive = "0.1"
+env-bootstrap = { path = "env-bootstrap" }
+env_logger = "0.11"
+euclid = {version="0.22", default-features=false}
+fancy-regex = {version="0.14", default-features=false, features=[]}
+fastrand = "2.0"
+filedescriptor = { version="0.8.3", path = "filedescriptor" }
+filenamegen = "0.2.6"
+filesystem = { path = "lua-api-crates/filesystem" }
+finl_unicode = { version = "1.3",  git="https://github.com/wez/finl_unicode.git", branch="no_std" , default-features=false, features=["categories", "grapheme_clusters"]}
+fixed = "1.23"
+fixedbitset = {version="0.4", default-features=false}
+flume = "0.11"
+fnv = "1.0"
+fontconfig = { path = "deps/fontconfig" }
+frecency = { path = "frecency" }
+freetype = { path = "deps/freetype" }
+futures = "0.3"
+futures-lite = "2.3"
+futures-util = "0.3"
+gethostname = "0.5"
+getrandom = "0.3.1"
+git2 = { version = "0.20", default-features = false, features = ["https"] }
+gl_generator = "0.14"
+glium = { version = "0.35", default-features = false }
+governor = {ve
+... [TRUNCATED]
+
+[Makefile]
+.PHONY: all fmt build check test docs servedocs
+
+all: build
+
+test:
+	cargo nextest run
+	cargo nextest run -p wezterm-escape-parser # no_std by default
+
+check:
+	cargo check
+	cargo check -p wezterm-escape-parser
+	cargo check -p wezterm-cell
+	cargo check -p wezterm-surface
+	cargo check -p wezterm-ssh
+
+build:
+	cargo build $(BUILD_OPTS) -p wezterm
+	cargo build $(BUILD_OPTS) -p wezterm-gui
+	cargo build $(BUILD_OPTS) -p wezterm-mux-server
+	cargo build $(BUILD_OPTS) -p strip-ansi-escapes
+
+fmt:
+	cargo +nightly fmt
+
+docs:
+	ci/build-docs.sh
+
+servedocs:
+	ci/build-docs.sh serve
+
+
+--- CLI ENTRY POINTS / COMMAND DEFINITIONS ---
+(No CLI entry points found)
+
+--- SHELL COMPLETIONS & MAN PAGES ---
+  assets/shell-completion/bash
+  assets/shell-completion/fish
+  assets/shell-completion/zsh
+  deps/cairo/cairo/COPYING-LGPL-2.1
+  deps/cairo/cairo/COPYING-MPL-1.1
+  deps/cairo/pixman/AUTHORS
+  deps/cairo/pixman/COPYING
+  deps/cairo/pixman/ChangeLog
+  deps/cairo/pixman/INSTALL
+  deps/cairo/pixman/Makefile.am
+  deps/cairo/pixman/Makefile.in
+  deps/cairo/pixman/Makefile.win32
+  deps/cairo/pixman/Makefile.win32.common
+  deps/cairo/pixman/NEWS
+  deps/cairo/pixman/README
+  deps/cairo/pixman/a64-neon-test.S
+  deps/cairo/pixman/arm-simd-test.S
+  deps/cairo/pixman/config.h.in
+  deps/cairo/pixman/depcomp
+  deps/cairo/pixman/install-sh
+  deps/cairo/pixman/meson.build
+  deps/cairo/pixman/meson_options.txt
+  deps/cairo/pixman/missing
+  deps/cairo/pixman/neon-test.S
+  deps/cairo/pixman/pixman-1-uninstalled.pc.in
+  deps/cairo/pixman/pixman-1.pc.in
+  deps/cairo/pixman/pixman/Makefile.am
+  deps/cairo/pixman/pixman/Makefile.in
+  deps/cairo/pixman/pixman/Makefile.sources
+  deps/cairo/pixman/pixman/Makefile.win32
+  deps/cairo/pixman/pixman/dither/blue-noise-64x64.h
+  deps/cairo/pixman/pixman/dither/make-blue-noise.c
+  deps/cairo/pixman/pixman/loongson-mmintrin.h
+  deps/cairo/pixman/pixman/meson.build
+  deps/cairo/pixman/pixman/pixman-access-accessors.c
+  deps/cairo/pixman/pixman/pixman-access.c
+  deps/cairo/pixman/pixman/pixman-accessor.h
+  deps/cairo/pixman/pixman/pixman-arm-asm.h
+  deps/cairo/pixman/pixman/pixman-arm-common.h
+  deps/cairo/pixman/pixman/pixman-arm-neon-asm-bilinear.S
+  deps/cairo/pixman/pixman/pixman-arm-neon-asm.S
+  deps/cairo/pixman/pixman/pixman-arm-neon-asm.h
+  deps/cairo/pixman/pixman/pixman-arm-neon.c
+  deps/cairo/pixman/pixman/pixman-arm-simd-asm-scaled.S
+  deps/cairo/pixman/pixman/pixman-arm-simd-asm.S
+  deps/cairo/pixman/pixman/pixman-arm-simd-asm.h
+  deps/cairo/pixman/pixman/pixman-arm-simd.c
+  deps/cairo/pixman/pixman/pixman-arm.c
+  deps/cairo/pixman/pixman/pixman-arma64-neon-asm-bilinear.S
+  deps/cairo/pixman/pixman/pixman-arma64-neon-asm.S
+  deps/cairo/pixman/pixman/pixman-arma64-neon-asm.h
+  deps/cairo/pixman/pixman/pixman-bits-image.c
+  deps/cairo/pixman/pixman/pixman-combine-float.c
+  deps/cairo/pixman/pixman/pixman-combine32.c
+  deps/cairo/pixman/pixman/pixman-combine32.h
+  deps/cairo/pixman/pixman/pixman-compiler.h
+  deps/cairo/pixman/pixman/pixman-conical-gradient.c
+  deps/cairo/pixman/pixman/pixman-edge-accessors.c
+  deps/cairo/pixman/pixman/pixman-edge-imp.h
+  deps/cairo/pixman/pixman/pixman-edge.c
+  deps/cairo/pixman/pixman/pixman-fast-path.c
+  deps/cairo/pixman/pixman/pixman-filter.c
+  deps/cairo/pixman/pixman/pixman-general.c
+  deps/cairo/pixman/pixman/pixman-glyph.c
+  deps/cairo/pixman/pixman/pixman-gradient-walker.c
+  deps/cairo/pixman/pixman/pixman-image.c
+  deps/cairo/pixman/pixman/pixman-implementation.c
+  deps/cairo/pixman/pixman/pixman-inlines.h
+  deps/cairo/pixman/pixman/pixman-linear-gradient.c
+  deps/cairo/pixman/pixman/pixman-matrix.c
+  deps/cairo/pixman/pixman/pixman-mips-dspr2-asm.S
+  deps/cairo/pixman/pixman/pixman-mips-dspr2-asm.h
+  deps/cairo/pixman/pixman/pixman-mips-dspr2.c
+  deps/cairo/pixman/pixman/pixman-mips-dspr2.h
+  deps/cairo/pixman/pixman/pixman-mips-memcpy-asm.S
+  deps/cairo/pixman/pixman/pixman-mips.c
+  deps/cairo/pixman/pixman/pixman-mmx.c
+  deps/cairo/pixman/pixman/pixman-noop.c
+  deps/cairo/pixman/pixman/pixman-ppc.c
+  deps/cairo/pixman/pixman/pixman-private.h
+  deps/cairo/pixman/pixman/pixman-radial-gradient.c
+  deps/cairo/pixman/pixman/pixman-region.c
+  deps/cairo/pixman/pixman/pixman-region16.c
+  deps/cairo/pixman/pixman/pixman-region32.c
+  deps/cairo/pixman/pixman/pixman-solid-fill.c
+  deps/cairo/pixman/pixman/pixman-sse2.c
+  deps/cairo/pixman/pixman/pixman-ssse3.c
+  deps/cairo/pixman/pixman/pixman-timer.c
+  deps/cairo/pixman/pixman/pixman-trap.c
+  deps/cairo/pixman/pixman/pixman-utils.c
+  deps/cairo/pixman/pixman/pixman-version.h
+  deps/cairo/pixman/pixman/pixman-version.h.in
+  deps/cairo/pixman/pixman/pixman-vmx.c
+  deps/cairo/pixman/pixman/pixman-x86.c
+  deps/cairo/pixman/pixman/pixman.c
+  deps/cairo/pixman/pixman/pixman.h
+  deps/cairo/pixman/pixman/solaris-hwcap.mapfile
+  deps/cairo/pixman/test-driver
+  test-data/farmer.zsh
+
+--- DIRECTORY STRUCTURE (depth 2) ---
+├── .cargo/
+│   └── config.toml
+├── .cirrus.yml
+├── .copr/
+│   └── Makefile
+├── .dockerignore
+├── .github/
+│   ├── DISCUSSION_TEMPLATE/
+│   │   └── q-a.yml
+│   ├── FUNDING.yml
+│   ├── ISSUE_TEMPLATE/
+│   │   ├── bug.yml
+│   │   ├── build-problem.md
+│   │   ├── config.yml
+│   │   ├── docs.md
+│   │   └── feature_request.md
+│   ├── dependabot.yml
+│   └── workflows/
+│       ├── fmt.yml
+│       ├── gen_centos9.yml
+│       ├── gen_centos9_continuous.yml
+│       ├── gen_centos9_tag.yml
+│       ├── gen_debian11.yml
+│       ├── gen_debian11_continuous.yml
+│       ├── gen_debian11_tag.yml
+│       ├── gen_debian12.yml
+│       ├── gen_debian12_continuous.yml
+│       ├── gen_debian12_tag.yml
+│       ├── gen_fedora39.yml
+│       ├── gen_fedora39_continuous.yml
+│       ├── gen_fedora39_tag.yml
+│       ├── gen_fedora40.yml
+│       ├── gen_fedora40_continuous.yml
+│       ├── gen_fedora40_tag.yml
+│       ├── gen_fedora41.yml
+│       ├── gen_fedora41_continuous.yml
+│       ├── gen_fedora41_tag.yml
+│       ├── gen_macos.yml
+│       ├── gen_macos_continuous.yml
+│       ├── gen_macos_tag.yml
+│       ├── gen_ubuntu20.04.yml
+│       ├── gen_ubuntu20.04_continuous.yml
+│       ├── gen_ubuntu20.04_tag.yml
+│       ├── gen_ubuntu22.04.yml
+│       ├── gen_ubuntu22.04_continuous.yml
+│       ├── gen_ubuntu22.04_tag.yml
+│       ├── gen_ubuntu24.04.yml
+│       ├── gen_ubuntu24.04_continuous.yml
+│       ├── gen_ubuntu24.04_tag.yml
+│       ├── gen_windows.yml
+│       ├── gen_windows_continuous.yml
+│       ├── gen_windows_tag.yml
+│       ├── lock.yml
+│       ├── nix-update-flake.yml
+│       ├── nix.yml
+│       ├── nix_continuous.yml
+│       ├── no-response.yml
+│       ├── pages.yml
+│       ├── termwiz.yml
+│       ├── verify-pages.yml
+│       └── wezterm_ssh.yml
+├── .gitignore
+├── .gitmodules
+├── .mailmap
+├── .rustfmt.toml
+├── CONTRIBUTING.md
+├── Cargo.lock
+├── Cargo.toml
+├── LICENSE.md
+├── Makefile
+├── PRIVACY.md
+├── README-DISTRO-MAINTAINER.md
+├── README.md
+├── assets/
+│   ├── flatpak/
+│   │   ├── org.wezfurlong.wezterm.appdata.template.xml
+│   │   ├── org.wezfurlong.wezterm.json
+│   │   └── org.wezfurlong.wezterm.template.json
+│   ├── fonts/
+│   │   ├── FiraCode-Regular.ttf
+│   │   ├── JetBrainsMono-Bold.ttf
+│   │   ├── JetBrainsMono-BoldItalic.ttf
+│   │   ├── JetBrainsMono-ExtraBold.ttf
+│   │   ├── JetBrainsMono-ExtraBoldItalic.ttf
+│   │   ├── JetBrainsMono-ExtraLight.ttf
+│   │   ├── JetBrainsMono-ExtraLightItalic.ttf
+│   │   ├── JetBrainsMono-Italic.ttf
+│   │   ├── JetBrainsMono-Light.ttf
+│   │   ├── JetBrainsMono-LightItalic.ttf
+│   │   ├── JetBrainsMono-Medium.ttf
+│   │   ├── JetBrainsMono-MediumItalic.ttf
+│   │   ├── JetBrainsMono-Regular.ttf
+│   │   ├── JetBrainsMono-SemiBold.ttf
+│   │   ├── JetBrainsMono-SemiBoldItalic.ttf
+│   │   ├── JetBrainsMono-Thin.ttf
+│   │   ├── JetBrainsMono-ThinItalic.ttf
+│   │   ├── LICENSE_OFL.txt
+│   │   ├── LICENSE_POWERLINE_EXTRA.txt
+│   │   ├── NotoColorEmoji.ttf
+│   │   ├── Roboto-Black.ttf
+│   │   ├── Roboto-BlackItalic.ttf
+│   │   ├── Roboto-Bold.ttf
+│   │   ├── Roboto-BoldItalic.ttf
+│   │   ├── Roboto-Italic.ttf
+│   │   ├── Roboto-Light.ttf
+│   │   ├── Roboto-LightItalic.ttf
+│   │   ├── Roboto-Medium.ttf
+│   │   ├── Roboto-MediumItalic.ttf
+│   │   ├── Roboto-Regular.ttf
+│   │   ├── Roboto-Thin.ttf
+│   │   ├── Roboto-ThinItalic.ttf
+│   │   └── SymbolsNerdFontMono-Regular.ttf
+│   ├── icon/
+│   │   ├── terminal.png
+│   │   ├── update.sh
+│   │   ├── wezterm-ghifarit53-1.svg
+│   │   ├── wezterm-ghifarit53-2.svg
+│   │   ├── wezterm-ghifarit53-3.svg
+│   │   └── wezterm-icon.svg
+│   ├── macos/
+│   │   └── WezTerm.app/
+│   ├── open-wezterm-here
+│   ├── shell-completion/
+│   │   ├── bash
+│   │   ├── fish
+│   │   └── zsh
+│   ├── shell-integration/
+│   │   └── wezterm.sh
+│   ├── wezterm-nautilus.py
+│   ├── wezterm.appdata.xml
+│   ├── wezterm.desktop
+│   └── windows/
+│       ├── angle/
+│       ├── conhost/
+│       ├── console.manifest
+│       ├── manifest.manifest
+│       ├── mesa/
+│       └── terminal.ico
+├── async_ossl/
+│   ├── Cargo.toml
+│   └── src/
+│       └── lib.rs
+├── base91/
+│   ├── Cargo.toml
+│   └── src/
+│       └── lib.rs
+├── bidi/
+│   ├── Cargo.toml
+│   ├── LICENSE.md
+│   ├── README.md
+│   ├── data/
+│   │   ├── BidiBrackets.txt
+│   │   ├── BidiCharacterTest.txt
+│   │   ├── BidiMirroring.txt
+│   │   ├── BidiTest.txt
+│   │   └── DerivedBidiClass.txt
+│   ├── examples/
+│   │   └── shaping.rs
+│   ├── generate/
+│   │   ├── Cargo.toml
+│   │   └── src/
+│   ├── src/
+│   │   ├── bidi_brackets.rs
+│   │   ├── bidi_class.rs
+│   │   ├── direction.rs
+│   │   ├── level.rs
+│   │   ├── level_stack.rs
+│   │   └── lib.rs
+│   └── tests/
+│       └── conformance.rs
+├── bintree/
+│   ├── Cargo.toml
+│   └── src/
+│       └── lib.rs
+├── ci/
+│   ├── Dockerfile.docs
+│   ├── PKGBUILD.template
+│   ├── add-color-screen-shots.sh
+│   ├── appimage.sh
+│   ├── appstreamcli
+│   ├── build-docs.sh
+│   ├── check-rust-version.sh
+│   ├── copr-build.sh
+│   ├── create-release.sh
+│   ├── deploy.sh
+│   ├── flatpak.sh
+│   ├── generate-docs.py
+│   ├── generate-workflows.py
+│   ├── macos-entitlement.plist
+│   ├── make-color-screen-shots.sh
+│   ├── make-flathub-pr.sh
+│   ├── make-winget-pr.sh
+│   ├── retry.sh
+│   ├── source-archive.sh
+│   ├── stylua.toml
+│   ├── subst-release-info.py
+│   ├── tag-name.sh
+│   ├── tag.sh
+│   ├── update-derived-files.sh
+│   ├── update-doc-versions.py
+│   ├── wezterm-homebrew-macos.rb.template
+│   ├── wezterm-linuxbrew.rb.template
+│   └── windows-installer.iss
+├── codec/
+│   ├── Cargo.toml
+│   └── src/
+│       └── lib.rs
+├── color-types/
+│   ├── Cargo.toml
+│   ├── LICENSE.md
+│   └── src/
+│       ├── lib.rs
+│       └── rgb.txt
+├── config/
+│   ├── Cargo.toml
+│   ├── derive/
+│   │   ├── Cargo.toml
+│   │   ├── LICENSE.md
+│   │   └── src/
+│   └── src/
+│       ├── background.rs
+│       ├── bell.rs
+│       ├── cell.rs
+│       ├── color.rs
+│       ├── config.rs
+│       ├── daemon.rs
+│       ├── exec_domain.rs
+│       ├── font.rs
+│       ├── frontend.rs
+│       ├── keyassignment.rs
+│       ├── keys.rs
+│       ├── lib.rs
+│       ├── lua.rs
+│       ├── meta.rs
+│       ├── scheme_data.rs
+│       ├── serial.rs
+│       ├── ssh.rs
+│       ├── terminal.rs
+│       ├── tls.rs
+│       ├── units.rs
+│       ├── unix.rs
+│       ├── version.rs
+│       ├── window.rs
+│       └── wsl.rs
+├── deny.toml
+├── deps/
+│   ├── cairo/
+│   │   ├── Cargo.toml
+│   │   ├── LICENSE
+│   │   ├── build.rs
+│   │   ├── cairo/
+│   │   ├── import-cairo.sh
+│   │   ├── import-pixman.sh
+│   │   ├── pixman/
+│   │   └── src/
+│   ├── fontconfig/
+│   │   ├── Cargo.toml
+│   │   ├── build.rs
+│   │   └── src/
+│   ├── freetype/
+│   │   ├── Cargo.toml
+│   │   ├── bindings.h
+│   │   ├── build.rs
+│   │   ├── freetype2
+│   │   ├── libpng
+│   │   ├── regenerate.sh
+│   │   ├── src/
+│   │   └── zlib
+│   └── harfbuzz/
+│       ├── Cargo.toml
+│       ├── bindings.h
+│       ├── build.rs
+│       ├── harfbuzz
+│       ├── regenerate.sh
+│       └── src/
+├── docs/
+│   ├── README.markdown
+│   ├── _config.yml
+│   ├── asciinema-player.css
+│   ├── asciinema-player.min.js
+│   ├── book.toml
+│   ├── changelog.md
+│   ├── cli/
+│   │   ├── cli/
+│   │   ├── connect.md
+│   │   ├── general.md
+│   │   ├── imgcat.md
+│   │   ├── ls-fonts.md
+│   │   ├── record.md
+│   │   ├── replay.md
+│   │   ├── serial.md
+│   │   ├── set-working-directory.md
+│   │   ├── show-keys.md
+│   │   ├── ssh.md
+│   │   └── start.md
+│   ├── colorschemes/
+│   │   └── data.json
+│   ├── config/
+│   │   ├── appearance.md
+│   │   ├── default-keys.md
+│   │   ├── files.md
+│   │   ├── font-shaping.md
+│   │   ├── fonts.md
+│   │   ├── key-encoding.md
+│   │   ├── key-tables.md
+│   │   ├── keyboard-concepts.md
+│   │   ├── keys.md
+│   │   ├── launch.md
+│   │   ├── lua/
+│   │   ├── mouse.md
+│   │   └── plugins.md
+│   ├── contributing.md
+│   ├── copymode.md
+│   ├── custom.css
+│   ├── escape-sequences.md
+│   ├── examples/
+│   │   ├── cmd-synopsis-wezterm--help.txt
+│   │   ├── cmd-synopsis-wezterm-cli-activate-pane--help.txt
+│   │   ├── cmd-synopsis-wezterm-cli-activate-pane-direction--help.txt
+│   │   ├── cmd-synopsis-wezterm-cli-activate-tab--help.txt
+│   │   ├── cmd-synopsis-wezterm-cli-adjust-pane-size--help.txt
+│   │   ├── cmd-synopsis-wezterm-cli-get-pane-direction--help.txt
+│   │   ├── cmd-synopsis-wezterm-cli-get-text--help.txt
+│   │   ├── cmd-synopsis-wezterm-cli-kill-pane--help.txt
+│   │   ├── cmd-synopsis-wezterm-cli-list--help.txt
+│   │   ├── cmd-synopsis-wezterm-cli-list-clients--help.txt
+│   │   ├── cmd-synopsis-wezterm-cli-move-pane-to-new-tab--help.txt
+│   │   ├── cmd-synopsis-wezterm-cli-rename-workspace--help.txt
+│   │   ├── cmd-synopsis-wezterm-cli-send-text--help.txt
+│   │   ├── cmd-synopsis-wezterm-cli-set-tab-title--help.txt
+│   │   ├── cmd-synopsis-wezterm-cli-set-window-title--help.txt
+│   │   ├── cmd-synopsis-wezterm-cli-spawn--help.txt
+│   │   ├── cmd-synopsis-wezterm-cli-split-pane--help.txt
+│   │   ├── cmd-synopsis-wezterm-cli-zoom-pane--help.txt
+│   │   ├── cmd-synopsis-wezterm-connect--help.txt
+│   │   ├── cmd-synopsis-wezterm-imgcat--help.txt
+│   │   ├── cmd-synopsis-wezterm-ls-fonts--help.txt
+│   │   ├── cmd-synopsis-wezterm-record--help.txt
+│   │   ├── cmd-synopsis-wezterm-replay--help.txt
+│   │   ├── cmd-synopsis-wezterm-serial--help.txt
+│   │   ├── cmd-synopsis-wezterm-set-working-directory--help.txt
+│   │   ├── cmd-synopsis-wezterm-show-keys--help.txt
+│   │   ├── cmd-synopsis-wezterm-ssh--help.txt
+│   │   ├── cmd-synopsis-wezterm-start--help.txt
+│   │   ├── default-copy-mode-key-table.markdown
+│   │   └── default-search-mode-key-table.markdown
+│   ├── faq.md
+│   ├── features.md
+│   ├── help.md
+│   ├── hyperlinks.md
+│   ├── imgcat.md
+│   ├── index.md
+│   ├── install/
+│   │   ├── freebsd.md
+│   │   ├── linux.md
+│   │   ├── macos.md
+│   │   ├── netbsd.md
+│   │   ├── source.md
+│   │   └── windows.md
+│   ├── installation.md
+│   ├── javascript/
+│   │   └── fix-codeblock-console-copy-button.js
+│   ├── mdbook-admonish.css
+│   ├── mermaid-init.js
+│   ├── mkdocs-base.yml
+│   ├── multiplexing.md
+│   ├── overrides/
+│   │   └── partials/
+│   ├── quickselect.md
+│   ├── recipes/
+│   │   ├── hyperlinks.md
+│   │   ├── index.markdown
+│   │   ├── passing-data.md
+│   │   └── workspaces.md
+│   ├── screenshots/
+│   │   ├── command-palette.png
+│   │   ├── foreground-text-hsb-1-1-1.5.png
+│   │   ├── foreground-text-hsb-1-1-1.png
+│   │   ├── foreground-text-hsb-1-1.5-1.png
+│   │   ├── foreground-text-hsb-1.5-1-1.png
+│   │   ├── launch-menu.png
+│   │   ├── linear-gradient.png
+│   │   ├── one.png
+│   │   ├── pane-select.png
+│   │   ├── radial-gradient.png
+│   │   ├── two.png
+│   │   ├── vertical-gradient.png
+│   │   ├── wezterm-acrylic.png
+│   │   ├── wezterm-dynamic-colors.mp4
+│   │   ├── wezterm-imgcat.png
+│   │   ├── wezterm-kde-background-blur.png
+│   │   ├── wezterm-macos-background-blur.png
+│   │   ├── wezterm-mica.png
+│   │   ├── wezterm-min-contrast-ratio.png
+│   │   ├── wezterm-parallax-2.mp4
+│   │   ├── wezterm-quick-select.png
+│   │   ├── wezterm-status-date.png
+│   │   ├── wezterm-status-powerline.png
+│   │   ├── wezterm-tab-edge-styled.png
+│   │   ├── wezterm-tabbed.png
+│   │   ├── wezterm-tabs.mp4
+│   │   └── wezterm-vday-screenshot.png
+│   ├── scrollback.md
+│   ├── serial.md
+│   ├── shell-integration.md
+│   ├── sponsor.md
+│   ├── ssh.md
+│   ├── style.css
+│   ├── tags.md
+│   ├── troubleshooting.md
+│   └── what-is-a-terminal.md
+├── env-bootstrap/
+│   ├── Cargo.toml
+│   └── src/
+│       ├── lib.rs
+│       └── ringlog.rs
+├── filedescriptor/
+│   ├── Cargo.toml
+│   ├── LICENSE.md
+│   ├── README.md
+│   └── src/
+│       ├── lib.rs
+│       ├── unix.rs
+│       └── windows.rs
+├── frecency/
+│   ├── Cargo.toml
+│   └── src/
+│       └── lib.rs
+├── get-deps
+├── lfucache/
+│   ├── Cargo.toml
+│   └── src/
+│       └── lib.rs
+├── licenses/
+│   ├── ANGLE.md
+│   └── README.md
+├── lua-api-crates/
+│   ├── README.md
+│   ├── battery/
+│   │   ├── Cargo.toml
+│   │   └── src/
+│   ├── color-funcs/
+│   │   ├── Cargo.toml
+│   │   └── src/
+│   ├── filesystem/
+│   │   ├── Cargo.toml
+│   │   └── src/
+│   ├── logging/
+│   │   ├── Cargo.toml
+│   │   └── src/
+│   ├── mux/
+│   │   ├── Cargo.toml
+│   │   └── src/
+│   ├── plugin/
+│   │   ├── Cargo.toml
+│   │   └── src/
+│   ├── procinfo-funcs/
+│   │   ├── Cargo.toml
+│   │   └── src/
+│   ├── serde-funcs/
+│   │   ├── Cargo.toml
+│   │   └── src/
+│   ├── share-data/
+│   │   ├── Cargo.toml
+│   │   └── src/
+│   ├── spawn-funcs/
+│   │   ├── Cargo.toml
+│   │   └── src/
+│   ├── ssh-funcs/
+│   │   ├── Cargo.toml
+│   │   └── src/
+│   ├── termwiz-funcs/
+│   │   ├── Cargo.toml
+│   │   └── src/
+│   ├── time-funcs/
+│   │   ├── Cargo.toml
+│   │   └── src/
+│   ├── url-funcs/
+│   │   ├── Cargo.toml
+│   │   └── src/
+│   └── window-funcs/
+│       ├── Cargo.toml
+│       └── src/
+├── luahelper/
+│   ├── Cargo.toml
+│   └── src/
+│       ├── enumctor.rs
+│       └── lib.rs
+├── mkdocs_macros.py
+├── mux/
+│   ├── Cargo.toml
+│   └── src/
+│       ├── activity.rs
+│       ├── client.rs
+│       ├── connui.rs
+│       ├── domain.rs
+│       ├── lib.rs
+│       ├── localpane.rs
+│       ├── pane.rs
+│       ├── renderable.rs
+│       ├── ssh.rs
+│       ├── ssh_agent.rs
+│       ├── tab.rs
+│       ├── termwiztermtab.rs
+│       ├── tmux.rs
+│       ├── tmux_commands.rs
+│       ├── tmux_pty.rs
+│       └── window.rs
+├── nix/
+│   ├── flake.lock
+│   └── flake.nix
+├── procinfo/
+│   ├── Cargo.toml
+│   └── src/
+│       ├── lib.rs
+│       ├── linux.rs
+│       ├── macos.rs
+│       └── windows.rs
+├── promise/
+│   ├── Cargo.toml
+│   └── src/
+│       ├── lib.rs
+│       └── spawn.rs
+├── pty/
+│   ├── Cargo.toml
+│   ├── LICENSE.md
+│   ├── examples/
+│   │   ├── bash.rs
+│   │   ├── narrow.rs
+│   │   ├── whoami.rs
+│   │   └── whoami_async.rs
+│   └── src/
+│       ├── cmdbuilder.rs
+│       ├── lib.rs
+│       ├── serial.rs
+│       ├── unix.rs
+│       └── win/
+├── rangeset/
+│   ├── Cargo.toml
+│   ├── benches/
+│   │   └── rangeset.rs
+│   └── src/
+│       └── lib.rs
+├── ratelim/
+│   ├── Cargo.toml
+│   └── src/
+│       └── lib.rs
+├── strip-ansi-escapes/
+│   ├── Cargo.toml
+│   └── src/
+│       └── main.rs
+├── sync-color-schemes/
+│   ├── Cargo.toml
+│   └── src/
+│       ├── base16.rs
+│       ├── gogh.rs
+│       ├── iterm2.rs
+│       ├── main.rs
+│       ├── scheme.rs
+│       └── sexy.rs
+├── tabout/
+│   ├── Cargo.toml
+│   ├── LICENSE.md
+│   └── src/
+│       └── lib.rs
+├── term/
+│   ├── Cargo.toml
+│   ├── LICENSE.md
+│   ├── README.md
+│   └── src/
+│       ├── color.rs
+│       ├── config.rs
+│       ├── input.rs
+│       ├── lib.rs
+│       ├── screen.rs
+│       ├── terminal.rs
+│       ├── terminalstate/
+│       └── test/
+├── termwiz/
+│   ├── CHANGELOG.md
+│   ├── Cargo.toml
+│   ├── LICENSE.md
+│   ├── README.md
+│   ├── benches/
+│   │   └── cell.rs
+│   ├── cliff.toml
+│   ├── data/
+│   │   ├── w/
+│   │   ├── wezterm
+│   │   ├── wezterm.terminfo
+│   │   ├── xterm-256color
+│   │   └── xterm-256color-italic.terminfo
+│   ├── examples/
+│   │   ├── buffered_terminal.rs
+│   │   ├── gennerdfonts.rs
+│   │   ├── hello.rs
+│   │   ├── key_tester.rs
+│   │   ├── line_editor.rs
+│   │   ├── strip-ansi-escapes.rs
+│   │   ├── terminal_direct.rs
+│   │   ├── widgets_basic.rs
+│   │   └── widgets_nested.rs
+│   ├── src/
+│   │   ├── caps/
+│   │   ├── error.rs
+│   │   ├── input.rs
+│   │   ├── istty.rs
+│   │   ├── keymap.rs
+│   │   ├── lib.rs
+│   │   ├── lineedit/
+│   │   ├── macros.rs
+│   │   ├── readbuf.rs
+│   │   ├── render/
+│   │   ├── terminal/
+│   │   └── widgets/
+│   └── update-changelog.sh
+├── test-data/
+│   ├── blocks.py
+│   ├── box.txt
+│   ├── braille-all-chars.txt
+│   ├── braille-wezterm-logo.txt
+│   ├── colortest.sh
+│   ├── custom-powerline-symbols.txt
+│   ├── double.sh
+│   ├── emoji-presentation.sh
+│   ├── emoji-test.txt
+│   ├── extract-x11-icon.sh
+│   ├── farmer.zsh
+│   ├── kitty-png.py
+│   ├── legacy-box.txt
+│   ├── light-lines-vs-heavy-lines.txt
+│   ├── notcurses-gfx.txt
+│   ├── styles.txt
+│   ├── tty-test.txt
+│   ├── underlines.sh
+│   ├── unicode-dump.py
+│   ├── vs1-vs2.txt
+│   └── width.sh
+├── umask/
+│   ├── Cargo.toml
+│   └── src/
+│       └── lib.rs
+├── vtparse/
+│   ├── Cargo.toml
+│   ├── LICENSE.md
+│   ├── README.md
+│   └── src/
+│       ├── enums.rs
+│       ├── lib.rs
+│       └── transitions.rs
+├── wezterm-blob-leases/
+│   ├── Cargo.toml
+│   ├── LICENSE.md
+│   └── src/
+│       ├── content_id.rs
+│       ├── error.rs
+│       ├── lease.rs
+│       ├── lease_id.rs
+│       ├── lib.rs
+│       ├── manager.rs
+│       ├── simple_tempdir.rs
+│       └── storage.rs
+├── wezterm-cell/
+│   ├── Cargo.toml
+│   └── src/
+│       ├── color.rs
+│       ├── image.rs
+│       └── lib.rs
+├── wezterm-char-props/
+│   ├── Cargo.toml
+│   ├── benches/
+│   │   └── wcwidth.rs
+│   ├── codegen/
+│   │   ├── Cargo.toml
+│   │   └── src/
+│   ├── data/
+│   │   ├── emoji-data.txt
+│   │   └── emoji-variation-sequences.txt
+│   └── src/
+│       ├── emoji.rs
+│       ├── emoji_presentation.rs
+│       ├── emoji_variation.rs
+│       ├── lib.rs
+│       ├── nerdfonts.rs
+│       ├── nerdfonts_data.rs
+│       ├── white_space.rs
+│       └── widechar_width.rs
+├── wezterm-client/
+│   ├── Cargo.toml
+│   └── src/
+│       ├── client.rs
+│       ├── discovery.rs
+│       ├── domain.rs
+│       ├── lib.rs
+│       └── pane/
+├── wezterm-dynamic/
+│   ├── Cargo.toml
+│   ├── LICENSE.md
+│   ├── derive/
+│   │   ├── Cargo.toml
+│   │   ├── LICENSE.md
+│   │   └── src/
+│   ├── src/
+│   │   ├── array.rs
+│   │   ├── drop.rs
+│   │   ├── error.rs
+│   │   ├── fromdynamic.rs
+│   │   ├── lib.rs
+│   │   ├── map.rs
+│   │   ├── object.rs
+│   │   ├── todynamic.rs
+│   │   └── value.rs
+│   └── tests/
+│       ├── fromdynamic.rs
+│       └── todynamic.rs
+├── wezterm-escape-parser/
+│   ├── Cargo.toml
+│   └── src/
+│       ├── allocate.rs
+│       ├── apc.rs
+│       ├── color.rs
+│       ├── csi.rs
+│       ├── error.rs
+│       ├── esc.rs
+│       ├── hyperlink.rs
+│       ├── lib.rs
+│       ├── osc.rs
+│       ├── parser/
+│       └── tmux_cc/
+├── wezterm-font/
+│   ├── Cargo.toml
+│   └── src/
+│       ├── db.rs
+│       ├── fcwrap.rs
+│       ├── ftwrap.rs
+│       ├── hbwrap.rs
+│       ├── lib.rs
+│       ├── locator/
+│       ├── parser.rs
+│       ├── rasterizer/
+│       ├── shaper/
+│       └── units.rs
+├── wezterm-gui-subcommands/
+│   ├── Cargo.toml
+│   └── src/
+│       └── lib.rs
+├── wezterm-gui/
+│   ├── Cargo.toml
+│   ├── build.rs
+│   └── src/
+│       ├── colorease.rs
+│       ├── commands.rs
+│       ├── customglyph.rs
+│       ├── download.rs
+│       ├── frontend.rs
+│       ├── glyph-frag.glsl
+│       ├── glyph-vertex.glsl
+│       ├── glyphcache.rs
+│       ├── inputmap.rs
+│       ├── main.rs
+│       ├── overlay/
+│       ├── quad.rs
+│       ├── renderstate.rs
+│       ├── resize_increment_calculator.rs
+│       ├── scripting/
+│       ├── scrollbar.rs
+│       ├── selection.rs
+│       ├── shader.wgsl
+│       ├── shapecache.rs
+│       ├── spawn.rs
+│       ├── stats.rs
+│       ├── tabbar.rs
+│       ├── termwindow/
+│       ├── unicode_names.rs
+│       ├── uniforms.rs
+│       ├── update.rs
+│       └── utilsprites.rs
+├── wezterm-input-types/
+│   ├── Cargo.toml
+│   ├── LICENSE.md
+│   └── src/
+│       └── lib.rs
+├── wezterm-mux-server-impl/
+│   ├── Cargo.toml
+│   └── src/
+│       ├── dispatch.rs
+│       ├── lib.rs
+│       ├── local.rs
+│       ├── pki.rs
+│       └── sessionhandler.rs
+├── wezterm-mux-server/
+│   ├── Cargo.toml
+│   ├── build.rs
+│   └── src/
+│       ├── daemonize.rs
+│       ├── main.rs
+│       └── ossl.rs
+├── wezterm-open-url/
+│   ├── Cargo.toml
+│   └── src/
+│       └── lib.rs
+├── wezterm-ssh/
+│   ├── Cargo.toml
+│   ├── LICENSE.md
+│   ├── examples/
+│   │   └── ssh.rs
+│   ├── src/
+│   │   ├── auth.rs
+│   │   ├── channelwrap.rs
+│   │   ├── config.rs
+│   │   ├── dirwrap.rs
+│   │   ├── filewrap.rs
+│   │   ├── host.rs
+│   │   ├── lib.rs
+│   │   ├── pty.rs
+│   │   ├── session.rs
+│   │   ├── sessioninner.rs
+│   │   ├── sessionwrap.rs
+│   │   ├── sftp/
+│   │   └── sftpwrap.rs
+│   └── tests/
+│       ├── e2e/
+│       ├── lib.rs
+│       └── sshd.rs
+├── wezterm-surface/
+│   ├── Cargo.toml
+│   └── src/
+│       ├── cellcluster.rs
+│       ├── change.rs
+│       ├── hyperlink.rs
+│       ├── lib.rs
+│       └── line/
+├── wezterm-toast-notification/
+│   ├── Cargo.toml
+│   ├── build.rs
+│   └── src/
+│       ├── dbus.rs
+│       ├── lib.rs
+│       ├── macos.rs
+│       └── windows.rs
+├── wezterm-uds/
+│   ├── Cargo.toml
+│   └── src/
+│       └── lib.rs
+├── wezterm-version/
+│   ├── Cargo.toml
+│   ├── build.rs
+│   └── src/
+│       └── lib.rs
+├── wezterm/
+│   ├── Cargo.toml
+│   ├── build.rs
+│   └── src/
+│       ├── asciicast.rs
+│       ├── cli/
+│       └── main.rs
+└── window/
+    ├── Cargo.toml
+    ├── LICENSE.md
+    ├── build.rs
+    ├── examples/
+    │   ├── async.rs
+    │   └── shader.wgsl
+    └── src/
+        ├── bitmaps/
+        ├── configuration.rs
+        ├── connection.rs
+        ├── egl.rs
+        ├── lib.rs
+        ├── os/
+        ├── screen.rs
+        └── spawn.rs

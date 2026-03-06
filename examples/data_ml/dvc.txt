@@ -1,0 +1,616 @@
+=====================================
+Repository Analysis: dvc
+Type: Data / ML / AI Project
+=====================================
+
+--- METADATA ---
+Name: dvc
+Description: 🦉 Data Versioning and ML Experiments
+Language: Python
+Topics: ai, data-science, data-version-control, developer-tools, machine-learning, reproducibility, unstructured-data
+Stars: 15417
+License: Apache License 2.0
+
+--- README ---
+|Banner|
+
+`Website <https://dvc.org>`_
+• `Docs <https://dvc.org/doc>`_
+• `Blog <http://blog.dataversioncontrol.com>`_
+• `Tutorial <https://dvc.org/doc/get-started>`_
+• `Related Technologies <https://dvc.org/doc/user-guide/related-technologies>`_
+• `How DVC works`_
+• `VS Code Extension`_
+• `Installation`_
+• `Contributing`_
+• `Community and Support`_
+
+|CI| |Python Version| |Coverage| |VS Code| |DOI|
+
+|PyPI| |PyPI Downloads| |Packages| |Brew| |Conda| |Choco| |Snap|
+
+|
+
+**Data Version Control** or **DVC** is a command line tool and `VS Code Extension`_ to help you develop reproducible machine learning projects:
+
+#. **Version** your data and models.
+   Store them in your cloud storage but keep their version info in your Git repo.
+
+#. **Iterate** fast with lightweight pipelines.
+   When you make changes, only run the steps impacted by those changes.
+
+#. **Track** experiments in your local Git repo (no servers needed).
+
+#. **Compare** any data, code, parameters, model, or performance plots.
+
+#. **Share** experiments and automatically reproduce anyone's experiment.
+
+Quick start
+===========
+
+    Please read our `Command Reference <https://dvc.org/doc/command-reference>`_ for a complete list.
+
+A common CLI workflow includes:
+
+
++-----------------------------------+----------------------------------------------------------------------------------------------------+
+| Task                              | Terminal                                                                                           |
++===================================+====================================================================================================+
+| Track data                        | | ``$ git add train.py params.yaml``                                                               |
+|                                   | | ``$ dvc add images/``                                                                            |
++-----------------------------------+----------------------------------------------------------------------------------------------------+
+| Connect code and data             | | ``$ dvc stage add -n featurize -d images/ -o features/ python featurize.py``                     |
+|                                   | | ``$ dvc stage add -n train -d features/ -d train.py -o model.p -M metrics.json python train.py`` |
++-----------------------------------+----------------------------------------------------------------------------------------------------+
+| Make changes and experiment       | | ``$ dvc exp run -n exp-baseline``                                                                |
+|                                   | | ``$ vi train.py``                                                                                |
+|                                   | | ``$ dvc exp run -n exp-code-change``                                                             |
++-----------------------------------+----------------------------------------------------------------------------------------------------+
+| Compare and select experiments    | | ``$ dvc exp show``                                                                               |
+|                                   | | ``$ dvc exp apply exp-baseline``                                                                 |
++-----------------------------------+----------------------------------------------------------------------------------------------------+
+| Share code                        | | ``$ git add .``                                                                                  |
+|                                   | | ``$ git commit -m 'The baseline model'``                                                         |
+|                                   | | ``$ git push``                                                                                   |
++-----------------------------------+----------------------------------------------------------------------------------------------------+
+| Share data and ML models          | | ``$ dvc remote add myremote -d s3://mybucket/image_cnn``                                         |
+|                                   | | ``$ dvc push``                                                                                   |
++-----------------------------------+----------------------------------------------------------------------------------------------------+
+
+How DVC works
+=============
+
+    We encourage you to read our `Get Started
+    <https://dvc.org/doc/get-started>`_ docs to better understand what DVC
+    does and how it can fit your scenarios.
+
+The closest *analogies* to describe the main DVC features are these:
+
+#. **Git for data**: Store and share data artifacts (like Git-LFS but without a server) and models, connecting them with a Git repository. Data management meets GitOps!
+#. **Makefiles** for ML: Describes how data or model artifacts are built from other data and code in a standard format. Now you can
+... [TRUNCATED]
+
+--- PACKAGE MANIFEST(S) ---
+
+[pyproject.toml]
+[build-system]
+build-backend = "setuptools.build_meta"
+requires = ["setuptools>=77", "setuptools_scm[toml]>=8"]
+
+[project]
+name = "dvc"
+description = "Git for data scientists - manage your code and data together"
+readme = "README.rst"
+keywords = [
+    "ai",
+    "collaboration",
+    "data-science",
+    "data-version-control",
+    "developer-tools",
+    "git",
+    "machine-learning",
+    "reproducibility",
+]
+license = "Apache-2.0"
+license-files = ["LICENSE"]
+maintainers = [{ name = "Treeverse", email = "support@dvc.org" }]
+authors = [{ name = "Dmitry Petrov", email = "dmitry@dvc.org" }]
+requires-python = ">=3.9"
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: 3.14",
+]
+dynamic = ["version"]
+
+dependencies = [
+    "attrs>=22.2.0",
+    "celery",
+    "colorama>=0.3.9",
+    "configobj>=5.0.9",
+    "distro>=1.3",
+    "dpath<3,>=2.1.0",
+    "dulwich",
+    "dvc-data>=3.18.2,<3.19.0",
+    "dvc-http>=2.29.0",
+    "dvc-objects",
+    "dvc-render>=1.0.1,<2",
+    "dvc-studio-client>=0.21,<1",
+    "dvc-task>=0.3.0,<1",
+    "flatten-dict<1,>=0.4.1",
+    "flufl.lock>=8.1.0,<10",
+    "fsspec>=2024.2.0",
+    "funcy>=1.14",
+    "grandalf<1,>=0.7",
+    "gto>=1.6.0,<2",
+    "hydra-core>=1.1",
+    "iterative-telemetry>=0.0.7",
+    "kombu",
+    "networkx>=2.5",
+    "omegaconf",
+    "packaging>=19",
+    "pathspec>=0.10.3,<2",
+    "platformdirs<5,>=3.1.1",
+    "psutil>=5.8",
+    "pydot>=1.2.4",
+    "pygtrie>=2.3.2",
+    "pyparsing>=3.0.0",
+    "requests>=2.22",
+    "rich>=12",
+    "ruamel.yaml>=0.17.11",
+    "scmrepo>=3.5.2,<4",
+    "shortuuid>=0.5",
+    "shtab<2,>=1.3.4",
+    "tabulate>=0.8.7",
+    "tomlkit>=0.11.1",
+    "tqdm<5,>=4.63.1",
+    "voluptuous>=0.11.7",
+    "zc.lockfile>=1.2.1",
+]
+
+[project.optional-dependencies]
+all = ["dvc[azure,gdrive,gs,hdfs,oss,s3,ssh,webdav,webhdfs]"]
+azure = ["dvc-azure>=3.1.0,<4"]
+dev = ["dvc[azure,gdrive,gs,hdfs,lint,oss,s3,ssh,tests,webdav,webhdfs]"]
+gdrive = ["dvc-gdrive>=3,<4"]
+gs = ["dvc-gs>=3.0.2,<4"]
+hdfs = ["dvc-hdfs>=3,<4"]
+lint = [
+    "mypy==1.19.1",
+    "pandas-stubs",
+    "types-colorama",
+    "types-psutil",
+    "types-pyinstaller",
+    "types-requests",
+    "types-tabulate",
+    "types-toml",
+    "types-tqdm",
+    "typing-extensions",
+]
+oss = ["dvc-oss>=3,<4"]
+s3 = ["dvc-s3>=3.2.1,<4"]
+ssh = ["dvc-ssh>=4,<5"]
+ssh_gssapi = ["dvc-ssh[gssapi]>=4,<5"]
+testing = [
+  "pytest-benchmark[histogram]>=5,<6",
+  "uv",
+]
+tests = [
+    "dvc[testing]",
+    "beautifulsoup4>=4.4",
+    "dvc-ssh",
+    "filelock",
+    "pytest>=7,<10",
+    "pytest-rerunfailures<17.0",
+    "pytest-cov>=4.1.0",
+    "pytest-docker>=1,<4",
+    "pytest-mock",
+    "pytest-timeout>=2",
+    "pytest-xdist>=3.2",
+    'pywin32>=225; sys_platform == "win32"', # 
+... [TRUNCATED]
+
+--- REQUIREMENTS FILES ---
+(No requirements files found)
+
+--- ML CONFIG FILES ---
+(No ML config files found)
+
+--- JUPYTER NOTEBOOKS ---
+(No notebooks found)
+
+--- MODEL / TRAINING FILES ---
+  dvc/api/dataset.py
+  dvc/commands/data_sync.py
+  dvc/commands/dataset.py
+  dvc/data_cloud.py
+  dvc/dependency/dataset.py
+
+--- DIRECTORY STRUCTURE (depth 2) ---
+├── .dvc/
+│   ├── .gitignore
+│   └── config
+├── .dvcignore
+├── .git-blame-ignore-revs
+├── .git_archival.txt
+├── .gitattributes
+├── .github/
+│   ├── .test_durations
+│   ├── ISSUE_TEMPLATE/
+│   │   ├── bug_report.md
+│   │   ├── config.yml
+│   │   └── feature_request.md
+│   ├── PULL_REQUEST_TEMPLATE.md
+│   ├── codecov.yml
+│   ├── dependabot.yml
+│   ├── release.yml
+│   └── workflows/
+│       ├── benchmarks.yaml
+│       ├── build.yaml
+│       ├── codeql.yml
+│       ├── plugin_tests.yaml
+│       └── tests.yaml
+├── .gitignore
+├── .mailmap
+├── .pre-commit-config.yaml
+├── .pre-commit-hooks.yaml
+├── .zenodo.json
+├── CITATION.cff
+├── CODE_OF_CONDUCT.md
+├── CONTRIBUTING.md
+├── LICENSE
+├── README.rst
+├── dvc/
+│   ├── __init__.py
+│   ├── __main__.py
+│   ├── __pyinstaller/
+│   │   ├── __init__.py
+│   │   ├── hook-asyncssh.py
+│   │   ├── hook-celery.py
+│   │   ├── hook-dvc.py
+│   │   ├── hook-dvc.utils.flatten.py
+│   │   ├── hook-dvc_task.py
+│   │   ├── hook-fsspec.py
+│   │   └── hook-pydrive2.py
+│   ├── _debug.py
+│   ├── analytics.py
+│   ├── annotations.py
+│   ├── api/
+│   │   ├── __init__.py
+│   │   ├── artifacts.py
+│   │   ├── data.py
+│   │   ├── dataset.py
+│   │   ├── experiments.py
+│   │   ├── scm.py
+│   │   └── show.py
+│   ├── build.py
+│   ├── cachemgr.py
+│   ├── cli/
+│   │   ├── __init__.py
+│   │   ├── command.py
+│   │   ├── completion.py
+│   │   ├── formatter.py
+│   │   ├── parser.py
+│   │   └── utils.py
+│   ├── commands/
+│   │   ├── __init__.py
+│   │   ├── add.py
+│   │   ├── artifacts.py
+│   │   ├── cache.py
+│   │   ├── check_ignore.py
+│   │   ├── checkout.py
+│   │   ├── commit.py
+│   │   ├── completion.py
+│   │   ├── config.py
+│   │   ├── daemon.py
+│   │   ├── dag.py
+│   │   ├── data.py
+│   │   ├── data_sync.py
+│   │   ├── dataset.py
+│   │   ├── destroy.py
+│   │   ├── diff.py
+│   │   ├── du.py
+│   │   ├── experiments/
+│   │   ├── freeze.py
+│   │   ├── gc.py
+│   │   ├── get.py
+│   │   ├── get_url.py
+│   │   ├── git_hook.py
+│   │   ├── imp.py
+│   │   ├── imp_db.py
+│   │   ├── imp_url.py
+│   │   ├── init.py
+│   │   ├── install.py
+│   │   ├── ls/
+│   │   ├── ls_url.py
+│   │   ├── metrics.py
+│   │   ├── move.py
+│   │   ├── params.py
+│   │   ├── plots.py
+│   │   ├── queue/
+│   │   ├── remote.py
+│   │   ├── remove.py
+│   │   ├── repro.py
+│   │   ├── root.py
+│   │   ├── stage.py
+│   │   ├── status.py
+│   │   ├── studio.py
+│   │   ├── unprotect.py
+│   │   ├── update.py
+│   │   └── version.py
+│   ├── compare.py
+│   ├── config.py
+│   ├── config_schema.py
+│   ├── daemon.py
+│   ├── dagascii.py
+│   ├── data_cloud.py
+│   ├── database.py
+│   ├── dependency/
+│   │   ├── __init__.py
+│   │   ├── base.py
+│   │   ├── dataset.py
+│   │   ├── db.py
+│   │   ├── param.py
+│   │   └── repo.py
+│   ├── dirs.py
+│   ├── dvcfile.py
+│   ├── env.py
+│   ├── exceptions.py
+│   ├── fs/
+│   │   ├── __init__.py
+│   │   ├── callbacks.py
+│   │   ├── data.py
+│   │   ├── dvc.py
+│   │   ├── dvc_path.py
+│   │   └── git.py
+│   ├── ignore.py
+│   ├── info.py
+│   ├── lock.py
+│   ├── log.py
+│   ├── logger.py
+│   ├── output.py
+│   ├── parsing/
+│   │   ├── __init__.py
+│   │   ├── context.py
+│   │   └── interpolate.py
+│   ├── pathspec_math.py
+│   ├── progress.py
+│   ├── prompt.py
+│   ├── render/
+│   │   ├── __init__.py
+│   │   ├── convert.py
+│   │   ├── converter/
+│   │   └── match.py
+│   ├── repo/
+│   │   ├── __init__.py
+│   │   ├── add.py
+│   │   ├── artifacts.py
+│   │   ├── brancher.py
+│   │   ├── cache.py
+│   │   ├── checkout.py
+│   │   ├── collect.py
+│   │   ├── commit.py
+│   │   ├── data.py
+│   │   ├── datasets.py
+│   │   ├── destroy.py
+│   │   ├── diff.py
+│   │   ├── du.py
+│   │   ├── experiments/
+│   │   ├── fetch.py
+│   │   ├── freeze.py
+│   │   ├── gc.py
+│   │   ├── get.py
+│   │   ├── get_url.py
+│   │   ├── graph.py
+│   │   ├── imp.py
+│   │   ├── imp_db.py
+│   │   ├── imp_url.py
+│   │   ├── index.py
+│   │   ├── init.py
+│   │   ├── install.py
+│   │   ├── ls.py
+│   │   ├── ls_url.py
+│   │   ├── metrics/
+│   │   ├── move.py
+│   │   ├── open_repo.py
+│   │   ├── params/
+│   │   ├── plots/
+│   │   ├── pull.py
+│   │   ├── push.py
+│   │   ├── remove.py
+│   │   ├── reproduce.py
+│   │   ├── run.py
+│   │   ├── scm_context.py
+│   │   ├── stage.py
+│   │   ├── status.py
+│   │   ├── trie.py
+│   │   ├── update.py
+│   │   └── worktree.py
+│   ├── rwlock.py
+│   ├── schema.py
+│   ├── scm.py
+│   ├── stage/
+│   │   ├── __init__.py
+│   │   ├── cache.py
+│   │   ├── decorators.py
+│   │   ├── exceptions.py
+│   │   ├── imports.py
+│   │   ├── loader.py
+│   │   ├── params.py
+│   │   ├── run.py
+│   │   ├── serialize.py
+│   │   └── utils.py
+│   ├── testing/
+│   │   ├── README.rst
+│   │   ├── __init__.py
+│   │   ├── api_tests.py
+│   │   ├── benchmarks/
+│   │   ├── cloud.py
+│   │   ├── conftest.py
+│   │   ├── fixtures.py
+│   │   ├── matchers.py
+│   │   ├── path_info.py
+│   │   ├── plugin.py
+│   │   ├── remote_tests.py
+│   │   ├── scripts.py
+│   │   ├── tmp_dir.py
+│   │   └── workspace_tests.py
+│   ├── types.py
+│   ├── ui/
+│   │   ├── __init__.py
+│   │   ├── _rich_progress.py
+│   │   ├── pager.py
+│   │   └── table.py
+│   ├── updater.py
+│   ├── utils/
+│   │   ├── .gitignore
+│   │   ├── __init__.py
+│   │   ├── cli_parse.py
+│   │   ├── collections.py
+│   │   ├── diff.py
+│   │   ├── flatten.py
+│   │   ├── fs.py
+│   │   ├── humanize.py
+│   │   ├── hydra.py
+│   │   ├── objects.py
+│   │   ├── packaging.py
+│   │   ├── plots.py
+│   │   ├── serialize/
+│   │   ├── strictyaml.py
+│   │   ├── studio.py
+│   │   ├── table.py
+│   │   └── threadpool.py
+│   └── version.py
+├── pyproject.toml
+└── tests/
+    ├── __init__.py
+    ├── conftest.py
+    ├── dir_helpers.py
+    ├── docker-compose.yml
+    ├── func/
+    │   ├── __init__.py
+    │   ├── api/
+    │   ├── artifacts/
+    │   ├── data/
+    │   ├── experiments/
+    │   ├── metrics/
+    │   ├── params/
+    │   ├── parsing/
+    │   ├── plots/
+    │   ├── repro/
+    │   ├── test_add.py
+    │   ├── test_analytics.py
+    │   ├── test_check_ignore.py
+    │   ├── test_checkout.py
+    │   ├── test_cli.py
+    │   ├── test_commit.py
+    │   ├── test_config.py
+    │   ├── test_daemon.py
+    │   ├── test_data_cloud.py
+    │   ├── test_data_status.py
+    │   ├── test_dataset.py
+    │   ├── test_diff.py
+    │   ├── test_download.py
+    │   ├── test_du.py
+    │   ├── test_dvcfile.py
+    │   ├── test_external_repo.py
+    │   ├── test_fs.py
+    │   ├── test_gc.py
+    │   ├── test_get.py
+    │   ├── test_get_url.py
+    │   ├── test_ignore.py
+    │   ├── test_import.py
+    │   ├── test_import_db.py
+    │   ├── test_import_url.py
+    │   ├── test_init.py
+    │   ├── test_install.py
+    │   ├── test_lock.py
+    │   ├── test_lockfile.py
+    │   ├── test_ls.py
+    │   ├── test_ls_url.py
+    │   ├── test_merge_driver.py
+    │   ├── test_move.py
+    │   ├── test_odb.py
+    │   ├── test_remote.py
+    │   ├── test_remove.py
+    │   ├── test_repo.py
+    │   ├── test_repo_index.py
+    │   ├── test_root.py
+    │   ├── test_run.py
+    │   ├── test_run_cache.py
+    │   ├── test_scm.py
+    │   ├── test_scm_context.py
+    │   ├── test_stage.py
+    │   ├── test_stage_load.py
+    │   ├── test_state.py
+    │   ├── test_status.py
+    │   ├── test_unprotect.py
+    │   ├── test_update.py
+    │   ├── test_used_objs.py
+    │   ├── test_utils.py
+    │   ├── test_version.py
+    │   ├── test_virtual_directory.py
+    │   └── utils/
+    ├── integration/
+    │   ├── __init__.py
+    │   ├── conftest.py
+    │   ├── plots/
+    │   └── test_studio_live_experiments.py
+    ├── remotes/
+    │   ├── __init__.py
+    │   ├── git-init/
+    │   ├── git_server.py
+    │   ├── user.key
+    │   └── user.key.pub
+    ├── remotes_env.sample
+    ├── scripts.py
+    ├── unit/
+    │   ├── __init__.py
+    │   ├── cli/
+    │   ├── command/
+    │   ├── data/
+    │   ├── dependency/
+    │   ├── fs/
+    │   ├── output/
+    │   ├── remote/
+    │   ├── render/
+    │   ├── repo/
+    │   ├── scm/
+    │   ├── stage/
+    │   ├── test_analytics.py
+    │   ├── test_api.py
+    │   ├── test_collect.py
+    │   ├── test_compare.py
+    │   ├── test_config.py
+    │   ├── test_context.py
+    │   ├── test_daemon.py
+    │   ├── test_dirs.py
+    │   ├── test_dvcfile.py
+    │   ├── test_hashinfo.py
+    │   ├── test_ignore.py
+    │   ├── test_imports.py
+    │   ├── test_info.py
+    │   ├── test_interpolate.py
+    │   ├── test_lockfile.py
+    │   ├── test_logger.py
+    │   ├── test_metrics.py
+    │   ├── test_params.py
+    │   ├── test_pathspec_math.py
+    │   ├── test_progress.py
+    │   ├── test_prompt.py
+    │   ├── test_run.py
+    │   ├── test_rwlock.py
+    │   ├── test_scm.py
+    │   ├── test_tabular_data.py
+    │   ├── test_updater.py
+    │   ├── ui/
+    │   └── utils/
+    └── utils/
+        ├── __init__.py
+        ├── asserts.py
+        └── plots.py

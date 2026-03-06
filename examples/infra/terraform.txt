@@ -1,0 +1,1464 @@
+=====================================
+Repository Analysis: terraform
+Type: Infrastructure / DevOps / IaC
+=====================================
+
+--- METADATA ---
+Name: terraform
+Description: Terraform enables you to safely and predictably create, change, and improve infrastructure. It is a source-available tool that codifies APIs into declarative configuration files that can be shared amongst team members, treated as code, edited, reviewed, and versioned.
+Language: Go
+Topics: cloud, cloud-management, graph, infrastructure-as-code, terraform
+Stars: 47884
+License: Other
+
+--- README ---
+# Terraform
+
+- Website: https://developer.hashicorp.com/terraform
+- Forums: [HashiCorp Discuss](https://discuss.hashicorp.com/c/terraform-core)
+- Documentation: [https://developer.hashicorp.com/terraform/docs](https://developer.hashicorp.com/terraform/docs)
+- Tutorials: [HashiCorp's Learn Platform](https://developer.hashicorp.com/terraform/tutorials)
+- Certification Exam: [HashiCorp Certified: Terraform Associate](https://www.hashicorp.com/certification/#hashicorp-certified-terraform-associate)
+
+<img alt="Terraform" src="https://www.datocms-assets.com/2885/1731373310-terraform_white.svg" width="600px">
+
+Terraform is a tool for building, changing, and versioning infrastructure safely and efficiently. Terraform can manage existing and popular service providers as well as custom in-house solutions.
+
+The key features of Terraform are:
+
+- **Infrastructure as Code**: Infrastructure is described using a high-level configuration syntax. This allows a blueprint of your datacenter to be versioned and treated as you would any other code. Additionally, infrastructure can be shared and re-used.
+
+- **Execution Plans**: Terraform has a "planning" step where it generates an execution plan. The execution plan shows what Terraform will do when you call apply. This lets you avoid any surprises when Terraform manipulates infrastructure.
+
+- **Resource Graph**: Terraform builds a graph of all your resources, and parallelizes the creation and modification of any non-dependent resources. Because of this, Terraform builds infrastructure as efficiently as possible, and operators get insight into dependencies in their infrastructure.
+
+- **Change Automation**: Complex changesets can be applied to your infrastructure with minimal human interaction. With the previously mentioned execution plan and resource graph, you know exactly what Terraform will change and in what order, avoiding many possible human errors.
+
+For more information, refer to the [What is Terraform?](https://www.terraform.io/intro) page on the Terraform website.
+
+## Getting Started & Documentation
+
+Documentation is available on the [Terraform website](https://developer.hashicorp.com/terraform):
+
+- [Introduction](https://developer.hashicorp.com/terraform/intro)
+- [Documentation](https://developer.hashicorp.com/terraform/docs)
+
+If you're new to Terraform and want to get started creating infrastructure, please check out our [Getting Started guides](https://learn.hashicorp.com/terraform#getting-started) on HashiCorp's learning platform. There are also [additional guides](https://learn.hashicorp.com/terraform#operations-and-development) to continue your learning.
+
+Show off your Terraform knowledge by passing a certification exam. Visit the [certification page](https://www.hashicorp.com/certification/) for information about exams and find [study materials](https://learn.hashicorp.com/terraform/certification/terraform-associate) on HashiCorp's learning platform.
+
+## Developing Terraform
+
+This repository contains only Terraform core, which includes the command line interface and the main graph engine. Providers are implemented as plugins, and Terraform can automatically download providers that are published on [the Terraform Registry](https://registry.terraform.io). HashiCorp develops some providers, and others are developed by other organizations. For more information, refer to [Plugin development](https://developer.hashicorp.com/terraform/plugin).
+
+- To learn more about compiling Terraform and contributing suggested changes, refer to [the contributing guide](.github/CONTRIBUTING.md).
+
+- To learn more about how we handle bug reports, refer to the [bug triage guide](./BUGPROCESS.md).
+
+- To learn how to contribute to the Terraform documentation, refer to the [Web Unified Docs repository](https://github.com/hashicorp/web-unified-docs).
+
+## License
+
+[Business Source License 1.1](https://github.com/hashicorp/terraform/blob/main/LICENSE)
+
+
+--- IAC CONFIG FILES ---
+
+[Dockerfile]
+# Copyright IBM Corp. 2014, 2026
+# SPDX-License-Identifier: BUSL-1.1
+
+# This Dockerfile builds on golang:alpine by building Terraform from source
+# using the current working directory.
+#
+# This produces a docker image that contains a working Terraform binary along
+# with all of its source code. This is not what produces the official releases
+# in the "terraform" namespace on Dockerhub; those images include only
+# the officially-released binary from releases.hashicorp.com and are
+# built by the (closed-source) official release process.
+
+FROM docker.mirror.hashicorp.services/golang:alpine
+LABEL maintainer="HashiCorp Terraform Team <terraform@hashicorp.com>"
+
+RUN apk add --no-cache git bash openssh ca-certificates
+
+ENV TF_DEV=true
+ENV TF_RELEASE=1
+
+WORKDIR $GOPATH/src/github.com/hashicorp/terraform
+COPY . .
+RUN /bin/bash ./scripts/build.sh
+
+WORKDIR $GOPATH
+ENTRYPOINT ["terraform"]
+
+
+[Makefile]
+# generate runs `go generate` to build the dynamically generated
+# source files, except the protobuf stubs which are built instead with
+# "make protobuf".
+generate:
+	go generate ./...
+
+# We separate the protobuf generation because most development tasks on
+# Terraform do not involve changing protobuf files and protoc is not a
+# go-gettable dependency and so getting it installed can be inconvenient.
+#
+# If you are working on changes to protobuf interfaces, run this Makefile
+# target to be sure to regenerate all of the protobuf stubs using the expected
+# versions of protoc and the protoc Go plugins.
+protobuf:
+	go run ./tools/protobuf-compile .
+
+fmtcheck:
+	"$(CURDIR)/scripts/gofmtcheck.sh"
+
+importscheck:
+	"$(CURDIR)/scripts/goimportscheck.sh"
+
+vetcheck:
+	@echo "==> Checking that the code complies with go vet requirements"
+	@go vet ./...
+
+staticcheck:
+	"$(CURDIR)/scripts/staticcheck.sh"
+
+exhaustive:
+	"$(CURDIR)/scripts/exhaustive.sh"
+
+copyright:
+	"$(CURDIR)/scripts/copyright.sh" --plan
+
+copyrightfix:
+	"$(CURDIR)/scripts/copyright.sh"
+
+syncdeps:
+	"$(CURDIR)/scripts/syncdeps.sh"
+
+# disallow any parallelism (-j) for Make. This is necessary since some
+# commands during the build process create temporary files that collide
+# under parallel conditions.
+.NOTPARALLEL:
+
+.PHONY: fmtcheck importscheck vetcheck generate protobuf staticcheck syncdeps
+
+
+--- TERRAFORM FILES ---
+  internal/backend/local/testdata/apply-check/main.tf
+  internal/backend/local/testdata/apply-error/main.tf
+  internal/backend/local/testdata/apply/main.tf
+  internal/backend/local/testdata/destroy-with-ds/main.tf
+  internal/backend/local/testdata/invalid/invalid.tf
+  internal/backend/local/testdata/plan-cbd/main.tf
+  internal/backend/local/testdata/plan-module-outputs-changed/main.tf
+  internal/backend/local/testdata/plan-module-outputs-changed/mod/main.tf
+  internal/backend/local/testdata/plan-outputs-changed/main.tf
+  internal/backend/local/testdata/plan-outputs-changed/submodule/main.tf
+
+--- KUBERNETES MANIFESTS ---
+  internal/backend/remote-state/kubernetes/README.md
+  internal/backend/remote-state/kubernetes/backend.go
+  internal/backend/remote-state/kubernetes/backend_state.go
+  internal/backend/remote-state/kubernetes/backend_test.go
+  internal/backend/remote-state/kubernetes/client.go
+  internal/backend/remote-state/kubernetes/client_test.go
+  internal/backend/remote-state/kubernetes/go.mod
+  internal/backend/remote-state/kubernetes/go.sum
+
+--- ANSIBLE FILES ---
+(None found)
+
+--- CI/CD PIPELINES ---
+  .github/workflows/backport.yml
+  .github/workflows/build-terraform-cli.yml
+  .github/workflows/build.yml
+  .github/workflows/changelog.yml
+  .github/workflows/checks.yml
+  .github/workflows/equivalence-test-diff.yml
+  .github/workflows/equivalence-test-manual-update.yml
+  .github/workflows/equivalence-test-update.yml
+  .github/workflows/issue-comment-created.yml
+  .github/workflows/lock.yml
+
+--- DIRECTORY STRUCTURE (depth 2) ---
+├── .changes/
+│   ├── 1.15.0.md
+│   ├── README.md
+│   ├── footer-with-experiments.md
+│   ├── footer.md
+│   ├── previous-releases.md
+│   ├── v1.11/
+│   │   └── .gitkeep
+│   ├── v1.12/
+│   │   └── .gitkeep
+│   ├── v1.13/
+│   │   ├── .gitkeep
+│   │   ├── BUG FIXES-20251009-144645.yaml
+│   │   └── BUG FIXES-20251103-112034.yaml
+│   ├── v1.14/
+│   │   ├── .gitkeep
+│   │   ├── BUG FIXES-20250924-110416.yaml
+│   │   ├── BUG FIXES-20250926-113318.yaml
+│   │   ├── BUG FIXES-20251024-164434.yaml
+│   │   ├── BUG FIXES-20251029-175958.yaml
+│   │   ├── BUG FIXES-20251031-144915.yaml
+│   │   ├── BUG FIXES-20251103-112034.yaml
+│   │   ├── BUG FIXES-20251104-122322.yaml
+│   │   ├── BUG FIXES-20251124-150000.yaml
+│   │   ├── BUG FIXES-20251208-170259.yaml
+│   │   ├── BUG FIXES-20251209-130050.yaml
+│   │   ├── BUG FIXES-20251209-230000.yaml
+│   │   ├── BUG FIXES-20260108-114527.yaml
+│   │   ├── BUG FIXES-20260116-101253.yaml
+│   │   ├── BUG FIXES-20260123-103307.yaml
+│   │   ├── BUGFIX-20250927-184134.yaml
+│   │   ├── ENHANCEMENTS-20250919-115253.yaml
+│   │   ├── ENHANCEMENTS-20250925-151237.yaml
+│   │   ├── ENHANCEMENTS-20251002-172626.yaml
+│   │   └── ENHANCEMENTS-20251204-125848.yaml
+│   └── v1.15/
+│       ├── .gitkeep
+│       ├── BUG FIXES-20251024-042900.yaml
+│       ├── BUG FIXES-20251110-120921.yaml
+│       ├── BUG FIXES-20251112-033830.yaml
+│       ├── BUG FIXES-20251119-103000.yaml
+│       ├── BUG FIXES-20251121-183045.yaml
+│       ├── BUG FIXES-20251201-114950.yaml
+│       ├── BUG FIXES-20251213-120000.yaml
+│       ├── BUG FIXES-20251223-184516.yaml
+│       ├── BUG FIXES-20260105-170648.yaml
+│       ├── BUG FIXES-20260115-103000.yaml
+│       ├── BUG FIXES-20260210-113930.yaml
+│       ├── BUG FIXES-20260214-120000.yaml
+│       ├── ENHANCEMENTS-20251022-162909.yaml
+│       ├── ENHANCEMENTS-20251027-132238.yaml
+│       ├── ENHANCEMENTS-20251107-140221.yaml
+│       ├── ENHANCEMENTS-20260113-130449.yaml
+│       ├── ENHANCEMENTS-20260120-172831.yaml
+│       ├── ENHANCEMENTS-20260209-142149.yaml
+│       ├── ENHANCEMENTS-20260219-143304.yaml
+│       ├── NEW FEATURES-20250926-164134.yaml
+│       ├── NEW FEATURES-20251205-171418.yaml
+│       ├── NEW FEATURES-20260108-105919.yaml
+│       ├── NEW FEATURES-20260212-104240.yaml
+│       ├── NEW FEATURES-20260212-181401.yaml
+│       ├── NEW FEATURES-20260226-175431.yaml
+│       ├── NOTES-20260303-115443.yaml
+│       └── UPGRADE NOTES-20260107-154515.yaml
+├── .changie.yaml
+├── .copywrite.hcl
+├── .git-blame-ignore-revs
+├── .github/
+│   ├── CODE_OF_CONDUCT.md
+│   ├── CONTRIBUTING.md
+│   ├── ISSUE_TEMPLATE/
+│   │   ├── bug_report.yml
+│   │   ├── config.yml
+│   │   └── feature_request.yml
+│   ├── SUPPORT.md
+│   ├── actions/
+│   │   ├── equivalence-test/
+│   │   └── go-version/
+│   ├── dependabot.yml
+│   ├── pull_request_template.md
+│   ├── scripts/
+│   │   ├── e2e_test_linux_darwin.sh
+│   │   ├── equivalence-test.sh
+│   │   ├── get_product_version.sh
+│   │   └── verify_docker
+│   └── workflows/
+│       ├── backport.yml
+│       ├── build-terraform-cli.yml
+│       ├── build.yml
+│       ├── changelog.yml
+│       ├── checks.yml
+│       ├── equivalence-test-diff.yml
+│       ├── equivalence-test-manual-update.yml
+│       ├── equivalence-test-update.yml
+│       ├── issue-comment-created.yml
+│       └── lock.yml
+├── .gitignore
+├── .go-version
+├── .release/
+│   ├── ci.hcl
+│   ├── release-metadata.hcl
+│   └── security-scan.hcl
+├── .tfdev
+├── BUGPROCESS.md
+├── BUILDING.md
+├── CHANGELOG.md
+├── CODEOWNERS
+├── Dockerfile
+├── LICENSE
+├── Makefile
+├── README.md
+├── build.Dockerfile
+├── catalog-info.yaml
+├── checkpoint.go
+├── commands.go
+├── docs/
+│   ├── README.md
+│   ├── architecture.md
+│   ├── debugging-configs/
+│   │   └── vscode/
+│   ├── debugging.md
+│   ├── dependency-upgrades.md
+│   ├── destroying.md
+│   ├── images/
+│   │   ├── architecture-overview.png
+│   │   ├── destroy_then_update.png
+│   │   ├── replace_all.png
+│   │   ├── replace_all_cbd.png
+│   │   ├── replace_all_cbd_dep.png
+│   │   ├── replace_cbd_incorrect.png
+│   │   ├── replace_dep_cbd_dep.png
+│   │   ├── replace_one.png
+│   │   ├── resource-instance-change-lifecycle.png
+│   │   ├── simple_create.png
+│   │   ├── simple_destroy.png
+│   │   ├── simple_update.png
+│   │   ├── update_destroy_cbd.png
+│   │   ├── vscode-debugging-test.png
+│   │   └── vscode-debugging.png
+│   ├── planning-behaviors.md
+│   ├── plugin-protocol/
+│   │   ├── .copywrite.hcl
+│   │   ├── LICENSE
+│   │   ├── README.md
+│   │   ├── object-wire-format.md
+│   │   ├── releasing-new-version.md
+│   │   ├── tfplugin5.proto
+│   │   └── tfplugin6.proto
+│   ├── resource-instance-change-lifecycle.md
+│   └── unicode.md
+├── experiments.go
+├── go.mod
+├── go.sum
+├── help.go
+├── internal/
+│   ├── actions/
+│   │   └── actions.go
+│   ├── addrs/
+│   │   ├── action.go
+│   │   ├── action_test.go
+│   │   ├── check.go
+│   │   ├── check_rule.go
+│   │   ├── check_rule_diagnostic.go
+│   │   ├── check_rule_diagnostic_test.go
+│   │   ├── checkable.go
+│   │   ├── checkablekind_string.go
+│   │   ├── checkruletype_string.go
+│   │   ├── count_attr.go
+│   │   ├── doc.go
+│   │   ├── for_each_attr.go
+│   │   ├── graph.go
+│   │   ├── graph_test.go
+│   │   ├── input_variable.go
+│   │   ├── instance_key.go
+│   │   ├── instance_key_test.go
+│   │   ├── local_value.go
+│   │   ├── map.go
+│   │   ├── map_test.go
+│   │   ├── module.go
+│   │   ├── module_call.go
+│   │   ├── module_call_test.go
+│   │   ├── module_instance.go
+│   │   ├── module_instance_test.go
+│   │   ├── module_package.go
+│   │   ├── module_source.go
+│   │   ├── module_test.go
+│   │   ├── move_endpoint.go
+│   │   ├── move_endpoint_kind.go
+│   │   ├── move_endpoint_module.go
+│   │   ├── move_endpoint_module_test.go
+│   │   ├── move_endpoint_test.go
+│   │   ├── moveable.go
+│   │   ├── moveendpointkind_string.go
+│   │   ├── output_value.go
+│   │   ├── output_value_test.go
+│   │   ├── parse_ref.go
+│   │   ├── parse_ref_test.go
+│   │   ├── parse_target.go
+│   │   ├── parse_target_action.go
+│   │   ├── parse_target_action_test.go
+│   │   ├── parse_target_test.go
+│   │   ├── partial_expanded.go
+│   │   ├── partial_expanded_test.go
+│   │   ├── path_attr.go
+│   │   ├── provider.go
+│   │   ├── provider_config.go
+│   │   ├── provider_config_test.go
+│   │   ├── provider_test.go
+│   │   ├── referenceable.go
+│   │   ├── remove_target.go
+│   │   ├── remove_target_kind.go
+│   │   ├── remove_target_test.go
+│   │   ├── removetargetkind_string.go
+│   │   ├── resource.go
+│   │   ├── resource_phase.go
+│   │   ├── resource_test.go
+│   │   ├── resourcemode_string.go
+│   │   ├── run.go
+│   │   ├── self.go
+│   │   ├── set.go
+│   │   ├── set_test.go
+│   │   ├── target_test.go
+│   │   ├── targetable.go
+│   │   ├── terraform_attr.go
+│   │   ├── unique_key.go
+│   │   └── unique_key_test.go
+│   ├── backend/
+│   │   ├── backend.go
+│   │   ├── backendbase/
+│   │   ├── backendrun/
+│   │   ├── init/
+│   │   ├── local/
+│   │   ├── pluggable/
+│   │   ├── remote-state/
+│   │   ├── remote/
+│   │   └── testing.go
+│   ├── builtin/
+│   │   ├── providers/
+│   │   └── provisioners/
+│   ├── checks/
+│   │   ├── doc.go
+│   │   ├── state.go
+│   │   ├── state_init.go
+│   │   ├── state_report.go
+│   │   ├── state_test.go
+│   │   ├── status.go
+│   │   ├── status_string.go
+│   │   └── testdata/
+│   ├── cloud/
+│   │   ├── backend.go
+│   │   ├── backend_apply.go
+│   │   ├── backend_apply_test.go
+│   │   ├── backend_cli.go
+│   │   ├── backend_colorize.go
+│   │   ├── backend_common.go
+│   │   ├── backend_context.go
+│   │   ├── backend_context_test.go
+│   │   ├── backend_plan.go
+│   │   ├── backend_plan_test.go
+│   │   ├── backend_query.go
+│   │   ├── backend_query_test.go
+│   │   ├── backend_refresh_test.go
+│   │   ├── backend_run_warning.go
+│   │   ├── backend_run_warning_test.go
+│   │   ├── backend_show.go
+│   │   ├── backend_show_test.go
+│   │   ├── backend_taskStage_policyEvaluation.go
+│   │   ├── backend_taskStage_policyEvaluation_test.go
+│   │   ├── backend_taskStage_taskResults.go
+│   │   ├── backend_taskStage_taskResults_test.go
+│   │   ├── backend_taskStages.go
+│   │   ├── backend_taskStages_test.go
+│   │   ├── backend_test.go
+│   │   ├── cloud_integration.go
+│   │   ├── cloud_run.go
+│   │   ├── cloud_variables.go
+│   │   ├── cloud_variables_test.go
+│   │   ├── cloudplan/
+│   │   ├── configchangemode_string.go
+│   │   ├── e2e/
+│   │   ├── errors.go
+│   │   ├── migration.go
+│   │   ├── migration_test.go
+│   │   ├── remote_test.go
+│   │   ├── retry.go
+│   │   ├── retry_test.go
+│   │   ├── state.go
+│   │   ├── state_test.go
+│   │   ├── test.go
+│   │   ├── test_test.go
+│   │   ├── testdata/
+│   │   ├── testing.go
+│   │   └── tfe_client_mock.go
+│   ├── cloudplugin/
+│   │   ├── cloudplugin1/
+│   │   ├── cloudproto1/
+│   │   └── mock_cloudproto1/
+│   ├── collections/
+│   │   ├── cmp.go
+│   │   ├── doc.go
+│   │   ├── map.go
+│   │   ├── map_test.go
+│   │   ├── set.go
+│   │   ├── set_test.go
+│   │   ├── unique_key.go
+│   │   └── unique_key_test.go
+│   ├── command/
+│   │   ├── apply.go
+│   │   ├── apply_destroy_test.go
+│   │   ├── apply_test.go
+│   │   ├── arguments/
+│   │   ├── autocomplete.go
+│   │   ├── autocomplete_test.go
+│   │   ├── cli_ui.go
+│   │   ├── cli_ui_test.go
+│   │   ├── cliconfig/
+│   │   ├── clistate/
+│   │   ├── cloud.go
+│   │   ├── cloud_test.go
+│   │   ├── command.go
+│   │   ├── command_test.go
+│   │   ├── console.go
+│   │   ├── console_interactive.go
+│   │   ├── console_interactive_solaris.go
+│   │   ├── console_test.go
+│   │   ├── e2etest/
+│   │   ├── experimental_test.go
+│   │   ├── flag_kv.go
+│   │   ├── flag_kv_test.go
+│   │   ├── fmt.go
+│   │   ├── fmt_test.go
+│   │   ├── format/
+│   │   ├── get.go
+│   │   ├── get_test.go
+│   │   ├── graph.go
+│   │   ├── graph_test.go
+│   │   ├── helper.go
+│   │   ├── hook_module_install.go
+│   │   ├── import.go
+│   │   ├── import_test.go
+│   │   ├── init.go
+│   │   ├── init2_test.go
+│   │   ├── init_run.go
+│   │   ├── init_test.go
+│   │   ├── jsonchecks/
+│   │   ├── jsonconfig/
+│   │   ├── jsonformat/
+│   │   ├── jsonfunction/
+│   │   ├── jsonplan/
+│   │   ├── jsonprovider/
+│   │   ├── jsonstate/
+│   │   ├── junit/
+│   │   ├── login.go
+│   │   ├── login_test.go
+│   │   ├── logout.go
+│   │   ├── logout_test.go
+│   │   ├── meta.go
+│   │   ├── meta_backend.go
+│   │   ├── meta_backend_errors.go
+│   │   ├── meta_backend_migrate.go
+│   │   ├── meta_backend_migrate_test.go
+│   │   ├── meta_backend_test.go
+│   │   ├── meta_config.go
+│   │   ├── meta_dependencies.go
+│   │   ├── meta_dependencies_test.go
+│   │   ├── meta_new.go
+│   │   ├── meta_providers.go
+│   │   ├── meta_test.go
+│   │   ├── metadata_command.go
+│   │   ├── metadata_functions.go
+│   │   ├── metadata_functions_test.go
+│   │   ├── modules.go
+│   │   ├── modules_test.go
+│   │   ├── output.go
+│   │   ├── output_test.go
+│   │   ├── plan.go
+│   │   ├── plan_test.go
+│   │   ├── plugins.go
+│   │   ├── plugins_lock.go
+│   │   ├── plugins_lock_test.go
+│   │   ├── plugins_test.go
+│   │   ├── providers.go
+│   │   ├── providers_lock.go
+│   │   ├── providers_lock_test.go
+│   │   ├── providers_mirror.go
+│   │   ├── providers_mirror_test.go
+│   │   ├── providers_schema.go
+│   │   ├── providers_schema_test.go
+│   │   ├── providers_test.go
+│   │   ├── push.go
+│   │   ├── query.go
+│   │   ├── query_test.go
+│   │   ├── refresh.go
+│   │   ├── refresh_test.go
+│   │   ├── show.go
+│   │   ├── show_test.go
+│   │   ├── stacks.go
+│   │   ├── stacks_test.go
+│   │   ├── state_command.go
+│   │   ├── state_identities.go
+│   │   ├── state_identities_test.go
+│   │   ├── state_list.go
+│   │   ├── state_list_test.go
+│   │   ├── state_meta.go
+│   │   ├── state_mv.go
+│   │   ├── state_mv_test.go
+│   │   ├── state_pull.go
+│   │   ├── state_pull_test.go
+│   │   ├── state_push.go
+│   │   ├── state_push_test.go
+│   │   ├── state_replace_provider.go
+│   │   ├── state_replace_provider_test.go
+│   │   ├── state_rm.go
+│   │   ├── state_rm_test.go
+│   │   ├── state_show.go
+│   │   ├── state_show_test.go
+│   │   ├── state_test.go
+│   │   ├── taint.go
+│   │   ├── taint_test.go
+│   │   ├── telemetry.go
+│   │   ├── test.go
+│   │   ├── test_cleanup.go
+│   │   ├── test_test.go
+│   │   ├── testdata/
+│   │   ├── testing/
+│   │   ├── ui_input.go
+│   │   ├── ui_input_test.go
+│   │   ├── unlock.go
+│   │   ├── unlock_test.go
+│   │   ├── untaint.go
+│   │   ├── untaint_test.go
+│   │   ├── validate.go
+│   │   ├── validate_test.go
+│   │   ├── version.go
+│   │   ├── version_test.go
+│   │   ├── views/
+│   │   ├── webbrowser/
+│   │   ├── workdir/
+│   │   ├── workspace_command.go
+│   │   ├── workspace_command_test.go
+│   │   ├── workspace_delete.go
+│   │   ├── workspace_list.go
+│   │   ├── workspace_new.go
+│   │   ├── workspace_select.go
+│   │   └── workspace_show.go
+│   ├── communicator/
+│   │   ├── communicator.go
+│   │   ├── communicator_mock.go
+│   │   ├── communicator_test.go
+│   │   ├── remote/
+│   │   ├── shared/
+│   │   ├── ssh/
+│   │   └── winrm/
+│   ├── configs/
+│   │   ├── action.go
+│   │   ├── action_test.go
+│   │   ├── actiontriggerevent_string.go
+│   │   ├── backend.go
+│   │   ├── checks.go
+│   │   ├── cloud.go
+│   │   ├── compat_shim.go
+│   │   ├── config.go
+│   │   ├── config_build.go
+│   │   ├── config_build_test.go
+│   │   ├── config_test.go
+│   │   ├── configload/
+│   │   ├── configschema/
+│   │   ├── configtesting/
+│   │   ├── container.go
+│   │   ├── depends_on.go
+│   │   ├── doc.go
+│   │   ├── escaping_blocks_test.go
+│   │   ├── experiments.go
+│   │   ├── experiments_test.go
+│   │   ├── hcl2shim/
+│   │   ├── import.go
+│   │   ├── import_test.go
+│   │   ├── mock_provider.go
+│   │   ├── mock_provider_test.go
+│   │   ├── module.go
+│   │   ├── module_call.go
+│   │   ├── module_call_test.go
+│   │   ├── module_merge.go
+│   │   ├── module_merge_body.go
+│   │   ├── module_merge_test.go
+│   │   ├── module_test.go
+│   │   ├── moved.go
+│   │   ├── moved_test.go
+│   │   ├── named_values.go
+│   │   ├── named_values_test.go
+│   │   ├── parser.go
+│   │   ├── parser_config.go
+│   │   ├── parser_config_dir.go
+│   │   ├── parser_config_dir_test.go
+│   │   ├── parser_config_test.go
+│   │   ├── parser_file_matcher.go
+│   │   ├── parser_test.go
+│   │   ├── provider.go
+│   │   ├── provider_meta.go
+│   │   ├── provider_requirements.go
+│   │   ├── provider_requirements_test.go
+│   │   ├── provider_test.go
+│   │   ├── provider_validation.go
+│   │   ├── provisioner.go
+│   │   ├── provisioneronfailure_string.go
+│   │   ├── provisionerwhen_string.go
+│   │   ├── query_file.go
+│   │   ├── removed.go
+│   │   ├── removed_test.go
+│   │   ├── resource.go
+│   │   ├── source_bundle_parser.go
+│   │   ├── source_bundle_parser_test.go
+│   │   ├── state_store.go
+│   │   ├── state_store_test.go
+│   │   ├── test_file.go
+│   │   ├── test_file_test.go
+│   │   ├── testdata/
+│   │   ├── util.go
+│   │   ├── variable_type_hint.go
+│   │   ├── variabletypehint_string.go
+│   │   └── version_constraint.go
+│   ├── copy/
+│   │   ├── copy_dir.go
+│   │   ├── copy_dir_test.go
+│   │   ├── copy_file.go
+│   │   ├── copy_value.go
+│   │   └── copy_value_test.go
+│   ├── dag/
+│   │   ├── dag.go
+│   │   ├── dag_test.go
+│   │   ├── dot.go
+│   │   ├── dot_test.go
+│   │   ├── edge.go
+│   │   ├── edge_test.go
+│   │   ├── graph.go
+│   │   ├── graph_test.go
+│   │   ├── marshal.go
+│   │   ├── marshal_test.go
+│   │   ├── seq.go
+│   │   ├── seq_test.go
+│   │   ├── set.go
+│   │   ├── set_test.go
+│   │   ├── tarjan.go
+│   │   ├── tarjan_test.go
+│   │   ├── walk.go
+│   │   └── walk_test.go
+│   ├── deprecation/
+│   │   ├── deprecation.go
+│   │   ├── schema.go
+│   │   └── schema_test.go
+│   ├── depsfile/
+│   │   ├── doc.go
+│   │   ├── locks.go
+│   │   ├── locks_file.go
+│   │   ├── locks_file_test.go
+│   │   ├── locks_test.go
+│   │   ├── paths.go
+│   │   ├── testdata/
+│   │   └── testing.go
+│   ├── didyoumean/
+│   │   ├── name_suggestion.go
+│   │   └── name_suggestion_test.go
+│   ├── e2e/
+│   │   └── e2e.go
+│   ├── experiments/
+│   │   ├── doc.go
+│   │   ├── errors.go
+│   │   ├── experiment.go
+│   │   ├── set.go
+│   │   └── testing.go
+│   ├── genconfig/
+│   │   ├── doc.go
+│   │   ├── generate_config.go
+│   │   ├── generate_config_test.go
+│   │   └── generate_config_write.go
+│   ├── getmodules/
+│   │   ├── doc.go
+│   │   ├── getter.go
+│   │   ├── installer.go
+│   │   └── moduleaddrs/
+│   ├── getproviders/
+│   │   ├── didyoumean.go
+│   │   ├── didyoumean_test.go
+│   │   ├── doc.go
+│   │   ├── errors.go
+│   │   ├── filesystem_mirror_source.go
+│   │   ├── filesystem_mirror_source_test.go
+│   │   ├── filesystem_search.go
+│   │   ├── filesystem_search_test.go
+│   │   ├── hanging_source.go
+│   │   ├── hash.go
+│   │   ├── http_mirror_source.go
+│   │   ├── http_mirror_source_test.go
+│   │   ├── memoize_source.go
+│   │   ├── memoize_source_test.go
+│   │   ├── mock_source.go
+│   │   ├── multi_source.go
+│   │   ├── multi_source_test.go
+│   │   ├── package_authentication.go
+│   │   ├── package_authentication_test.go
+│   │   ├── providerreqs/
+│   │   ├── public_keys.go
+│   │   ├── reattach/
+│   │   ├── registry_client.go
+│   │   ├── registry_client_test.go
+│   │   ├── registry_source.go
+│   │   ├── registry_source_test.go
+│   │   ├── source.go
+│   │   ├── testdata/
+│   │   ├── types.go
+│   │   └── types_test.go
+│   ├── grpcwrap/
+│   │   ├── provider.go
+│   │   ├── provider6.go
+│   │   └── provisioner.go
+│   ├── helper/
+│   │   └── slowmessage/
+│   ├── httpclient/
+│   │   ├── client.go
+│   │   ├── client_test.go
+│   │   ├── useragent.go
+│   │   └── useragent_test.go
+│   ├── initwd/
+│   │   ├── doc.go
+│   │   ├── from_module.go
+│   │   ├── from_module_test.go
+│   │   ├── module_install.go
+│   │   ├── module_install_hooks.go
+│   │   ├── module_install_test.go
+│   │   ├── testdata/
+│   │   └── testing.go
+│   ├── instances/
+│   │   ├── expander.go
+│   │   ├── expander_test.go
+│   │   ├── expansion_mode.go
+│   │   ├── instance_key_data.go
+│   │   ├── set.go
+│   │   └── set_test.go
+│   ├── ipaddr/
+│   │   ├── LICENSE
+│   │   ├── PATENTS
+│   │   ├── README.md
+│   │   ├── doc.go
+│   │   ├── ip.go
+│   │   ├── ip_test.go
+│   │   └── parse.go
+│   ├── lang/
+│   │   ├── blocktoattr/
+│   │   ├── checks.go
+│   │   ├── data.go
+│   │   ├── data_test.go
+│   │   ├── doc.go
+│   │   ├── ephemeral/
+│   │   ├── eval.go
+│   │   ├── eval_test.go
+│   │   ├── format/
+│   │   ├── funcs/
+│   │   ├── function_results.go
+│   │   ├── function_results_test.go
+│   │   ├── functions.go
+│   │   ├── functions_descriptions_test.go
+│   │   ├── functions_test.go
+│   │   ├── globalref/
+│   │   ├── langrefs/
+│   │   ├── marks/
+│   │   ├── scope.go
+│   │   ├── testdata/
+│   │   └── types/
+│   ├── legacy/
+│   │   ├── go.mod
+│   │   ├── go.sum
+│   │   ├── helper/
+│   │   └── terraform/
+│   ├── logging/
+│   │   ├── indent.go
+│   │   ├── indent_test.go
+│   │   ├── logging.go
+│   │   ├── panic.go
+│   │   └── panic_test.go
+│   ├── modsdir/
+│   │   ├── doc.go
+│   │   ├── manifest.go
+│   │   └── paths.go
+│   ├── moduledeps/
+│   │   ├── dependencies.go
+│   │   ├── doc.go
+│   │   ├── module.go
+│   │   └── module_test.go
+│   ├── moduleref/
+│   │   ├── record.go
+│   │   ├── resolver.go
+│   │   └── resolver_test.go
+│   ├── moduletest/
+│   │   ├── file.go
+│   │   ├── graph/
+│   │   ├── mocking/
+│   │   ├── opts.go
+│   │   ├── progress.go
+│   │   ├── progress_string.go
+│   │   ├── run.go
+│   │   ├── run_test.go
+│   │   ├── states/
+│   │   ├── status.go
+│   │   ├── status_string.go
+│   │   └── suite.go
+│   ├── namedvals/
+│   │   ├── doc.go
+│   │   ├── state.go
+│   │   ├── values.go
+│   │   └── values_test.go
+│   ├── plans/
+│   │   ├── action.go
+│   │   ├── action_invocation.go
+│   │   ├── action_string.go
+│   │   ├── changes.go
+│   │   ├── changes_src.go
+│   │   ├── changes_state.go
+│   │   ├── changes_sync.go
+│   │   ├── changes_test.go
+│   │   ├── deferring.go
+│   │   ├── deferring/
+│   │   ├── doc.go
+│   │   ├── dynamic_value.go
+│   │   ├── mode.go
+│   │   ├── mode_string.go
+│   │   ├── objchange/
+│   │   ├── plan.go
+│   │   ├── plan_test.go
+│   │   ├── planfile/
+│   │   ├── planproto/
+│   │   ├── quality.go
+│   │   ├── quality_string.go
+│   │   └── resourceinstancechangeactionreason_string.go
+│   ├── plugin/
+│   │   ├── convert/
+│   │   ├── discovery/
+│   │   ├── grpc_error.go
+│   │   ├── grpc_provider.go
+│   │   ├── grpc_provider_test.go
+│   │   ├── grpc_provisioner.go
+│   │   ├── grpc_provisioner_test.go
+│   │   ├── mock_proto/
+│   │   ├── plugin.go
+│   │   ├── serve.go
+│   │   ├── ui_input.go
+│   │   ├── ui_input_test.go
+│   │   ├── ui_output.go
+│   │   └── ui_output_test.go
+│   ├── plugin6/
+│   │   ├── convert/
+│   │   ├── doc.go
+│   │   ├── grpc_error.go
+│   │   ├── grpc_provider.go
+│   │   ├── grpc_provider_test.go
+│   │   ├── mock_proto/
+│   │   └── serve.go
+│   ├── pluginshared/
+│   │   ├── binary.go
+│   │   ├── binary_test.go
+│   │   ├── client.go
+│   │   ├── client_test.go
+│   │   ├── cloudbinary.go
+│   │   ├── cloudclient.go
+│   │   ├── errors.go
+│   │   ├── interface.go
+│   │   ├── stacksbinary.go
+│   │   ├── stacksclient.go
+│   │   ├── testdata/
+│   │   └── testing.go
+│   ├── promising/
+│   │   ├── README.md
+│   │   ├── deadlock-free-promises.png
+│   │   ├── doc.go
+│   │   ├── errors.go
+│   │   ├── once.go
+│   │   ├── once_test.go
+│   │   ├── promise.go
+│   │   ├── promise_container.go
+│   │   ├── promise_resolver.go
+│   │   ├── ptr_set.go
+│   │   ├── public_test.go
+│   │   ├── task.go
+│   │   └── telemetry.go
+│   ├── provider-simple-v6/
+│   │   ├── main/
+│   │   ├── provider.go
+│   │   ├── state_store_fs.go
+│   │   ├── state_store_fs_test.go
+│   │   ├── state_store_inmem.go
+│   │   └── state_store_inmem_test.go
+│   ├── provider-simple/
+│   │   ├── main/
+│   │   └── provider.go
+│   ├── provider-terraform/
+│   │   └── main/
+│   ├── providercache/
+│   │   ├── cached_provider.go
+│   │   ├── cached_provider_test.go
+│   │   ├── dir.go
+│   │   ├── dir_modify.go
+│   │   ├── dir_modify_test.go
+│   │   ├── dir_test.go
+│   │   ├── doc.go
+│   │   ├── installer.go
+│   │   ├── installer_events.go
+│   │   ├── installer_events_test.go
+│   │   ├── installer_test.go
+│   │   ├── installer_test_helper.go
+│   │   ├── package_install.go
+│   │   └── testdata/
+│   ├── providers/
+│   │   ├── addressed_types.go
+│   │   ├── addressed_types_test.go
+│   │   ├── doc.go
+│   │   ├── ephemeral.go
+│   │   ├── factory.go
+│   │   ├── functions.go
+│   │   ├── mock.go
+│   │   ├── provider.go
+│   │   ├── schema_cache.go
+│   │   ├── schemas.go
+│   │   └── testing/
+│   ├── provisioner-local-exec/
+│   │   └── main/
+│   ├── provisioners/
+│   │   ├── doc.go
+│   │   ├── factory.go
+│   │   └── provisioner.go
+│   ├── refactoring/
+│   │   ├── cross_provider_move.go
+│   │   ├── mock_provider.go
+│   │   ├── move_execute.go
+│   │   ├── move_execute_test.go
+│   │   ├── move_statement.go
+│   │   ├── move_statement_test.go
+│   │   ├── move_validate.go
+│   │   ├── move_validate_test.go
+│   │   ├── remove_statement.go
+│   │   ├── remove_statement_test.go
+│   │   └── testdata/
+│   ├── registry/
+│   │   ├── client.go
+│   │   ├── client_test.go
+│   │   ├── errors.go
+│   │   ├── regsrc/
+│   │   ├── response/
+│   │   └── test/
+│   ├── releaseauth/
+│   │   ├── all.go
+│   │   ├── all_test.go
+│   │   ├── checksum.go
+│   │   ├── doc.go
+│   │   ├── hash.go
+│   │   ├── hash_test.go
+│   │   ├── signature.go
+│   │   └── testdata/
+│   ├── repl/
+│   │   ├── continuation.go
+│   │   ├── continuation_test.go
+│   │   ├── format.go
+│   │   ├── format_test.go
+│   │   ├── repl.go
+│   │   ├── session.go
+│   │   ├── session_test.go
+│   │   └── testdata/
+│   ├── replacefile/
+│   │   ├── doc.go
+│   │   ├── replacefile_unix.go
+│   │   ├── replacefile_windows.go
+│   │   └── writefile.go
+│   ├── resources/
+│   │   └── ephemeral/
+│   ├── rpcapi/
+│   │   ├── README.md
+│   │   ├── cli.go
+│   │   ├── convert.go
+│   │   ├── convert_test.go
+│   │   ├── dependencies.go
+│   │   ├── dependencies_provider_schema.go
+│   │   ├── dependencies_test.go
+│   │   ├── dynrpcserver/
+│   │   ├── grpc_helpers.go
+│   │   ├── grpc_testing.go
+│   │   ├── handles.go
+│   │   ├── internal_client.go
+│   │   ├── internal_client_test.go
+│   │   ├── packages.go
+│   │   ├── packages_test.go
+│   │   ├── plugin.go
+│   │   ├── resource_identity.go
+│   │   ├── resource_identity_test.go
+│   │   ├── server.go
+│   │   ├── setup.go
+│   │   ├── setup_test.go
+│   │   ├── stacks.go
+│   │   ├── stacks_grpc_client.go
+│   │   ├── stacks_grpc_client_test.go
+│   │   ├── stacks_inspector.go
+│   │   ├── stacks_test.go
+│   │   ├── stopper.go
+│   │   ├── telemetry.go
+│   │   ├── telemetry_test.go
+│   │   ├── terraform1/
+│   │   └── testdata/
+│   ├── schemarepo/
+│   │   ├── doc.go
+│   │   ├── loadschemas/
+│   │   └── schemas.go
+│   ├── stacks/
+│   │   ├── README.md
+│   │   ├── stackaddrs/
+│   │   ├── stackconfig/
+│   │   ├── stackmigrate/
+│   │   ├── stackplan/
+│   │   ├── stackruntime/
+│   │   ├── stackstate/
+│   │   ├── stackutils/
+│   │   ├── staticcheck.conf
+│   │   └── tfstackdata1/
+│   ├── stacksplugin/
+│   │   ├── mock_stacksproto1/
+│   │   ├── stacksplugin1/
+│   │   └── stacksproto1/
+│   ├── states/
+│   │   ├── checks.go
+│   │   ├── doc.go
+│   │   ├── instance_object.go
+│   │   ├── instance_object_src.go
+│   │   ├── instance_object_test.go
+│   │   ├── module.go
+│   │   ├── objectstatus_string.go
+│   │   ├── output_value.go
+│   │   ├── remote/
+│   │   ├── resource.go
+│   │   ├── resource_test.go
+│   │   ├── state.go
+│   │   ├── state_deepcopy.go
+│   │   ├── state_equal.go
+│   │   ├── state_string.go
+│   │   ├── state_test.go
+│   │   ├── statefile/
+│   │   ├── statemgr/
+│   │   └── sync.go
+│   ├── terminal/
+│   │   ├── impl_others.go
+│   │   ├── impl_windows.go
+│   │   ├── stream.go
+│   │   ├── streams.go
+│   │   ├── streams_test.go
+│   │   └── testing.go
+│   ├── terraform/
+│   │   ├── config_graph_build.go
+│   │   ├── config_graph_build_test.go
+│   │   ├── config_snapshot_test.go
+│   │   ├── context.go
+│   │   ├── context_apply.go
+│   │   ├── context_apply2_test.go
+│   │   ├── context_apply_action_test.go
+│   │   ├── context_apply_checks_test.go
+│   │   ├── context_apply_deferred_test.go
+│   │   ├── context_apply_ephemeral_test.go
+│   │   ├── context_apply_identity_test.go
+│   │   ├── context_apply_overrides_test.go
+│   │   ├── context_apply_test.go
+│   │   ├── context_eval.go
+│   │   ├── context_eval_test.go
+│   │   ├── context_fixtures_test.go
+│   │   ├── context_functions_test.go
+│   │   ├── context_import.go
+│   │   ├── context_import_test.go
+│   │   ├── context_init.go
+│   │   ├── context_init_test.go
+│   │   ├── context_input.go
+│   │   ├── context_input_test.go
+│   │   ├── context_plan.go
+│   │   ├── context_plan2_test.go
+│   │   ├── context_plan_actions_test.go
+│   │   ├── context_plan_ephemeral_test.go
+│   │   ├── context_plan_identity_test.go
+│   │   ├── context_plan_import_test.go
+│   │   ├── context_plan_query_test.go
+│   │   ├── context_plan_test.go
+│   │   ├── context_plugins.go
+│   │   ├── context_plugins_test.go
+│   │   ├── context_refresh.go
+│   │   ├── context_refresh_test.go
+│   │   ├── context_test.go
+│   │   ├── context_validate.go
+│   │   ├── context_validate_test.go
+│   │   ├── context_walk.go
+│   │   ├── diagnostics.go
+│   │   ├── eval_conditions.go
+│   │   ├── eval_context.go
+│   │   ├── eval_context_builtin.go
+│   │   ├── eval_context_builtin_test.go
+│   │   ├── eval_context_mock.go
+│   │   ├── eval_context_scope.go
+│   │   ├── eval_count.go
+│   │   ├── eval_count_test.go
+│   │   ├── eval_for_each.go
+│   │   ├── eval_for_each_test.go
+│   │   ├── eval_import.go
+│   │   ├── eval_provider.go
+│   │   ├── eval_provider_test.go
+│   │   ├── eval_query.go
+│   │   ├── eval_query_test.go
+│   │   ├── eval_variable.go
+│   │   ├── eval_variable_test.go
+│   │   ├── evaluate.go
+│   │   ├── evaluate_action_expression.go
+│   │   ├── evaluate_data.go
+│   │   ├── evaluate_placeholder.go
+│   │   ├── evaluate_test.go
+│   │   ├── evaluate_triggers.go
+│   │   ├── evaluate_triggers_test.go
+│   │   ├── evaluate_valid.go
+│   │   ├── evaluate_valid_test.go
+│   │   ├── execute.go
+│   │   ├── expressions.go
+│   │   ├── features.go
+│   │   ├── graph.go
+│   │   ├── graph_builder.go
+│   │   ├── graph_builder_apply.go
+│   │   ├── graph_builder_apply_test.go
+│   │   ├── graph_builder_eval.go
+│   │   ├── graph_builder_init.go
+│   │   ├── graph_builder_plan.go
+│   │   ├── graph_builder_plan_test.go
+│   │   ├── graph_builder_test.go
+│   │   ├── graph_dot.go
+│   │   ├── graph_dot_test.go
+│   │   ├── graph_interface_subgraph.go
+│   │   ├── graph_test.go
+│   │   ├── graph_walk.go
+│   │   ├── graph_walk_context.go
+│   │   ├── graph_walk_operation.go
+│   │   ├── graph_walk_test.go
+│   │   ├── hook.go
+│   │   ├── hook_mock.go
+│   │   ├── hook_stop.go
+│   │   ├── hook_stop_test.go
+│   │   ├── hook_test.go
+│   │   ├── instance_expanders.go
+│   │   ├── marks.go
+│   │   ├── node_action.go
+│   │   ├── node_action_abstract.go
+│   │   ├── node_action_instance.go
+│   │   ├── node_action_invoke.go
+│   │   ├── node_action_partialexp.go
+│   │   ├── node_action_trigger_abstract.go
+│   │   ├── node_action_trigger_apply.go
+│   │   ├── node_action_trigger_instance_apply.go
+│   │   ├── node_action_trigger_instance_plan.go
+│   │   ├── node_action_trigger_partialexp.go
+│   │   ├── node_action_trigger_plan.go
+│   │   ├── node_action_validate.go
+│   │   ├── node_check.go
+│   │   ├── node_data_destroy.go
+│   │   ├── node_data_destroy_test.go
+│   │   ├── node_external_reference.go
+│   │   ├── node_local.go
+│   │   ├── node_local_test.go
+│   │   ├── node_module_expand.go
+│   │   ├── node_module_expand_test.go
+│   │   ├── node_module_install.go
+│   │   ├── node_module_variable.go
+│   │   ├── node_module_variable_test.go
+│   │   ├── node_output.go
+│   │   ├── node_output_test.go
+│   │   ├── node_overridable.go
+│   │   ├── node_provider.go
+│   │   ├── node_provider_abstract.go
+│   │   ├── node_provider_eval.go
+│   │   ├── node_provider_test.go
+│   │   ├── node_resource_abstract.go
+│   │   ├── node_resource_abstract_instance.go
+│   │   ├── node_resource_abstract_instance_test.go
+│   │   ├── node_resource_abstract_test.go
+│   │   ├── node_resource_apply.go
+│   │   ├── node_resource_apply_deferred.go
+│   │   ├── node_resource_apply_instance.go
+│   │   ├── node_resource_apply_test.go
+│   │   ├── node_resource_destroy.go
+│   │   ├── node_resource_destroy_deposed.go
+│   │   ├── node_resource_destroy_deposed_test.go
+│   │   ├── node_resource_ephemeral.go
+│   │   ├── node_resource_forget.go
+│   │   ├── node_resource_import.go
+│   │   ├── node_resource_partial_plan.go
+│   │   ├── node_resource_plan.go
+│   │   ├── node_resource_plan_destroy.go
+│   │   ├── node_resource_plan_instance.go
+│   │   ├── node_resource_plan_instance_query.go
+│   │   ├── node_resource_plan_orphan.go
+│   │   ├── node_resource_plan_orphan_test.go
+│   │   ├── node_resource_plan_partialexp.go
+│   │   ├── node_resource_validate.go
+│   │   ├── node_resource_validate_test.go
+│   │   ├── node_root_variable.go
+│   │   ├── node_root_variable_test.go
+│   │   ├── node_value.go
+│   │   ├── node_variable_validation.go
+│   │   ├── phasestate_string.go
+│   │   ├── planfile_test.go
+│   │   ├── providers.go
+│   │   ├── provisioner_mock.go
+│   │   ├── provisioner_mock_test.go
+│   │   ├── reduce_plan.go
+│   │   ├── reduce_plan_test.go
+│   │   ├── resource_eval_bench_test.go
+│   │   ├── resource_provider_mock_test.go
+│   │   ├── schemas_test.go
+│   │   ├── semaphore.go
+│   │   ├── semaphore_test.go
+│   │   ├── terraform_test.go
+│   │   ├── testdata/
+│   │   ├── transform.go
+│   │   ├── transform_action_diff.go
+│   │   ├── transform_action_invoke_apply.go
+│   │   ├── transform_action_invoke_plan.go
+│   │   ├── transform_action_trigger_config.go
+│   │   ├── transform_attach_config_provider.go
+│   │   ├── transform_attach_config_provider_meta.go
+│   │   ├── transform_attach_config_resource.go
+│   │   ├── transform_attach_schema.go
+│   │   ├── transform_attach_state.go
+│   │   ├── transform_check.go
+│   │   ├── transform_check_starter.go
+│   │   ├── transform_config.go
+│   │   ├── transform_config_test.go
+│   │   ├── transform_deferred.go
+│   │   ├── transform_destroy_cbd.go
+│   │   ├── transform_destroy_cbd_test.go
+│   │   ├── transform_destroy_edge.go
+│   │   ├── transform_destroy_edge_test.go
+│   │   ├── transform_diff.go
+│   │   ├── transform_diff_test.go
+│   │   ├── transform_ephemeral_resource_close.go
+│   │   ├── transform_expand.go
+│   │   ├── transform_external_reference.go
+│   │   ├── transform_filter.go
+│   │   ├── transform_filter_test.go
+│   │   ├── transform_import_state_test.go
+│   │   ├── transform_local.go
+│   │   ├── transform_module_expansion.go
+│   │   ├── transform_module_install.go
+│   │   ├── transform_module_variable.go
+│   │   ├── transform_module_variable_test.go
+│   │   ├── transform_orphan_count.go
+│   │   ├── transform_orphan_count_test.go
+│   │   ├── transform_orphan_output.go
+│   │   ├── transform_orphan_resource.go
+│   │   ├── transform_orphan_resource_test.go
+│   │   ├── transform_output.go
+│   │   ├── transform_provider.go
+│   │   ├── transform_provider_test.go
+│   │   ├── transform_provisioner.go
+│   │   ├── transform_query.go
+│   │   ├── transform_reference.go
+│   │   ├── transform_reference_test.go
+│   │   ├── transform_removed_modules.go
+│   │   ├── transform_resource_count.go
+│   │   ├── transform_root.go
+│   │   ├── transform_root_test.go
+│   │   ├── transform_state.go
+│   │   ├── transform_targets.go
+│   │   ├── transform_targets_test.go
+│   │   ├── transform_transitive_reduction.go
+│   │   ├── transform_transitive_reduction_test.go
+│   │   ├── transform_variable.go
+│   │   ├── transform_variable_validation.go
+│   │   ├── transform_variable_validation_test.go
+│   │   ├── transform_vertex.go
+│   │   ├── transform_vertex_test.go
+│   │   ├── ui_input.go
+│   │   ├── ui_input_mock.go
+│   │   ├── ui_input_prefix.go
+│   │   ├── ui_input_prefix_test.go
+│   │   ├── ui_output.go
+│   │   ├── ui_output_callback.go
+│   │   ├── ui_output_callback_test.go
+│   │   ├── ui_output_mock.go
+│   │   ├── ui_output_mock_test.go
+│   │   ├── update_state_hook.go
+│   │   ├── update_state_hook_test.go
+│   │   ├── upgrade_resource_state.go
+│   │   ├── upgrade_resource_state_test.go
+│   │   ├── validate_selfref.go
+│   │   ├── validate_selfref_test.go
+│   │   ├── valuesourcetype_string.go
+│   │   ├── variables.go
+│   │   ├── variables_test.go
+│   │   ├── version_required.go
+│   │   └── walkoperation_string.go
+│   ├── tfdiags/
+│   │   ├── compare.go
+│   │   ├── compare_test.go
+│   │   ├── config_traversals.go
+│   │   ├── consolidate_warnings.go
+│   │   ├── consolidate_warnings_test.go
+│   │   ├── contextual.go
+│   │   ├── contextual_test.go
+│   │   ├── diagnostic.go
+│   │   ├── diagnostic_base.go
+│   │   ├── diagnostic_extra.go
+│   │   ├── diagnostic_extra_test.go
+│   │   ├── diagnostics.go
+│   │   ├── diagnostics_test.go
+│   │   ├── doc.go
+│   │   ├── error.go
+│   │   ├── format.go
+│   │   ├── format_test.go
+│   │   ├── hcl.go
+│   │   ├── hcl_test.go
+│   │   ├── object.go
+│   │   ├── object_test.go
+│   │   ├── override.go
+│   │   ├── override_test.go
+│   │   ├── rpc_friendly.go
+│   │   ├── rpc_friendly_test.go
+│   │   ├── severity_string.go
+│   │   ├── simple_warning.go
+│   │   ├── source_range.go
+│   │   ├── sourceless.go
+│   │   ├── testing.go
+│   │   └── testing_test.go
+│   ├── tfplugin5/
+│   │   ├── .copywrite.hcl
+│   │   ├── LICENSE
+│   │   ├── tfplugin5.pb.go
+│   │   ├── tfplugin5.proto
+│   │   └── tfplugin5_grpc.pb.go
+│   └── tfplugin6/
+│       ├── .copywrite.hcl
+│       ├── LICENSE
+│       ├── tfplugin6.pb.go
+│       ├── tfplugin6.proto
+│       └── tfplugin6_grpc.pb.go
+├── main.go
+├── main_test.go
+├── provider_source.go
+├── scripts/
+│   ├── build.sh
+│   ├── changelog-links.sh
+│   ├── changelog.sh
+│   ├── copyright.sh
+│   ├── debug-terraform
+│   ├── exhaustive.sh
+│   ├── gofmtcheck.sh
+│   ├── gogetcookie.sh
+│   ├── goimportscheck.sh
+│   ├── staticcheck.sh
+│   ├── syncdeps.sh
+│   └── version-bump.sh
+├── signal_unix.go
+├── signal_windows.go
+├── staticcheck.conf
+├── telemetry.go
+├── testing/
+│   └── equivalence-tests/
+│       ├── README.md
+│       ├── outputs/
+│       └── tests/
+├── tools/
+│   ├── loggraphdiff/
+│   │   └── loggraphdiff.go
+│   ├── protobuf-compile/
+│   │   ├── .workdir/
+│   │   └── protobuf-compile.go
+│   ├── terraform-bundle/
+│   │   └── README.md
+│   └── tools.go
+├── version.go
+├── version/
+│   ├── VERSION
+│   ├── dependencies.go
+│   ├── version.go
+│   └── version_test.go
+├── website/
+│   └── README.md
+└── working_dir.go

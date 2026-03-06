@@ -1,0 +1,1002 @@
+=====================================
+Repository Analysis: numpy
+Type: Library / Package / SDK
+=====================================
+
+--- METADATA ---
+Name: numpy
+Description: The fundamental package for scientific computing with Python.
+Language: Python
+Topics: numpy, python
+Stars: 31564
+License: Other
+
+--- README ---
+<h1 align="center">
+<img src="https://raw.githubusercontent.com/numpy/numpy/main/branding/logo/primary/numpylogo.svg" width="300">
+</h1><br>
+
+
+[![Powered by NumFOCUS](https://img.shields.io/badge/powered%20by-NumFOCUS-orange.svg?style=flat&colorA=E1523D&colorB=007D8A)](
+https://numfocus.org)
+[![PyPI Downloads](https://img.shields.io/pypi/dm/numpy.svg?label=PyPI%20downloads)](
+https://pypi.org/project/numpy/)
+[![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/numpy.svg?label=Conda%20downloads)](
+https://anaconda.org/conda-forge/numpy)
+[![Stack Overflow](https://img.shields.io/badge/stackoverflow-Ask%20questions-blue.svg)](
+https://stackoverflow.com/questions/tagged/numpy)
+[![Nature Paper](https://img.shields.io/badge/DOI-10.1038%2Fs41586--020--2649--2-blue)](
+https://doi.org/10.1038/s41586-020-2649-2)
+[![LFX Health Score](https://insights.linuxfoundation.org/api/badge/health-score?project=numpy)](https://insights.linuxfoundation.org/project/numpy)
+[![OpenSSF Scorecard](https://api.securityscorecards.dev/projects/github.com/numpy/numpy/badge)](https://securityscorecards.dev/viewer/?uri=github.com/numpy/numpy)
+[![Typing](https://img.shields.io/pypi/types/numpy)](https://pypi.org/project/numpy/)
+
+
+NumPy is the fundamental package for scientific computing with Python.
+
+- **Website:** https://numpy.org
+- **Documentation:** https://numpy.org/doc
+- **Mailing list:** https://mail.python.org/mailman/listinfo/numpy-discussion
+- **Source code:** https://github.com/numpy/numpy
+- **Contributing:** https://numpy.org/devdocs/dev/index.html
+- **Bug reports:** https://github.com/numpy/numpy/issues
+- **Report a security vulnerability:** https://github.com/numpy/numpy/security/policy (via Tidelift)
+
+It provides:
+
+- a powerful N-dimensional array object
+- sophisticated (broadcasting) functions
+- tools for integrating C/C++ and Fortran code
+- useful linear algebra, Fourier transform, and random number capabilities
+
+Testing:
+
+NumPy requires `pytest` and `hypothesis`.  Tests can then be run after installation with:
+
+    python -c "import numpy, sys; sys.exit(numpy.test() is False)"
+
+Code of Conduct
+----------------------
+
+NumPy is a community-driven open source project developed by a diverse group of
+[contributors](https://numpy.org/teams/). The NumPy leadership has made a strong
+commitment to creating an open, inclusive, and positive community. Please read the
+[NumPy Code of Conduct](https://numpy.org/code-of-conduct/) for guidance on how to interact
+with others in a way that makes our community thrive.
+
+Call for Contributions
+----------------------
+
+The NumPy project welcomes your expertise and enthusiasm!
+
+Small improvements or fixes are always appreciated. If you are considering larger contributions
+to the source code, please contact us through the [mailing
+list](https://mail.python.org/mailman/listinfo/numpy-discussion) first.
+
+Writing code isn’t the only way to contribute to NumPy. You can also:
+- review pull requests
+- help us stay on top of new and old issues
+- develop tutorials, presentations, and other educational materials
+- maintain and improve [our website](https://github.com/numpy/numpy.org)
+- develop graphic design for our brand assets and promotional materials
+- translate website content
+- help with outreach and onboard new contributors
+- write grant proposals and help with other fundraising efforts
+
+For more information about the ways you can contribute to NumPy, visit [our website](https://numpy.org/contribute/). 
+If you’re unsure where to start or how your skills fit in, reach out! You can
+ask on the mailing list or here, on GitHub, by opening a new issue or leaving a
+comment on a relevant issue that is already open.
+
+Our preferred channels of communication are all public, but if you’d like to
+speak to us in private first, contact our community coordinators at
+numpy-team@googlegroups.com or on Slack (write numpy-team@googlegroups.com for
+an invitation).
+
+We also have a biweekly community call, details of which are announced on the
+mailing list. You are very welcome to join.
+
+If you are new to contributing to open source, [this
+guide](https://opensource.guide/how-to-contribute/) helps explain why, what,
+and how to successfully get involved.
+
+
+--- PACKAGE MANIFEST(S) ---
+
+[pyproject.toml]
+[build-system]
+build-backend = "mesonpy"
+requires = [
+    "meson-python>=0.18.0",
+    "Cython>=3.0.6",  # keep in sync with version check in meson.build
+]
+
+[project]
+name = "numpy"
+version = "2.5.0.dev0"
+description = "Fundamental package for array computing in Python"
+authors = [{name = "Travis E. Oliphant et al."}]
+maintainers = [
+    {name = "NumPy Developers", email="numpy-discussion@python.org"},
+]
+requires-python = ">=3.12"
+readme = "README.md"
+classifiers = [
+    'Development Status :: 5 - Production/Stable',
+    'Intended Audience :: Science/Research',
+    'Intended Audience :: Developers',
+    'Programming Language :: C',
+    'Programming Language :: Python',
+    'Programming Language :: Python :: 3',
+    'Programming Language :: Python :: 3.12',
+    'Programming Language :: Python :: 3.13',
+    'Programming Language :: Python :: 3.14',
+    'Programming Language :: Python :: 3 :: Only',
+    'Programming Language :: Python :: Implementation :: CPython',
+    'Topic :: Software Development',
+    'Topic :: Scientific/Engineering',
+    'Typing :: Typed',
+    'Operating System :: Microsoft :: Windows',
+    'Operating System :: POSIX',
+    'Operating System :: Unix',
+    'Operating System :: MacOS',
+]
+# License info:
+#   - The main NumPy project license is BSD-3-Clause.
+#   - The SPDX license expression below reflects installed numpy packages when
+#     built from source (e.g., with `python -m build --wheel`), with no vendoring.
+#   - That SPDX expression is therefore incomplete for:
+#     (a) sdists - see the comment below `license-files` for other licenses
+#         included in the sdist
+#     (b) wheels on PyPI - most wheels include vendored libraries with additional licenses:
+#         - libopenblas : BSD-3-Clause AND BSD-3-Clause-Attribution (all except arm64 macOS>=14)
+#         - libgfortran : GPL-3.0-with-GCC-exception                (all except arm64 macOS>=14)
+#         - libquadmath : LGPL-2.1-or-later                         (all except arm64 macOS>=14 and Windows)
+#         The licenses for these vendored components are dynamically included
+#         in the build process for PyPI wheels.
+license = 'BSD-3-Clause AND 0BSD AND MIT AND Zlib AND CC0-1.0'
+license-files = [
+    'LICENSE.txt',                                       # BSD-3-Clause
+    'numpy/_core/include/numpy/libdivide/LICENSE.txt',   # Zlib
+    'numpy/_core/src/common/pythoncapi-compat/COPYING',  # 0BSD
+    'numpy/_core/src/highway/LICENSE',                   # Dual-licensed: Apache 2.0 or BSD 3-Clause
+    'numpy/_core/src/multiarray/dragon4_LICENSE.txt',    # MIT
+    'numpy/_core/src/npysort/x86-simd-sort/LICENSE.md',  # BSD-3-Clause
+    'numpy/_core/src/umath/svml/LICENSE',                # BSD-3-Clause
+    'numpy/fft/pocketfft/LICENSE.md',                    # BSD-3-Clause
+    'numpy/ma/LICENSE',                                  # BSD-3-Clause
+    'numpy/linalg/lapack_lite/LICENSE.txt',              # BSD-3-Clause
+    'numpy/random/LICENSE.md',                         
+... [TRUNCATED]
+
+--- DIRECTORY STRUCTURE (depth 2) ---
+├── .circleci/
+│   └── config.yml
+├── .cirrus.star
+├── .clang-format
+├── .codecov.yml
+├── .coveragerc
+├── .ctags.d
+├── .devcontainer/
+│   ├── devcontainer.json
+│   └── setup.sh
+├── .editorconfig
+├── .gitattributes
+├── .github/
+│   ├── CONTRIBUTING.md
+│   ├── ISSUE_TEMPLATE/
+│   │   ├── bug-report.yml
+│   │   ├── config.yml
+│   │   ├── documentation.yml
+│   │   ├── feature-request.yml
+│   │   ├── post-install.yml
+│   │   └── typing.yml
+│   ├── PULL_REQUEST_TEMPLATE.md
+│   ├── check-warnings/
+│   │   ├── action.yml
+│   │   └── msvc-allowed-warnings.txt
+│   ├── dependabot.yml
+│   ├── meson_actions/
+│   │   └── action.yml
+│   ├── pr-prefix-labeler.yml
+│   ├── windows_arm64_steps/
+│   │   └── action.yml
+│   └── workflows/
+│       ├── circleci.yml
+│       ├── codeql.yml
+│       ├── compiler_sanitizers.yml
+│       ├── cygwin.yml
+│       ├── dependency-review.yml
+│       ├── emscripten.yml
+│       ├── labeler.yml
+│       ├── linux-ppc64le.yml
+│       ├── linux.yml
+│       ├── linux_blas.yml
+│       ├── linux_qemu.yml
+│       ├── linux_simd.yml
+│       ├── macos.yml
+│       ├── mypy_primer.yml
+│       ├── mypy_primer_comment.yml
+│       ├── pixi-packages.yml
+│       ├── scorecards.yml
+│       ├── stubtest.yml
+│       ├── typecheck.yml
+│       ├── wheels.yml
+│       └── windows.yml
+├── .gitignore
+├── .gitmodules
+├── .mailmap
+├── .spin/
+│   ├── LICENSE
+│   └── cmds.py
+├── CITATION.bib
+├── CONTRIBUTING.rst
+├── INSTALL.rst
+├── LICENSE.txt
+├── README.md
+├── THANKS.txt
+├── benchmarks/
+│   ├── README.rst
+│   ├── asv.conf.json
+│   ├── asv_compare.conf.json.tpl
+│   ├── asv_pip_nopep517.py
+│   └── benchmarks/
+│       ├── __init__.py
+│       ├── bench_app.py
+│       ├── bench_array_coercion.py
+│       ├── bench_clip.py
+│       ├── bench_core.py
+│       ├── bench_creation.py
+│       ├── bench_function_base.py
+│       ├── bench_import.py
+│       ├── bench_indexing.py
+│       ├── bench_io.py
+│       ├── bench_itemselection.py
+│       ├── bench_lib.py
+│       ├── bench_linalg.py
+│       ├── bench_ma.py
+│       ├── bench_manipulate.py
+│       ├── bench_ndindex.py
+│       ├── bench_overrides.py
+│       ├── bench_polynomial.py
+│       ├── bench_random.py
+│       ├── bench_records.py
+│       ├── bench_reduce.py
+│       ├── bench_scalar.py
+│       ├── bench_searchsorted.py
+│       ├── bench_shape_base.py
+│       ├── bench_strings.py
+│       ├── bench_trim_zeros.py
+│       ├── bench_ufunc.py
+│       ├── bench_ufunc_strides.py
+│       └── common.py
+├── branding/
+│   └── logo/
+│       ├── logoguidelines.md
+│       ├── logomark/
+│       ├── primary/
+│       └── secondary/
+├── building_with_meson.md
+├── doc/
+│   ├── BRANCH_WALKTHROUGH.rst
+│   ├── C_STYLE_GUIDE.rst
+│   ├── EXAMPLE_DOCSTRING.rst
+│   ├── HOWTO_DOCUMENT.rst
+│   ├── HOWTO_RELEASE.rst
+│   ├── Makefile
+│   ├── RELEASE_WALKTHROUGH.rst
+│   ├── TESTS.rst
+│   ├── changelog/
+│   │   ├── 1.12.0-changelog.rst
+│   │   ├── 1.12.1-changelog.rst
+│   │   ├── 1.13.0-changelog.rst
+│   │   ├── 1.13.1-changelog.rst
+│   │   ├── 1.13.2-changelog.rst
+│   │   ├── 1.13.3-changelog.rst
+│   │   ├── 1.14.0-changelog.rst
+│   │   ├── 1.14.1-changelog.rst
+│   │   ├── 1.14.2-changelog.rst
+│   │   ├── 1.14.3-changelog.rst
+│   │   ├── 1.14.4-changelog.rst
+│   │   ├── 1.14.5-changelog.rst
+│   │   ├── 1.14.6-changelog.rst
+│   │   ├── 1.15.0-changelog.rst
+│   │   ├── 1.15.1-changelog.rst
+│   │   ├── 1.15.2-changelog.rst
+│   │   ├── 1.15.3-changelog.rst
+│   │   ├── 1.15.4-changelog.rst
+│   │   ├── 1.16.0-changelog.rst
+│   │   ├── 1.16.1-changelog.rst
+│   │   ├── 1.16.2-changelog.rst
+│   │   ├── 1.16.3-changelog.rst
+│   │   ├── 1.16.4-changelog.rst
+│   │   ├── 1.16.5-changelog.rst
+│   │   ├── 1.16.6-changelog.rst
+│   │   ├── 1.17.0-changelog.rst
+│   │   ├── 1.17.1-changelog.rst
+│   │   ├── 1.17.2-changelog.rst
+│   │   ├── 1.17.3-changelog.rst
+│   │   ├── 1.17.4-changelog.rst
+│   │   ├── 1.17.5-changelog.rst
+│   │   ├── 1.18.0-changelog.rst
+│   │   ├── 1.18.1-changelog.rst
+│   │   ├── 1.18.2-changelog.rst
+│   │   ├── 1.18.3-changelog.rst
+│   │   ├── 1.18.4-changelog.rst
+│   │   ├── 1.18.5-changelog.rst
+│   │   ├── 1.19.0-changelog.rst
+│   │   ├── 1.19.1-changelog.rst
+│   │   ├── 1.19.2-changelog.rst
+│   │   ├── 1.19.3-changelog.rst
+│   │   ├── 1.19.4-changelog.rst
+│   │   ├── 1.19.5-changelog.rst
+│   │   ├── 1.20.0-changelog.rst
+│   │   ├── 1.20.1-changelog.rst
+│   │   ├── 1.20.2-changelog.rst
+│   │   ├── 1.20.3-changelog.rst
+│   │   ├── 1.21.0-changelog.rst
+│   │   ├── 1.21.1-changelog.rst
+│   │   ├── 1.21.2-changelog.rst
+│   │   ├── 1.21.3-changelog.rst
+│   │   ├── 1.21.4-changelog.rst
+│   │   ├── 1.21.5-changelog.rst
+│   │   ├── 1.21.6-changelog.rst
+│   │   ├── 1.22.0-changelog.rst
+│   │   ├── 1.22.1-changelog.rst
+│   │   ├── 1.22.2-changelog.rst
+│   │   ├── 1.22.3-changelog.rst
+│   │   ├── 1.22.4-changelog.rst
+│   │   ├── 1.23.0-changelog.rst
+│   │   ├── 1.23.1-changelog.rst
+│   │   ├── 1.23.2-changelog.rst
+│   │   ├── 1.23.3-changelog.rst
+│   │   ├── 1.23.4-changelog.rst
+│   │   ├── 1.23.5-changelog.rst
+│   │   ├── 1.24.0-changelog.rst
+│   │   ├── 1.24.1-changelog.rst
+│   │   ├── 1.24.2-changelog.rst
+│   │   ├── 1.24.3-changelog.rst
+│   │   ├── 1.24.4-changelog.rst
+│   │   ├── 1.25.0-changelog.rst
+│   │   ├── 1.25.1-changelog.rst
+│   │   ├── 1.25.2-changelog.rst
+│   │   ├── 1.26.0-changelog.rst
+│   │   ├── 1.26.1-changelog.rst
+│   │   ├── 1.26.2-changelog.rst
+│   │   ├── 1.26.3-changelog.rst
+│   │   ├── 1.26.4-changelog.rst
+│   │   ├── 2.0.0-changelog.rst
+│   │   ├── 2.0.1-changelog.rst
+│   │   ├── 2.0.2-changelog.rst
+│   │   ├── 2.1.0-changelog.rst
+│   │   ├── 2.1.1-changelog.rst
+│   │   ├── 2.1.2-changelog.rst
+│   │   ├── 2.1.3-changelog.rst
+│   │   ├── 2.2.0-changelog.rst
+│   │   ├── 2.2.1-changelog.rst
+│   │   ├── 2.2.2-changelog.rst
+│   │   ├── 2.2.3-changelog.rst
+│   │   ├── 2.2.4-changelog.rst
+│   │   ├── 2.2.5-changelog.rst
+│   │   ├── 2.2.6-changelog.rst
+│   │   ├── 2.3.0-changelog.rst
+│   │   ├── 2.3.1-changelog.rst
+│   │   ├── 2.3.2-changelog.rst
+│   │   ├── 2.3.3-changelog.rst
+│   │   ├── 2.3.4-changelog.rst
+│   │   ├── 2.3.5-changelog.rst
+│   │   ├── 2.4.0-changelog.rst
+│   │   ├── 2.4.1-changelog.rst
+│   │   └── 2.4.2-changelog.rst
+│   ├── conftest.py
+│   ├── make.bat
+│   ├── neps/
+│   │   ├── .gitignore
+│   │   ├── Makefile
+│   │   ├── _static/
+│   │   ├── accepted.rst.tmpl
+│   │   ├── conf.py
+│   │   ├── content.rst
+│   │   ├── deferred.rst.tmpl
+│   │   ├── finished.rst.tmpl
+│   │   ├── index.rst
+│   │   ├── meta.rst.tmpl
+│   │   ├── nep-0000.rst
+│   │   ├── nep-0001-npy-format.rst
+│   │   ├── nep-0002-warnfix.rst
+│   │   ├── nep-0003-math_config_clean.rst
+│   │   ├── nep-0004-datetime-proposal3.rst
+│   │   ├── nep-0005-generalized-ufuncs.rst
+│   │   ├── nep-0006-newbugtracker.rst
+│   │   ├── nep-0007-datetime-proposal.rst
+│   │   ├── nep-0008-groupby_additions.rst
+│   │   ├── nep-0009-structured_array_extensions.rst
+│   │   ├── nep-0010-new-iterator-ufunc.rst
+│   │   ├── nep-0011-deferred-ufunc-evaluation.rst
+│   │   ├── nep-0012-missing-data.rst
+│   │   ├── nep-0013-ufunc-overrides.rst
+│   │   ├── nep-0014-dropping-python2.7-proposal.rst
+│   │   ├── nep-0015-merge-multiarray-umath.rst
+│   │   ├── nep-0016-abstract-array.rst
+│   │   ├── nep-0016-benchmark.py
+│   │   ├── nep-0017-split-out-maskedarray.rst
+│   │   ├── nep-0018-array-function-protocol.rst
+│   │   ├── nep-0019-rng-policy.rst
+│   │   ├── nep-0020-gufunc-signature-enhancement.rst
+│   │   ├── nep-0021-advanced-indexing.rst
+│   │   ├── nep-0022-ndarray-duck-typing-overview.rst
+│   │   ├── nep-0023-backwards-compatibility.rst
+│   │   ├── nep-0024-missing-data-2.rst
+│   │   ├── nep-0025-missing-data-3.rst
+│   │   ├── nep-0026-missing-data-summary.rst
+│   │   ├── nep-0027-zero-rank-arrarys.rst
+│   │   ├── nep-0028-website-redesign.rst
+│   │   ├── nep-0029-deprecation_policy.rst
+│   │   ├── nep-0030-duck-array-protocol.rst
+│   │   ├── nep-0031-uarray.rst
+│   │   ├── nep-0032-remove-financial-functions.rst
+│   │   ├── nep-0034-infer-dtype-is-object.rst
+│   │   ├── nep-0035-array-creation-dispatch-with-array-function.rst
+│   │   ├── nep-0036-fair-play.rst
+│   │   ├── nep-0037-array-module.rst
+│   │   ├── nep-0038-SIMD-optimizations.rst
+│   │   ├── nep-0040-legacy-datatype-impl.rst
+│   │   ├── nep-0041-improved-dtype-support.rst
+│   │   ├── nep-0042-new-dtypes.rst
+│   │   ├── nep-0043-extensible-ufuncs.rst
+│   │   ├── nep-0044-restructuring-numpy-docs.rst
+│   │   ├── nep-0045-c_style_guide.rst
+│   │   ├── nep-0046-sponsorship-guidelines.rst
+│   │   ├── nep-0047-array-api-standard.rst
+│   │   ├── nep-0048-spending-project-funds.rst
+│   │   ├── nep-0049-data-allocation-strategies.rst
+│   │   ├── nep-0050-scalar-promotion.rst
+│   │   ├── nep-0051-scalar-representation.rst
+│   │   ├── nep-0052-python-api-cleanup.rst
+│   │   ├── nep-0053-c-abi-evolution.rst
+│   │   ├── nep-0054-simd-cpp-highway.rst
+│   │   ├── nep-0055-string_dtype.rst
+│   │   ├── nep-0056-array-api-main-namespace.rst
+│   │   ├── nep-0057-numpy-platform-support.rst
+│   │   ├── nep-template.rst
+│   │   ├── open.rst.tmpl
+│   │   ├── provisional.rst.tmpl
+│   │   ├── rejected.rst.tmpl
+│   │   ├── roadmap.rst
+│   │   ├── scope.rst
+│   │   └── tools/
+│   ├── postprocess.py
+│   ├── preprocess.py
+│   ├── records.rst
+│   ├── release/
+│   │   └── upcoming_changes/
+│   ├── source/
+│   │   ├── _static/
+│   │   ├── _templates/
+│   │   ├── benchmarking.rst
+│   │   ├── building/
+│   │   ├── conf.py
+│   │   ├── dev/
+│   │   ├── doxyfile
+│   │   ├── f2py/
+│   │   ├── getting_started.rst
+│   │   ├── glossary.rst
+│   │   ├── index.rst
+│   │   ├── jupyter_lite_config.json
+│   │   ├── license.rst
+│   │   ├── numpy_2_0_migration_guide.rst
+│   │   ├── reference/
+│   │   ├── release.rst
+│   │   ├── release/
+│   │   ├── try_examples.json
+│   │   └── user/
+│   └── ufuncs.rst
+├── environment.yml
+├── meson.build
+├── meson.options
+├── meson_cpu/
+│   ├── arm/
+│   │   └── meson.build
+│   ├── loongarch64/
+│   │   └── meson.build
+│   ├── main_config.h.in
+│   ├── meson.build
+│   ├── ppc64/
+│   │   └── meson.build
+│   ├── riscv64/
+│   │   └── meson.build
+│   ├── s390x/
+│   │   └── meson.build
+│   └── x86/
+│       ├── meson.build
+│       ├── test_x86_v2.c
+│       ├── test_x86_v3.c
+│       └── test_x86_v4.c
+├── numpy/
+│   ├── __config__.py.in
+│   ├── __config__.pyi
+│   ├── __init__.cython-30.pxd
+│   ├── __init__.pxd
+│   ├── __init__.py
+│   ├── __init__.pyi
+│   ├── _array_api_info.py
+│   ├── _array_api_info.pyi
+│   ├── _build_utils/
+│   │   ├── conv_template.py
+│   │   ├── gcc_build_bitness.py
+│   │   ├── gitversion.py
+│   │   ├── process_src_template.py
+│   │   ├── tempita.py
+│   │   └── tempita/
+│   ├── _configtool.py
+│   ├── _configtool.pyi
+│   ├── _core/
+│   │   ├── __init__.py
+│   │   ├── __init__.pyi
+│   │   ├── _add_newdocs.py
+│   │   ├── _add_newdocs.pyi
+│   │   ├── _add_newdocs_scalars.py
+│   │   ├── _add_newdocs_scalars.pyi
+│   │   ├── _asarray.py
+│   │   ├── _asarray.pyi
+│   │   ├── _dtype.py
+│   │   ├── _dtype.pyi
+│   │   ├── _dtype_ctypes.py
+│   │   ├── _dtype_ctypes.pyi
+│   │   ├── _exceptions.py
+│   │   ├── _exceptions.pyi
+│   │   ├── _internal.py
+│   │   ├── _internal.pyi
+│   │   ├── _methods.py
+│   │   ├── _methods.pyi
+│   │   ├── _simd.pyi
+│   │   ├── _string_helpers.py
+│   │   ├── _string_helpers.pyi
+│   │   ├── _type_aliases.py
+│   │   ├── _type_aliases.pyi
+│   │   ├── _ufunc_config.py
+│   │   ├── _ufunc_config.pyi
+│   │   ├── _umath_tests.pyi
+│   │   ├── arrayprint.py
+│   │   ├── arrayprint.pyi
+│   │   ├── check_longdouble.c
+│   │   ├── code_generators/
+│   │   ├── config.h.in
+│   │   ├── cversions.py
+│   │   ├── defchararray.py
+│   │   ├── defchararray.pyi
+│   │   ├── einsumfunc.py
+│   │   ├── einsumfunc.pyi
+│   │   ├── feature_detection_misc.h
+│   │   ├── feature_detection_stdio.h
+│   │   ├── fromnumeric.py
+│   │   ├── fromnumeric.pyi
+│   │   ├── function_base.py
+│   │   ├── function_base.pyi
+│   │   ├── getlimits.py
+│   │   ├── getlimits.pyi
+│   │   ├── include/
+│   │   ├── memmap.py
+│   │   ├── memmap.pyi
+│   │   ├── meson.build
+│   │   ├── multiarray.py
+│   │   ├── multiarray.pyi
+│   │   ├── numeric.py
+│   │   ├── numeric.pyi
+│   │   ├── numerictypes.py
+│   │   ├── numerictypes.pyi
+│   │   ├── numpy.pc.in
+│   │   ├── overrides.py
+│   │   ├── overrides.pyi
+│   │   ├── printoptions.py
+│   │   ├── printoptions.pyi
+│   │   ├── records.py
+│   │   ├── records.pyi
+│   │   ├── shape_base.py
+│   │   ├── shape_base.pyi
+│   │   ├── src/
+│   │   ├── strings.py
+│   │   ├── strings.pyi
+│   │   ├── tests/
+│   │   ├── umath.py
+│   │   └── umath.pyi
+│   ├── _distributor_init.py
+│   ├── _distributor_init.pyi
+│   ├── _expired_attrs_2_0.py
+│   ├── _expired_attrs_2_0.pyi
+│   ├── _globals.py
+│   ├── _globals.pyi
+│   ├── _pyinstaller/
+│   │   ├── __init__.py
+│   │   ├── __init__.pyi
+│   │   ├── hook-numpy.py
+│   │   ├── hook-numpy.pyi
+│   │   └── tests/
+│   ├── _pytesttester.py
+│   ├── _pytesttester.pyi
+│   ├── _typing/
+│   │   ├── __init__.py
+│   │   ├── _add_docstring.py
+│   │   ├── _array_like.py
+│   │   ├── _char_codes.py
+│   │   ├── _dtype_like.py
+│   │   ├── _extended_precision.py
+│   │   ├── _nbit.py
+│   │   ├── _nbit_base.py
+│   │   ├── _nbit_base.pyi
+│   │   ├── _nested_sequence.py
+│   │   ├── _scalars.py
+│   │   ├── _shape.py
+│   │   ├── _ufunc.py
+│   │   └── _ufunc.pyi
+│   ├── _utils/
+│   │   ├── __init__.py
+│   │   ├── __init__.pyi
+│   │   ├── _convertions.py
+│   │   ├── _convertions.pyi
+│   │   ├── _inspect.py
+│   │   ├── _inspect.pyi
+│   │   ├── _pep440.py
+│   │   └── _pep440.pyi
+│   ├── char/
+│   │   ├── __init__.py
+│   │   └── __init__.pyi
+│   ├── conftest.py
+│   ├── core/
+│   │   ├── __init__.py
+│   │   ├── __init__.pyi
+│   │   ├── _dtype.py
+│   │   ├── _dtype.pyi
+│   │   ├── _dtype_ctypes.py
+│   │   ├── _dtype_ctypes.pyi
+│   │   ├── _internal.py
+│   │   ├── _internal.pyi
+│   │   ├── _multiarray_umath.py
+│   │   ├── _utils.py
+│   │   ├── arrayprint.py
+│   │   ├── arrayprint.pyi
+│   │   ├── defchararray.py
+│   │   ├── defchararray.pyi
+│   │   ├── einsumfunc.py
+│   │   ├── einsumfunc.pyi
+│   │   ├── fromnumeric.py
+│   │   ├── fromnumeric.pyi
+│   │   ├── function_base.py
+│   │   ├── function_base.pyi
+│   │   ├── getlimits.py
+│   │   ├── getlimits.pyi
+│   │   ├── multiarray.py
+│   │   ├── multiarray.pyi
+│   │   ├── numeric.py
+│   │   ├── numeric.pyi
+│   │   ├── numerictypes.py
+│   │   ├── numerictypes.pyi
+│   │   ├── overrides.py
+│   │   ├── overrides.pyi
+│   │   ├── records.py
+│   │   ├── records.pyi
+│   │   ├── shape_base.py
+│   │   ├── shape_base.pyi
+│   │   ├── umath.py
+│   │   └── umath.pyi
+│   ├── ctypeslib/
+│   │   ├── __init__.py
+│   │   ├── __init__.pyi
+│   │   ├── _ctypeslib.py
+│   │   └── _ctypeslib.pyi
+│   ├── doc/
+│   │   └── ufuncs.py
+│   ├── dtypes.py
+│   ├── dtypes.pyi
+│   ├── exceptions.py
+│   ├── exceptions.pyi
+│   ├── f2py/
+│   │   ├── __init__.py
+│   │   ├── __init__.pyi
+│   │   ├── __main__.py
+│   │   ├── __version__.py
+│   │   ├── __version__.pyi
+│   │   ├── _backends/
+│   │   ├── _isocbind.py
+│   │   ├── _isocbind.pyi
+│   │   ├── _src_pyf.py
+│   │   ├── _src_pyf.pyi
+│   │   ├── auxfuncs.py
+│   │   ├── auxfuncs.pyi
+│   │   ├── capi_maps.py
+│   │   ├── capi_maps.pyi
+│   │   ├── cb_rules.py
+│   │   ├── cb_rules.pyi
+│   │   ├── cfuncs.py
+│   │   ├── cfuncs.pyi
+│   │   ├── common_rules.py
+│   │   ├── common_rules.pyi
+│   │   ├── crackfortran.py
+│   │   ├── crackfortran.pyi
+│   │   ├── diagnose.py
+│   │   ├── diagnose.pyi
+│   │   ├── f2py2e.py
+│   │   ├── f2py2e.pyi
+│   │   ├── f90mod_rules.py
+│   │   ├── f90mod_rules.pyi
+│   │   ├── func2subr.py
+│   │   ├── func2subr.pyi
+│   │   ├── rules.py
+│   │   ├── rules.pyi
+│   │   ├── setup.cfg
+│   │   ├── src/
+│   │   ├── symbolic.py
+│   │   ├── symbolic.pyi
+│   │   ├── tests/
+│   │   ├── use_rules.py
+│   │   └── use_rules.pyi
+│   ├── fft/
+│   │   ├── __init__.py
+│   │   ├── __init__.pyi
+│   │   ├── _helper.py
+│   │   ├── _helper.pyi
+│   │   ├── _pocketfft.py
+│   │   ├── _pocketfft.pyi
+│   │   ├── _pocketfft_umath.cpp
+│   │   ├── meson.build
+│   │   ├── pocketfft
+│   │   └── tests/
+│   ├── lib/
+│   │   ├── __init__.py
+│   │   ├── __init__.pyi
+│   │   ├── _array_utils_impl.py
+│   │   ├── _array_utils_impl.pyi
+│   │   ├── _arraypad_impl.py
+│   │   ├── _arraypad_impl.pyi
+│   │   ├── _arraysetops_impl.py
+│   │   ├── _arraysetops_impl.pyi
+│   │   ├── _arrayterator_impl.py
+│   │   ├── _arrayterator_impl.pyi
+│   │   ├── _datasource.py
+│   │   ├── _datasource.pyi
+│   │   ├── _format_impl.py
+│   │   ├── _format_impl.pyi
+│   │   ├── _function_base_impl.py
+│   │   ├── _function_base_impl.pyi
+│   │   ├── _histograms_impl.py
+│   │   ├── _histograms_impl.pyi
+│   │   ├── _index_tricks_impl.py
+│   │   ├── _index_tricks_impl.pyi
+│   │   ├── _iotools.py
+│   │   ├── _iotools.pyi
+│   │   ├── _nanfunctions_impl.py
+│   │   ├── _nanfunctions_impl.pyi
+│   │   ├── _npyio_impl.py
+│   │   ├── _npyio_impl.pyi
+│   │   ├── _polynomial_impl.py
+│   │   ├── _polynomial_impl.pyi
+│   │   ├── _scimath_impl.py
+│   │   ├── _scimath_impl.pyi
+│   │   ├── _shape_base_impl.py
+│   │   ├── _shape_base_impl.pyi
+│   │   ├── _stride_tricks_impl.py
+│   │   ├── _stride_tricks_impl.pyi
+│   │   ├── _twodim_base_impl.py
+│   │   ├── _twodim_base_impl.pyi
+│   │   ├── _type_check_impl.py
+│   │   ├── _type_check_impl.pyi
+│   │   ├── _ufunclike_impl.py
+│   │   ├── _ufunclike_impl.pyi
+│   │   ├── _user_array_impl.py
+│   │   ├── _user_array_impl.pyi
+│   │   ├── _utils_impl.py
+│   │   ├── _utils_impl.pyi
+│   │   ├── _version.py
+│   │   ├── _version.pyi
+│   │   ├── array_utils.py
+│   │   ├── array_utils.pyi
+│   │   ├── format.py
+│   │   ├── format.pyi
+│   │   ├── introspect.py
+│   │   ├── introspect.pyi
+│   │   ├── mixins.py
+│   │   ├── mixins.pyi
+│   │   ├── npyio.py
+│   │   ├── npyio.pyi
+│   │   ├── recfunctions.py
+│   │   ├── recfunctions.pyi
+│   │   ├── scimath.py
+│   │   ├── scimath.pyi
+│   │   ├── stride_tricks.py
+│   │   ├── stride_tricks.pyi
+│   │   ├── tests/
+│   │   ├── user_array.py
+│   │   └── user_array.pyi
+│   ├── linalg/
+│   │   ├── __init__.py
+│   │   ├── __init__.pyi
+│   │   ├── _linalg.py
+│   │   ├── _linalg.pyi
+│   │   ├── _umath_linalg.pyi
+│   │   ├── lapack_lite.pyi
+│   │   ├── lapack_lite/
+│   │   ├── lapack_litemodule.c
+│   │   ├── meson.build
+│   │   ├── tests/
+│   │   └── umath_linalg.cpp
+│   ├── ma/
+│   │   ├── API_CHANGES.txt
+│   │   ├── LICENSE
+│   │   ├── README.rst
+│   │   ├── __init__.py
+│   │   ├── __init__.pyi
+│   │   ├── core.py
+│   │   ├── core.pyi
+│   │   ├── extras.py
+│   │   ├── extras.pyi
+│   │   ├── mrecords.py
+│   │   ├── mrecords.pyi
+│   │   ├── tests/
+│   │   ├── testutils.py
+│   │   └── testutils.pyi
+│   ├── matlib.py
+│   ├── matlib.pyi
+│   ├── matrixlib/
+│   │   ├── __init__.py
+│   │   ├── __init__.pyi
+│   │   ├── defmatrix.py
+│   │   ├── defmatrix.pyi
+│   │   └── tests/
+│   ├── meson.build
+│   ├── polynomial/
+│   │   ├── __init__.py
+│   │   ├── __init__.pyi
+│   │   ├── _polybase.py
+│   │   ├── _polybase.pyi
+│   │   ├── _polytypes.pyi
+│   │   ├── chebyshev.py
+│   │   ├── chebyshev.pyi
+│   │   ├── hermite.py
+│   │   ├── hermite.pyi
+│   │   ├── hermite_e.py
+│   │   ├── hermite_e.pyi
+│   │   ├── laguerre.py
+│   │   ├── laguerre.pyi
+│   │   ├── legendre.py
+│   │   ├── legendre.pyi
+│   │   ├── polynomial.py
+│   │   ├── polynomial.pyi
+│   │   ├── polyutils.py
+│   │   ├── polyutils.pyi
+│   │   └── tests/
+│   ├── py.typed
+│   ├── random/
+│   │   ├── .gitignore
+│   │   ├── LICENSE.md
+│   │   ├── __init__.pxd
+│   │   ├── __init__.py
+│   │   ├── __init__.pyi
+│   │   ├── _bounded_integers.pxd.in
+│   │   ├── _bounded_integers.pyi
+│   │   ├── _bounded_integers.pyx.in
+│   │   ├── _common.pxd
+│   │   ├── _common.pyi
+│   │   ├── _common.pyx
+│   │   ├── _examples/
+│   │   ├── _generator.pyi
+│   │   ├── _generator.pyx
+│   │   ├── _mt19937.pyi
+│   │   ├── _mt19937.pyx
+│   │   ├── _pcg64.pyi
+│   │   ├── _pcg64.pyx
+│   │   ├── _philox.pyi
+│   │   ├── _philox.pyx
+│   │   ├── _pickle.py
+│   │   ├── _pickle.pyi
+│   │   ├── _sfc64.pyi
+│   │   ├── _sfc64.pyx
+│   │   ├── bit_generator.pxd
+│   │   ├── bit_generator.pyi
+│   │   ├── bit_generator.pyx
+│   │   ├── c_distributions.pxd
+│   │   ├── include/
+│   │   ├── meson.build
+│   │   ├── mtrand.pyi
+│   │   ├── mtrand.pyx
+│   │   ├── src/
+│   │   └── tests/
+│   ├── rec/
+│   │   ├── __init__.py
+│   │   └── __init__.pyi
+│   ├── strings/
+│   │   ├── __init__.py
+│   │   └── __init__.pyi
+│   ├── testing/
+│   │   ├── __init__.py
+│   │   ├── __init__.pyi
+│   │   ├── _private/
+│   │   ├── overrides.py
+│   │   ├── overrides.pyi
+│   │   ├── print_coercion_tables.py
+│   │   ├── print_coercion_tables.pyi
+│   │   └── tests/
+│   ├── tests/
+│   │   ├── __init__.py
+│   │   ├── test__all__.py
+│   │   ├── test_configtool.py
+│   │   ├── test_ctypeslib.py
+│   │   ├── test_lazyloading.py
+│   │   ├── test_matlib.py
+│   │   ├── test_numpy_config.py
+│   │   ├── test_numpy_version.py
+│   │   ├── test_public_api.py
+│   │   ├── test_reloading.py
+│   │   ├── test_scripts.py
+│   │   └── test_warnings.py
+│   ├── typing/
+│   │   ├── __init__.py
+│   │   ├── __init__.pyi
+│   │   ├── mypy_plugin.py
+│   │   └── tests/
+│   └── version.pyi
+├── pixi-packages/
+│   ├── README.md
+│   ├── asan/
+│   │   └── pixi.toml
+│   └── default/
+│       └── pixi.toml
+├── pyproject.toml
+├── pytest.ini
+├── requirements/
+│   ├── all_requirements.txt
+│   ├── build_requirements.txt
+│   ├── ci32_requirements.txt
+│   ├── ci_requirements.txt
+│   ├── doc_requirements.txt
+│   ├── emscripten_test_requirements.txt
+│   ├── linter_requirements.txt
+│   ├── release_requirements.txt
+│   ├── test_requirements.txt
+│   └── typing_requirements.txt
+├── ruff.toml
+├── tools/
+│   ├── c_coverage/
+│   │   ├── HOWTO_C_COVERAGE.txt
+│   │   ├── c_coverage_collect.sh
+│   │   └── c_coverage_report.py
+│   ├── changelog.py
+│   ├── check_installed_files.py
+│   ├── check_openblas_version.py
+│   ├── check_python_h_first.py
+│   ├── ci/
+│   │   ├── _blis_debian.pc
+│   │   ├── array-api-xfails.txt
+│   │   ├── check_c_api_usage.py
+│   │   ├── cirrus_arm.yml
+│   │   ├── emscripten/
+│   │   ├── lsan_suppressions.txt
+│   │   ├── push_docs_to_repo.py
+│   │   ├── test_all_newsfragments_used.py
+│   │   ├── tsan_suppressions.txt
+│   │   ├── ubsan_suppressions_arm64.txt
+│   │   └── ubsan_suppressions_x86_64.txt
+│   ├── functions_missing_types.py
+│   ├── get_submodule_paths.py
+│   ├── linter.py
+│   ├── list_installed_dll_dependencies_cygwin.sh
+│   ├── list_numpy_dlls.sh
+│   ├── pyright_completeness.py
+│   ├── rebase_installed_dlls_cygwin.sh
+│   ├── refguide_check.py
+│   ├── replace_old_macros.sed
+│   ├── stubtest/
+│   │   ├── allowlist.txt
+│   │   └── mypy.ini
+│   ├── swig/
+│   │   ├── Makefile
+│   │   ├── README
+│   │   ├── numpy.i
+│   │   ├── pyfragments.swg
+│   │   └── test/
+│   ├── wheels/
+│   │   ├── cibw_before_build.sh
+│   │   ├── cibw_test_command.sh
+│   │   └── repair_windows.sh
+│   └── write_release.py
+└── vendored-meson/
+    └── meson

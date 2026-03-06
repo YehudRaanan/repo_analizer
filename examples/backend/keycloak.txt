@@ -1,0 +1,1038 @@
+=====================================
+Repository Analysis: keycloak
+Type: Backend / API Service
+=====================================
+
+--- METADATA ---
+Name: keycloak
+Description: Open Source Identity and Access Management For Modern Applications and Services
+Language: Java
+Topics: keycloak, oidc, saml
+Stars: 33161
+License: Apache License 2.0
+
+--- README ---
+![Keycloak](https://github.com/keycloak/keycloak-misc/blob/main/logo/logo.svg)
+
+![GitHub Release](https://img.shields.io/github/v/release/keycloak/keycloak?label=latest%20release)
+[![OpenSSF Best Practices](https://bestpractices.coreinfrastructure.org/projects/6818/badge)](https://bestpractices.coreinfrastructure.org/projects/6818)
+[![CLOMonitor](https://img.shields.io/endpoint?url=https://clomonitor.io/api/projects/cncf/keycloak/badge)](https://clomonitor.io/projects/cncf/keycloak)
+[![OpenSSF Scorecard](https://api.securityscorecards.dev/projects/github.com/keycloak/keycloak/badge)](https://securityscorecards.dev/viewer/?uri=github.com/keycloak/keycloak)
+[![Artifact Hub](https://img.shields.io/endpoint?url=https://artifacthub.io/badge/repository/keycloak-operator)](https://artifacthub.io/packages/olm/community-operators/keycloak-operator)
+![GitHub Repo stars](https://img.shields.io/github/stars/keycloak/keycloak?style=flat)
+![GitHub commit activity](https://img.shields.io/github/commit-activity/m/keycloak/keycloak)
+[![Translation status](https://hosted.weblate.org/widget/keycloak/svg-badge.svg)](docs/translation.md)
+
+# Open Source Identity and Access Management
+
+Add authentication to applications and secure services with minimum effort. No need to deal with storing users or authenticating users.
+
+Keycloak provides user federation, strong authentication, user management, fine-grained authorization, and more.
+
+
+## Help and Documentation
+
+* [Documentation](https://www.keycloak.org/documentation.html)
+* [User Mailing List](https://groups.google.com/d/forum/keycloak-user) - Mailing list for help and general questions about Keycloak
+* Join [#keycloak](https://cloud-native.slack.com/archives/C056HC17KK9) for general questions, or [#keycloak-dev](https://cloud-native.slack.com/archives/C056XU905S6) on Slack for design and development discussions, by creating an account at [https://slack.cncf.io/](https://slack.cncf.io/).
+
+
+## Reporting Security Vulnerabilities
+
+If you have found a security vulnerability, please look at the [instructions on how to properly report it](https://github.com/keycloak/keycloak/security/policy).
+
+
+## Reporting an issue
+
+If you believe you have discovered a defect in Keycloak, please open [an issue](https://github.com/keycloak/keycloak/issues).
+Please remember to provide a good summary, description as well as steps to reproduce the issue.
+
+
+## Getting started
+
+To run Keycloak, download the distribution from our [website](https://www.keycloak.org/downloads.html). Unzip and run:
+
+    bin/kc.[sh|bat] start-dev
+
+Alternatively, you can use the Docker image by running:
+
+    docker run quay.io/keycloak/keycloak start-dev
+    
+For more details refer to the [Keycloak Documentation](https://www.keycloak.org/documentation.html).
+
+
+## Building from Source
+
+To build from source, refer to the [building and working with the code base](docs/building.md) guide.
+
+
+### Testing
+
+To run tests, refer to the [running tests](docs/tests.md) guide.
+
+
+### Writing Tests
+
+To write tests, refer to the [writing tests](docs/tests-development.md) guide.
+
+
+## Contributing
+
+Before contributing to Keycloak, please read our [contributing guidelines](CONTRIBUTING.md). Participation in the Keycloak project is governed by the [CNCF Code of Conduct](https://github.com/cncf/foundation/blob/main/code-of-conduct.md).
+
+Joining a [community meeting](https://www.keycloak.org/community) is a great way to get involved and help shape the future of Keycloak.
+
+## Other Keycloak Projects
+
+* [Keycloak](https://github.com/keycloak/keycloak) - Keycloak Server and Java adapters
+* [Keycloak QuickStarts](https://github.com/keycloak/keycloak-quickstarts) - QuickStarts for getting started with Keycloak
+* [Keycloak Node.js Connect](https://github.com/keycloak/keycloak-nodejs-connect) - Node.js adapter for Keycloak
+
+
+## License
+
+* [Apache License, Version 2.0](https://www.apache.org/licenses/LICENSE-2.0)
+
+
+--- PACKAGE MANIFEST(S) ---
+
+[pom.xml]
+<?xml version='1.0' encoding='UTF-8'?>
+<!--
+~ Copyright 2016 Red Hat, Inc. and/or its affiliates
+~ and other contributors as indicated by the @author tags.
+~
+~ Licensed under the Apache License, Version 2.0 (the "License");
+~ you may not use this file except in compliance with the License.
+~ You may obtain a copy of the License at
+~
+~ http://www.apache.org/licenses/LICENSE-2.0
+~
+~ Unless required by applicable law or agreed to in writing, software
+~ distributed under the License is distributed on an "AS IS" BASIS,
+~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+~ See the License for the specific language governing permissions and
+~ limitations under the License.
+
+-->
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>org.jboss</groupId>
+        <artifactId>jboss-parent</artifactId>
+        <version>39</version>
+    </parent>
+
+    <name>Keycloak</name>
+    <description>
+        Keycloak SSO
+    </description>
+    <groupId>org.keycloak</groupId>
+    <artifactId>keycloak-parent</artifactId>
+    <version>999.0.0-SNAPSHOT</version>
+    <packaging>pom</packaging>
+
+    <properties>
+        <!-- Maven -->
+        <maven.version>3.9.8</maven.version>
+        <maven.compiler.source>17</maven.compiler.source>
+        <maven.compiler.target>17</maven.compiler.target>
+        <maven.compiler.release>17</maven.compiler.release>
+        <maven.plugin-tools.version>3.15.1</maven.plugin-tools.version>
+
+        <project.version.npm>999.0.0-SNAPSHOT</project.version.npm>
+
+        <asciidoctor.plugin.version>1.5.8</asciidoctor.plugin.version>
+
+        <quarkus.version>3.32.2</quarkus.version>
+        <quarkus.build.version>3.32.2</quarkus.build.version>
+        <jboss-logging-annotations.version>3.0.4.Final</jboss-logging-annotations.version> <!-- keep in sync with the version used by quarkus -->
+
+        <project.build-time>${timestamp}</project.build-time>
+        <project.build-name>Keycloak</project.build-name>
+
+        <!-- Following properties are used for downstream build to alter final distribution archive file name and internal base directory of the archive. -->
+        <dist.archive.file.prefix>keycloak</dist.archive.file.prefix>
+        <dist.archive.dir.prefix>${dist.archive.file.prefix}</dist.archive.dir.prefix>
+        <dist.archive.file.version>${project.version}</dist.archive.file.version>
+        <dist.archive.dir.version>${project.version}</dist.archive.dir.version>
+        <dist.archive.file>${dist.archive.file.prefix}-${dist.archive.file.version}</dist.archive.file>
+        <dist.archive.dir>${dist.archive.dir.prefix}-${dist.archive.dir.version}</dist.archive.dir>
+
+        <!-- Upstream WildFly Versions -->
+        <upstream.wildfly.version>35.0.1.Final</upstream.wildfly.version>
+        <upstream.wildf
+... [TRUNCATED]
+
+--- BACKEND CONFIG FILES ---
+(No backend config files found)
+
+--- API ROUTE / ENDPOINT DEFINITIONS ---
+
+[adapters/saml/core/src/main/java/org/keycloak/adapters/saml/profile/webbrowsersso/SamlEndpoint.java]
+/*
+ * Copyright 2016 Red Hat, Inc. and/or its affiliates
+ * and other contributors as indicated by the @author tags.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+package org.keycloak.adapters.saml.profile.webbrowsersso;
+
+import org.keycloak.adapters.saml.OnSessionCreated;
+import org.keycloak.adapters.saml.SamlDeployment;
+import org.keycloak.adapters.saml.SamlSessionStore;
+import org.keycloak.adapters.spi.AuthOutcome;
+import org.keycloak.adapters.spi.HttpFacade;
+import org.keycloak.saml.common.constants.GeneralConstants;
+
+/**
+ * @author <a href="mailto:bill@burkecentral.com">Bill Burke</a>
+ * @version $Revision: 1 $
+ */
+public class SamlEndpoint extends WebBrowserSsoAuthenticationHandler {
+    public SamlEndpoint(HttpFacade facade, SamlDeployment deployment, SamlSessionStore sessionStore) {
+        super(facade, deployment, sessionStore);
+    }
+
+    @Override
+    public AuthOutcome handle(OnSessionCreated onCreateSession) {
+        String samlRequest = facade.getRequest().getFirstParam(GeneralConstants.SAML_REQUEST_KEY);
+        String samlResponse = facade.getRequest().getFirstParam(GeneralConstants.SAML_RESPONSE_KEY);
+        String relayState = facade.getRequest().getFirstParam(GeneralConstants.RELAY_STATE);
+        if (samlRequest != null) {
+            return handleSamlRequest(samlRequest, relayState);
+        } else if (samlResponse != null) {
+            return handleSamlResponse(samlResponse, relayState, onCreateSession);
+        }
+        return AuthOutcome.NOT_ATTEMPTED;
+
+    }
+}
+
+
+[adapters/saml/wildfly-elytron/src/main/java/org/keycloak/adapters/saml/elytron/ElytronSamlEndpoint.java]
+/*
+ * Copyright 2016 Red Hat, Inc. and/or its affiliates
+ * and other contributors as indicated by the @author tags.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+package org.keycloak.adapters.saml.elytron;
+
+import org.keycloak.adapters.saml.SamlAuthenticator;
+import org.keycloak.adapters.saml.SamlDeployment;
+import org.keycloak.adapters.saml.SamlSession;
+
+/**
+ * @author <a href="mailto:psilva@redhat.com">Pedro Igor</a>
+ */
+public class ElytronSamlEndpoint extends SamlAuthenticator {
+
+    private final ElytronHttpFacade facade;
+
+    public ElytronSamlEndpoint(ElytronHttpFacade facade, SamlDeployment samlDeployment) {
+        super(facade, samlDeployment, facade.getSessionStore());
+        this.facade = facade;
+    }
+
+    @Override
+    protected void completeAuthentication(SamlSession samlSession) {
+        facade.authenticationComplete(samlSession);
+    }
+}
+
+
+[js/apps/admin-ui/src/authentication/routes.ts]
+import type { AppRouteObject } from "../routes";
+import {
+  AuthenticationRoute,
+  AuthenticationRouteWithTab,
+} from "./routes/Authentication";
+import { CreateFlowRoute } from "./routes/CreateFlow";
+import { FlowRoute, FlowWithBuiltInRoute } from "./routes/Flow";
+
+const routes: AppRouteObject[] = [
+  AuthenticationRoute,
+  AuthenticationRouteWithTab,
+  CreateFlowRoute,
+  FlowRoute,
+  FlowWithBuiltInRoute,
+];
+
+export default routes;
+
+
+[js/apps/admin-ui/src/authentication/routes/Authentication.tsx]
+import { lazy } from "react";
+import type { Path } from "react-router-dom";
+import { generateEncodedPath } from "../../utils/generateEncodedPath";
+import type { AppRouteObject } from "../../routes";
+
+export type AuthenticationTab = "flows" | "required-actions" | "policies";
+
+export type AuthenticationParams = { realm: string; tab?: AuthenticationTab };
+
+const AuthenticationSection = lazy(() => import("../AuthenticationSection"));
+
+export const AuthenticationRoute: AppRouteObject = {
+  path: "/:realm/authentication",
+  element: <AuthenticationSection />,
+  breadcrumb: (t) => t("authentication"),
+  handle: {
+    access: ["view-realm", "view-identity-providers", "view-clients"],
+  },
+};
+
+export const AuthenticationRouteWithTab: AppRouteObject = {
+  ...AuthenticationRoute,
+  path: "/:realm/authentication/:tab",
+};
+
+export const toAuthentication = (
+  params: AuthenticationParams,
+): Partial<Path> => {
+  const path = params.tab
+    ? AuthenticationRouteWithTab.path
+    : AuthenticationRoute.path;
+
+  return {
+    pathname: generateEncodedPath(path, params),
+  };
+};
+
+
+[js/apps/admin-ui/src/authentication/routes/CreateFlow.tsx]
+import { lazy } from "react";
+import type { Path } from "react-router-dom";
+import { generateEncodedPath } from "../../utils/generateEncodedPath";
+import type { AppRouteObject } from "../../routes";
+
+export type CreateFlowParams = { realm: string };
+
+const CreateFlow = lazy(() => import("../form/CreateFlow"));
+
+export const CreateFlowRoute: AppRouteObject = {
+  path: "/:realm/authentication/flows/create",
+  element: <CreateFlow />,
+  breadcrumb: (t) => t("createFlow"),
+  handle: {
+    access: "manage-authorization",
+  },
+};
+
+export const toCreateFlow = (params: CreateFlowParams): Partial<Path> => ({
+  pathname: generateEncodedPath(CreateFlowRoute.path, params),
+});
+
+
+[js/apps/admin-ui/src/authentication/routes/Flow.tsx]
+import { lazy } from "react";
+import type { Path } from "react-router-dom";
+import { generateEncodedPath } from "../../utils/generateEncodedPath";
+import type { AppRouteObject } from "../../routes";
+
+export type FlowParams = {
+  realm: string;
+  id: string;
+  usedBy: string;
+  builtIn?: string;
+};
+
+const FlowDetails = lazy(() => import("../FlowDetails"));
+
+export const FlowRoute: AppRouteObject = {
+  path: "/:realm/authentication/:id/:usedBy",
+  element: <FlowDetails />,
+  breadcrumb: (t) => t("flowDetails"),
+  handle: {
+    access: "view-authorization",
+  },
+};
+
+export const FlowWithBuiltInRoute: AppRouteObject = {
+  ...FlowRoute,
+  path: "/:realm/authentication/:id/:usedBy/:builtIn",
+};
+
+export const toFlow = (params: FlowParams): Partial<Path> => {
+  const path = params.builtIn ? FlowWithBuiltInRoute.path : FlowRoute.path;
+
+  return {
+    pathname: generateEncodedPath(path, params),
+  };
+};
+
+
+[js/apps/admin-ui/src/client-scopes/routes.ts]
+import type { AppRouteObject } from "../routes";
+import { ClientScopeRoute } from "./routes/ClientScope";
+import { ClientScopesRoute } from "./routes/ClientScopes";
+import { MapperRoute } from "./routes/Mapper";
+import { NewClientScopeRoute } from "./routes/NewClientScope";
+
+const routes: AppRouteObject[] = [
+  NewClientScopeRoute,
+  MapperRoute,
+  ClientScopeRoute,
+  ClientScopesRoute,
+];
+
+export default routes;
+
+
+[js/apps/admin-ui/src/client-scopes/routes/ClientScope.tsx]
+import { lazy } from "react";
+import type { Path } from "react-router-dom";
+import { generateEncodedPath } from "../../utils/generateEncodedPath";
+import type { AppRouteObject } from "../../routes";
+
+export type ClientScopeTab = "settings" | "mappers" | "scope" | "events";
+
+export type ClientScopeParams = {
+  realm: string;
+  id: string;
+  tab: ClientScopeTab;
+};
+
+const EditClientScope = lazy(() => import("../EditClientScope"));
+
+export const ClientScopeRoute: AppRouteObject = {
+  path: "/:realm/client-scopes/:id/:tab",
+  element: <EditClientScope />,
+  breadcrumb: (t) => t("clientScopeDetails"),
+  handle: {
+    access: "view-clients",
+  },
+};
+
+export const toClientScope = (params: ClientScopeParams): Partial<Path> => {
+  const path = ClientScopeRoute.path;
+
+  return {
+    pathname: generateEncodedPath(path, params),
+  };
+};
+
+
+--- DATABASE SCHEMA / MODEL FILES ---
+  core/src/main/java/org/keycloak/representations/idm/authorization/AuthorizationSchema.java
+  federation/ipatuura/src/main/java/org/keycloak/ipatuura_user_spi/schemas/SCIMError.java
+  federation/ipatuura/src/main/java/org/keycloak/ipatuura_user_spi/schemas/SCIMSearchRequest.java
+  federation/ipatuura/src/main/java/org/keycloak/ipatuura_user_spi/schemas/SCIMUser.java
+  federation/ldap/src/main/java/org/keycloak/storage/ldap/idm/model/LDAPDn.java
+
+--- DIRECTORY STRUCTURE (depth 2) ---
+├── .editorconfig
+├── .gitattributes
+├── .github/
+│   ├── CODEOWNERS
+│   ├── ISSUE_TEMPLATE/
+│   │   ├── bug.yml
+│   │   ├── config.yml
+│   │   ├── enhancement.yml
+│   │   ├── feature.yml
+│   │   ├── milestone.yml
+│   │   └── task.yml
+│   ├── actions/
+│   │   ├── aurora-create-database/
+│   │   ├── azure-create-database/
+│   │   ├── build-keycloak/
+│   │   ├── conditional/
+│   │   ├── corepack-setup/
+│   │   ├── install-chrome/
+│   │   ├── integration-test-setup/
+│   │   ├── java-setup/
+│   │   ├── maven-cache/
+│   │   ├── node-cache/
+│   │   ├── pnpm-setup/
+│   │   ├── pnpm-store-cache/
+│   │   ├── prunsrv-setup/
+│   │   ├── run-store-tests/
+│   │   ├── status-check/
+│   │   ├── testsuite-deprecation-check/
+│   │   ├── unit-test-setup/
+│   │   ├── update-hosts/
+│   │   └── upload-flaky-tests/
+│   ├── check-area-labels.sh
+│   ├── codeql/
+│   │   ├── codeql-config-javascript.yml
+│   │   └── codeql-config-typescript.yml
+│   ├── dependabot.yml
+│   ├── fake_fips/
+│   │   ├── Makefile
+│   │   └── fake_fips.c
+│   ├── language-maintainers.yml
+│   ├── scripts/
+│   │   ├── ansible/
+│   │   ├── aws/
+│   │   ├── azure/
+│   │   ├── download-node-tooling.sh
+│   │   ├── find-modules-with-unit-tests.sh
+│   │   ├── pr-backport.sh
+│   │   ├── pr-find-issues-test.sh
+│   │   ├── pr-find-issues.sh
+│   │   ├── prepare-quarkus-next.sh
+│   │   ├── run-fips-it.sh
+│   │   ├── run-fips-ut.sh
+│   │   ├── run-ipa-tests.sh
+│   │   ├── run-ipa.sh
+│   │   └── version-compatibility.sh
+│   ├── snyk/
+│   │   └── .snyk
+│   ├── teams.yml
+│   └── workflows/
+│       ├── aurora-delete.yml
+│       ├── ci.yml
+│       ├── codeql-analysis.yml
+│       ├── documentation.yml
+│       ├── guides.yml
+│       ├── js-ci.yml
+│       ├── label.yml
+│       ├── operator-ci.yml
+│       ├── quarkus-next.yml
+│       ├── schedule-nightly.yml
+│       ├── snyk-analysis.yml
+│       ├── stability-base-reruns.yml
+│       ├── stability-base.yml
+│       ├── stability-clustering.yml
+│       ├── stability-js-ci.yml
+│       ├── translation-notify.yml
+│       ├── trivy-analysis.yml
+│       ├── version-compatibility-matrix.yml
+│       └── weblate.yml
+├── .gitignore
+├── .gitleaks.toml
+├── .idea/
+│   └── icon.png
+├── .mvn/
+│   ├── extensions.xml
+│   ├── maven-build-cache-config.xml
+│   └── wrapper/
+│       └── maven-wrapper.properties
+├── ADOPTERS.md
+├── CONTRIBUTING.md
+├── GOVERNANCE.md
+├── LICENSE.txt
+├── MAINTAINERS.md
+├── PR-CHECKLIST.md
+├── README.md
+├── SECURITY-INSIGHTS.yml
+├── adapters/
+│   ├── pom.xml
+│   ├── saml/
+│   │   ├── core-public/
+│   │   ├── core/
+│   │   ├── pom.xml
+│   │   ├── wildfly-elytron/
+│   │   └── wildfly/
+│   └── spi/
+│       ├── adapter-spi/
+│       ├── jboss-adapter-core/
+│       └── pom.xml
+├── authz/
+│   ├── client/
+│   │   ├── pom.xml
+│   │   └── src/
+│   ├── policy/
+│   │   ├── common/
+│   │   └── pom.xml
+│   └── pom.xml
+├── boms/
+│   ├── pom.xml
+│   └── spi/
+│       └── pom.xml
+├── common/
+│   ├── pom.xml
+│   └── src/
+│       ├── main/
+│       └── test/
+├── core/
+│   ├── pom.xml
+│   └── src/
+│       ├── main/
+│       └── test/
+├── crypto/
+│   ├── default/
+│   │   ├── pom.xml
+│   │   └── src/
+│   ├── elytron/
+│   │   ├── pom.xml
+│   │   └── src/
+│   ├── fips1402/
+│   │   ├── pom.xml
+│   │   └── src/
+│   └── pom.xml
+├── dependencies/
+│   ├── pom.xml
+│   ├── server-all/
+│   │   └── pom.xml
+│   └── server-min/
+│       └── pom.xml
+├── distribution/
+│   ├── api-docs-dist/
+│   │   ├── assembly.xml
+│   │   ├── pom.xml
+│   │   └── src/
+│   ├── downloads/
+│   │   ├── assembly.xml
+│   │   ├── pom.xml
+│   │   └── src/
+│   ├── galleon-feature-packs/
+│   │   ├── pom.xml
+│   │   ├── saml-adapter-galleon-pack-layer-metadata-tests/
+│   │   └── saml-adapter-galleon-pack/
+│   ├── licenses-common/
+│   │   ├── assembly.xml
+│   │   ├── check-licenses.sh
+│   │   ├── download-license-files.sh
+│   │   ├── pom.xml
+│   │   ├── src/
+│   │   └── update-licenses.sh
+│   ├── maven-plugins/
+│   │   ├── licenses-processor/
+│   │   ├── osv-scanner.toml
+│   │   └── pom.xml
+│   ├── pom.xml
+│   ├── saml-adapters/
+│   │   ├── pom.xml
+│   │   ├── shared-cli/
+│   │   └── wildfly-adapter/
+│   ├── server-provisioning-devel.xml
+│   └── server-provisioning.xml
+├── docs/
+│   ├── bug-triage-prioritize.svg
+│   ├── bug-triage-verify.svg
+│   ├── bug-triage.md
+│   ├── building.md
+│   ├── cncf.md
+│   ├── dependency-license-information.md
+│   ├── documentation/
+│   │   ├── .asciidoctorconfig
+│   │   ├── .gitattributes
+│   │   ├── .gitignore
+│   │   ├── .vale.ini
+│   │   ├── License.html
+│   │   ├── README.md
+│   │   ├── aggregation/
+│   │   ├── api_documentation/
+│   │   ├── authorization_services/
+│   │   ├── build-auto.sh
+│   │   ├── dist/
+│   │   ├── get-version.sh
+│   │   ├── header-maven-plugin/
+│   │   ├── internal_resources/
+│   │   ├── pom.xml
+│   │   ├── release_notes/
+│   │   ├── server_admin/
+│   │   ├── server_development/
+│   │   ├── tests/
+│   │   ├── topics/
+│   │   └── upgrading/
+│   ├── fips.md
+│   ├── guides/
+│   │   ├── .asciidoctorconfig
+│   │   ├── GENERATE-DOCS.md
+│   │   ├── assembly.xml
+│   │   ├── attributes.adoc
+│   │   ├── getting-started/
+│   │   ├── high-availability/
+│   │   ├── images/
+│   │   ├── migration/
+│   │   ├── observability/
+│   │   ├── operator/
+│   │   ├── pom.xml
+│   │   ├── securing-apps/
+│   │   ├── server/
+│   │   ├── src/
+│   │   ├── templates/
+│   │   └── ui-customization/
+│   ├── maven-plugin/
+│   │   ├── pom.xml
+│   │   └── src/
+│   ├── pom.xml
+│   ├── pull_request_template.md
+│   ├── tests-db.md
+│   ├── tests-development.md
+│   ├── tests-oidc-conformance.md
+│   ├── tests.md
+│   ├── transient-users.md
+│   ├── translation.md
+│   ├── updating-database-schema.md
+│   └── updating-server-config.md
+├── federation/
+│   ├── ipatuura/
+│   │   ├── README.md
+│   │   ├── pom.xml
+│   │   └── src/
+│   ├── kerberos/
+│   │   ├── pom.xml
+│   │   └── src/
+│   ├── ldap/
+│   │   ├── pom.xml
+│   │   └── src/
+│   ├── pom.xml
+│   └── sssd/
+│       ├── pom.xml
+│       └── src/
+├── get-version.sh
+├── integration/
+│   ├── admin-client/
+│   │   ├── pom.xml
+│   │   └── src/
+│   ├── client-cli/
+│   │   ├── admin-cli/
+│   │   ├── client-cli-dist/
+│   │   └── pom.xml
+│   ├── client-registration/
+│   │   ├── pom.xml
+│   │   └── src/
+│   └── pom.xml
+├── js/
+│   ├── .gitignore
+│   ├── .husky/
+│   │   └── pre-commit
+│   ├── CODING_GUIDELINES.md
+│   ├── README.md
+│   ├── apps/
+│   │   ├── .prettierrc
+│   │   ├── account-ui/
+│   │   ├── admin-ui/
+│   │   ├── create-keycloak-theme/
+│   │   └── keycloak-server/
+│   ├── eslint.config.js
+│   ├── libs/
+│   │   ├── keycloak-admin-client/
+│   │   └── ui-shared/
+│   ├── osv-scanner.toml
+│   ├── package.json
+│   ├── pnpm-lock.yaml
+│   ├── pnpm-workspace.yaml
+│   ├── pom.xml
+│   ├── themes-vendor/
+│   │   ├── package.json
+│   │   ├── pom.xml
+│   │   ├── rollup.config.js
+│   │   ├── scripts/
+│   │   └── src/
+│   ├── tsconfig.eslint.json
+│   ├── tsconfig.json
+│   └── util/
+│       └── gh-dependabot-failure-stats.sh
+├── maven-settings.xml
+├── misc/
+│   ├── db-compatibility-verifier/
+│   │   ├── README.md
+│   │   ├── pom.xml
+│   │   └── src/
+│   ├── log/
+│   │   ├── LogTrimmer.java
+│   │   └── trimmer.sh
+│   ├── rewrite/
+│   │   ├── README.md
+│   │   ├── nostarimports.sh
+│   │   └── nostarimports.yml
+│   ├── scripts/
+│   │   ├── README.md
+│   │   ├── check-java-version.sh
+│   │   ├── dependency-report.sh
+│   │   └── kcw
+│   ├── test-stability/
+│   │   ├── .gitignore
+│   │   ├── README.md
+│   │   ├── download-logs.sh
+│   │   ├── parse-logs.sh
+│   │   ├── pom.xml
+│   │   ├── schedule-runs.sh
+│   │   ├── src/
+│   │   └── status.sh
+│   └── theme-verifier/
+│       ├── pom.xml
+│       └── src/
+├── model/
+│   ├── infinispan/
+│   │   ├── pom.xml
+│   │   ├── proto.lock
+│   │   └── src/
+│   ├── jpa/
+│   │   ├── README.md
+│   │   ├── pom.xml
+│   │   └── src/
+│   ├── pom.xml
+│   ├── storage-private/
+│   │   ├── README.md
+│   │   ├── pom.xml
+│   │   └── src/
+│   ├── storage-services/
+│   │   ├── pom.xml
+│   │   └── src/
+│   └── storage/
+│       ├── pom.xml
+│       └── src/
+├── mvnw
+├── mvnw.cmd
+├── operator/
+│   ├── .gitignore
+│   ├── Dockerfile
+│   ├── README.md
+│   ├── assembly.xml
+│   ├── olm-assembly.xml
+│   ├── overlays/
+│   │   └── default-namespace/
+│   ├── pom.xml
+│   ├── scripts/
+│   │   ├── Dockerfile-custom-image
+│   │   ├── build-testing-docker-images.sh
+│   │   ├── check-crd-installed.sh
+│   │   ├── check-examples-installed.sh
+│   │   ├── create-olm-bundle.sh
+│   │   ├── create-olm-test-catalog.sh
+│   │   ├── create-olm-test-resources.sh
+│   │   ├── deploy-examples.sh
+│   │   ├── install-keycloak-operator.sh
+│   │   ├── install-olm.sh
+│   │   ├── olm-testing.sh
+│   │   ├── prepare-olm-test.sh
+│   │   └── undeploy-examples.sh
+│   └── src/
+│       ├── main/
+│       └── test/
+├── pom.xml
+├── quarkus/
+│   ├── README.md
+│   ├── config-api/
+│   │   ├── pom.xml
+│   │   └── src/
+│   ├── container/
+│   │   ├── .gitignore
+│   │   ├── Dockerfile
+│   │   ├── README.md
+│   │   └── ubi-null.sh
+│   ├── deployment/
+│   │   ├── pom.xml
+│   │   └── src/
+│   ├── dist/
+│   │   ├── assembly.xml
+│   │   ├── check-dev-dependencies.sh
+│   │   ├── pom.xml
+│   │   └── src/
+│   ├── pom.xml
+│   ├── runtime/
+│   │   ├── pom.xml
+│   │   └── src/
+│   ├── server/
+│   │   ├── pom.xml
+│   │   └── src/
+│   ├── set-quarkus-version.sh
+│   └── tests/
+│       ├── integration/
+│       ├── junit5/
+│       └── pom.xml
+├── rest/
+│   ├── admin-ui-ext/
+│   │   ├── pom.xml
+│   │   └── src/
+│   ├── admin-v2/
+│   │   ├── api/
+│   │   ├── pom.xml
+│   │   ├── rest/
+│   │   └── tests/
+│   └── pom.xml
+├── saml-core-api/
+│   ├── pom.xml
+│   └── src/
+│       └── main/
+├── saml-core/
+│   ├── pom.xml
+│   └── src/
+│       ├── main/
+│       └── test/
+├── scim/
+│   ├── client/
+│   │   ├── pom.xml
+│   │   └── src/
+│   ├── core/
+│   │   ├── pom.xml
+│   │   └── src/
+│   ├── model/
+│   │   ├── pom.xml
+│   │   └── src/
+│   ├── pom.xml
+│   ├── services/
+│   │   ├── pom.xml
+│   │   └── src/
+│   └── tests/
+│       ├── base/
+│       ├── pom.xml
+│       └── scim-client/
+├── server-spi-private/
+│   ├── pom.xml
+│   └── src/
+│       ├── main/
+│       └── test/
+├── server-spi/
+│   ├── pom.xml
+│   └── src/
+│       ├── main/
+│       └── test/
+├── services/
+│   ├── pom.xml
+│   └── src/
+│       ├── docs/
+│       ├── main/
+│       └── test/
+├── set-version.sh
+├── test-framework/
+│   ├── bom/
+│   │   └── pom.xml
+│   ├── clustering/
+│   │   ├── pom.xml
+│   │   └── src/
+│   ├── core/
+│   │   ├── pom.xml
+│   │   └── src/
+│   ├── db-edb/
+│   │   ├── container/
+│   │   ├── pom.xml
+│   │   └── src/
+│   ├── db-mariadb/
+│   │   ├── pom.xml
+│   │   └── src/
+│   ├── db-mssql/
+│   │   ├── pom.xml
+│   │   └── src/
+│   ├── db-mysql/
+│   │   ├── pom.xml
+│   │   └── src/
+│   ├── db-oracle/
+│   │   ├── pom.xml
+│   │   └── src/
+│   ├── db-postgres/
+│   │   ├── pom.xml
+│   │   └── src/
+│   ├── db-tidb/
+│   │   ├── pom.xml
+│   │   └── src/
+│   ├── docs/
+│   │   ├── BEST_PRACTICES.md
+│   │   ├── CONFIG.md
+│   │   ├── EXTENSIONS.md
+│   │   ├── GETTING_STARTED.md
+│   │   ├── GITHUB.md
+│   │   ├── LOGGING.md
+│   │   ├── README.md
+│   │   ├── RUNNING_TESTS.md
+│   │   ├── SUITES.md
+│   │   └── WRITING_TESTS.md
+│   ├── email-server/
+│   │   ├── pom.xml
+│   │   └── src/
+│   ├── infinispan-server/
+│   │   ├── pom.xml
+│   │   └── src/
+│   ├── junit5-config/
+│   │   ├── pom.xml
+│   │   └── src/
+│   ├── oauth/
+│   │   ├── pom.xml
+│   │   └── src/
+│   ├── pom.xml
+│   ├── remote-providers/
+│   │   ├── pom.xml
+│   │   └── src/
+│   ├── remote/
+│   │   ├── pom.xml
+│   │   └── src/
+│   ├── test-containers/
+│   │   ├── pom.xml
+│   │   └── src/
+│   ├── test-providers/
+│   │   ├── pom.xml
+│   │   └── src/
+│   ├── tests/
+│   │   ├── pom.xml
+│   │   └── src/
+│   └── ui/
+│       ├── pom.xml
+│       └── src/
+├── tests/
+│   ├── FIPS_104-2.md
+│   ├── MANUAL_MIGRATION.md
+│   ├── MIGRATING_TESTS.md
+│   ├── base/
+│   │   ├── pom.xml
+│   │   └── src/
+│   ├── clustering/
+│   │   ├── README.md
+│   │   ├── pom.xml
+│   │   └── src/
+│   ├── custom-providers/
+│   │   ├── pom.xml
+│   │   └── src/
+│   ├── custom-scripts/
+│   │   ├── pom.xml
+│   │   └── src/
+│   ├── migration-util/
+│   │   ├── commit-migration.sh
+│   │   ├── migrate.sh
+│   │   ├── pom.xml
+│   │   └── src/
+│   ├── pom.xml
+│   ├── utils-shared/
+│   │   ├── pom.xml
+│   │   └── src/
+│   ├── utils/
+│   │   ├── pom.xml
+│   │   └── src/
+│   └── webauthn/
+│       ├── pom.xml
+│       └── src/
+├── testsuite/
+│   ├── DEPRECATED.md
+│   ├── integration-arquillian/
+│   │   ├── HOW-TO-RUN.md
+│   │   ├── README.md
+│   │   ├── pom.xml
+│   │   ├── servers/
+│   │   ├── test-apps/
+│   │   ├── tests/
+│   │   └── util/
+│   ├── model/
+│   │   ├── README.md
+│   │   ├── pom.xml
+│   │   ├── src/
+│   │   └── test-all-profiles.sh
+│   ├── pom.xml
+│   └── utils/
+│       ├── pom.xml
+│       └── src/
+├── themes/
+│   ├── pom.xml
+│   └── src/
+│       └── main/
+└── util/
+    ├── embedded-ldap/
+    │   ├── pom.xml
+    │   └── src/
+    └── pom.xml

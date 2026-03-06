@@ -1,0 +1,376 @@
+=====================================
+Repository Analysis: alacritty
+Type: CLI Tool
+=====================================
+
+--- METADATA ---
+Name: alacritty
+Description: A cross-platform, OpenGL terminal emulator.
+Language: Rust
+Topics: bsd, gpu, linux, macos, opengl, rust, terminal, terminal-emulators, vte, windows
+Stars: 62806
+License: Apache License 2.0
+
+--- README ---
+<p align="center">
+    <img width="200" alt="Alacritty Logo" src="https://raw.githubusercontent.com/alacritty/alacritty/master/extra/logo/compat/alacritty-term%2Bscanlines.png">
+</p>
+
+<h1 align="center">Alacritty - A fast, cross-platform, OpenGL terminal emulator</h1>
+
+<p align="center">
+  <img alt="Alacritty - A fast, cross-platform, OpenGL terminal emulator"
+       src="https://raw.githubusercontent.com/alacritty/alacritty/master/extra/promo/alacritty-readme.png">
+</p>
+
+## About
+
+Alacritty is a modern terminal emulator that comes with sensible defaults, but
+allows for extensive [configuration](#configuration). By integrating with other
+applications, rather than reimplementing their functionality, it manages to
+provide a flexible set of [features](./docs/features.md) with high performance.
+The supported platforms currently consist of BSD, Linux, macOS and Windows.
+
+The software is considered to be at a **beta** level of readiness; there are
+a few missing features and bugs to be fixed, but it is already used by many as
+a daily driver.
+
+Precompiled binaries are available from the [GitHub releases page](https://github.com/alacritty/alacritty/releases).
+
+Join [`#alacritty`] on libera.chat if you have questions or looking for a quick help.
+
+[`#alacritty`]: https://web.libera.chat/gamja/?channels=#alacritty
+
+## Features
+
+You can find an overview over the features available in Alacritty [here](./docs/features.md).
+
+## Further information
+
+- [Announcing Alacritty, a GPU-Accelerated Terminal Emulator](https://jwilm.io/blog/announcing-alacritty/) January 6, 2017
+- [A talk about Alacritty at the Rust Meetup January 2017](https://www.youtube.com/watch?v=qHOdYO3WUTk) January 19, 2017
+- [Alacritty Lands Scrollback, Publishes Benchmarks](https://jwilm.io/blog/alacritty-lands-scrollback/) September 17, 2018
+
+## Installation
+
+Alacritty can be installed by using various package managers on Linux, BSD,
+macOS and Windows.
+
+Prebuilt binaries for macOS and Windows can also be downloaded from the
+[GitHub releases page](https://github.com/alacritty/alacritty/releases).
+
+For everyone else, the detailed instructions to install Alacritty can be found
+[here](INSTALL.md).
+
+### Requirements
+
+- At least OpenGL ES 2.0
+- [Windows] ConPTY support (Windows 10 version 1809 or higher)
+
+## Configuration
+
+You can find the documentation for Alacritty's configuration in `man 5
+alacritty`, or by looking at [the website] if you do not have the manpages
+installed.
+
+[the website]: https://alacritty.org/config-alacritty.html
+
+Alacritty doesn't create the config file for you, but it looks for one in the
+following locations:
+
+1. `$XDG_CONFIG_HOME/alacritty/alacritty.toml`
+2. `$XDG_CONFIG_HOME/alacritty.toml`
+3. `$HOME/.config/alacritty/alacritty.toml`
+4. `$HOME/.alacritty.toml`
+5. `/etc/alacritty/alacritty.toml`
+
+On Windows, the config file will be looked for in:
+
+* `%APPDATA%\alacritty\alacritty.toml`
+
+## Contributing
+
+A guideline about contributing to Alacritty can be found in the
+[`CONTRIBUTING.md`](CONTRIBUTING.md) file.
+
+## FAQ
+
+**_Is it really the fastest terminal emulator?_**
+
+Benchmarking terminal emulators is complicated. Alacritty uses
+[vtebench](https://github.com/alacritty/vtebench) to quantify terminal emulator
+throughput and manages to consistently score better than the competition using
+it. If you have found an example where this is not the case, please report a
+bug.
+
+Other aspects like latency or framerate and frame consistency are more difficult
+to quantify. Some terminal emulators also intentionally slow down to save
+resources, which might be preferred by some users.
+
+If you have doubts about Alacritty's performance or usability, the best way to
+quantify terminal emulators is always to test them with **your** specific
+usecases.
+
+**_Why isn't feature X implemented?_**
+
+Alacritty has many great features, but not every feature from every other
+terminal. This could be for a number of reasons, but sometimes it's just not a
+good fit for Alacritty. This means you won't find things like tabs or splits
+(which are best left to a window manager or [terminal multiplexer][tmux]) nor
+niceties like a GUI config editor.
+
+[tmux]: https://github.com/tmux/tmux
+
+## License
+
+Alacritty is released under the [Apache License, Version 2.0].
+
+[Apache License, Version 2.0]: https://github.com/alacritty/alacritty/blob/master/LICENSE-APACHE
+
+
+--- PACKAGE MANIFEST(S) ---
+
+[Cargo.toml]
+[workspace]
+members = [
+    "alacritty",
+    "alacritty_terminal",
+    "alacritty_config",
+    "alacritty_config_derive",
+]
+resolver = "2"
+
+[workspace.package]
+edition = "2024"
+rust-version = "1.85.0"
+
+[profile.release]
+lto = "thin"
+debug = 1
+incremental = false
+
+[workspace.dependencies]
+toml = "0.9.11"
+toml_edit = "0.24.0"
+
+
+[Makefile]
+TARGET = alacritty
+
+ASSETS_DIR = extra
+RELEASE_DIR = target/release
+MANPAGE = $(ASSETS_DIR)/man/alacritty.1.scd
+MANPAGE-MSG = $(ASSETS_DIR)/man/alacritty-msg.1.scd
+MANPAGE-CONFIG = $(ASSETS_DIR)/man/alacritty.5.scd
+MANPAGE-CONFIG-BINDINGS = $(ASSETS_DIR)/man/alacritty-bindings.5.scd
+TERMINFO = $(ASSETS_DIR)/alacritty.info
+COMPLETIONS_DIR = $(ASSETS_DIR)/completions
+COMPLETIONS = $(COMPLETIONS_DIR)/_alacritty \
+	$(COMPLETIONS_DIR)/alacritty.bash \
+	$(COMPLETIONS_DIR)/alacritty.fish
+
+APP_NAME = Alacritty.app
+APP_TEMPLATE = $(ASSETS_DIR)/osx/$(APP_NAME)
+APP_DIR = $(RELEASE_DIR)/osx
+APP_BINARY = $(RELEASE_DIR)/$(TARGET)
+APP_BINARY_DIR = $(APP_DIR)/$(APP_NAME)/Contents/MacOS
+APP_EXTRAS_DIR = $(APP_DIR)/$(APP_NAME)/Contents/Resources
+APP_COMPLETIONS_DIR = $(APP_EXTRAS_DIR)/completions
+
+DMG_NAME = Alacritty.dmg
+DMG_DIR = $(RELEASE_DIR)/osx
+
+vpath $(TARGET) $(RELEASE_DIR)
+vpath $(APP_NAME) $(APP_DIR)
+vpath $(DMG_NAME) $(APP_DIR)
+
+all: help
+
+help: ## Print this help message
+	@grep -E '^[a-zA-Z._-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'
+
+binary: $(TARGET)-native ## Build a release binary
+binary-universal: $(TARGET)-universal ## Build a universal release binary
+$(TARGET)-native:
+	MACOSX_DEPLOYMENT_TARGET="10.12" cargo build --release
+$(TARGET)-universal:
+	MACOSX_DEPLOYMENT_TARGET="10.12" cargo build --release --target=x86_64-apple-darwin
+	MACOSX_DEPLOYMENT_TARGET="10.12" cargo build --release --target=aarch64-apple-darwin
+	@lipo target/{x86_64,aarch64}-apple-darwin/release/$(TARGET) -create -output $(APP_BINARY)
+
+app: $(APP_NAME)-native ## Create an Alacritty.app
+app-universal: $(APP_NAME)-universal ## Create a universal Alacritty.app
+$(APP_NAME)-%: $(TARGET)-%
+	@mkdir -p $(APP_BINARY_DIR)
+	@mkdir -p $(APP_EXTRAS_DIR)
+	@mkdir -p $(APP_COMPLETIONS_DIR)
+	@scdoc < $(MANPAGE) | gzip -c > $(APP_EXTRAS_DIR)/alacritty.1.gz
+	@scdoc < $(MANPAGE-MSG) | gzip -c > $(APP_EXTRAS_DIR)/alacritty-msg.1.gz
+	@scdoc < $(MANPAGE-CONFIG) | gzip -c > $(APP_EXTRAS_DIR)/alacritty.5.gz
+	@scdoc < $(MANPAGE-CONFIG-BINDINGS) | gzip -c > $(APP_EXTRAS_DIR)/alacritty-bindings.5.gz
+	@tic -xe alacritty,alacritty-direct -o $(APP_EXTRAS_DIR) $(TERMINFO)
+	@cp -fRp $(APP_TEMPLATE) $(APP_DIR)
+	@cp -fp $(APP_BINARY) $(APP_BINARY_DIR)
+	@cp -fp $(COMPLETIONS) $(APP_COMPLETIONS_DIR)
+	@touch -r "$(APP_BINARY)" "$(APP_DIR)/$(APP_NAME)"
+	@codesign --remove-signature "$(APP_DIR)/$(APP_NAME)"
+	@codesign --force --deep --sign - "$(APP_DIR)/$(APP_NAME)"
+	@echo "Created '$(APP_NAME)' in '$(APP_DIR)'"
+
+dmg: $(DMG_NAME)-native ## Create an Alacritty.dmg
+dmg-universal: $(DMG_NAME)-universal ## Create a universal Alacritty.dmg
+$(DMG_NAME)-%: $(APP_NAME)-%
+	@echo "Packing disk image..."
+	@ln -sf /Applications $(DMG_DIR)/Applications
+	@hdiutil create $(DMG_DIR)/$(DMG_NAME) \
+		-volname "Alacritty" \
+		-fs HFS+ \
+		-srcfolder $(APP_DIR) \
+		-ov -format UDZO
+	@echo "Packed '$(APP_NAME)' in '$(APP_DIR)'"
+
+install: $(INSTALL)-native ## Mount
+... [TRUNCATED]
+
+--- CLI ENTRY POINTS / COMMAND DEFINITIONS ---
+(No CLI entry points found)
+
+--- SHELL COMPLETIONS & MAN PAGES ---
+  alacritty_terminal/tests/ref/zsh_tab_completion/alacritty.recording
+  alacritty_terminal/tests/ref/zsh_tab_completion/config.json
+  alacritty_terminal/tests/ref/zsh_tab_completion/grid.json
+  alacritty_terminal/tests/ref/zsh_tab_completion/size.json
+  extra/completions/_alacritty
+  extra/completions/alacritty.bash
+  extra/completions/alacritty.fish
+  extra/man/alacritty-bindings.5.scd
+  extra/man/alacritty-escapes.7.scd
+  extra/man/alacritty-msg.1.scd
+  extra/man/alacritty.1.scd
+  extra/man/alacritty.5.scd
+
+--- DIRECTORY STRUCTURE (depth 2) ---
+├── .builds/
+│   ├── freebsd.yml
+│   └── linux.yml
+├── .editorconfig
+├── .github/
+│   ├── ISSUE_TEMPLATE.md
+│   └── workflows/
+│       ├── ci.yml
+│       ├── release.yml
+│       └── upload_asset.sh
+├── .gitignore
+├── CHANGELOG.md
+├── CONTRIBUTING.md
+├── Cargo.lock
+├── Cargo.toml
+├── INSTALL.md
+├── LICENSE-APACHE
+├── LICENSE-MIT
+├── Makefile
+├── README.md
+├── alacritty/
+│   ├── CHANGELOG.md
+│   ├── Cargo.toml
+│   ├── LICENSE-APACHE
+│   ├── README.md
+│   ├── build.rs
+│   ├── extra
+│   ├── res/
+│   │   ├── gles2/
+│   │   ├── glsl3/
+│   │   ├── rect.f.glsl
+│   │   └── rect.v.glsl
+│   ├── src/
+│   │   ├── cli.rs
+│   │   ├── clipboard.rs
+│   │   ├── config/
+│   │   ├── daemon.rs
+│   │   ├── display/
+│   │   ├── event.rs
+│   │   ├── input/
+│   │   ├── logging.rs
+│   │   ├── macos/
+│   │   ├── main.rs
+│   │   ├── message_bar.rs
+│   │   ├── migrate/
+│   │   ├── panic.rs
+│   │   ├── polling/
+│   │   ├── renderer/
+│   │   ├── scheduler.rs
+│   │   ├── string.rs
+│   │   └── window_context.rs
+│   └── windows/
+│       ├── alacritty.ico
+│       ├── alacritty.manifest
+│       ├── alacritty.rc
+│       └── wix/
+├── alacritty_config/
+│   ├── Cargo.toml
+│   ├── LICENSE-APACHE
+│   ├── LICENSE-MIT
+│   └── src/
+│       └── lib.rs
+├── alacritty_config_derive/
+│   ├── Cargo.toml
+│   ├── LICENSE-APACHE
+│   ├── LICENSE-MIT
+│   ├── src/
+│   │   ├── config_deserialize/
+│   │   ├── lib.rs
+│   │   └── serde_replace.rs
+│   └── tests/
+│       └── config.rs
+├── alacritty_terminal/
+│   ├── CHANGELOG.md
+│   ├── Cargo.toml
+│   ├── LICENSE-APACHE
+│   ├── src/
+│   │   ├── event.rs
+│   │   ├── event_loop.rs
+│   │   ├── grid/
+│   │   ├── index.rs
+│   │   ├── lib.rs
+│   │   ├── selection.rs
+│   │   ├── sync.rs
+│   │   ├── term/
+│   │   ├── thread.rs
+│   │   ├── tty/
+│   │   └── vi_mode.rs
+│   └── tests/
+│       ├── ref.rs
+│       └── ref/
+├── docs/
+│   └── features.md
+├── extra/
+│   ├── alacritty.info
+│   ├── completions/
+│   │   ├── _alacritty
+│   │   ├── alacritty.bash
+│   │   └── alacritty.fish
+│   ├── linux/
+│   │   ├── Alacritty.desktop
+│   │   └── org.alacritty.Alacritty.appdata.xml
+│   ├── logo/
+│   │   ├── alacritty-simple.svg
+│   │   ├── alacritty-term+scanlines.svg
+│   │   ├── alacritty-term.svg
+│   │   └── compat/
+│   ├── man/
+│   │   ├── alacritty-bindings.5.scd
+│   │   ├── alacritty-escapes.7.scd
+│   │   ├── alacritty-msg.1.scd
+│   │   ├── alacritty.1.scd
+│   │   └── alacritty.5.scd
+│   ├── osx/
+│   │   └── Alacritty.app/
+│   └── promo/
+│       └── alacritty-readme.png
+├── rustfmt.toml
+└── scripts/
+    ├── 24-bit-color.sh
+    ├── README.md
+    ├── colors.sh
+    ├── create-flamegraph.sh
+    └── fg-bg.sh

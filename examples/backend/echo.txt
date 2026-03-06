@@ -1,0 +1,402 @@
+=====================================
+Repository Analysis: echo
+Type: Backend / API Service
+=====================================
+
+--- METADATA ---
+Name: echo
+Description: High performance, minimalist Go web framework
+Language: Go
+Topics: echo, go, http2, https, labstack-echo, letsencrypt, micro-framework, microservice, middleware, ssl, web, web-framework, websocket
+Stars: 32210
+License: MIT License
+
+--- README ---
+[![Sourcegraph](https://sourcegraph.com/github.com/labstack/echo/-/badge.svg?style=flat-square)](https://sourcegraph.com/github.com/labstack/echo?badge)
+[![GoDoc](http://img.shields.io/badge/go-documentation-blue.svg?style=flat-square)](https://pkg.go.dev/github.com/labstack/echo/v4)
+[![Go Report Card](https://goreportcard.com/badge/github.com/labstack/echo?style=flat-square)](https://goreportcard.com/report/github.com/labstack/echo)
+[![GitHub Workflow Status (with event)](https://img.shields.io/github/actions/workflow/status/labstack/echo/echo.yml?style=flat-square)](https://github.com/labstack/echo/actions)
+[![Codecov](https://img.shields.io/codecov/c/github/labstack/echo.svg?style=flat-square)](https://codecov.io/gh/labstack/echo)
+[![Forum](https://img.shields.io/badge/community-forum-00afd1.svg?style=flat-square)](https://github.com/labstack/echo/discussions)
+[![Twitter](https://img.shields.io/badge/twitter-@labstack-55acee.svg?style=flat-square)](https://twitter.com/labstack)
+[![License](http://img.shields.io/badge/license-mit-blue.svg?style=flat-square)](https://raw.githubusercontent.com/labstack/echo/master/LICENSE)
+
+## Echo
+
+High performance, extensible, minimalist Go web framework.
+
+* [Official website](https://echo.labstack.com)
+* [Quick start](https://echo.labstack.com/docs/quick-start)
+* [Middlewares](https://echo.labstack.com/docs/category/middleware)
+
+Help and questions: [Github Discussions](https://github.com/labstack/echo/discussions)
+
+### Feature Overview
+
+- Optimized HTTP router which smartly prioritize routes
+- Build robust and scalable RESTful APIs
+- Group APIs
+- Extensible middleware framework
+- Define middleware at root, group or route level
+- Data binding for JSON, XML and form payload
+- Handy functions to send variety of HTTP responses
+- Centralized HTTP error handling
+- Template rendering with any template engine
+- Define your format for the logger
+- Highly customizable
+- Automatic TLS via Let’s Encrypt
+- HTTP/2 support
+
+## Sponsors
+
+<div>
+  <a href="https://encore.dev" style="display: inline-flex; align-items: center; gap: 10px">
+    <img src="https://user-images.githubusercontent.com/78424526/214602214-52e0483a-b5fc-4d4c-b03e-0b7b23e012df.svg" height="28px" alt="encore icon"></img>
+  <b>Encore – the platform for building Go-based cloud backends</b>
+    </a>
+</div>
+<br/>
+
+Click [here](https://github.com/sponsors/labstack) for more information on sponsorship.
+
+## [Guide](https://echo.labstack.com/guide)
+
+### Supported Echo versions
+
+- Latest major version of Echo is `v5` as of 2026-01-18.
+  - Until 2026-03-31, any critical issues requiring breaking API changes will be addressed, even if this violates
+    semantic versioning.
+  - See [API_CHANGES_V5.md](./API_CHANGES_V5.md) for public API changes between `v4` and `v5`, notes on upgrading.
+  - If you are using Echo in a production environment, it is recommended to wait until after 2026-03-31 before
+    upgrading.
+- Echo `v4` is supported with **security*** updates and **bug** fixes until **2026-12-31**
+
+### Installation
+
+```sh
+// go get github.com/labstack/echo/{version}
+go get github.com/labstack/echo/v5
+```
+
+Latest version of Echo supports last four Go major [releases](https://go.dev/doc/devel/release) and might work with
+older versions.
+
+### Example
+
+```go
+package main
+
+import (
+  "github.com/labstack/echo/v5"
+  "github.com/labstack/echo/v5/middleware"
+  "log/slog"
+  "net/http"
+)
+
+func main() {
+  // Echo instance
+  e := echo.New()
+
+  // Middleware
+  e.Use(middleware.RequestLogger()) // use the RequestLogger middleware with slog logger
+  e.Use(middleware.Recover())       // recover panics as errors for proper error handling
+
+  // Routes
+  e.GET("/", hello)
+
+  // Start server
+  if err := e.Start(":8080"); err != nil {
+    slog.Error("failed to start server", "error", err)
+  }
+}
+
+// Handler
+func hello(c *echo.Context) error {
+  return c.String(http.StatusOK, "Hello, World!")
+}
+```
+
+# Official middleware repositories
+
+Following list of middleware is maintained by Echo team.
+
+| Repository                                                                               | Description                                                                                                                                                                                                                                                                                                                           |
+|------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| [github.com/labstack/echo-jwt](https://github.com/labstack/echo-jwt)                     | [JWT](https://github.com/golang-jwt/jwt) mid
+... [TRUNCATED]
+
+--- PACKAGE MANIFEST(S) ---
+
+[go.mod]
+module github.com/labstack/echo/v5
+
+go 1.25.0
+
+require (
+	github.com/stretchr/testify v1.11.1
+	golang.org/x/net v0.49.0
+	golang.org/x/time v0.14.0
+)
+
+require (
+	github.com/davecgh/go-spew v1.1.1 // indirect
+	github.com/pmezard/go-difflib v1.0.0 // indirect
+	golang.org/x/text v0.33.0 // indirect
+	gopkg.in/yaml.v3 v3.0.1 // indirect
+)
+
+
+--- BACKEND CONFIG FILES ---
+(No backend config files found)
+
+--- API ROUTE / ENDPOINT DEFINITIONS ---
+
+[route.go]
+// SPDX-License-Identifier: MIT
+// SPDX-FileCopyrightText: © 2015 LabStack LLC and Echo contributors
+
+package echo
+
+import (
+	"bytes"
+	"errors"
+	"fmt"
+	"reflect"
+	"runtime"
+)
+
+// Route contains information to adding/registering new route with the router.
+// Method+Path pair uniquely identifies the Route. It is mandatory to provide Method+Path+Handler fields.
+type Route struct {
+	Method      string
+	Path        string
+	Name        string
+	Handler     HandlerFunc
+	Middlewares []MiddlewareFunc
+}
+
+// ToRouteInfo converts Route to RouteInfo
+func (r Route) ToRouteInfo(params []string) RouteInfo {
+	name := r.Name
+	if name == "" {
+		name = r.Method + ":" + r.Path
+	}
+
+	return RouteInfo{
+		Method:     r.Method,
+		Path:       r.Path,
+		Parameters: append([]string(nil), params...),
+		Name:       name,
+	}
+}
+
+// WithPrefix recreates Route with added group prefix and group middlewares it is grouped to.
+func (r Route) WithPrefix(pathPrefix string, middlewares []MiddlewareFunc) Route {
+	r.Path = pathPrefix + r.Path
+
+	if len(middlewares) > 0 {
+		m := make([]MiddlewareFunc, 0, len(middlewares)+len(r.Middlewares))
+		m = append(m, middlewares...)
+		m = append(m, r.Middlewares...)
+		r.Middlewares = m
+	}
+	return r
+}
+
+// RouteInfo contains information about registered Route.
+type RouteInfo struct {
+	Name       string
+	Method     string
+	Path       string
+	Parameters []string
+
+	// NOTE: handler and middlewares are not exposed because handler could be already wrapping middlewares. Therefore,
+	// it is not always 100% known if handler function already wraps middlewares or not. In Echo handler could be one
+	// function or several functions wrapping each other.
+}
+
+// Clone creates copy of RouteInfo
+func (r RouteInfo) Clone() RouteInfo {
+	return RouteInfo{
+		Name:       r.Name,
+		Method:     r.Method,
+		Path:       r.Path,
+		Parameters: append([]string(nil), r.Parameters...),
+	}
+}
+
+// Reverse reverses route to URL string by replacing path parameters with given params values.
+func (r RouteInfo) Reverse(pathValues ...any) string {
+	uri := new(bytes.Buffer)
+	ln := len(pathValues)
+	n := 0
+	for i, l := 0, len(r.Path); i < l; i++ {
+		hasBackslash := r.Path[i] == '\\'
+		if hasBackslash && i+1 < l && r.Path[i+1] == ':' {
+			i++ // backslash before colon escapes that colon. in that case skip backslash
+		}
+		if n < ln && (r.Path[i] == anyLabel || (!hasBackslash && r.Path[i] == paramLabel)) {
+			// in case of `*` wildcard or `:` (unescaped colon) param we replace everything till next slash or end of path
+			for ; i < l && r.Path[i] != '/'; i++ {
+			}
+			uri.WriteString(fmt.Sprintf("%v", pathValues[n]))
+			n++
+		}
+		if i < l {
+			uri.WriteByte(r.Path[i])
+		}
+	}
+	return uri.String()
+}
+
+// HandlerName returns string name for given function.
+func HandlerName(h HandlerFunc) string {
+	t := reflect.ValueOf(h).Type()
+	if t.Kind() == reflect.Func {
+		return runtime.FuncForPC(reflect.ValueOf(h).Pointer()).Name()
+	}
+	return t.String()
+}
+
+// Clone creates copy of Routes
+func (r Routes) Clone() Rout
+... [TRUNCATED]
+
+--- DATABASE SCHEMA / MODEL FILES ---
+(None found)
+
+--- DIRECTORY STRUCTURE (depth 2) ---
+├── .editorconfig
+├── .gitattributes
+├── .github/
+│   ├── FUNDING.yml
+│   ├── ISSUE_TEMPLATE.md
+│   ├── stale.yml
+│   └── workflows/
+│       ├── checks.yml
+│       └── echo.yml
+├── .gitignore
+├── API_CHANGES_V5.md
+├── CHANGELOG.md
+├── CLAUDE.md
+├── LICENSE
+├── Makefile
+├── README.md
+├── SECURITY.md
+├── _fixture/
+│   ├── _fixture/
+│   │   └── README.md
+│   ├── certs/
+│   │   ├── README.md
+│   │   ├── cert.pem
+│   │   └── key.pem
+│   ├── dist/
+│   │   ├── private.txt
+│   │   └── public/
+│   ├── favicon.ico
+│   ├── folder/
+│   │   └── index.html
+│   ├── images/
+│   │   └── walle.png
+│   └── index.html
+├── bind.go
+├── bind_test.go
+├── binder.go
+├── binder_external_test.go
+├── binder_generic.go
+├── binder_generic_test.go
+├── binder_test.go
+├── codecov.yml
+├── context.go
+├── context_generic.go
+├── context_generic_test.go
+├── context_test.go
+├── echo.go
+├── echo_test.go
+├── echotest/
+│   ├── context.go
+│   ├── context_external_test.go
+│   ├── context_test.go
+│   ├── reader.go
+│   ├── reader_external_test.go
+│   ├── reader_test.go
+│   └── testdata/
+│       └── test.json
+├── go.mod
+├── go.sum
+├── group.go
+├── group_test.go
+├── httperror.go
+├── httperror_external_test.go
+├── httperror_test.go
+├── ip.go
+├── ip_test.go
+├── json.go
+├── json_test.go
+├── middleware/
+│   ├── DEVELOPMENT.md
+│   ├── basic_auth.go
+│   ├── basic_auth_test.go
+│   ├── body_dump.go
+│   ├── body_dump_test.go
+│   ├── body_limit.go
+│   ├── body_limit_test.go
+│   ├── compress.go
+│   ├── compress_test.go
+│   ├── context_timeout.go
+│   ├── context_timeout_test.go
+│   ├── cors.go
+│   ├── cors_test.go
+│   ├── csrf.go
+│   ├── csrf_test.go
+│   ├── decompress.go
+│   ├── decompress_test.go
+│   ├── extractor.go
+│   ├── extractor_test.go
+│   ├── key_auth.go
+│   ├── key_auth_test.go
+│   ├── method_override.go
+│   ├── method_override_test.go
+│   ├── middleware.go
+│   ├── middleware_test.go
+│   ├── proxy.go
+│   ├── proxy_test.go
+│   ├── rate_limiter.go
+│   ├── rate_limiter_test.go
+│   ├── recover.go
+│   ├── recover_test.go
+│   ├── redirect.go
+│   ├── redirect_test.go
+│   ├── request_id.go
+│   ├── request_id_test.go
+│   ├── request_logger.go
+│   ├── request_logger_test.go
+│   ├── rewrite.go
+│   ├── rewrite_test.go
+│   ├── secure.go
+│   ├── secure_test.go
+│   ├── slash.go
+│   ├── slash_test.go
+│   ├── static.go
+│   ├── static_other.go
+│   ├── static_test.go
+│   ├── testdata/
+│   │   ├── dist/
+│   │   └── private.txt
+│   ├── util.go
+│   └── util_test.go
+├── renderer.go
+├── renderer_test.go
+├── response.go
+├── response_test.go
+├── route.go
+├── route_test.go
+├── router.go
+├── router_concurrent.go
+├── router_concurrent_test.go
+├── router_test.go
+├── server.go
+├── server_test.go
+├── version.go
+├── vhost.go
+└── vhost_test.go

@@ -1,0 +1,1591 @@
+=====================================
+Repository Analysis: tensorflow
+Type: Data / ML / AI Project
+=====================================
+
+--- METADATA ---
+Name: tensorflow
+Description: An Open Source Machine Learning Framework for Everyone
+Language: C++
+Topics: deep-learning, deep-neural-networks, distributed, machine-learning, ml, neural-network, python, tensorflow
+Stars: 194007
+License: Apache License 2.0
+
+--- README ---
+<div align="center">
+  <img src="https://www.tensorflow.org/images/tf_logo_horizontal.png">
+</div>
+
+[![Python](https://img.shields.io/pypi/pyversions/tensorflow.svg)](https://badge.fury.io/py/tensorflow)
+[![PyPI](https://badge.fury.io/py/tensorflow.svg)](https://badge.fury.io/py/tensorflow)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.4724125.svg)](https://doi.org/10.5281/zenodo.4724125)
+[![CII Best Practices](https://bestpractices.coreinfrastructure.org/projects/1486/badge)](https://bestpractices.coreinfrastructure.org/projects/1486)
+[![OpenSSF Scorecard](https://api.securityscorecards.dev/projects/github.com/tensorflow/tensorflow/badge)](https://securityscorecards.dev/viewer/?uri=github.com/tensorflow/tensorflow)
+[![Fuzzing Status](https://oss-fuzz-build-logs.storage.googleapis.com/badges/tensorflow.svg)](https://bugs.chromium.org/p/oss-fuzz/issues/list?sort=-opened&can=1&q=proj:tensorflow)
+[![Fuzzing Status](https://oss-fuzz-build-logs.storage.googleapis.com/badges/tensorflow-py.svg)](https://bugs.chromium.org/p/oss-fuzz/issues/list?sort=-opened&can=1&q=proj:tensorflow-py)
+[![OSSRank](https://shields.io/endpoint?url=https://ossrank.com/shield/44)](https://ossrank.com/p/44)
+[![Contributor Covenant](https://img.shields.io/badge/Contributor%20Covenant-v1.4%20adopted-ff69b4.svg)](CODE_OF_CONDUCT.md)
+
+**`Documentation`** |
+------------------- |
+[![Documentation](https://img.shields.io/badge/api-reference-blue.svg)](https://www.tensorflow.org/api_docs/) |
+
+[TensorFlow](https://www.tensorflow.org/) is an end-to-end open source platform
+for machine learning. It has a comprehensive, flexible ecosystem of
+[tools](https://www.tensorflow.org/resources/tools),
+[libraries](https://www.tensorflow.org/resources/libraries-extensions), and
+[community](https://www.tensorflow.org/community) resources that lets
+researchers push the state-of-the-art in ML and developers easily build and
+deploy ML-powered applications.
+
+TensorFlow was originally developed by researchers and engineers working within
+the Machine Intelligence team at Google Brain to conduct research in machine
+learning and neural networks. However, the framework is versatile enough to be
+used in other areas as well.
+
+TensorFlow provides stable [Python](https://www.tensorflow.org/api_docs/python)
+and [C++](https://www.tensorflow.org/api_docs/cc) APIs, as well as a
+non-guaranteed backward compatible API for
+[other languages](https://www.tensorflow.org/api_docs).
+
+Keep up-to-date with release announcements and security updates by subscribing
+to
+[announce@tensorflow.org](https://groups.google.com/a/tensorflow.org/forum/#!forum/announce).
+See all the [mailing lists](https://www.tensorflow.org/community/forums).
+
+## Install
+
+See the [TensorFlow install guide](https://www.tensorflow.org/install) for the
+[pip package](https://www.tensorflow.org/install/pip), to
+[enable GPU support](https://www.tensorflow.org/install/gpu), use a
+[Docker container](https://www.tensorflow.org/install/docker), and
+[build from source](https://www.tensorflow.org/install/source).
+
+To install the current release, which includes support for
+[CUDA-enabled GPU cards](https://www.tensorflow.org/install/gpu) *(Ubuntu and
+Windows)*:
+
+```
+$ pip install tensorflow
+```
+
+Other devices (DirectX and MacOS-metal) are supported using
+[Device Plugins](https://www.tensorflow.org/install/gpu_plugins#available_devices).
+
+A smaller CPU-only package is also available:
+
+```
+$ pip install tensorflow-cpu
+```
+
+To update TensorFlow to the latest version, add `--upgrade` flag to the above
+commands.
+
+*Nightly binaries are available for testing using the
+[tf-nightly](https://pypi.python.org/pypi/tf-nightly) and
+[tf-nightly-cpu](https://pypi.python.org/pypi/tf-nightly-cpu) packages on PyPI.*
+
+#### *Try your first TensorFlow program*
+
+```shell
+$ python
+```
+
+```python
+>>> import tensorflow as tf
+>>> tf.add(1, 2).numpy()
+3
+>>> hello = tf.constant('Hello, TensorFlow!')
+>>> hello.numpy()
+b'Hello, TensorFlow!'
+```
+
+For more examples, see the
+[TensorFlow Tutorials](https://www.tensorflow.org/tutorials/).
+
+## Contribution guidelines
+
+**If you want to contribute to TensorFlow, be sure to review the
+[Contribution Guidelines](CONTRIBUTING.md). This project adheres to TensorFlow's
+[Code of Conduct](CODE_OF_CONDUCT.md). By participating, you are expected to
+uphold this code.**
+
+**We use [GitHub Issues](https://github.com/tensorflow/tensorflow/issues) for
+tracking requests and bugs, please see
+[TensorFlow Forum](https://discuss.tensorflow.org/) for general questions and
+discussion, and please direct specific questions to
+[Stack Overflow](https://stackoverflow.com/questions/tagged/tensorflow).**
+
+The TensorFlow project strives to abide by generally accepted best practices in
+open-source software development.
+
+## Patching guidelines
+
+Follow these steps to patch a specific version of TensorFlow, for example, to
+apply fixes to bugs or security vulnerabilities:
+
+*   Clone the TensorFlow repository and switch to the appropriate branch f
+... [TRUNCATED]
+
+--- PACKAGE MANIFEST(S) ---
+(No package manifest found)
+
+--- REQUIREMENTS FILES ---
+
+[ci/official/containers/ml_build/builder.requirements.txt]
+# For wheel verification, and uploading
+auditwheel ~= 6.1.0
+twine ~= 6.1.0
+id
+urllib3
+requests
+
+# For XLA
+pyyaml
+
+# For JAX
+build ~= 1.2.2
+# uv is faster than pip for installing Python packages.
+uv ~= 0.5.30
+
+# For running wheel verification script
+immutabledict ~= 4.2.1
+
+[ci/official/requirements_updater/numpy1_requirements/requirements_lock_3_10.txt]
+#
+# This file is autogenerated by pip-compile with Python 3.10
+# by the following command:
+#
+#    bazel run //ci/official/requirements_updater:requirements.update
+#
+absl-py==2.2.2 \
+    --hash=sha256:bf25b2c2eed013ca456918c453d687eab4e8309fba81ee2f4c1a6aa2494175eb \
+    --hash=sha256:e5797bc6abe45f64fd95dc06394ca3f2bedf3b5d895e9da691c9ee3397d70092
+    # via
+    #   keras-nightly
+    #   tb-nightly
+astor==0.7.1 \
+    --hash=sha256:95c30d87a6c2cf89aa628b87398466840f0ad8652f88eb173125a6df8533fb8d \
+    --hash=sha256:fb503b9e2fdd05609fbf557b916b4a7824171203701660f0c55bbf5a7a68713e
+    # via -r ci/official/requirements_updater/requirements.in
+astunparse==1.6.3 \
+    --hash=sha256:5ad93a8456f0d084c3456d059fd9a92cce667963232cbf763eac3bc5b7940872 \
+    --hash=sha256:c2652417f2c8b5bb325c885ae329bdf3f86424075c4fd1a128674bc6fba4b8e8
+    # via -r ci/official/requirements_updater/requirements.in
+auditwheel==6.3.0 \
+    --hash=sha256:05c70a234fa14c140aa6d9076135d9550962d95849911b8d5d0419a3add09f00 \
+    --hash=sha256:31cbd8045d4ff6776f79bef328b5fd563e5ecc8ae82ea34b6fe5e76efe2a84eb
+    # via -r ci/official/requirements_updater/requirements.in
+certifi==2025.1.31 \
+    --hash=sha256:3d5da6925056f6f18f119200434a4780a94263f10d1c21d032a6f6b2baa20651 \
+    --hash=sha256:ca78db4565a652026a4db2bcdf68f2fb589ea80d0be70e03929ed730746b84fe
+    # via requests
+charset-normalizer==3.4.1 \
+    --hash=sha256:0167ddc8ab6508fe81860a57dd472b2ef4060e8d378f0cc555707126830f2537 \
+    --hash=sha256:01732659ba9b5b873fc117534143e4feefecf3b2078b0a6a2e925271bb6f4cfa \
+    --hash=sha256:01ad647cdd609225c5350561d084b42ddf732f4eeefe6e678765636791e78b9a \
+    --hash=sha256:04432ad9479fa40ec0f387795ddad4437a2b50417c69fa275e212933519ff294 \
+    --hash=sha256:0907f11d019260cdc3f94fbdb23ff9125f6b5d1039b76003b5b0ac9d6a6c9d5b \
+    --hash=sha256:0924e81d3d5e70f8126529951dac65c1010cdf117bb75eb02dd12339b57749dd \
+    --hash=sha256:09b26ae6b1abf0d27570633b2b078a2a20419c99d66fb2823173d73f188ce601 \
+    --hash=sha256:09b5e6733cbd160dcc09589227187e242a30a49ca5cefa5a7edd3f9d19ed53fd \
+    --hash=sha256:0af291f4fe114be0280cdd29d533696a77b5b49cfde5467176ecab32353395c4 \
+    --hash=sha256:0f55e69f030f7163dffe9fd0752b32f070566451afe180f99dbeeb81f511ad8d \
+    --hash=sha256:1a2bc9f351a75ef49d664206d51f8e5ede9da246602dc2d2726837620ea034b2 \
+    --hash=sha256:22e14b5d70560b8dd51ec22863f370d1e595ac3d024cb8ad7d308b4cd95f8313 \
+    --hash=sha256:234ac59ea147c59ee4da87a0c0f098e9c8d169f4dc2a159ef720f1a61bbe27cd \
+    --hash=sha256:2369eea1ee4a7610a860d88f268eb39b95cb588acd7235e02fd5a5601773d4fa \
+    --hash=sha256:237bdbe6159cff53b4f24f397d43c6336c6b0b42affbe857970cefbb620911c8 \
+    --hash=sha256:28bf57629c75e810b6ae989f03c0828d64d6b26a5e205535585f96093e405ed1 \
+    --hash=sha256:2967f74ad52c3b98de4c3b32e1a44e32975e008a9cd2a8cc8966d6a5218c5cb2 \
+    --hash=sha256:2a75d49014d118e4198bcee5ee0a6f25856b29b12dbf7cd012791f8a6cc5c496 \
+    --hash=sha256:2bdfe3ac2e1bbe5b59a1a63721eb3b95fc9b6817ae4a46debbb4e11f6232428d \
+   
+... [TRUNCATED]
+
+[ci/official/requirements_updater/numpy1_requirements/requirements_lock_3_11.txt]
+#
+# This file is autogenerated by pip-compile with Python 3.11
+# by the following command:
+#
+#    bazel run //ci/official/requirements_updater:requirements.update
+#
+absl-py==2.2.2 \
+    --hash=sha256:bf25b2c2eed013ca456918c453d687eab4e8309fba81ee2f4c1a6aa2494175eb \
+    --hash=sha256:e5797bc6abe45f64fd95dc06394ca3f2bedf3b5d895e9da691c9ee3397d70092
+    # via
+    #   keras-nightly
+    #   tb-nightly
+astor==0.7.1 \
+    --hash=sha256:95c30d87a6c2cf89aa628b87398466840f0ad8652f88eb173125a6df8533fb8d \
+    --hash=sha256:fb503b9e2fdd05609fbf557b916b4a7824171203701660f0c55bbf5a7a68713e
+    # via -r ci/official/requirements_updater/requirements.in
+astunparse==1.6.3 \
+    --hash=sha256:5ad93a8456f0d084c3456d059fd9a92cce667963232cbf763eac3bc5b7940872 \
+    --hash=sha256:c2652417f2c8b5bb325c885ae329bdf3f86424075c4fd1a128674bc6fba4b8e8
+    # via -r ci/official/requirements_updater/requirements.in
+auditwheel==6.3.0 \
+    --hash=sha256:05c70a234fa14c140aa6d9076135d9550962d95849911b8d5d0419a3add09f00 \
+    --hash=sha256:31cbd8045d4ff6776f79bef328b5fd563e5ecc8ae82ea34b6fe5e76efe2a84eb
+    # via -r ci/official/requirements_updater/requirements.in
+certifi==2025.1.31 \
+    --hash=sha256:3d5da6925056f6f18f119200434a4780a94263f10d1c21d032a6f6b2baa20651 \
+    --hash=sha256:ca78db4565a652026a4db2bcdf68f2fb589ea80d0be70e03929ed730746b84fe
+    # via requests
+charset-normalizer==3.4.1 \
+    --hash=sha256:0167ddc8ab6508fe81860a57dd472b2ef4060e8d378f0cc555707126830f2537 \
+    --hash=sha256:01732659ba9b5b873fc117534143e4feefecf3b2078b0a6a2e925271bb6f4cfa \
+    --hash=sha256:01ad647cdd609225c5350561d084b42ddf732f4eeefe6e678765636791e78b9a \
+    --hash=sha256:04432ad9479fa40ec0f387795ddad4437a2b50417c69fa275e212933519ff294 \
+    --hash=sha256:0907f11d019260cdc3f94fbdb23ff9125f6b5d1039b76003b5b0ac9d6a6c9d5b \
+    --hash=sha256:0924e81d3d5e70f8126529951dac65c1010cdf117bb75eb02dd12339b57749dd \
+    --hash=sha256:09b26ae6b1abf0d27570633b2b078a2a20419c99d66fb2823173d73f188ce601 \
+    --hash=sha256:09b5e6733cbd160dcc09589227187e242a30a49ca5cefa5a7edd3f9d19ed53fd \
+    --hash=sha256:0af291f4fe114be0280cdd29d533696a77b5b49cfde5467176ecab32353395c4 \
+    --hash=sha256:0f55e69f030f7163dffe9fd0752b32f070566451afe180f99dbeeb81f511ad8d \
+    --hash=sha256:1a2bc9f351a75ef49d664206d51f8e5ede9da246602dc2d2726837620ea034b2 \
+    --hash=sha256:22e14b5d70560b8dd51ec22863f370d1e595ac3d024cb8ad7d308b4cd95f8313 \
+    --hash=sha256:234ac59ea147c59ee4da87a0c0f098e9c8d169f4dc2a159ef720f1a61bbe27cd \
+    --hash=sha256:2369eea1ee4a7610a860d88f268eb39b95cb588acd7235e02fd5a5601773d4fa \
+    --hash=sha256:237bdbe6159cff53b4f24f397d43c6336c6b0b42affbe857970cefbb620911c8 \
+    --hash=sha256:28bf57629c75e810b6ae989f03c0828d64d6b26a5e205535585f96093e405ed1 \
+    --hash=sha256:2967f74ad52c3b98de4c3b32e1a44e32975e008a9cd2a8cc8966d6a5218c5cb2 \
+    --hash=sha256:2a75d49014d118e4198bcee5ee0a6f25856b29b12dbf7cd012791f8a6cc5c496 \
+    --hash=sha256:2bdfe3ac2e1bbe5b59a1a63721eb3b95fc9b6817ae4a46debbb4e11f6232428d \
+   
+... [TRUNCATED]
+
+[ci/official/requirements_updater/numpy1_requirements/requirements_lock_3_12.txt]
+#
+# This file is autogenerated by pip-compile with Python 3.12
+# by the following command:
+#
+#    bazel run //ci/official/requirements_updater:requirements.update
+#
+absl-py==2.2.2 \
+    --hash=sha256:bf25b2c2eed013ca456918c453d687eab4e8309fba81ee2f4c1a6aa2494175eb \
+    --hash=sha256:e5797bc6abe45f64fd95dc06394ca3f2bedf3b5d895e9da691c9ee3397d70092
+    # via
+    #   keras-nightly
+    #   tb-nightly
+astor==0.7.1 \
+    --hash=sha256:95c30d87a6c2cf89aa628b87398466840f0ad8652f88eb173125a6df8533fb8d \
+    --hash=sha256:fb503b9e2fdd05609fbf557b916b4a7824171203701660f0c55bbf5a7a68713e
+    # via -r ci/official/requirements_updater/requirements.in
+astunparse==1.6.3 \
+    --hash=sha256:5ad93a8456f0d084c3456d059fd9a92cce667963232cbf763eac3bc5b7940872 \
+    --hash=sha256:c2652417f2c8b5bb325c885ae329bdf3f86424075c4fd1a128674bc6fba4b8e8
+    # via -r ci/official/requirements_updater/requirements.in
+auditwheel==6.3.0 \
+    --hash=sha256:05c70a234fa14c140aa6d9076135d9550962d95849911b8d5d0419a3add09f00 \
+    --hash=sha256:31cbd8045d4ff6776f79bef328b5fd563e5ecc8ae82ea34b6fe5e76efe2a84eb
+    # via -r ci/official/requirements_updater/requirements.in
+certifi==2025.1.31 \
+    --hash=sha256:3d5da6925056f6f18f119200434a4780a94263f10d1c21d032a6f6b2baa20651 \
+    --hash=sha256:ca78db4565a652026a4db2bcdf68f2fb589ea80d0be70e03929ed730746b84fe
+    # via requests
+charset-normalizer==3.4.1 \
+    --hash=sha256:0167ddc8ab6508fe81860a57dd472b2ef4060e8d378f0cc555707126830f2537 \
+    --hash=sha256:01732659ba9b5b873fc117534143e4feefecf3b2078b0a6a2e925271bb6f4cfa \
+    --hash=sha256:01ad647cdd609225c5350561d084b42ddf732f4eeefe6e678765636791e78b9a \
+    --hash=sha256:04432ad9479fa40ec0f387795ddad4437a2b50417c69fa275e212933519ff294 \
+    --hash=sha256:0907f11d019260cdc3f94fbdb23ff9125f6b5d1039b76003b5b0ac9d6a6c9d5b \
+    --hash=sha256:0924e81d3d5e70f8126529951dac65c1010cdf117bb75eb02dd12339b57749dd \
+    --hash=sha256:09b26ae6b1abf0d27570633b2b078a2a20419c99d66fb2823173d73f188ce601 \
+    --hash=sha256:09b5e6733cbd160dcc09589227187e242a30a49ca5cefa5a7edd3f9d19ed53fd \
+    --hash=sha256:0af291f4fe114be0280cdd29d533696a77b5b49cfde5467176ecab32353395c4 \
+    --hash=sha256:0f55e69f030f7163dffe9fd0752b32f070566451afe180f99dbeeb81f511ad8d \
+    --hash=sha256:1a2bc9f351a75ef49d664206d51f8e5ede9da246602dc2d2726837620ea034b2 \
+    --hash=sha256:22e14b5d70560b8dd51ec22863f370d1e595ac3d024cb8ad7d308b4cd95f8313 \
+    --hash=sha256:234ac59ea147c59ee4da87a0c0f098e9c8d169f4dc2a159ef720f1a61bbe27cd \
+    --hash=sha256:2369eea1ee4a7610a860d88f268eb39b95cb588acd7235e02fd5a5601773d4fa \
+    --hash=sha256:237bdbe6159cff53b4f24f397d43c6336c6b0b42affbe857970cefbb620911c8 \
+    --hash=sha256:28bf57629c75e810b6ae989f03c0828d64d6b26a5e205535585f96093e405ed1 \
+    --hash=sha256:2967f74ad52c3b98de4c3b32e1a44e32975e008a9cd2a8cc8966d6a5218c5cb2 \
+    --hash=sha256:2a75d49014d118e4198bcee5ee0a6f25856b29b12dbf7cd012791f8a6cc5c496 \
+    --hash=sha256:2bdfe3ac2e1bbe5b59a1a63721eb3b95fc9b6817ae4a46debbb4e11f6232428d \
+   
+... [TRUNCATED]
+
+[ci/official/requirements_updater/nvidia-requirements.txt]
+nvidia-cublas-cu12>=12.5.3.2,<13.0
+nvidia-cuda-cupti-cu12>=12.5.82,<13.0
+nvidia-cuda-nvcc-cu12>=12.5.82,<13.0
+nvidia-cuda-nvrtc-cu12>=12.5.82,<13.0
+nvidia-cuda-runtime-cu12>=12.5.82,<13.0
+# The upper bound is set for the CUDNN API compatibility.
+# See
+# https://docs.nvidia.com/deeplearning/cudnn/backend/latest/developer/forward-compatibility.html#cudnn-api-compatibility
+nvidia-cudnn-cu12>=9.3.0.75,<10.0
+nvidia-cufft-cu12>=11.2.3.61,<12.0
+nvidia-curand-cu12>=10.3.6.82,<11.0
+nvidia-cusolver-cu12>=11.6.3.83,<12.0
+nvidia-cusparse-cu12>=12.5.1.3,<13.0
+nvidia-nccl-cu12>=2.27.7,<3.0
+nvidia-nvjitlink-cu12>=12.5.82,<13.0
+nvidia-nvshmem-cu12>=3.2.5
+
+[requirements_lock_3_10.txt]
+#
+# This file is autogenerated by pip-compile with Python 3.10
+# by the following command:
+#
+#    bazel run //ci/official/requirements_updater:requirements.update
+#
+absl-py==2.2.2 \
+    --hash=sha256:bf25b2c2eed013ca456918c453d687eab4e8309fba81ee2f4c1a6aa2494175eb \
+    --hash=sha256:e5797bc6abe45f64fd95dc06394ca3f2bedf3b5d895e9da691c9ee3397d70092
+    # via
+    #   keras-nightly
+    #   tb-nightly
+astor==0.7.1 \
+    --hash=sha256:95c30d87a6c2cf89aa628b87398466840f0ad8652f88eb173125a6df8533fb8d \
+    --hash=sha256:fb503b9e2fdd05609fbf557b916b4a7824171203701660f0c55bbf5a7a68713e
+    # via -r ci/official/requirements_updater/requirements.in
+astunparse==1.6.3 \
+    --hash=sha256:5ad93a8456f0d084c3456d059fd9a92cce667963232cbf763eac3bc5b7940872 \
+    --hash=sha256:c2652417f2c8b5bb325c885ae329bdf3f86424075c4fd1a128674bc6fba4b8e8
+    # via -r ci/official/requirements_updater/requirements.in
+auditwheel==6.3.0 \
+    --hash=sha256:05c70a234fa14c140aa6d9076135d9550962d95849911b8d5d0419a3add09f00 \
+    --hash=sha256:31cbd8045d4ff6776f79bef328b5fd563e5ecc8ae82ea34b6fe5e76efe2a84eb
+    # via -r ci/official/requirements_updater/requirements.in
+certifi==2025.1.31 \
+    --hash=sha256:3d5da6925056f6f18f119200434a4780a94263f10d1c21d032a6f6b2baa20651 \
+    --hash=sha256:ca78db4565a652026a4db2bcdf68f2fb589ea80d0be70e03929ed730746b84fe
+    # via requests
+charset-normalizer==3.4.1 \
+    --hash=sha256:0167ddc8ab6508fe81860a57dd472b2ef4060e8d378f0cc555707126830f2537 \
+    --hash=sha256:01732659ba9b5b873fc117534143e4feefecf3b2078b0a6a2e925271bb6f4cfa \
+    --hash=sha256:01ad647cdd609225c5350561d084b42ddf732f4eeefe6e678765636791e78b9a \
+    --hash=sha256:04432ad9479fa40ec0f387795ddad4437a2b50417c69fa275e212933519ff294 \
+    --hash=sha256:0907f11d019260cdc3f94fbdb23ff9125f6b5d1039b76003b5b0ac9d6a6c9d5b \
+    --hash=sha256:0924e81d3d5e70f8126529951dac65c1010cdf117bb75eb02dd12339b57749dd \
+    --hash=sha256:09b26ae6b1abf0d27570633b2b078a2a20419c99d66fb2823173d73f188ce601 \
+    --hash=sha256:09b5e6733cbd160dcc09589227187e242a30a49ca5cefa5a7edd3f9d19ed53fd \
+    --hash=sha256:0af291f4fe114be0280cdd29d533696a77b5b49cfde5467176ecab32353395c4 \
+    --hash=sha256:0f55e69f030f7163dffe9fd0752b32f070566451afe180f99dbeeb81f511ad8d \
+    --hash=sha256:1a2bc9f351a75ef49d664206d51f8e5ede9da246602dc2d2726837620ea034b2 \
+    --hash=sha256:22e14b5d70560b8dd51ec22863f370d1e595ac3d024cb8ad7d308b4cd95f8313 \
+    --hash=sha256:234ac59ea147c59ee4da87a0c0f098e9c8d169f4dc2a159ef720f1a61bbe27cd \
+    --hash=sha256:2369eea1ee4a7610a860d88f268eb39b95cb588acd7235e02fd5a5601773d4fa \
+    --hash=sha256:237bdbe6159cff53b4f24f397d43c6336c6b0b42affbe857970cefbb620911c8 \
+    --hash=sha256:28bf57629c75e810b6ae989f03c0828d64d6b26a5e205535585f96093e405ed1 \
+    --hash=sha256:2967f74ad52c3b98de4c3b32e1a44e32975e008a9cd2a8cc8966d6a5218c5cb2 \
+    --hash=sha256:2a75d49014d118e4198bcee5ee0a6f25856b29b12dbf7cd012791f8a6cc5c496 \
+    --hash=sha256:2bdfe3ac2e1bbe5b59a1a63721eb3b95fc9b6817ae4a46debbb4e11f6232428d \
+   
+... [TRUNCATED]
+
+[requirements_lock_3_11.txt]
+#
+# This file is autogenerated by pip-compile with Python 3.11
+# by the following command:
+#
+#    bazel run //ci/official/requirements_updater:requirements.update
+#
+absl-py==2.2.2 \
+    --hash=sha256:bf25b2c2eed013ca456918c453d687eab4e8309fba81ee2f4c1a6aa2494175eb \
+    --hash=sha256:e5797bc6abe45f64fd95dc06394ca3f2bedf3b5d895e9da691c9ee3397d70092
+    # via
+    #   keras-nightly
+    #   tb-nightly
+astor==0.7.1 \
+    --hash=sha256:95c30d87a6c2cf89aa628b87398466840f0ad8652f88eb173125a6df8533fb8d \
+    --hash=sha256:fb503b9e2fdd05609fbf557b916b4a7824171203701660f0c55bbf5a7a68713e
+    # via -r ci/official/requirements_updater/requirements.in
+astunparse==1.6.3 \
+    --hash=sha256:5ad93a8456f0d084c3456d059fd9a92cce667963232cbf763eac3bc5b7940872 \
+    --hash=sha256:c2652417f2c8b5bb325c885ae329bdf3f86424075c4fd1a128674bc6fba4b8e8
+    # via -r ci/official/requirements_updater/requirements.in
+auditwheel==6.3.0 \
+    --hash=sha256:05c70a234fa14c140aa6d9076135d9550962d95849911b8d5d0419a3add09f00 \
+    --hash=sha256:31cbd8045d4ff6776f79bef328b5fd563e5ecc8ae82ea34b6fe5e76efe2a84eb
+    # via -r ci/official/requirements_updater/requirements.in
+certifi==2025.1.31 \
+    --hash=sha256:3d5da6925056f6f18f119200434a4780a94263f10d1c21d032a6f6b2baa20651 \
+    --hash=sha256:ca78db4565a652026a4db2bcdf68f2fb589ea80d0be70e03929ed730746b84fe
+    # via requests
+charset-normalizer==3.4.1 \
+    --hash=sha256:0167ddc8ab6508fe81860a57dd472b2ef4060e8d378f0cc555707126830f2537 \
+    --hash=sha256:01732659ba9b5b873fc117534143e4feefecf3b2078b0a6a2e925271bb6f4cfa \
+    --hash=sha256:01ad647cdd609225c5350561d084b42ddf732f4eeefe6e678765636791e78b9a \
+    --hash=sha256:04432ad9479fa40ec0f387795ddad4437a2b50417c69fa275e212933519ff294 \
+    --hash=sha256:0907f11d019260cdc3f94fbdb23ff9125f6b5d1039b76003b5b0ac9d6a6c9d5b \
+    --hash=sha256:0924e81d3d5e70f8126529951dac65c1010cdf117bb75eb02dd12339b57749dd \
+    --hash=sha256:09b26ae6b1abf0d27570633b2b078a2a20419c99d66fb2823173d73f188ce601 \
+    --hash=sha256:09b5e6733cbd160dcc09589227187e242a30a49ca5cefa5a7edd3f9d19ed53fd \
+    --hash=sha256:0af291f4fe114be0280cdd29d533696a77b5b49cfde5467176ecab32353395c4 \
+    --hash=sha256:0f55e69f030f7163dffe9fd0752b32f070566451afe180f99dbeeb81f511ad8d \
+    --hash=sha256:1a2bc9f351a75ef49d664206d51f8e5ede9da246602dc2d2726837620ea034b2 \
+    --hash=sha256:22e14b5d70560b8dd51ec22863f370d1e595ac3d024cb8ad7d308b4cd95f8313 \
+    --hash=sha256:234ac59ea147c59ee4da87a0c0f098e9c8d169f4dc2a159ef720f1a61bbe27cd \
+    --hash=sha256:2369eea1ee4a7610a860d88f268eb39b95cb588acd7235e02fd5a5601773d4fa \
+    --hash=sha256:237bdbe6159cff53b4f24f397d43c6336c6b0b42affbe857970cefbb620911c8 \
+    --hash=sha256:28bf57629c75e810b6ae989f03c0828d64d6b26a5e205535585f96093e405ed1 \
+    --hash=sha256:2967f74ad52c3b98de4c3b32e1a44e32975e008a9cd2a8cc8966d6a5218c5cb2 \
+    --hash=sha256:2a75d49014d118e4198bcee5ee0a6f25856b29b12dbf7cd012791f8a6cc5c496 \
+    --hash=sha256:2bdfe3ac2e1bbe5b59a1a63721eb3b95fc9b6817ae4a46debbb4e11f6232428d \
+   
+... [TRUNCATED]
+
+[requirements_lock_3_12.txt]
+#
+# This file is autogenerated by pip-compile with Python 3.12
+# by the following command:
+#
+#    bazel run //ci/official/requirements_updater:requirements.update
+#
+absl-py==2.2.2 \
+    --hash=sha256:bf25b2c2eed013ca456918c453d687eab4e8309fba81ee2f4c1a6aa2494175eb \
+    --hash=sha256:e5797bc6abe45f64fd95dc06394ca3f2bedf3b5d895e9da691c9ee3397d70092
+    # via
+    #   keras-nightly
+    #   tb-nightly
+astor==0.7.1 \
+    --hash=sha256:95c30d87a6c2cf89aa628b87398466840f0ad8652f88eb173125a6df8533fb8d \
+    --hash=sha256:fb503b9e2fdd05609fbf557b916b4a7824171203701660f0c55bbf5a7a68713e
+    # via -r ci/official/requirements_updater/requirements.in
+astunparse==1.6.3 \
+    --hash=sha256:5ad93a8456f0d084c3456d059fd9a92cce667963232cbf763eac3bc5b7940872 \
+    --hash=sha256:c2652417f2c8b5bb325c885ae329bdf3f86424075c4fd1a128674bc6fba4b8e8
+    # via -r ci/official/requirements_updater/requirements.in
+auditwheel==6.3.0 \
+    --hash=sha256:05c70a234fa14c140aa6d9076135d9550962d95849911b8d5d0419a3add09f00 \
+    --hash=sha256:31cbd8045d4ff6776f79bef328b5fd563e5ecc8ae82ea34b6fe5e76efe2a84eb
+    # via -r ci/official/requirements_updater/requirements.in
+certifi==2025.1.31 \
+    --hash=sha256:3d5da6925056f6f18f119200434a4780a94263f10d1c21d032a6f6b2baa20651 \
+    --hash=sha256:ca78db4565a652026a4db2bcdf68f2fb589ea80d0be70e03929ed730746b84fe
+    # via requests
+charset-normalizer==3.4.1 \
+    --hash=sha256:0167ddc8ab6508fe81860a57dd472b2ef4060e8d378f0cc555707126830f2537 \
+    --hash=sha256:01732659ba9b5b873fc117534143e4feefecf3b2078b0a6a2e925271bb6f4cfa \
+    --hash=sha256:01ad647cdd609225c5350561d084b42ddf732f4eeefe6e678765636791e78b9a \
+    --hash=sha256:04432ad9479fa40ec0f387795ddad4437a2b50417c69fa275e212933519ff294 \
+    --hash=sha256:0907f11d019260cdc3f94fbdb23ff9125f6b5d1039b76003b5b0ac9d6a6c9d5b \
+    --hash=sha256:0924e81d3d5e70f8126529951dac65c1010cdf117bb75eb02dd12339b57749dd \
+    --hash=sha256:09b26ae6b1abf0d27570633b2b078a2a20419c99d66fb2823173d73f188ce601 \
+    --hash=sha256:09b5e6733cbd160dcc09589227187e242a30a49ca5cefa5a7edd3f9d19ed53fd \
+    --hash=sha256:0af291f4fe114be0280cdd29d533696a77b5b49cfde5467176ecab32353395c4 \
+    --hash=sha256:0f55e69f030f7163dffe9fd0752b32f070566451afe180f99dbeeb81f511ad8d \
+    --hash=sha256:1a2bc9f351a75ef49d664206d51f8e5ede9da246602dc2d2726837620ea034b2 \
+    --hash=sha256:22e14b5d70560b8dd51ec22863f370d1e595ac3d024cb8ad7d308b4cd95f8313 \
+    --hash=sha256:234ac59ea147c59ee4da87a0c0f098e9c8d169f4dc2a159ef720f1a61bbe27cd \
+    --hash=sha256:2369eea1ee4a7610a860d88f268eb39b95cb588acd7235e02fd5a5601773d4fa \
+    --hash=sha256:237bdbe6159cff53b4f24f397d43c6336c6b0b42affbe857970cefbb620911c8 \
+    --hash=sha256:28bf57629c75e810b6ae989f03c0828d64d6b26a5e205535585f96093e405ed1 \
+    --hash=sha256:2967f74ad52c3b98de4c3b32e1a44e32975e008a9cd2a8cc8966d6a5218c5cb2 \
+    --hash=sha256:2a75d49014d118e4198bcee5ee0a6f25856b29b12dbf7cd012791f8a6cc5c496 \
+    --hash=sha256:2bdfe3ac2e1bbe5b59a1a63721eb3b95fc9b6817ae4a46debbb4e11f6232428d \
+   
+... [TRUNCATED]
+
+[requirements_lock_3_13.txt]
+#
+# This file is autogenerated by pip-compile with Python 3.13
+# by the following command:
+#
+#    bazel run //ci/official/requirements_updater:requirements.update
+#
+absl-py==2.3.0 \
+    --hash=sha256:9824a48b654a306168f63e0d97714665f8490b8d89ec7bf2efc24bf67cf579b3 \
+    --hash=sha256:d96fda5c884f1b22178852f30ffa85766d50b99e00775ea626c23304f582fc4f
+    # via
+    #   keras-nightly
+    #   tb-nightly
+astor==0.7.1 \
+    --hash=sha256:95c30d87a6c2cf89aa628b87398466840f0ad8652f88eb173125a6df8533fb8d \
+    --hash=sha256:fb503b9e2fdd05609fbf557b916b4a7824171203701660f0c55bbf5a7a68713e
+    # via -r ci/official/requirements_updater/requirements.in
+astunparse==1.6.3 \
+    --hash=sha256:5ad93a8456f0d084c3456d059fd9a92cce667963232cbf763eac3bc5b7940872 \
+    --hash=sha256:c2652417f2c8b5bb325c885ae329bdf3f86424075c4fd1a128674bc6fba4b8e8
+    # via -r ci/official/requirements_updater/requirements.in
+auditwheel==6.3.0 \
+    --hash=sha256:05c70a234fa14c140aa6d9076135d9550962d95849911b8d5d0419a3add09f00 \
+    --hash=sha256:31cbd8045d4ff6776f79bef328b5fd563e5ecc8ae82ea34b6fe5e76efe2a84eb
+    # via -r ci/official/requirements_updater/requirements.in
+certifi==2025.1.31 \
+    --hash=sha256:3d5da6925056f6f18f119200434a4780a94263f10d1c21d032a6f6b2baa20651 \
+    --hash=sha256:ca78db4565a652026a4db2bcdf68f2fb589ea80d0be70e03929ed730746b84fe
+    # via requests
+charset-normalizer==3.4.1 \
+    --hash=sha256:0167ddc8ab6508fe81860a57dd472b2ef4060e8d378f0cc555707126830f2537 \
+    --hash=sha256:01732659ba9b5b873fc117534143e4feefecf3b2078b0a6a2e925271bb6f4cfa \
+    --hash=sha256:01ad647cdd609225c5350561d084b42ddf732f4eeefe6e678765636791e78b9a \
+    --hash=sha256:04432ad9479fa40ec0f387795ddad4437a2b50417c69fa275e212933519ff294 \
+    --hash=sha256:0907f11d019260cdc3f94fbdb23ff9125f6b5d1039b76003b5b0ac9d6a6c9d5b \
+    --hash=sha256:0924e81d3d5e70f8126529951dac65c1010cdf117bb75eb02dd12339b57749dd \
+    --hash=sha256:09b26ae6b1abf0d27570633b2b078a2a20419c99d66fb2823173d73f188ce601 \
+    --hash=sha256:09b5e6733cbd160dcc09589227187e242a30a49ca5cefa5a7edd3f9d19ed53fd \
+    --hash=sha256:0af291f4fe114be0280cdd29d533696a77b5b49cfde5467176ecab32353395c4 \
+    --hash=sha256:0f55e69f030f7163dffe9fd0752b32f070566451afe180f99dbeeb81f511ad8d \
+    --hash=sha256:1a2bc9f351a75ef49d664206d51f8e5ede9da246602dc2d2726837620ea034b2 \
+    --hash=sha256:22e14b5d70560b8dd51ec22863f370d1e595ac3d024cb8ad7d308b4cd95f8313 \
+    --hash=sha256:234ac59ea147c59ee4da87a0c0f098e9c8d169f4dc2a159ef720f1a61bbe27cd \
+    --hash=sha256:2369eea1ee4a7610a860d88f268eb39b95cb588acd7235e02fd5a5601773d4fa \
+    --hash=sha256:237bdbe6159cff53b4f24f397d43c6336c6b0b42affbe857970cefbb620911c8 \
+    --hash=sha256:28bf57629c75e810b6ae989f03c0828d64d6b26a5e205535585f96093e405ed1 \
+    --hash=sha256:2967f74ad52c3b98de4c3b32e1a44e32975e008a9cd2a8cc8966d6a5218c5cb2 \
+    --hash=sha256:2a75d49014d118e4198bcee5ee0a6f25856b29b12dbf7cd012791f8a6cc5c496 \
+    --hash=sha256:2bdfe3ac2e1bbe5b59a1a63721eb3b95fc9b6817ae4a46debbb4e11f6232428d \
+   
+... [TRUNCATED]
+
+[requirements_lock_3_14.txt]
+#
+# This file is autogenerated by pip-compile with Python 3.14
+# by the following command:
+#
+#    bazel run //ci/official/requirements_updater:requirements.update
+#
+absl-py==2.3.0 \
+    --hash=sha256:9824a48b654a306168f63e0d97714665f8490b8d89ec7bf2efc24bf67cf579b3 \
+    --hash=sha256:d96fda5c884f1b22178852f30ffa85766d50b99e00775ea626c23304f582fc4f
+    # via
+    #   keras-nightly
+    #   tb-nightly
+astor==0.7.1 \
+    --hash=sha256:95c30d87a6c2cf89aa628b87398466840f0ad8652f88eb173125a6df8533fb8d \
+    --hash=sha256:fb503b9e2fdd05609fbf557b916b4a7824171203701660f0c55bbf5a7a68713e
+    # via -r ci/official/requirements_updater/requirements.in
+astunparse==1.6.3 \
+    --hash=sha256:5ad93a8456f0d084c3456d059fd9a92cce667963232cbf763eac3bc5b7940872 \
+    --hash=sha256:c2652417f2c8b5bb325c885ae329bdf3f86424075c4fd1a128674bc6fba4b8e8
+    # via -r ci/official/requirements_updater/requirements.in
+auditwheel==6.3.0 \
+    --hash=sha256:05c70a234fa14c140aa6d9076135d9550962d95849911b8d5d0419a3add09f00 \
+    --hash=sha256:31cbd8045d4ff6776f79bef328b5fd563e5ecc8ae82ea34b6fe5e76efe2a84eb
+    # via -r ci/official/requirements_updater/requirements.in
+certifi==2025.1.31 \
+    --hash=sha256:3d5da6925056f6f18f119200434a4780a94263f10d1c21d032a6f6b2baa20651 \
+    --hash=sha256:ca78db4565a652026a4db2bcdf68f2fb589ea80d0be70e03929ed730746b84fe
+    # via requests
+charset-normalizer==3.4.1 \
+    --hash=sha256:0167ddc8ab6508fe81860a57dd472b2ef4060e8d378f0cc555707126830f2537 \
+    --hash=sha256:01732659ba9b5b873fc117534143e4feefecf3b2078b0a6a2e925271bb6f4cfa \
+    --hash=sha256:01ad647cdd609225c5350561d084b42ddf732f4eeefe6e678765636791e78b9a \
+    --hash=sha256:04432ad9479fa40ec0f387795ddad4437a2b50417c69fa275e212933519ff294 \
+    --hash=sha256:0907f11d019260cdc3f94fbdb23ff9125f6b5d1039b76003b5b0ac9d6a6c9d5b \
+    --hash=sha256:0924e81d3d5e70f8126529951dac65c1010cdf117bb75eb02dd12339b57749dd \
+    --hash=sha256:09b26ae6b1abf0d27570633b2b078a2a20419c99d66fb2823173d73f188ce601 \
+    --hash=sha256:09b5e6733cbd160dcc09589227187e242a30a49ca5cefa5a7edd3f9d19ed53fd \
+    --hash=sha256:0af291f4fe114be0280cdd29d533696a77b5b49cfde5467176ecab32353395c4 \
+    --hash=sha256:0f55e69f030f7163dffe9fd0752b32f070566451afe180f99dbeeb81f511ad8d \
+    --hash=sha256:1a2bc9f351a75ef49d664206d51f8e5ede9da246602dc2d2726837620ea034b2 \
+    --hash=sha256:22e14b5d70560b8dd51ec22863f370d1e595ac3d024cb8ad7d308b4cd95f8313 \
+    --hash=sha256:234ac59ea147c59ee4da87a0c0f098e9c8d169f4dc2a159ef720f1a61bbe27cd \
+    --hash=sha256:2369eea1ee4a7610a860d88f268eb39b95cb588acd7235e02fd5a5601773d4fa \
+    --hash=sha256:237bdbe6159cff53b4f24f397d43c6336c6b0b42affbe857970cefbb620911c8 \
+    --hash=sha256:28bf57629c75e810b6ae989f03c0828d64d6b26a5e205535585f96093e405ed1 \
+    --hash=sha256:2967f74ad52c3b98de4c3b32e1a44e32975e008a9cd2a8cc8966d6a5218c5cb2 \
+    --hash=sha256:2a75d49014d118e4198bcee5ee0a6f25856b29b12dbf7cd012791f8a6cc5c496 \
+    --hash=sha256:2bdfe3ac2e1bbe5b59a1a63721eb3b95fc9b6817ae4a46debbb4e11f6232428d \
+   
+... [TRUNCATED]
+
+[tensorflow/tools/ci_build/release/requirements_common.txt]
+# To have reproducible builds, these dependencies should be pinned always.
+# Prefer pinning to the same version as in setup.py for now.
+# This will change in the future.
+absl-py ~= 1.0.0
+astunparse ~= 1.6.3
+flatbuffers ~= 25.9.23
+google_pasta ~= 0.2
+h5py ~= 3.10.0  # Earliest version for Python 3.12
+ml_dtypes ~= 0.5.1
+# TODO(b/262592253): Support older versions of NumPy for Python 3.10 and lower
+# to support TFX. Remove when Apache Beam upgrades to newer NumPy.
+numpy ~= 1.22.0; python_version < '3.11'
+numpy ~= 1.23.2; python_version == '3.11' # Earliest version for Python 3.11
+numpy ~= 1.26.0; python_version >= '3.12' # Earliest version for Python 3.12
+opt_einsum ~= 3.3.0
+protobuf ~= 3.20.3  # NOTE: Earliest version for Python 3.10
+six ~= 1.16.0
+termcolor ~= 2.1.1
+typing_extensions ~= 4.8.0
+wheel ~= 0.41.2
+wrapt ~= 1.14.1
+
+# We need to pin the gast dependency exactly
+gast == 0.4.0
+
+# Finally, install tensorboard and keras
+# Note that here we want the latest version that matches TF major.minor version
+# Note that we must use nightly here as these are used in nightly jobs
+# For release jobs, we will pin these on the release branch
+keras-nightly ~= 2.14.0.dev
+tb-nightly ~= 2.14.0.a
+
+# Test dependencies
+grpcio ~= 1.59.0 # Earliest version for Python 3.12
+portpicker ~= 1.6.0
+scipy ~= 1.7.2; python_version < '3.11'
+scipy ~= 1.9.2; python_version == '3.11' # Earliest version for Python 3.11
+scipy ~= 1.11.3; python_version >= '3.12' # Earliest version for Python 3.12
+
+# This is usually vendored in setuptools but ensure it gets installed in CI anyway
+# No bound here, we prefer the one in setuptools
+packaging
+
+# For using Python 3.11 with Bazel 6 (b/286090018)
+lit ~= 17.0.2
+
+
+[tensorflow/tools/ci_build/release/requirements_mac.txt]
+-r requirements_common.txt
+
+# Dependencies only required for Mac
+certifi ~= 2023.7.22
+
+# Install build related dependencies
+twine ~= 3.6.0
+setuptools
+
+# Test dependencies which don't exist on Windows
+jax ~= 0.4.1
+jaxlib ~= 0.4.1
+
+
+[tensorflow/tools/ci_build/release/requirements_ubuntu.txt]
+-r requirements_common.txt
+
+# Dependencies only required for Ubuntu
+# Needs to be addressed. Unblocked 2.4 branchcut cl/338377048
+PyYAML ~= 6.0
+
+# Test dependencies which don't exist on Windows
+jax ~= 0.4.1
+jaxlib ~= 0.4.1; platform.machine != 'aarch64'
+
+
+[tensorflow/tools/tf_sig_build_dockerfiles/devel.requirements.txt]
+# Cloned from internal ci_build dependencies
+# See here for format definitions: https://www.python.org/dev/peps/pep-0440/#version-specifiers
+#
+# To have reproducible builds, these dependencies should be pinned always.
+# Prefer pinning to the same version as in setup.py for now.
+# This will change in the future.
+absl-py ~= 1.0.0
+astunparse ~= 1.6.3
+flatbuffers ~= 25.9.23
+google_pasta ~= 0.2
+h5py ~= 3.11.0 # Earliest version for NumPy 2.0
+ml_dtypes ~= 0.5.1 # Earliest version with mxfloat types
+# TODO(b/366266944): Support older versions of NumPy to support TFX. Remove when
+# Apache Beam upgrades to newer NumPy.
+numpy ~= 1.26.0
+opt_einsum ~= 3.3.0
+packaging ~= 23.2
+protobuf ~= 3.20.3
+six ~= 1.16.0
+termcolor ~= 2.1.1
+typing_extensions ~= 4.8.0
+wheel ~= 0.41.2
+setuptools >= 70.0.0
+wrapt ~= 1.14.1
+# We need to pin the gast dependency exactly
+gast == 0.4.0
+# Finally, install tensorboard, and keras
+# Note that here we want the latest version that matches TF major.minor version
+# Note that we must use nightly here as these are used in nightly jobs
+# For release jobs, we will pin these on the release branch
+# Note that the CACHEBUSTER variable, set in the CI builds, will force these to
+# be the latest version.
+keras-nightly ~= 2.14.0.dev
+tb-nightly ~= 2.13.0.a
+# Test dependencies
+grpcio ~= 1.59.0 # Earliest version for Python 3.12
+portpicker ~= 1.6.0
+scipy ~= 1.13.0 # Earliest version for NumPy 2.0
+# Required for TFLite import from JAX tests
+jax ~= 0.4.1; python_version <= '3.11'
+jaxlib ~= 0.4.1; python_version <= '3.11' # Earliest version for Python 3.11
+# For uploading
+auditwheel ~= 5.0.0
+twine ~= 3.6.0
+# For user tool scripts
+junitparser ~= 2.2.0
+lxml ~= 4.9.1
+pylint ~= 2.13.9
+
+# For using Python 3.11 with Bazel 6 (b/286090018)
+lit ~= 17.0.2
+
+
+[third_party/xla/requirements_lock_3_11.txt]
+numpy==2.4.2 \
+    --hash=sha256:00ab83c56211a1d7c07c25e3217ea6695e50a3e2f255053686b081dc0b091a82 \
+    --hash=sha256:068cdb2d0d644cdb45670810894f6a0600797a69c05f1ac478e8d31670b8ee75 \
+    --hash=sha256:0f01dcf33e73d80bd8dc0f20a71303abbafa26a19e23f6b68d1aa9990af90257 \
+    --hash=sha256:0fece1d1f0a89c16b03442eae5c56dc0be0c7883b5d388e0c03f53019a4bfd71 \
+    --hash=sha256:12e26134a0331d8dbd9351620f037ec470b7c75929cb8a1537f6bfe411152a1a \
+    --hash=sha256:1ae241bbfc6ae276f94a170b14785e561cb5e7f626b6688cf076af4110887413 \
+    --hash=sha256:1f92f53998a17265194018d1cc321b2e96e900ca52d54c7c77837b71b9465181 \
+    --hash=sha256:209fae046e62d0ce6435fcfe3b1a10537e858249b3d9b05829e2a05218296a85 \
+    --hash=sha256:20abd069b9cda45874498b245c8015b18ace6de8546bf50dfa8cea1696ed06ef \
+    --hash=sha256:21982668592194c609de53ba4933a7471880ccbaadcc52352694a59ecc860b3a \
+    --hash=sha256:25f2059807faea4b077a2b6837391b5d830864b3543627f381821c646f31a63c \
+    --hash=sha256:2653de5c24910e49c2b106499803124dde62a5a1fe0eedeaecf4309a5f639390 \
+    --hash=sha256:2b8f157c8a6f20eb657e240f8985cc135598b2b46985c5bccbde7616dc9c6b1e \
+    --hash=sha256:2fb882da679409066b4603579619341c6d6898fc83a8995199d5249f986e8e8f \
+    --hash=sha256:40397bda92382fcec844066efb11f13e1c9a3e2a8e8f318fb72ed8b6db9f60f1 \
+    --hash=sha256:444be170853f1f9d528428eceb55f12918e4fda5d8805480f36a002f1415e09b \
+    --hash=sha256:47c5a6ed21d9452b10227e5e8a0e1c22979811cad7dcc19d8e3e2fb8fa03f1a3 \
+    --hash=sha256:4f069069931240b3fc703f1e23df63443dbd6390614c8c44a87d96cd0ec81eb1 \
+    --hash=sha256:52b913ec40ff7ae845687b0b34d8d93b60cb66dcee06996dd5c99f2fc9328657 \
+    --hash=sha256:5633c0da313330fd20c484c78cdd3f9b175b55e1a766c4a174230c6b70ad8262 \
+    --hash=sha256:5daf6f3914a733336dab21a05cdec343144600e964d2fcdabaac0c0269874b2a \
+    --hash=sha256:5eea80d908b2c1f91486eb95b3fb6fab187e569ec9752ab7d9333d2e66bf2d6b \
+    --hash=sha256:602f65afdef699cda27ec0b9224ae5dc43e328f4c24c689deaf77133dbee74d0 \
+    --hash=sha256:659a6107e31a83c4e33f763942275fd278b21d095094044eb35569e86a21ddae \
+    --hash=sha256:66cb9422236317f9d44b67b4d18f44efe6e9c7f8794ac0462978513359461554 \
+    --hash=sha256:6d82351358ffbcdcd7b686b90742a9b86632d6c1c051016484fa0b326a0a1548 \
+    --hash=sha256:6e9f61981ace1360e42737e2bae58b27bf28a1b27e781721047d84bd754d32e7 \
+    --hash=sha256:6ed0be1ee58eef41231a5c943d7d1375f093142702d5723ca2eb07db9b934b05 \
+    --hash=sha256:7cdde6de52fb6664b00b056341265441192d1291c130e99183ec0d4b110ff8b1 \
+    --hash=sha256:7df2de1e4fba69a51c06c28f5a3de36731eb9639feb8e1cf7e4a7b0daf4cf622 \
+    --hash=sha256:7edc794af8b36ca37ef5fcb5e0d128c7e0595c7b96a2318d1badb6fcd8ee86b1 \
+    --hash=sha256:7f54844851cdb630ceb623dcec4db3240d1ac13d4990532446761baede94996a \
+    --hash=sha256:805cc8de9fd6e7a22da5aed858e0ab16be5a4db6c873dde1d7451c541553aa27 \
+    --hash=sha256:8906e71fd8afcb76580404e2a950caef2685df3d2a57fe82a86ac8d33cc007ba \
+    --hash=sha256:89f7268c009bc492f506abd6f5265defa7cb3f7487dc21d357c3d290add45082 \
+    --hash
+... [TRUNCATED]
+
+[third_party/xla/requirements_lock_3_12.txt]
+numpy==2.4.2 \
+    --hash=sha256:00ab83c56211a1d7c07c25e3217ea6695e50a3e2f255053686b081dc0b091a82 \
+    --hash=sha256:068cdb2d0d644cdb45670810894f6a0600797a69c05f1ac478e8d31670b8ee75 \
+    --hash=sha256:0f01dcf33e73d80bd8dc0f20a71303abbafa26a19e23f6b68d1aa9990af90257 \
+    --hash=sha256:0fece1d1f0a89c16b03442eae5c56dc0be0c7883b5d388e0c03f53019a4bfd71 \
+    --hash=sha256:12e26134a0331d8dbd9351620f037ec470b7c75929cb8a1537f6bfe411152a1a \
+    --hash=sha256:1ae241bbfc6ae276f94a170b14785e561cb5e7f626b6688cf076af4110887413 \
+    --hash=sha256:1f92f53998a17265194018d1cc321b2e96e900ca52d54c7c77837b71b9465181 \
+    --hash=sha256:209fae046e62d0ce6435fcfe3b1a10537e858249b3d9b05829e2a05218296a85 \
+    --hash=sha256:20abd069b9cda45874498b245c8015b18ace6de8546bf50dfa8cea1696ed06ef \
+    --hash=sha256:21982668592194c609de53ba4933a7471880ccbaadcc52352694a59ecc860b3a \
+    --hash=sha256:25f2059807faea4b077a2b6837391b5d830864b3543627f381821c646f31a63c \
+    --hash=sha256:2653de5c24910e49c2b106499803124dde62a5a1fe0eedeaecf4309a5f639390 \
+    --hash=sha256:2b8f157c8a6f20eb657e240f8985cc135598b2b46985c5bccbde7616dc9c6b1e \
+    --hash=sha256:2fb882da679409066b4603579619341c6d6898fc83a8995199d5249f986e8e8f \
+    --hash=sha256:40397bda92382fcec844066efb11f13e1c9a3e2a8e8f318fb72ed8b6db9f60f1 \
+    --hash=sha256:444be170853f1f9d528428eceb55f12918e4fda5d8805480f36a002f1415e09b \
+    --hash=sha256:47c5a6ed21d9452b10227e5e8a0e1c22979811cad7dcc19d8e3e2fb8fa03f1a3 \
+    --hash=sha256:4f069069931240b3fc703f1e23df63443dbd6390614c8c44a87d96cd0ec81eb1 \
+    --hash=sha256:52b913ec40ff7ae845687b0b34d8d93b60cb66dcee06996dd5c99f2fc9328657 \
+    --hash=sha256:5633c0da313330fd20c484c78cdd3f9b175b55e1a766c4a174230c6b70ad8262 \
+    --hash=sha256:5daf6f3914a733336dab21a05cdec343144600e964d2fcdabaac0c0269874b2a \
+    --hash=sha256:5eea80d908b2c1f91486eb95b3fb6fab187e569ec9752ab7d9333d2e66bf2d6b \
+    --hash=sha256:602f65afdef699cda27ec0b9224ae5dc43e328f4c24c689deaf77133dbee74d0 \
+    --hash=sha256:659a6107e31a83c4e33f763942275fd278b21d095094044eb35569e86a21ddae \
+    --hash=sha256:66cb9422236317f9d44b67b4d18f44efe6e9c7f8794ac0462978513359461554 \
+    --hash=sha256:6d82351358ffbcdcd7b686b90742a9b86632d6c1c051016484fa0b326a0a1548 \
+    --hash=sha256:6e9f61981ace1360e42737e2bae58b27bf28a1b27e781721047d84bd754d32e7 \
+    --hash=sha256:6ed0be1ee58eef41231a5c943d7d1375f093142702d5723ca2eb07db9b934b05 \
+    --hash=sha256:7cdde6de52fb6664b00b056341265441192d1291c130e99183ec0d4b110ff8b1 \
+    --hash=sha256:7df2de1e4fba69a51c06c28f5a3de36731eb9639feb8e1cf7e4a7b0daf4cf622 \
+    --hash=sha256:7edc794af8b36ca37ef5fcb5e0d128c7e0595c7b96a2318d1badb6fcd8ee86b1 \
+    --hash=sha256:7f54844851cdb630ceb623dcec4db3240d1ac13d4990532446761baede94996a \
+    --hash=sha256:805cc8de9fd6e7a22da5aed858e0ab16be5a4db6c873dde1d7451c541553aa27 \
+    --hash=sha256:8906e71fd8afcb76580404e2a950caef2685df3d2a57fe82a86ac8d33cc007ba \
+    --hash=sha256:89f7268c009bc492f506abd6f5265defa7cb3f7487dc21d357c3d290add45082 \
+    --hash
+... [TRUNCATED]
+
+[third_party/xla/xla/backends/cpu/benchmarks/e2e/gemma2/flax_2b/requirements.txt]
+absl-py==2.1.0
+chex==0.1.87
+etils==1.11.0
+flax==0.10.2
+fsspec==2024.10.0
+gemma==3.0.2
+humanize==4.11.0
+importlib_resources==6.4.5
+jax==0.4.37
+jaxlib==0.4.36
+markdown-it-py==3.0.0
+mdurl==0.1.2
+ml_dtypes==0.5.0
+msgpack==1.1.0
+nest-asyncio==1.6.0
+numpy==2.2.0
+opt_einsum==3.4.0
+optax==0.2.4
+orbax-checkpoint==0.10.2
+protobuf==6.33.5
+Pygments==2.18.0
+PyYAML==6.0.2
+rich==13.9.4
+scipy==1.14.1
+sentencepiece==0.2.1
+simplejson==3.19.3
+tensorstore==0.1.69
+toolz==1.0.0
+typing_extensions==4.12.2
+zipp==3.21.0
+
+[third_party/xla/xla/backends/cpu/benchmarks/e2e/gemma2/keras/requirements.txt]
+keras==3.13.2
+keras_nlp==0.18.1
+tensorflow==2.18.0
+jax==0.4.38
+torch==2.7.0
+
+
+[third_party/xla/xla/backends/cpu/benchmarks/e2e/gemma2/pytorch_2b/requirements.txt]
+numpy == 1.24.4
+sentencepiece == 0.2.1
+torch
+gemma @ git+https://github.com/google/gemma_pytorch.git@80881c2e6e797ef1913a4a705d4b40394791cc58
+
+--- ML CONFIG FILES ---
+(No ML config files found)
+
+--- JUPYTER NOTEBOOKS ---
+  tensorflow/compiler/mlir/quantization/stablehlo/python/integration_test/stablehlo_quantizer_odml_oss.ipynb
+  tensorflow/lite/examples/experimental_new_converter/Keras_LSTM_fusion_Codelab.ipynb
+  tensorflow/lite/examples/experimental_new_converter/keras_lstm.ipynb
+  tensorflow/lite/g3doc/examples/jax_conversion/jax_to_tflite.ipynb
+  tensorflow/lite/g3doc/examples/jax_conversion/jax_to_tflite_resnet50.ipynb
+  tensorflow/lite/g3doc/examples/keras/keras_jax_backend_to_tfl.ipynb
+  tensorflow/lite/g3doc/examples/on_device_training/overview.ipynb
+  tensorflow/lite/g3doc/examples/style_transfer/overview.ipynb
+  tensorflow/lite/g3doc/examples/super_resolution/overview.ipynb
+  tensorflow/lite/g3doc/guide/authoring.ipynb
+
+--- MODEL / TRAINING FILES ---
+  tensorflow/c/experimental/saved_model/internal/testdata/gen_saved_models.py
+  tensorflow/cc/saved_model/testdata/generate_chunked_models.py
+  tensorflow/cc/saved_model/testdata/generate_saved_models.py
+  tensorflow/compiler/mlir/quantization/tensorflow/python/quantize_model.py
+  tensorflow/compiler/mlir/quantization/tensorflow/python/representative_dataset.py
+  tensorflow/compiler/mlir/quantization/tensorflow/python/save_model.py
+  tensorflow/examples/custom_ops_doc/multiplex_4/model_using_multiplex.py
+  tensorflow/examples/speech_commands/models.py
+  tensorflow/examples/speech_commands/train.py
+  tensorflow/lite/python/convert_saved_model.py
+
+--- DIRECTORY STRUCTURE (depth 2) ---
+├── .bazelignore
+├── .bazelrc
+├── .bazelversion
+├── .clang-format
+├── .github/
+│   ├── ISSUE_TEMPLATE/
+│   │   ├── config.yml
+│   │   ├── tensorflow_issue_template.yaml
+│   │   ├── tflite-converter-issue.md
+│   │   ├── tflite-in-play-services.md
+│   │   ├── tflite-op-request.md
+│   │   └── tflite-other.md
+│   ├── bot_config.yml
+│   ├── dependabot.yml
+│   └── workflows/
+│       ├── arm-cd.yml
+│       ├── arm-ci-extended-cpp.yml
+│       ├── arm-ci-extended.yml
+│       ├── arm-ci.yml
+│       ├── cffconvert.yml
+│       ├── create_issue.js
+│       ├── issue-on-pr-rollback.yml
+│       ├── osv-scanner-scheduled.yml
+│       ├── pylint-presubmit.yml
+│       ├── release-branch-cherrypick.yml
+│       ├── scorecards-analysis.yml
+│       ├── stale-issues.yml
+│       ├── update-nightly.yml
+│       └── update-rbe.yml
+├── .gitignore
+├── .pylintrc
+├── .zenodo.json
+├── AUTHORS
+├── BUILD
+├── CITATION.cff
+├── CODEOWNERS
+├── CODE_OF_CONDUCT.md
+├── CONTRIBUTING.md
+├── ISSUES.md
+├── LICENSE
+├── README.md
+├── RELEASE.md
+├── SECURITY.md
+├── WORKSPACE
+├── arm_compiler.BUILD
+├── ci/
+│   ├── README.md
+│   ├── devinfra/
+│   │   ├── README.md
+│   │   └── docker/
+│   └── official/
+│       ├── README.md
+│       ├── any.sh
+│       ├── bisect.sh
+│       ├── code_check_changed_files.sh
+│       ├── code_check_full.sh
+│       ├── containers/
+│       ├── debug_tfci.sh
+│       ├── envs/
+│       ├── installer_wheel.sh
+│       ├── libtensorflow.sh
+│       ├── pycpp.sh
+│       ├── requirements_updater/
+│       ├── upload.sh
+│       ├── utilities/
+│       └── wheel.sh
+├── configure
+├── configure.cmd
+├── configure.py
+├── models.BUILD
+├── requirements_lock_3_10.txt
+├── requirements_lock_3_11.txt
+├── requirements_lock_3_12.txt
+├── requirements_lock_3_13.txt
+├── requirements_lock_3_14.txt
+├── tensorflow/
+│   ├── .clang-format
+│   ├── BUILD
+│   ├── __init__.py
+│   ├── api_template.__init__.py
+│   ├── api_template_v1.__init__.py
+│   ├── build_cleaner_spec.textproto
+│   ├── c/
+│   │   ├── BUILD
+│   │   ├── README.md
+│   │   ├── c_api.cc
+│   │   ├── c_api.h
+│   │   ├── c_api_experimental.cc
+│   │   ├── c_api_experimental.h
+│   │   ├── c_api_experimental_test.cc
+│   │   ├── c_api_function.cc
+│   │   ├── c_api_function_test.cc
+│   │   ├── c_api_internal.h
+│   │   ├── c_api_macros.h
+│   │   ├── c_api_macros_internal.h
+│   │   ├── c_api_test.cc
+│   │   ├── c_op_requires.h
+│   │   ├── c_test.c
+│   │   ├── c_test_util.cc
+│   │   ├── c_test_util.h
+│   │   ├── checkpoint_reader.cc
+│   │   ├── checkpoint_reader.h
+│   │   ├── conversion_macros.h
+│   │   ├── eager/
+│   │   ├── env.cc
+│   │   ├── env.h
+│   │   ├── env_test.cc
+│   │   ├── experimental/
+│   │   ├── exported_symbols.lds
+│   │   ├── generate-pc.sh
+│   │   ├── kernels.cc
+│   │   ├── kernels.h
+│   │   ├── kernels/
+│   │   ├── kernels_experimental.cc
+│   │   ├── kernels_experimental.h
+│   │   ├── kernels_test.cc
+│   │   ├── ops.cc
+│   │   ├── ops.h
+│   │   ├── ops_test.cc
+│   │   ├── python_api.cc
+│   │   ├── python_api.h
+│   │   ├── safe_ptr.cc
+│   │   ├── safe_ptr.h
+│   │   ├── tensor_interface.h
+│   │   ├── test_op.cc
+│   │   ├── test_op1.cc
+│   │   ├── testdata/
+│   │   ├── tf_attrtype.h
+│   │   ├── tf_buffer.cc
+│   │   ├── tf_buffer.h
+│   │   ├── tf_buffer_internal.h
+│   │   ├── tf_datatype.cc
+│   │   ├── tf_datatype.h
+│   │   ├── tf_file_statistics.h
+│   │   ├── tf_shape.cc
+│   │   ├── tf_shape.h
+│   │   ├── tf_shape_internal.h
+│   │   ├── tf_status.cc
+│   │   ├── tf_status.h
+│   │   ├── tf_status_helper.cc
+│   │   ├── tf_status_helper.h
+│   │   ├── tf_status_helper_test.cc
+│   │   ├── tf_status_internal.h
+│   │   ├── tf_tensor.cc
+│   │   ├── tf_tensor.h
+│   │   ├── tf_tensor_helper.h
+│   │   ├── tf_tensor_internal.h
+│   │   ├── tf_tstring.cc
+│   │   ├── tf_tstring.h
+│   │   ├── version_script.lds
+│   │   └── while_loop_test.cc
+│   ├── cc/
+│   │   ├── BUILD
+│   │   ├── client/
+│   │   ├── experimental/
+│   │   ├── framework/
+│   │   ├── gradients/
+│   │   ├── ops/
+│   │   ├── saved_model/
+│   │   ├── tools/
+│   │   └── training/
+│   ├── compat_template.__init__.py
+│   ├── compat_template_v1.__init__.py
+│   ├── compiler/
+│   │   ├── OWNERS_FORCE_SUBMIT_APPROVERS
+│   │   ├── aot/
+│   │   ├── jit/
+│   │   ├── mlir/
+│   │   ├── plugin/
+│   │   ├── tests/
+│   │   ├── tf2tensorrt/
+│   │   └── tf2xla/
+│   ├── core/
+│   │   ├── BUILD
+│   │   ├── activity_watcher/
+│   │   ├── api_def/
+│   │   ├── build_defs.bzl
+│   │   ├── common_runtime/
+│   │   ├── config/
+│   │   ├── data/
+│   │   ├── debug/
+│   │   ├── distributed_runtime/
+│   │   ├── example/
+│   │   ├── framework/
+│   │   ├── function/
+│   │   ├── graph/
+│   │   ├── grappler/
+│   │   ├── ir/
+│   │   ├── kernels/
+│   │   ├── lib/
+│   │   ├── nccl/
+│   │   ├── ops/
+│   │   ├── platform/
+│   │   ├── profiler/
+│   │   ├── protobuf/
+│   │   ├── public/
+│   │   ├── runtime_fallback/
+│   │   ├── summary/
+│   │   ├── tfrt/
+│   │   ├── tpu/
+│   │   ├── transforms/
+│   │   ├── user_ops/
+│   │   └── util/
+│   ├── distribute/
+│   │   └── experimental/
+│   ├── docs_src/
+│   │   └── README.md
+│   ├── dtensor/
+│   │   ├── BUILD
+│   │   ├── build_defs.bzl
+│   │   ├── cc/
+│   │   ├── mlir/
+│   │   ├── proto/
+│   │   ├── python/
+│   │   └── tests/
+│   ├── examples/
+│   │   ├── README.md
+│   │   ├── __init__.py
+│   │   ├── adding_an_op/
+│   │   ├── android/
+│   │   ├── custom_ops_doc/
+│   │   ├── image_retraining/
+│   │   ├── label_image/
+│   │   ├── multibox_detector/
+│   │   ├── speech_commands/
+│   │   ├── udacity/
+│   │   └── wav_to_spectrogram/
+│   ├── go/
+│   │   ├── BUILD
+│   │   ├── README.md
+│   │   ├── android.go
+│   │   ├── attrs.go
+│   │   ├── attrs_test.go
+│   │   ├── context.go
+│   │   ├── context_test.go
+│   │   ├── core/
+│   │   ├── doc.go
+│   │   ├── example_inception_inference_test.go
+│   │   ├── genop/
+│   │   ├── graph.go
+│   │   ├── graph_test.go
+│   │   ├── lib.go
+│   │   ├── op/
+│   │   ├── operation.go
+│   │   ├── operation_test.go
+│   │   ├── saved_model.go
+│   │   ├── saved_model_test.go
+│   │   ├── session.go
+│   │   ├── session_test.go
+│   │   ├── shape.go
+│   │   ├── shape_test.go
+│   │   ├── signature.go
+│   │   ├── signature_test.go
+│   │   ├── status.go
+│   │   ├── stream_executor/
+│   │   ├── tensor.go
+│   │   ├── tensor_handle.go
+│   │   ├── tensor_handle_test.go
+│   │   ├── tensor_test.go
+│   │   ├── test.sh
+│   │   ├── testdata/
+│   │   ├── tsl/
+│   │   ├── util_test.go
+│   │   └── version.go
+│   ├── java/
+│   │   ├── BUILD
+│   │   ├── LEGACY.md
+│   │   ├── README.md
+│   │   ├── build_defs.bzl
+│   │   ├── config/
+│   │   ├── generate_pom.cc
+│   │   └── src/
+│   ├── js/
+│   │   ├── BUILD
+│   │   └── ops/
+│   ├── lite/
+│   │   ├── BUILD
+│   │   ├── CMakeLists.txt
+│   │   ├── README.md
+│   │   ├── acceleration/
+│   │   ├── allocation.h
+│   │   ├── allocation_test.cc
+│   │   ├── arena_planner.cc
+│   │   ├── arena_planner.h
+│   │   ├── arena_planner_subgraph_test.cc
+│   │   ├── arena_planner_test.cc
+│   │   ├── array.cc
+│   │   ├── array.h
+│   │   ├── array_test.cc
+│   │   ├── async/
+│   │   ├── build_def.bzl
+│   │   ├── builtin_op_data.h
+│   │   ├── builtin_ops.h
+│   │   ├── c/
+│   │   ├── cmake/
+│   │   ├── context.h
+│   │   ├── context_util.h
+│   │   ├── core/
+│   │   ├── create_op_resolver.h
+│   │   ├── create_op_resolver_with_selected_ops.cc
+│   │   ├── delegates/
+│   │   ├── error_reporter.h
+│   │   ├── examples/
+│   │   ├── experimental/
+│   │   ├── external_cpu_backend_context.cc
+│   │   ├── external_cpu_backend_context.h
+│   │   ├── g3doc/
+│   │   ├── generate-pc.sh
+│   │   ├── graph_info.cc
+│   │   ├── graph_info.h
+│   │   ├── graph_info_test.cc
+│   │   ├── internal/
+│   │   ├── interpreter.h
+│   │   ├── interpreter_builder.h
+│   │   ├── interpreter_options.h
+│   │   ├── interpreter_test.cc
+│   │   ├── interpreter_test_util.h
+│   │   ├── ios/
+│   │   ├── java/
+│   │   ├── kernels/
+│   │   ├── lib_package/
+│   │   ├── logger.cc
+│   │   ├── logger.h
+│   │   ├── memory_planner.h
+│   │   ├── micro/
+│   │   ├── minimal_logging.cc
+│   │   ├── minimal_logging.h
+│   │   ├── minimal_logging_android.cc
+│   │   ├── minimal_logging_default.cc
+│   │   ├── minimal_logging_ios.cc
+│   │   ├── minimal_logging_test.cc
+│   │   ├── model.h
+│   │   ├── model_builder.h
+│   │   ├── model_flex_test.cc
+│   │   ├── model_xnnpack_test.cc
+│   │   ├── mutable_op_resolver.cc
+│   │   ├── mutable_op_resolver.h
+│   │   ├── mutable_op_resolver_test.cc
+│   │   ├── mutable_op_resolver_utils.cc
+│   │   ├── mutable_op_resolver_utils.h
+│   │   ├── mutable_op_resolver_utils_test.cc
+│   │   ├── namespace.h
+│   │   ├── nnapi/
+│   │   ├── objc/
+│   │   ├── op_resolver.h
+│   │   ├── optional_debug_tools.cc
+│   │   ├── optional_debug_tools.h
+│   │   ├── optional_debug_tools_test.cc
+│   │   ├── portable_type_to_tflitetype.h
+│   │   ├── profiling/
+│   │   ├── python/
+│   │   ├── schema/
+│   │   ├── shared_library.h
+│   │   ├── signature_runner.h
+│   │   ├── simple_memory_arena.cc
+│   │   ├── simple_memory_arena.h
+│   │   ├── simple_memory_arena_debug_dump.cc
+│   │   ├── simple_memory_arena_test.cc
+│   │   ├── simple_planner.cc
+│   │   ├── simple_planner.h
+│   │   ├── simple_planner_test.cc
+│   │   ├── special_rules.bzl
+│   │   ├── stablehlo/
+│   │   ├── stateful_error_reporter.h
+│   │   ├── stderr_reporter.cc
+│   │   ├── stderr_reporter.h
+│   │   ├── stderr_reporter_test.cc
+│   │   ├── string_type.h
+│   │   ├── string_util.cc
+│   │   ├── string_util.h
+│   │   ├── string_util_test.cc
+│   │   ├── swift/
+│   │   ├── tensorflow_profiler_logger.h
+│   │   ├── tensorflow_profiler_logger_shim.cc
+│   │   ├── test_util.h
+│   │   ├── test_util_test.cc
+│   │   ├── testdata/
+│   │   ├── testing/
+│   │   ├── tflite_exported_symbols.lds
+│   │   ├── tflite_version_script.lds
+│   │   ├── tflite_with_xnnpack.cc
+│   │   ├── tflite_with_xnnpack_optional.cc
+│   │   ├── tflite_with_xnnpack_optional.h
+│   │   ├── toco/
+│   │   ├── tools/
+│   │   ├── tutorials/
+│   │   ├── type_to_tflitetype.h
+│   │   ├── type_to_tflitetype_test.cc
+│   │   ├── types/
+│   │   ├── util.cc
+│   │   ├── util.h
+│   │   ├── util_test.cc
+│   │   └── version.h
+│   ├── opensource_only.files
+│   ├── python/
+│   │   ├── BUILD
+│   │   ├── __init__.py
+│   │   ├── _pywrap_dtensor_device.pyi
+│   │   ├── _pywrap_mlir.pyi
+│   │   ├── _pywrap_parallel_device.pyi
+│   │   ├── _pywrap_py_exception_registry.pyi
+│   │   ├── _pywrap_quantize_training.pyi
+│   │   ├── _pywrap_sanitizers.pyi
+│   │   ├── _pywrap_tensorflow.def
+│   │   ├── _pywrap_tfcompile.pyi
+│   │   ├── _pywrap_tfe.pyi
+│   │   ├── _pywrap_tfe_monitoring_reader.pyi
+│   │   ├── _pywrap_toco_api.pyi
+│   │   ├── autograph/
+│   │   ├── build_defs.bzl
+│   │   ├── checkpoint/
+│   │   ├── client/
+│   │   ├── compat/
+│   │   ├── compiler/
+│   │   ├── data/
+│   │   ├── debug/
+│   │   ├── distribute/
+│   │   ├── dlpack/
+│   │   ├── eager/
+│   │   ├── feature_column/
+│   │   ├── flags_pybind.pyi
+│   │   ├── framework/
+│   │   ├── grappler/
+│   │   ├── keras/
+│   │   ├── kernel_tests/
+│   │   ├── layers/
+│   │   ├── lib/
+│   │   ├── lite/
+│   │   ├── mlir_wrapper.cc
+│   │   ├── module/
+│   │   ├── modules_with_exports.py
+│   │   ├── ops/
+│   │   ├── platform/
+│   │   ├── profiler/
+│   │   ├── proto_exports.py
+│   │   ├── protobuf_inline_symbols_enforcer.cc
+│   │   ├── py_exception_registry_wrapper.cc
+│   │   ├── pywrap_dlopen_global_flags.py
+│   │   ├── pywrap_dtensor_device.cc
+│   │   ├── pywrap_library_dependency_enforcer.cc
+│   │   ├── pywrap_library_dependency_enforcer.h
+│   │   ├── pywrap_mlir.py
+│   │   ├── pywrap_sanitizers.py
+│   │   ├── pywrap_tensorflow.py
+│   │   ├── pywrap_tensorflow_internal.cc
+│   │   ├── pywrap_tfe.py
+│   │   ├── pywrap_tfe_monitoring_reader.py
+│   │   ├── sanitizers_wrapper.cc
+│   │   ├── saved_model/
+│   │   ├── summary/
+│   │   ├── tf2.py
+│   │   ├── tfcompile_wrapper.cc
+│   │   ├── tfe_wrapper.cc
+│   │   ├── tfe_wrapper_monitoring_reader.cc
+│   │   ├── tools/
+│   │   ├── tpu/
+│   │   ├── trackable/
+│   │   ├── training/
+│   │   ├── types/
+│   │   ├── user_ops/
+│   │   └── util/
+│   ├── pytype.default.bzl
+│   ├── security/
+│   │   ├── README.md
+│   │   ├── advisory/
+│   │   └── fuzzing/
+│   ├── strict.default.bzl
+│   ├── tensorflow.bzl
+│   ├── tensorflow.default.bzl
+│   ├── tf_exported_symbols.lds
+│   ├── tf_framework_version_script.lds
+│   ├── tf_private_symbols.lds
+│   ├── tf_version.bzl
+│   ├── tf_version.default.bzl
+│   ├── tf_version_script.lds
+│   ├── tools/
+│   │   ├── __init__.py
+│   │   ├── android/
+│   │   ├── api/
+│   │   ├── benchmark/
+│   │   ├── build_info/
+│   │   ├── ci_build/
+│   │   ├── common/
+│   │   ├── compatibility/
+│   │   ├── def_file_filter/
+│   │   ├── docs/
+│   │   ├── gcs_test/
+│   │   ├── git/
+│   │   ├── graph_transforms/
+│   │   ├── lib_package/
+│   │   ├── mlpbtxt/
+│   │   ├── optimization/
+│   │   ├── pip_package/
+│   │   ├── proto_splitter/
+│   │   ├── proto_text/
+│   │   ├── tensorflow_builder/
+│   │   ├── test/
+│   │   ├── tf_sig_build_dockerfiles/
+│   │   ├── tfg_graph_transforms/
+│   │   └── toolchains/
+│   ├── virtual_root_template_v1.__init__.py
+│   ├── virtual_root_template_v2.__init__.py
+│   ├── workspace0.bzl
+│   ├── workspace1.bzl
+│   ├── workspace2.bzl
+│   └── workspace3.bzl
+├── third_party/
+│   ├── BUILD.bazel
+│   ├── __init__.py
+│   ├── android/
+│   │   ├── BUILD.bazel
+│   │   ├── android.bzl.tpl
+│   │   ├── android_configure.BUILD.tpl
+│   │   └── android_configure.bzl
+│   ├── arm_neon_2_x86_sse.BUILD
+│   ├── boringssl/
+│   │   └── BUILD.bazel
+│   ├── codegen.BUILD
+│   ├── com_google_highway/
+│   │   ├── BUILD
+│   │   ├── build.patch
+│   │   └── workspace.bzl
+│   ├── coremltools.BUILD
+│   ├── cpuinfo/
+│   │   ├── BUILD
+│   │   └── cpuinfo_ppc64le_support.patch
+│   ├── cub.BUILD
+│   ├── fft2d/
+│   │   ├── BUILD.bazel
+│   │   ├── LICENSE
+│   │   ├── fft.h
+│   │   ├── fft2d.BUILD
+│   │   └── fft2d.h
+│   ├── flatbuffers/
+│   │   ├── BUILD
+│   │   ├── BUILD.system
+│   │   ├── build_defs.bzl
+│   │   ├── flatbuffers.BUILD
+│   │   └── workspace.bzl
+│   ├── gif.BUILD
+│   ├── gif_fix_image_counter.patch
+│   ├── gif_fix_strtok_r.patch
+│   ├── git/
+│   │   ├── BUILD.bazel
+│   │   ├── BUILD.tpl
+│   │   └── git_configure.bzl
+│   ├── googleapis/
+│   │   ├── BUILD.bazel
+│   │   ├── build_rules.bzl
+│   │   ├── googleapis.BUILD
+│   │   └── repository_rules.bzl
+│   ├── hexagon/
+│   │   ├── BUILD
+│   │   ├── hexagon.BUILD
+│   │   └── workspace.bzl
+│   ├── icu/
+│   │   ├── BUILD
+│   │   ├── BUILD.system
+│   │   ├── data/
+│   │   ├── icu.BUILD
+│   │   ├── udata.patch
+│   │   └── workspace.bzl
+│   ├── jpeg/
+│   │   ├── BUILD
+│   │   ├── BUILD.system
+│   │   ├── jpeg.BUILD
+│   │   ├── jpeg_helpers.BUILD.bazel
+│   │   └── workspace.bzl
+│   ├── jpegxl/
+│   │   ├── BUILD
+│   │   ├── external_deps.patch
+│   │   ├── jpegxl.BUILD.bazel
+│   │   └── workspace.bzl
+│   ├── kissfft/
+│   │   ├── BUILD
+│   │   ├── kissfft.BUILD
+│   │   └── workspace.bzl
+│   ├── libprotobuf_mutator/
+│   │   ├── BUILD
+│   │   ├── libprotobuf_mutator.BUILD
+│   │   └── workspace.bzl
+│   ├── libwebp/
+│   │   ├── BUILD
+│   │   ├── libwebp.BUILD.bazel
+│   │   └── workspace.bzl
+│   ├── linenoise.BUILD
+│   ├── mpi/
+│   │   └── .gitignore
+│   ├── nlohmann_json.BUILD
+│   ├── opencl_headers/
+│   │   ├── BUILD
+│   │   ├── opencl_headers.BUILD
+│   │   └── workspace.bzl
+│   ├── org_brotli/
+│   │   ├── BUILD
+│   │   └── workspace.bzl
+│   ├── png.BUILD
+│   ├── png_fix_rpi.patch
+│   ├── pprof.BUILD
+│   ├── py/
+│   │   ├── BUILD.bazel
+│   │   ├── BUILD.tpl
+│   │   ├── ml_dtypes/
+│   │   ├── non_hermetic/
+│   │   ├── numpy/
+│   │   ├── python_configure.bzl
+│   │   ├── python_init_pip.bzl
+│   │   ├── python_init_repositories.bzl
+│   │   ├── python_init_rules.bzl
+│   │   ├── python_init_toolchains.bzl
+│   │   ├── python_repo.bzl
+│   │   ├── rules_cc_protobuf.patch
+│   │   ├── rules_python_freethreaded.patch
+│   │   ├── rules_python_pip_version.patch
+│   │   ├── rules_python_scope.patch
+│   │   └── rules_python_versions.patch
+│   ├── pybind11_protobuf/
+│   │   ├── BUILD.bazel
+│   │   ├── protobuf.patch
+│   │   └── remove_license.patch
+│   ├── repo.bzl
+│   ├── ruy/
+│   │   ├── BUILD
+│   │   └── workspace.bzl
+│   ├── skcms/
+│   │   ├── BUILD
+│   │   ├── skcms.BUILD.bazel
+│   │   └── workspace.bzl
+│   ├── sobol_data/
+│   │   ├── BUILD
+│   │   ├── sobol_data.BUILD
+│   │   └── workspace.bzl
+│   ├── sqlite.BUILD
+│   ├── systemlibs/
+│   │   ├── BUILD.bazel
+│   │   ├── BUILD.tpl
+│   │   ├── absl_py.BUILD
+│   │   ├── absl_py.absl.BUILD
+│   │   ├── absl_py.absl.flags.BUILD
+│   │   ├── absl_py.absl.logging.BUILD
+│   │   ├── absl_py.absl.testing.BUILD
+│   │   ├── boringssl.BUILD
+│   │   ├── build_defs.bzl.tpl
+│   │   ├── curl.BUILD
+│   │   ├── cython.BUILD
+│   │   ├── gif.BUILD
+│   │   ├── google_cloud_cpp.BUILD
+│   │   ├── google_cloud_cpp.google.cloud.bigtable.BUILD
+│   │   ├── grpc.BUILD
+│   │   ├── grpc.bazel.cc_grpc_library.bzl
+│   │   ├── grpc.bazel.generate_cc.bzl
+│   │   ├── grpc.bazel.grpc_deps.bzl
+│   │   ├── grpc.bazel.grpc_extra_deps.bzl
+│   │   ├── grpc.bazel.protobuf.bzl
+│   │   ├── jsoncpp.BUILD
+│   │   ├── lmdb.BUILD
+│   │   ├── png.BUILD
+│   │   ├── protobuf.BUILD
+│   │   ├── protobuf.bzl
+│   │   ├── protobuf_deps.bzl
+│   │   ├── pybind11.BUILD
+│   │   ├── re2.BUILD
+│   │   ├── six.BUILD
+│   │   ├── snappy.BUILD
+│   │   ├── sqlite.BUILD
+│   │   ├── syslibs_configure.bzl
+│   │   ├── tblib.BUILD
+│   │   ├── typing_extensions.BUILD
+│   │   ├── wrapt.BUILD
+│   │   └── zlib.BUILD
+│   ├── tf_runtime/
+│   │   ├── BUILD.bazel
+│   │   ├── f16_attr.patch
+│   │   └── workspace.bzl
+│   ├── tf_toolchains.BUILD
+│   ├── tflite_mobilenet.BUILD
+│   ├── tflite_mobilenet_float.BUILD
+│   ├── tflite_mobilenet_quant.BUILD
+│   ├── tflite_ovic_testdata.BUILD
+│   ├── tflite_smartreply.BUILD
+│   ├── vulkan_headers/
+│   │   ├── BUILD
+│   │   ├── tensorflow/
+│   │   ├── vulkan_headers.BUILD
+│   │   └── workspace.bzl
+│   ├── xla/
+│   │   ├── .bazelrc
+│   │   ├── .bazelversion
+│   │   ├── .clang-format
+│   │   ├── .clang-tidy
+│   │   ├── .clangd
+│   │   ├── .github/
+│   │   ├── .gitignore
+│   │   ├── .kokoro/
+│   │   ├── AUTHORS
+│   │   ├── BUILD.bazel
+│   │   ├── CONTRIBUTING.md
+│   │   ├── LICENSE
+│   │   ├── MODULE.bazel
+│   │   ├── README.md
+│   │   ├── WORKSPACE
+│   │   ├── build_tools/
+│   │   ├── docs/
+│   │   ├── opensource_only.files
+│   │   ├── requirements_lock_3_11.txt
+│   │   ├── requirements_lock_3_12.txt
+│   │   ├── tensorflow.bazelrc
+│   │   ├── third_party/
+│   │   ├── tools/
+│   │   ├── warnings.bazelrc
+│   │   ├── workspace0.bzl
+│   │   ├── workspace1.bzl
+│   │   ├── workspace2.bzl
+│   │   ├── workspace3.bzl
+│   │   ├── workspace4.bzl
+│   │   └── xla/
+│   └── xprof/
+│       ├── BUILD.bazel
+│       └── xprof.patch
+└── tools/
+    └── tf_env_collect.sh

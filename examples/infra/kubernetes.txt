@@ -1,0 +1,1782 @@
+=====================================
+Repository Analysis: kubernetes
+Type: Infrastructure / DevOps / IaC
+=====================================
+
+--- METADATA ---
+Name: kubernetes
+Description: Production-Grade Container Scheduling and Management
+Language: Go
+Topics: cncf, containers, go, kubernetes
+Stars: 120950
+License: Apache License 2.0
+
+--- README ---
+# Kubernetes (K8s)
+
+[![CII Best Practices](https://bestpractices.coreinfrastructure.org/projects/569/badge)](https://bestpractices.coreinfrastructure.org/projects/569) [![Go Report Card](https://goreportcard.com/badge/github.com/kubernetes/kubernetes)](https://goreportcard.com/report/github.com/kubernetes/kubernetes) ![GitHub release (latest SemVer)](https://img.shields.io/github/v/release/kubernetes/kubernetes?sort=semver)
+
+<img src="https://github.com/kubernetes/kubernetes/raw/master/logo/logo.png" width="100">
+
+----
+
+Kubernetes, also known as K8s, is an open source system for managing [containerized applications]
+across multiple hosts. It provides basic mechanisms for the deployment, maintenance,
+and scaling of applications.
+
+Kubernetes builds upon a decade and a half of experience at Google running
+production workloads at scale using a system called [Borg],
+combined with best-of-breed ideas and practices from the community.
+
+Kubernetes is hosted by the Cloud Native Computing Foundation ([CNCF]).
+If your company wants to help shape the evolution of
+technologies that are container-packaged, dynamically scheduled,
+and microservices-oriented, consider joining the CNCF.
+For details about who's involved and how Kubernetes plays a role,
+read the CNCF [announcement].
+
+----
+
+## To start using K8s
+
+See our documentation on [kubernetes.io].
+
+Take a free course on [Scalable Microservices with Kubernetes].
+
+To use Kubernetes code as a library in other applications, see the [list of published components](https://git.k8s.io/kubernetes/staging/README.md).
+Use of the `k8s.io/kubernetes` module or `k8s.io/kubernetes/...` packages as libraries is not supported.
+
+## To start developing K8s
+
+The [community repository] hosts all information about
+building Kubernetes from source, how to contribute code
+and documentation, who to contact about what, etc.
+
+If you want to build Kubernetes right away there are two options:
+
+##### You have a working [Go environment].
+
+```
+git clone https://github.com/kubernetes/kubernetes
+cd kubernetes
+make
+```
+
+##### You have a working [Docker environment].
+
+```
+git clone https://github.com/kubernetes/kubernetes
+cd kubernetes
+make quick-release
+```
+
+For the full story, head over to the [developer's documentation].
+
+## Support
+
+If you need support, start with the [troubleshooting guide],
+and work your way through the process that we've outlined.
+
+That said, if you have questions, reach out to us
+[one way or another][communication].
+
+[announcement]: https://cncf.io/news/announcement/2015/07/new-cloud-native-computing-foundation-drive-alignment-among-container
+[Borg]: https://research.google.com/pubs/pub43438.html?authuser=1
+[CNCF]: https://www.cncf.io/about
+[communication]: https://git.k8s.io/community/communication
+[community repository]: https://git.k8s.io/community
+[containerized applications]: https://kubernetes.io/docs/concepts/overview/what-is-kubernetes/
+[developer's documentation]: https://git.k8s.io/community/contributors/devel#readme
+[Docker environment]: https://docs.docker.com/engine
+[Go environment]: https://go.dev/doc/install
+[kubernetes.io]: https://kubernetes.io
+[Scalable Microservices with Kubernetes]: https://www.udacity.com/course/scalable-microservices-with-kubernetes--ud615
+[troubleshooting guide]: https://kubernetes.io/docs/tasks/debug/
+
+## Community Meetings 
+
+The [Calendar](https://www.kubernetes.dev/resources/calendar/) has the list of all the meetings in the Kubernetes community in a single location.
+
+## Adopters
+
+The [User Case Studies](https://kubernetes.io/case-studies/) website has real-world use cases of organizations across industries that are deploying/migrating to Kubernetes.
+
+## Governance 
+
+Kubernetes project is governed by a framework of principles, values, policies and processes to help our community and constituents towards our shared goals.
+
+The [Kubernetes Community](https://github.com/kubernetes/community/blob/master/governance.md) is the launching point for learning about how we organize ourselves.
+
+The [Kubernetes Steering community repo](https://github.com/kubernetes/steering) is used by the Kubernetes Steering Committee, which oversees governance of the Kubernetes project.
+
+## Roadmap 
+
+The [Kubernetes Enhancements repo](https://github.com/kubernetes/enhancements) provides information about Kubernetes releases, as well as feature tracking and backlogs.
+
+
+--- IAC CONFIG FILES ---
+
+[Makefile]
+build/root/Makefile
+
+--- TERRAFORM FILES ---
+(None found)
+
+--- KUBERNETES MANIFESTS ---
+  cluster/addons/calico-policy-controller/calico-node-daemonset.yaml
+  cluster/addons/calico-policy-controller/calico-node-vertical-autoscaler-configmap.yaml
+  cluster/addons/calico-policy-controller/calico-node-vertical-autoscaler-deployment.yaml
+  cluster/addons/calico-policy-controller/typha-deployment.yaml
+  cluster/addons/calico-policy-controller/typha-horizontal-autoscaler-configmap.yaml
+  cluster/addons/calico-policy-controller/typha-horizontal-autoscaler-deployment.yaml
+  cluster/addons/calico-policy-controller/typha-service.yaml
+  cluster/addons/calico-policy-controller/typha-vertical-autoscaler-configmap.yaml
+  cluster/addons/calico-policy-controller/typha-vertical-autoscaler-deployment.yaml
+  cluster/addons/fluentd-gcp/fluentd-gcp-configmap.yaml
+
+--- ANSIBLE FILES ---
+  staging/src/k8s.io/apiextensions-apiserver/test/integration/ratcheting_test_cases/valid/cross-namespace-routing/site-route.yaml
+
+--- CI/CD PIPELINES ---
+(None found)
+
+--- DIRECTORY STRUCTURE (depth 2) ---
+├── .generated_files
+├── .gitattributes
+├── .github/
+│   ├── ISSUE_TEMPLATE/
+│   │   ├── bug-report.yaml
+│   │   ├── config.yml
+│   │   ├── enhancement.yaml
+│   │   ├── failing-test.yaml
+│   │   └── flaking-test.yaml
+│   ├── OWNERS
+│   ├── PULL_REQUEST_TEMPLATE.md
+│   └── SECURITY.md
+├── .gitignore
+├── .go-version
+├── CHANGELOG.md
+├── CHANGELOG/
+│   ├── CHANGELOG-1.10.md
+│   ├── CHANGELOG-1.11.md
+│   ├── CHANGELOG-1.12.md
+│   ├── CHANGELOG-1.13.md
+│   ├── CHANGELOG-1.14.md
+│   ├── CHANGELOG-1.15.md
+│   ├── CHANGELOG-1.16.md
+│   ├── CHANGELOG-1.17.md
+│   ├── CHANGELOG-1.18.md
+│   ├── CHANGELOG-1.19.md
+│   ├── CHANGELOG-1.2.md
+│   ├── CHANGELOG-1.20.md
+│   ├── CHANGELOG-1.21.md
+│   ├── CHANGELOG-1.22.md
+│   ├── CHANGELOG-1.23.md
+│   ├── CHANGELOG-1.24.md
+│   ├── CHANGELOG-1.25.md
+│   ├── CHANGELOG-1.26.md
+│   ├── CHANGELOG-1.27.md
+│   ├── CHANGELOG-1.28.md
+│   ├── CHANGELOG-1.29.md
+│   ├── CHANGELOG-1.3.md
+│   ├── CHANGELOG-1.30.md
+│   ├── CHANGELOG-1.31.md
+│   ├── CHANGELOG-1.32.md
+│   ├── CHANGELOG-1.33.md
+│   ├── CHANGELOG-1.34.md
+│   ├── CHANGELOG-1.35.md
+│   ├── CHANGELOG-1.36.md
+│   ├── CHANGELOG-1.4.md
+│   ├── CHANGELOG-1.5.md
+│   ├── CHANGELOG-1.6.md
+│   ├── CHANGELOG-1.7.md
+│   ├── CHANGELOG-1.8.md
+│   ├── CHANGELOG-1.9.md
+│   ├── OWNERS
+│   └── README.md
+├── CONTRIBUTING.md
+├── LICENSE
+├── LICENSES/
+│   ├── LICENSE
+│   ├── OWNERS
+│   ├── third_party/
+│   │   ├── forked/
+│   │   ├── gimme/
+│   │   └── multiarch/
+│   └── vendor/
+│       ├── bitbucket.org/
+│       ├── cel.dev/
+│       ├── cyphar.com/
+│       ├── github.com/
+│       ├── go.etcd.io/
+│       ├── go.opentelemetry.io/
+│       ├── go.uber.org/
+│       ├── go.yaml.in/
+│       ├── golang.org/
+│       ├── google.golang.org/
+│       ├── gopkg.in/
+│       ├── k8s.io/
+│       └── sigs.k8s.io/
+├── Makefile
+├── OWNERS
+├── OWNERS_ALIASES
+├── README.md
+├── SECURITY_CONTACTS
+├── SUPPORT.md
+├── api/
+│   ├── OWNERS
+│   ├── api-rules/
+│   │   ├── README.md
+│   │   ├── aggregator_violation_exceptions.list
+│   │   ├── apiextensions_violation_exceptions.list
+│   │   ├── codegen_violation_exceptions.list
+│   │   ├── sample_apiserver_violation_exceptions.list
+│   │   ├── sample_controller_violation_exceptions.list
+│   │   └── violation_exceptions.list
+│   ├── discovery/
+│   │   ├── aggregated_v2.json
+│   │   ├── api.json
+│   │   ├── api__v1.json
+│   │   ├── apis.json
+│   │   ├── apis__admissionregistration.k8s.io.json
+│   │   ├── apis__admissionregistration.k8s.io__v1.json
+│   │   ├── apis__admissionregistration.k8s.io__v1alpha1.json
+│   │   ├── apis__admissionregistration.k8s.io__v1beta1.json
+│   │   ├── apis__apiextensions.k8s.io.json
+│   │   ├── apis__apiextensions.k8s.io__v1.json
+│   │   ├── apis__apiregistration.k8s.io.json
+│   │   ├── apis__apiregistration.k8s.io__v1.json
+│   │   ├── apis__apps.json
+│   │   ├── apis__apps__v1.json
+│   │   ├── apis__authentication.k8s.io.json
+│   │   ├── apis__authentication.k8s.io__v1.json
+│   │   ├── apis__authorization.k8s.io.json
+│   │   ├── apis__authorization.k8s.io__v1.json
+│   │   ├── apis__autoscaling.json
+│   │   ├── apis__autoscaling__v1.json
+│   │   ├── apis__autoscaling__v2.json
+│   │   ├── apis__batch.json
+│   │   ├── apis__batch__v1.json
+│   │   ├── apis__certificates.k8s.io.json
+│   │   ├── apis__certificates.k8s.io__v1.json
+│   │   ├── apis__certificates.k8s.io__v1alpha1.json
+│   │   ├── apis__certificates.k8s.io__v1beta1.json
+│   │   ├── apis__coordination.k8s.io.json
+│   │   ├── apis__coordination.k8s.io__v1.json
+│   │   ├── apis__coordination.k8s.io__v1alpha2.json
+│   │   ├── apis__coordination.k8s.io__v1beta1.json
+│   │   ├── apis__discovery.k8s.io.json
+│   │   ├── apis__discovery.k8s.io__v1.json
+│   │   ├── apis__events.k8s.io.json
+│   │   ├── apis__events.k8s.io__v1.json
+│   │   ├── apis__flowcontrol.apiserver.k8s.io.json
+│   │   ├── apis__flowcontrol.apiserver.k8s.io__v1.json
+│   │   ├── apis__internal.apiserver.k8s.io.json
+│   │   ├── apis__internal.apiserver.k8s.io__v1alpha1.json
+│   │   ├── apis__networking.k8s.io.json
+│   │   ├── apis__networking.k8s.io__v1.json
+│   │   ├── apis__networking.k8s.io__v1beta1.json
+│   │   ├── apis__node.k8s.io.json
+│   │   ├── apis__node.k8s.io__v1.json
+│   │   ├── apis__policy.json
+│   │   ├── apis__policy__v1.json
+│   │   ├── apis__rbac.authorization.k8s.io.json
+│   │   ├── apis__rbac.authorization.k8s.io__v1.json
+│   │   ├── apis__resource.k8s.io.json
+│   │   ├── apis__resource.k8s.io__v1.json
+│   │   ├── apis__resource.k8s.io__v1alpha3.json
+│   │   ├── apis__resource.k8s.io__v1beta1.json
+│   │   ├── apis__resource.k8s.io__v1beta2.json
+│   │   ├── apis__scheduling.k8s.io.json
+│   │   ├── apis__scheduling.k8s.io__v1.json
+│   │   ├── apis__scheduling.k8s.io__v1alpha1.json
+│   │   ├── apis__storage.k8s.io.json
+│   │   ├── apis__storage.k8s.io__v1.json
+│   │   ├── apis__storage.k8s.io__v1beta1.json
+│   │   ├── apis__storagemigration.k8s.io.json
+│   │   └── apis__storagemigration.k8s.io__v1beta1.json
+│   └── openapi-spec/
+│       ├── README.md
+│       ├── swagger.json
+│       └── v3/
+├── build/
+│   ├── OWNERS
+│   ├── README.md
+│   ├── build-image/
+│   │   ├── OWNERS
+│   │   └── cross/
+│   ├── common.sh
+│   ├── dependencies.yaml
+│   ├── lib/
+│   │   └── release.sh
+│   ├── make-clean.sh
+│   ├── package-tarballs.sh
+│   ├── pause/
+│   │   ├── .gitignore
+│   │   ├── CHANGELOG.md
+│   │   ├── Dockerfile
+│   │   ├── Dockerfile_windows
+│   │   ├── Makefile
+│   │   ├── OWNERS
+│   │   ├── cloudbuild.yaml
+│   │   ├── linux/
+│   │   └── windows/
+│   ├── release-images.sh
+│   ├── release-in-a-container.sh
+│   ├── release.sh
+│   ├── root/
+│   │   └── Makefile
+│   ├── run.sh
+│   ├── server-image/
+│   │   ├── Dockerfile
+│   │   ├── kube-apiserver/
+│   │   └── kubectl/
+│   ├── shell.sh
+│   ├── tools.go
+│   └── util.sh
+├── cluster/
+│   ├── OWNERS
+│   ├── README.md
+│   ├── addons/
+│   │   ├── OWNERS
+│   │   ├── README.md
+│   │   ├── addon-manager/
+│   │   ├── calico-policy-controller/
+│   │   ├── cloud-controller-manager/
+│   │   ├── cluster-loadbalancing/
+│   │   ├── dns-horizontal-autoscaler/
+│   │   ├── dns/
+│   │   ├── fluentd-gcp/
+│   │   ├── ip-masq-agent/
+│   │   ├── kube-network-policies/
+│   │   ├── metadata-agent/
+│   │   ├── metadata-proxy/
+│   │   ├── metrics-server/
+│   │   ├── node-problem-detector/
+│   │   ├── rbac/
+│   │   ├── storage-class/
+│   │   └── volumesnapshots/
+│   ├── common.sh
+│   ├── gce/
+│   │   ├── OWNERS
+│   │   ├── addons/
+│   │   ├── config-common.sh
+│   │   ├── config-default.sh
+│   │   ├── config-test.sh
+│   │   ├── cos
+│   │   ├── custom
+│   │   ├── delete-stranded-load-balancers.sh
+│   │   ├── gci/
+│   │   ├── list-resources.sh
+│   │   ├── manifests/
+│   │   ├── ubuntu
+│   │   ├── upgrade-aliases.sh
+│   │   ├── upgrade.sh
+│   │   ├── util.sh
+│   │   └── windows/
+│   ├── get-kube-binaries.sh
+│   ├── get-kube.sh
+│   ├── images/
+│   │   ├── OWNERS
+│   │   ├── etcd-version-monitor/
+│   │   └── kubemark/
+│   ├── kube-down.sh
+│   ├── kube-up.sh
+│   ├── kube-util.sh
+│   ├── kubectl.sh
+│   ├── kubemark/
+│   │   ├── OWNERS
+│   │   ├── gce/
+│   │   ├── iks/
+│   │   ├── pre-existing/
+│   │   └── util.sh
+│   ├── log-dump/
+│   │   ├── OWNERS
+│   │   ├── README.md
+│   │   ├── log-dump.sh
+│   │   └── logexporter-daemonset.yaml
+│   ├── pre-existing/
+│   │   ├── OWNERS
+│   │   └── util.sh
+│   ├── skeleton/
+│   │   ├── OWNERS
+│   │   └── util.sh
+│   └── validate-cluster.sh
+├── cmd/
+│   ├── OWNERS
+│   ├── clicheck/
+│   │   ├── OWNERS
+│   │   └── check_cli_conventions.go
+│   ├── cloud-controller-manager/
+│   │   ├── .import-restrictions
+│   │   ├── OWNERS
+│   │   ├── README.md
+│   │   ├── main.go
+│   │   ├── nodeipamcontroller.go
+│   │   └── providers.go
+│   ├── dependencycheck/
+│   │   ├── OWNERS
+│   │   └── dependencycheck.go
+│   ├── dependencyverifier/
+│   │   ├── OWNERS
+│   │   └── dependencyverifier.go
+│   ├── fieldnamedocscheck/
+│   │   └── field_name_docs_check.go
+│   ├── gendocs/
+│   │   ├── OWNERS
+│   │   └── gen_kubectl_docs.go
+│   ├── genfeaturegates/
+│   │   └── genfeaturegates.go
+│   ├── genkubedocs/
+│   │   ├── gen_kube_docs.go
+│   │   ├── postprocessing.go
+│   │   └── postprocessing_test.go
+│   ├── genman/
+│   │   ├── OWNERS
+│   │   └── gen_kube_man.go
+│   ├── genswaggertypedocs/
+│   │   └── swagger_type_docs.go
+│   ├── genutils/
+│   │   ├── genutils.go
+│   │   └── genutils_test.go
+│   ├── genyaml/
+│   │   ├── OWNERS
+│   │   └── gen_kubectl_yaml.go
+│   ├── gotemplate/
+│   │   ├── OWNERS
+│   │   ├── gotemplate.go
+│   │   └── gotemplate_test.go
+│   ├── import-boss/
+│   │   ├── README.md
+│   │   ├── main.go
+│   │   ├── main_test.go
+│   │   └── testdata/
+│   ├── importverifier/
+│   │   ├── OWNERS
+│   │   └── importverifier.go
+│   ├── kube-apiserver/
+│   │   ├── .import-restrictions
+│   │   ├── OWNERS
+│   │   ├── apiserver.go
+│   │   └── app/
+│   ├── kube-controller-manager/
+│   │   ├── OWNERS
+│   │   ├── app/
+│   │   ├── controller-manager.go
+│   │   └── names/
+│   ├── kube-proxy/
+│   │   ├── OWNERS
+│   │   ├── app/
+│   │   └── proxy.go
+│   ├── kube-scheduler/
+│   │   ├── OWNERS
+│   │   ├── app/
+│   │   └── scheduler.go
+│   ├── kubeadm/
+│   │   ├── .import-restrictions
+│   │   ├── OWNERS
+│   │   ├── app/
+│   │   ├── kubeadm.go
+│   │   └── test/
+│   ├── kubectl-convert/
+│   │   ├── OWNERS
+│   │   └── kubectl-convert.go
+│   ├── kubectl/
+│   │   ├── OWNERS
+│   │   └── kubectl.go
+│   ├── kubelet/
+│   │   ├── OWNERS
+│   │   ├── app/
+│   │   └── kubelet.go
+│   ├── kubemark/
+│   │   ├── OWNERS
+│   │   ├── app/
+│   │   └── hollow-node.go
+│   ├── preferredimports/
+│   │   ├── OWNERS
+│   │   └── preferredimports.go
+│   └── prune-junit-xml/
+│       ├── OWNERS
+│       ├── logparse/
+│       ├── prunexml.go
+│       └── prunexml_test.go
+├── code-of-conduct.md
+├── docs/
+│   ├── .gitignore
+│   └── OWNERS
+├── go.mod
+├── go.sum
+├── go.work
+├── go.work.sum
+├── hack/
+│   ├── .descriptions_failures
+│   ├── .import-aliases
+│   ├── .spelling_failures
+│   ├── OWNERS
+│   ├── README.md
+│   ├── _update-generated-proto-bindings-dockerized.sh
+│   ├── _update-generated-protobuf-dockerized.sh
+│   ├── apidiff.sh
+│   ├── benchmark-go.sh
+│   ├── boilerplate/
+│   │   ├── boilerplate.Dockerfile.txt
+│   │   ├── boilerplate.Makefile.txt
+│   │   ├── boilerplate.generatego.txt
+│   │   ├── boilerplate.go.txt
+│   │   ├── boilerplate.py
+│   │   ├── boilerplate.py.txt
+│   │   ├── boilerplate.sh.txt
+│   │   ├── boilerplate_test.py
+│   │   └── test/
+│   ├── build-cross.sh
+│   ├── build-go.sh
+│   ├── cherry_pick_pull.sh
+│   ├── conformance/
+│   │   └── check_conformance_test_requirements.go
+│   ├── dev-build-and-push.sh
+│   ├── dev-build-and-up.sh
+│   ├── dev-push-conformance.sh
+│   ├── diff-protobuf.sh
+│   ├── e2e-internal/
+│   │   ├── e2e-cluster-size.sh
+│   │   ├── e2e-down.sh
+│   │   ├── e2e-grow-cluster.sh
+│   │   ├── e2e-shrink-cluster.sh
+│   │   ├── e2e-status.sh
+│   │   └── e2e-up.sh
+│   ├── e2e-node-test.sh
+│   ├── gen-swagger-doc/
+│   │   └── gen-swagger-docs.sh
+│   ├── generate-docs.sh
+│   ├── get-build.sh
+│   ├── ginkgo-e2e.sh
+│   ├── golangci-hints.yaml
+│   ├── golangci.yaml
+│   ├── golangci.yaml.in
+│   ├── grab-profiles.sh
+│   ├── install-etcd.sh
+│   ├── install-protoc.sh
+│   ├── jenkins/
+│   │   ├── OWNERS
+│   │   ├── README.md
+│   │   ├── benchmark-dockerized.sh
+│   │   ├── test-cmd-dockerized.sh
+│   │   ├── test-dockerized.sh
+│   │   ├── test-integration-dockerized.sh
+│   │   ├── update-dockerized.sh
+│   │   └── verify-dockerized.sh
+│   ├── kube-api-linter/
+│   │   ├── OWNERS
+│   │   ├── exceptions.yaml
+│   │   └── kube-api-linter.yaml
+│   ├── lib/
+│   │   ├── .gitattributes
+│   │   ├── etcd.sh
+│   │   ├── golang.sh
+│   │   ├── init.sh
+│   │   ├── logging.sh
+│   │   ├── protoc.sh
+│   │   ├── test.sh
+│   │   ├── util.sh
+│   │   ├── verify-generated.sh
+│   │   └── version.sh
+│   ├── lint-dependencies.sh
+│   ├── local-up-cluster.sh
+│   ├── logcheck.conf
+│   ├── make-rules/
+│   │   ├── build.sh
+│   │   ├── clean.sh
+│   │   ├── cross.sh
+│   │   ├── make-help.sh
+│   │   ├── test-cmd.sh
+│   │   ├── test-e2e-node.sh
+│   │   ├── test-integration.sh
+│   │   ├── test.sh
+│   │   ├── update.sh
+│   │   └── verify.sh
+│   ├── module-graph.sh
+│   ├── pin-dependency.sh
+│   ├── print-workspace-status.sh
+│   ├── run-prometheus-on-etcd-scrapes.sh
+│   ├── serve-prom-scrapes.sh
+│   ├── test-go.sh
+│   ├── testdata/
+│   │   ├── CRD/
+│   │   ├── OWNERS
+│   │   ├── README.md
+│   │   ├── auth-tokens.csv
+│   │   ├── auth/
+│   │   ├── ca/
+│   │   ├── configmap.yaml
+│   │   ├── csr.yml
+│   │   ├── deployment-label-change1.yaml
+│   │   ├── deployment-label-change2.yaml
+│   │   ├── deployment-label-change3.yaml
+│   │   ├── deployment-multicontainer-resources.yaml
+│   │   ├── deployment-multicontainer.yaml
+│   │   ├── deployment-revision1.yaml
+│   │   ├── deployment-revision2.yaml
+│   │   ├── deployment-with-UnixUserID.yaml
+│   │   ├── diff/
+│   │   ├── dockerconfig.json
+│   │   ├── filter/
+│   │   ├── frontend-controller.yaml
+│   │   ├── frontend-replicaset.yaml
+│   │   ├── invalid-deployment-unknown-and-duplicate-fields.yaml
+│   │   ├── invalid-pod.yaml
+│   │   ├── invalid-rc-with-empty-args.yaml
+│   │   ├── kubernetes-service.yaml
+│   │   ├── kustomize/
+│   │   ├── list.yaml
+│   │   ├── multi-resource-1.yaml
+│   │   ├── multi-resource-2.yaml
+│   │   ├── multi-resource-3.yaml
+│   │   ├── multi-resource-4.yaml
+│   │   ├── multi-resource-json-modify.json
+│   │   ├── multi-resource-json.json
+│   │   ├── multi-resource-list-modify.json
+│   │   ├── multi-resource-list.json
+│   │   ├── multi-resource-rclist-modify.json
+│   │   ├── multi-resource-rclist.json
+│   │   ├── multi-resource-svclist-modify.json
+│   │   ├── multi-resource-svclist.json
+│   │   ├── multi-resource-yaml-modify.yaml
+│   │   ├── multi-resource-yaml.yaml
+│   │   ├── null-propagation/
+│   │   ├── pod-apply-status.yaml
+│   │   ├── pod-apply.yaml
+│   │   ├── pod-changed.yaml
+│   │   ├── pod-restricted-localhost.yaml
+│   │   ├── pod-restricted-runtime-default.yaml
+│   │   ├── pod-run-as-non-root.yaml
+│   │   ├── pod-with-api-env.yaml
+│   │   ├── pod-with-large-name.yaml
+│   │   ├── pod-with-metadata-and-probes.yaml
+│   │   ├── pod-with-precision.json
+│   │   ├── pod.yaml
+│   │   ├── prune-reap/
+│   │   ├── prune/
+│   │   ├── recursive/
+│   │   ├── redis-slave-replicaset.yaml
+│   │   ├── retainKeys/
+│   │   ├── rollingupdate-daemonset-rv2.yaml
+│   │   ├── rollingupdate-daemonset.yaml
+│   │   ├── rollingupdate-statefulset-rv2.yaml
+│   │   ├── rollingupdate-statefulset.yaml
+│   │   ├── scale-deploy-1.yaml
+│   │   ├── scale-deploy-2.yaml
+│   │   ├── scale-deploy-3.yaml
+│   │   ├── secret.yaml
+│   │   ├── service-revision1.yaml
+│   │   ├── service-revision2.yaml
+│   │   ├── sorted-pods/
+│   │   ├── tls.crt
+│   │   └── tls.key
+│   ├── tools/
+│   │   ├── .gitignore
+│   │   ├── README.md
+│   │   ├── go.mod
+│   │   ├── go.sum
+│   │   ├── go.work
+│   │   ├── golangci-lint/
+│   │   └── publishing-verifier/
+│   ├── unwanted-dependencies.json
+│   ├── update-all.sh
+│   ├── update-codegen.sh
+│   ├── update-conformance-yaml.sh
+│   ├── update-featuregates.sh
+│   ├── update-generated-api-compatibility-data.sh
+│   ├── update-generated-docs.sh
+│   ├── update-generated-stable-metrics.sh
+│   ├── update-gofmt.sh
+│   ├── update-golangci-lint-config.sh
+│   ├── update-import-aliases.sh
+│   ├── update-internal-modules.sh
+│   ├── update-kustomize.sh
+│   ├── update-mocks.sh
+│   ├── update-netparse-cve.sh
+│   ├── update-openapi-spec.sh
+│   ├── update-owners-fmt.sh
+│   ├── update-translations.sh
+│   ├── update-vendor-licenses.sh
+│   ├── update-vendor.sh
+│   ├── verify-all.sh
+│   ├── verify-api-groups.sh
+│   ├── verify-boilerplate.sh
+│   ├── verify-cli-conventions.sh
+│   ├── verify-codegen.sh
+│   ├── verify-conformance-requirements.sh
+│   ├── verify-conformance-yaml.sh
+│   ├── verify-deadcode-elimination.sh
+│   ├── verify-description.sh
+│   ├── verify-e2e-images.sh
+│   ├── verify-e2e-test-ownership.sh
+│   ├── verify-external-dependencies-version.sh
+│   ├── verify-featuregates.sh
+│   ├── verify-fieldname-docs.sh
+│   ├── verify-file-sizes.sh
+│   ├── verify-flags-underscore.py
+│   ├── verify-flags/
+│   │   ├── OWNERS
+│   │   └── excluded-flags.txt
+│   ├── verify-generated-docs.sh
+│   ├── verify-generated-stable-metrics.sh
+│   ├── verify-gofmt.sh
+│   ├── verify-golangci-lint-config.sh
+│   ├── verify-golangci-lint-pr-hints.sh
+│   ├── verify-golangci-lint.sh
+│   ├── verify-govulncheck.sh
+│   ├── verify-import-aliases.sh
+│   ├── verify-import-boss.sh
+│   ├── verify-imports.sh
+│   ├── verify-internal-modules.sh
+│   ├── verify-licenses.sh
+│   ├── verify-mocks.sh
+│   ├── verify-netparse-cve.sh
+│   ├── verify-no-vendor-cycles.sh
+│   ├── verify-non-mutating-validation.sh
+│   ├── verify-openapi-docs-urls.sh
+│   ├── verify-openapi-spec.sh
+│   ├── verify-owners-fmt.sh
+│   ├── verify-pkg-names.sh
+│   ├── verify-prerelease-lifecycle-tags.sh
+│   ├── verify-prometheus-imports.sh
+│   ├── verify-publishing-bot.sh
+│   ├── verify-readonly-packages.sh
+│   ├── verify-shellcheck.sh
+│   ├── verify-spelling.sh
+│   ├── verify-staging-meta-files.sh
+│   ├── verify-test-code.sh
+│   ├── verify-test-featuregates.sh
+│   ├── verify-test-images.sh
+│   ├── verify-testing-import.sh
+│   ├── verify-typecheck.sh
+│   ├── verify-vendor-licenses.sh
+│   └── verify-vendor.sh
+├── logo/
+│   ├── LICENSE
+│   ├── OWNERS
+│   ├── colors.md
+│   ├── logo.pdf
+│   ├── logo.png
+│   ├── logo.svg
+│   ├── logo_with_border.pdf
+│   ├── logo_with_border.png
+│   ├── logo_with_border.svg
+│   ├── name_blue.pdf
+│   ├── name_blue.png
+│   ├── name_blue.svg
+│   ├── name_white.pdf
+│   ├── name_white.png
+│   ├── name_white.svg
+│   └── usage_guidelines.md
+├── pkg/
+│   ├── .import-restrictions
+│   ├── OWNERS
+│   ├── api/
+│   │   ├── OWNERS
+│   │   ├── endpoints/
+│   │   ├── job/
+│   │   ├── legacyscheme/
+│   │   ├── node/
+│   │   ├── persistentvolume/
+│   │   ├── persistentvolumeclaim/
+│   │   ├── pod/
+│   │   ├── resourceclaimspec/
+│   │   ├── service/
+│   │   ├── servicecidr/
+│   │   ├── storage/
+│   │   ├── testing/
+│   │   └── v1/
+│   ├── apis/
+│   │   ├── OWNERS
+│   │   ├── abac/
+│   │   ├── admission/
+│   │   ├── admissionregistration/
+│   │   ├── apidiscovery/
+│   │   ├── apiserverinternal/
+│   │   ├── apps/
+│   │   ├── authentication/
+│   │   ├── authorization/
+│   │   ├── autoscaling/
+│   │   ├── batch/
+│   │   ├── certificates/
+│   │   ├── coordination/
+│   │   ├── core/
+│   │   ├── discovery/
+│   │   ├── events/
+│   │   ├── extensions/
+│   │   ├── flowcontrol/
+│   │   ├── imagepolicy/
+│   │   ├── networking/
+│   │   ├── node/
+│   │   ├── policy/
+│   │   ├── rbac/
+│   │   ├── resource/
+│   │   ├── scheduling/
+│   │   ├── storage/
+│   │   └── storagemigration/
+│   ├── auth/
+│   │   ├── OWNERS
+│   │   ├── authorizer/
+│   │   └── nodeidentifier/
+│   ├── capabilities/
+│   │   ├── capabilities.go
+│   │   ├── capabilities_test.go
+│   │   └── doc.go
+│   ├── certauthorization/
+│   │   └── certauthorization.go
+│   ├── client/
+│   │   ├── OWNERS
+│   │   ├── conditions/
+│   │   └── tests/
+│   ├── cluster/
+│   │   └── ports/
+│   ├── controller/
+│   │   ├── OWNERS
+│   │   ├── apis/
+│   │   ├── bootstrap/
+│   │   ├── certificates/
+│   │   ├── clusterroleaggregation/
+│   │   ├── controller_ref_manager.go
+│   │   ├── controller_ref_manager_test.go
+│   │   ├── controller_utils.go
+│   │   ├── controller_utils_test.go
+│   │   ├── cronjob/
+│   │   ├── daemon/
+│   │   ├── deployment/
+│   │   ├── devicetainteviction/
+│   │   ├── disruption/
+│   │   ├── doc.go
+│   │   ├── endpoint/
+│   │   ├── endpointslice/
+│   │   ├── endpointslicemirroring/
+│   │   ├── garbagecollector/
+│   │   ├── history/
+│   │   ├── job/
+│   │   ├── namespace/
+│   │   ├── nodeipam/
+│   │   ├── nodelifecycle/
+│   │   ├── podautoscaler/
+│   │   ├── podgc/
+│   │   ├── replicaset/
+│   │   ├── replication/
+│   │   ├── resourceclaim/
+│   │   ├── resourcequota/
+│   │   ├── serviceaccount/
+│   │   ├── servicecidrs/
+│   │   ├── statefulset/
+│   │   ├── storageversiongc/
+│   │   ├── storageversionmigrator/
+│   │   ├── tainteviction/
+│   │   ├── testutil/
+│   │   ├── ttl/
+│   │   ├── ttlafterfinished/
+│   │   ├── util/
+│   │   ├── validatingadmissionpolicystatus/
+│   │   └── volume/
+│   ├── controlplane/
+│   │   ├── OWNERS
+│   │   ├── apiserver/
+│   │   ├── controller/
+│   │   ├── doc.go
+│   │   ├── import_known_versions.go
+│   │   ├── import_known_versions_test.go
+│   │   ├── instance.go
+│   │   ├── instance_test.go
+│   │   └── reconcilers/
+│   ├── credentialprovider/
+│   │   ├── OWNERS
+│   │   ├── config.go
+│   │   ├── config_test.go
+│   │   ├── doc.go
+│   │   ├── keyring.go
+│   │   ├── keyring_test.go
+│   │   ├── plugin/
+│   │   ├── provider.go
+│   │   ├── provider_test.go
+│   │   └── secrets/
+│   ├── features/
+│   │   ├── OWNERS
+│   │   ├── client_adapter.go
+│   │   ├── client_adapter_test.go
+│   │   ├── kube_features.go
+│   │   └── kube_features_test.go
+│   ├── fieldpath/
+│   │   ├── doc.go
+│   │   ├── fieldpath.go
+│   │   └── fieldpath_test.go
+│   ├── generated/
+│   │   ├── doc.go
+│   │   └── openapi/
+│   ├── kubeapiserver/
+│   │   ├── OWNERS
+│   │   ├── admission/
+│   │   ├── authenticator/
+│   │   ├── authorizer/
+│   │   ├── default_storage_factory_builder.go
+│   │   ├── doc.go
+│   │   └── options/
+│   ├── kubectl/
+│   │   ├── .import-restrictions
+│   │   ├── OWNERS
+│   │   ├── cmd/
+│   │   └── doc.go
+│   ├── kubelet/
+│   │   ├── OWNERS
+│   │   ├── active_deadline.go
+│   │   ├── active_deadline_test.go
+│   │   ├── allocation/
+│   │   ├── apis/
+│   │   ├── cadvisor/
+│   │   ├── certificate/
+│   │   ├── checkpointmanager/
+│   │   ├── client/
+│   │   ├── clustertrustbundle/
+│   │   ├── cm/
+│   │   ├── config/
+│   │   ├── configmap/
+│   │   ├── container/
+│   │   ├── doc.go
+│   │   ├── envvars/
+│   │   ├── errors.go
+│   │   ├── events/
+│   │   ├── eviction/
+│   │   ├── images/
+│   │   ├── kubelet.go
+│   │   ├── kubelet_getters.go
+│   │   ├── kubelet_getters_test.go
+│   │   ├── kubelet_linux.go
+│   │   ├── kubelet_network.go
+│   │   ├── kubelet_network_linux.go
+│   │   ├── kubelet_network_others.go
+│   │   ├── kubelet_node_declared_features.go
+│   │   ├── kubelet_node_declared_features_test.go
+│   │   ├── kubelet_node_status.go
+│   │   ├── kubelet_node_status_others.go
+│   │   ├── kubelet_node_status_test.go
+│   │   ├── kubelet_node_status_windows.go
+│   │   ├── kubelet_nodecache.go
+│   │   ├── kubelet_nodecache_test.go
+│   │   ├── kubelet_others.go
+│   │   ├── kubelet_pods.go
+│   │   ├── kubelet_pods_linux_test.go
+│   │   ├── kubelet_pods_test.go
+│   │   ├── kubelet_pods_windows_test.go
+│   │   ├── kubelet_resources.go
+│   │   ├── kubelet_resources_test.go
+│   │   ├── kubelet_server_journal.go
+│   │   ├── kubelet_server_journal_linux.go
+│   │   ├── kubelet_server_journal_others.go
+│   │   ├── kubelet_server_journal_test.go
+│   │   ├── kubelet_server_journal_windows.go
+│   │   ├── kubelet_test.go
+│   │   ├── kubelet_volumes.go
+│   │   ├── kubelet_volumes_linux_test.go
+│   │   ├── kubelet_volumes_test.go
+│   │   ├── kubeletconfig/
+│   │   ├── kuberuntime/
+│   │   ├── lifecycle/
+│   │   ├── logs/
+│   │   ├── metrics/
+│   │   ├── network/
+│   │   ├── nodeshutdown/
+│   │   ├── nodestatus/
+│   │   ├── oom/
+│   │   ├── pleg/
+│   │   ├── pluginmanager/
+│   │   ├── pod/
+│   │   ├── pod_container_deletor.go
+│   │   ├── pod_container_deletor_test.go
+│   │   ├── pod_workers.go
+│   │   ├── pod_workers_test.go
+│   │   ├── podcertificate/
+│   │   ├── preemption/
+│   │   ├── prober/
+│   │   ├── qos/
+│   │   ├── reason_cache.go
+│   │   ├── reason_cache_test.go
+│   │   ├── runtime.go
+│   │   ├── runtime_test.go
+│   │   ├── runtimeclass/
+│   │   ├── secret/
+│   │   ├── server/
+│   │   ├── stats/
+│   │   ├── status/
+│   │   ├── sysctl/
+│   │   ├── token/
+│   │   ├── types/
+│   │   ├── userns/
+│   │   ├── util/
+│   │   ├── volume_host.go
+│   │   ├── volume_host_test.go
+│   │   ├── volumemanager/
+│   │   ├── watchdog/
+│   │   └── winstats/
+│   ├── kubemark/
+│   │   ├── .import-restrictions
+│   │   ├── OWNERS
+│   │   ├── controller.go
+│   │   └── hollow_kubelet.go
+│   ├── printers/
+│   │   ├── .import-restrictions
+│   │   ├── OWNERS
+│   │   ├── interface.go
+│   │   ├── internalversion/
+│   │   ├── storage/
+│   │   ├── tablegenerator.go
+│   │   └── tablegenerator_test.go
+│   ├── probe/
+│   │   ├── OWNERS
+│   │   ├── dialer_others.go
+│   │   ├── dialer_windows.go
+│   │   ├── doc.go
+│   │   ├── exec/
+│   │   ├── grpc/
+│   │   ├── http/
+│   │   ├── probe.go
+│   │   ├── tcp/
+│   │   ├── util.go
+│   │   └── util_test.go
+│   ├── proxy/
+│   │   ├── OWNERS
+│   │   ├── apis/
+│   │   ├── config/
+│   │   ├── conntrack/
+│   │   ├── doc.go
+│   │   ├── endpoint.go
+│   │   ├── endpointschangetracker.go
+│   │   ├── endpointschangetracker_test.go
+│   │   ├── endpointslicecache.go
+│   │   ├── endpointslicecache_test.go
+│   │   ├── healthcheck/
+│   │   ├── iptables/
+│   │   ├── ipvs/
+│   │   ├── kubemark/
+│   │   ├── metaproxier/
+│   │   ├── metrics/
+│   │   ├── nftables/
+│   │   ├── node.go
+│   │   ├── node_test.go
+│   │   ├── runner/
+│   │   ├── servicechangetracker.go
+│   │   ├── servicechangetracker_test.go
+│   │   ├── serviceport.go
+│   │   ├── topology.go
+│   │   ├── topology_test.go
+│   │   ├── types.go
+│   │   ├── util/
+│   │   └── winkernel/
+│   ├── quota/
+│   │   └── v1/
+│   ├── registry/
+│   │   ├── OWNERS
+│   │   ├── admissionregistration/
+│   │   ├── apiserverinternal/
+│   │   ├── apps/
+│   │   ├── authentication/
+│   │   ├── authorization/
+│   │   ├── autoscaling/
+│   │   ├── batch/
+│   │   ├── certificates/
+│   │   ├── coordination/
+│   │   ├── core/
+│   │   ├── discovery/
+│   │   ├── doc.go
+│   │   ├── events/
+│   │   ├── flowcontrol/
+│   │   ├── networking/
+│   │   ├── node/
+│   │   ├── policy/
+│   │   ├── rbac/
+│   │   ├── registrytest/
+│   │   ├── resource/
+│   │   ├── scheduling/
+│   │   ├── storage/
+│   │   ├── storagemigration/
+│   │   └── testapigroup/
+│   ├── routes/
+│   │   ├── OWNERS
+│   │   ├── const_other.go
+│   │   ├── const_windows.go
+│   │   ├── doc.go
+│   │   ├── logs.go
+│   │   ├── logs_test.go
+│   │   └── openidmetadata.go
+│   ├── scheduler/
+│   │   ├── OWNERS
+│   │   ├── apis/
+│   │   ├── backend/
+│   │   ├── eventhandlers.go
+│   │   ├── eventhandlers_test.go
+│   │   ├── extender.go
+│   │   ├── extender_test.go
+│   │   ├── framework/
+│   │   ├── metrics/
+│   │   ├── profile/
+│   │   ├── schedule_one.go
+│   │   ├── schedule_one_podgroup.go
+│   │   ├── schedule_one_podgroup_test.go
+│   │   ├── schedule_one_test.go
+│   │   ├── scheduler.go
+│   │   ├── scheduler_test.go
+│   │   ├── testing/
+│   │   └── util/
+│   ├── security/
+│   │   ├── apparmor/
+│   │   └── doc.go
+│   ├── securitycontext/
+│   │   ├── OWNERS
+│   │   ├── accessors.go
+│   │   ├── accessors_test.go
+│   │   ├── doc.go
+│   │   ├── fake.go
+│   │   ├── util.go
+│   │   ├── util_darwin.go
+│   │   ├── util_linux.go
+│   │   ├── util_test.go
+│   │   └── util_windows.go
+│   ├── serviceaccount/
+│   │   ├── OWNERS
+│   │   ├── claims.go
+│   │   ├── claims_test.go
+│   │   ├── externaljwt/
+│   │   ├── jwt.go
+│   │   ├── jwt_test.go
+│   │   ├── keyid_test.go
+│   │   ├── legacy.go
+│   │   ├── metrics.go
+│   │   ├── openidmetadata.go
+│   │   └── openidmetadata_test.go
+│   ├── util/
+│   │   ├── async/
+│   │   ├── bandwidth/
+│   │   ├── coverage/
+│   │   ├── env/
+│   │   ├── filesystem/
+│   │   ├── flag/
+│   │   ├── flock/
+│   │   ├── goroutinemap/
+│   │   ├── hash/
+│   │   ├── interrupt/
+│   │   ├── iptables/
+│   │   ├── kernel/
+│   │   ├── labels/
+│   │   ├── node/
+│   │   ├── oom/
+│   │   ├── parsers/
+│   │   ├── pod/
+│   │   ├── procfs/
+│   │   ├── removeall/
+│   │   ├── rlimit/
+│   │   ├── slice/
+│   │   ├── tail/
+│   │   ├── taints/
+│   │   └── tolerations/
+│   ├── volume/
+│   │   ├── OWNERS
+│   │   ├── configmap/
+│   │   ├── csi/
+│   │   ├── csimigration/
+│   │   ├── doc.go
+│   │   ├── downwardapi/
+│   │   ├── emptydir/
+│   │   ├── fc/
+│   │   ├── flexvolume/
+│   │   ├── git_repo/
+│   │   ├── hostpath/
+│   │   ├── image/
+│   │   ├── iscsi/
+│   │   ├── local/
+│   │   ├── metrics_block.go
+│   │   ├── metrics_block_linux_test.go
+│   │   ├── metrics_cached.go
+│   │   ├── metrics_du.go
+│   │   ├── metrics_du_test.go
+│   │   ├── metrics_du_unix_test.go
+│   │   ├── metrics_du_windows_test.go
+│   │   ├── metrics_errors.go
+│   │   ├── metrics_nil.go
+│   │   ├── metrics_nil_test.go
+│   │   ├── metrics_statfs.go
+│   │   ├── metrics_statfs_test.go
+│   │   ├── nfs/
+│   │   ├── noop_expandable_plugin.go
+│   │   ├── plugins.go
+│   │   ├── plugins_test.go
+│   │   ├── projected/
+│   │   ├── secret/
+│   │   ├── testing/
+│   │   ├── util/
+│   │   ├── validation/
+│   │   ├── volume.go
+│   │   ├── volume_linux.go
+│   │   ├── volume_linux_test.go
+│   │   └── volume_unsupported.go
+│   └── windows/
+│       └── service/
+├── plugin/
+│   ├── OWNERS
+│   └── pkg/
+│       ├── admission/
+│       └── auth/
+├── staging/
+│   ├── OWNERS
+│   ├── README.md
+│   ├── publishing/
+│   │   ├── OWNERS
+│   │   ├── import-restrictions.yaml
+│   │   └── rules.yaml
+│   └── src/
+│       └── k8s.io/
+├── test/
+│   ├── OWNERS
+│   ├── cmd/
+│   │   ├── OWNERS
+│   │   ├── README.md
+│   │   ├── apply.sh
+│   │   ├── apps.sh
+│   │   ├── auth_whoami.sh
+│   │   ├── authentication.sh
+│   │   ├── authorization.sh
+│   │   ├── batch.sh
+│   │   ├── certificate.sh
+│   │   ├── convert.sh
+│   │   ├── core.sh
+│   │   ├── crd.sh
+│   │   ├── create.sh
+│   │   ├── debug.sh
+│   │   ├── delete.sh
+│   │   ├── diff.sh
+│   │   ├── discovery.sh
+│   │   ├── events.sh
+│   │   ├── exec.sh
+│   │   ├── generic-resources.sh
+│   │   ├── get.sh
+│   │   ├── help.sh
+│   │   ├── kubeconfig.sh
+│   │   ├── kuberc.sh
+│   │   ├── legacy-script.sh
+│   │   ├── node-management.sh
+│   │   ├── plugins.sh
+│   │   ├── proxy.sh
+│   │   ├── rbac.sh
+│   │   ├── request-timeout.sh
+│   │   ├── results.sh
+│   │   ├── run.sh
+│   │   ├── save-config.sh
+│   │   ├── storage.sh
+│   │   ├── template-output.sh
+│   │   ├── version.sh
+│   │   └── wait.sh
+│   ├── compatibility_lifecycle/
+│   │   ├── OWNERS
+│   │   ├── README.md
+│   │   ├── cmd/
+│   │   ├── main.go
+│   │   └── reference/
+│   ├── conformance/
+│   │   ├── OWNERS
+│   │   ├── README.md
+│   │   ├── cf_header.md
+│   │   ├── conformance_test.sh
+│   │   ├── doc.go
+│   │   ├── gen-conformance-docs.sh
+│   │   ├── gen-conformance-yaml.sh
+│   │   ├── gen-specsummaries.sh
+│   │   ├── image/
+│   │   ├── spec-to-docs.sh
+│   │   ├── spec-to-yaml.sh
+│   │   ├── testdata/
+│   │   ├── walk.go
+│   │   └── walk_test.go
+│   ├── e2e/
+│   │   ├── README.md
+│   │   ├── apimachinery/
+│   │   ├── apps/
+│   │   ├── architecture/
+│   │   ├── auth/
+│   │   ├── autoscaling/
+│   │   ├── chaosmonkey/
+│   │   ├── cloud/
+│   │   ├── common/
+│   │   ├── dra/
+│   │   ├── e2e-example-config.json
+│   │   ├── e2e.go
+│   │   ├── e2e_test.go
+│   │   ├── environment/
+│   │   ├── feature/
+│   │   ├── framework/
+│   │   ├── instrumentation/
+│   │   ├── invariants/
+│   │   ├── kubectl/
+│   │   ├── lifecycle/
+│   │   ├── network/
+│   │   ├── node/
+│   │   ├── perftype/
+│   │   ├── providers.go
+│   │   ├── reporters/
+│   │   ├── scheduling/
+│   │   ├── storage/
+│   │   ├── suites.go
+│   │   ├── testing-manifests/
+│   │   ├── upgrades/
+│   │   └── windows/
+│   ├── e2e_dra/
+│   │   ├── README.md
+│   │   ├── coredra_test.go
+│   │   ├── devicetaints_test.go
+│   │   ├── extendedresources_test.go
+│   │   ├── resourceclaimstatus_test.go
+│   │   ├── run.sh
+│   │   └── upgradedowngrade_test.go
+│   ├── e2e_kubeadm/
+│   │   ├── OWNERS
+│   │   ├── admin_test.go
+│   │   ├── bootstrap_signer.go
+│   │   ├── bootstrap_token_test.go
+│   │   ├── cluster_info_test.go
+│   │   ├── const.go
+│   │   ├── controlplane_nodes_test.go
+│   │   ├── dns_addon_test.go
+│   │   ├── e2e_kubeadm_suite_test.go
+│   │   ├── framework.go
+│   │   ├── kubeadm_certs_test.go
+│   │   ├── kubeadm_config_test.go
+│   │   ├── kubelet_config_test.go
+│   │   ├── networking_test.go
+│   │   ├── nodes_test.go
+│   │   ├── proxy_addon_test.go
+│   │   └── util.go
+│   ├── e2e_node/
+│   │   ├── .import-restrictions
+│   │   ├── OWNERS
+│   │   ├── README.md
+│   │   ├── apparmor_test.go
+│   │   ├── benchmark_util.go
+│   │   ├── builder/
+│   │   ├── cgroup_driver_from_cri_test.go
+│   │   ├── checkpoint_container.go
+│   │   ├── conformance/
+│   │   ├── container_lifecycle_pod_construction.go
+│   │   ├── container_lifecycle_test.go
+│   │   ├── container_log_rotation_test.go
+│   │   ├── container_manager_test.go
+│   │   ├── container_metrics_test.go
+│   │   ├── container_restart_test.go
+│   │   ├── cpu_manager_metrics_test.go
+│   │   ├── cpu_manager_test.go
+│   │   ├── criproxy/
+│   │   ├── criproxy_test.go
+│   │   ├── critical_pod_test.go
+│   │   ├── deleted_pods_test.go
+│   │   ├── density_test.go
+│   │   ├── device_manager_test.go
+│   │   ├── device_plugin_failures_pod_status_test.go
+│   │   ├── device_plugin_failures_test.go
+│   │   ├── device_plugin_test.go
+│   │   ├── doc.go
+│   │   ├── dra_test.go
+│   │   ├── e2e_node_suite_test.go
+│   │   ├── environment/
+│   │   ├── eviction_test.go
+│   │   ├── framework.go
+│   │   ├── garbage_collector_test.go
+│   │   ├── gubernator.sh
+│   │   ├── hugepages_test.go
+│   │   ├── image_credential_pulls.go
+│   │   ├── image_gc_test.go
+│   │   ├── image_id_test.go
+│   │   ├── image_list.go
+│   │   ├── image_pull_test.go
+│   │   ├── image_volume.go
+│   │   ├── jenkins/
+│   │   ├── kubelet_config_dir_test.go
+│   │   ├── kubelet_server_tls_test.go
+│   │   ├── kubelet_tls_test.go
+│   │   ├── kubeletconfig/
+│   │   ├── lock_contention_linux_test.go
+│   │   ├── log_path_test.go
+│   │   ├── memory_manager_metrics_test.go
+│   │   ├── memory_manager_test.go
+│   │   ├── mirror_pod_grace_period_test.go
+│   │   ├── mirror_pod_test.go
+│   │   ├── mount_rro_linux_test.go
+│   │   ├── node_container_manager_test.go
+│   │   ├── node_perf_test.go
+│   │   ├── node_problem_detector_linux.go
+│   │   ├── node_shutdown_linux_test.go
+│   │   ├── numa_alignment.go
+│   │   ├── oomkiller_linux_test.go
+│   │   ├── os_label_rename_test.go
+│   │   ├── perf/
+│   │   ├── perftype/
+│   │   ├── pids_test.go
+│   │   ├── plugins/
+│   │   ├── pod_conditions_test.go
+│   │   ├── pod_host_ips.go
+│   │   ├── pod_hostnamefqdn_test.go
+│   │   ├── pod_ips.go
+│   │   ├── pod_status_test.go
+│   │   ├── podresources_test.go
+│   │   ├── pods_container_manager_test.go
+│   │   ├── pods_lifecycle_termination_test.go
+│   │   ├── probe_stress_test.go
+│   │   ├── proc_mount_test.go
+│   │   ├── quota_lsci_test.go
+│   │   ├── remote/
+│   │   ├── resource_collector.go
+│   │   ├── resource_metrics_test.go
+│   │   ├── resource_usage_test.go
+│   │   ├── restart_all_containers_test.go
+│   │   ├── restart_test.go
+│   │   ├── runner/
+│   │   ├── runtime_conformance_test.go
+│   │   ├── runtimeclass_test.go
+│   │   ├── seccompdefault_test.go
+│   │   ├── security_context_test.go
+│   │   ├── services/
+│   │   ├── split_disk_test.go
+│   │   ├── standalone_test.go
+│   │   ├── static_pod_test.go
+│   │   ├── summary_test.go
+│   │   ├── swap_test.go
+│   │   ├── system/
+│   │   ├── system_node_critical_test.go
+│   │   ├── terminate_pods_test.go
+│   │   ├── testdeviceplugin/
+│   │   ├── testing-manifests/
+│   │   ├── topology_manager_metrics_test.go
+│   │   ├── topology_manager_test.go
+│   │   ├── unknown_pods_test.go
+│   │   ├── user_namespaces_test.go
+│   │   ├── util.go
+│   │   ├── util_criproxy_linux.go
+│   │   ├── util_kubeletconfig.go
+│   │   ├── util_machineinfo_linux.go
+│   │   ├── util_machineinfo_unsupported.go
+│   │   ├── util_sriov.go
+│   │   ├── util_sriov_linux.go
+│   │   ├── util_sriov_unsupported.go
+│   │   ├── util_xfs_linux.go
+│   │   ├── util_xfs_unsupported.go
+│   │   └── volume_manager_test.go
+│   ├── fixtures/
+│   │   ├── README.md
+│   │   ├── doc-yaml/
+│   │   ├── embed.go
+│   │   └── pkg/
+│   ├── fuzz/
+│   │   ├── OWNERS
+│   │   ├── cbor/
+│   │   ├── json/
+│   │   └── yaml/
+│   ├── images/
+│   │   ├── .permitted-images
+│   │   ├── Makefile
+│   │   ├── OWNERS
+│   │   ├── README.md
+│   │   ├── agnhost/
+│   │   ├── apparmor-loader/
+│   │   ├── busybox/
+│   │   ├── cloudbuild.yaml
+│   │   ├── glibc-dns-testing/
+│   │   ├── image-util.sh
+│   │   ├── ipc-utils/
+│   │   ├── kitten/
+│   │   ├── nautilus/
+│   │   ├── nginx-new/
+│   │   ├── nginx/
+│   │   ├── node-perf/
+│   │   ├── nonewprivs/
+│   │   ├── nonroot/
+│   │   ├── perl/
+│   │   ├── pets/
+│   │   ├── regression-issue-74839/
+│   │   ├── resource-consumer/
+│   │   ├── sample-apiserver/
+│   │   ├── sample-device-plugin/
+│   │   ├── volume/
+│   │   ├── windows-nanoserver/
+│   │   ├── windows-servercore-cache/
+│   │   └── windows/
+│   ├── instrumentation/
+│   │   ├── OWNERS
+│   │   ├── README.md
+│   │   ├── decode_metric.go
+│   │   ├── doc.go
+│   │   ├── documentation/
+│   │   ├── endpoint-mappings.yaml
+│   │   ├── endpoint_mapping.go
+│   │   ├── error.go
+│   │   ├── find_stable_metric.go
+│   │   ├── internal/
+│   │   ├── main.go
+│   │   ├── main_test.go
+│   │   ├── sort/
+│   │   ├── stability-utils.sh
+│   │   ├── test-update.sh
+│   │   ├── test-verify.sh
+│   │   ├── testdata/
+│   │   ├── update-documentation-metrics.sh
+│   │   └── update-documentation.sh
+│   ├── integration/
+│   │   ├── .import-restrictions
+│   │   ├── apimachinery/
+│   │   ├── apiserver/
+│   │   ├── auth/
+│   │   ├── authutil/
+│   │   ├── benchmark-controller.json
+│   │   ├── benchmark/
+│   │   ├── certificates/
+│   │   ├── client/
+│   │   ├── cloudprovider/
+│   │   ├── clustertrustbundles/
+│   │   ├── configmap/
+│   │   ├── controlplane/
+│   │   ├── cronjob/
+│   │   ├── daemonset/
+│   │   ├── defaulttolerationseconds/
+│   │   ├── deployment/
+│   │   ├── disruption/
+│   │   ├── doc.go
+│   │   ├── dra/
+│   │   ├── dryrun/
+│   │   ├── dualstack/
+│   │   ├── endpoints/
+│   │   ├── endpointslice/
+│   │   ├── etcd/
+│   │   ├── events/
+│   │   ├── evictions/
+│   │   ├── examples/
+│   │   ├── framework/
+│   │   ├── garbagecollector/
+│   │   ├── ipamperf/
+│   │   ├── job/
+│   │   ├── kubelet/
+│   │   ├── logs/
+│   │   ├── metrics/
+│   │   ├── namespace/
+│   │   ├── network/
+│   │   ├── node/
+│   │   ├── objectmeta/
+│   │   ├── openshift/
+│   │   ├── podcertificaterequests/
+│   │   ├── podgc/
+│   │   ├── pods/
+│   │   ├── pvc/
+│   │   ├── quota/
+│   │   ├── replicaset/
+│   │   ├── replicationcontroller/
+│   │   ├── scale/
+│   │   ├── scheduler/
+│   │   ├── scheduler_perf/
+│   │   ├── secrets/
+│   │   ├── service/
+│   │   ├── serviceaccount/
+│   │   ├── servicecidr/
+│   │   ├── serving/
+│   │   ├── staleness/
+│   │   ├── statefulset/
+│   │   ├── storageclasses/
+│   │   ├── storageversion/
+│   │   ├── storageversionmigrator/
+│   │   ├── tls/
+│   │   ├── ttlcontroller/
+│   │   ├── util/
+│   │   ├── utils.go
+│   │   ├── volume/
+│   │   └── volumescheduling/
+│   ├── kubemark/
+│   │   ├── OWNERS
+│   │   ├── cloud-provider-config.sh
+│   │   ├── common/
+│   │   ├── configure-kubectl.sh
+│   │   ├── gce/
+│   │   ├── pre-existing/
+│   │   ├── resources/
+│   │   ├── run-e2e-tests.sh
+│   │   ├── skeleton/
+│   │   ├── start-kubemark.sh
+│   │   └── stop-kubemark.sh
+│   ├── list/
+│   │   ├── main.go
+│   │   └── main_test.go
+│   ├── soak/
+│   │   └── serve_hostnames/
+│   ├── typecheck/
+│   │   ├── OWNERS
+│   │   ├── README
+│   │   ├── main.go
+│   │   ├── main_test.go
+│   │   └── testdata/
+│   └── utils/
+│       ├── admission_webhook.go
+│       ├── apiserver/
+│       ├── audit.go
+│       ├── conditions.go
+│       ├── crd/
+│       ├── create_resources.go
+│       ├── delete_resources.go
+│       ├── density_utils.go
+│       ├── deployment.go
+│       ├── fakedns/
+│       ├── format/
+│       ├── harness/
+│       ├── hermeticpodcertificatesigner/
+│       ├── image/
+│       ├── junit/
+│       ├── ktesting/
+│       ├── kubeconfig/
+│       ├── localupcluster/
+│       ├── node.go
+│       ├── oidc/
+│       ├── paths.go
+│       ├── pki_helpers.go
+│       ├── pod_store.go
+│       ├── replicaset.go
+│       ├── runners.go
+│       ├── tmpdir.go
+│       └── update_resources.go
+├── third_party/
+│   ├── OWNERS
+│   ├── forked/
+│   │   ├── golang/
+│   │   ├── gonum/
+│   │   ├── gotestsum/
+│   │   ├── libcontainer/
+│   │   ├── shell2junit/
+│   │   └── vishhstress/
+│   ├── gimme/
+│   │   ├── LICENSE
+│   │   ├── README.md
+│   │   └── gimme
+│   ├── multiarch/
+│   │   └── qemu-user-static/
+│   └── protobuf/
+│       └── google/
+└── vendor/
+    ├── OWNERS
+    ├── bitbucket.org/
+    │   └── bertimus9/
+    ├── cel.dev/
+    │   └── expr/
+    ├── cyphar.com/
+    │   └── go-pathrs/
+    ├── github.com/
+    │   ├── Azure/
+    │   ├── JeffAshton/
+    │   ├── MakeNowJust/
+    │   ├── Masterminds/
+    │   ├── Microsoft/
+    │   ├── NYTimes/
+    │   ├── antlr4-go/
+    │   ├── armon/
+    │   ├── beorn7/
+    │   ├── blang/
+    │   ├── cenkalti/
+    │   ├── cespare/
+    │   ├── chai2010/
+    │   ├── container-storage-interface/
+    │   ├── containerd/
+    │   ├── coredns/
+    │   ├── coreos/
+    │   ├── cpuguy83/
+    │   ├── cyphar/
+    │   ├── davecgh/
+    │   ├── distribution/
+    │   ├── docker/
+    │   ├── dustin/
+    │   ├── emicklei/
+    │   ├── euank/
+    │   ├── exponent-io/
+    │   ├── fatih/
+    │   ├── felixge/
+    │   ├── fsnotify/
+    │   ├── fxamacker/
+    │   ├── go-errors/
+    │   ├── go-logr/
+    │   ├── go-openapi/
+    │   ├── go-task/
+    │   ├── godbus/
+    │   ├── gogo/
+    │   ├── golang-jwt/
+    │   ├── golang/
+    │   ├── google/
+    │   ├── gorilla/
+    │   ├── grpc-ecosystem/
+    │   ├── inconshreveable/
+    │   ├── ishidawataru/
+    │   ├── jonboulle/
+    │   ├── josharian/
+    │   ├── json-iterator/
+    │   ├── kylelemons/
+    │   ├── liggitt/
+    │   ├── lithammer/
+    │   ├── mailru/
+    │   ├── mitchellh/
+    │   ├── moby/
+    │   ├── modern-go/
+    │   ├── monochromegane/
+    │   ├── munnerz/
+    │   ├── mxk/
+    │   ├── onsi/
+    │   ├── opencontainers/
+    │   ├── peterbourgon/
+    │   ├── pmezard/
+    │   ├── pquerna/
+    │   ├── prometheus/
+    │   ├── robfig/
+    │   ├── russross/
+    │   ├── sirupsen/
+    │   ├── soheilhy/
+    │   ├── spf13/
+    │   ├── stoewer/
+    │   ├── stretchr/
+    │   ├── tmc/
+    │   ├── vishvananda/
+    │   ├── x448/
+    │   ├── xiang90/
+    │   └── xlab/
+    ├── go.etcd.io/
+    │   ├── bbolt/
+    │   ├── etcd/
+    │   └── raft/
+    ├── go.opentelemetry.io/
+    │   ├── auto/
+    │   ├── contrib/
+    │   ├── otel/
+    │   └── proto/
+    ├── go.uber.org/
+    │   ├── goleak/
+    │   ├── multierr/
+    │   └── zap/
+    ├── go.yaml.in/
+    │   └── yaml/
+    ├── golang.org/
+    │   └── x/
+    ├── google.golang.org/
+    │   ├── genproto/
+    │   ├── grpc/
+    │   └── protobuf/
+    ├── gopkg.in/
+    │   ├── evanphx/
+    │   ├── go-jose/
+    │   ├── inf.v0/
+    │   ├── natefinch/
+    │   └── yaml.v3/
+    ├── k8s.io/
+    │   ├── gengo/
+    │   ├── klog/
+    │   ├── kube-openapi/
+    │   ├── system-validators/
+    │   └── utils/
+    ├── modules.txt
+    └── sigs.k8s.io/
+        ├── apiserver-network-proxy/
+        ├── json/
+        ├── knftables/
+        ├── kustomize/
+        ├── randfill/
+        ├── structured-merge-diff/
+        └── yaml/

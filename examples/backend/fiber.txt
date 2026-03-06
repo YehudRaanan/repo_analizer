@@ -1,0 +1,489 @@
+=====================================
+Repository Analysis: fiber
+Type: Backend / API Service
+=====================================
+
+--- METADATA ---
+Name: fiber
+Description: ⚡️ Express inspired web framework written in Go
+Language: Go
+Topics: express, expressjs, fast, fiber, flexible, framework, friendly, go, golang, hacktoberfest, hacktoberfest2020, nodejs, performance, rest-api, web
+Stars: 39339
+License: MIT License
+
+--- README ---
+(No README found)
+
+--- PACKAGE MANIFEST(S) ---
+
+[go.mod]
+module github.com/gofiber/fiber/v3
+
+go 1.25.0
+
+require (
+	github.com/gofiber/schema v1.7.0
+	github.com/gofiber/utils/v2 v2.0.2
+	github.com/google/uuid v1.6.0
+	github.com/mattn/go-colorable v0.1.14
+	github.com/mattn/go-isatty v0.0.20
+	github.com/shamaton/msgpack/v3 v3.1.0
+	github.com/stretchr/testify v1.11.1
+	github.com/tinylib/msgp v1.6.3
+	github.com/valyala/bytebufferpool v1.0.0
+	github.com/valyala/fasthttp v1.69.0
+	golang.org/x/crypto v0.48.0
+)
+
+require (
+	github.com/andybalholm/brotli v1.2.0 // indirect
+	github.com/davecgh/go-spew v1.1.1 // indirect
+	github.com/fxamacker/cbor/v2 v2.9.0 // direct
+	github.com/klauspost/compress v1.18.4 // indirect
+	github.com/philhofer/fwd v1.2.0 // indirect
+	github.com/pmezard/go-difflib v1.0.0 // indirect
+	github.com/x448/float16 v0.8.4 // indirect
+	golang.org/x/net v0.51.0
+	golang.org/x/sys v0.41.0 // indirect
+	golang.org/x/text v0.34.0
+	gopkg.in/yaml.v3 v3.0.1 // indirect
+)
+
+
+--- BACKEND CONFIG FILES ---
+(No backend config files found)
+
+--- API ROUTE / ENDPOINT DEFINITIONS ---
+(No route files found)
+
+--- DATABASE SCHEMA / MODEL FILES ---
+(None found)
+
+--- DIRECTORY STRUCTURE (depth 2) ---
+├── .cspell.json
+├── .editorconfig
+├── .gitattributes
+├── .github/
+│   ├── .editorconfig
+│   ├── .hound.yml
+│   ├── CODEOWNERS
+│   ├── CODE_OF_CONDUCT.md
+│   ├── CONTRIBUTING.md
+│   ├── FUNDING.yml
+│   ├── ISSUE_TEMPLATE/
+│   │   ├── bug-report.yaml
+│   │   ├── config.yml
+│   │   ├── feature-request.yaml
+│   │   ├── maintenance-task.yaml
+│   │   └── question.yaml
+│   ├── README.md
+│   ├── SECURITY.md
+│   ├── codecov.yml
+│   ├── config.yml
+│   ├── copilot-instructions.md
+│   ├── copilot-setup-steps.yml
+│   ├── dependabot.yml
+│   ├── index.html
+│   ├── labeler.yml
+│   ├── pull_request_template.md
+│   ├── release-drafter.yml
+│   ├── release.yml
+│   ├── scripts/
+│   │   └── sync_docs.sh
+│   ├── testdata/
+│   │   ├── ca-chain.cert.pem
+│   │   ├── favicon.ico
+│   │   ├── fs/
+│   │   ├── hello_world.tmpl
+│   │   ├── index.html
+│   │   ├── index.tmpl
+│   │   ├── main.tmpl
+│   │   ├── ssl.key
+│   │   ├── ssl.pem
+│   │   ├── template-invalid.html
+│   │   ├── template.tmpl
+│   │   └── testRoutes.json
+│   ├── testdata2/
+│   │   └── bruh.tmpl
+│   ├── testdata3/
+│   │   └── hello_world.tmpl
+│   └── workflows/
+│       ├── auto-labeler.yml
+│       ├── benchmark.yml
+│       ├── codeql-analysis.yml
+│       ├── dependabot_automerge.yml
+│       ├── linter.yml
+│       ├── manual-dependabot.yml
+│       ├── markdown.yml
+│       ├── modernize.yml
+│       ├── move-closed-milestone-items.yml
+│       ├── release-drafter.yml
+│       ├── spell-check.yml
+│       ├── sync-docs.yml
+│       ├── test.yml
+│       ├── v3-label-automation.yml
+│       └── vulncheck.yml
+├── .gitignore
+├── .golangci.yml
+├── .markdownlint.yml
+├── AGENTS.md
+├── LICENSE
+├── Makefile
+├── adapter.go
+├── adapter_test.go
+├── addon/
+│   └── retry/
+│       ├── README.md
+│       ├── config.go
+│       ├── config_test.go
+│       ├── exponential_backoff.go
+│       └── exponential_backoff_test.go
+├── app.go
+├── app_integration_test.go
+├── app_test.go
+├── bind.go
+├── bind_test.go
+├── binder/
+│   ├── README.md
+│   ├── binder.go
+│   ├── binder_test.go
+│   ├── cbor.go
+│   ├── cbor_test.go
+│   ├── cookie.go
+│   ├── cookie_test.go
+│   ├── form.go
+│   ├── form_test.go
+│   ├── header.go
+│   ├── header_test.go
+│   ├── json.go
+│   ├── json_test.go
+│   ├── mapping.go
+│   ├── mapping_test.go
+│   ├── msgpack.go
+│   ├── msgpack_test.go
+│   ├── query.go
+│   ├── query_test.go
+│   ├── resp_header.go
+│   ├── resp_header_test.go
+│   ├── uri.go
+│   ├── uri_test.go
+│   ├── xml.go
+│   └── xml_test.go
+├── client/
+│   ├── README.md
+│   ├── client.go
+│   ├── client_test.go
+│   ├── cookiejar.go
+│   ├── cookiejar_test.go
+│   ├── core.go
+│   ├── core_test.go
+│   ├── errors.go
+│   ├── helper_test.go
+│   ├── hooks.go
+│   ├── hooks_test.go
+│   ├── request.go
+│   ├── request_bench_test.go
+│   ├── request_test.go
+│   ├── response.go
+│   ├── response_test.go
+│   ├── transport.go
+│   └── transport_test.go
+├── color.go
+├── constants.go
+├── ctx.go
+├── ctx_interface.go
+├── ctx_interface_gen.go
+├── ctx_test.go
+├── docs/
+│   ├── addon/
+│   │   ├── _category_.json
+│   │   └── retry.md
+│   ├── api/
+│   │   ├── _category_.json
+│   │   ├── app.md
+│   │   ├── bind.md
+│   │   ├── constants.md
+│   │   ├── ctx.md
+│   │   ├── fiber.md
+│   │   ├── hooks.md
+│   │   ├── log.md
+│   │   ├── redirect.md
+│   │   ├── services.md
+│   │   └── state.md
+│   ├── client/
+│   │   ├── _category_.json
+│   │   ├── examples.md
+│   │   ├── hooks.md
+│   │   ├── request.md
+│   │   ├── response.md
+│   │   └── rest.md
+│   ├── extra/
+│   │   ├── _category_.json
+│   │   ├── benchmarks.md
+│   │   ├── faq.md
+│   │   ├── internal.md
+│   │   └── learning-resources.md
+│   ├── guide/
+│   │   ├── _category_.json
+│   │   ├── advance-format.md
+│   │   ├── context.md
+│   │   ├── error-handling.md
+│   │   ├── extractors.md
+│   │   ├── faster-fiber.md
+│   │   ├── grouping.md
+│   │   ├── reverse-proxy.md
+│   │   ├── routing.md
+│   │   ├── templates.md
+│   │   ├── utils.md
+│   │   └── validation.md
+│   ├── intro.md
+│   ├── middleware/
+│   │   ├── _category_.json
+│   │   ├── adaptor.md
+│   │   ├── basicauth.md
+│   │   ├── cache.md
+│   │   ├── compress.md
+│   │   ├── cors.md
+│   │   ├── csrf.md
+│   │   ├── earlydata.md
+│   │   ├── encryptcookie.md
+│   │   ├── envvar.md
+│   │   ├── etag.md
+│   │   ├── expvar.md
+│   │   ├── favicon.md
+│   │   ├── healthcheck.md
+│   │   ├── helmet.md
+│   │   ├── idempotency.md
+│   │   ├── keyauth.md
+│   │   ├── limiter.md
+│   │   ├── logger.md
+│   │   ├── pprof.md
+│   │   ├── proxy.md
+│   │   ├── recover.md
+│   │   ├── redirect.md
+│   │   ├── requestid.md
+│   │   ├── responsetime.md
+│   │   ├── rewrite.md
+│   │   ├── session.md
+│   │   ├── skip.md
+│   │   ├── static.md
+│   │   └── timeout.md
+│   ├── partials/
+│   │   └── routing/
+│   └── whats_new.md
+├── error.go
+├── error_test.go
+├── errors_internal.go
+├── extractors/
+│   ├── README.md
+│   ├── extractors.go
+│   └── extractors_test.go
+├── go.mod
+├── go.sum
+├── group.go
+├── helpers.go
+├── helpers_fuzz_test.go
+├── helpers_test.go
+├── hooks.go
+├── hooks_test.go
+├── internal/
+│   ├── memory/
+│   │   ├── memory.go
+│   │   └── memory_test.go
+│   ├── storage/
+│   │   └── memory/
+│   └── tlstest/
+│       └── tls.go
+├── listen.go
+├── listen_test.go
+├── log/
+│   ├── default.go
+│   ├── default_test.go
+│   ├── fiberlog.go
+│   ├── fiberlog_test.go
+│   └── log.go
+├── middleware/
+│   ├── adaptor/
+│   │   ├── adaptor.go
+│   │   └── adaptor_test.go
+│   ├── basicauth/
+│   │   ├── basicauth.go
+│   │   ├── basicauth_test.go
+│   │   └── config.go
+│   ├── cache/
+│   │   ├── cache.go
+│   │   ├── cache_test.go
+│   │   ├── config.go
+│   │   ├── heap.go
+│   │   ├── manager.go
+│   │   ├── manager_msgp.go
+│   │   ├── manager_msgp_test.go
+│   │   └── manager_test.go
+│   ├── compress/
+│   │   ├── compress.go
+│   │   ├── compress_test.go
+│   │   └── config.go
+│   ├── cors/
+│   │   ├── config.go
+│   │   ├── cors.go
+│   │   ├── cors_test.go
+│   │   ├── utils.go
+│   │   └── utils_test.go
+│   ├── csrf/
+│   │   ├── config.go
+│   │   ├── config_test.go
+│   │   ├── csrf.go
+│   │   ├── csrf_test.go
+│   │   ├── helpers.go
+│   │   ├── helpers_test.go
+│   │   ├── session_manager.go
+│   │   ├── storage_manager.go
+│   │   ├── storage_manager_msgp.go
+│   │   ├── storage_manager_msgp_test.go
+│   │   └── token.go
+│   ├── earlydata/
+│   │   ├── config.go
+│   │   ├── earlydata.go
+│   │   └── earlydata_test.go
+│   ├── encryptcookie/
+│   │   ├── config.go
+│   │   ├── config_test.go
+│   │   ├── encryptcookie.go
+│   │   ├── encryptcookie_test.go
+│   │   └── utils.go
+│   ├── envvar/
+│   │   ├── config.go
+│   │   ├── envvar.go
+│   │   └── envvar_test.go
+│   ├── etag/
+│   │   ├── config.go
+│   │   ├── etag.go
+│   │   └── etag_test.go
+│   ├── expvar/
+│   │   ├── config.go
+│   │   ├── expvar.go
+│   │   └── expvar_test.go
+│   ├── favicon/
+│   │   ├── config.go
+│   │   ├── favicon.go
+│   │   └── favicon_test.go
+│   ├── healthcheck/
+│   │   ├── config.go
+│   │   ├── healthcheck.go
+│   │   └── healthcheck_test.go
+│   ├── helmet/
+│   │   ├── config.go
+│   │   ├── helmet.go
+│   │   └── helmet_test.go
+│   ├── idempotency/
+│   │   ├── config.go
+│   │   ├── idempotency.go
+│   │   ├── idempotency_test.go
+│   │   ├── locker.go
+│   │   ├── locker_test.go
+│   │   ├── response.go
+│   │   ├── response_msgp.go
+│   │   ├── response_msgp_test.go
+│   │   └── stub_test.go
+│   ├── keyauth/
+│   │   ├── config.go
+│   │   ├── config_test.go
+│   │   ├── keyauth.go
+│   │   └── keyauth_test.go
+│   ├── limiter/
+│   │   ├── config.go
+│   │   ├── limiter.go
+│   │   ├── limiter_fixed.go
+│   │   ├── limiter_sliding.go
+│   │   ├── limiter_test.go
+│   │   ├── manager.go
+│   │   ├── manager_msgp.go
+│   │   └── manager_msgp_test.go
+│   ├── logger/
+│   │   ├── config.go
+│   │   ├── data.go
+│   │   ├── default_logger.go
+│   │   ├── errors.go
+│   │   ├── format.go
+│   │   ├── logger.go
+│   │   ├── logger_test.go
+│   │   ├── tags.go
+│   │   ├── template_chain.go
+│   │   └── utils.go
+│   ├── pprof/
+│   │   ├── config.go
+│   │   ├── pprof.go
+│   │   └── pprof_test.go
+│   ├── proxy/
+│   │   ├── config.go
+│   │   ├── proxy.go
+│   │   └── proxy_test.go
+│   ├── recover/
+│   │   ├── config.go
+│   │   ├── recover.go
+│   │   └── recover_test.go
+│   ├── redirect/
+│   │   ├── config.go
+│   │   ├── redirect.go
+│   │   └── redirect_test.go
+│   ├── requestid/
+│   │   ├── config.go
+│   │   ├── requestid.go
+│   │   └── requestid_test.go
+│   ├── responsetime/
+│   │   ├── config.go
+│   │   ├── responsetime.go
+│   │   └── responsetime_test.go
+│   ├── rewrite/
+│   │   ├── config.go
+│   │   ├── rewrite.go
+│   │   └── rewrite_test.go
+│   ├── session/
+│   │   ├── config.go
+│   │   ├── config_test.go
+│   │   ├── data.go
+│   │   ├── data_msgp.go
+│   │   ├── data_msgp_test.go
+│   │   ├── data_test.go
+│   │   ├── middleware.go
+│   │   ├── middleware_test.go
+│   │   ├── session.go
+│   │   ├── session_test.go
+│   │   ├── store.go
+│   │   └── store_test.go
+│   ├── skip/
+│   │   ├── skip.go
+│   │   └── skip_test.go
+│   ├── static/
+│   │   ├── config.go
+│   │   ├── static.go
+│   │   └── static_test.go
+│   └── timeout/
+│       ├── config.go
+│       ├── timeout.go
+│       └── timeout_test.go
+├── mount.go
+├── mount_test.go
+├── path.go
+├── path_test.go
+├── path_testcases_test.go
+├── prefork.go
+├── prefork_test.go
+├── readonly.go
+├── readonly_strict.go
+├── redirect.go
+├── redirect_msgp.go
+├── redirect_msgp_test.go
+├── redirect_test.go
+├── register.go
+├── req.go
+├── req_interface_gen.go
+├── res.go
+├── res_interface_gen.go
+├── router.go
+├── router_test.go
+├── services.go
+├── services_test.go
+├── state.go
+├── state_test.go
+└── storage_interface.go

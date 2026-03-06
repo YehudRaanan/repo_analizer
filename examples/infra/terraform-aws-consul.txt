@@ -1,0 +1,198 @@
+=====================================
+REPO CLASSIFICATION SIGNALS
+=====================================
+
+--- METADATA ---
+Name: terraform-aws-consul
+Description: A Terraform Module for how to run Consul on AWS using Terraform and Packer
+Primary language: HCL
+Topics: N/A
+
+--- ROOT FILES (signal matches) ---
+Web App:     (none)
+Backend:     (none)
+Library:     (none)
+CLI:         (none)
+Data/ML:     (none)
+Infra:       main.tf, outputs.tf, variables.tf
+
+--- TOP-LEVEL DIRECTORIES (signal matches) ---
+Web App:     (none)
+Backend:     (none)
+Library:     (none)
+CLI:         (none)
+Data/ML:     (none)
+Infra:       modules
+
+--- ALL TOP-LEVEL DIRECTORIES ---
+.circleci, .github, _ci, _docs, examples, modules, test
+
+--- TYPE-SPECIFIC EXTENSION COUNTS ---
+Web App extensions (.tsx, .jsx, .vue, .svelte): 0
+Data/ML extensions (.ipynb): 0
+Infra extensions (.tf, .hcl): 18
+Backend extensions (.proto, .graphql): 0
+
+--- TOP FILE EXTENSIONS (by count) ---
+  .md: 23
+  .tf: 18
+  .sh: 8
+  .go: 7
+  .pem: 3
+  .png: 2
+  .json: 2
+  .yml: 1
+  .gitignore: 1
+  .yaml: 1
+  .mod: 1
+  .sum: 1
+
+--- BOOLEAN PATTERN CHECKS ---
+  pages or app dir: no
+  components dir: no
+  cmd or bin dir: no
+  src bin: no
+  run train scripts: no
+  ipynb files: no
+  model training files: no
+  tf files: yes
+  k8s manifests: no
+  ansible playbooks: no
+  route controller dirs: no
+  db migrations: no
+  openapi spec: no
+  src and tests: no
+  examples dir: yes
+  dockerfile: no
+  ci cd: no
+  completions or manpages: no
+
+
+[get_dependencies('')]
+(no dependency/manifest files found at repo root)
+
+---
+
+[get_directory('')]
+Contents of /(root):
+  [dir] .circleci
+  [dir] .github
+  [dir] _ci
+  [dir] _docs
+  [dir] examples
+  [dir] modules
+  [dir] test
+  [file] .gitignore
+  [file] .pre-commit-config.yaml
+  [file] CODEOWNERS
+  [file] LICENSE
+  [file] NOTICE
+  [file] README.md
+  [file] main.tf
+  [file] outputs.tf
+  [file] variables.tf
+
+---
+
+[get_file('main.tf')]
+# ---------------------------------------------------------------------------------------------------------------------
+# DEPLOY A CONSUL CLUSTER IN AWS
+# These templates show an example of how to use the consul-cluster module to deploy Consul in AWS. We deploy two Auto
+# Scaling Groups (ASGs): one with a small number of Consul server nodes and one with a larger number of Consul client
+# nodes. Note that these templates assume that the AMI you provide via the ami_id input variable is built from
+# the examples/consul-ami/consul.json Packer template.
+# ---------------------------------------------------------------------------------------------------------------------
+
+# ----------------------------------------------------------------------------------------------------------------------
+# REQUIRE A SPECIFIC TERRAFORM VERSION OR HIGHER
+# ----------------------------------------------------------------------------------------------------------------------
+terraform {
+  # This module is now only being tested with Terraform 1.0.x. However, to make upgrading easier, we are setting
+  # 0.14.0 as the minimum version, as that version added support for validation and the alltrue function
+  # Removing the validation completely will yield a version compatible with 0.12.26 as that added support for
+  # required_providers with source URLs
+  required_version = ">= 0.14.0"
+}
+
+# ---------------------------------------------------------------------------------------------------------------------
+# AUTOMATICALLY LOOK UP THE LATEST PRE-BUILT AMI
+# This repo contains a CircleCI job that automatically builds and publishes the latest AMI by building the Packer
+# template at /examples/consul-ami upon every new release. The Terraform data source below automatically looks up the
+# latest AMI so that a simple "terraform apply" will just work without the user needing to manually build an AMI and
+# fill in the right value.
+#
+# !! WARNING !! These exmaple AMIs are meant only convenience when initially testing this repo. Do NOT use these example
+# AMIs in a production setting because it is important that you consciously think through the configuration you want
+# in your own production AMI.
+#
+# NOTE: This Terraform data source must return at least one AMI result or the entire template will fail. See
+# /_ci/publish-amis-in-new-account.md for more information.
+# ---------------------------------------------------------------------------------------------------------------------
+data "aws_ami" "consul" {
+  most_recent = true
+
+  # If we change the AWS Account in which test are run, update this value.
+  owners = ["562637147889"]
+
+  filter {
+    name   = "virtualization-type"
+    values = ["hvm"]
+  }
+
+  filter {
+    name   = "is-public"
+    values = ["true"]
+  }
+
+  filter {
+    name   = "name"
+    values = ["consul-ubuntu-*"]
+  }
+}
+
+# ---------------------------------------------------------------------------------------------------------------------
+# DEPLOY THE CONSUL SERVER NODES
+# ---------------------------------------------------------------------------------------------------------------------
+
+module "consul_servers" {
+  # When using these modules in your own templates, you will need to use a Git URL with a ref attribute that pins you
+  # to a specific version of the modules, such as the following example:
+  # source = "git::git@github.com:hashicorp/terraform-aws-consul.git//modules/consul-cluster?ref=v0.0.1"
+  source = "./modules/consul-cluster"
+
+  cluster_name  = "${var.cluster_name}-server"
+  cluster_size  = var.num_servers
+  instance_type = "t2.micro"
+  spot_price    = var.spot_price
+
+  # The EC2 Instances will use these tags to automatically discover each other and form a cluster
+  cluster_tag_key   = var.cluster_tag_key
+  cluster_tag_value = var.cluster_name
+
+  ami_id = var.ami_id == null ? data.aws_ami.consul.image_id : var.ami_id
+  user_data = templatefile("${path.module}/examples/root-example/user-data-server.sh", {
+    cluster_tag_key   = var.clu
+... [TRUNCATED — showing first 4000 chars]
+
+---
+
+[get_directory('modules')]
+Contents of /modules:
+  [dir] consul-client-security-group-rules
+  [dir] consul-cluster
+  [dir] consul-iam-policies
+  [dir] consul-security-group-rules
+  [dir] install-consul
+  [dir] install-dnsmasq
+  [dir] run-consul
+  [dir] setup-systemd-resolved
+  [file] README.md
+
+---
+
+[get_file('modules/README.md')]
+## NOTE: About [/modules](https://github.com/hashicorp/terraform-aws-consul/tree/master/modules) and [/examples](https://github.com/hashicorp/terraform-aws-consul/tree/master/examples)
+
+HashiCorp's Terraform Registry requires every repo to have a `main.tf` in its root dir. The Consul code is broken down into multiple sub-modules, so they can't all be in the root dir [/](https://github.com/hashicorp/terraform-aws-consul/tree/master). Therefore, Consul's sub-modules are in the [/modules](https://github.com/hashicorp/terraform-aws-consul/tree/master/modules) subdirectory, the example code is in the [/examples](https://github.com/hashicorp/terraform-aws-consul/tree/master/examples) subdirectory, and the root dir [/](https://github.com/hashicorp/terraform-aws-consul/tree/master) _also_ has an example in it, as described in [root-example](https://github.com/awesome/terraform-aws-consul/tree/master/examples/root-example).
+
+More info: https://github.com/hashicorp/terraform-aws-consul/pull/79/files/079e75015a5d89e7ffc89997aa0904e9de4cdb97#r212763365

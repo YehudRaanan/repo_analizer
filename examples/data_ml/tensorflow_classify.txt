@@ -1,0 +1,70 @@
+=====================================
+REPO CLASSIFICATION SIGNALS
+=====================================
+
+--- METADATA ---
+Name: tensorflow
+Description: An Open Source Machine Learning Framework for Everyone
+Primary language: C++
+Topics: deep-learning, deep-neural-networks, distributed, machine-learning, ml, neural-network, python, tensorflow
+
+--- ROOT FILES (signal matches) ---
+Web App:     (none)
+Backend:     (none)
+Library:     (none)
+CLI:         (none)
+Data/ML:     (none)
+Infra:       (none)
+
+--- TOP-LEVEL DIRECTORIES (signal matches) ---
+Web App:     (none)
+Backend:     (none)
+Library:     (none)
+CLI:         (none)
+Data/ML:     (none)
+Infra:       (none)
+
+--- ALL TOP-LEVEL DIRECTORIES ---
+.github, ci, tensorflow, third_party, tools
+
+--- TYPE-SPECIFIC EXTENSION COUNTS ---
+Web App extensions (.tsx, .jsx, .vue, .svelte): 0
+Data/ML extensions (.ipynb): 34
+Infra extensions (.tf, .hcl): 0
+Backend extensions (.proto, .graphql): 337
+
+--- TOP FILE EXTENSIONS (by count) ---
+  .cc: 10474
+  .pbtxt: 7822
+  .h: 6266
+  .py: 3152
+  .mlir: 1435
+  .md: 1222
+  .proto: 337
+  .bzl: 317
+  .hlo: 281
+  .sh: 252
+  .html: 235
+  .java: 179
+  .td: 170
+  .png: 143
+  .build: 137
+
+--- BOOLEAN PATTERN CHECKS ---
+  pages or app dir: no
+  components dir: no
+  cmd or bin dir: no
+  src bin: no
+  run train scripts: yes
+  ipynb files: yes
+  model training files: yes
+  tf files: no
+  k8s manifests: no
+  ansible playbooks: no
+  route controller dirs: no
+  db migrations: no
+  openapi spec: no
+  src and tests: no
+  examples dir: no
+  dockerfile: no
+  ci cd: yes

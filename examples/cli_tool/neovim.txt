@@ -1,0 +1,2790 @@
+=====================================
+Repository Analysis: neovim
+Type: CLI Tool
+=====================================
+
+--- METADATA ---
+Name: neovim
+Description: Vim-fork focused on extensibility and usability
+Language: Vim Script
+Topics: api, c, lua, neovim, nvim, text-editor, vim
+Stars: 96970
+License: Other
+
+--- README ---
+<h1 align="center">
+  <img src="https://raw.githubusercontent.com/neovim/neovim.github.io/master/static/logos/neovim-logo-300x87.png" alt="Neovim">
+
+  <a href="https://neovim.io/doc/">Documentation</a> |
+  <a href="https://app.element.io/#/room/#neovim:matrix.org">Chat</a>
+</h1>
+
+[![Coverity Scan analysis](https://scan.coverity.com/projects/2227/badge.svg)](https://scan.coverity.com/projects/2227)
+[![Packages](https://repology.org/badge/tiny-repos/neovim.svg)](https://repology.org/metapackage/neovim)
+[![Debian CI](https://badges.debian.net/badges/debian/testing/neovim/version.svg)](https://buildd.debian.org/neovim)
+[![Downloads](https://img.shields.io/github/downloads/neovim/neovim/total.svg?maxAge=2592001)](https://github.com/neovim/neovim/releases/)
+
+Neovim is a project that seeks to aggressively refactor [Vim](https://www.vim.org/) in order to:
+
+- Simplify maintenance and encourage [contributions](CONTRIBUTING.md)
+- Split the work between multiple developers
+- Enable [advanced UIs] without modifications to the core
+- Maximize [extensibility](https://neovim.io/doc/user/api-ui-events.html#api-ui-events)
+
+See the [Introduction](https://github.com/neovim/neovim/wiki/Introduction) wiki page and [Roadmap]
+for more information.
+
+Features
+--------
+
+- Modern [GUIs](https://github.com/neovim/neovim/wiki/Related-projects#gui)
+- [API access](https://github.com/neovim/neovim/wiki/Related-projects#api-clients)
+  from any language including C/C++, C#, Clojure, D, Elixir, Go, Haskell, Java/Kotlin,
+  JavaScript/Node.js, Julia, Lisp, Lua, Perl, Python, Racket, Ruby, Rust
+- Embedded, scriptable [terminal emulator](https://neovim.io/doc/user/terminal.html)
+- Asynchronous [job control](https://github.com/neovim/neovim/pull/2247)
+- [Shared data (shada)](https://github.com/neovim/neovim/pull/2506) among multiple editor instances
+- [XDG base directories](https://github.com/neovim/neovim/pull/3470) support
+- Compatible with most Vim plugins, including Ruby and Python plugins
+
+See [`:help nvim-features`][nvim-features] for the full list, and [`:help news`][nvim-news] for noteworthy changes in the latest version!
+
+Install from package
+--------------------
+
+Pre-built packages for Windows, macOS, and Linux are found on the
+[Releases](https://github.com/neovim/neovim/releases/) page.
+
+[Managed packages] are in [Homebrew], [Debian], [Ubuntu], [Fedora], [Arch Linux], [Void Linux], [Gentoo], and more!
+
+Install from source
+-------------------
+
+See [BUILD.md](./BUILD.md) and [supported platforms](https://neovim.io/doc/user/support.html#supported-platforms) for details.
+
+The build is CMake-based, but a Makefile is provided as a convenience.
+After installing the dependencies, run the following command.
+```bash
+make CMAKE_BUILD_TYPE=RelWithDebInfo
+sudo make install
+```
+
+To install to a non-default location:
+```bash
+make CMAKE_BUILD_TYPE=RelWithDebInfo CMAKE_INSTALL_PREFIX=/full/path/
+make install
+```
+
+CMake hints for inspecting the build:
+
+- `cmake --build build --target help` lists all build targets.
+- `build/CMakeCache.txt` (or `cmake -LAH build/`) contains the resolved values of all CMake variables.
+- `build/compile_commands.json` shows the full compiler invocations for each translation unit.
+
+Transitioning from Vim
+--------------------
+
+See [`:help nvim-from-vim`](https://neovim.io/doc/user/nvim.html#nvim-from-vim) for instructions.
+
+Project layout
+--------------
+
+    ├─ cmake/           CMake utils
+    ├─ cmake.config/    CMake defines
+    ├─ cmake.deps/      subproject to fetch and build dependencies (optional)
+    ├─ runtime/         plugins and docs
+    ├─ src/nvim/        application source code (see src/nvim/README.md)
+    │  ├─ api/          API subsystem
+    │  ├─ eval/         Vimscript subsystem
+    │  ├─ event/        event-loop subsystem
+    │  ├─ generators/   code generation (pre-compilation)
+    │  ├─ lib/          generic data structures
+    │  ├─ lua/          Lua subsystem
+    │  ├─ msgpack_rpc/  RPC subsystem
+    │  ├─ os/           low-level platform code
+    │  └─ tui/          built-in UI
+    └─ test/            tests (see test/README.md)
+
+License
+-------
+
+Neovim contributions since [b17d96][license-commit] are licensed under the
+Apache 2.0 license, except for contributions copied from Vim (identified by the
+`vim-patch` token). See [LICENSE.txt](./LICENSE.txt) for details.
+
+[license-commit]: https://github.com/neovim/neovim/commit/b17d9691a24099c9210289f16afb1a498a89d803
+[nvim-features]: https://neovim.io/doc/user/vim_diff.html#nvim-features
+[nvim-news]: https://neovim.io/doc/user/news.html
+[Roadmap]: https://neovim.io/roadmap/
+[advanced UIs]: https://github.com/neovim/neovim/wiki/Related-projects#gui
+[Managed packages]: ./INSTALL.md#install-from-package
+[Debian]: https://packages.debian.org/testing/neovim
+[Ubuntu]: https://packages.ubuntu.com/search?keywords=neovim
+[Fedora]: https://packages.fedoraproject.org/pkgs/neovim/neovim/
+[Arch Linux]: https://www.archlinux.org/packages/?q=neovim
+[Void Linux]: https://voidli
+... [TRUNCATED]
+
+--- PACKAGE MANIFEST(S) ---
+
+[Makefile]
+ifeq ($(OS),Windows_NT)
+  ifeq '$(findstring ;,$(PATH))' ';'
+    UNIX_LIKE := FALSE
+  else
+    UNIX_LIKE := TRUE
+  endif
+else
+  UNIX_LIKE := TRUE
+endif
+
+ifeq ($(UNIX_LIKE),FALSE)
+  SHELL := powershell.exe
+  .SHELLFLAGS := -NoProfile -NoLogo
+  MKDIR := @$$null = new-item -itemtype directory -force
+  TOUCH := @$$null = new-item -force
+  RM := remove-item -force
+  CMAKE := cmake
+  CMAKE_GENERATOR := Ninja
+  define rmdir
+    if (Test-Path $1) { remove-item -recurse $1 }
+  endef
+else
+  MKDIR := mkdir -p
+  TOUCH := touch
+  RM := rm -rf
+  CMAKE := $(shell (command -v cmake3 || command -v cmake || echo cmake))
+  CMAKE_GENERATOR ?= "$(shell (command -v ninja > /dev/null 2>&1 && echo "Ninja") || echo "Unix Makefiles")"
+  define rmdir
+    rm -rf $1
+  endef
+endif
+
+MAKEFILE_PATH := $(abspath $(lastword $(MAKEFILE_LIST)))
+MAKEFILE_DIR  := $(dir $(MAKEFILE_PATH))
+
+filter-false = $(strip $(filter-out 0 off OFF false FALSE,$1))
+filter-true = $(strip $(filter-out 1 on ON true TRUE,$1))
+
+# See contrib/local.mk.example
+-include local.mk
+
+all: nvim
+
+CMAKE_FLAGS := -DCMAKE_BUILD_TYPE=$(CMAKE_BUILD_TYPE)
+# Extra CMake flags which extend the default set
+CMAKE_EXTRA_FLAGS ?=
+NVIM_PRG := $(MAKEFILE_DIR)/build/bin/nvim
+
+# CMAKE_INSTALL_PREFIX
+#   - May be passed directly or as part of CMAKE_EXTRA_FLAGS.
+#   - `checkprefix` target checks that it matches the CMake-cached value. #9615
+ifneq (,$(CMAKE_INSTALL_PREFIX)$(CMAKE_EXTRA_FLAGS))
+CMAKE_INSTALL_PREFIX := $(shell echo $(CMAKE_EXTRA_FLAGS) | 2>/dev/null \
+    grep -o 'CMAKE_INSTALL_PREFIX=[^ ]\+' | cut -d '=' -f2)
+endif
+ifneq (,$(CMAKE_INSTALL_PREFIX))
+override CMAKE_EXTRA_FLAGS += -DCMAKE_INSTALL_PREFIX=$(CMAKE_INSTALL_PREFIX)
+
+checkprefix:
+	@if [ -f build/.ran-cmake ]; then \
+	  cached_prefix=$(shell $(CMAKE) -L -N build | 2>/dev/null grep 'CMAKE_INSTALL_PREFIX' | cut -d '=' -f2); \
+	  if ! [ "$(CMAKE_INSTALL_PREFIX)" = "$$cached_prefix" ]; then \
+	    printf "Re-running CMake: CMAKE_INSTALL_PREFIX '$(CMAKE_INSTALL_PREFIX)' does not match cached value '%s'.\n" "$$cached_prefix"; \
+	    $(RM) build/.ran-cmake; \
+	  fi \
+	fi
+else
+checkprefix: ;
+endif
+
+DEPS_BUILD_DIR ?= ".deps"
+ifneq (1,$(words [$(DEPS_BUILD_DIR)]))
+  $(error DEPS_BUILD_DIR must not contain whitespace)
+endif
+
+DEPS_CMAKE_FLAGS ?=
+USE_BUNDLED ?=
+
+ifdef BUNDLED_CMAKE_FLAG
+  $(error BUNDLED_CMAKE_FLAG was removed. Use DEPS_CMAKE_FLAGS instead)
+endif
+
+ifdef BUNDLED_LUA_CMAKE_FLAG
+  $(error BUNDLED_LUA_CMAKE_FLAG was removed. Use DEPS_CMAKE_FLAGS instead)
+endif
+
+# If USE_BUNDLED is non-empty, prepend the flag to DEPS_CMAKE_FLAGS
+ifneq (,$(USE_BUNDLED))
+  DEPS_CMAKE_FLAGS := -DUSE_BUNDLED=$(USE_BUNDLED) $(DEPS_CMAKE_FLAGS)
+endif
+
+ifneq (,$(findstring functionaltest-lua,$(MAKECMDGOALS)))
+  DEPS_CMAKE_FLAGS := -DUSE_BUNDLED_LUA=ON $(DEPS_CMAKE_FLAGS)
+  $(shell [ -x $(DEPS_BUILD_DIR)/usr/bin/lua ] || $(RM) build/.ran-*)
+endif
+
+# For use where we want to make sure only a single job is run.  This does issue 
+# a warning, but we need to keep SCRIPTS argument.
+SINGLE_MA
+... [TRUNCATED]
+
+--- CLI ENTRY POINTS / COMMAND DEFINITIONS ---
+(No CLI entry points found)
+
+--- SHELL COMPLETIONS & MAN PAGES ---
+  contrib/nvim.bash
+  contrib/zsh-completion.zsh
+  src/man/Makefile
+  src/man/nvim.1
+
+--- DIRECTORY STRUCTURE (depth 2) ---
+├── .cirrus.yml
+├── .clang-format
+├── .clang-tidy
+├── .clangd
+├── .editorconfig
+├── .emmyrc.json
+├── .git-blame-ignore-revs
+├── .gitattributes
+├── .github/
+│   ├── FUNDING.yml
+│   ├── ISSUE_TEMPLATE/
+│   │   ├── bug_report.yml
+│   │   ├── config.yml
+│   │   ├── feature_request.yml
+│   │   └── lsp_bug_report.yml
+│   ├── SECURITY.md
+│   ├── actions/
+│   │   ├── cache/
+│   │   └── setup/
+│   ├── dependabot.yml
+│   ├── pull_request_template.md
+│   ├── scripts/
+│   │   ├── close_unresponsive.js
+│   │   ├── env.ps1
+│   │   ├── install_deps.sh
+│   │   ├── labeler_configuration.yml
+│   │   ├── remove_response_label.js
+│   │   ├── reviewers_add.js
+│   │   └── reviewers_remove.js
+│   └── workflows/
+│       ├── backport.yml
+│       ├── build.yml
+│       ├── build_dummy.yml
+│       ├── codeql.yml
+│       ├── coverity.yml
+│       ├── docs.yml
+│       ├── labeler_issue.yml
+│       ├── labeler_pr.yml
+│       ├── lintcommit.yml
+│       ├── lintcommit_dummy.yml
+│       ├── lintdocurls.yml
+│       ├── news.yml
+│       ├── notes.md
+│       ├── optional.yml
+│       ├── release.yml
+│       ├── response.yml
+│       ├── reviewers_add.yml
+│       ├── reviewers_remove.yml
+│       ├── test.yml
+│       ├── test_windows.yml
+│       └── vim_patches.yml
+├── .gitignore
+├── .luacheckrc
+├── .luacov
+├── .luarc.json
+├── .mailmap
+├── .stylua.toml
+├── .stylua2.toml
+├── .styluaignore
+├── BSDmakefile
+├── BUILD.md
+├── CMakeLists.txt
+├── CMakePresets.json
+├── CONTRIBUTING.md
+├── INSTALL.md
+├── LICENSE.txt
+├── MAINTAIN.md
+├── Makefile
+├── README.md
+├── build.zig
+├── build.zig.zon
+├── cmake.config/
+│   ├── CMakeLists.txt
+│   ├── config.h.in
+│   ├── iwyu/
+│   │   ├── c99.imp
+│   │   ├── mapping.imp
+│   │   └── posix.imp
+│   ├── pathdef.h.in
+│   └── versiondef.h.in
+├── cmake.deps/
+│   ├── CMakeLists.txt
+│   ├── CMakePresets.json
+│   ├── cmake/
+│   │   ├── BuildGettext.cmake
+│   │   ├── BuildLibiconv.cmake
+│   │   ├── BuildLibuv.cmake
+│   │   ├── BuildLpeg.cmake
+│   │   ├── BuildLua.cmake
+│   │   ├── BuildLuajit.cmake
+│   │   ├── BuildLuv.cmake
+│   │   ├── BuildTreesitter.cmake
+│   │   ├── BuildTreesitterParsers.cmake
+│   │   ├── BuildUTF8proc.cmake
+│   │   ├── BuildUnibilium.cmake
+│   │   ├── BuildWasmtime.cmake
+│   │   ├── CopyFilesGlob.cmake
+│   │   ├── GetBinaryDeps.cmake
+│   │   ├── GettextCMakeLists.txt
+│   │   ├── LibiconvCMakeLists.txt
+│   │   ├── LpegCMakeLists.txt
+│   │   ├── MarkdownParserCMakeLists.txt
+│   │   └── TreesitterParserCMakeLists.txt
+│   └── deps.txt
+├── cmake.packaging/
+│   ├── CMakeLists.txt
+│   ├── CustomInstallDirDlg.wxs
+│   ├── WixPatch.xml
+│   ├── WixUI_CustomInstallDir.wxs
+│   ├── neovim.icns
+│   ├── neovim.png
+│   └── neovim.svg
+├── cmake/
+│   ├── ConvertPo.cmake
+│   ├── Deps.cmake
+│   ├── Find.cmake
+│   ├── FindIconv.cmake
+│   ├── FindLibintl.cmake
+│   ├── FindLibuv.cmake
+│   ├── FindLpeg.cmake
+│   ├── FindLuajit.cmake
+│   ├── FindLuv.cmake
+│   ├── FindTreesitter.cmake
+│   ├── FindUTF8proc.cmake
+│   ├── FindUnibilium.cmake
+│   ├── FindWasmtime.cmake
+│   ├── GenerateVersion.cmake
+│   ├── InstallHelpers.cmake
+│   ├── PreventInTreeBuilds.cmake
+│   ├── RunTests.cmake
+│   ├── UninstallHelper.cmake
+│   ├── Util.cmake
+│   └── WindowsDllCopy.cmake
+├── contrib/
+│   ├── asan.sh
+│   ├── gdb/
+│   │   ├── neovim_gdb.vim
+│   │   └── nvim-gdb-pretty-printers.py
+│   ├── local.mk.example
+│   ├── minimal.lua
+│   ├── nvim.bash
+│   └── zsh-completion.zsh
+├── deps/
+│   ├── unibilium/
+│   │   ├── build.zig
+│   │   └── build.zig.zon
+│   └── utf8proc/
+│       ├── build.zig
+│       └── build.zig.zon
+├── runtime/
+│   ├── CMakeLists.txt
+│   ├── autoload/
+│   │   ├── README.txt
+│   │   ├── RstFold.vim
+│   │   ├── ada.vim
+│   │   ├── adacomplete.vim
+│   │   ├── bitbake.vim
+│   │   ├── cargo.vim
+│   │   ├── cargo/
+│   │   ├── ccomplete.vim
+│   │   ├── clojurecomplete.vim
+│   │   ├── context.vim
+│   │   ├── contextcomplete.vim
+│   │   ├── csscomplete.vim
+│   │   ├── decada.vim
+│   │   ├── dist/
+│   │   ├── freebasic.vim
+│   │   ├── gnat.vim
+│   │   ├── gzip.vim
+│   │   ├── hare.vim
+│   │   ├── haskellcomplete.vim
+│   │   ├── hcl.vim
+│   │   ├── htmlcomplete.vim
+│   │   ├── htmlfold.vim
+│   │   ├── javaformat.vim
+│   │   ├── javascriptcomplete.vim
+│   │   ├── modula2.vim
+│   │   ├── msgpack.vim
+│   │   ├── paste.vim
+│   │   ├── phpcomplete.vim
+│   │   ├── provider.vim
+│   │   ├── provider/
+│   │   ├── python.vim
+│   │   ├── python3complete.vim
+│   │   ├── pythoncomplete.vim
+│   │   ├── remote/
+│   │   ├── rubycomplete.vim
+│   │   ├── rust.vim
+│   │   ├── rust/
+│   │   ├── rustfmt.vim
+│   │   ├── shada.vim
+│   │   ├── spotbugs.vim
+│   │   ├── sqlcomplete.vim
+│   │   ├── syntaxcomplete.vim
+│   │   ├── tar.vim
+│   │   ├── tutor.vim
+│   │   ├── typst.vim
+│   │   ├── vimexpect.vim
+│   │   ├── xml/
+│   │   ├── xmlcomplete.vim
+│   │   ├── xmlformat.vim
+│   │   └── zip.vim
+│   ├── colors/
+│   │   ├── README.txt
+│   │   ├── blue.vim
+│   │   ├── catppuccin.vim
+│   │   ├── darkblue.vim
+│   │   ├── default.vim
+│   │   ├── delek.vim
+│   │   ├── desert.vim
+│   │   ├── elflord.vim
+│   │   ├── evening.vim
+│   │   ├── habamax.vim
+│   │   ├── industry.vim
+│   │   ├── koehler.vim
+│   │   ├── lunaperche.vim
+│   │   ├── morning.vim
+│   │   ├── murphy.vim
+│   │   ├── pablo.vim
+│   │   ├── peachpuff.vim
+│   │   ├── quiet.vim
+│   │   ├── retrobox.vim
+│   │   ├── ron.vim
+│   │   ├── shine.vim
+│   │   ├── slate.vim
+│   │   ├── sorbet.vim
+│   │   ├── torte.vim
+│   │   ├── unokai.vim
+│   │   ├── vim.lua
+│   │   ├── wildcharm.vim
+│   │   ├── zaibatsu.vim
+│   │   └── zellner.vim
+│   ├── compiler/
+│   │   ├── README.txt
+│   │   ├── ant.vim
+│   │   ├── bash.vim
+│   │   ├── bcc.vim
+│   │   ├── bdf.vim
+│   │   ├── biome.vim
+│   │   ├── cabal.vim
+│   │   ├── cargo.vim
+│   │   ├── checkstyle.vim
+│   │   ├── cm3.vim
+│   │   ├── context.vim
+│   │   ├── cppcheck.vim
+│   │   ├── cs.vim
+│   │   ├── csslint.vim
+│   │   ├── cucumber.vim
+│   │   ├── dart.vim
+│   │   ├── dart2js.vim
+│   │   ├── dart2native.vim
+│   │   ├── dartanalyser.vim
+│   │   ├── dartdevc.vim
+│   │   ├── dartdoc.vim
+│   │   ├── dartfmt.vim
+│   │   ├── decada.vim
+│   │   ├── dot.vim
+│   │   ├── dotnet.vim
+│   │   ├── erlang.vim
+│   │   ├── eruby.vim
+│   │   ├── eslint.vim
+│   │   ├── fbc.vim
+│   │   ├── fortran_F.vim
+│   │   ├── fortran_cv.vim
+│   │   ├── fortran_elf90.vim
+│   │   ├── fortran_g77.vim
+│   │   ├── fortran_lf95.vim
+│   │   ├── fpc.vim
+│   │   ├── g95.vim
+│   │   ├── gawk.vim
+│   │   ├── gcc.vim
+│   │   ├── gfortran.vim
+│   │   ├── ghc.vim
+│   │   ├── gjs.vim
+│   │   ├── gleam_build.vim
+│   │   ├── gm2.vim
+│   │   ├── gnat.vim
+│   │   ├── go.vim
+│   │   ├── groff.vim
+│   │   ├── haml.vim
+│   │   ├── hare.vim
+│   │   ├── hp_acc.vim
+│   │   ├── icc.vim
+│   │   ├── icon.vim
+│   │   ├── ifort.vim
+│   │   ├── intel.vim
+│   │   ├── irix5_c.vim
+│   │   ├── irix5_cpp.vim
+│   │   ├── javac.vim
+│   │   ├── jest.vim
+│   │   ├── jikes.vim
+│   │   ├── jjs.vim
+│   │   ├── jq.vim
+│   │   ├── jshint.vim
+│   │   ├── jsonlint.vim
+│   │   ├── make.vim
+│   │   ├── maven.vim
+│   │   ├── mcs.vim
+│   │   ├── mips_c.vim
+│   │   ├── mipspro_c89.vim
+│   │   ├── mipspro_cpp.vim
+│   │   ├── modelsim_vcom.vim
+│   │   ├── msbuild.vim
+│   │   ├── msvc.vim
+│   │   ├── mypy.vim
+│   │   ├── neato.vim
+│   │   ├── ocaml.vim
+│   │   ├── onsgmls.vim
+│   │   ├── pandoc.vim
+│   │   ├── pbx.vim
+│   │   ├── perl.vim
+│   │   ├── perlcritic.vim
+│   │   ├── php.vim
+│   │   ├── phpstan.vim
+│   │   ├── pip_compile.vim
+│   │   ├── podchecker.vim
+│   │   ├── powershell.vim
+│   │   ├── pylint.vim
+│   │   ├── pyright.vim
+│   │   ├── pytest.vim
+│   │   ├── pyunit.vim
+│   │   ├── raco.vim
+│   │   ├── racomake.vim
+│   │   ├── racosetup.vim
+│   │   ├── racotest.vim
+│   │   ├── rake.vim
+│   │   ├── rhino.vim
+│   │   ├── rime_deployer.vim
+│   │   ├── rspec.vim
+│   │   ├── rst.vim
+│   │   ├── rubocop.vim
+│   │   ├── ruby.vim
+│   │   ├── rubyunit.vim
+│   │   ├── ruff.vim
+│   │   ├── rustc.vim
+│   │   ├── sass.vim
+│   │   ├── scdoc.vim
+│   │   ├── se.vim
+│   │   ├── shellcheck.vim
+│   │   ├── sml.vim
+│   │   ├── spectral.vim
+│   │   ├── splint.vim
+│   │   ├── spotbugs.vim
+│   │   ├── stack.vim
+│   │   ├── standard.vim
+│   │   ├── stylelint.vim
+│   │   ├── svelte-check.vim
+│   │   ├── tcl.vim
+│   │   ├── tex.vim
+│   │   ├── tidy.vim
+│   │   ├── tombi.vim
+│   │   ├── ts-node.vim
+│   │   ├── tsc.vim
+│   │   ├── ty.vim
+│   │   ├── typedoc.vim
+│   │   ├── typst.vim
+│   │   ├── vimdoc.vim
+│   │   ├── xbuild.vim
+│   │   ├── xmllint.vim
+│   │   ├── xmlwf.vim
+│   │   ├── xo.vim
+│   │   ├── yamllint.vim
+│   │   ├── zig.vim
+│   │   ├── zig_build.vim
+│   │   ├── zig_build_exe.vim
+│   │   ├── zig_test.vim
+│   │   └── zsh.vim
+│   ├── delmenu.vim
+│   ├── doc/
+│   │   ├── api-ui-events.txt
+│   │   ├── api.txt
+│   │   ├── autocmd.txt
+│   │   ├── change.txt
+│   │   ├── channel.txt
+│   │   ├── cmdline.txt
+│   │   ├── credits.txt
+│   │   ├── deprecated.txt
+│   │   ├── dev.txt
+│   │   ├── dev_arch.txt
+│   │   ├── dev_style.txt
+│   │   ├── dev_test.txt
+│   │   ├── dev_theme.txt
+│   │   ├── dev_tools.txt
+│   │   ├── dev_vimpatch.txt
+│   │   ├── diagnostic.txt
+│   │   ├── diff.txt
+│   │   ├── digraph.txt
+│   │   ├── editing.txt
+│   │   ├── faq.txt
+│   │   ├── filetype.txt
+│   │   ├── fold.txt
+│   │   ├── ft_ada.txt
+│   │   ├── ft_hare.txt
+│   │   ├── ft_ps1.txt
+│   │   ├── ft_raku.txt
+│   │   ├── ft_rust.txt
+│   │   ├── ft_sql.txt
+│   │   ├── gui.txt
+│   │   ├── health.txt
+│   │   ├── help.txt
+│   │   ├── helphelp.txt
+│   │   ├── if_perl.txt
+│   │   ├── if_pyth.txt
+│   │   ├── if_ruby.txt
+│   │   ├── indent.txt
+│   │   ├── index.txt
+│   │   ├── insert.txt
+│   │   ├── intro.txt
+│   │   ├── job_control.txt
+│   │   ├── l10n-arabic.txt
+│   │   ├── l10n-hebrew.txt
+│   │   ├── l10n-russian.txt
+│   │   ├── l10n-vietnamese.txt
+│   │   ├── lsp.txt
+│   │   ├── lua-bit.txt
+│   │   ├── lua-guide.txt
+│   │   ├── lua-plugin.txt
+│   │   ├── lua.txt
+│   │   ├── luaref.txt
+│   │   ├── luvref.txt
+│   │   ├── map.txt
+│   │   ├── mbyte.txt
+│   │   ├── message.txt
+│   │   ├── mlang.txt
+│   │   ├── motion.txt
+│   │   ├── news-0.10.txt
+│   │   ├── news-0.11.txt
+│   │   ├── news-0.9.txt
+│   │   ├── news.txt
+│   │   ├── nvim.txt
+│   │   ├── options.txt
+│   │   ├── pack.txt
+│   │   ├── pattern.txt
+│   │   ├── pi_gzip.txt
+│   │   ├── pi_msgpack.txt
+│   │   ├── pi_paren.txt
+│   │   ├── pi_spec.txt
+│   │   ├── pi_tar.txt
+│   │   ├── pi_tutor.txt
+│   │   ├── pi_zip.txt
+│   │   ├── plugins.txt
+│   │   ├── provider.txt
+│   │   ├── quickfix.txt
+│   │   ├── quickref.txt
+│   │   ├── recover.txt
+│   │   ├── remote.txt
+│   │   ├── remote_plugin.txt
+│   │   ├── repeat.txt
+│   │   ├── rileft.txt
+│   │   ├── scroll.txt
+│   │   ├── sign.txt
+│   │   ├── spell.txt
+│   │   ├── starting.txt
+│   │   ├── support.txt
+│   │   ├── syntax.txt
+│   │   ├── tabpage.txt
+│   │   ├── tagsrch.txt
+│   │   ├── terminal.txt
+│   │   ├── tips.txt
+│   │   ├── treesitter.txt
+│   │   ├── tui.txt
+│   │   ├── uganda.txt
+│   │   ├── undo.txt
+│   │   ├── userfunc.txt
+│   │   ├── usr_01.txt
+│   │   ├── usr_02.txt
+│   │   ├── usr_03.txt
+│   │   ├── usr_04.txt
+│   │   ├── usr_05.txt
+│   │   ├── usr_06.txt
+│   │   ├── usr_07.txt
+│   │   ├── usr_08.txt
+│   │   ├── usr_09.txt
+│   │   ├── usr_10.txt
+│   │   ├── usr_11.txt
+│   │   ├── usr_12.txt
+│   │   ├── usr_20.txt
+│   │   ├── usr_21.txt
+│   │   ├── usr_22.txt
+│   │   ├── usr_23.txt
+│   │   ├── usr_24.txt
+│   │   ├── usr_25.txt
+│   │   ├── usr_26.txt
+│   │   ├── usr_27.txt
+│   │   ├── usr_28.txt
+│   │   ├── usr_29.txt
+│   │   ├── usr_30.txt
+│   │   ├── usr_31.txt
+│   │   ├── usr_32.txt
+│   │   ├── usr_40.txt
+│   │   ├── usr_41.txt
+│   │   ├── usr_42.txt
+│   │   ├── usr_43.txt
+│   │   ├── usr_44.txt
+│   │   ├── usr_45.txt
+│   │   ├── usr_toc.txt
+│   │   ├── various.txt
+│   │   ├── vi_diff.txt
+│   │   ├── vim_diff.txt
+│   │   ├── vimeval.txt
+│   │   ├── vimfn.txt
+│   │   ├── visual.txt
+│   │   ├── vvars.txt
+│   │   └── windows.txt
+│   ├── embedded_data.zig
+│   ├── example_init.lua
+│   ├── filetype.lua
+│   ├── ftoff.vim
+│   ├── ftplugin.vim
+│   ├── ftplugin/
+│   │   ├── 8th.vim
+│   │   ├── README.txt
+│   │   ├── a2ps.vim
+│   │   ├── aap.vim
+│   │   ├── abap.vim
+│   │   ├── abaqus.vim
+│   │   ├── abnf.vim
+│   │   ├── ada.vim
+│   │   ├── alsaconf.vim
+│   │   ├── ant.vim
+│   │   ├── antlr4.vim
+│   │   ├── apache.vim
+│   │   ├── arch.vim
+│   │   ├── arduino.lua
+│   │   ├── arduino.vim
+│   │   ├── art.vim
+│   │   ├── asciidoc.vim
+│   │   ├── asm.vim
+│   │   ├── aspvbs.vim
+│   │   ├── astro.vim
+│   │   ├── asy.vim
+│   │   ├── autohotkey.vim
+│   │   ├── automake.vim
+│   │   ├── autopkgtest.vim
+│   │   ├── awk.vim
+│   │   ├── bash.vim
+│   │   ├── basic.vim
+│   │   ├── bdf.vim
+│   │   ├── bicep-params.vim
+│   │   ├── bicep.vim
+│   │   ├── bindzone.vim
+│   │   ├── bitbake.vim
+│   │   ├── bp.vim
+│   │   ├── bpftrace.vim
+│   │   ├── brighterscript.vim
+│   │   ├── brightscript.vim
+│   │   ├── bst.vim
+│   │   ├── btm.vim
+│   │   ├── bzl.vim
+│   │   ├── c.lua
+│   │   ├── c.vim
+│   │   ├── c3.vim
+│   │   ├── cabal.vim
+│   │   ├── calendar.vim
+│   │   ├── cdrdaoconf.vim
+│   │   ├── cedar.vim
+│   │   ├── cfg.vim
+│   │   ├── cgdbrc.vim
+│   │   ├── ch.lua
+│   │   ├── ch.vim
+│   │   ├── changelog.vim
+│   │   ├── chatito.vim
+│   │   ├── checkhealth.lua
+│   │   ├── checkhealth.vim
+│   │   ├── chicken.vim
+│   │   ├── clojure.vim
+│   │   ├── cmake.vim
+│   │   ├── cmakecache.vim
+│   │   ├── cobol.vim
+│   │   ├── codeowners.vim
+│   │   ├── conf.vim
+│   │   ├── config.vim
+│   │   ├── confini.vim
+│   │   ├── context.vim
+│   │   ├── cook.vim
+│   │   ├── corn.vim
+│   │   ├── cpp.vim
+│   │   ├── crm.vim
+│   │   ├── crontab.vim
+│   │   ├── cs.lua
+│   │   ├── cs.vim
+│   │   ├── csc.vim
+│   │   ├── csh.vim
+│   │   ├── css.vim
+│   │   ├── csv.vim
+│   │   ├── cucumber.vim
+│   │   ├── cuda.vim
+│   │   ├── cvsrc.vim
+│   │   ├── d.lua
+│   │   ├── dart.vim
+│   │   ├── dax.vim
+│   │   ├── deb822sources.vim
+│   │   ├── debchangelog.vim
+│   │   ├── debcontrol.vim
+│   │   ├── debsources.vim
+│   │   ├── denyhosts.vim
+│   │   ├── desktop.vim
+│   │   ├── dictconf.vim
+│   │   ├── dictdconf.vim
+│   │   ├── diff.vim
+│   │   ├── dircolors.vim
+│   │   ├── dnsmasq.vim
+│   │   ├── docbk.vim
+│   │   ├── dockerfile.vim
+│   │   ├── dosbatch.vim
+│   │   ├── dosini.vim
+│   │   ├── dot.lua
+│   │   ├── dtd.vim
+│   │   ├── dtrace.vim
+│   │   ├── dts.vim
+│   │   ├── dune.vim
+│   │   ├── editorconfig.vim
+│   │   ├── eiffel.vim
+│   │   ├── elinks.vim
+│   │   ├── elixir.vim
+│   │   ├── elm.vim
+│   │   ├── env.vim
+│   │   ├── erlang.vim
+│   │   ├── eruby.vim
+│   │   ├── eterm.vim
+│   │   ├── expect.vim
+│   │   ├── exports.vim
+│   │   ├── falcon.vim
+│   │   ├── faust.lua
+│   │   ├── fennel.vim
+│   │   ├── fetchmail.vim
+│   │   ├── fga.vim
+│   │   ├── fish.vim
+│   │   ├── flexwiki.vim
+│   │   ├── forth.vim
+│   │   ├── fortran.vim
+│   │   ├── fpcmake.vim
+│   │   ├── framescript.vim
+│   │   ├── freebasic.vim
+│   │   ├── fstab.vim
+│   │   ├── fvwm.vim
+│   │   ├── gdb.vim
+│   │   ├── gdscript.vim
+│   │   ├── gdshader.vim
+│   │   ├── gel.vim
+│   │   ├── git.vim
+│   │   ├── gitattributes.vim
+│   │   ├── gitcommit.vim
+│   │   ├── gitconfig.vim
+│   │   ├── gitignore.vim
+│   │   ├── gitrebase.vim
+│   │   ├── gitsendemail.vim
+│   │   ├── gleam.vim
+│   │   ├── glsl.lua
+│   │   ├── go.vim
+│   │   ├── goaccess.vim
+│   │   ├── gomod.vim
+│   │   ├── gpg.vim
+│   │   ├── gprof.vim
+│   │   ├── graphql.vim
+│   │   ├── groff.vim
+│   │   ├── groovy.vim
+│   │   ├── group.vim
+│   │   ├── grub.vim
+│   │   ├── gyp.vim
+│   │   ├── haml.vim
+│   │   ├── hamster.vim
+│   │   ├── hare.vim
+│   │   ├── haredoc.vim
+│   │   ├── haskell.vim
+│   │   ├── hcl.vim
+│   │   ├── heex.vim
+│   │   ├── help.lua
+│   │   ├── help.vim
+│   │   ├── hgcommit.vim
+│   │   ├── hlsplaylist.vim
+│   │   ├── hog.vim
+│   │   ├── hostconf.vim
+│   │   ├── hostsaccess.vim
+│   │   ├── html.vim
+│   │   ├── htmlangular.vim
+│   │   ├── htmldjango.vim
+│   │   ├── http.vim
+│   │   ├── hurl.vim
+│   │   ├── hyprlang.vim
+│   │   ├── i3config.vim
+│   │   ├── icon.vim
+│   │   ├── idris2.vim
+│   │   ├── indent.lua
+│   │   ├── indent.vim
+│   │   ├── initex.vim
+│   │   ├── ipkg.vim
+│   │   ├── ishd.vim
+│   │   ├── j.vim
+│   │   ├── java.vim
+│   │   ├── javacc.vim
+│   │   ├── javascript.vim
+│   │   ├── javascriptreact.vim
+│   │   ├── jjdescription.vim
+│   │   ├── jproperties.vim
+│   │   ├── jq.vim
+│   │   ├── json.vim
+│   │   ├── json5.vim
+│   │   ├── jsonc.vim
+│   │   ├── jsonnet.vim
+│   │   ├── jsp.vim
+│   │   ├── julia.vim
+│   │   ├── just.vim
+│   │   ├── karel.vim
+│   │   ├── kconfig.vim
+│   │   ├── kdl.vim
+│   │   ├── kerml.vim
+│   │   ├── kitty.vim
+│   │   ├── kivy.vim
+│   │   ├── kotlin.vim
+│   │   ├── kwt.vim
+│   │   ├── lc.vim
+│   │   ├── ld.vim
+│   │   ├── ldapconf.vim
+│   │   ├── leex.vim
+│   │   ├── leo.vim
+│   │   ├── less.vim
+│   │   ├── lex.vim
+│   │   ├── lf.vim
+│   │   ├── lftp.vim
+│   │   ├── libao.vim
+│   │   ├── limits.vim
+│   │   ├── liquid.vim
+│   │   ├── lisp.vim
+│   │   ├── livebook.vim
+│   │   ├── llvm.vim
+│   │   ├── lnk.vim
+│   │   ├── lnkmap.vim
+│   │   ├── logcheck.vim
+│   │   ├── loginaccess.vim
+│   │   ├── logindefs.vim
+│   │   ├── logtalk.dict
+│   │   ├── logtalk.vim
+│   │   ├── lprolog.vim
+│   │   ├── lua.lua
+│   │   ├── lua.vim
+│   │   ├── luau.vim
+│   │   ├── lynx.vim
+│   │   ├── m17ndb.vim
+│   │   ├── m3build.vim
+│   │   ├── m3quake.vim
+│   │   ├── m4.vim
+│   │   ├── mail.vim
+│   │   ├── mailaliases.vim
+│   │   ├── mailcap.vim
+│   │   ├── make.vim
+│   │   ├── man.vim
+│   │   ├── manconf.vim
+│   │   ├── markdown.lua
+│   │   ├── markdown.vim
+│   │   ├── masm.vim
+│   │   ├── matlab.vim
+│   │   ├── mbsync.vim
+│   │   ├── mediawiki.vim
+│   │   ├── mermaid.vim
+│   │   ├── meson.vim
+│   │   ├── mf.vim
+│   │   ├── mlir.vim
+│   │   ├── mma.vim
+│   │   ├── modconf.vim
+│   │   ├── modula2.vim
+│   │   ├── modula3.vim
+│   │   ├── mojo.vim
+│   │   ├── mp.vim
+│   │   ├── mplayerconf.vim
+│   │   ├── mrxvtrc.vim
+│   │   ├── msmessages.vim
+│   │   ├── mss.vim
+│   │   ├── muttrc.vim
+│   │   ├── mysql.vim
+│   │   ├── nanorc.vim
+│   │   ├── neomuttrc.vim
+│   │   ├── netrc.vim
+│   │   ├── nginx.vim
+│   │   ├── nickel.vim
+│   │   ├── nim.vim
+│   │   ├── nix.vim
+│   │   ├── nroff.vim
+│   │   ├── nsis.vim
+│   │   ├── nu.vim
+│   │   ├── nvim-pack.lua
+│   │   ├── objc.lua
+│   │   ├── objc.vim
+│   │   ├── objcpp.vim
+│   │   ├── objdump.vim
+│   │   ├── obse.vim
+│   │   ├── ocaml.vim
+│   │   ├── occam.vim
+│   │   ├── octave.vim
+│   │   ├── odin.vim
+│   │   ├── ondir.vim
+│   │   ├── opencl.vim
+│   │   ├── openscad.vim
+│   │   ├── openvpn.vim
+│   │   ├── org.vim
+│   │   ├── pamconf.vim
+│   │   ├── pascal.vim
+│   │   ├── passwd.vim
+│   │   ├── pbtxt.vim
+│   │   ├── pdf.vim
+│   │   ├── perl.vim
+│   │   ├── php.vim
+│   │   ├── pinfo.vim
+│   │   ├── pkl.vim
+│   │   ├── plaintex.vim
+│   │   ├── plsql.vim
+│   │   ├── pod.vim
+│   │   ├── poefilter.vim
+│   │   ├── poke.vim
+│   │   ├── postscr.vim
+│   │   ├── pq.vim
+│   │   ├── prisma.vim
+│   │   ├── procmail.vim
+│   │   ├── prolog.vim
+│   │   ├── proto.vim
+│   │   ├── protocols.vim
+│   │   ├── ps1.vim
+│   │   ├── ps1xml.vim
+│   │   ├── ptx.vim
+│   │   ├── purescript.vim
+│   │   ├── pymanifest.vim
+│   │   ├── pyrex.vim
+│   │   ├── python.vim
+│   │   ├── qb64.vim
+│   │   ├── qf.vim
+│   │   ├── qml.vim
+│   │   ├── quake.vim
+│   │   ├── quarto.vim
+│   │   ├── query.lua
+│   │   ├── r.vim
+│   │   ├── racc.vim
+│   │   ├── racket.vim
+│   │   ├── raku.vim
+│   │   ├── rasi.vim
+│   │   ├── readline.vim
+│   │   ├── registry.vim
+│   │   ├── remind.vim
+│   │   ├── requirements.vim
+│   │   ├── rescript.vim
+│   │   ├── reva.vim
+│   │   ├── rhelp.vim
+│   │   ├── rmd.vim
+│   │   ├── rnc.vim
+│   │   ├── rnoweb.vim
+│   │   ├── roc.vim
+│   │   ├── routeros.vim
+│   │   ├── rpl.vim
+│   │   ├── rrst.vim
+│   │   ├── rst.vim
+│   │   ├── ruby.vim
+│   │   ├── rust.vim
+│   │   ├── samba.vim
+│   │   ├── sass.vim
+│   │   ├── sbt.vim
+│   │   ├── scala.vim
+│   │   ├── scdoc.vim
+│   │   ├── scheme.vim
+│   │   ├── screen.vim
+│   │   ├── scss.vim
+│   │   ├── sed.vim
+│   │   ├── sensors.vim
+│   │   ├── services.vim
+│   │   ├── setserial.vim
+│   │   ├── sexplib.vim
+│   │   ├── sgml.vim
+│   │   ├── sh.vim
+│   │   ├── shada.vim
+│   │   ├── shaderslang.vim
+│   │   ├── sieve.vim
+│   │   ├── skhd.vim
+│   │   ├── slint.vim
+│   │   ├── slpconf.vim
+│   │   ├── slpreg.vim
+│   │   ├── slpspi.vim
+│   │   ├── sml.vim
+│   │   ├── snakemake.vim
+│   │   ├── solidity.vim
+│   │   ├── solution.vim
+│   │   ├── soy.vim
+│   │   ├── spajson.vim
+│   │   ├── spec.vim
+│   │   ├── sql.vim
+│   │   ├── squirrel.vim
+│   │   ├── ssa.vim
+│   │   ├── sshconfig.vim
+│   │   ├── sshdconfig.vim
+│   │   ├── stata.lua
+│   │   ├── stylus.vim
+│   │   ├── sudoers.vim
+│   │   ├── supercollider.lua
+│   │   ├── svelte.vim
+│   │   ├── svg.vim
+│   │   ├── sway.vim
+│   │   ├── swayconfig.vim
+│   │   ├── swift.lua
+│   │   ├── swift.vim
+│   │   ├── swiftgyb.vim
+│   │   ├── swig.vim
+│   │   ├── sysctl.vim
+│   │   ├── sysml.vim
+│   │   ├── systemd.vim
+│   │   ├── systemverilog.vim
+│   │   ├── tap.vim
+│   │   ├── tcl.vim
+│   │   ├── tcsh.vim
+│   │   ├── tera.vim
+│   │   ├── terminfo.vim
+│   │   ├── terraform.vim
+│   │   ├── tex.vim
+│   │   ├── text.vim
+│   │   ├── tf.vim
+│   │   ├── thrift.vim
+│   │   ├── tiasm.vim
+│   │   ├── tidy.vim
+│   │   ├── tmux.vim
+│   │   ├── toml.vim
+│   │   ├── treetop.vim
+│   │   ├── tt2html.vim
+│   │   ├── tutor.vim
+│   │   ├── twig.vim
+│   │   ├── typescript.vim
+│   │   ├── typescriptreact.vim
+│   │   ├── typst.vim
+│   │   ├── uc.vim
+│   │   ├── uci.vim
+│   │   ├── udevconf.vim
+│   │   ├── udevperm.vim
+│   │   ├── udevrules.vim
+│   │   ├── unison.vim
+│   │   ├── updatedb.vim
+│   │   ├── urlshortcut.vim
+│   │   ├── usd.vim
+│   │   ├── v.vim
+│   │   ├── vb.vim
+│   │   ├── vdf.vim
+│   │   ├── verilog.vim
+│   │   ├── vhdl.vim
+│   │   ├── vim.vim
+│   │   ├── vroom.vim
+│   │   ├── vue.vim
+│   │   ├── wat.vim
+│   │   ├── wget.vim
+│   │   ├── wget2.vim
+│   │   ├── xcompose.vim
+│   │   ├── xdefaults.vim
+│   │   ├── xf86conf.vim
+│   │   ├── xhtml.vim
+│   │   ├── xinetd.vim
+│   │   ├── xkb.vim
+│   │   ├── xml.vim
+│   │   ├── xmodmap.vim
+│   │   ├── xs.lua
+│   │   ├── xs.vim
+│   │   ├── xsd.vim
+│   │   ├── xslt.vim
+│   │   ├── yacc.vim
+│   │   ├── yaml.vim
+│   │   ├── zathurarc.vim
+│   │   ├── zig.vim
+│   │   ├── zimbu.vim
+│   │   └── zsh.vim
+│   ├── ftplugof.vim
+│   ├── gen_runtime.zig
+│   ├── indent.vim
+│   ├── indent/
+│   │   ├── README.txt
+│   │   ├── aap.vim
+│   │   ├── ada.vim
+│   │   ├── ant.vim
+│   │   ├── arduino.vim
+│   │   ├── astro.vim
+│   │   ├── automake.vim
+│   │   ├── awk.vim
+│   │   ├── bash.vim
+│   │   ├── basic.vim
+│   │   ├── bib.vim
+│   │   ├── bitbake.vim
+│   │   ├── bpftrace.vim
+│   │   ├── bst.vim
+│   │   ├── bzl.vim
+│   │   ├── c.vim
+│   │   ├── cdl.vim
+│   │   ├── ch.vim
+│   │   ├── chaiscript.vim
+│   │   ├── changelog.vim
+│   │   ├── chatito.vim
+│   │   ├── clojure.vim
+│   │   ├── cmake.vim
+│   │   ├── cobol.vim
+│   │   ├── config.vim
+│   │   ├── context.vim
+│   │   ├── cpp.vim
+│   │   ├── cs.vim
+│   │   ├── css.vim
+│   │   ├── cucumber.vim
+│   │   ├── cuda.vim
+│   │   ├── d.vim
+│   │   ├── dictconf.vim
+│   │   ├── dictdconf.vim
+│   │   ├── docbk.vim
+│   │   ├── dosbatch.vim
+│   │   ├── dtd.vim
+│   │   ├── dtrace.vim
+│   │   ├── dts.vim
+│   │   ├── dune.vim
+│   │   ├── dylan.vim
+│   │   ├── eiffel.vim
+│   │   ├── elm.vim
+│   │   ├── erlang.vim
+│   │   ├── eruby.vim
+│   │   ├── eterm.vim
+│   │   ├── expect.vim
+│   │   ├── falcon.vim
+│   │   ├── fennel.vim
+│   │   ├── fish.vim
+│   │   ├── fortran.vim
+│   │   ├── framescript.vim
+│   │   ├── freebasic.vim
+│   │   ├── gdscript.vim
+│   │   ├── gitconfig.vim
+│   │   ├── gitolite.vim
+│   │   ├── glsl.vim
+│   │   ├── go.vim
+│   │   ├── graphql.vim
+│   │   ├── gyp.vim
+│   │   ├── haml.vim
+│   │   ├── hamster.vim
+│   │   ├── handlebars.vim
+│   │   ├── hare.vim
+│   │   ├── hcl.vim
+│   │   ├── hog.vim
+│   │   ├── html.vim
+│   │   ├── htmldjango.vim
+│   │   ├── idlang.vim
+│   │   ├── idris2.vim
+│   │   ├── ishd.vim
+│   │   ├── j.vim
+│   │   ├── java.vim
+│   │   ├── javascript.vim
+│   │   ├── javascriptreact.vim
+│   │   ├── json.vim
+│   │   ├── json5.vim
+│   │   ├── jsonc.vim
+│   │   ├── jsp.vim
+│   │   ├── julia.vim
+│   │   ├── just.vim
+│   │   ├── kdl.vim
+│   │   ├── kotlin.vim
+│   │   ├── krl.vim
+│   │   ├── ld.vim
+│   │   ├── less.vim
+│   │   ├── lf.vim
+│   │   ├── lifelines.vim
+│   │   ├── liquid.vim
+│   │   ├── lisp.vim
+│   │   ├── livebook.vim
+│   │   ├── logtalk.vim
+│   │   ├── lua.vim
+│   │   ├── luau.vim
+│   │   ├── m17ndb.vim
+│   │   ├── mail.vim
+│   │   ├── make.vim
+│   │   ├── matlab.vim
+│   │   ├── meson.vim
+│   │   ├── mf.vim
+│   │   ├── mma.vim
+│   │   ├── mojo.vim
+│   │   ├── mp.vim
+│   │   ├── nginx.vim
+│   │   ├── nsis.vim
+│   │   ├── nu.vim
+│   │   ├── objc.vim
+│   │   ├── obse.vim
+│   │   ├── ocaml.vim
+│   │   ├── occam.vim
+│   │   ├── odin.vim
+│   │   ├── pascal.vim
+│   │   ├── perl.vim
+│   │   ├── php.vim
+│   │   ├── postscr.vim
+│   │   ├── pov.vim
+│   │   ├── prolog.vim
+│   │   ├── proto.vim
+│   │   ├── ps1.vim
+│   │   ├── pyrex.vim
+│   │   ├── python.vim
+│   │   ├── qb64.vim
+│   │   ├── qml.vim
+│   │   ├── quarto.vim
+│   │   ├── query.lua
+│   │   ├── r.vim
+│   │   ├── racket.vim
+│   │   ├── raku.vim
+│   │   ├── raml.vim
+│   │   ├── rapid.vim
+│   │   ├── readline.vim
+│   │   ├── rhelp.vim
+│   │   ├── rmd.vim
+│   │   ├── rnoweb.vim
+│   │   ├── rpl.vim
+│   │   ├── rrst.vim
+│   │   ├── rst.vim
+│   │   ├── ruby.vim
+│   │   ├── rust.vim
+│   │   ├── sas.vim
+│   │   ├── sass.vim
+│   │   ├── scala.vim
+│   │   ├── scheme.vim
+│   │   ├── scss.vim
+│   │   ├── sdl.vim
+│   │   ├── sh.vim
+│   │   ├── sml.vim
+│   │   ├── solidity.vim
+│   │   ├── spajson.vim
+│   │   ├── sql.vim
+│   │   ├── sqlanywhere.vim
+│   │   ├── sshconfig.vim
+│   │   ├── stylus.vim
+│   │   ├── systemverilog.vim
+│   │   ├── tcl.vim
+│   │   ├── tcsh.vim
+│   │   ├── teraterm.vim
+│   │   ├── terraform.vim
+│   │   ├── tex.vim
+│   │   ├── tf.vim
+│   │   ├── thrift.vim
+│   │   ├── tilde.vim
+│   │   ├── treetop.vim
+│   │   ├── typescript.vim
+│   │   ├── typescriptreact.vim
+│   │   ├── typst.vim
+│   │   ├── vb.vim
+│   │   ├── verilog.vim
+│   │   ├── vhdl.vim
+│   │   ├── vim.vim
+│   │   ├── vroom.vim
+│   │   ├── vue.vim
+│   │   ├── wat.vim
+│   │   ├── xf86conf.vim
+│   │   ├── xhtml.vim
+│   │   ├── xinetd.vim
+│   │   ├── xml.vim
+│   │   ├── xsd.vim
+│   │   ├── xslt.vim
+│   │   ├── yacc.vim
+│   │   ├── yaml.vim
+│   │   ├── zig.vim
+│   │   ├── zimbu.vim
+│   │   └── zsh.vim
+│   ├── indoff.vim
+│   ├── keymap/
+│   │   ├── README.txt
+│   │   ├── accents.vim
+│   │   ├── arabic.vim
+│   │   ├── arabic_buckwalter.vim
+│   │   ├── arabic_utf-8.vim
+│   │   ├── armenian-eastern_utf-8.vim
+│   │   ├── armenian-western_utf-8.vim
+│   │   ├── azerbaijani.vim
+│   │   ├── belarusian-jcuken.vim
+│   │   ├── brazilian_portuguese-abnt.vim
+│   │   ├── brazilian_portuguese-compact.vim
+│   │   ├── bulgarian-bds.vim
+│   │   ├── bulgarian-phonetic.vim
+│   │   ├── canfr-win.vim
+│   │   ├── croatian.vim
+│   │   ├── croatian_cp1250.vim
+│   │   ├── croatian_iso-8859-2.vim
+│   │   ├── croatian_utf-8.vim
+│   │   ├── czech.vim
+│   │   ├── czech_utf-8.vim
+│   │   ├── dvorak.vim
+│   │   ├── esperanto.vim
+│   │   ├── esperanto_utf-8.vim
+│   │   ├── french-azerty.vim
+│   │   ├── georgian-qwerty.vim
+│   │   ├── german-qwertz.vim
+│   │   ├── greek.vim
+│   │   ├── greek_cp1253.vim
+│   │   ├── greek_cp737.vim
+│   │   ├── greek_iso-8859-7.vim
+│   │   ├── greek_utf-8.vim
+│   │   ├── hebrew.vim
+│   │   ├── hebrew_cp1255.vim
+│   │   ├── hebrew_iso-8859-8.vim
+│   │   ├── hebrew_utf-8.vim
+│   │   ├── hebrewp.vim
+│   │   ├── hebrewp_cp1255.vim
+│   │   ├── hebrewp_iso-8859-8.vim
+│   │   ├── hebrewp_utf-8.vim
+│   │   ├── kana.vim
+│   │   ├── kazakh-jcuken.vim
+│   │   ├── korean-dubeolsik_utf-8.vim
+│   │   ├── korean.vim
+│   │   ├── lithuanian-baltic.vim
+│   │   ├── magyar_utf-8.vim
+│   │   ├── mongolian_utf-8.vim
+│   │   ├── oldturkic-orkhon_utf-8.vim
+│   │   ├── oldturkic-yenisei_utf-8.vim
+│   │   ├── persian-iranian_utf-8.vim
+│   │   ├── persian.vim
+│   │   ├── pinyin.vim
+│   │   ├── polish-slash.vim
+│   │   ├── polish-slash_cp1250.vim
+│   │   ├── polish-slash_cp852.vim
+│   │   ├── polish-slash_iso-8859-2.vim
+│   │   ├── polish-slash_utf-8.vim
+│   │   ├── russian-dvorak.vim
+│   │   ├── russian-jcuken.vim
+│   │   ├── russian-jcukenmac.vim
+│   │   ├── russian-jcukenwin.vim
+│   │   ├── russian-jcukenwintype.vim
+│   │   ├── russian-typograph.vim
+│   │   ├── russian-yawerty.vim
+│   │   ├── serbian-latin.vim
+│   │   ├── serbian-latin_utf-8.vim
+│   │   ├── serbian.vim
+│   │   ├── serbian_cp1250.vim
+│   │   ├── serbian_cp1251.vim
+│   │   ├── serbian_iso-8859-2.vim
+│   │   ├── serbian_iso-8859-5.vim
+│   │   ├── serbian_utf-8.vim
+│   │   ├── sinhala-phonetic_utf-8.vim
+│   │   ├── sinhala.vim
+│   │   ├── slovak.vim
+│   │   ├── slovak_cp1250.vim
+│   │   ├── slovak_iso-8859-2.vim
+│   │   ├── slovak_utf-8.vim
+│   │   ├── tamil_tscii.vim
+│   │   ├── thaana-phonetic_utf-8.vim
+│   │   ├── thaana.vim
+│   │   ├── turkish-f.vim
+│   │   ├── turkish-q.vim
+│   │   ├── ukrainian-dvorak.vim
+│   │   ├── ukrainian-enhanced.vim
+│   │   ├── ukrainian-jcuken.vim
+│   │   ├── vietnamese-telex_utf-8.vim
+│   │   ├── vietnamese-viqr_utf-8.vim
+│   │   └── vietnamese-vni_utf-8.vim
+│   ├── lua/
+│   │   ├── coxpcall.lua
+│   │   ├── editorconfig.lua
+│   │   ├── man.lua
+│   │   ├── nvim/
+│   │   ├── tohtml.lua
+│   │   ├── uv/
+│   │   └── vim/
+│   ├── makemenu.vim
+│   ├── menu.vim
+│   ├── neovim.ico
+│   ├── nvim.appdata.xml
+│   ├── nvim.desktop
+│   ├── nvim.png
+│   ├── pack/
+│   │   └── dist/
+│   ├── plugin/
+│   │   ├── editorconfig.lua
+│   │   ├── gzip.vim
+│   │   ├── man.lua
+│   │   ├── matchit.vim
+│   │   ├── matchparen.vim
+│   │   ├── netrwPlugin.vim
+│   │   ├── nvim/
+│   │   ├── osc52.lua
+│   │   ├── rplugin.vim
+│   │   ├── shada.lua
+│   │   ├── tarPlugin.vim
+│   │   ├── tohtml.lua
+│   │   ├── tutor.vim
+│   │   └── zipPlugin.vim
+│   ├── queries/
+│   │   ├── c/
+│   │   ├── lua/
+│   │   ├── markdown/
+│   │   ├── markdown_inline/
+│   │   ├── query/
+│   │   ├── vim/
+│   │   └── vimdoc/
+│   ├── scripts/
+│   │   ├── emoji_list.lua
+│   │   ├── less.bat
+│   │   ├── less.sh
+│   │   ├── less.vim
+│   │   ├── mswin.vim
+│   │   └── optwin.lua
+│   ├── spell/
+│   │   ├── cleanadd.vim
+│   │   └── en.utf-8.spl
+│   ├── synmenu.vim
+│   ├── syntax/
+│   │   ├── 8th.vim
+│   │   ├── README.txt
+│   │   ├── a2ps.vim
+│   │   ├── a65.vim
+│   │   ├── aap.vim
+│   │   ├── abap.vim
+│   │   ├── abaqus.vim
+│   │   ├── abc.vim
+│   │   ├── abel.vim
+│   │   ├── abnf.vim
+│   │   ├── acedb.vim
+│   │   ├── ada.vim
+│   │   ├── aflex.vim
+│   │   ├── ahdl.vim
+│   │   ├── aidl.vim
+│   │   ├── alsaconf.vim
+│   │   ├── amiga.vim
+│   │   ├── aml.vim
+│   │   ├── ampl.vim
+│   │   ├── ant.vim
+│   │   ├── antlr.vim
+│   │   ├── antlr4.vim
+│   │   ├── apache.vim
+│   │   ├── apachestyle.vim
+│   │   ├── apkbuild.vim
+│   │   ├── aptconf.vim
+│   │   ├── arch.vim
+│   │   ├── arduino.vim
+│   │   ├── art.vim
+│   │   ├── asciidoc.vim
+│   │   ├── asm.vim
+│   │   ├── asm68k.vim
+│   │   ├── asmh8300.vim
+│   │   ├── asn.vim
+│   │   ├── aspperl.vim
+│   │   ├── aspvbs.vim
+│   │   ├── asterisk.vim
+│   │   ├── asteriskvm.vim
+│   │   ├── astro.vim
+│   │   ├── asy.vim
+│   │   ├── atlas.vim
+│   │   ├── autodoc.vim
+│   │   ├── autohotkey.vim
+│   │   ├── autoit.vim
+│   │   ├── automake.vim
+│   │   ├── autopkgtest.vim
+│   │   ├── ave.vim
+│   │   ├── avra.vim
+│   │   ├── awk.vim
+│   │   ├── ayacc.vim
+│   │   ├── b.vim
+│   │   ├── baan.vim
+│   │   ├── bash.vim
+│   │   ├── basic.vim
+│   │   ├── bc.vim
+│   │   ├── bdf.vim
+│   │   ├── bib.vim
+│   │   ├── bindzone.vim
+│   │   ├── bitbake.vim
+│   │   ├── blank.vim
+│   │   ├── bpftrace.vim
+│   │   ├── bsdl.vim
+│   │   ├── bst.vim
+│   │   ├── btm.vim
+│   │   ├── bzl.vim
+│   │   ├── bzr.vim
+│   │   ├── c.vim
+│   │   ├── cabal.vim
+│   │   ├── cabalconfig.vim
+│   │   ├── cabalproject.vim
+│   │   ├── calendar.vim
+│   │   ├── cangjie.vim
+│   │   ├── catalog.vim
+│   │   ├── cdl.vim
+│   │   ├── cdrdaoconf.vim
+│   │   ├── cdrtoc.vim
+│   │   ├── cf.vim
+│   │   ├── cfg.vim
+│   │   ├── cgdbrc.vim
+│   │   ├── ch.vim
+│   │   ├── chaiscript.vim
+│   │   ├── change.vim
+│   │   ├── changelog.vim
+│   │   ├── chaskell.vim
+│   │   ├── chatito.vim
+│   │   ├── checkhealth.vim
+│   │   ├── cheetah.vim
+│   │   ├── chicken.vim
+│   │   ├── chill.vim
+│   │   ├── chordpro.vim
+│   │   ├── chuck.vim
+│   │   ├── cl.vim
+│   │   ├── clean.vim
+│   │   ├── clipper.vim
+│   │   ├── clojure.vim
+│   │   ├── cmacro.vim
+│   │   ├── cmake.vim
+│   │   ├── cmakecache.vim
+│   │   ├── cmod.vim
+│   │   ├── cmusrc.vim
+│   │   ├── cobol.vim
+│   │   ├── coco.vim
+│   │   ├── codeowners.vim
+│   │   ├── colortest.vim
+│   │   ├── conaryrecipe.vim
+│   │   ├── conf.vim
+│   │   ├── config.vim
+│   │   ├── confini.vim
+│   │   ├── context.vim
+│   │   ├── cpp.vim
+│   │   ├── crm.vim
+│   │   ├── crontab.vim
+│   │   ├── cs.vim
+│   │   ├── csc.vim
+│   │   ├── csdl.vim
+│   │   ├── csh.vim
+│   │   ├── csp.vim
+│   │   ├── css.vim
+│   │   ├── csv.vim
+│   │   ├── cterm.vim
+│   │   ├── ctrlh.vim
+│   │   ├── cucumber.vim
+│   │   ├── cuda.vim
+│   │   ├── cupl.vim
+│   │   ├── cuplsim.vim
+│   │   ├── cvs.vim
+│   │   ├── cvsrc.vim
+│   │   ├── cweb.vim
+│   │   ├── cynlib.vim
+│   │   ├── cynpp.vim
+│   │   ├── d.vim
+│   │   ├── dart.vim
+│   │   ├── datascript.vim
+│   │   ├── dax.vim
+│   │   ├── dcd.vim
+│   │   ├── dcl.vim
+│   │   ├── deb822sources.vim
+│   │   ├── debchangelog.vim
+│   │   ├── debcontrol.vim
+│   │   ├── debcopyright.vim
+│   │   ├── debsources.vim
+│   │   ├── def.vim
+│   │   ├── denyhosts.vim
+│   │   ├── dep3patch.vim
+│   │   ├── desc.vim
+│   │   ├── desktop.vim
+│   │   ├── dictconf.vim
+│   │   ├── dictdconf.vim
+│   │   ├── diff.vim
+│   │   ├── dircolors.vim
+│   │   ├── dirpager.vim
+│   │   ├── diva.vim
+│   │   ├── django.vim
+│   │   ├── dns.vim
+│   │   ├── dnsmasq.vim
+│   │   ├── docbk.vim
+│   │   ├── docbksgml.vim
+│   │   ├── docbkxml.vim
+│   │   ├── dockerfile.vim
+│   │   ├── dosbatch.vim
+│   │   ├── dosini.vim
+│   │   ├── dot.vim
+│   │   ├── doxygen.vim
+│   │   ├── dracula.vim
+│   │   ├── dsl.vim
+│   │   ├── dtd.vim
+│   │   ├── dtml.vim
+│   │   ├── dtrace.vim
+│   │   ├── dts.vim
+│   │   ├── dune.vim
+│   │   ├── dylan.vim
+│   │   ├── dylanintr.vim
+│   │   ├── dylanlid.vim
+│   │   ├── ecd.vim
+│   │   ├── edif.vim
+│   │   ├── editorconfig.vim
+│   │   ├── eiffel.vim
+│   │   ├── elf.vim
+│   │   ├── elinks.vim
+│   │   ├── elm.vim
+│   │   ├── elmfilt.vim
+│   │   ├── env.vim
+│   │   ├── erlang.vim
+│   │   ├── eruby.vim
+│   │   ├── esmtprc.vim
+│   │   ├── esqlc.vim
+│   │   ├── esterel.vim
+│   │   ├── eterm.vim
+│   │   ├── euphoria3.vim
+│   │   ├── euphoria4.vim
+│   │   ├── eviews.vim
+│   │   ├── exim.vim
+│   │   ├── expect.vim
+│   │   ├── exports.vim
+│   │   ├── falcon.vim
+│   │   ├── fan.vim
+│   │   ├── fasm.vim
+│   │   ├── fdcc.vim
+│   │   ├── fetchmail.vim
+│   │   ├── fgl.vim
+│   │   ├── fish.vim
+│   │   ├── flexwiki.vim
+│   │   ├── focexec.vim
+│   │   ├── form.vim
+│   │   ├── forth.vim
+│   │   ├── fortran.vim
+│   │   ├── foxpro.vim
+│   │   ├── fpcmake.vim
+│   │   ├── framescript.vim
+│   │   ├── freebasic.vim
+│   │   ├── fstab.vim
+│   │   ├── fvwm.vim
+│   │   ├── fvwm2m4.vim
+│   │   ├── gdb.vim
+│   │   ├── gdmo.vim
+│   │   ├── gdresource.vim
+│   │   ├── gdscript.vim
+│   │   ├── gdshader.vim
+│   │   ├── gedcom.vim
+│   │   ├── gel.vim
+│   │   ├── gemtext.vim
+│   │   ├── gift.vim
+│   │   ├── git.vim
+│   │   ├── gitattributes.vim
+│   │   ├── gitcommit.vim
+│   │   ├── gitconfig.vim
+│   │   ├── gitignore.vim
+│   │   ├── gitolite.vim
+│   │   ├── gitrebase.vim
+│   │   ├── gitsendemail.vim
+│   │   ├── gkrellmrc.vim
+│   │   ├── gleam.vim
+│   │   ├── glimmer.vim
+│   │   ├── glsl.vim
+│   │   ├── gnash.vim
+│   │   ├── gnuplot.vim
+│   │   ├── go.vim
+│   │   ├── goaccess.vim
+│   │   ├── godoc.vim
+│   │   ├── gp.vim
+│   │   ├── gpg.vim
+│   │   ├── gprof.vim
+│   │   ├── grads.vim
+│   │   ├── graphql.vim
+│   │   ├── gretl.vim
+│   │   ├── groff.vim
+│   │   ├── groovy.vim
+│   │   ├── group.vim
+│   │   ├── grub.vim
+│   │   ├── gsp.vim
+│   │   ├── gtkrc.vim
+│   │   ├── gvpr.vim
+│   │   ├── gyp.vim
+│   │   ├── haml.vim
+│   │   ├── hamster.vim
+│   │   ├── handlebars.vim
+│   │   ├── hare.vim
+│   │   ├── haredoc.vim
+│   │   ├── haskell.vim
+│   │   ├── haste.vim
+│   │   ├── hastepreproc.vim
+│   │   ├── hb.vim
+│   │   ├── hcl.vim
+│   │   ├── help.vim
+│   │   ├── help_it.vim
+│   │   ├── help_ru.vim
+│   │   ├── hercules.vim
+│   │   ├── hex.vim
+│   │   ├── hgcommit.vim
+│   │   ├── hitest.vim
+│   │   ├── hlsplaylist.vim
+│   │   ├── hog.vim
+│   │   ├── hollywood.vim
+│   │   ├── hostconf.vim
+│   │   ├── hostsaccess.vim
+│   │   ├── html.vim
+│   │   ├── htmlangular.vim
+│   │   ├── htmlcheetah.vim
+│   │   ├── htmldjango.vim
+│   │   ├── htmlm4.vim
+│   │   ├── htmlos.vim
+│   │   ├── hyprlang.vim
+│   │   ├── i3config.vim
+│   │   ├── ia64.vim
+│   │   ├── ibasic.vim
+│   │   ├── icemenu.vim
+│   │   ├── icon.vim
+│   │   ├── idl.vim
+│   │   ├── idlang.vim
+│   │   ├── idris2.vim
+│   │   ├── indent.vim
+│   │   ├── inform.vim
+│   │   ├── initex.vim
+│   │   ├── initng.vim
+│   │   ├── inittab.vim
+│   │   ├── ipfilter.vim
+│   │   ├── ipkg.vim
+│   │   ├── ishd.vim
+│   │   ├── iss.vim
+│   │   ├── ist.vim
+│   │   ├── j.vim
+│   │   ├── jal.vim
+│   │   ├── jam.vim
+│   │   ├── jargon.vim
+│   │   ├── java.vim
+│   │   ├── javacc.vim
+│   │   ├── javascript.vim
+│   │   ├── javascriptreact.vim
+│   │   ├── jess.vim
+│   │   ├── jgraph.vim
+│   │   ├── jinja.vim
+│   │   ├── jjdescription.vim
+│   │   ├── jovial.vim
+│   │   ├── jproperties.vim
+│   │   ├── jq.vim
+│   │   ├── json.vim
+│   │   ├── json5.vim
+│   │   ├── jsonc.vim
+│   │   ├── jsp.vim
+│   │   ├── julia.vim
+│   │   ├── just.vim
+│   │   ├── karel.vim
+│   │   ├── kconfig.vim
+│   │   ├── kdl.vim
+│   │   ├── kitty.vim
+│   │   ├── kivy.vim
+│   │   ├── kix.vim
+│   │   ├── kotlin.vim
+│   │   ├── krl.vim
+│   │   ├── kscript.vim
+│   │   ├── kwt.vim
+│   │   ├── lace.vim
+│   │   ├── latte.vim
+│   │   ├── lc.vim
+│   │   ├── ld.vim
+│   │   ├── ldapconf.vim
+│   │   ├── ldif.vim
+│   │   ├── leex.vim
+│   │   ├── less.vim
+│   │   ├── lex.vim
+│   │   ├── lf.vim
+│   │   ├── lftp.vim
+│   │   ├── lhaskell.vim
+│   │   ├── libao.vim
+│   │   ├── lidris2.vim
+│   │   ├── lifelines.vim
+│   │   ├── lilo.vim
+│   │   ├── limits.vim
+│   │   ├── liquid.vim
+│   │   ├── lisp.vim
+│   │   ├── lite.vim
+│   │   ├── litestep.vim
+│   │   ├── livebook.vim
+│   │   ├── lnk.vim
+│   │   ├── lnkmap.vim
+│   │   ├── log.vim
+│   │   ├── loginaccess.vim
+│   │   ├── logindefs.vim
+│   │   ├── logtalk.vim
+│   │   ├── lotos.vim
+│   │   ├── lout.vim
+│   │   ├── lpc.vim
+│   │   ├── lprolog.vim
+│   │   ├── lscript.vim
+│   │   ├── lsl.vim
+│   │   ├── lsp_markdown.vim
+│   │   ├── lss.vim
+│   │   ├── lua.vim
+│   │   ├── luau.vim
+│   │   ├── lynx.vim
+│   │   ├── lyrics.vim
+│   │   ├── m17ndb.vim
+│   │   ├── m3build.vim
+│   │   ├── m3quake.vim
+│   │   ├── m4.vim
+│   │   ├── mail.vim
+│   │   ├── mailaliases.vim
+│   │   ├── mailcap.vim
+│   │   ├── make.vim
+│   │   ├── mallard.vim
+│   │   ├── man.vim
+│   │   ├── manconf.vim
+│   │   ├── manual.vim
+│   │   ├── maple.vim
+│   │   ├── markdown.vim
+│   │   ├── masm.vim
+│   │   ├── mason.vim
+│   │   ├── master.vim
+│   │   ├── matlab.vim
+│   │   ├── maxima.vim
+│   │   ├── mbsync.vim
+│   │   ├── mediawiki.vim
+│   │   ├── mel.vim
+│   │   ├── mermaid.vim
+│   │   ├── meson.vim
+│   │   ├── messages.vim
+│   │   ├── mf.vim
+│   │   ├── mgl.vim
+│   │   ├── mgp.vim
+│   │   ├── mib.vim
+│   │   ├── mix.vim
+│   │   ├── mma.vim
+│   │   ├── mmix.vim
+│   │   ├── mmp.vim
+│   │   ├── modconf.vim
+│   │   ├── model.vim
+│   │   ├── modsim3.vim
+│   │   ├── modula2.vim
+│   │   ├── modula2/
+│   │   ├── modula3.vim
+│   │   ├── mojo.vim
+│   │   ├── monk.vim
+│   │   ├── moo.vim
+│   │   ├── mp.vim
+│   │   ├── mplayerconf.vim
+│   │   ├── mrxvtrc.vim
+│   │   ├── msidl.vim
+│   │   ├── msmessages.vim
+│   │   ├── msql.vim
+│   │   ├── mss.vim
+│   │   ├── mupad.vim
+│   │   ├── murphi.vim
+│   │   ├── mush.vim
+│   │   ├── muttrc.vim
+│   │   ├── mysql.vim
+│   │   ├── n1ql.vim
+│   │   ├── named.vim
+│   │   ├── nanorc.vim
+│   │   ├── nasm.vim
+│   │   ├── nastran.vim
+│   │   ├── natural.vim
+│   │   ├── ncf.vim
+│   │   ├── neomuttlog.vim
+│   │   ├── neomuttrc.vim
+│   │   ├── netrc.vim
+│   │   ├── nginx.vim
+│   │   ├── ninja.vim
+│   │   ├── nix.vim
+│   │   ├── nosyntax.vim
+│   │   ├── nqc.vim
+│   │   ├── nroff.vim
+│   │   ├── nsis.vim
+│   │   ├── nu.vim
+│   │   ├── obj.vim
+│   │   ├── objc.vim
+│   │   ├── objcpp.vim
+│   │   ├── obse.vim
+│   │   ├── ocaml.vim
+│   │   ├── occam.vim
+│   │   ├── odin.vim
+│   │   ├── omnimark.vim
+│   │   ├── ondir.vim
+│   │   ├── opam.vim
+│   │   ├── opencl.vim
+│   │   ├── openroad.vim
+│   │   ├── openscad.vim
+│   │   ├── openvpn.vim
+│   │   ├── opl.vim
+│   │   ├── ora.vim
+│   │   ├── org.vim
+│   │   ├── pacmanlog.vim
+│   │   ├── pamconf.vim
+│   │   ├── pamenv.vim
+│   │   ├── pandoc.vim
+│   │   ├── papp.vim
+│   │   ├── pascal.vim
+│   │   ├── passwd.vim
+│   │   ├── pbtxt.vim
+│   │   ├── pcap.vim
+│   │   ├── pccts.vim
+│   │   ├── pdf.vim
+│   │   ├── perl.vim
+│   │   ├── pf.vim
+│   │   ├── pfmain.vim
+│   │   ├── php.vim
+│   │   ├── phtml.vim
+│   │   ├── pic.vim
+│   │   ├── pike.vim
+│   │   ├── pilrc.vim
+│   │   ├── pine.vim
+│   │   ├── pinfo.vim
+│   │   ├── pkl.vim
+│   │   ├── plaintex.vim
+│   │   ├── pli.vim
+│   │   ├── plm.vim
+│   │   ├── plp.vim
+│   │   ├── plsql.vim
+│   │   ├── po.vim
+│   │   ├── pod.vim
+│   │   ├── poefilter.vim
+│   │   ├── poke.vim
+│   │   ├── postscr.vim
+│   │   ├── pov.vim
+│   │   ├── povini.vim
+│   │   ├── ppd.vim
+│   │   ├── ppwiz.vim
+│   │   ├── pq.vim
+│   │   ├── prescribe.vim
+│   │   ├── privoxy.vim
+│   │   ├── procmail.vim
+│   │   ├── progress.vim
+│   │   ├── prolog.vim
+│   │   ├── promela.vim
+│   │   ├── proto.vim
+│   │   ├── protocols.vim
+│   │   ├── prql.vim
+│   │   ├── ps1.vim
+│   │   ├── ps1xml.vim
+│   │   ├── psf.vim
+│   │   ├── psl.vim
+│   │   ├── ptcap.vim
+│   │   ├── ptx.vim
+│   │   ├── purifylog.vim
+│   │   ├── pymanifest.vim
+│   │   ├── pyrex.vim
+│   │   ├── python.vim
+│   │   ├── python2.vim
+│   │   ├── qb64.vim
+│   │   ├── qf.lua
+│   │   ├── qf.vim
+│   │   ├── qml.vim
+│   │   ├── quake.vim
+│   │   ├── quarto.vim
+│   │   ├── query.lua
+│   │   ├── r.vim
+│   │   ├── racc.vim
+│   │   ├── racket.vim
+│   │   ├── radiance.vim
+│   │   ├── raku.vim
+│   │   ├── raml.vim
+│   │   ├── rapid.vim
+│   │   ├── rasi.vim
+│   │   ├── ratpoison.vim
+│   │   ├── rc.vim
+│   │   ├── rcs.vim
+│   │   ├── rcslog.vim
+│   │   ├── readline.vim
+│   │   ├── rebol.vim
+│   │   ├── redif.vim
+│   │   ├── registry.vim
+│   │   ├── rego.vim
+│   │   ├── remind.vim
+│   │   ├── requirements.vim
+│   │   ├── resolv.vim
+│   │   ├── reva.vim
+│   │   ├── rexx.vim
+│   │   ├── rhelp.vim
+│   │   ├── rib.vim
+│   │   ├── rmd.vim
+│   │   ├── rnc.vim
+│   │   ├── rng.vim
+│   │   ├── rnoweb.vim
+│   │   ├── robots.vim
+│   │   ├── routeros.vim
+│   │   ├── rpcgen.vim
+│   │   ├── rpl.vim
+│   │   ├── rrst.vim
+│   │   ├── rst.vim
+│   │   ├── rtf.vim
+│   │   ├── ruby.vim
+│   │   ├── rust.vim
+│   │   ├── salt.vim
+│   │   ├── samba.vim
+│   │   ├── sas.vim
+│   │   ├── sass.vim
+│   │   ├── sather.vim
+│   │   ├── sbt.vim
+│   │   ├── scala.vim
+│   │   ├── scdoc.vim
+│   │   ├── scheme.vim
+│   │   ├── scilab.vim
+│   │   ├── screen.vim
+│   │   ├── scss.vim
+│   │   ├── sd.vim
+│   │   ├── sdc.vim
+│   │   ├── sdl.vim
+│   │   ├── sed.vim
+│   │   ├── sendpr.vim
+│   │   ├── sensors.vim
+│   │   ├── services.vim
+│   │   ├── setserial.vim
+│   │   ├── sexplib.vim
+│   │   ├── sgml.vim
+│   │   ├── sgmldecl.vim
+│   │   ├── sgmllnx.vim
+│   │   ├── sh.vim
+│   │   ├── shada.vim
+│   │   ├── shaderslang.vim
+│   │   ├── shared/
+│   │   ├── sicad.vim
+│   │   ├── sieve.vim
+│   │   ├── sil.vim
+│   │   ├── simula.vim
+│   │   ├── sinda.vim
+│   │   ├── sindacmp.vim
+│   │   ├── sindaout.vim
+│   │   ├── sisu.vim
+│   │   ├── skhd.vim
+│   │   ├── skill.vim
+│   │   ├── sl.vim
+│   │   ├── slang.vim
+│   │   ├── slice.vim
+│   │   ├── slpconf.vim
+│   │   ├── slpreg.vim
+│   │   ├── slpspi.vim
+│   │   ├── slrnrc.vim
+│   │   ├── slrnsc.vim
+│   │   ├── sm.vim
+│   │   ├── smarty.vim
+│   │   ├── smcl.vim
+│   │   ├── smil.vim
+│   │   ├── smith.vim
+│   │   ├── sml.vim
+│   │   ├── snnsnet.vim
+│   │   ├── snnspat.vim
+│   │   ├── snnsres.vim
+│   │   ├── snobol4.vim
+│   │   ├── solidity.vim
+│   │   ├── spajson.vim
+│   │   ├── spec.vim
+│   │   ├── specman.vim
+│   │   ├── spice.vim
+│   │   ├── splint.vim
+│   │   ├── spup.vim
+│   │   ├── spyce.vim
+│   │   ├── sql.vim
+│   │   ├── sqlanywhere.vim
+│   │   ├── sqlforms.vim
+│   │   ├── sqlhana.vim
+│   │   ├── sqlinformix.vim
+│   │   ├── sqlj.vim
+│   │   ├── sqloracle.vim
+│   │   ├── sqr.vim
+│   │   ├── squid.vim
+│   │   ├── squirrel.vim
+│   │   ├── srec.vim
+│   │   ├── srt.vim
+│   │   ├── ssa.vim
+│   │   ├── sshconfig.vim
+│   │   ├── sshdconfig.vim
+│   │   ├── st.vim
+│   │   ├── stata.vim
+│   │   ├── stp.vim
+│   │   ├── strace.vim
+│   │   ├── structurizr.vim
+│   │   ├── stylus.vim
+│   │   ├── sudoers.vim
+│   │   ├── svg.vim
+│   │   ├── svn.vim
+│   │   ├── swayconfig.vim
+│   │   ├── swift.vim
+│   │   ├── swiftgyb.vim
+│   │   ├── swig.vim
+│   │   ├── synload.vim
+│   │   ├── syntax.vim
+│   │   ├── sysctl.vim
+│   │   ├── systemd.vim
+│   │   ├── systemverilog.vim
+│   │   ├── tads.vim
+│   │   ├── tags.vim
+│   │   ├── tak.vim
+│   │   ├── takcmp.vim
+│   │   ├── takout.vim
+│   │   ├── tap.vim
+│   │   ├── tar.vim
+│   │   ├── taskdata.vim
+│   │   ├── taskedit.vim
+│   │   ├── tasm.vim
+│   │   ├── tcl.vim
+│   │   ├── tcsh.vim
+│   │   ├── template.vim
+│   │   ├── tera.vim
+│   │   ├── teraterm.vim
+│   │   ├── terminfo.vim
+│   │   ├── terraform.vim
+│   │   ├── tex.vim
+│   │   ├── texinfo.vim
+│   │   ├── texmf.vim
+│   │   ├── tf.vim
+│   │   ├── thrift.vim
+│   │   ├── tiasm.vim
+│   │   ├── tidy.vim
+│   │   ├── tilde.vim
+│   │   ├── tli.vim
+│   │   ├── tmux.vim
+│   │   ├── toml.vim
+│   │   ├── tpp.vim
+│   │   ├── trasys.vim
+│   │   ├── treetop.vim
+│   │   ├── trustees.vim
+│   │   ├── tsalt.vim
+│   │   ├── tsscl.vim
+│   │   ├── tssgm.vim
+│   │   ├── tssop.vim
+│   │   ├── tsv.vim
+│   │   ├── tt2.vim
+│   │   ├── tt2html.vim
+│   │   ├── tt2js.vim
+│   │   ├── tutor.lua
+│   │   ├── tutor.vim
+│   │   ├── typescript.vim
+│   │   ├── typescriptreact.vim
+│   │   ├── typst.vim
+│   │   ├── uc.vim
+│   │   ├── uci.vim
+│   │   ├── udevconf.vim
+│   │   ├── udevperm.vim
+│   │   ├── udevrules.vim
+│   │   ├── uil.vim
+│   │   ├── unison.vim
+│   │   ├── updatedb.vim
+│   │   ├── upstart.vim
+│   │   ├── upstreamdat.vim
+│   │   ├── upstreaminstalllog.vim
+│   │   ├── upstreamlog.vim
+│   │   ├── upstreamrpt.vim
+│   │   ├── urlshortcut.vim
+│   │   ├── usserverlog.vim
+│   │   ├── usw2kagtlog.vim
+│   │   ├── valgrind.vim
+│   │   ├── vb.vim
+│   │   ├── vdf.vim
+│   │   ├── vera.vim
+│   │   ├── verilog.vim
+│   │   ├── verilogams.vim
+│   │   ├── vgrindefs.vim
+│   │   ├── vhdl.vim
+│   │   ├── vim.vim
+│   │   ├── viminfo.vim
+│   │   ├── vimnormal.vim
+│   │   ├── virata.vim
+│   │   ├── vmasm.vim
+│   │   ├── voscm.vim
+│   │   ├── vrml.vim
+│   │   ├── vroom.vim
+│   │   ├── vsejcl.vim
+│   │   ├── vue.vim
+│   │   ├── wat.vim
+│   │   ├── wdiff.vim
+│   │   ├── wdl.vim
+│   │   ├── web.vim
+│   │   ├── webmacro.vim
+│   │   ├── wget.vim
+│   │   ├── wget2.vim
+│   │   ├── whitespace.vim
+│   │   ├── winbatch.vim
+│   │   ├── wml.vim
+│   │   ├── wsh.vim
+│   │   ├── wsml.vim
+│   │   ├── wvdial.vim
+│   │   ├── xbl.vim
+│   │   ├── xcompose.vim
+│   │   ├── xdefaults.vim
+│   │   ├── xf86conf.vim
+│   │   ├── xhtml.vim
+│   │   ├── xinetd.vim
+│   │   ├── xkb.vim
+│   │   ├── xmath.vim
+│   │   ├── xml.vim
+│   │   ├── xmodmap.vim
+│   │   ├── xpm.vim
+│   │   ├── xpm2.vim
+│   │   ├── xquery.vim
+│   │   ├── xs.vim
+│   │   ├── xsd.vim
+│   │   ├── xslt.vim
+│   │   ├── xxd.vim
+│   │   ├── yacc.vim
+│   │   ├── yaml.vim
+│   │   ├── z8a.vim
+│   │   ├── zathurarc.vim
+│   │   ├── zig.vim
+│   │   ├── zimbu.vim
+│   │   ├── zir.vim
+│   │   ├── zserio.vim
+│   │   └── zsh.vim
+│   ├── tutor/
+│   │   ├── en/
+│   │   ├── ja/
+│   │   ├── tutor.tutor
+│   │   ├── tutor.tutor.json
+│   │   └── zh/
+│   └── windows_icon.rc
+├── scripts/
+│   ├── bump_deps.lua
+│   ├── cliff.toml
+│   ├── collect_typos.lua
+│   ├── download-unicode-files.sh
+│   ├── genappimage.sh
+│   ├── lintcommit.lua
+│   ├── lintdoc.lua
+│   ├── release.sh
+│   ├── shadacat.py
+│   ├── vim-patch.sh
+│   ├── vim_na_files.txt
+│   ├── vim_na_regexp.txt
+│   ├── vimpatch.lua
+│   ├── vimpatch_token_reverts.txt
+│   └── windows.ti
+├── src/
+│   ├── .luarc.json
+│   ├── .valgrind.supp
+│   ├── bit.c
+│   ├── bit.h
+│   ├── build_lua.zig
+│   ├── cjson/
+│   │   ├── fpconv.c
+│   │   ├── fpconv.h
+│   │   ├── lua_cjson.c
+│   │   ├── lua_cjson.h
+│   │   ├── strbuf.c
+│   │   └── strbuf.h
+│   ├── clint.lua
+│   ├── coverity-model.c
+│   ├── gen/
+│   │   ├── api_types.lua
+│   │   ├── c_grammar.lua
+│   │   ├── cdoc_grammar.lua
+│   │   ├── cdoc_parser.lua
+│   │   ├── dump_bin_array.lua
+│   │   ├── gen_api_dispatch.lua
+│   │   ├── gen_api_metadata.lua
+│   │   ├── gen_api_ui_events.lua
+│   │   ├── gen_char_blob.lua
+│   │   ├── gen_declarations.lua
+│   │   ├── gen_eval.lua
+│   │   ├── gen_eval_files.lua
+│   │   ├── gen_events.lua
+│   │   ├── gen_ex_cmds.lua
+│   │   ├── gen_filetype.lua
+│   │   ├── gen_help_html.lua
+│   │   ├── gen_helptags.lua
+│   │   ├── gen_keycodes.lua
+│   │   ├── gen_lsp.lua
+│   │   ├── gen_options.lua
+│   │   ├── gen_steps.zig
+│   │   ├── gen_terminfo.lua
+│   │   ├── gen_vimdoc.lua
+│   │   ├── gen_vimvim.lua
+│   │   ├── hashy.lua
+│   │   ├── luacats_grammar.lua
+│   │   ├── luacats_parser.lua
+│   │   ├── nvim_version.lua.in
+│   │   ├── preload.lua
+│   │   ├── preload_nlua.lua
+│   │   └── util.lua
+│   ├── klib/
+│   │   └── kvec.h
+│   ├── man/
+│   │   ├── Makefile
+│   │   └── nvim.1
+│   ├── mpack/
+│   │   ├── LICENSE-MIT
+│   │   ├── conv.c
+│   │   ├── conv.h
+│   │   ├── lmpack.c
+│   │   ├── lmpack.h
+│   │   ├── mpack_core.c
+│   │   ├── mpack_core.h
+│   │   ├── object.c
+│   │   ├── object.h
+│   │   ├── rpc.c
+│   │   └── rpc.h
+│   ├── nlua0.c
+│   ├── nlua0.zig
+│   ├── nvim/
+│   │   ├── CMakeLists.txt
+│   │   ├── README.md
+│   │   ├── api/
+│   │   ├── arabic.c
+│   │   ├── arabic.h
+│   │   ├── arglist.c
+│   │   ├── arglist.h
+│   │   ├── arglist_defs.h
+│   │   ├── ascii_defs.h
+│   │   ├── assert_defs.h
+│   │   ├── auevents.lua
+│   │   ├── autocmd.c
+│   │   ├── autocmd.h
+│   │   ├── autocmd_defs.h
+│   │   ├── base64.c
+│   │   ├── base64.h
+│   │   ├── buffer.c
+│   │   ├── buffer.h
+│   │   ├── buffer_defs.h
+│   │   ├── buffer_updates.c
+│   │   ├── buffer_updates.h
+│   │   ├── bufwrite.c
+│   │   ├── bufwrite.h
+│   │   ├── change.c
+│   │   ├── change.h
+│   │   ├── channel.c
+│   │   ├── channel.h
+│   │   ├── channel_defs.h
+│   │   ├── charset.c
+│   │   ├── charset.h
+│   │   ├── clipboard.c
+│   │   ├── clipboard.h
+│   │   ├── cmdexpand.c
+│   │   ├── cmdexpand.h
+│   │   ├── cmdexpand_defs.h
+│   │   ├── cmdhist.c
+│   │   ├── cmdhist.h
+│   │   ├── context.c
+│   │   ├── context.h
+│   │   ├── cursor.c
+│   │   ├── cursor.h
+│   │   ├── cursor_shape.c
+│   │   ├── cursor_shape.h
+│   │   ├── debugger.c
+│   │   ├── debugger.h
+│   │   ├── decoration.c
+│   │   ├── decoration.h
+│   │   ├── decoration_defs.h
+│   │   ├── decoration_provider.c
+│   │   ├── decoration_provider.h
+│   │   ├── diff.c
+│   │   ├── diff.h
+│   │   ├── digraph.c
+│   │   ├── digraph.h
+│   │   ├── drawline.c
+│   │   ├── drawline.h
+│   │   ├── drawscreen.c
+│   │   ├── drawscreen.h
+│   │   ├── edit.c
+│   │   ├── edit.h
+│   │   ├── errors.h
+│   │   ├── eval.c
+│   │   ├── eval.h
+│   │   ├── eval.lua
+│   │   ├── eval/
+│   │   ├── eval_defs.h
+│   │   ├── event/
+│   │   ├── ex_cmds.c
+│   │   ├── ex_cmds.h
+│   │   ├── ex_cmds.lua
+│   │   ├── ex_cmds2.c
+│   │   ├── ex_cmds2.h
+│   │   ├── ex_cmds_defs.h
+│   │   ├── ex_docmd.c
+│   │   ├── ex_docmd.h
+│   │   ├── ex_eval.c
+│   │   ├── ex_eval.h
+│   │   ├── ex_eval_defs.h
+│   │   ├── ex_getln.c
+│   │   ├── ex_getln.h
+│   │   ├── ex_getln_defs.h
+│   │   ├── ex_session.c
+│   │   ├── ex_session.h
+│   │   ├── extmark.c
+│   │   ├── extmark.h
+│   │   ├── extmark_defs.h
+│   │   ├── file_search.c
+│   │   ├── file_search.h
+│   │   ├── fileio.c
+│   │   ├── fileio.h
+│   │   ├── fold.c
+│   │   ├── fold.h
+│   │   ├── fold_defs.h
+│   │   ├── func_attr.h
+│   │   ├── fuzzy.c
+│   │   ├── fuzzy.h
+│   │   ├── garray.c
+│   │   ├── garray.h
+│   │   ├── garray_defs.h
+│   │   ├── getchar.c
+│   │   ├── getchar.h
+│   │   ├── getchar_defs.h
+│   │   ├── gettext_defs.h
+│   │   ├── globals.h
+│   │   ├── grid.c
+│   │   ├── grid.h
+│   │   ├── grid_defs.h
+│   │   ├── hashtab.c
+│   │   ├── hashtab.h
+│   │   ├── hashtab_defs.h
+│   │   ├── help.c
+│   │   ├── help.h
+│   │   ├── highlight.c
+│   │   ├── highlight.h
+│   │   ├── highlight_defs.h
+│   │   ├── highlight_group.c
+│   │   ├── highlight_group.h
+│   │   ├── iconv_defs.h
+│   │   ├── indent.c
+│   │   ├── indent.h
+│   │   ├── indent_c.c
+│   │   ├── indent_c.h
+│   │   ├── input.c
+│   │   ├── input.h
+│   │   ├── insexpand.c
+│   │   ├── insexpand.h
+│   │   ├── keycodes.c
+│   │   ├── keycodes.h
+│   │   ├── keycodes.lua
+│   │   ├── lib/
+│   │   ├── linematch.c
+│   │   ├── linematch.h
+│   │   ├── log.c
+│   │   ├── log.h
+│   │   ├── lua/
+│   │   ├── macros_defs.h
+│   │   ├── main.c
+│   │   ├── main.h
+│   │   ├── map.c
+│   │   ├── map_defs.h
+│   │   ├── map_glyph_cache.c
+│   │   ├── map_key_impl.c.h
+│   │   ├── map_value_impl.c.h
+│   │   ├── mapping.c
+│   │   ├── mapping.h
+│   │   ├── mapping_defs.h
+│   │   ├── mark.c
+│   │   ├── mark.h
+│   │   ├── mark_defs.h
+│   │   ├── marktree.c
+│   │   ├── marktree.h
+│   │   ├── marktree_defs.h
+│   │   ├── match.c
+│   │   ├── match.h
+│   │   ├── math.c
+│   │   ├── math.h
+│   │   ├── mbyte.c
+│   │   ├── mbyte.h
+│   │   ├── mbyte_defs.h
+│   │   ├── memfile.c
+│   │   ├── memfile.h
+│   │   ├── memfile_defs.h
+│   │   ├── memline.c
+│   │   ├── memline.h
+│   │   ├── memline_defs.h
+│   │   ├── memory.c
+│   │   ├── memory.h
+│   │   ├── memory_defs.h
+│   │   ├── menu.c
+│   │   ├── menu.h
+│   │   ├── menu_defs.h
+│   │   ├── message.c
+│   │   ├── message.h
+│   │   ├── message_defs.h
+│   │   ├── mouse.c
+│   │   ├── mouse.h
+│   │   ├── move.c
+│   │   ├── move.h
+│   │   ├── msgpack_rpc/
+│   │   ├── normal.c
+│   │   ├── normal.h
+│   │   ├── normal_defs.h
+│   │   ├── ops.c
+│   │   ├── ops.h
+│   │   ├── option.c
+│   │   ├── option.h
+│   │   ├── option_defs.h
+│   │   ├── option_vars.h
+│   │   ├── options.lua
+│   │   ├── optionstr.c
+│   │   ├── optionstr.h
+│   │   ├── os/
+│   │   ├── path.c
+│   │   ├── path.h
+│   │   ├── plines.c
+│   │   ├── plines.h
+│   │   ├── po/
+│   │   ├── popupmenu.c
+│   │   ├── popupmenu.h
+│   │   ├── pos_defs.h
+│   │   ├── profile.c
+│   │   ├── profile.h
+│   │   ├── quickfix.c
+│   │   ├── quickfix.h
+│   │   ├── regexp.c
+│   │   ├── regexp.h
+│   │   ├── regexp_defs.h
+│   │   ├── register.c
+│   │   ├── register.h
+│   │   ├── register_defs.h
+│   │   ├── runtime.c
+│   │   ├── runtime.h
+│   │   ├── runtime_defs.h
+│   │   ├── search.c
+│   │   ├── search.h
+│   │   ├── sha256.c
+│   │   ├── sha256.h
+│   │   ├── shada.c
+│   │   ├── shada.h
+│   │   ├── sign.c
+│   │   ├── sign.h
+│   │   ├── sign_defs.h
+│   │   ├── spell.c
+│   │   ├── spell.h
+│   │   ├── spell_defs.h
+│   │   ├── spellfile.c
+│   │   ├── spellfile.h
+│   │   ├── spellsuggest.c
+│   │   ├── spellsuggest.h
+│   │   ├── state.c
+│   │   ├── state.h
+│   │   ├── state_defs.h
+│   │   ├── statusline.c
+│   │   ├── statusline.h
+│   │   ├── statusline_defs.h
+│   │   ├── strings.c
+│   │   ├── strings.h
+│   │   ├── syntax.c
+│   │   ├── syntax.h
+│   │   ├── syntax_defs.h
+│   │   ├── tag.c
+│   │   ├── tag.h
+│   │   ├── terminal.c
+│   │   ├── terminal.h
+│   │   ├── testing.c
+│   │   ├── testing.h
+│   │   ├── textformat.c
+│   │   ├── textformat.h
+│   │   ├── textobject.c
+│   │   ├── textobject.h
+│   │   ├── tui/
+│   │   ├── types_defs.h
+│   │   ├── ugrid.c
+│   │   ├── ugrid.h
+│   │   ├── ui.c
+│   │   ├── ui.h
+│   │   ├── ui_client.c
+│   │   ├── ui_client.h
+│   │   ├── ui_compositor.c
+│   │   ├── ui_compositor.h
+│   │   ├── ui_defs.h
+│   │   ├── undo.c
+│   │   ├── undo.h
+│   │   ├── undo_defs.h
+│   │   ├── usercmd.c
+│   │   ├── usercmd.h
+│   │   ├── version.c
+│   │   ├── version.h
+│   │   ├── vim_defs.h
+│   │   ├── viml/
+│   │   ├── vterm/
+│   │   ├── vvars.lua
+│   │   ├── window.c
+│   │   ├── window.h
+│   │   ├── winfloat.c
+│   │   └── winfloat.h
+│   ├── tee/
+│   │   ├── CMakeLists.txt
+│   │   └── tee.c
+│   ├── uncrustify.cfg
+│   ├── xdiff/
+│   │   ├── COPYING
+│   │   ├── README.txt
+│   │   ├── xdiff.h
+│   │   ├── xdiffi.c
+│   │   ├── xdiffi.h
+│   │   ├── xemit.c
+│   │   ├── xemit.h
+│   │   ├── xhistogram.c
+│   │   ├── xinclude.h
+│   │   ├── xmacros.h
+│   │   ├── xpatience.c
+│   │   ├── xprepare.c
+│   │   ├── xprepare.h
+│   │   ├── xtypes.h
+│   │   ├── xutils.c
+│   │   └── xutils.h
+│   └── xxd/
+│       ├── CMakeLists.txt
+│       └── xxd.c
+└── test/
+    ├── .luarc.json
+    ├── CMakeLists.txt
+    ├── README.md
+    ├── _meta.lua
+    ├── benchmark/
+    │   ├── autocmd_spec.lua
+    │   ├── bench_regexp_spec.lua
+    │   ├── decor_spec.lua
+    │   ├── deepcopy_spec.lua
+    │   ├── extmark_spec.lua
+    │   ├── iter_spec.lua
+    │   ├── keycodes_spec.lua
+    │   ├── preload.lua
+    │   ├── screenpos_spec.lua
+    │   ├── text_spec.lua
+    │   ├── treesitter_spec.lua
+    │   └── trim_spec.lua
+    ├── busted/
+    │   └── outputHandlers/
+    ├── client/
+    │   ├── rpc_stream.lua
+    │   ├── session.lua
+    │   └── uv_stream.lua
+    ├── cmakeconfig/
+    │   └── paths.lua.in
+    ├── format_string.lua
+    ├── functional/
+    │   ├── api/
+    │   ├── autocmd/
+    │   ├── core/
+    │   ├── editor/
+    │   ├── ex_cmds/
+    │   ├── example_spec.lua
+    │   ├── fixtures/
+    │   ├── legacy/
+    │   ├── lua/
+    │   ├── options/
+    │   ├── plugin/
+    │   ├── preload.lua
+    │   ├── provider/
+    │   ├── script/
+    │   ├── shada/
+    │   ├── terminal/
+    │   ├── testnvim.lua
+    │   ├── testnvim/
+    │   ├── testterm.lua
+    │   ├── treesitter/
+    │   ├── ui/
+    │   └── vimscript/
+    ├── includes/
+    │   └── pre/
+    ├── lua_runner.lua
+    ├── old/
+    │   ├── memfile_test.c
+    │   └── testdir/
+    ├── run_tests.zig
+    ├── testutil.lua
+    └── unit/
+        ├── api/
+        ├── buffer_spec.lua
+        ├── charset/
+        ├── eval/
+        ├── fileio_spec.lua
+        ├── fixtures/
+        ├── formatc.lua
+        ├── garray_spec.lua
+        ├── indent_spec.lua
+        ├── keycodes_spec.lua
+        ├── marktree_spec.lua
+        ├── mbyte_spec.lua
+        ├── memory_spec.lua
+        ├── message_spec.lua
+        ├── msgpack_spec.lua
+        ├── multiqueue_spec.lua
+        ├── optionstr_spec.lua
+        ├── os/
+        ├── path_spec.lua
+        ├── preload.lua
+        ├── preprocess.lua
+        ├── profile_spec.lua
+        ├── search_spec.lua
+        ├── set.lua
+        ├── statusline_spec.lua
+        ├── strings_spec.lua
+        ├── tempfile_spec.lua
+        ├── termkey_spec.lua
+        ├── testtest_spec.lua
+        ├── testutil.lua
+        ├── tui/
+        ├── undo_spec.lua
+        ├── viml/
+        └── vterm_spec.lua

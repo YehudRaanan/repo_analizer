@@ -1,0 +1,1095 @@
+=====================================
+Repository Analysis: medusa
+Type: Backend / API Service
+=====================================
+
+--- METADATA ---
+Name: medusa
+Description: The world's most flexible commerce platform.
+Language: TypeScript
+Topics: commerce, e-commerce, ecommerce, framework, javascript, medusa, nodejs, react, typescript
+Stars: 32234
+License: MIT License
+
+--- README ---
+<p align="center">
+  <a href="https://www.medusajs.com">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="https://user-images.githubusercontent.com/59018053/229103275-b5e482bb-4601-46e6-8142-244f531cebdb.svg">
+    <source media="(prefers-color-scheme: light)" srcset="https://user-images.githubusercontent.com/59018053/229103726-e5b529a3-9b3f-4970-8a1f-c6af37f087bf.svg">
+    <img alt="Medusa logo" src="https://user-images.githubusercontent.com/59018053/229103726-e5b529a3-9b3f-4970-8a1f-c6af37f087bf.svg">
+    </picture>
+  </a>
+</p>
+<h1 align="center">
+  Medusa
+</h1>
+
+<h4 align="center">
+  <a href="https://docs.medusajs.com">Documentation</a> |
+  <a href="https://www.medusajs.com">Website</a>
+</h4>
+
+<p align="center">
+  Building blocks for digital commerce
+</p>
+<p align="center">
+  <a href="https://github.com/medusajs/medusa/blob/develop/LICENSE">
+    <img src="https://img.shields.io/badge/license-MIT-blue.svg" alt="Medusa is released under the MIT license." />
+  </a>
+  <a href="https://github.com/medusajs/medusa/blob/develop/CONTRIBUTING.md">
+    <img src="https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat" alt="PRs welcome!" />
+  </a>
+ <p align="center">
+  <a href="https://twitter.com/intent/follow?screen_name=medusajs">
+    <img src="https://img.shields.io/twitter/follow/medusajs.svg?label=Follow%20@medusajs" alt="Follow @medusajs" />
+  <a href="https://discord.gg/medusajs">
+    <img src="https://img.shields.io/badge/chat-on%20discord-7289DA.svg" alt="Discord Chat" />
+  </a>
+</p>
+
+## Getting Started
+
+Visit the [Documentation](https://docs.medusajs.com/learn) to set up a Medusa application.
+
+## About Medusa
+
+Medusa is a commerce platform with a built-in framework for customization that allows you to build custom commerce applications without reinventing core commerce logic. The framework and modules can be used to support advanced B2B or DTC commerce stores, marketplaces, distributor platforms, PoS systems, service businesses, or similar solutions that need foundational commerce primitives. All commerce modules are open-source and freely available on npm.
+
+Learn more about [Medusa’s architecture](https://docs.medusajs.com/learn/advanced-development/architecture/overview) and [commerce modules](https://docs.medusajs.com/resources/commerce-modules) in the Docs.
+
+## Upgrades & Integrations
+
+Follow the [Release Notes](https://github.com/medusajs/medusa/releases) to keep your Medusa project up-to-date.
+
+Check out all [available Medusa integrations](https://medusajs.com/integrations/).
+
+## Community & Contributions
+
+The core team is available in [GitHub Discussions](https://github.com/medusajs/medusa/discussions), where you can create issues, share ideas, and discuss roadmap.
+
+Our [Contribution Guide](https://github.com/medusajs/medusa/blob/develop/CONTRIBUTING.md) describes how to contribute to the codebase and Docs.
+
+Join our [Discord server](https://discord.gg/medusajs) to meet and discuss with more than 14,000 other community members.
+
+## Other channels
+
+- [GitHub Issues](https://github.com/medusajs/medusa/issues)
+- [Community Discord](https://discord.gg/medusajs)
+- [Twitter](https://twitter.com/medusajs)
+- [LinkedIn](https://www.linkedin.com/company/medusajs)
+- [Medusa Blog](https://medusajs.com/blog/)
+
+## License
+
+Licensed under the [MIT License](https://github.com/medusajs/medusa/blob/develop/LICENSE).
+
+
+--- PACKAGE MANIFEST(S) ---
+
+[package.json]
+{
+  "name": "root",
+  "private": true,
+  "workspaces": {
+    "packages": [
+      "packages/medusa",
+      "packages/medusa-test-utils",
+      "packages/modules/*",
+      "packages/modules/providers/*",
+      "packages/plugins/*",
+      "packages/core/*",
+      "packages/framework/*",
+      "packages/cli/*",
+      "packages/cli/oas/*",
+      "packages/*",
+      "packages/admin/*",
+      "packages/design-system/*",
+      "packages/generated/*",
+      "integration-tests/**/*"
+    ]
+  },
+  "devDependencies": {
+    "@atomico/rollup-plugin-sizes": "^1.1.4",
+    "@faker-js/faker": "^9.2.0",
+    "@rollup/plugin-node-resolve": "^15.1.0",
+    "@rollup/plugin-replace": "^5.0.2",
+    "@storybook/addon-essentials": "^8.3.5",
+    "@storybook/addon-interactions": "^8.3.5",
+    "@storybook/addon-links": "^8.3.5",
+    "@storybook/addon-styling": "^1.3.7",
+    "@storybook/blocks": "^8.3.5",
+    "@storybook/react": "^8.3.5",
+    "@storybook/react-vite": "^8.3.5",
+    "@storybook/testing-library": "^0.2.2",
+    "@swc/core": "^1.7.28",
+    "@swc/helpers": "^0.5.11",
+    "@swc/jest": "^0.2.36",
+    "@testing-library/dom": "^9.3.1",
+    "@testing-library/jest-dom": "^5.16.5",
+    "@testing-library/react": "^14.0.0",
+    "@testing-library/user-event": "^14.4.3",
+    "@types/autocannon": "^7.12.5",
+    "@types/chalk": "^2.2.0",
+    "@types/commander": "^2.12.2",
+    "@types/compression": "^1.7.5",
+    "@types/configstore": "^6.0.0",
+    "@types/cors": "^2.8.17",
+    "@types/express": "^4.17.21",
+    "@types/fs-extra": "11.0.1",
+    "@types/inquirer": "^9.0.3",
+    "@types/js-yaml": "^4.0.9",
+    "@types/jsdom": "^27.0.0",
+    "@types/jsonwebtoken": "^8.5.9",
+    "@types/lodash": "^4.17.15",
+    "@types/lodash.debounce": "^4.0.9",
+    "@types/lodash.isequal": "^4.5.8",
+    "@types/lodash.mergewith": "^4.6.9",
+    "@types/multer": "^2.0.0",
+    "@types/node": "^20.12.11",
+    "@types/node-emoji": "^1.8.2",
+    "@types/react": "^18.3.2",
+    "@types/react-dom": "^18.2.25",
+    "@types/uuid": "^9.0.1",
+    "@types/validator": "^13.7.17",
+    "@types/wait-on": "^5.3.1",
+    "@types/yargs": "^15.0.15",
+    "@typescript-eslint/eslint-plugin": "^6.19.0",
+    "@typescript-eslint/parser": "^6.19.0",
+    "@vitejs/plugin-react": "^4.2.1",
+    "@vitest/coverage-v8": "^0.32.2",
+    "ajv": "^8.17.1",
+    "autocannon": "^8.0.0",
+    "autoprefixer": "^10.4.19",
+    "awilix": "^8.0.1",
+    "axios": "^1.13.1",
+    "axios-mock-adapter": "^1.19.0",
+    "chromatic": "^6.20.0",
+    "configstore": "^5.0.1",
+    "cross-env": "^5.2.1",
+    "esbuild": "^0.25.0",
+    "eslint": "^8.40.0",
+    "eslint-config-google": "^0.14.0",
+    "eslint-config-prettier": "^8.8.0",
+    "eslint-plugin-prettier": "^4.2.1",
+    "eslint-plugin-react": "^7.31.11",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "eslint-plugin-react-refresh": "^0.4.5",
+    "eslint-plugin-storybook": "^10.0.1",
+    "eslint-plugin-unused-imports": "^2.0.0",
+    "expect-type": "^0.20.0",
+    "express": "^4.21.0",
+    "faker": "^5.5.3",
+    "
+... [TRUNCATED]
+
+--- BACKEND CONFIG FILES ---
+(No backend config files found)
+
+--- API ROUTE / ENDPOINT DEFINITIONS ---
+
+[integration-tests/http/__fixtures__/feature-flag/src/api/custom/route.ts]
+import { MedusaRequest, MedusaResponse } from "@medusajs/framework/http"
+import { defineFileConfig, FeatureFlag } from "@medusajs/utils"
+
+defineFileConfig({
+  isDisabled: () => !FeatureFlag.isFeatureEnabled("custom_ff"),
+})
+
+export const GET = async (req: MedusaRequest, res: MedusaResponse) => {
+  res.json({ message: "Custom GET" })
+}
+
+export const POST = async (req: MedusaRequest, res: MedusaResponse) => {
+  res.json({ message: "Custom POST", body: req.validatedBody })
+}
+
+
+[integration-tests/http/__tests__/views/admin/columns.spec.ts]
+import { medusaIntegrationTestRunner } from "@medusajs/test-utils"
+import { ModuleRegistrationName } from "@medusajs/utils"
+import {
+  adminHeaders,
+  createAdminUser,
+} from "../../../../helpers/create-admin-user"
+import { setupTaxStructure } from "../../../../modules/__tests__/fixtures"
+import { createOrderSeeder } from "../../fixtures/order"
+
+jest.setTimeout(300000)
+
+const env = { MEDUSA_FF_VIEW_CONFIGURATIONS: true }
+
+medusaIntegrationTestRunner({
+  env,
+  testSuite: ({ dbConnection, getContainer, api }) => {
+    beforeEach(async () => {
+      const container = getContainer()
+      await setupTaxStructure(container.resolve(ModuleRegistrationName.TAX))
+      await createAdminUser(dbConnection, adminHeaders, container)
+    })
+
+    describe("GET /admin/views/:entity/columns", () => {
+      describe("orders entity", () => {
+        let order, seeder
+
+        beforeEach(async () => {
+          // Create an order with all relationships
+          seeder = await createOrderSeeder({
+            api,
+            container: getContainer(),
+          })
+          order = seeder.order
+        })
+
+        it("should return all order columns including relationships", async () => {
+          const response = await api.get(
+            `/admin/views/orders/columns`,
+            adminHeaders
+          )
+
+          expect(response.status).toEqual(200)
+          expect(response.data.columns).toBeDefined()
+          expect(Array.isArray(response.data.columns)).toBe(true)
+
+          // Check for direct fields
+          const displayIdColumn = response.data.columns.find(
+            (c) => c.id === "display_id"
+          )
+          expect(displayIdColumn).toBeDefined()
+          expect(displayIdColumn).toMatchObject({
+            id: "display_id",
+            name: "Display Id",
+            field: "display_id",
+            data_type: "string",
+            semantic_type: "identifier",
+            context: "order",
+          })
+
+          // Check for missing relationships
+          const salesChannelColumns = response.data.columns.filter((c) =>
+            c.id.startsWith("sales_channel")
+          )
+
+          const orderExtraColumns = response.data.columns.filter((c) =>
+            c.id.startsWith("order_extra")
+          )
+
+          // Check for shipping address columns
+          const shippingAddressColumns = response.data.columns.filter((c) =>
+            c.id.startsWith("shipping_address")
+          )
+
+          // Check that we DON'T have the sales_channel relationship object
+          const salesChannelField = response.data.columns.find(
+            (c) => c.id === "sales_channel"
+          )
+          expect(salesChannelField).toBeUndefined()
+
+          // Check that sales_channel.name is marked as default visible
+          const salesChannelNameField = response.data.columns.find(
+            (c) => c.id === "sales_channel.name"
+          )
+          expect(salesChannelNameField).toBeDefined()
+          expect(salesChannelNameField).toMatchObject({
+      
+... [TRUNCATED]
+
+[packages/admin/admin-shared/src/extensions/routes/constants.ts]
+export const NESTED_ROUTE_POSITIONS = [
+  "/orders",
+  "/products",
+  "/inventory",
+  "/customers",
+  "/promotions",
+  "/price-lists",
+] as const
+
+
+[packages/admin/admin-shared/src/extensions/routes/index.ts]
+export * from "./constants"
+export * from "./types"
+
+
+[packages/admin/admin-shared/src/extensions/routes/types.ts]
+import { NESTED_ROUTE_POSITIONS } from "./constants"
+
+export type NestedRoutePosition = (typeof NESTED_ROUTE_POSITIONS)[number]
+
+
+[packages/admin/admin-vite-plugin/src/routes/__tests__/generate-menu-items.spec.ts]
+import { describe, expect, it, vi } from "vitest"
+
+import fs from "fs/promises"
+import * as utils from "../../utils"
+import { generateMenuItems } from "../generate-menu-items"
+
+vi.mock("../../utils", async () => {
+  const actual = await vi.importActual("../../utils")
+  return {
+    ...actual,
+    crawl: vi.fn(),
+  }
+})
+
+vi.mock("fs/promises", () => ({
+  default: {
+    readFile: vi.fn(),
+  },
+}))
+
+const mockFileContents = [
+  `
+    import { defineRouteConfig } from "@medusajs/admin-sdk"
+
+    const Page = () => {
+        return <div>Page 1</div>
+    }
+
+    export const config = defineRouteConfig({
+        label: "Page 1",
+        icon: "icon1",
+    })
+
+    export default Page
+    `,
+  `
+    import { defineRouteConfig } from "@medusajs/admin-sdk"
+
+    const Page = () => {
+        return <div>Page 2</div>
+    }
+
+    export const config = defineRouteConfig({
+        label: "Page 2",
+    })
+
+    export default Page
+  `,
+  `
+    import { defineRouteConfig } from "@medusajs/admin-sdk"
+
+    const Page = () => {
+        return <div>Page 2</div>
+    }
+
+    export const config = defineRouteConfig({
+        label: "Page 3",
+        icon: "icon1",
+        nested: "/products"
+    })
+
+    export default Page
+  `,
+]
+
+const expectedMenuItems = `
+        menuItems: [
+          {
+            label: RouteConfig0.label,
+            icon: RouteConfig0.icon,
+            path: "/one",
+            nested: undefined,
+            rank: undefined,
+            translationNs: undefined
+          },
+          {
+            label: RouteConfig1.label,
+            icon: undefined,
+            path: "/two",
+            nested: undefined,
+            rank: undefined,
+            translationNs: undefined
+          },
+          {
+            label: RouteConfig2.label,
+            icon: RouteConfig2.icon,
+            path: "/three",
+            nested: "/products",
+            rank: undefined,
+            translationNs: undefined
+          }
+        ]
+      `
+
+describe("generateMenuItems", () => {
+  it("should generate menu items", async () => {
+    const mockFiles = [
+      "Users/user/medusa/src/admin/routes/one/page.tsx",
+      "Users/user/medusa/src/admin/routes/two/page.tsx",
+      "Users/user/medusa/src/admin/routes/three/page.tsx",
+    ]
+    vi.mocked(utils.crawl).mockResolvedValue(mockFiles)
+
+    vi.mocked(fs.readFile).mockImplementation(async (file) =>
+      Promise.resolve(mockFileContents[mockFiles.indexOf(file as string)])
+    )
+
+    const result = await generateMenuItems(
+      new Set(["Users/user/medusa/src/admin"])
+    )
+
+    expect(result.imports).toEqual([
+      `import { config as RouteConfig0 } from "Users/user/medusa/src/admin/routes/one/page.tsx"`,
+      `import { config as RouteConfig1 } from "Users/user/medusa/src/admin/routes/two/page.tsx"`,
+      `import { config as RouteConfig2 } from "Users/user/medusa/src/admin/routes/three/page.tsx"`,
+    ])
+    expect(utils.normalizeString(result.code)).toEqual(
+      utils.normalizeString(expectedMenuItems)
+    )
+  })
+
+ 
+... [TRUNCATED]
+
+[packages/admin/admin-vite-plugin/src/routes/__tests__/generate-routes.spec.ts]
+import { describe, expect, it, vi } from "vitest"
+
+import fs from "fs/promises"
+import * as utils from "../../utils"
+import { generateRoutes } from "../generate-routes"
+
+// Mock the dependencies
+vi.mock("../../utils", async () => {
+  const actual = await vi.importActual("../../utils")
+  return {
+    ...actual,
+    crawl: vi.fn(),
+  }
+})
+
+vi.mock("fs/promises", () => ({
+  default: {
+    readFile: vi.fn(),
+    stat: vi.fn(),
+  },
+}))
+
+const mockFileContents = [
+  `
+    import { defineRouteConfig } from "@medusajs/admin-sdk"
+
+    const Page = () => {
+        return <div>Page 1</div>
+    }
+
+    export const config = defineRouteConfig({
+        label: "Page 1",
+        icon: "icon1",
+    })
+
+    export default Page
+    `,
+  `
+    import { defineRouteConfig } from "@medusajs/admin-sdk"
+
+    const Page = () => {
+        return <div>Page 2</div>
+    }
+
+    export const config = defineRouteConfig({
+        label: "Page 2",
+    })
+
+    export default Page
+  `,
+]
+
+const expectedRoutesWithoutLoaders = `
+    routes: [
+        {
+            Component: RouteComponent0,
+            path: "/one"
+        },
+        {
+            Component: RouteComponent1,
+            path: "/two"
+        }
+    ]
+`
+
+const mockFileContentsWithParallel = [
+  // Parent route
+  `
+    import { defineRouteConfig } from "@medusajs/admin-sdk"
+    const Page = () => {
+        return <div>Brands</div>
+    }
+    export const config = defineRouteConfig({
+        label: "Brands",
+    })
+    export default Page
+  `,
+  // Parallel route
+  `
+    import { defineRouteConfig } from "@medusajs/admin-sdk"
+    const Page = () => {
+        return <div>Create Brand</div>
+    }
+    export const config = defineRouteConfig({
+        label: "Create Brand",
+    })
+    export default Page
+  `,
+]
+
+const expectedRoutesWithParallel = `
+    routes: [
+        {
+            Component: RouteComponent0,
+            path: "/brands",
+            children: [
+                {
+                    Component: RouteComponent1,
+                    path: "/brands/create"
+                }
+            ]
+        }
+    ]
+`
+
+const mockFileContentsWithHandleLoader = [
+  `
+    import { defineRouteConfig } from "@medusajs/admin-sdk"
+
+    const Page = () => {
+        return <div>Page 1</div>
+    }
+
+    export const handle = {
+      someConfig: true
+    }
+
+    export const loader = async () => {
+      return { data: true }
+    }
+
+    export const config = defineRouteConfig({
+        label: "Page 1",
+    })
+
+    export default Page
+  `,
+  `
+    import { defineRouteConfig } from "@medusajs/admin-sdk"
+
+    const Page = () => {
+        return <div>Page 2</div>
+    }
+
+    export async function loader() {
+      return { data: true }
+    }
+
+    export const config = defineRouteConfig({
+        label: "Page 2",
+    })
+
+    export default Page
+  `,
+]
+
+const expectedRoutesWithHandleLoader = `
+  routes: [
+    {
+      Component: RouteComponent0,
+      path: "/one",
+      handle: handle0,
+      loader: loader0
+    },
+    {
+      Component: RouteCom
+... [TRUNCATED]
+
+[packages/admin/admin-vite-plugin/src/routes/generate-menu-items.ts]
+import {
+  NESTED_ROUTE_POSITIONS,
+  NestedRoutePosition,
+} from "@medusajs/admin-shared"
+import fs from "fs/promises"
+import { outdent } from "outdent"
+import {
+  File,
+  isIdentifier,
+  isNumericLiteral,
+  isObjectProperty,
+  isStringLiteral,
+  Node,
+  ObjectProperty,
+  parse,
+  ParseResult,
+  traverse,
+} from "../babel"
+import { logger } from "../logger"
+import {
+  crawl,
+  getConfigObjectProperties,
+  getParserOptions,
+  normalizePath,
+} from "../utils"
+import { getRoute } from "./helpers"
+
+type RouteConfig = {
+  label: boolean
+  icon: boolean
+  nested?: NestedRoutePosition
+  rank?: number
+  translationNs?: string
+}
+
+type MenuItem = {
+  icon?: string
+  label: string
+  path: string
+  nested?: NestedRoutePosition
+  rank?: number
+  translationNs?: string
+}
+
+type MenuItemResult = {
+  import: string
+  menuItem: MenuItem
+}
+
+export async function generateMenuItems(sources: Set<string>) {
+  const files = await getFilesFromSources(sources)
+  const results = await getMenuItemResults(files)
+
+  const imports = results.map((result) => result.import)
+  const code = generateCode(results)
+
+  return { imports, code }
+}
+
+function generateCode(results: MenuItemResult[]): string {
+  return outdent`
+        menuItems: [
+            ${results
+              .map((result) => formatMenuItem(result.menuItem))
+              .join(",\n")}
+        ]
+    }
+  `
+}
+
+function formatMenuItem(route: MenuItem): string {
+  const { label, icon, path, nested, rank, translationNs } = route
+  return `{
+    label: ${label},
+    icon: ${icon || "undefined"},
+    path: "${path}",
+    nested: ${nested ? `"${nested}"` : "undefined"},
+    rank: ${rank !== undefined ? rank : "undefined"},
+    translationNs: ${translationNs ? `${translationNs}` : "undefined"}
+  }`
+}
+
+async function getFilesFromSources(sources: Set<string>): Promise<string[]> {
+  const files = (
+    await Promise.all(
+      Array.from(sources).map(async (source) =>
+        crawl(`${source}/routes`, "page", { min: 1 })
+      )
+    )
+  ).flat()
+  return files
+}
+
+async function getMenuItemResults(files: string[]): Promise<MenuItemResult[]> {
+  const results = await Promise.all(files.map(parseFile))
+  return results.filter((item): item is MenuItemResult => item !== null)
+}
+
+async function parseFile(
+  file: string,
+  index: number
+): Promise<MenuItemResult | null> {
+  const config = await getRouteConfig(file)
+
+  if (!config) {
+    return null
+  }
+
+  if (!config.label) {
+    logger.warn(`Config is missing a label.`, {
+      file,
+    })
+  }
+
+  const import_ = generateImport(file, index)
+  const menuItem = generateMenuItem(config, file, index)
+
+  return {
+    import: import_,
+    menuItem,
+  }
+}
+
+function generateImport(file: string, index: number): string {
+  const path = normalizePath(file)
+  return `import { config as ${generateRouteConfigName(index)} } from "${path}"`
+}
+
+function generateMenuItem(
+  config: RouteConfig,
+  file: string,
+  index: number
+): MenuItem {
+  const configName = generateRouteConfigName(index)
+  return {
+
+... [TRUNCATED]
+
+--- DATABASE SCHEMA / MODEL FILES ---
+  integration-tests/http/__fixtures__/feature-flag/src/modules/custom/migrations/MigrationTest.ts
+  integration-tests/modules/__tests__/__fixtures__/testing-module/models/dml-entity.ts
+  integration-tests/modules/__tests__/__fixtures__/testing-module/models/index.ts
+  integration-tests/modules/__tests__/__fixtures__/translation-test/src/modules/translation/migrations/Migration20240907134741.ts
+  integration-tests/modules/__tests__/__fixtures__/translation-test/src/modules/translation/models/index.ts
+
+--- DIRECTORY STRUCTURE (depth 2) ---
+├── .changeset/
+│   ├── README.md
+│   ├── config.json
+│   ├── eager-spies-read.md
+│   ├── heavy-insects-draw.md
+│   └── modern-tires-melt.md
+├── .claude/
+│   ├── agents/
+│   │   ├── README.md
+│   │   ├── codebase-analyzer.md
+│   │   ├── codebase-locator.md
+│   │   ├── codebase-pattern-finder.md
+│   │   └── web-search-researcher.md
+│   ├── commands/
+│   │   ├── create_plan.md
+│   │   ├── implement_plan.md
+│   │   └── research.md
+│   └── skills/
+│       ├── api-ref-doc/
+│       ├── book-doc/
+│       ├── how-to/
+│       ├── recipe/
+│       ├── resources-doc/
+│       ├── tutorial/
+│       └── ui-component-doc/
+├── .eslintignore
+├── .eslintrc.js
+├── .gitattributes
+├── .github/
+│   ├── .kodiak.toml
+│   ├── FUNDING.yml
+│   ├── ISSUE_TEMPLATE/
+│   │   ├── bug_report.md
+│   │   ├── bug_report_v2.yml
+│   │   ├── config.yml
+│   │   └── docs.yml
+│   ├── actions/
+│   │   ├── cache-deps/
+│   │   ├── setup-server/
+│   │   └── test-server/
+│   ├── labeler.yml
+│   ├── pull_request_template.md
+│   ├── release.yml
+│   ├── teams.yml
+│   └── workflows/
+│       ├── action.yml
+│       ├── admin-i18n-validation.yml
+│       ├── claude.yml
+│       ├── create-linear-issue-on-discussion.yml
+│       ├── create-linear-issue-on-pr.yml
+│       ├── docs-freshness-check.yml
+│       ├── docs-test.yml
+│       ├── docs-update-version.yml
+│       ├── generate-public-references.yml
+│       ├── oas-test.yml
+│       ├── release-notifications.yml
+│       ├── release.yml
+│       ├── stale-bot.yml
+│       ├── team-labeler.yml
+│       ├── test-cli-with-database.yml
+│       ├── trigger-release.yml
+│       └── trigger-staging-deployment.yml
+├── .gitignore
+├── .prettierrc
+├── .vale.ini
+├── .yarn/
+│   ├── patches/
+│   │   ├── @changesets-assemble-release-plan-npm-6.0.9-e01af97ef4.patch
+│   │   ├── changesets-github-info.patch
+│   │   └── changesets.patch
+│   ├── plugins/
+│   │   └── @yarnpkg/
+│   └── releases/
+│       └── yarn-3.2.1.cjs
+├── .yarnrc.yml
+├── CHANGELOG.md
+├── CLAUDE.md
+├── CODEOWNERS
+├── CONTRIBUTING.md
+├── LICENSE
+├── README.md
+├── SECURITY.md
+├── _tsconfig.base.json
+├── define_jest_config.js
+├── integration-tests/
+│   ├── .env.test
+│   ├── .gitignore
+│   ├── README.md
+│   ├── api/
+│   │   ├── .gitignore
+│   │   ├── __tests__/
+│   │   ├── jest.config.js
+│   │   ├── medusa-config.js
+│   │   ├── package.json
+│   │   └── src/
+│   ├── environment-helpers/
+│   │   ├── bootstrap-app.js
+│   │   ├── setup-server.js
+│   │   ├── start-server-with-environment.js
+│   │   ├── test-server.js
+│   │   ├── use-api.js
+│   │   ├── use-container.js
+│   │   └── use-server.js
+│   ├── factories/
+│   │   ├── index.ts.txt
+│   │   ├── simple-address-factory.ts.txt
+│   │   ├── simple-analytics-config-factory.ts.txt
+│   │   ├── simple-batch-job-factory.ts.txt
+│   │   ├── simple-cart-factory.ts.txt
+│   │   ├── simple-custom-shipping-option-factory.ts.txt
+│   │   ├── simple-customer-factory.ts.txt
+│   │   ├── simple-customer-group-factory.ts.txt
+│   │   ├── simple-discount-factory.ts.txt
+│   │   ├── simple-gift-card-factory.ts.txt
+│   │   ├── simple-line-item-factory.ts.txt
+│   │   ├── simple-order-edit-factory.ts.txt
+│   │   ├── simple-order-factory.ts.txt
+│   │   ├── simple-order-item-change-factory.ts.txt
+│   │   ├── simple-payment-collection-factory.ts.txt
+│   │   ├── simple-payment-factory.ts.txt
+│   │   ├── simple-price-list-factory.ts.txt
+│   │   ├── simple-product-category-factory.ts.txt
+│   │   ├── simple-product-collection-factory.ts.txt
+│   │   ├── simple-product-factory.ts.txt
+│   │   ├── simple-product-tag-factory.ts.txt
+│   │   ├── simple-product-tax-rate-factory.ts.txt
+│   │   ├── simple-product-type-tax-rate-factory.ts.txt
+│   │   ├── simple-product-variant-factory.ts.txt
+│   │   ├── simple-publishable-api-key-factory.ts.txt
+│   │   ├── simple-region-factory.ts.txt
+│   │   ├── simple-sales-channel-factory.ts.txt
+│   │   ├── simple-shipping-method-factory.ts.txt
+│   │   ├── simple-shipping-option-factory.ts.txt
+│   │   ├── simple-shipping-profile-factory.ts.txt
+│   │   ├── simple-shipping-tax-rate-factory.ts.txt
+│   │   ├── simple-store-factory.ts.txt
+│   │   └── simple-tax-rate-factory.ts.txt
+│   ├── globalSetup.js.txt
+│   ├── globalTeardown.js.txt
+│   ├── helpers/
+│   │   ├── admin-seeder.js.txt
+│   │   ├── batch-job-seeder.js.txt
+│   │   ├── breaking.ts.txt
+│   │   ├── call-helpers.js.txt
+│   │   ├── cart-seeder.js.txt
+│   │   ├── claim-seeder.js.txt
+│   │   ├── client-authentication.ts.txt
+│   │   ├── create-admin-user.ts
+│   │   ├── discount-seeder.js.txt
+│   │   ├── draft-order-seeder.js.txt
+│   │   ├── fixtures.ts
+│   │   ├── order-seeder.js.txt
+│   │   ├── price-selection-seeder.js.txt
+│   │   ├── product-seeder.js.txt
+│   │   ├── retry.ts
+│   │   ├── seed-storefront-defaults.ts
+│   │   ├── store-product-seeder.js.txt
+│   │   ├── swap-seeder.js.txt
+│   │   ├── user-seeder.js.txt
+│   │   └── wait-for-index.ts
+│   ├── http/
+│   │   ├── .gitignore
+│   │   ├── CHANGELOG.md
+│   │   ├── __fixtures__/
+│   │   ├── __tests__/
+│   │   ├── jest.config.js
+│   │   ├── medusa-config.js
+│   │   ├── package.json
+│   │   ├── src/
+│   │   └── tsconfig.json
+│   ├── jest.config.js
+│   ├── modules/
+│   │   ├── .gitignore
+│   │   ├── __tests__/
+│   │   ├── helpers/
+│   │   ├── jest.config.js
+│   │   ├── medusa-config.ts
+│   │   ├── package.json
+│   │   ├── src/
+│   │   └── tsconfig.json
+│   ├── package.json
+│   ├── scripts/
+│   │   └── cli/
+│   ├── setup-env.js
+│   ├── setup.js
+│   └── tsconfig.json
+├── jest.config.js
+├── package.json
+├── packages/
+│   ├── admin/
+│   │   ├── admin-bundler/
+│   │   ├── admin-sdk/
+│   │   ├── admin-shared/
+│   │   ├── admin-vite-plugin/
+│   │   └── dashboard/
+│   ├── cli/
+│   │   ├── create-medusa-app/
+│   │   ├── medusa-cli/
+│   │   ├── medusa-dev-cli/
+│   │   └── oas/
+│   ├── core/
+│   │   ├── core-flows/
+│   │   ├── framework/
+│   │   ├── js-sdk/
+│   │   ├── modules-sdk/
+│   │   ├── orchestration/
+│   │   ├── types/
+│   │   ├── utils/
+│   │   └── workflows-sdk/
+│   ├── deps/
+│   │   ├── .gitignore
+│   │   ├── CHANGELOG.md
+│   │   ├── package.json
+│   │   ├── src/
+│   │   └── tsconfig.json
+│   ├── design-system/
+│   │   ├── icons/
+│   │   ├── toolbox/
+│   │   ├── ui-preset/
+│   │   └── ui/
+│   ├── medusa-telemetry/
+│   │   ├── .gitignore
+│   │   ├── CHANGELOG.md
+│   │   ├── package.json
+│   │   ├── src/
+│   │   └── tsconfig.json
+│   ├── medusa-test-utils/
+│   │   ├── .gitignore
+│   │   ├── CHANGELOG.md
+│   │   ├── jest.config.js
+│   │   ├── package.json
+│   │   ├── src/
+│   │   └── tsconfig.json
+│   ├── medusa/
+│   │   ├── .gitignore
+│   │   ├── .swcrc
+│   │   ├── CHANGELOG.md
+│   │   ├── README.md
+│   │   ├── jest.config.js
+│   │   ├── ormconfig.json
+│   │   ├── package.json
+│   │   ├── setupTests.js
+│   │   ├── src/
+│   │   └── tsconfig.json
+│   ├── modules/
+│   │   ├── analytics/
+│   │   ├── api-key/
+│   │   ├── auth/
+│   │   ├── cache-inmemory/
+│   │   ├── cache-redis/
+│   │   ├── caching/
+│   │   ├── cart/
+│   │   ├── currency/
+│   │   ├── customer/
+│   │   ├── event-bus-local/
+│   │   ├── event-bus-redis/
+│   │   ├── file/
+│   │   ├── fulfillment/
+│   │   ├── index/
+│   │   ├── inventory/
+│   │   ├── link-modules/
+│   │   ├── locking/
+│   │   ├── notification/
+│   │   ├── order/
+│   │   ├── payment/
+│   │   ├── pricing/
+│   │   ├── product/
+│   │   ├── promotion/
+│   │   ├── providers/
+│   │   ├── rbac/
+│   │   ├── region/
+│   │   ├── sales-channel/
+│   │   ├── settings/
+│   │   ├── stock-location/
+│   │   ├── store/
+│   │   ├── tax/
+│   │   ├── translation/
+│   │   ├── user/
+│   │   ├── workflow-engine-inmemory/
+│   │   └── workflow-engine-redis/
+│   └── plugins/
+│       └── draft-order/
+├── script.sh
+├── scripts/
+│   ├── assert-changed-files-actions.sh
+│   ├── assert-changed-files.sh
+│   ├── assert-codegen-build-committed-actions.sh
+│   ├── deps-analyze/
+│   │   ├── analyze-dependencies.js
+│   │   └── update-dependency-versions.sh
+│   ├── generate-discord-message.js
+│   ├── on-lint-error.js
+│   └── run-workspace-unit-tests-in-chunks.sh
+├── thoughts/
+│   └── shared/
+│       └── research/
+├── turbo.json
+├── www/
+│   ├── .gitignore
+│   ├── .prettierrc
+│   ├── .vercelignore
+│   ├── .yarnrc.yml
+│   ├── README.md
+│   ├── apps/
+│   │   ├── api-reference/
+│   │   ├── bloom/
+│   │   ├── book/
+│   │   ├── cloud/
+│   │   ├── docs/
+│   │   ├── resources/
+│   │   ├── ui/
+│   │   └── user-guide/
+│   ├── eslint.config.mjs
+│   ├── ignore-build-script.sh
+│   ├── package.json
+│   ├── packages/
+│   │   ├── build-scripts/
+│   │   ├── docs-ui/
+│   │   ├── docs-utils/
+│   │   ├── remark-rehype-plugins/
+│   │   ├── tags/
+│   │   ├── tailwind/
+│   │   ├── tsconfig/
+│   │   └── types/
+│   ├── tsconfig.json
+│   ├── turbo.json
+│   ├── utils/
+│   │   ├── .eslintrc.js
+│   │   ├── .gitignore
+│   │   ├── .prettierrc
+│   │   ├── .yarnrc.yml
+│   │   ├── README.md
+│   │   ├── generated/
+│   │   ├── package.json
+│   │   ├── packages/
+│   │   ├── tsconfig.json
+│   │   ├── turbo.json
+│   │   └── yarn.lock
+│   ├── vale/
+│   │   ├── get-files.sh
+│   │   ├── run-vale.sh
+│   │   └── styles/
+│   ├── vitest.config.mts
+│   ├── vitest.setup.ts
+│   └── yarn.lock
+└── yarn.lock

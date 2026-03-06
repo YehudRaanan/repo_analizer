@@ -1,0 +1,1983 @@
+=====================================
+Repository Analysis: graphql-engine
+Type: Backend / API Service
+=====================================
+
+--- METADATA ---
+Name: graphql-engine
+Description: Blazing fast, instant realtime GraphQL APIs on all your data with fine grained access control, also trigger webhooks on database events.
+Language: TypeScript
+Topics: access-control, api, automatic-api, bigquery, graphql, graphql-api, graphql-server, haskell, hasura, mongodb, postgres, rest-api, sql-server, subgraph, supergraph
+Stars: 31913
+License: Apache License 2.0
+
+--- README ---
+![Hasura logo](./assets/hasura_logo_primary_darkbg.png#gh-dark-mode-only)
+![Hasura logo](./assets/hasura_logo_primary_lightbg.png#gh-light-mode-only)
+
+# Hasura GraphQL Engine
+
+The Hasura engine is an open source project which supercharges the building of modern applications by providing access
+to data via a single, composable, secure API endpoint.
+
+<a href="https://hasura.io/"><img src="https://img.shields.io/badge/🏠_Visit-Hasura_Homepage-blue.svg?style=flat"></a>
+<a href="https://hasura.io/community/"><img src="https://img.shields.io/badge/😊_Join-Community-blue.svg?style=flat"></a>
+
+## Hasura V3
+
+[![Docs](https://img.shields.io/badge/docs-v3-yellow.svg?style=flat)](https://hasura.io/docs/3.0/getting-started/quickstart/)
+
+The future of data delivery is GA: Supporting PostgreSQL (and its flavors), MongoDB, ClickHouse, and MS SQL Server. Also supports writing custom business logic using the Typescript, Python, and Go Connector SDKs. Here is the recommended [Getting Started](https://hasura.io/docs/3.0/getting-started/quickstart/) guide on DDN.
+
+The Hasura v3 engine code, which powers Hasura DDN, is in the `v3` folder of this repo. You can find more detailed
+information about in this [v3 README](/v3/README.md).
+
+The Hasura DDN architecture includes Data Connectors to connect to data sources. All Hasura connectors are also
+available completely open source. Check out the [Connector Hub](https://hasura.io/connectors/) which lists all
+available connectors.
+
+## Hasura V2
+
+[![Latest release](https://img.shields.io/github/v/release/hasura/graphql-engine)](https://github.com/hasura/graphql-engine/releases/latest)
+[![Docs](https://img.shields.io/badge/docs-v2.x-yellow.svg?style=flat)](https://hasura.io/docs)
+
+Hasura V2 is the current stable version of the Hasura GraphQL Engine. Please find more
+detailed information about the V2 Hasura Graphql Engine in the `v2` folder and this [README](V2-README.md).
+
+## Cloning repository
+
+This repository is a large and active mono-repo containing many parts of the Hasura ecosystem and a long git
+history, that can make the first time cloning of the repository slow and consume a lot of disk space. We recommend
+following if you are facing cloning issues.
+
+### Shallow clone
+
+This will only clone the latest commit and ignore all historical commits.
+
+```
+git clone https://github.com/hasura/graphql-engine.git --depth 1
+```
+
+### Git checkout with only Hasura V3 engine code
+
+```
+git clone --no-checkout https://github.com/hasura/graphql-engine.git --depth 1
+cd graphql-engine
+git sparse-checkout init --cone
+git sparse-checkout set v3
+git checkout @
+```
+
+This checkouts the top level files and only the `v3` folder which contains the Hasura V3 Engine code.
+
+## Support & Troubleshooting
+
+To troubleshoot most issues, check out our documentation and community resources. If you have encountered a bug or need
+to get in touch with us, you can contact us using one of the following channels:
+
+- Hasura DDN documentation: [DDN docs](https://hasura.io/docs/3.0/)
+- Hasura V2 documentation: [V2 docs](https://hasura.io/docs/)
+- Support & feedback: [Discord](https://discord.gg/hasura)
+- Issue & bug tracking: [GitHub issues](https://github.com/hasura/graphql-engine/issues)
+- Follow product updates: [@HasuraHQ](https://twitter.com/hasurahq)
+- Talk to us on our [website chat](https://hasura.io)
+
+## Code of Conduct
+
+We are committed to fostering an open and welcoming environment in the community. Please see the
+[Code of Conduct](code-of-conduct.md).
+
+## Security
+
+If you want to report a security issue, please [read this](SECURITY.md).
+
+## Stay up to date
+
+Join our communities to stay up to date on announcements, events, product updates, and technical blogs.
+[https://hasura.io/community/](https://hasura.io/community/)
+
+## Contributing
+
+Check out our [contributing guide](CONTRIBUTING.md) for more details.
+
+## Brand assets
+
+Hasura brand assets (logos, the Hasura mascot, powered by badges etc.) can be found in the
+[v2/assets/brand](assets/brand) folder. Feel free to use them in your application/website etc. We'd be thrilled if you
+add the "Powered by Hasura" badge to your applications built using Hasura. ❤️
+
+## Licenses
+
+### V3
+
+All the [Data Connectors](https://github.com/hasura/ndc-hub) are available under
+the [Apache License 2.0](https://www.apache.org/licenses/LICENSE-2.0).
+
+The core [V3 GraphQL Engine](v3/) is intended to be licensed under the [Apache License 2.0](https://www.apache.org/licenses/LICENSE-2.0) (Apache-2.0).
+
+### V2
+
+The V2 core GraphQL Engine is available under the [Apache License 2.0](https://www.apache.org/licenses/LICENSE-2.0) (Apache-2.0).
+
+All **other contents** in the v2 folder (except those in [`server`](v2/server), [`cli`](v2/cli) and
+[`console`](v2/console) directories) are available under the [MIT License](LICENSE-community).
+This includes everything in the [`docs`](v2/docs) and [`community`](v2/community)
+directories.
+
+
+--- PACKAGE MANIFEST(S) ---
+(No package manifest found)
+
+--- BACKEND CONFIG FILES ---
+
+[docker-compose.yaml]
+# This file extends the base Docker Compose files to make manual testing easy.
+#
+# Run the following to get started:
+#
+#     docker compose up -d
+#
+# That will start up services in the background. To take them down, you have to
+# run:
+#
+#     docker compose down
+#
+# If you changed DB init scripts, then you should also run:
+#
+#     docker compose down -v
+#
+# That'll delete the volumes. Otherwise e.g. PostgreSQL will skip initializing
+# if a DB already exists.
+#
+# If you omit `-d`, it'll run them all in the foreground, then you can stop them
+# with your usual Ctrl-C terminal command.
+#
+# Facts:
+#
+# * The SERVICE PORTS numbering start at 65001, 65002, etc. to avoid bothering
+#   existing instances of databases.
+#
+# * The login credentials are, where possible, all "hasura" to avoid unnecessary
+#   mental overhead.
+#
+# * The SQL Server image will only work on macOS if you enable the relevant
+#   settings. Open the Docker Desktop settings, enable "Use Virtualization
+#   framework" in the "General" tab, and "Use Rosetta for x86/amd64 emulation on
+#   Apple Silicon" in the "Features in development" tab.
+
+name: hge-manual-tests
+
+services:
+  postgres:
+    extends:
+      file: docker-compose/databases.yaml
+      service: postgres
+    ports:
+      - "65002:5432"
+    environment:
+      POSTGRES_USER: "hasura"
+      POSTGRES_PASSWORD: "hasura"
+      POSTGRES_DB: "hasura"
+    volumes:
+      - postgres-data:/var/lib/postgresql
+      - ./docker-compose/postgres/init.sh:/docker-entrypoint-initdb.d/init-hasura.sh:ro
+
+  citus:
+    extends:
+      file: docker-compose/databases.yaml
+      service: citus
+    ports:
+      - "65004:5432"
+    environment:
+      POSTGRES_USER: "hasura"
+      POSTGRES_PASSWORD: "hasura"
+      POSTGRES_DB: "hasura"
+    volumes:
+      - citus-data:/var/lib/postgresql
+      - ./docker-compose/postgres/init.sh:/docker-entrypoint-initdb.d/init-hasura.sh:ro
+
+  cockroach:
+    extends:
+      file: docker-compose/databases.yaml
+      service: cockroach
+    ports:
+      - "65008:26257"
+    environment:
+      COCKROACH_USER: "root"
+      COCKROACH_DATABASE: "hasura"
+    volumes:
+      - cockroach-data:/cockroach/cockroach-data
+
+  sqlserver:
+    extends:
+      file: docker-compose/databases.yaml
+      service: sqlserver
+    ports:
+      - "65003:1433"
+    volumes:
+      - mssql-data:/var/opt/mssql
+
+  dc-reference-agent:
+    extends:
+      file: dc-agents/docker-compose.yaml
+      service: dc-reference-agent
+
+  dc-sqlite-agent:
+    extends:
+      file: dc-agents/docker-compose.yaml
+      service: dc-sqlite-agent
+
+volumes:
+  citus-data:
+  cockroach-data:
+  mssql-data:
+  postgres-data:
+
+
+--- API ROUTE / ENDPOINT DEFINITIONS ---
+
+[cli/internal/metadataobject/rest_endpoints/rest_endpoints.go]
+package restendpoints
+
+import (
+	"bytes"
+	"io/ioutil"
+	"path/filepath"
+
+	"github.com/hasura/graphql-engine/cli/v2/internal/errors"
+	"github.com/hasura/graphql-engine/cli/v2/internal/metadataobject"
+
+	"github.com/sirupsen/logrus"
+
+	"github.com/hasura/graphql-engine/cli/v2"
+	"gopkg.in/yaml.v3"
+)
+
+type RestEndpointsConfig struct {
+	MetadataDir string
+
+	logger *logrus.Logger
+}
+
+func New(ec *cli.ExecutionContext, baseDir string) *RestEndpointsConfig {
+	return &RestEndpointsConfig{
+		MetadataDir: baseDir,
+		logger:      ec.Logger,
+	}
+}
+
+func (re *RestEndpointsConfig) Validate() error {
+	return nil
+}
+
+func (re *RestEndpointsConfig) CreateFiles() error {
+	var op errors.Op = "restendpoints.RestEndpointsConfig.CreateFiles"
+	v := make([]interface{}, 0)
+	buf := new(bytes.Buffer)
+	err := metadataobject.GetEncoder(buf).Encode(v)
+	if err != nil {
+		return errors.E(op, err)
+	}
+	err = ioutil.WriteFile(filepath.Join(re.MetadataDir, re.Filename()), buf.Bytes(), 0644)
+	if err != nil {
+		return errors.E(op, err)
+	}
+	return nil
+}
+
+func (re *RestEndpointsConfig) Build() (map[string]interface{}, error) {
+	var op errors.Op = "restendpoints.RestEndpointsConfig.Build"
+	data, err := metadataobject.ReadMetadataFile(filepath.Join(re.MetadataDir, re.Filename()))
+	if err != nil {
+		return nil, errors.E(op, re.error(err))
+	}
+	var obj []yaml.Node
+	err = yaml.Unmarshal(data, &obj)
+	if err != nil {
+		return nil, errors.E(op, errors.KindBadInput, re.error(err))
+	}
+	if len(obj) == 0 {
+		return nil, nil
+	}
+	return map[string]interface{}{re.Key(): obj}, nil
+}
+
+func (re *RestEndpointsConfig) Export(metadata map[string]yaml.Node) (map[string][]byte, error) {
+	var op errors.Op = "restendpoints.RestEndpointsConfig.Export"
+	b, err := metadataobject.DefaultExport(re, metadata, re.error, metadataobject.DefaultObjectTypeSequence)
+	if err != nil {
+		return nil, errors.E(op, err)
+	}
+	return b, nil
+}
+
+func (re *RestEndpointsConfig) Key() string {
+	return metadataobject.RestEndpointsKey
+}
+
+func (re *RestEndpointsConfig) Filename() string {
+	return "rest_endpoints.yaml"
+}
+
+func (re *RestEndpointsConfig) GetFiles() ([]string, error) {
+	var op errors.Op = "restendpoints.RestEndpointsConfig.GetFiles"
+	rootFile := filepath.Join(re.BaseDirectory(), re.Filename())
+	files, err := metadataobject.DefaultGetFiles(rootFile)
+	if err != nil {
+		return nil, errors.E(op, re.error(err))
+	}
+	return files, nil
+}
+
+func (re *RestEndpointsConfig) WriteDiff(opts metadataobject.WriteDiffOpts) error {
+	var op errors.Op = "restendpoints.RestEndpointsConfig.WriteDiff"
+	err := metadataobject.DefaultWriteDiff(metadataobject.DefaultWriteDiffOpts{From: re, WriteDiffOpts: opts})
+	if err != nil {
+		return errors.E(op, re.error(err))
+	}
+	return nil
+}
+
+func (re *RestEndpointsConfig) BaseDirectory() string {
+	return re.MetadataDir
+}
+
+func (re *RestEndpointsConfig) error(err error, additionalContext ...string) metadataobject.ErrParsingMetadataObject {
+	return metadataobject.NewErrParsingMetadataObject(re, err, additionalContext...)
+}
+... [TRUNCATED]
+
+[community/boilerplates/auth-servers/passportjs-jwt-roles/controllers/user.js]
+const passport = require('../config/passport')
+const { User } = require('../db/schema')
+const { errorHandler } = require('../db/errors')
+const rasha = require('rasha')
+const jwtConfig = require('../config/jwt')
+
+/**
+ * Sends the JWT key set
+ */
+exports.getJwks = async (req, res, next) => {
+  const jwk = {
+    ...rasha.importSync({ pem: jwtConfig.publicKey }),
+    alg: 'RS256',
+    use: 'sig',
+    kid: jwtConfig.publicKey
+  }
+  const jwks = {
+    keys: [jwk]
+  }
+  res.setHeader('Content-Type', 'application/json')
+  res.send(JSON.stringify(jwks, null, 2) + '\n')
+  handleResponse(res, 200, jwks)
+}
+
+/**
+ * Sign in using username and password and returns JWT
+ */
+exports.postLogin = async (req, res, next) => {
+  req.assert('username', 'Username is not valid').notEmpty()
+  req.assert('password', 'Password cannot be blank').notEmpty()
+
+  const errors = req.validationErrors()
+
+  if (errors) {
+    return res.status(400).json({ errors: errors })
+  }
+
+  passport.authenticate('local', (err, user, info) => {
+    if (err) {
+      return handleResponse(res, 400, { error: err })
+    }
+    if (user) {
+      handleResponse(res, 200, user.getUser())
+    }
+  })(req, res, next)
+}
+
+/**
+ * POST /signup
+ * Create a new local account
+ */
+exports.postSignup = async (req, res, next) => {
+  req.assert('username', 'Username is not valid').notEmpty()
+  req.assert('password', 'Password must be at least 4 characters long').len(4)
+  req
+    .assert('confirmPassword', 'Passwords do not match')
+    .equals(req.body.password)
+
+  const errors = req.validationErrors()
+
+  if (errors) {
+    return res.status(400).json({ errors: errors })
+  }
+
+  try {
+    const user = await User.query()
+      .allowInsert('[username, password]')
+      .insert({
+        username: req.body.username,
+        password: req.body.password
+      })
+  } catch (err) {
+    errorHandler(err, res)
+    return
+  }
+  passport.authenticate('local', (err, user, info) => {
+    if (err) {
+      return handleResponse(res, 400, { error: err })
+    }
+    if (user) {
+      handleResponse(res, 200, user.getUser())
+    }
+  })(req, res, next)
+}
+
+exports.getWebhook = async (req, res, next) => {
+  passport.authenticate('bearer', (err, user, info) => {
+    if (err) {
+      return handleResponse(res, 401, { error: err })
+    }
+    if (user) {
+      handleResponse(res, 200, user.getHasuraClaims())
+    } else {
+      handleResponse(res, 200, { 'X-Hasura-Role': 'anonymous' })
+    }
+  })(req, res, next)
+}
+
+function handleResponse(res, code, statusMsg) {
+  res.status(code).json(statusMsg)
+}
+
+
+[community/boilerplates/auth-webhooks/passport-js/controllers/user.js]
+const passport = require('../config/passport');
+const { User } = require('../db/schema');
+const { errorHandler } = require('../db/errors');
+const bcrypt = require('bcrypt');
+
+/**
+ * POST /login
+ * Sign in using username and password.
+ */
+exports.postLogin = async (req, res, next) => {
+  req.assert('username', 'Username is not valid').notEmpty();
+  req.assert('password', 'Password cannot be blank').notEmpty();
+
+  const errors = req.validationErrors();
+
+  if (errors) {
+    return res.status(400).json({'errors': errors});
+  }
+
+  passport.authenticate('local', (err, user, info) => {
+    if (err) { return handleResponse(res, 400, {'error': err})}
+    if (user) {
+      handleResponse(res, 200, user.getUser());
+    }
+  })(req, res, next);
+};
+
+
+/**
+ * POST /signup
+ * Create a new local account.
+ */
+exports.postSignup = async (req, res, next) => {
+  req.assert('username', 'Username is not valid').notEmpty();
+  req.assert('password', 'Password must be at least 4 characters long').len(4);
+  req.assert('confirmPassword', 'Passwords do not match').equals(req.body.password);
+
+  const errors = req.validationErrors();
+
+  if (errors) {
+    return res.status(400).json({'errors': errors});
+  }
+
+  try {
+    const user = await User.query()
+                           .allowInsert('[username, password]')
+                           .insert({
+                             username: req.body.username,
+                             password: req.body.password
+                           });
+  } catch (err) {
+    errorHandler(err, res);
+    return;
+  }
+  passport.authenticate('local', (err, user, info) => {
+    if (err) {  return handleResponse(res, 400, {'error': err})}
+    if (user) {
+      handleResponse(res, 200, user.getUser());
+    }
+  })(req, res, next);
+};
+
+exports.getWebhook = async (req, res, next) => {
+  passport.authenticate('bearer', (err, user, info) => {
+    if (err) { return handleResponse(res, 401, {'error': err}); }
+    if (user) {
+      handleResponse(res, 200, {
+        'X-Hasura-Role': 'user',
+        'X-Hasura-User-Id': `${user.id}`
+      });
+    } else {
+      handleResponse(res, 200, {'X-Hasura-Role': 'anonymous'});
+    }
+  })(req, res, next);
+}
+
+
+function handleResponse(res, code, statusMsg) {
+  res.status(code).json(statusMsg);
+}
+
+
+[frontend/libs/console/legacy-ce/src/lib/Endpoints.ts]
+import { getWebsocketProtocol } from './helpers/protocol';
+import consoleGlobals from './Globals';
+
+export const globalCookiePolicy = 'same-origin';
+
+export const baseUrl = consoleGlobals.dataApiUrl;
+
+export const getEndpoints = (globals: typeof consoleGlobals) => {
+  const hasuraCliServerUrl = `${globals.apiHost}:${globals.apiPort}`;
+
+  const endpoints = {
+    serverConfig: `${baseUrl}/v1alpha1/config`,
+    graphQLUrl: `${baseUrl}/v1/graphql`,
+    relayURL: `${baseUrl}/v1beta1/relay`,
+    query: `${baseUrl}/v2/query`,
+    entitlement: `${baseUrl}/v1/entitlement`,
+    license: `${baseUrl}/v1/entitlement/license`,
+    metadata: `${baseUrl}/v1/metadata`,
+    // metadata: `${baseUrl}/v1/query`,
+    queryV2: `${baseUrl}/v2/query`,
+    version: `${baseUrl}/v1/version`,
+    updateCheck: 'https://releases.hasura.io/graphql-engine',
+    hasuraCliServerMigrate: `${hasuraCliServerUrl}/apis/migrate`,
+    hasuraCliServerMetadata: `${hasuraCliServerUrl}/apis/metadata`,
+    hasuraCliServerMigrateSettings: `${hasuraCliServerUrl}/apis/migrate/settings`,
+    telemetryServer: 'wss://telemetry.hasura.io/v1/ws',
+    consoleNotificationsStg:
+      'https://notifications.hasura-stg.hasura-app.io/v1/graphql',
+    consoleNotificationsProd: 'https://notifications.hasura.io/v1/graphql',
+    luxDataGraphql: `${window.location.protocol}//${globals.luxDataHost}/v1/graphql`,
+    luxDataGraphqlWs: `${getWebsocketProtocol(window.location.protocol)}//${
+      globals.luxDataHost
+    }/v1/graphql`,
+    prometheusUrl: `${baseUrl}/v1/metrics`,
+    registerEETrial: `https://licensing.pro.hasura.io/v1/graphql`,
+    schemaRegistry: `${window.location.protocol}//${globals.schemaRegistryHost}/v1/graphql`,
+    // registerEETrial: `http://licensing.lux-dev.hasura.me/v1/graphql`,
+    exportOpenApi: 'api/swagger/json',
+  };
+
+  return endpoints;
+};
+
+const endpoints = getEndpoints(consoleGlobals);
+export default endpoints;
+
+
+[frontend/libs/console/legacy-ce/src/lib/components/Services/Data/Add/AddExistingTableView.js]
+import PropTypes from 'prop-types';
+import React, { Component } from 'react';
+import Helmet from 'react-helmet';
+import { Analytics, REDACT_EVERYTHING } from '../../../../features/Analytics';
+import {
+  setTableName,
+  setDefaults,
+  addExistingTableSql,
+} from './AddExistingTableViewActions';
+import styles from '../../../Common/TableCommon/Table.module.scss';
+
+class AddExistingTableView extends Component {
+  constructor(props) {
+    super(props);
+    this.props.dispatch(setDefaults());
+  }
+
+  render() {
+    const { dispatch, ongoingRequest, lastError, lastSuccess } = this.props;
+
+    let alert = null;
+    if (ongoingRequest) {
+      alert = (
+        <div className="col-xs-8 hidden">
+          <div className="hidden alert alert-warning" role="alert">
+            Creating...
+          </div>
+        </div>
+      );
+    } else if (lastError) {
+      alert = (
+        <div className="col-xs-8 hidden">
+          <div className="hidden alert alert-danger" role="alert">
+            Error: {JSON.stringify(lastError)}
+          </div>
+        </div>
+      );
+    } else if (lastSuccess) {
+      alert = (
+        <div className="col-xs-8 hidden">
+          <div className="hidden alert alert-success" role="alert">
+            Created! Redirecting...
+          </div>
+        </div>
+      );
+    }
+
+    return (
+      <Analytics name="AddExistingTable" {...REDACT_EVERYTHING}>
+        <div className={'pl-sm pr-sm mx-auto clear-both pt-sm'}>
+          <Helmet title="Add Existing Table/View - Data | Hasura" />
+          <div className={styles.subHeader}>
+            <h2 className={styles.heading_text}>
+              Add an existing table or view
+            </h2>
+            <div className="clearfix" />
+          </div>
+          <div className={'container-fluid ' + styles.padd_left_remove}>
+            {alert}
+            <div
+              className={
+                styles.addCol +
+                ' col-xs-6 ' +
+                styles.padd_left_remove +
+                ' ' +
+                styles.padd_bottom
+              }
+            >
+              <h4 className={styles.subheading_text}>Table/View name:</h4>
+              <form
+                onSubmit={e => {
+                  e.preventDefault();
+                  dispatch(addExistingTableSql());
+                }}
+              >
+                <input
+                  type="text"
+                  className={styles.tableNameInput + ' form-control'}
+                  onChange={e => {
+                    dispatch(setTableName(e.target.value));
+                  }}
+                  data-test="existing-table"
+                />
+                <hr className="my-md" />
+                <input
+                  value="Add"
+                  type="submit"
+                  className={'btn ' + styles.yellow_button}
+                  data-test="add-existing-table-button"
+                />
+              </form>
+              <div />
+            </div>
+          </div>
+        </div>
+      </Analytics>
+    );
+ 
+... [TRUNCATED]
+
+[frontend/libs/console/legacy-ce/src/lib/components/Services/Data/TableModify/ModifyView.js]
+import PropTypes from 'prop-types';
+import React from 'react';
+import { Analytics, REDACT_EVERYTHING } from '../../../../features/Analytics';
+import { Button } from '../../../../new-components/Button';
+import TableHeader from '../TableCommon/TableHeader';
+import ExpandableEditor from '../../../Common/Layout/ExpandableEditor/Editor';
+import {
+  fetchViewDefinition,
+  deleteViewSql,
+  untrackTableSql,
+  RESET,
+  setViewCustomColumnNames,
+} from './ModifyActions';
+import TableCommentEditor from './TableCommentEditor';
+import { ordinalColSort } from '../utils';
+import { setTable } from '../DataActions';
+import { NotFoundError } from '../../../Error/PageNotFound';
+
+import { getConfirmation } from '../../../Common/utils/jsUtils';
+import Tooltip from '../../../Common/Tooltip/Tooltip';
+import {
+  getTableCustomColumnNames,
+  findTable,
+  generateTableDef,
+  isFeatureSupported,
+} from '../../../../dataSources';
+import ViewDefinitions from './ViewDefinitions';
+import { RightContainer } from '../../../Common/Layout/RightContainer';
+import ComputedFields from './ComputedFields';
+import RootFields from './RootFields';
+import FeatureDisabled from '../FeatureDisabled';
+import { inputStyles } from '../constants';
+
+const ModifyView = props => {
+  const {
+    viewDefSql,
+    tableName,
+    tableType,
+    allSchemas,
+    ongoingRequest,
+    lastError,
+    lastSuccess,
+    dispatch,
+    currentSchema,
+    tableCommentEdit,
+    migrationMode,
+    readOnlyMode,
+    currentSource,
+  } = props;
+
+  React.useEffect(() => {
+    dispatch({ type: RESET });
+    dispatch(setTable(tableName));
+    dispatch(fetchViewDefinition(tableName, false));
+  }, [dispatch, tableName]);
+
+  const tableSchema = findTable(
+    allSchemas,
+    generateTableDef(tableName, currentSchema)
+  );
+
+  const [customColumnNames, setCustomColumnNames] = React.useState({});
+  const existingCustomColumnNames = getTableCustomColumnNames(tableSchema);
+  const initCustomColumnNames = () => {
+    setCustomColumnNames(existingCustomColumnNames);
+  };
+
+  React.useEffect(() => {
+    setCustomColumnNames(getTableCustomColumnNames(tableSchema));
+  }, [tableSchema.configuration]);
+
+  if (!tableSchema) {
+    // throw a 404 exception
+    throw new NotFoundError();
+  }
+
+  const tableComment = tableSchema.comment;
+
+  let alert = null;
+  if (ongoingRequest) {
+    alert = (
+      <div
+        className="hidden alert alert-warning alert-dismissable"
+        role="alert"
+      >
+        Saving...
+      </div>
+    );
+  } else if (lastError) {
+    alert = (
+      <div className="hidden alert alert-danger" role="alert">
+        Error: {JSON.stringify(lastError)}
+      </div>
+    );
+  } else if (lastSuccess) {
+    alert = (
+      <div className="hidden alert alert-success" role="alert">
+        Saved!
+      </div>
+    );
+  }
+
+  const getViewColumnsSection = () => {
+    const columns = tableSchema.columns.sort(ordinalColSort);
+
+    const columnList = columns.map((c, i) => {
+      const columnName = c.column_name;
+
+      const set
+... [TRUNCATED]
+
+[frontend/libs/console/legacy-ce/src/lib/components/Services/Data/TableRelationships/RelationshipsView.js]
+import React, { useEffect } from 'react';
+import PropTypes from 'prop-types';
+import { Analytics, REDACT_EVERYTHING } from '../../../../features/Analytics';
+import {
+  FeatureFlagToast,
+  useFeatureFlags,
+  availableFeatureFlagIds,
+} from '../../../../features/FeatureFlags';
+import { DatabaseRelationshipsTab } from '../../../../features/DatabaseRelationships';
+import { LearnMoreLink } from '../../../../new-components/LearnMoreLink';
+import { areTablesEqual } from '../../../../features/hasura-metadata-api';
+import TableHeader from '../TableCommon/TableHeader';
+import { getObjArrRelList } from './utils';
+import { setTable, UPDATE_REMOTE_SCHEMA_MANUAL_REL } from '../DataActions';
+import AddManualRelationship from './AddManualRelationship';
+import RelationshipEditor from './RelationshipEditor';
+import { NotFoundError } from '../../../Error/PageNotFound';
+import RemoteRelationships from './RemoteRelationships/RemoteRelationships';
+import ToolTip from '../../../Common/Tooltip/Tooltip';
+import {
+  currentDriver,
+  findAllFromRel,
+  isFeatureSupported,
+} from '../../../../dataSources';
+import { getRemoteSchemasSelector } from '../../../../metadata/selector';
+import { RightContainer } from '../../../Common/Layout/RightContainer';
+import { resetRelationshipForm, resetManualRelationshipForm } from './Actions';
+import { RemoteDbRelationships } from './RemoteDbRelationships/RemoteDbRelationships';
+import styles from '../TableModify/ModifyTable.module.scss';
+import tableStyles from '../../../Common/TableCommon/TableStyles.module.scss';
+
+const RelationshipsView = ({
+  tableName,
+  allSchemas,
+  ongoingRequest,
+  lastError,
+  lastFormError,
+  lastSuccess,
+  dispatch,
+  allFunctions,
+  manualRelAdd,
+  currentSchema,
+  migrationMode,
+  readOnlyMode,
+  schemaList,
+  remoteSchemas,
+  currentSource,
+  source,
+}) => {
+  useEffect(() => {
+    dispatch(resetRelationshipForm());
+    dispatch(resetManualRelationshipForm());
+    dispatch(setTable(tableName));
+    // Sourcing the current schema into manual relationship
+    dispatch({
+      type: UPDATE_REMOTE_SCHEMA_MANUAL_REL,
+      data: currentSchema,
+    });
+  }, [tableName, currentSchema, dispatch]);
+
+  const tableSchema = allSchemas.find(
+    t => t.table_name === tableName && t.table_schema === currentSchema
+  );
+
+  const normalizedTableObject = source.tables.find(t => {
+    return areTablesEqual(t.table, {
+      table_schema: tableSchema.table_schema,
+      table_name: tableSchema.table_name,
+    });
+  });
+
+  const { data: featureFlagsData, isLoading: isFeatureFlagsLoading } =
+    useFeatureFlags();
+  if (isFeatureFlagsLoading) return <div>Loading...</div>;
+
+  const newRelationshipsTabIsEnabled =
+    featureFlagsData &&
+    featureFlagsData?.length > 0 &&
+    featureFlagsData.find(
+      featureFlag =>
+        featureFlag.id === availableFeatureFlagIds.relationshipTabTablesId
+    )?.state?.enabled;
+
+  if (newRelationshipsTabIsEnabled) {
+    return (
+      <DatabaseRelationshipsTab
+        table={tableSchema}
+       
+... [TRUNCATED]
+
+[frontend/libs/console/legacy-ce/src/lib/features/ConnectDBRedesign/hooks/usePushRoute.ts]
+import { useDispatch } from 'react-redux';
+import _push from '../../../components/Services/Data/push';
+import { useIsStorybook } from '../../../utils/StoryUtils';
+import { useCallback } from 'react';
+
+export const usePushRoute = () => {
+  const dispatch = useDispatch();
+  const { isStorybook } = useIsStorybook();
+
+  const pushRoute = useCallback(
+    (path: string) => {
+      // if you try to push routes in storybook, it causes an error that is only recoverable by re-loading
+      // usually our components shouldn't try this in storybook, but sometimes it's a side effect
+      if (isStorybook) return;
+
+      dispatch(_push(path));
+    },
+    [dispatch, isStorybook]
+  );
+
+  return pushRoute;
+};
+
+
+--- DATABASE SCHEMA / MODEL FILES ---
+  cli/internal/statestore/migrations/catalogstate.go
+  cli/internal/statestore/migrations/hdbtable.go
+  cli/migrate/database/migration.go
+  cli/migrate/migration.go
+  cli/migrate/source/migration.go
+
+--- DIRECTORY STRUCTURE (depth 2) ---
+├── .circleci/
+│   ├── .gitignore
+│   ├── README.md
+│   ├── build-docker-image.sh
+│   ├── ciignore.sh
+│   ├── cli-migrations-builder.dockerfile
+│   ├── config.yml
+│   ├── install-cli-builder-deps.sh
+│   ├── pgbouncer/
+│   │   └── users.txt
+│   ├── postgres-12.0-alpine-postgis3/
+│   │   └── Dockerfile
+│   ├── postgres-13.0-alpine-postgis3/
+│   │   └── Dockerfile
+│   ├── server-test-names.txt
+│   ├── test-console.sh
+│   ├── test-deprecated-server-flags.sh
+│   ├── test-server-flags.sh
+│   └── test-server.sh
+├── .devcontainer/
+│   └── docs/
+│       └── devcontainer.json
+├── .dockerignore
+├── .envrc
+├── .envrc.local.example
+├── .ghcversion
+├── .git-blame-ignore-revs
+├── .github/
+│   ├── CODEOWNERS
+│   ├── ISSUE_TEMPLATE/
+│   │   ├── 01_bug_report.md
+│   │   ├── 02_feature_request.md
+│   │   ├── 03_bug_report_v3.md
+│   │   ├── 04_feature_request_v3.md
+│   │   └── config.yml
+│   ├── PULL_REQUEST_TEMPLATE.md
+│   └── workflows/
+│       ├── hlint.yml
+│       └── lint.yml
+├── .gitignore
+├── .hlint.yaml
+├── .kodiak.toml
+├── .nvmrc
+├── .prettierignore
+├── CHANGELOG.md
+├── CONTRIBUTING.md
+├── LICENSE
+├── LICENSE-community
+├── Makefile
+├── README.md
+├── SECURITY.md
+├── V2-README.md
+├── architecture/
+│   ├── live-queries.md
+│   ├── sql-server.md
+│   └── streaming-subscriptions.md
+├── assets/
+│   ├── arch-stitching.png
+│   ├── arch.png
+│   ├── banner.png
+│   ├── brand/
+│   │   ├── README.md
+│   │   ├── hasura_icon_colour.svg
+│   │   ├── hasura_icon_darkbg.svg
+│   │   ├── hasura_icon_lightbg.svg
+│   │   ├── hasura_logo_mono_darkbg.svg
+│   │   ├── hasura_logo_mono_lightbg.svg
+│   │   ├── hasura_logo_primary_darkbg.svg
+│   │   └── hasura_logo_primary_lightbg.svg
+│   ├── console-readme-assets/
+│   │   ├── start-dev-server.jpg
+│   │   └── test-dev-setup.jpg
+│   ├── demo.gif
+│   ├── event-triggers-arch.png
+│   ├── event-triggers.gif
+│   ├── hasura-arch.svg
+│   ├── hasura_logo_primary_darkbg.png
+│   ├── hasura_logo_primary_lightbg.png
+│   ├── reactive-apps-arch.png
+│   ├── realtime.gif
+│   ├── remote-schemas-arch.png
+│   └── sql-server-images/
+│       ├── allow-list.png
+│       ├── extend-graphql-api.png
+│       ├── geo-query.png
+│       ├── graphql-rest.png
+│       ├── names.txt
+│       ├── p99-benchmarks.png
+│       ├── sql-server-auth.png
+│       ├── sql-server-explain.png
+│       └── sql-server-subscriptions-cropped.gif
+├── cabal.project
+├── cabal.project.freeze
+├── cabal/
+│   ├── README.md
+│   ├── cabal.project.dev
+│   ├── ci-haddock.project
+│   ├── ci-haddock.project.freeze
+│   ├── ci-haddock.project.local
+│   ├── ci.project
+│   ├── ci.project.freeze
+│   ├── ci.project.local
+│   ├── dev-sh-optimized.project
+│   ├── dev-sh-optimized.project.freeze
+│   ├── dev-sh-optimized.project.local
+│   ├── dev-sh-prof-heap-infomap.project
+│   ├── dev-sh-prof-heap-infomap.project.freeze
+│   ├── dev-sh-prof-heap-infomap.project.local
+│   ├── dev-sh-prof-ticky.project
+│   ├── dev-sh-prof-ticky.project.freeze
+│   ├── dev-sh-prof-ticky.project.local
+│   ├── dev-sh-prof-time.project
+│   ├── dev-sh-prof-time.project.freeze
+│   ├── dev-sh-prof-time.project.local
+│   ├── dev-sh.project
+│   ├── dev-sh.project.freeze
+│   ├── dev-sh.project.local
+│   └── dev.project
+├── cli-ext/
+│   ├── .babelrc
+│   ├── .eslintrc
+│   ├── .gitignore
+│   ├── Makefile
+│   ├── README.md
+│   ├── build.sh
+│   ├── package-lock.json
+│   ├── package.json
+│   ├── src/
+│   │   ├── command.ts
+│   │   ├── constants.ts
+│   │   ├── services/
+│   │   ├── shared/
+│   │   └── utils/
+│   ├── tests/
+│   │   ├── actions-codegen/
+│   │   ├── index.js
+│   │   └── sdl/
+│   └── tsconfig.json
+├── cli/
+│   ├── .gitignore
+│   ├── .golangci.yaml
+│   ├── .realize.yaml
+│   ├── CONTRIBUTING.md
+│   ├── Makefile
+│   ├── README.md
+│   ├── build/
+│   │   ├── builder.dockerfile
+│   │   └── get-version.sh
+│   ├── cli.go
+│   ├── cli_test.go
+│   ├── cmd/
+│   │   └── hasura/
+│   ├── commands/
+│   │   ├── actions.go
+│   │   ├── actions_codegen.go
+│   │   ├── actions_codegen_test.go
+│   │   ├── actions_create.go
+│   │   ├── actions_create_test.go
+│   │   ├── actions_use_codegen.go
+│   │   ├── actions_use_codegen_test.go
+│   │   ├── commands_test.go
+│   │   ├── completion.go
+│   │   ├── console.go
+│   │   ├── deploy.go
+│   │   ├── deploy_test.go
+│   │   ├── docs.go
+│   │   ├── help.go
+│   │   ├── init.go
+│   │   ├── init_test.go
+│   │   ├── metadata.go
+│   │   ├── metadata_apply.go
+│   │   ├── metadata_apply_test.go
+│   │   ├── metadata_clear.go
+│   │   ├── metadata_clear_test.go
+│   │   ├── metadata_diff.go
+│   │   ├── metadata_diff_test.go
+│   │   ├── metadata_export.go
+│   │   ├── metadata_export_test.go
+│   │   ├── metadata_handlers.go
+│   │   ├── metadata_inconsistency.go
+│   │   ├── metadata_inconsistency_drop.go
+│   │   ├── metadata_inconsistency_drop_test.go
+│   │   ├── metadata_inconsistency_list.go
+│   │   ├── metadata_inconsistency_list_test.go
+│   │   ├── metadata_inconsistency_status.go
+│   │   ├── metadata_inconsistency_status_test.go
+│   │   ├── metadata_reload.go
+│   │   ├── metadata_reload_test.go
+│   │   ├── migrate.go
+│   │   ├── migrate_apply.go
+│   │   ├── migrate_apply_test.go
+│   │   ├── migrate_create.go
+│   │   ├── migrate_create_test.go
+│   │   ├── migrate_delete.go
+│   │   ├── migrate_delete_test.go
+│   │   ├── migrate_squash.go
+│   │   ├── migrate_squash_test.go
+│   │   ├── migrate_status.go
+│   │   ├── migrate_status_test.go
+│   │   ├── plugins.go
+│   │   ├── plugins_install.go
+│   │   ├── plugins_list.go
+│   │   ├── plugins_uninstall.go
+│   │   ├── plugins_upgrade.go
+│   │   ├── root.go
+│   │   ├── scripts.go
+│   │   ├── scripts_update_config_v2.go
+│   │   ├── scripts_update_config_v2_test.go
+│   │   ├── scripts_update_config_v3.go
+│   │   ├── scripts_update_config_v3_test.go
+│   │   ├── seed.go
+│   │   ├── seed_apply.go
+│   │   ├── seed_apply_test.go
+│   │   ├── seed_create.go
+│   │   ├── seed_create_test.go
+│   │   ├── testdata/
+│   │   ├── update-cli.go
+│   │   └── version.go
+│   ├── directory.go
+│   ├── get.sh
+│   ├── global_config.go
+│   ├── go.mod
+│   ├── go.sum
+│   ├── integration_test/
+│   │   ├── cli.go
+│   │   ├── cli_test.go
+│   │   ├── testdata/
+│   │   ├── v2/
+│   │   └── v3/
+│   ├── internal/
+│   │   ├── cliext/
+│   │   ├── diff/
+│   │   ├── errors/
+│   │   ├── fsm/
+│   │   ├── hasura/
+│   │   ├── httpc/
+│   │   ├── metadataobject/
+│   │   ├── metadatautil/
+│   │   ├── projectmetadata/
+│   │   ├── scripts/
+│   │   ├── statestore/
+│   │   └── testutil/
+│   ├── logger_hook.go
+│   ├── migrate/
+│   │   ├── api/
+│   │   ├── cmd/
+│   │   ├── database/
+│   │   ├── migrate.go
+│   │   ├── migration.go
+│   │   ├── source/
+│   │   ├── status.go
+│   │   └── util.go
+│   ├── pkg/
+│   │   ├── console/
+│   │   ├── deploy/
+│   │   ├── errors/
+│   │   ├── metadata/
+│   │   └── migrate/
+│   ├── plugins/
+│   │   ├── download/
+│   │   ├── move.go
+│   │   ├── paths/
+│   │   ├── plugins.go
+│   │   ├── scanner.go
+│   │   ├── types.go
+│   │   └── util.go
+│   ├── seed/
+│   │   ├── apply.go
+│   │   ├── apply_test.go
+│   │   ├── create.go
+│   │   ├── create_test.go
+│   │   ├── seed.go
+│   │   └── testdata/
+│   ├── telemetry/
+│   │   ├── telemetry.go
+│   │   └── telemetry_test.go
+│   ├── update/
+│   │   ├── auto_update.go
+│   │   ├── hide_noop.go
+│   │   ├── hide_windows.go
+│   │   └── update.go
+│   ├── util/
+│   │   ├── copy.go
+│   │   ├── filesystem.go
+│   │   ├── flags.go
+│   │   ├── git.go
+│   │   ├── printer.go
+│   │   ├── prompt.go
+│   │   ├── server.go
+│   │   ├── server_test.go
+│   │   ├── tablewriter.go
+│   │   ├── util.go
+│   │   ├── viper.go
+│   │   └── zip.go
+│   └── version/
+│       ├── compatibility.go
+│       ├── compatibility_test.go
+│       ├── feature_flags.go
+│       ├── server.go
+│       ├── version.go
+│       └── version_test.go
+├── code-of-conduct.md
+├── community/
+│   ├── README.md
+│   ├── boilerplates/
+│   │   ├── auth-servers/
+│   │   ├── auth-webhooks/
+│   │   ├── event-triggers/
+│   │   ├── observability/
+│   │   └── remote-schemas/
+│   ├── sample-apps/
+│   │   └── README.md
+│   └── tools/
+│       ├── firebase2graphql/
+│       ├── graphiql-online/
+│       ├── graphql2chartjs/
+│       ├── json2graphql/
+│       └── ra-data-hasura/
+├── console/
+│   └── README.md
+├── contrib/
+│   └── metadata-types/
+│       ├── .gitignore
+│       ├── .prettierrc
+│       ├── README.md
+│       ├── RFC.md
+│       ├── config.yaml
+│       ├── generated/
+│       ├── json-schema-typecheck-demo.gif
+│       ├── package.json
+│       ├── src/
+│       ├── test-config.yaml
+│       ├── test-output-sample.png
+│       ├── tsconfig.json
+│       ├── tsconfig.lib.json
+│       ├── typescript-typecheck-demo.gif
+│       ├── v2/
+│       └── yarn.lock
+├── dc-agents/
+│   ├── .gitignore
+│   ├── .npmrc
+│   ├── .nvmrc
+│   ├── CONTRIBUTING.md
+│   ├── DOCUMENTATION.md
+│   ├── Dockerfile-reference
+│   ├── Dockerfile-sqlite
+│   ├── HUB.md
+│   ├── Makefile
+│   ├── README.md
+│   ├── dc-api-types/
+│   │   ├── README.md
+│   │   ├── package.json
+│   │   ├── src/
+│   │   └── tsconfig.json
+│   ├── docker-compose.yaml
+│   ├── guides/
+│   │   ├── Cassandra.md
+│   │   ├── Kafka.md
+│   │   ├── NoSQL.md
+│   │   ├── OLAP.md
+│   │   ├── OLTP.md
+│   │   ├── README.md
+│   │   └── Redis.md
+│   ├── package-lock.json
+│   ├── package.json
+│   ├── reference/
+│   │   ├── .gitignore
+│   │   ├── .nvmrc
+│   │   ├── Dockerfile
+│   │   ├── README.md
+│   │   ├── package-lock.json
+│   │   ├── package.json
+│   │   ├── src/
+│   │   └── tsconfig.json
+│   ├── scripts/
+│   │   ├── derive-lockfile.ts
+│   │   ├── generate-types.sh
+│   │   └── update-api-types-deps.sh
+│   ├── sdk/
+│   │   ├── .gitignore
+│   │   ├── README.md
+│   │   ├── docker-compose.yaml
+│   │   └── metadata/
+│   ├── sqlite/
+│   │   ├── .gitignore
+│   │   ├── .nvmrc
+│   │   ├── Dockerfile
+│   │   ├── README.md
+│   │   ├── dataset_templates/
+│   │   ├── package-lock.json
+│   │   ├── package.json
+│   │   ├── src/
+│   │   ├── test/
+│   │   └── tsconfig.json
+│   └── tsconfig.json
+├── docker-compose.yaml
+├── docker-compose/
+│   ├── databases.yaml
+│   └── postgres/
+│       └── init.sh
+├── docs/
+│   ├── .dockerignore
+│   ├── .gitignore
+│   ├── .prettierignore
+│   ├── .prettierrc.json
+│   ├── .yarn/
+│   │   └── releases/
+│   ├── .yarnrc.yml
+│   ├── CODESPACES.md
+│   ├── CONTRIBUTING.md
+│   ├── Dockerfile
+│   ├── README.md
+│   ├── babel.config.js
+│   ├── cspell.config.yaml
+│   ├── docs/
+│   │   ├── _heading_ai.mdx
+│   │   ├── _heading_auth.mdx
+│   │   ├── _heading_basics.mdx
+│   │   ├── _heading_ci_cd.mdx
+│   │   ├── _heading_data_api.mdx
+│   │   ├── _heading_data_sources.mdx
+│   │   ├── _heading_deployment.mdx
+│   │   ├── _heading_materials.mdx
+│   │   ├── _heading_perf_and_monitoring.mdx
+│   │   ├── _heading_products.mdx
+│   │   ├── _heading_trigger_based_logic.mdx
+│   │   ├── actions/
+│   │   ├── ai/
+│   │   ├── api-reference/
+│   │   ├── auth/
+│   │   ├── caching/
+│   │   ├── cloud-ci-cd/
+│   │   ├── data-federation/
+│   │   ├── databases/
+│   │   ├── deployment/
+│   │   ├── enterprise/
+│   │   ├── event-triggers/
+│   │   ├── faq.mdx
+│   │   ├── get-support.mdx
+│   │   ├── getting-started/
+│   │   ├── glossary.mdx
+│   │   ├── hasura-cli/
+│   │   ├── hasura-cloud/
+│   │   ├── index.mdx
+│   │   ├── migrations-metadata-seeds/
+│   │   ├── mutations/
+│   │   ├── observability/
+│   │   ├── policies/
+│   │   ├── queries/
+│   │   ├── remote-schemas/
+│   │   ├── resources/
+│   │   ├── restified/
+│   │   ├── scheduled-triggers/
+│   │   ├── schema/
+│   │   ├── security/
+│   │   ├── subscriptions/
+│   │   └── troubleshooting.mdx
+│   ├── docusaurus.config.js
+│   ├── package-lock.json
+│   ├── package.json
+│   ├── preview_cloud_build.yaml
+│   ├── public/
+│   │   └── robots.txt
+│   ├── scripts/
+│   │   └── pandoc-auto-transform.sh
+│   ├── sidebars.js
+│   ├── sidebarsWiki.js
+│   ├── spell_add.sh
+│   ├── spell_check.sh
+│   ├── src/
+│   │   ├── Globals.d.ts
+│   │   ├── components/
+│   │   ├── css/
+│   │   ├── pages/
+│   │   ├── plugins/
+│   │   ├── theme/
+│   │   └── utils/
+│   ├── static/
+│   │   ├── .nojekyll
+│   │   ├── fonts/
+│   │   ├── icons/
+│   │   └── img/
+│   ├── tsconfig.json
+│   ├── wiki/
+│   │   ├── checklist.mdx
+│   │   ├── contributions.mdx
+│   │   ├── docusaurus-mdx-guide/
+│   │   ├── index.mdx
+│   │   ├── sla.mdx
+│   │   ├── style/
+│   │   └── working-with-docusaurus.mdx
+│   ├── wrangler.toml
+│   └── yarn.lock
+├── event-triggers.md
+├── flake.lock
+├── flake.nix
+├── frontend/
+│   ├── .build.env
+│   ├── .editorconfig
+│   ├── .eslintignore
+│   ├── .eslintrc.json
+│   ├── .gitattributes
+│   ├── .gitignore
+│   ├── .husky/
+│   │   └── pre-commit
+│   ├── .lintstagedrc.mjs
+│   ├── .npmrc
+│   ├── .nvmrc
+│   ├── .prettierignore
+│   ├── .prettierrc
+│   ├── .storybook/
+│   │   ├── main.ts
+│   │   ├── manager-head.html
+│   │   └── tsconfig.json
+│   ├── .vscode/
+│   │   ├── extensions.json
+│   │   └── settings.json
+│   ├── .yarn/
+│   │   └── releases/
+│   ├── .yarnrc.yml
+│   ├── README.md
+│   ├── apps/
+│   │   ├── .gitkeep
+│   │   ├── console-ce-e2e/
+│   │   ├── console-ce/
+│   │   ├── console-ee-e2e/
+│   │   ├── console-ee/
+│   │   └── nx/
+│   ├── babel.config.json
+│   ├── control-plane-graphql-codegen.yml
+│   ├── custom-webpack.config.js
+│   ├── docker/
+│   │   ├── .gitignore
+│   │   ├── DataSources/
+│   │   ├── README.md
+│   │   ├── default_metadata.json
+│   │   └── docker-compose.template.yml
+│   ├── docs/
+│   │   ├── can-import-icon.png
+│   │   ├── from-previous-console.md
+│   │   ├── generic-info.md
+│   │   └── tags.md
+│   ├── frontend.code-workspace
+│   ├── jest.config.ts
+│   ├── jest.preset.js
+│   ├── libs/
+│   │   ├── .gitkeep
+│   │   ├── console/
+│   │   ├── nx/
+│   │   └── open-api-to-graphql/
+│   ├── nx.json
+│   ├── package.json
+│   ├── schema-registry-graphql-codegen.yml
+│   ├── snapshots.js
+│   ├── static/
+│   │   ├── images/
+│   │   └── mockServiceWorker.js
+│   ├── tailwind.config.js
+│   ├── tools/
+│   │   ├── eslint-rules/
+│   │   ├── generators/
+│   │   ├── scripts/
+│   │   ├── test-setup/
+│   │   ├── tsconfig.tools.json
+│   │   └── webpack/
+│   ├── tsconfig.base.json
+│   ├── types/
+│   │   └── externalNotTypesLibs.d.ts
+│   └── yarn.lock
+├── install-manifests/
+│   ├── README.md
+│   ├── azure-container-with-pg/
+│   │   ├── README.md
+│   │   ├── azuredeploy.json
+│   │   └── azuredeploy.parameters.json
+│   ├── azure-container/
+│   │   ├── README.md
+│   │   ├── azuredeploy.json
+│   │   └── azuredeploy.parameters.json
+│   ├── docker-compose-cockroach/
+│   │   └── docker-compose.yaml
+│   ├── docker-compose-https/
+│   │   ├── Caddyfile
+│   │   ├── README.md
+│   │   └── docker-compose.yaml
+│   ├── docker-compose-ms-sql-server/
+│   │   └── docker-compose.yaml
+│   ├── docker-compose-mysql-preview/
+│   │   └── docker-compose.yaml
+│   ├── docker-compose-pgadmin/
+│   │   ├── README.md
+│   │   └── docker-compose.yaml
+│   ├── docker-compose-postgis/
+│   │   ├── README.md
+│   │   └── docker-compose.yaml
+│   ├── docker-compose-yugabyte/
+│   │   └── docker-compose.yaml
+│   ├── docker-compose/
+│   │   ├── README.md
+│   │   └── docker-compose.yaml
+│   ├── docker-run/
+│   │   └── docker-run.sh
+│   ├── enterprise/
+│   │   ├── athena/
+│   │   ├── aws-ecs/
+│   │   ├── clickhouse/
+│   │   ├── docker-compose/
+│   │   ├── google-cloud-run/
+│   │   ├── kubernetes/
+│   │   ├── mariadb/
+│   │   ├── mongodb/
+│   │   ├── mysql/
+│   │   ├── oracle/
+│   │   ├── redshift/
+│   │   └── snowflake/
+│   ├── google-cloud-k8s-sql/
+│   │   ├── README.rst
+│   │   ├── deployment.yaml
+│   │   └── service.yaml
+│   └── kubernetes/
+│       ├── README.md
+│       ├── deployment.yaml
+│       └── svc.yaml
+├── metadata-api-types/
+│   ├── .gitignore
+│   ├── Makefile
+│   ├── scripts/
+│   │   ├── generate-types-for-lang.sh
+│   │   └── generate-typescript-types.sh
+│   └── typescript/
+│       ├── .gitignore
+│       ├── .npmrc
+│       ├── .nvmrc
+│       ├── README.md
+│       ├── package-lock.json
+│       ├── package.json
+│       ├── patches/
+│       └── tsconfig.json
+├── metadata.openapi.json
+├── nix/
+│   ├── nixpkgs.nix
+│   ├── overlays/
+│   │   ├── aeson-ordered.nix
+│   │   ├── dc-api.nix
+│   │   ├── ghc-9.4-macOS-loadArchive-fix.patch
+│   │   ├── ghc.nix
+│   │   ├── graphql-parser.nix
+│   │   ├── ormolu.nix
+│   │   ├── pg-client-hs.nix
+│   │   └── resource-pool.nix
+│   ├── shell.nix
+│   └── versions.nix
+├── packaging/
+│   ├── README.md
+│   ├── cli-migrations/
+│   │   ├── Makefile
+│   │   ├── v2/
+│   │   └── v3/
+│   ├── dc-tests/
+│   │   └── Dockerfile
+│   ├── graphql-engine-base/
+│   │   ├── ubi.dockerfile
+│   │   └── ubuntu.dockerfile
+│   └── graphql-engine/
+│       ├── .gitignore
+│       └── Dockerfile
+├── preload-mimalloc/
+│   ├── README.md
+│   ├── mimalloc/
+│   │   ├── LICENSE
+│   │   ├── include/
+│   │   ├── readme.md
+│   │   └── src/
+│   └── update-sources.sh
+├── releases/
+│   ├── v2.42.0-beta.1
+│   ├── v2.42.0-beta.1-ce
+│   └── v2.42.0-beta.1-cloud.1
+├── remote-schemas.md
+├── rfcs/
+│   ├── apollo-federation.md
+│   ├── catalog-migration-db-stats-logging.md
+│   ├── column-mutability.md
+│   ├── computed-fields-filters-perms-orderby.md
+│   ├── disable-query-and-subscription-root-fields.md
+│   ├── function-permissions.md
+│   ├── function-root-field-customisation.md
+│   ├── hspec-test-suite.md
+│   ├── hspec-test-suite/
+│   │   └── hspec-test-suite.svg
+│   ├── identity-columns.md
+│   ├── inherited-roles-improvements.md
+│   ├── input-validations.md
+│   ├── limit-over-join-optimization.md
+│   ├── mssql-delete-mutations.md
+│   ├── mssql-event-triggers-research.md
+│   ├── mssql-update-mutations.md
+│   ├── mssql-upsert-mutations.md
+│   ├── mutations-mssql.md
+│   ├── mysql-relationships.md
+│   ├── nosql-schema-sampling/
+│   │   ├── docker-compose.yml
+│   │   ├── readme.md
+│   │   ├── sample_data/
+│   │   ├── schema_exports/
+│   │   └── schema_sampler/
+│   ├── openapi-to-hasura-single-action.md
+│   ├── optimistic-concurrency-control.md
+│   ├── permissions-mysql.md
+│   ├── permissions-mysql/
+│   │   └── Inherited roles permissions.png
+│   ├── remote-schema-customization.md
+│   ├── rest-endpoints.md
+│   ├── rest-openapi-integration.md
+│   ├── reuse-insert-permission-in-action.md
+│   ├── seed-data.md
+│   ├── separate-metadata-api-types.md
+│   ├── source-customization.md
+│   ├── transforms.md
+│   ├── update-permission-check-condition.md
+│   ├── v3-descriptions.md
+│   ├── v3/
+│   │   ├── command-mutations.md
+│   │   ├── command-mutations/
+│   │   └── rest_json_api.md
+│   └── warning-in-replace-metadata-API.md
+├── sample.hie.yaml
+├── scripts/
+│   ├── bigquery.sh
+│   ├── cabal-freeze-update.sh
+│   ├── cabal-run.sh
+│   ├── cleanup-bigquery.js
+│   ├── cleanup-bigquery.sh
+│   ├── coalesce_run_sql/
+│   │   ├── requirements.txt
+│   │   └── run.py
+│   ├── containers/
+│   │   ├── citus
+│   │   ├── mssql.sh
+│   │   ├── mysql.sh
+│   │   └── postgres
+│   ├── data-sources-util.sh
+│   ├── dev.sh
+│   ├── dump-remote-schema.js
+│   ├── edit-pg-dump/
+│   │   ├── README.md
+│   │   ├── edit-pg-dump.sh
+│   │   ├── index.go
+│   │   └── now.json
+│   ├── ekg/
+│   │   ├── LICENSE
+│   │   ├── README
+│   │   ├── bootstrap-1.4.0.css
+│   │   ├── bootstrap-1.4.0.min.css
+│   │   ├── chart_line_add.png
+│   │   ├── cross.png
+│   │   ├── ekg.html
+│   │   ├── jquery-1.6.4.js
+│   │   ├── jquery-1.6.4.min.js
+│   │   ├── jquery.flot.js
+│   │   ├── jquery.flot.min.js
+│   │   ├── monitor.css
+│   │   └── monitor.js
+│   ├── extract-notes.sh
+│   ├── generate_brand_assets_readme.sh
+│   ├── get-version.sh
+│   ├── get_server_licenses.py
+│   ├── haskell-transitive-dependency-import-audit.sh
+│   ├── hoogle.sh
+│   ├── make/
+│   │   ├── build.mk
+│   │   ├── ci.mk
+│   │   ├── frontend.mk
+│   │   ├── ghcid.mk
+│   │   ├── legacy-tests.mk
+│   │   ├── lint.mk
+│   │   ├── metadata-api.mk
+│   │   ├── repl.mk
+│   │   ├── run.mk
+│   │   ├── test-infrastructure.mk
+│   │   └── tests.mk
+│   ├── parse-pytest-backend
+│   ├── performance_report.sh
+│   ├── post-release.sh
+│   ├── probe-pg-compatibility.sh
+│   ├── tag-release.sh
+│   └── verify-bigquery-creds.sh
+├── server/
+│   ├── .dockerignore
+│   ├── .gitignore
+│   ├── .ormolu
+│   ├── COMPILING-ON-MACOS.md
+│   ├── CONTRIBUTING.md
+│   ├── Makefile
+│   ├── STYLE.md
+│   ├── VERSIONS.json
+│   ├── benchmarks/
+│   │   ├── .python-version
+│   │   ├── README.md
+│   │   ├── README_AMI.md
+│   │   ├── bench.sh
+│   │   ├── benchmark_sets/
+│   │   ├── fabfile.py
+│   │   ├── requirements-top-level.txt
+│   │   ├── requirements.txt
+│   │   ├── resource_calibration.sh
+│   │   └── utils/
+│   ├── commit_diff.txt
+│   ├── documentation/
+│   │   ├── README.md
+│   │   ├── data-sources/
+│   │   ├── deep-dives/
+│   │   ├── glossary.md
+│   │   ├── overview.md
+│   │   └── tips.md
+│   ├── forks/
+│   │   └── hedis/
+│   ├── graphql-engine.cabal
+│   ├── lib/
+│   │   ├── aeson-ordered/
+│   │   ├── api-tests/
+│   │   ├── arrows-extra/
+│   │   ├── ci-info/
+│   │   ├── dc-api/
+│   │   ├── ekg-json/
+│   │   ├── ekg-prometheus/
+│   │   ├── graphql-parser/
+│   │   ├── hasura-base/
+│   │   ├── hasura-error-message/
+│   │   ├── hasura-extras/
+│   │   ├── hasura-json-encoding/
+│   │   ├── hasura-prelude/
+│   │   ├── incremental/
+│   │   ├── pg-client/
+│   │   ├── resource-pool/
+│   │   ├── schema-parsers/
+│   │   ├── test-harness/
+│   │   └── upgrade-tests/
+│   ├── src-emit-metadata-openapi/
+│   │   └── Main.hs
+│   ├── src-exec/
+│   │   └── Main.hs
+│   ├── src-lib/
+│   │   ├── Control/
+│   │   ├── Data/
+│   │   ├── Database/
+│   │   └── Hasura/
+│   ├── src-rsr/
+│   │   ├── catalog_version.txt
+│   │   ├── catalog_versions.txt
+│   │   ├── citus_table_metadata.sql
+│   │   ├── clear_system_metadata.sql
+│   │   ├── cockroach_table_metadata.sql
+│   │   ├── console.html
+│   │   ├── drop_pg_source.sql
+│   │   ├── init_pg_source.sql
+│   │   ├── initialise.sql
+│   │   ├── introspection.json
+│   │   ├── migrations/
+│   │   ├── mssql/
+│   │   ├── pg_function_metadata.sql
+│   │   ├── pg_source_migrations/
+│   │   ├── pg_table_metadata.sql
+│   │   ├── table_meta.sql
+│   │   └── trigger.sql.shakespeare
+│   ├── src-test/
+│   │   ├── Control/
+│   │   ├── Data/
+│   │   ├── Hasura/
+│   │   ├── Main.hs
+│   │   ├── Network/
+│   │   └── Test/
+│   ├── test-manual/
+│   │   ├── .gitignore
+│   │   ├── README.md
+│   │   ├── alloydb/
+│   │   ├── postgres-replicas-with-ssl-client-certs/
+│   │   └── postgres-replicas/
+│   ├── test-mssql/
+│   │   ├── Database/
+│   │   ├── Hasura/
+│   │   ├── Main.hs
+│   │   └── SpecHook.hs
+│   ├── test-postgres/
+│   │   ├── Constants.hs
+│   │   ├── Main.hs
+│   │   └── Test/
+│   ├── testing-guidelines.md
+│   ├── tests-py/
+│   │   ├── .devsh_version
+│   │   ├── .envrc
+│   │   ├── .gitignore
+│   │   ├── .prettierignore
+│   │   ├── PortToHaskell.py
+│   │   ├── README.md
+│   │   ├── auth_webhook_server.py
+│   │   ├── conftest.py
+│   │   ├── context.py
+│   │   ├── docker-compose.yml
+│   │   ├── docker/
+│   │   ├── fixtures/
+│   │   ├── graphql_server.py
+│   │   ├── jwk_server.py
+│   │   ├── package-lock.json
+│   │   ├── package.json
+│   │   ├── pgdump/
+│   │   ├── ports.py
+│   │   ├── pytest.ini
+│   │   ├── queries/
+│   │   ├── remote_schemas/
+│   │   ├── remote_server.py
+│   │   ├── requirements-top-level.txt
+│   │   ├── requirements.txt
+│   │   ├── run.sh
+│   │   ├── super_classes.py
+│   │   ├── tempCodeRunnerFile.py
+│   │   ├── test_actions.py
+│   │   ├── test_allowlist_queries.py
+│   │   ├── test_apis_disabled.py
+│   │   ├── test_apollo_federation.py
+│   │   ├── test_auth_webhook_cookie.py
+│   │   ├── test_compat.py
+│   │   ├── test_compression.py
+│   │   ├── test_config_api.py
+│   │   ├── test_cors.py
+│   │   ├── test_dev_endpoints.py
+│   │   ├── test_endpoints.py
+│   │   ├── test_events.py
+│   │   ├── test_graphql_introspection.py
+│   │   ├── test_graphql_mutations.py
+│   │   ├── test_graphql_queries.py
+│   │   ├── test_graphql_read_only_source.py
+│   │   ├── test_heterogeneous.py
+│   │   ├── test_inconsistent_meta.py
+│   │   ├── test_jwk.py
+│   │   ├── test_jwt.py
+│   │   ├── test_jwt_claims_map.py
+│   │   ├── test_logging.py
+│   │   ├── test_metadata.py
+│   │   ├── test_naming_conventions.py
+│   │   ├── test_openapi.py
+│   │   ├── test_pg_dump.py
+│   │   ├── test_query_cache.py
+│   │   ├── test_remote_relationships.py
+│   │   ├── test_remote_schema_permissions.py
+│   │   ├── test_remote_schema_prioritize_data.py
+│   │   ├── test_remote_schema_prioritize_none.py
+│   │   ├── test_roles_inheritance.py
+│   │   ├── test_scheduled_triggers.py
+│   │   ├── test_schema_duplication.py
+│   │   ├── test_schema_stitching.py
+│   │   ├── test_subscriptions.py
+│   │   ├── test_tests.py
+│   │   ├── test_tests/
+│   │   ├── test_v1_queries.py
+│   │   ├── test_v1alpha1_endpoint.py
+│   │   ├── test_v2_queries.py
+│   │   ├── test_validation.py
+│   │   ├── test_version.py
+│   │   ├── test_webhook.py
+│   │   ├── test_webhook_insecure.py
+│   │   ├── test_webhook_request_context.py
+│   │   ├── test_websocket_init_cookie.py
+│   │   ├── utils.py
+│   │   ├── validate.py
+│   │   ├── webhook.py
+│   │   ├── webhook/
+│   │   └── webserver.py
+│   └── troubleshooting.md
+├── shell.nix
+├── translations/
+│   ├── CONTRIBUTING.chinese.md
+│   ├── CONTRIBUTING.french.md
+│   ├── README.bosnian.md
+│   ├── README.chinese.md
+│   ├── README.french.md
+│   ├── README.german.md
+│   ├── README.greek.md
+│   ├── README.indonesian.md
+│   ├── README.italian.md
+│   ├── README.japanese.md
+│   ├── README.korean.md
+│   ├── README.md
+│   ├── README.mx_spanish.md
+│   ├── README.portuguese_br.md
+│   ├── README.russian.md
+│   ├── README.turkish.md
+│   ├── SECURITY.french.md
+│   ├── SECURITY.hindi.md
+│   ├── SECURITY.kannada.md
+│   ├── SECURITY.malayalam.md
+│   ├── code-of-conduct.chinese.md
+│   ├── code-of-conduct.french.md
+│   ├── event-triggers.chinese.md
+│   ├── event-triggers.french.md
+│   ├── live-queries.chinese.md
+│   ├── remote-schemas.french.md
+│   ├── remote-schemas.hindi.md
+│   └── remote-schemas.kannada.md
+├── v3/
+│   ├── .cargo/
+│   │   ├── audit.toml
+│   │   └── config.toml
+│   ├── .dockerignore
+│   ├── .envrc
+│   ├── .envrc.local.example
+│   ├── .gitignore
+│   ├── .prettierignore
+│   ├── .prettierrc
+│   ├── CONTRIBUTING.md
+│   ├── Cargo.lock
+│   ├── Cargo.toml
+│   ├── Dockerfile
+│   ├── README.md
+│   ├── changelog.md
+│   ├── crates/
+│   │   ├── auth/
+│   │   ├── compatibility/
+│   │   ├── custom-connector/
+│   │   ├── engine-types/
+│   │   ├── engine/
+│   │   ├── execute/
+│   │   ├── graphql/
+│   │   ├── jsonapi/
+│   │   ├── metadata-resolve/
+│   │   ├── metadata-schema-generator/
+│   │   ├── open-dds/
+│   │   ├── plan-types/
+│   │   ├── plan/
+│   │   ├── plugins/
+│   │   ├── query-usage-analytics/
+│   │   └── utils/
+│   ├── custom-connector.Dockerfile
+│   ├── dev-auth-webhook.Dockerfile
+│   ├── docker-compose.yaml
+│   ├── docs/
+│   │   ├── architecture.md
+│   │   ├── errors.md
+│   │   └── roles-and-annotations.md
+│   ├── flake.lock
+│   ├── flake.nix
+│   ├── justfile
+│   ├── nix/
+│   │   ├── app.nix
+│   │   ├── docker.nix
+│   │   ├── rust.nix
+│   │   └── version
+│   ├── pre-ndc-request-plugin-example.Dockerfile
+│   ├── pre-ndc-response-plugin-example.Dockerfile
+│   ├── pre-parse-plugin-example.Dockerfile
+│   ├── rfcs/
+│   │   ├── aggregations.md
+│   │   ├── multiple-frontends.md
+│   │   ├── open-dd-boolean-expression-types.md
+│   │   ├── open-dd-expression-type-changes.md
+│   │   ├── open-dd-field-argument-types-changes.md
+│   │   └── support-for-multiple-auth-configs.md
+│   ├── rust-toolchain.toml
+│   └── static/
+│       ├── auth/
+│       └── metadata.json
+└── yarn.lock

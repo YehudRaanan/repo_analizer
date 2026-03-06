@@ -1,0 +1,441 @@
+=====================================
+Repository Analysis: tmux
+Type: CLI Tool
+=====================================
+
+--- METADATA ---
+Name: tmux
+Description: tmux source code
+Language: C
+Topics: N/A
+Stars: 42624
+License: Other
+
+--- README ---
+Welcome to tmux!
+
+tmux is a terminal multiplexer: it enables a number of terminals to be created,
+accessed, and controlled from a single screen. tmux may be detached from a
+screen and continue running in the background, then later reattached.
+
+This release runs on OpenBSD, FreeBSD, NetBSD, Linux, macOS and Solaris.
+
+* Dependencies
+
+tmux depends on libevent 2.x, available from:
+
+	https://github.com/libevent/libevent/releases/latest
+
+It also depends on ncurses, available from:
+
+	https://invisible-mirror.net/archives/ncurses/
+
+To build tmux, a C compiler (for example gcc or clang), make, pkg-config and a
+suitable yacc (yacc or bison) are needed.
+
+* Installation
+
+To build and install tmux from a release tarball, use:
+
+	$ ./configure && make
+	$ sudo make install
+
+tmux can use the utempter library to update utmp(5), if it is installed - run
+configure with --enable-utempter to enable this.
+
+To get and build the latest from version control - note that this requires
+autoconf, automake and pkg-config:
+
+	$ git clone https://github.com/tmux/tmux.git
+	$ cd tmux
+	$ sh autogen.sh
+	$ ./configure && make
+	$ sudo make install
+
+* Contributing
+
+Bug reports, feature suggestions and especially code contributions are most
+welcome. Please send by email to:
+
+	tmux-users@googlegroups.com
+
+Or open a GitHub issue or pull request.
+
+* Documentation
+
+For documentation on using tmux, see the tmux.1 manpage. View it from the
+source tree with:
+
+	$ nroff -mdoc tmux.1|less
+
+A small example configuration is in example_tmux.conf.
+
+Other documentation is available in the wiki:
+
+	https://github.com/tmux/tmux/wiki
+
+Also see the tmux FAQ at:
+
+	https://github.com/tmux/tmux/wiki/FAQ
+
+A bash(1) completion file is at:
+
+	https://github.com/scop/bash-completion/blob/main/completions/tmux
+
+For debugging, run tmux with -v and -vv to generate server and client log files
+in the current directory.
+
+* Support
+
+The tmux mailing list for general discussion and bug reports is:
+
+	https://groups.google.com/forum/#!forum/tmux-users
+
+Subscribe by sending an email to:
+
+	tmux-users+subscribe@googlegroups.com
+
+* License
+
+This file and the CHANGES files are licensed under the ISC license. All other
+files have a license and copyright notice at their start.
+
+
+--- PACKAGE MANIFEST(S) ---
+(No package manifest found)
+
+--- CLI ENTRY POINTS / COMMAND DEFINITIONS ---
+(No CLI entry points found)
+
+--- SHELL COMPLETIONS & MAN PAGES ---
+  tmux.1
+
+--- DIRECTORY STRUCTURE (depth 2) ---
+├── .github/
+│   ├── CONTRIBUTING.md
+│   ├── FUNDING.yml
+│   ├── ISSUE_TEMPLATE/
+│   │   ├── config.yml
+│   │   └── use-this-issue-template.md
+│   ├── README.md
+│   ├── travis/
+│   │   ├── before-install.sh
+│   │   ├── build-all.sh
+│   │   └── build.sh
+│   └── workflows/
+│       └── lock.yml
+├── .gitignore
+├── .mailmap
+├── .travis.yml
+├── CHANGES
+├── COPYING
+├── Makefile.am
+├── README
+├── README.ja
+├── SYNCING
+├── alerts.c
+├── arguments.c
+├── attributes.c
+├── autogen.sh
+├── cfg.c
+├── client.c
+├── cmd-attach-session.c
+├── cmd-bind-key.c
+├── cmd-break-pane.c
+├── cmd-capture-pane.c
+├── cmd-choose-tree.c
+├── cmd-command-prompt.c
+├── cmd-confirm-before.c
+├── cmd-copy-mode.c
+├── cmd-detach-client.c
+├── cmd-display-menu.c
+├── cmd-display-message.c
+├── cmd-display-panes.c
+├── cmd-find-window.c
+├── cmd-find.c
+├── cmd-if-shell.c
+├── cmd-join-pane.c
+├── cmd-kill-pane.c
+├── cmd-kill-server.c
+├── cmd-kill-session.c
+├── cmd-kill-window.c
+├── cmd-list-buffers.c
+├── cmd-list-clients.c
+├── cmd-list-commands.c
+├── cmd-list-keys.c
+├── cmd-list-panes.c
+├── cmd-list-sessions.c
+├── cmd-list-windows.c
+├── cmd-load-buffer.c
+├── cmd-lock-server.c
+├── cmd-move-window.c
+├── cmd-new-session.c
+├── cmd-new-window.c
+├── cmd-parse.y
+├── cmd-paste-buffer.c
+├── cmd-pipe-pane.c
+├── cmd-queue.c
+├── cmd-refresh-client.c
+├── cmd-rename-session.c
+├── cmd-rename-window.c
+├── cmd-resize-pane.c
+├── cmd-resize-window.c
+├── cmd-respawn-pane.c
+├── cmd-respawn-window.c
+├── cmd-rotate-window.c
+├── cmd-run-shell.c
+├── cmd-save-buffer.c
+├── cmd-select-layout.c
+├── cmd-select-pane.c
+├── cmd-select-window.c
+├── cmd-send-keys.c
+├── cmd-server-access.c
+├── cmd-set-buffer.c
+├── cmd-set-environment.c
+├── cmd-set-option.c
+├── cmd-show-environment.c
+├── cmd-show-messages.c
+├── cmd-show-options.c
+├── cmd-show-prompt-history.c
+├── cmd-source-file.c
+├── cmd-split-window.c
+├── cmd-swap-pane.c
+├── cmd-swap-window.c
+├── cmd-switch-client.c
+├── cmd-unbind-key.c
+├── cmd-wait-for.c
+├── cmd.c
+├── colour.c
+├── compat.h
+├── compat/
+│   ├── asprintf.c
+│   ├── base64.c
+│   ├── bitstring.h
+│   ├── cfmakeraw.c
+│   ├── clock_gettime.c
+│   ├── closefrom.c
+│   ├── daemon-darwin.c
+│   ├── daemon.c
+│   ├── err.c
+│   ├── explicit_bzero.c
+│   ├── fdforkpty.c
+│   ├── fgetln.c
+│   ├── forkpty-aix.c
+│   ├── forkpty-haiku.c
+│   ├── forkpty-hpux.c
+│   ├── forkpty-sunos.c
+│   ├── freezero.c
+│   ├── getdtablecount.c
+│   ├── getdtablesize.c
+│   ├── getline.c
+│   ├── getopt_long.c
+│   ├── getpeereid.c
+│   ├── getprogname.c
+│   ├── htonll.c
+│   ├── imsg-buffer.c
+│   ├── imsg.c
+│   ├── imsg.h
+│   ├── memmem.c
+│   ├── ntohll.c
+│   ├── queue.h
+│   ├── reallocarray.c
+│   ├── recallocarray.c
+│   ├── setenv.c
+│   ├── setproctitle.c
+│   ├── strcasestr.c
+│   ├── strlcat.c
+│   ├── strlcpy.c
+│   ├── strndup.c
+│   ├── strnlen.c
+│   ├── strsep.c
+│   ├── strtonum.c
+│   ├── systemd.c
+│   ├── tree.h
+│   ├── unvis.c
+│   ├── utf8proc.c
+│   ├── vis.c
+│   └── vis.h
+├── configure.ac
+├── control-notify.c
+├── control.c
+├── environ.c
+├── example_tmux.conf
+├── file.c
+├── format-draw.c
+├── format.c
+├── fuzz/
+│   ├── input-fuzzer.c
+│   ├── input-fuzzer.dict
+│   └── input-fuzzer.options
+├── grid-reader.c
+├── grid-view.c
+├── grid.c
+├── hyperlinks.c
+├── image-sixel.c
+├── image.c
+├── input-keys.c
+├── input.c
+├── job.c
+├── key-bindings.c
+├── key-string.c
+├── layout-custom.c
+├── layout-set.c
+├── layout.c
+├── log.c
+├── logo/
+│   ├── LICENSE
+│   ├── favicon.ico
+│   ├── icons/
+│   │   ├── 128x128/
+│   │   ├── 16x16/
+│   │   ├── 24x24/
+│   │   ├── 32x32/
+│   │   ├── 48x48/
+│   │   ├── 64x64/
+│   │   └── 96x96/
+│   ├── tmux-logo-1-color.eps
+│   ├── tmux-logo-1-color.svg
+│   ├── tmux-logo-huge.png
+│   ├── tmux-logo-large.png
+│   ├── tmux-logo-medium.png
+│   ├── tmux-logo-small.png
+│   ├── tmux-logo.eps
+│   ├── tmux-logo.svg
+│   ├── tmux-logomark.eps
+│   └── tmux-logomark.svg
+├── mdoc2man.awk
+├── menu.c
+├── mode-tree.c
+├── names.c
+├── notify.c
+├── options-table.c
+├── options.c
+├── osdep-aix.c
+├── osdep-cygwin.c
+├── osdep-darwin.c
+├── osdep-dragonfly.c
+├── osdep-freebsd.c
+├── osdep-haiku.c
+├── osdep-hpux.c
+├── osdep-linux.c
+├── osdep-netbsd.c
+├── osdep-openbsd.c
+├── osdep-sunos.c
+├── osdep-unknown.c
+├── paste.c
+├── popup.c
+├── presentations/
+│   ├── tmux_asiabsdcon11.odt
+│   ├── tmux_asiabsdcon11.pdf
+│   └── tmux_linuxtag_2011.odp
+├── proc.c
+├── regress/
+│   ├── Makefile
+│   ├── UTF-8-test.txt
+│   ├── am-terminal.sh
+│   ├── border-arrows.sh
+│   ├── capture-pane-hyperlink.sh
+│   ├── capture-pane-sgr0.sh
+│   ├── combine-test.result
+│   ├── combine-test.sh
+│   ├── command-order.sh
+│   ├── conf-syntax.sh
+│   ├── conf/
+│   │   ├── 01840240e807e837dbf76d85b4b938de.conf
+│   │   ├── 21867280ff7e99631046f9cc669b80d2.conf
+│   │   ├── 29813ff35544434e2e64dc879a8dd274.conf
+│   │   ├── 2eae5d47049c1f6d0bef3db4e171aed7.conf
+│   │   ├── 327af72ad372255817b585a74da06eda.conf
+│   │   ├── 58304907c117cab9898ea0b070bccde3.conf
+│   │   ├── 872441a98b06444acc5ce08eb24aabde.conf
+│   │   ├── 91378fd400b0444eb8cac471e30642b3.conf
+│   │   ├── 99749670b62bcb99a9b2e3d59708e357.conf
+│   │   ├── a46e6e84cd1071105aa807256dbc158d.conf
+│   │   ├── a4789a6782859c66aa8c9614ee6fabfa.conf
+│   │   ├── ad0537c4e83d7a25d5dc4f3a3c571349.conf
+│   │   ├── ad21dbb0893240563ddfdd954b9903a1.conf
+│   │   ├── b9f0ce1976ec62ec60dc5da7dd92c160.conf
+│   │   ├── d0040b2e097f1e3d31d78eed6ce8d461.conf
+│   │   ├── d2e576f947e108eb9903679b65c81fbc.conf
+│   │   ├── d41d8cd98f00b204e9800998ecf8427e.conf
+│   │   ├── dfd579a114a8366b5a665c264e29c084.conf
+│   │   ├── e2661d67d0d45a8647fb95de76ec8174.conf
+│   │   ├── ed08995f38b5a3079262a88d2563abe4.conf
+│   │   └── f4f1cdb9d518c2f7808a4915299f2524.conf
+│   ├── control-client-sanity.sh
+│   ├── control-client-size.sh
+│   ├── copy-mode-test-emacs.sh
+│   ├── copy-mode-test-vi.sh
+│   ├── copy-mode-test.txt
+│   ├── cursor-test.txt
+│   ├── cursor-test1.result
+│   ├── cursor-test1.sh
+│   ├── cursor-test2.result
+│   ├── cursor-test2.sh
+│   ├── cursor-test3.result
+│   ├── cursor-test3.sh
+│   ├── cursor-test4.result
+│   ├── cursor-test4.sh
+│   ├── decrqm-sync.sh
+│   ├── format-strings.sh
+│   ├── has-session-return.sh
+│   ├── if-shell-TERM.sh
+│   ├── if-shell-error.sh
+│   ├── if-shell-nested.sh
+│   ├── input-keys.sh
+│   ├── kill-session-process-exit.sh
+│   ├── new-session-base-index.sh
+│   ├── new-session-command.sh
+│   ├── new-session-environment.sh
+│   ├── new-session-no-client.sh
+│   ├── new-session-size.sh
+│   ├── new-window-command.sh
+│   ├── osc-11colours.sh
+│   ├── run-shell-output.sh
+│   ├── session-group-resize.sh
+│   ├── style-trim.sh
+│   ├── tty-keys.sh
+│   ├── utf8-test.result
+│   └── utf8-test.sh
+├── regsub.c
+├── resize.c
+├── screen-redraw.c
+├── screen-write.c
+├── screen.c
+├── server-acl.c
+├── server-client.c
+├── server-fn.c
+├── server.c
+├── session.c
+├── sort.c
+├── spawn.c
+├── status.c
+├── style.c
+├── tmux-protocol.h
+├── tmux.1
+├── tmux.c
+├── tmux.h
+├── tools/
+│   ├── 24-bit-color.sh
+│   ├── 256colors.pl
+│   ├── UTF-8-demo.txt
+│   ├── ansicode.txt
+│   ├── cmp-cvs.sh
+│   └── image.sixel
+├── tty-acs.c
+├── tty-draw.c
+├── tty-features.c
+├── tty-keys.c
+├── tty-term.c
+├── tty.c
+├── utf8-combined.c
+├── utf8.c
+├── window-buffer.c
+├── window-client.c
+├── window-clock.c
+├── window-copy.c
+├── window-customize.c
+├── window-tree.c
+├── window.c
+├── xmalloc.c
+└── xmalloc.h

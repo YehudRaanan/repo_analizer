@@ -1,0 +1,1190 @@
+=====================================
+Repository Analysis: graphql
+Type: Web Application
+=====================================
+
+--- METADATA ---
+Name: graphql
+Description: RedwoodGraphQL
+Language: TypeScript
+Topics: apollo, graphql, jamstack, prisma, react
+Stars: 17639
+License: MIT License
+
+--- README ---
+<p align="center">
+  <img src="https://avatars2.githubusercontent.com/u/45050444?v=4" width="200" />
+  <h1 align="center">RedwoodGraphQL</h1>
+</p>
+
+_by Tom Preston-Werner, Peter Pistorius, Rob Cameron, David Price, and more than
+250 amazing contributors (see end of file for a full list)._
+
+**NOTE**
+
+> ⚡ **Big News** — We’ve launched **[RedwoodSDK](https://github.com/redwoodjs/sdk)**, a modern React framework for building full-stack web apps on Cloudflare.
+
+---
+
+## 🌲 RedwoodSDK — React on Cloudflare
+
+RedwoodSDK starts as a **Vite plugin** and unlocks:
+
+- **SSR** (Server-Side Rendering)
+- **React Server Components**
+- **Server Functions**
+- **Streaming + Realtime**
+- Local dev parity with **Miniflare**
+- First-class Cloudflare services: **Workers**, **D1**, **Durable Objects**, **R2**, **Queues**, and more
+
+All while keeping to **web standards** — you write with native `Request`/`Response` and the modern Web APIs you already know.
+
+---
+
+### 🚀 Try it in seconds
+
+```bash
+npx create-rwsdk my-project-name
+cd my-project-name
+npm run dev
+```
+
+📚 [Read the docs](https://docs.rwsdk.com)  
+⚡ [Quick Start Guide](https://docs.rwsdk.com/getting-started/quick-start)
+
+---
+
+## 🙌 How You Can Help
+
+We’d love for the Redwood community to be part of this from day one:
+
+1. **Try it out** — Follow the Quick Start and build something small.
+2. **Give feedback** — Tell us what works, what’s confusing, and what could be better.
+3. **Spread the word** — Share RedwoodSDK with your friends, coworkers, and followers.
+4. **Star the repo** — Stars help more developers discover RedwoodSDK.
+
+---
+
+## 📌 Links
+
+- ⭐ **Star RedwoodSDK**: [https://github.com/redwoodjs/sdk](https://github.com/redwoodjs/sdk)
+- 📚 Docs: [https://docs.rwsdk.com](https://docs.rwsdk.com)
+- 💬 Discord: [https://discord.gg/redwoodjs](https://discord.gg/redwoodjs)
+- 🌐 Website: [https://rwsdk.com](https://rwsdk.com)
+
+---
+
+Thank you for being part of the Redwood journey — we can’t wait to see what you build with **RedwoodSDK**! ❤️
+
+---
+
+# RedwoodJS GraphQL
+
+## Bighorn Epoch (current development epoch)
+
+> **NOTE:** This section of the Readme is aspirational for the current development
+> epoch we call Bighorn. Bighorn has not yet been released, but when it is, it will
+> fulfill the promises of what you read below. If you’d like to help us on this
+> journey, please say hi in the [Community Forums](https://redwoodjs.com/community)!
+
+**Redwood is a framework for quickly creating React-based web applications that
+provide an amazing end user experience.** Our goal is to be simple and approachable
+enough for use in prototypes and hackathons, but performant and comprehensive enough
+to evolve into your next startup.
+
+We accomplish this in two primary ways:
+
+1. Redwood is opinionated and full-stack. We’ve chosen the best technologies in the
+   JS/TS ecosystem and beautifully integrated them into a cohesive framework that
+   lets you get things done instead of endlessly evaluating technology options. You
+   can get started using Redwood without a backend, but the framework really shines
+   when you’re building a data driven application. Our transparent data fetching and
+   optional GraphQL API make building and growing your application easier than you
+   expect!
+
+2. Redwood’s declarative data fetching and simple form submission features are built
+   on top of RSC + Server Actions and simplify common use cases so you can focus on
+   your users’ experience. Creating the best, most responsive user interfaces
+   requires reasoning about whether code should execute on the server or the client.
+   Redwood makes it easy to choose the best execution context for your code by
+   leveraging the power of React Server Components.
+
+The entire framework is built with TypeScript, so you get type safety from the router
+to the database and everywhere in-between. If you’d rather build your app with
+JavaScript, you can do that too, and still enjoy great code completion features in
+your favorite editor.
+
+> **TRY BIGHORN:** While Bighorn does not yet have a production release, we do
+> publish the latest code as canaries, and we welcome you to experiment with them!
+> The best way to get familiar with these canaries is to keep an eye on the [Redwood
+> Blog](https://redwoodjs.com/blog).
+
+## Arapahoe Epoch (current stable release)
+
+**Redwood is an opinionated, full-stack, JavaScript/TypeScript web application
+framework designed to keep you moving fast as your app grows from side project to
+startup.**
+
+At the highest level, a Redwood app is a React frontend that talks to a custom
+GraphQL API. The API uses Prisma to operate on a database. Out of the box you get
+tightly integrated testing with Jest, logging with Pino, and a UI component catalog
+with Storybook. Setting up authentication (like Auth0) or CSS frameworks (like
+Tailwind CSS) are a single command line invocation away. And to top it off, Redwood's
+architecture allows you to deploy to either serverless providers (e.g. Netlify,
+Vercel) or traditional server an
+... [TRUNCATED]
+
+--- PACKAGE MANIFEST(S) ---
+
+[package.json]
+{
+  "private": true,
+  "license": "MIT",
+  "workspaces": [
+    "packages/*",
+    "packages/adapters/*/*",
+    "packages/auth-providers/*/*",
+    "packages/cli-packages/*",
+    "packages/mailer/core",
+    "packages/mailer/handlers/*",
+    "packages/mailer/renderers/*",
+    "!packages/create-redwood-rsc-app"
+  ],
+  "scripts": {
+    "build": "nx run-many -t build",
+    "build:clean": "node ./tasks/clean.mjs",
+    "build:clean:super": "git clean -fdx && yarn && yarn build",
+    "build:pack": "nx run-many -t build:pack",
+    "build:test-project": "node ./tasks/test-project/test-project",
+    "build:watch": "lerna run build:watch --parallel; tsc --build",
+    "changesets": "tsx ./tasks/changesets/changesets.mts",
+    "check": "cross-env yarn constraints && yarn dedupe --check",
+    "check:package": "nx run-many -t check:package --output-style static",
+    "clean:prisma": "rimraf node_modules/.prisma/client && node node_modules/@prisma/client/scripts/postinstall.js",
+    "e2e": "node ./tasks/run-e2e",
+    "e2e:background-jobs": "tsx ./tasks/e2e-background-jobs/run.mts",
+    "format": "prettier . --write",
+    "format:check": "prettier . --check",
+    "generate-dependency-graph": "node ./tasks/generateDependencyGraph.mjs",
+    "install:all": "concurrently -g -c auto -n install:fw \"yarn install\" npm:install:crwrsca",
+    "install:ci": "concurrently -g -c auto -n install:fw:ci \"yarn install --inline-builds\" npm:install:crwrsca:ci",
+    "install:crwrsca": "yarn --cwd packages/create-redwood-rsc-app install",
+    "install:crwrsca:ci": "yarn --cwd packages/create-redwood-rsc-app install --inline-builds",
+    "lint": "concurrently -c auto npm:lint:fw npm:lint:crwrsca",
+    "lint:crwrsca": "yarn --cwd packages/create-redwood-rsc-app run lint",
+    "lint:fix": "yarn lint --fix",
+    "lint:fw": "cross-env RWJS_CWD=packages/create-redwood-app/templates/ts eslint --config .eslintrc.js --ignore-pattern Routes.jsx --ignore-pattern create-redwood-rsc-app packages",
+    "project:copy": "node ./tasks/framework-tools/frameworkFilesToProject.mjs",
+    "project:deps": "node ./tasks/framework-tools/frameworkDepsToProject.mjs",
+    "project:sync": "node ./tasks/framework-tools/frameworkSyncToProject.mjs",
+    "project:tarsync": "tsx ./tasks/framework-tools/tarsync/bin.mts",
+    "rebuild-fragments-test-project-fixture": "tsx ./tasks/test-project/rebuild-fragments-test-project-fixture.ts",
+    "rebuild-test-project-fixture": "tsx ./tasks/test-project/rebuild-test-project-fixture.ts",
+    "smoke-tests": "node ./tasks/smoke-tests/smoke-tests.mjs",
+    "test": "nx run-many -t test -- --minWorkers=1 --maxWorkers=4",
+    "test-ci": "nx run-many -t test",
+    "test:k6": "tsx ./tasks/k6-test/run-k6-tests.mts",
+    "test:types": "nx run-many -t test:types"
+  },
+  "resolutions": {
+    "@storybook/react-dom-shim@npm:7.6.20": "https://verdaccio.tobbe.dev/@storybook/react-dom-shim/-/react-dom-shim-8.0.8.tgz",
+    "vscode-languageserver": "6.1.1",
+    "vscode-languageserver-protocol": 
+... [TRUNCATED]
+
+--- WEB FRAMEWORK CONFIG ---
+
+[tsconfig.json]
+{
+  "references": [
+    { "path": "packages/internal" },
+    { "path": "packages/structure" },
+    { "path": "packages/api" },
+    { "path": "packages/api-server" },
+    { "path": "packages/auth" },
+    { "path": "packages/web" },
+    { "path": "packages/router" },
+    { "path": "packages/testing" },
+    { "path": "packages/prerender" },
+    { "path": "packages/graphql-server" },
+    { "path": "packages/forms" },
+    { "path": "packages/codemods" }
+  ],
+  "files": []
+}
+
+
+--- ROUTE / PAGE DEFINITIONS ---
+
+[__fixtures__/empty-project/web/src/Routes.tsx]
+// In this file, all Page components from 'src/pages` are auto-imported. Nested
+// directories are supported, and should be uppercase. Each subdirectory will be
+// prepended onto the component name.
+//
+// Examples:
+//
+// 'src/pages/HomePage/HomePage.js'         -> HomePage
+// 'src/pages/Admin/BooksPage/BooksPage.js' -> AdminBooksPage
+
+import { Router, Route } from '@redwoodjs/router'
+
+const Routes = () => {
+  return (
+    <Router>
+      <Route notfound page={NotFoundPage} />
+    </Router>
+  )
+}
+
+export default Routes
+
+
+[__fixtures__/empty-project/web/src/pages/FatalErrorPage/FatalErrorPage.tsx]
+// This page will be rendered when an error makes it all the way to the top of the
+// application without being handled by a Javascript catch statement or React error
+// boundary.
+//
+// You can modify this page as you wish, but it is important to keep things simple to
+// avoid the possibility that it will cause its own error. If it does, Redwood will
+// still render a generic error page, but your users will prefer something a bit more
+// thoughtful. =)
+
+// Ensures that production builds do not include the error page
+let RedwoodDevFatalErrorPage = undefined
+if (process.env.NODE_ENV === 'development') {
+  RedwoodDevFatalErrorPage = require('@redwoodjs/web').DevFatalErrorPage
+}
+
+export default RedwoodDevFatalErrorPage ||
+  (() => (
+    <main>
+      <style
+        dangerouslySetInnerHTML={{
+          __html: `
+              html, body {
+                margin: 0;
+              }
+              html * {
+                box-sizing: border-box;
+              }
+              main {
+                display: flex;
+                align-items: center;
+                font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif;
+                text-align: center;
+                background-color: #E2E8F0;
+                height: 100vh;
+              }
+              section {
+                background-color: white;
+                border-radius: 0.25rem;
+                width: 32rem;
+                padding: 1rem;
+                margin: 0 auto;
+                box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+              }
+              h1 {
+                font-size: 2rem;
+                margin: 0;
+                font-weight: 500;
+                line-height: 1;
+                color: #2D3748;
+              }
+            `,
+        }}
+      />
+      <section>
+        <h1>
+          <span>Something went wrong</span>
+        </h1>
+      </section>
+    </main>
+  ))
+
+
+[__fixtures__/empty-project/web/src/pages/NotFoundPage/NotFoundPage.tsx]
+export default () => (
+  <main>
+    <style
+      dangerouslySetInnerHTML={{
+        __html: `
+              html, body {
+                margin: 0;
+              }
+              html * {
+                box-sizing: border-box;
+              }
+              main {
+                display: flex;
+                align-items: center;
+                font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif;
+                text-align: center;
+                background-color: #E2E8F0;
+                height: 100vh;
+              }
+              section {
+                background-color: white;
+                border-radius: 0.25rem;
+                width: 32rem;
+                padding: 1rem;
+                margin: 0 auto;
+                box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+              }
+              h1 {
+                font-size: 2rem;
+                margin: 0;
+                font-weight: 500;
+                line-height: 1;
+                color: #2D3748;
+              }
+            `,
+      }}
+    />
+    <section>
+      <h1>
+        <span>404 Page Not Found</span>
+      </h1>
+    </section>
+  </main>
+)
+
+
+[__fixtures__/example-todo-main-with-errors/web/src/Routes.js]
+// In this file, all Page components from 'src/pages` are auto-imported. Nested
+// directories are supported, and should be uppercase. Each subdirectory will be
+// prepended onto the component name.
+//
+// Examples:
+//
+// 'src/pages/HomePage/HomePage.js'         -> HomePage
+// 'src/pages/Admin/BooksPage/BooksPage.js' -> AdminBooksPage
+
+import { Router, Route } from '@redwoodjs/router'
+
+const Routes = () => {
+  return (
+    <Router>
+      <Route path="/" page={HomePage} name="home" />
+      <Route path="/" page={HomePage} name="home" />
+      <Route path="/{foo}/{foo}" page={DoesNotExist} name="something-else" />
+      <Route page={NotFoundPage} />
+    </Router>
+  )
+}
+
+export default Routes
+
+
+[__fixtures__/example-todo-main-with-errors/web/src/pages/FatalErrorPage/FatalErrorPage.js]
+// This page will be rendered when an error makes it all the way to the top of
+// the application without being handled by a Javascript catch statement or
+// React error boundary.
+//
+// You can modify this page as you wish, but it is critically important to keep
+// things simple to avoid the possibility that it will cause its own error. If
+// it does, the user will receive a blank page.
+
+const FatalErrorPage = () => {
+  return <h1>Something went wrong.</h1>
+}
+
+export default FatalErrorPage
+
+
+--- DIRECTORY STRUCTURE (depth 2) ---
+├── .changesets/
+│   ├── 11380.md
+│   ├── 11447.md
+│   ├── 11458.md
+│   ├── 11459.md
+│   ├── 11469.md
+│   ├── 11531.md
+│   ├── 11533.md
+│   ├── 11534.md
+│   ├── 11540.md
+│   ├── 11542.md
+│   ├── 11572.md
+│   ├── 11578.md
+│   ├── 11587.md
+│   ├── 11591.md
+│   ├── 11593.md
+│   ├── 11601.md
+│   ├── 11605.md
+│   ├── 11638.md
+│   ├── 11639.md
+│   ├── 11645.md
+│   ├── 11651.md
+│   ├── 11653.md
+│   ├── 11684.md
+│   ├── 11691.md
+│   ├── 11693.md
+│   ├── 11718.md
+│   ├── 11724.md
+│   ├── 11731.md
+│   ├── 11737.md
+│   ├── 11744.md
+│   ├── 11745.md
+│   ├── 11746.md
+│   ├── 11748.md
+│   ├── 11758.md
+│   ├── 11766.md
+│   ├── 11771.md
+│   ├── 11773.md
+│   ├── 11776.md
+│   ├── 11862.md
+│   ├── 11869.md
+│   ├── 11878.md
+│   ├── 11879.md
+│   ├── 11889.md
+│   ├── 11920.md
+│   ├── 11931.md
+│   ├── 11946.md
+│   ├── 11957.md
+│   ├── 11966.md
+│   ├── 11981.md
+│   ├── 11985.md
+│   ├── 11988.md
+│   ├── 11989.md
+│   ├── 12093.md
+│   └── 12102.md
+├── .dependency-cruiser.mjs
+├── .devcontainer/
+│   └── devcontainer.json
+├── .editorconfig
+├── .eslintrc.js
+├── .gitattributes
+├── .github/
+│   ├── ISSUE_TEMPLATE/
+│   │   ├── bug-report.yml
+│   │   ├── config.yml
+│   │   ├── documentation.yml
+│   │   └── rfc.yml
+│   ├── actions/
+│   │   ├── actionsLib.mjs
+│   │   ├── check_changesets/
+│   │   ├── check_create_redwood_app/
+│   │   ├── detect-changes/
+│   │   ├── message_slack_publishing/
+│   │   ├── require-milestone/
+│   │   ├── set-up-job/
+│   │   ├── set-up-rsa-project/
+│   │   ├── set-up-rsc-kitchen-sink-project/
+│   │   ├── set-up-rsc-project/
+│   │   ├── set-up-test-project/
+│   │   ├── set-up-yarn-cache/
+│   │   └── telemetry_check/
+│   ├── codeql/
+│   │   └── codeql-config.yml
+│   ├── renovate.json
+│   ├── scripts/
+│   │   └── publish_canary.sh
+│   └── workflows/
+│       ├── check-changelog.yml.disabled
+│       ├── check-create-redwood-app.yml.disabled
+│       ├── check-test-project-fixture.yml.disabled
+│       ├── ci.yml.disabled
+│       ├── codeql-analysis.yml.disabled
+│       ├── publish-canary.yml.disabled
+│       ├── publish-release-candidate.yml.disabled
+│       ├── require-milestone.yml.disabled
+│       ├── require-release-label.yml.disabled
+│       ├── scorecard.yml.disabled
+│       └── simple-ci.yml
+├── .gitignore
+├── .ona/
+│   └── automations.yaml
+├── .prettierignore
+├── .vscode/
+│   ├── README.md
+│   ├── extensions.json
+│   └── settings.json
+├── .yarnrc.yml
+├── CHANGELOG.md
+├── CODE_OF_CONDUCT.md
+├── CONTRIBUTING.md
+├── CONTRIBUTORS.md
+├── LICENSE
+├── README.md
+├── SECURITY.md
+├── __fixtures__/
+│   ├── empty-project/
+│   │   ├── .editorconfig
+│   │   ├── .env.defaults
+│   │   ├── .env.example
+│   │   ├── .gitignore
+│   │   ├── .nvmrc
+│   │   ├── .vscode/
+│   │   ├── README.md
+│   │   ├── api/
+│   │   ├── graphql.config.js
+│   │   ├── jest.config.js
+│   │   ├── package.json
+│   │   ├── prettier.config.js
+│   │   ├── redwood.toml
+│   │   ├── scripts/
+│   │   └── web/
+│   ├── example-todo-main-with-errors/
+│   │   ├── .gitignore
+│   │   ├── .vscode/
+│   │   ├── LICENSE
+│   │   ├── README.md
+│   │   ├── api/
+│   │   ├── babel.config.js
+│   │   ├── package.json
+│   │   ├── prettier.config.js
+│   │   ├── redwood.toml
+│   │   └── web/
+│   ├── example-todo-main/
+│   │   ├── .gitignore
+│   │   ├── .vscode/
+│   │   ├── LICENSE
+│   │   ├── README.md
+│   │   ├── api/
+│   │   ├── babel.config.js
+│   │   ├── netlify.toml
+│   │   ├── package.json
+│   │   ├── prettier.config.js
+│   │   ├── redwood.toml
+│   │   └── web/
+│   ├── fragment-test-project/
+│   │   ├── .editorconfig
+│   │   ├── .env.defaults
+│   │   ├── .env.example
+│   │   ├── .gitignore
+│   │   ├── .redwood/
+│   │   ├── .vscode/
+│   │   ├── .yarnrc.yml
+│   │   ├── README.md
+│   │   ├── api/
+│   │   ├── graphql.config.js
+│   │   ├── jest.config.js
+│   │   ├── package.json
+│   │   ├── prettier.config.js
+│   │   ├── redwood.toml
+│   │   ├── scripts/
+│   │   └── web/
+│   ├── rsc-caching/
+│   │   ├── .editorconfig
+│   │   ├── .env.defaults
+│   │   ├── .env.example
+│   │   ├── .gitignore
+│   │   ├── .gitpod.yml
+│   │   ├── .redwood/
+│   │   ├── .vscode/
+│   │   ├── .yarnrc.yml
+│   │   ├── README.md
+│   │   ├── api/
+│   │   ├── graphql.config.js
+│   │   ├── jest.config.js
+│   │   ├── package.json
+│   │   ├── prettier.config.js
+│   │   ├── redwood.toml
+│   │   ├── scripts/
+│   │   └── web/
+│   ├── test-project-rsa/
+│   │   ├── .editorconfig
+│   │   ├── .env.defaults
+│   │   ├── .env.example
+│   │   ├── .gitignore
+│   │   ├── .gitpod.yml
+│   │   ├── .redwood/
+│   │   ├── .vscode/
+│   │   ├── .yarnrc.yml
+│   │   ├── README.md
+│   │   ├── api/
+│   │   ├── graphql.config.js
+│   │   ├── jest.config.js
+│   │   ├── package.json
+│   │   ├── prettier.config.js
+│   │   ├── redwood.toml
+│   │   ├── scripts/
+│   │   └── web/
+│   ├── test-project-rsc-kitchen-sink/
+│   │   ├── .editorconfig
+│   │   ├── .env.defaults
+│   │   ├── .env.example
+│   │   ├── .gitignore
+│   │   ├── .gitpod.yml
+│   │   ├── .redwood/
+│   │   ├── .vscode/
+│   │   ├── .yarnrc.yml
+│   │   ├── README.md
+│   │   ├── api/
+│   │   ├── graphql.config.js
+│   │   ├── jest.config.js
+│   │   ├── package.json
+│   │   ├── prettier.config.js
+│   │   ├── redwood.toml
+│   │   ├── scripts/
+│   │   └── web/
+│   └── test-project/
+│       ├── .editorconfig
+│       ├── .env.defaults
+│       ├── .env.example
+│       ├── .gitignore
+│       ├── .redwood/
+│       ├── .vscode/
+│       ├── .yarnrc.yml
+│       ├── README.md
+│       ├── api/
+│       ├── graphql.config.js
+│       ├── jest.config.js
+│       ├── package.json
+│       ├── prettier.config.js
+│       ├── redwood.toml
+│       ├── scripts/
+│       └── web/
+├── babel.config.js
+├── docs/
+│   ├── .eslintrc.js
+│   ├── .gitignore
+│   ├── .node-version
+│   ├── README.md
+│   ├── docs/
+│   │   ├── ReactPlayer.jsx
+│   │   ├── a11y.md
+│   │   ├── app-configuration-redwood-toml.md
+│   │   ├── assets-and-files.md
+│   │   ├── auth/
+│   │   ├── authentication.md
+│   │   ├── background-jobs.md
+│   │   ├── builds.md
+│   │   ├── cells.md
+│   │   ├── cli-commands.md
+│   │   ├── connection-pooling.md
+│   │   ├── contributing-overview.md
+│   │   ├── contributing-walkthrough.md
+│   │   ├── cors.md
+│   │   ├── create-redwood-app.md
+│   │   ├── data-migrations.md
+│   │   ├── database-seeds.md
+│   │   ├── deploy/
+│   │   ├── directives.md
+│   │   ├── docker.md
+│   │   ├── environment-variables.md
+│   │   ├── forms.md
+│   │   ├── graphql.md
+│   │   ├── graphql/
+│   │   ├── how-to/
+│   │   ├── intro-to-servers.md
+│   │   ├── introduction.md
+│   │   ├── local-postgres-setup.md
+│   │   ├── logger.md
+│   │   ├── mailer.md
+│   │   ├── monitoring/
+│   │   ├── prerender.md
+│   │   ├── project-configuration-dev-test-build.mdx
+│   │   ├── quick-start.md
+│   │   ├── realtime.md
+│   │   ├── redwoodrecord.md
+│   │   ├── router.md
+│   │   ├── schema-relations.md
+│   │   ├── security.md
+│   │   ├── seo-head.md
+│   │   ├── server-file.md
+│   │   ├── serverless-functions.md
+│   │   ├── services.md
+│   │   ├── storybook.md
+│   │   ├── studio.md
+│   │   ├── testing.md
+│   │   ├── toast-notifications.md
+│   │   ├── tutorial/
+│   │   ├── typescript/
+│   │   ├── upgrade-guides/
+│   │   ├── uploads.md
+│   │   ├── vite-configuration.md
+│   │   └── webhooks.md
+│   ├── docusaurus.config.ts
+│   ├── i18n/
+│   │   └── en/
+│   ├── ignore_build.mjs
+│   ├── netlify.toml
+│   ├── package.json
+│   ├── prettier.config.js
+│   ├── sidebars.js
+│   ├── src/
+│   │   ├── components/
+│   │   ├── css/
+│   │   ├── pages/
+│   │   ├── remark/
+│   │   ├── theme/
+│   │   └── utils/
+│   ├── static/
+│   │   ├── .nojekyll
+│   │   └── img/
+│   ├── tsconfig.json
+│   ├── versioned_docs/
+│   │   ├── version-1.x/
+│   │   ├── version-2.x/
+│   │   ├── version-3.x/
+│   │   ├── version-4.x/
+│   │   ├── version-5.x/
+│   │   ├── version-6.x/
+│   │   ├── version-7.x/
+│   │   ├── version-8.0/
+│   │   ├── version-8.1/
+│   │   ├── version-8.2/
+│   │   ├── version-8.3/
+│   │   ├── version-8.4/
+│   │   ├── version-8.5/
+│   │   ├── version-8.6/
+│   │   ├── version-8.7/
+│   │   └── version-8.8/
+│   ├── versioned_sidebars/
+│   │   ├── version-1.x-sidebars.json
+│   │   ├── version-2.x-sidebars.json
+│   │   ├── version-3.x-sidebars.json
+│   │   ├── version-4.x-sidebars.json
+│   │   ├── version-5.x-sidebars.json
+│   │   ├── version-6.x-sidebars.json
+│   │   ├── version-7.x-sidebars.json
+│   │   ├── version-8.0-sidebars.json
+│   │   ├── version-8.1-sidebars.json
+│   │   ├── version-8.2-sidebars.json
+│   │   ├── version-8.3-sidebars.json
+│   │   ├── version-8.4-sidebars.json
+│   │   ├── version-8.5-sidebars.json
+│   │   ├── version-8.6-sidebars.json
+│   │   ├── version-8.7-sidebars.json
+│   │   └── version-8.8-sidebars.json
+│   ├── versions.json
+│   └── yarn.lock
+├── lerna.json
+├── nx.json
+├── package.json
+├── packages/
+│   ├── adapters/
+│   │   └── fastify/
+│   ├── api-server/
+│   │   ├── .babelrc.js
+│   │   ├── .gitignore
+│   │   ├── README.md
+│   │   ├── ambient.d.ts
+│   │   ├── build.mts
+│   │   ├── dist.test.ts
+│   │   ├── package.json
+│   │   ├── src/
+│   │   ├── tsconfig.build.json
+│   │   ├── tsconfig.json
+│   │   └── vitest.config.mts
+│   ├── api/
+│   │   ├── README.md
+│   │   ├── build.mts
+│   │   ├── package.json
+│   │   ├── src/
+│   │   ├── tsconfig.json
+│   │   ├── vitest.config.mts
+│   │   └── vitest.setup.mts
+│   ├── auth-providers/
+│   │   ├── auth0/
+│   │   ├── azureActiveDirectory/
+│   │   ├── clerk/
+│   │   ├── custom/
+│   │   ├── dbAuth/
+│   │   ├── firebase/
+│   │   ├── netlify/
+│   │   ├── supabase/
+│   │   └── supertokens/
+│   ├── auth/
+│   │   ├── README.md
+│   │   ├── ambient.d.ts
+│   │   ├── attw.ts
+│   │   ├── build.ts
+│   │   ├── modules.d.ts
+│   │   ├── package.json
+│   │   ├── src/
+│   │   ├── tsconfig.build.json
+│   │   ├── tsconfig.cjs.json
+│   │   ├── tsconfig.json
+│   │   ├── vitest.config.mts
+│   │   └── vitest.setup.mts
+│   ├── babel-config/
+│   │   ├── .babelrc.js
+│   │   ├── README.md
+│   │   ├── build.mts
+│   │   ├── dependencyGraph.dist.svg
+│   │   ├── dist.test.ts
+│   │   ├── package.json
+│   │   ├── src/
+│   │   ├── tsconfig.json
+│   │   └── vitest.config.mts
+│   ├── cli-helpers/
+│   │   ├── README.md
+│   │   ├── __mocks__/
+│   │   ├── build.ts
+│   │   ├── package.json
+│   │   ├── src/
+│   │   ├── tsconfig.build.json
+│   │   ├── tsconfig.cjs.json
+│   │   ├── tsconfig.json
+│   │   └── vitest.config.mts
+│   ├── cli-packages/
+│   │   ├── dataMigrate/
+│   │   └── storybook-vite/
+│   ├── cli/
+│   │   ├── README.md
+│   │   ├── __mocks__/
+│   │   ├── build.mts
+│   │   ├── jsconfig.json
+│   │   ├── package.json
+│   │   ├── src/
+│   │   ├── testUtils.d.ts
+│   │   ├── tsconfig.json
+│   │   ├── vitest.codemods.setup.ts
+│   │   ├── vitest.config.mts
+│   │   ├── vitest.setup.mts
+│   │   └── vitest.workspaces.ts
+│   ├── codemods/
+│   │   ├── README.md
+│   │   ├── build.mts
+│   │   ├── package.json
+│   │   ├── src/
+│   │   ├── tasks/
+│   │   ├── testUtils.d.ts
+│   │   ├── tsconfig.json
+│   │   ├── vite.config.mts
+│   │   └── vite.setup.mts
+│   ├── context/
+│   │   ├── README.md
+│   │   ├── build.mts
+│   │   ├── package.json
+│   │   ├── src/
+│   │   ├── tsconfig.build.json
+│   │   ├── tsconfig.cjs.json
+│   │   └── tsconfig.json
+│   ├── cookie-jar/
+│   │   ├── README.md
+│   │   ├── build.mts
+│   │   ├── package.json
+│   │   ├── src/
+│   │   └── tsconfig.json
+│   ├── core/
+│   │   ├── README.md
+│   │   ├── build.mts
+│   │   ├── package.json
+│   │   └── src/
+│   ├── create-redwood-app/
+│   │   ├── README.md
+│   │   ├── jsconfig.json
+│   │   ├── package.json
+│   │   ├── scripts/
+│   │   ├── src/
+│   │   ├── templates/
+│   │   ├── tests/
+│   │   └── vitest.config.mts
+│   ├── create-redwood-rsc-app/
+│   │   ├── .prettierrc.json
+│   │   ├── README.md
+│   │   ├── build.ts
+│   │   ├── cspell.json
+│   │   ├── eslint.config.js
+│   │   ├── framework-tools.ts
+│   │   ├── knip.json
+│   │   ├── modules.d.ts
+│   │   ├── package.json
+│   │   ├── publish.ts
+│   │   ├── src/
+│   │   ├── tsconfig.json
+│   │   └── yarn.lock
+│   ├── eslint-config/
+│   │   ├── README.md
+│   │   ├── index.js
+│   │   ├── package.json
+│   │   └── shared.js
+│   ├── eslint-plugin/
+│   │   ├── README.md
+│   │   ├── build.mts
+│   │   ├── package.json
+│   │   ├── src/
+│   │   ├── tsconfig.json
+│   │   └── vitest.config.mts
+│   ├── forms/
+│   │   ├── README.md
+│   │   ├── build.mts
+│   │   ├── package.json
+│   │   ├── src/
+│   │   ├── tsconfig.build.json
+│   │   ├── tsconfig.json
+│   │   ├── vitest.config.mts
+│   │   └── vitest.setup.mts
+│   ├── framework-tools/
+│   │   ├── README.md
+│   │   ├── build.ts
+│   │   ├── package.json
+│   │   ├── src/
+│   │   └── tsconfig.json
+│   ├── graphql-server/
+│   │   ├── .babelrc.js
+│   │   ├── README.md
+│   │   ├── __mocks__/
+│   │   ├── ambient.d.ts
+│   │   ├── build.mts
+│   │   ├── package.json
+│   │   ├── src/
+│   │   ├── tsconfig.json
+│   │   ├── vitest.config.mts
+│   │   └── vitest.setup.mts
+│   ├── internal/
+│   │   ├── README.md
+│   │   ├── ambient.d.ts
+│   │   ├── build.mts
+│   │   ├── package.json
+│   │   ├── src/
+│   │   ├── tsconfig.json
+│   │   └── vitest.config.mts
+│   ├── jobs/
+│   │   ├── README.md
+│   │   ├── build.mts
+│   │   ├── package.json
+│   │   ├── src/
+│   │   ├── tsconfig.build.json
+│   │   ├── tsconfig.json
+│   │   └── vitest.config.mts
+│   ├── mailer/
+│   │   ├── core/
+│   │   ├── handlers/
+│   │   └── renderers/
+│   ├── ogimage-gen/
+│   │   ├── .gitignore
+│   │   ├── build.mts
+│   │   ├── cjsWrappers/
+│   │   ├── empty.js
+│   │   ├── package.json
+│   │   ├── src/
+│   │   └── tsconfig.json
+│   ├── prerender/
+│   │   ├── @babel/
+│   │   ├── README.md
+│   │   ├── ambient.d.ts
+│   │   ├── build.mts
+│   │   ├── package.json
+│   │   ├── src/
+│   │   ├── tsconfig.build.json
+│   │   ├── tsconfig.json
+│   │   └── vitest.config.mts
+│   ├── project-config/
+│   │   ├── README.md
+│   │   ├── build.ts
+│   │   ├── package.json
+│   │   ├── src/
+│   │   ├── tsconfig.cjs.json
+│   │   ├── tsconfig.json
+│   │   └── vitest.config.mts
+│   ├── realtime/
+│   │   ├── .babelrc.js
+│   │   ├── README.md
+│   │   ├── build.mts
+│   │   ├── package.json
+│   │   ├── src/
+│   │   ├── tsconfig.json
+│   │   ├── vitest.config.mts
+│   │   └── vitest.setup.mts
+│   ├── record/
+│   │   ├── README.md
+│   │   ├── build.mts
+│   │   ├── package.json
+│   │   └── src/
+│   ├── router/
+│   │   ├── .babelrc.js
+│   │   ├── README.md
+│   │   ├── ambient.d.ts
+│   │   ├── attw.ts
+│   │   ├── build.ts
+│   │   ├── jest.config.js
+│   │   ├── package.json
+│   │   ├── rsdw.modules.d.ts
+│   │   ├── skip-nav.css
+│   │   ├── src/
+│   │   ├── tsconfig.build.json
+│   │   ├── tsconfig.cjs.json
+│   │   ├── tsconfig.json
+│   │   ├── vitest.config.mts
+│   │   └── vitest.setup.mts
+│   ├── server-store/
+│   │   ├── README.md
+│   │   ├── build.mts
+│   │   ├── package.json
+│   │   ├── src/
+│   │   └── tsconfig.json
+│   ├── storage/
+│   │   ├── .gitignore
+│   │   ├── README.md
+│   │   ├── attw.ts
+│   │   ├── build.mts
+│   │   ├── package.json
+│   │   ├── prisma-override.d.ts
+│   │   ├── src/
+│   │   ├── tsconfig.build.json
+│   │   ├── tsconfig.json
+│   │   ├── tsconfig.types-cjs.json
+│   │   ├── vitest.config.mts
+│   │   └── vitest.setup.mts
+│   ├── storybook/
+│   │   ├── README.md
+│   │   ├── build.ts
+│   │   ├── package.json
+│   │   ├── preset.js
+│   │   ├── src/
+│   │   └── tsconfig.json
+│   ├── structure/
+│   │   ├── .babelrc.js
+│   │   ├── .vscode/
+│   │   ├── CONTRIBUTING.md
+│   │   ├── README.md
+│   │   ├── package.json
+│   │   ├── src/
+│   │   └── tsconfig.json
+│   ├── telemetry/
+│   │   ├── README.md
+│   │   ├── build.mts
+│   │   ├── package.json
+│   │   ├── src/
+│   │   └── tsconfig.json
+│   ├── testing/
+│   │   ├── README.md
+│   │   ├── api/
+│   │   ├── build.mts
+│   │   ├── cache/
+│   │   ├── config/
+│   │   ├── package.json
+│   │   ├── src/
+│   │   ├── tsconfig.build.json
+│   │   ├── tsconfig.json
+│   │   ├── vitest.config.mts
+│   │   ├── vitest.setup.mts
+│   │   └── web/
+│   ├── tui/
+│   │   ├── README.md
+│   │   ├── build.mts
+│   │   ├── package.json
+│   │   ├── src/
+│   │   └── tsconfig.json
+│   ├── vite/
+│   │   ├── ambient.d.ts
+│   │   ├── attw.ts
+│   │   ├── bins/
+│   │   ├── build.ts
+│   │   ├── inject/
+│   │   ├── modules.d.ts
+│   │   ├── package.json
+│   │   ├── src/
+│   │   ├── tsconfig.build.json
+│   │   ├── tsconfig.json
+│   │   └── vitest.config.mts
+│   ├── web-server/
+│   │   ├── README.md
+│   │   ├── ambient.d.ts
+│   │   ├── build.mts
+│   │   ├── package.json
+│   │   ├── src/
+│   │   └── tsconfig.json
+│   └── web/
+│       ├── .babelrc.js
+│       ├── README.md
+│       ├── ambient.d.ts
+│       ├── apollo/
+│       ├── attw.ts
+│       ├── build.ts
+│       ├── modules.d.ts
+│       ├── package.json
+│       ├── src/
+│       ├── testing-library.d.ts
+│       ├── toast/
+│       ├── tsconfig.build.json
+│       ├── tsconfig.cjs.json
+│       ├── tsconfig.json
+│       ├── vitest.config.mts
+│       └── vitest.setup.mts
+├── prettier.config.js
+├── tasks/
+│   ├── all-contributors/
+│   │   ├── .all-contributorsrc
+│   │   ├── README.md
+│   │   └── archive/
+│   ├── changesets/
+│   │   ├── changesets.mts
+│   │   ├── changesetsHelpers.mts
+│   │   └── placeholder.md
+│   ├── clean.mjs
+│   ├── downgradeToReact18.mts
+│   ├── e2e-background-jobs/
+│   │   ├── README.md
+│   │   ├── fixtures.mts
+│   │   ├── run.mts
+│   │   └── util.mts
+│   ├── e2e/
+│   │   ├── cypress.config.js
+│   │   └── cypress/
+│   ├── framework-tools/
+│   │   ├── frameworkDepsToProject.mjs
+│   │   ├── frameworkFilesToProject.mjs
+│   │   ├── frameworkSyncToProject.mjs
+│   │   ├── lib/
+│   │   └── tarsync/
+│   ├── generateDependencyGraph.mjs
+│   ├── getPackagesVersionsForTag.mjs
+│   ├── k6-test/
+│   │   ├── README.md
+│   │   ├── run-k6-tests.mts
+│   │   ├── setups/
+│   │   ├── tests/
+│   │   └── util/
+│   ├── linting-diff/
+│   │   ├── .gitignore
+│   │   └── lintingDiff.mts
+│   ├── nmHoisting/
+│   │   ├── README.md
+│   │   ├── nmHoisting.mjs
+│   │   ├── nmHoistingData.js
+│   │   ├── nmHoistingVisualize.html
+│   │   └── nmHoistingVisualize.js
+│   ├── run-e2e
+│   ├── server-tests/
+│   │   ├── .gitignore
+│   │   ├── bothServer.test.mts
+│   │   ├── bothServerAPI.test.mts
+│   │   ├── bothServerWeb.test.mts
+│   │   ├── fixtures/
+│   │   ├── vitest.config.mts
+│   │   └── vitest.setup.mts
+│   ├── smoke-tests/
+│   │   ├── README.md
+│   │   ├── auth/
+│   │   ├── basePlaywright.config.ts
+│   │   ├── dev/
+│   │   ├── fragments-dev/
+│   │   ├── fragments-serve/
+│   │   ├── jsconfig.json
+│   │   ├── prerender/
+│   │   ├── rsa/
+│   │   ├── rsc-dev/
+│   │   ├── rsc-kitchen-sink/
+│   │   ├── rsc/
+│   │   ├── serve/
+│   │   ├── shared/
+│   │   ├── smoke-tests.mjs
+│   │   ├── storybook/
+│   │   ├── streaming-ssr-dev/
+│   │   └── streaming-ssr-prod/
+│   ├── test-project/
+│   │   ├── .eslintrc.js
+│   │   ├── add-gql-fragments.ts
+│   │   ├── codemods/
+│   │   ├── convert-to-ssr-fixture
+│   │   ├── frameworkLinking.js
+│   │   ├── rebuild-fragments-test-project-fixture.ts
+│   │   ├── rebuild-test-project-fixture.ts
+│   │   ├── set-up-trusted-documents.ts
+│   │   ├── tasks.js
+│   │   ├── templates/
+│   │   ├── test-project
+│   │   ├── tui-tasks.ts
+│   │   ├── typing.ts
+│   │   └── util.js
+│   ├── tsconfig.json
+│   └── update-package-versions
+├── tsconfig.compilerOption.json
+├── tsconfig.eslint.json
+├── tsconfig.json
+├── yarn.config.cjs
+└── yarn.lock

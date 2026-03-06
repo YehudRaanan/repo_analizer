@@ -1,0 +1,521 @@
+=====================================
+Repository Analysis: jq
+Type: CLI Tool
+=====================================
+
+--- METADATA ---
+Name: jq
+Description: Command-line JSON processor
+Language: C
+Topics: jq
+Stars: 33802
+License: Other
+
+--- README ---
+# jq
+
+`jq` is a lightweight and flexible command-line JSON processor akin to `sed`,`awk`,`grep`, and friends for JSON data. It's written in portable C and has zero runtime dependencies, allowing you to easily slice, filter, map, and transform structured data.
+
+## Documentation
+
+- **Official Documentation**: [jqlang.org](https://jqlang.org)
+- **Try jq Online**: [play.jqlang.org](https://play.jqlang.org)
+
+## Installation
+
+### Prebuilt Binaries
+
+Download the latest releases from the [GitHub release page](https://github.com/jqlang/jq/releases).
+
+### Docker Image
+
+Pull the [jq image](https://github.com/jqlang/jq/pkgs/container/jq) to start quickly with Docker.
+
+#### Run with Docker
+
+##### Example: Extracting the version from a `package.json` file
+
+```bash
+docker run --rm -i ghcr.io/jqlang/jq:latest < package.json '.version'
+```
+
+##### Example: Extracting the version from a `package.json` file with a mounted volume
+
+```bash
+docker run --rm -i -v "$PWD:$PWD" -w "$PWD" ghcr.io/jqlang/jq:latest '.version' package.json
+```
+
+### Building from source
+
+#### Dependencies
+
+- libtool
+- make
+- automake
+- autoconf
+
+#### Instructions
+
+```console
+git submodule update --init    # if building from git to get oniguruma
+autoreconf -i                  # if building from git
+./configure --with-oniguruma=builtin
+make clean                     # if upgrading from a version previously built from source
+make -j8
+make check
+sudo make install
+```
+
+Build a statically linked version:
+
+```console
+make LDFLAGS=-all-static
+```
+
+If you're not using the latest git version but instead building a released tarball (available on the release page), skip the `autoreconf` step, and flex or bison won't be needed.
+
+##### Cross-Compilation
+
+For details on cross-compilation, check out the [GitHub Actions file](.github/workflows/ci.yml) and the [cross-compilation wiki page](https://github.com/jqlang/jq/wiki/Cross-compilation).
+
+## Community & Support
+
+- Questions & Help: [Stack Overflow (jq tag)](https://stackoverflow.com/questions/tagged/jq)
+- Chat & Community: [Join us on Discord](https://discord.gg/yg6yjNmgAC)
+- Wiki & Advanced Topics: [Explore the Wiki](https://github.com/jqlang/jq/wiki)
+
+## License
+
+`jq` is released under the [MIT License](COPYING). `jq`'s documentation is
+licensed under the [Creative Commons CC BY 3.0](COPYING).
+`jq` uses parts of the open source C library "decNumber", which is distributed
+under [ICU License](COPYING)
+
+
+--- PACKAGE MANIFEST(S) ---
+(No package manifest found)
+
+--- CLI ENTRY POINTS / COMMAND DEFINITIONS ---
+(No CLI entry points found)
+
+--- SHELL COMPLETIONS & MAN PAGES ---
+(None found)
+
+--- DIRECTORY STRUCTURE (depth 2) ---
+├── .gitattributes
+├── .github/
+│   ├── ISSUE_TEMPLATE/
+│   │   └── bug_report.md
+│   ├── dependabot.yml
+│   └── workflows/
+│       ├── ci.yml
+│       ├── decnum.yml
+│       ├── manpage.yml
+│       ├── oniguruma.yml
+│       ├── scanbuild.yml
+│       ├── valgrind.yml
+│       └── website.yml
+├── .gitignore
+├── .gitmodules
+├── AUTHORS
+├── COPYING
+├── ChangeLog
+├── Dockerfile
+├── KEYS
+├── Makefile.am
+├── NEWS.md
+├── README.md
+├── SECURITY.md
+├── build/
+│   └── .gitignore
+├── compile-ios.sh
+├── config/
+│   ├── .gitignore
+│   └── m4/
+│       ├── .gitignore
+│       ├── check-math-func.m4
+│       ├── find-func-no-libs.m4
+│       ├── find-func-no-libs2.m4
+│       ├── find-func.m4
+│       └── misc.m4
+├── configure.ac
+├── docs/
+│   ├── Pipfile
+│   ├── Pipfile.lock
+│   ├── README.md
+│   ├── build_manpage.py
+│   ├── build_mantests.py
+│   ├── build_website.py
+│   ├── content/
+│   │   ├── download/
+│   │   ├── index.yml
+│   │   ├── manual/
+│   │   └── tutorial/
+│   ├── manual_schema.yml
+│   ├── public/
+│   │   ├── .htaccess
+│   │   ├── CNAME
+│   │   ├── css/
+│   │   ├── icon.png
+│   │   ├── icon.svg
+│   │   ├── jq.svg
+│   │   ├── js/
+│   │   └── robots.txt
+│   ├── templates/
+│   │   ├── default.html.j2
+│   │   ├── index.html.j2
+│   │   ├── manual.html.j2
+│   │   └── shared/
+│   └── validate_manual_schema.py
+├── jq.1.prebuilt
+├── jq.spec
+├── libjq.pc.in
+├── m4/
+│   ├── ax_compare_version.m4
+│   ├── ax_prog_bison_version.m4
+│   └── ax_pthread.m4
+├── scripts/
+│   ├── crosscompile
+│   ├── gen_utf8_tables.py
+│   └── version
+├── sig/
+│   ├── jq-release-new.key
+│   ├── jq-release-old.key
+│   ├── v1.3/
+│   │   ├── jq-linux-x86.asc
+│   │   ├── jq-linux-x86_64.asc
+│   │   ├── jq-osx-x86.asc
+│   │   ├── jq-osx-x86_64.asc
+│   │   ├── jq-win32.exe.asc
+│   │   ├── jq-win64.exe.asc
+│   │   └── sha256sum.txt
+│   ├── v1.4/
+│   │   ├── jq-linux-x86.asc
+│   │   ├── jq-linux-x86_64.asc
+│   │   ├── jq-osx-x86.asc
+│   │   ├── jq-osx-x86_64.asc
+│   │   ├── jq-solaris11-32.asc
+│   │   ├── jq-solaris11-64.asc
+│   │   ├── jq-win32.exe.asc
+│   │   ├── jq-win64.exe.asc
+│   │   └── sha256sum.txt
+│   ├── v1.5/
+│   │   ├── jq-linux32-no-oniguruma.asc
+│   │   ├── jq-linux32.asc
+│   │   ├── jq-linux64.asc
+│   │   ├── jq-osx-amd64.asc
+│   │   ├── jq-win32.exe.asc
+│   │   ├── jq-win64.exe.asc
+│   │   └── sha256sum.txt
+│   ├── v1.5rc1/
+│   │   ├── jq-linux-x86_64-static.asc
+│   │   ├── jq-win32.exe.asc
+│   │   ├── jq-win64.exe.asc
+│   │   └── sha256sum.txt
+│   ├── v1.5rc2/
+│   │   ├── jq-linux-x86.asc
+│   │   ├── jq-linux-x86_64.asc
+│   │   ├── jq-osx-x86_64.asc
+│   │   ├── jq-win32.exe.asc
+│   │   ├── jq-win64.exe.asc
+│   │   └── sha256sum.txt
+│   ├── v1.6/
+│   │   ├── jq-linux32.asc
+│   │   ├── jq-linux64.asc
+│   │   ├── jq-osx-amd64.asc
+│   │   ├── jq-win32.exe.asc
+│   │   ├── jq-win64.exe.asc
+│   │   └── sha256sum.txt
+│   ├── v1.7.1/
+│   │   ├── jq-1.7.1.tar.gz.asc
+│   │   ├── jq-1.7.1.zip.asc
+│   │   ├── jq-linux-amd64.asc
+│   │   ├── jq-linux-arm64.asc
+│   │   ├── jq-linux-armel.asc
+│   │   ├── jq-linux-armhf.asc
+│   │   ├── jq-linux-i386.asc
+│   │   ├── jq-linux-mips.asc
+│   │   ├── jq-linux-mips64.asc
+│   │   ├── jq-linux-mips64el.asc
+│   │   ├── jq-linux-mips64r6.asc
+│   │   ├── jq-linux-mips64r6el.asc
+│   │   ├── jq-linux-mipsel.asc
+│   │   ├── jq-linux-mipsr6.asc
+│   │   ├── jq-linux-mipsr6el.asc
+│   │   ├── jq-linux-powerpc.asc
+│   │   ├── jq-linux-ppc64el.asc
+│   │   ├── jq-linux-riscv64.asc
+│   │   ├── jq-linux-s390x.asc
+│   │   ├── jq-linux64.asc
+│   │   ├── jq-macos-amd64.asc
+│   │   ├── jq-macos-arm64.asc
+│   │   ├── jq-osx-amd64.asc
+│   │   ├── jq-win64.exe.asc
+│   │   ├── jq-windows-amd64.exe.asc
+│   │   ├── jq-windows-i386.exe.asc
+│   │   └── sha256sum.txt
+│   ├── v1.7/
+│   │   ├── jq-1.7.tar.gz.asc
+│   │   ├── jq-1.7.zip.asc
+│   │   ├── jq-linux-amd64.asc
+│   │   ├── jq-linux-arm64.asc
+│   │   ├── jq-linux-armel.asc
+│   │   ├── jq-linux-armhf.asc
+│   │   ├── jq-linux-i386.asc
+│   │   ├── jq-linux-mips.asc
+│   │   ├── jq-linux-mips64.asc
+│   │   ├── jq-linux-mips64el.asc
+│   │   ├── jq-linux-mips64r6.asc
+│   │   ├── jq-linux-mips64r6el.asc
+│   │   ├── jq-linux-mipsel.asc
+│   │   ├── jq-linux-mipsr6.asc
+│   │   ├── jq-linux-mipsr6el.asc
+│   │   ├── jq-linux-powerpc.asc
+│   │   ├── jq-linux-ppc64el.asc
+│   │   ├── jq-linux-riscv64.asc
+│   │   ├── jq-linux-s390x.asc
+│   │   ├── jq-linux32.asc
+│   │   ├── jq-linux64.asc
+│   │   ├── jq-macos-amd64.asc
+│   │   ├── jq-macos-arm64.asc
+│   │   ├── jq-osx-amd64.asc
+│   │   ├── jq-win32.exe.asc
+│   │   ├── jq-win64.exe.asc
+│   │   ├── jq-windows-amd64.exe.asc
+│   │   ├── jq-windows-i386.exe.asc
+│   │   └── sha256sum.txt
+│   ├── v1.7rc1/
+│   │   ├── jq-1.7rc1.tar.gz.asc
+│   │   ├── jq-1.7rc1.zip.asc
+│   │   ├── jq-linux-amd64.asc
+│   │   ├── jq-linux-arm64.asc
+│   │   ├── jq-linux-armel.asc
+│   │   ├── jq-linux-armhf.asc
+│   │   ├── jq-linux-i386.asc
+│   │   ├── jq-linux-mips.asc
+│   │   ├── jq-linux-mips64.asc
+│   │   ├── jq-linux-mips64el.asc
+│   │   ├── jq-linux-mips64r6.asc
+│   │   ├── jq-linux-mips64r6el.asc
+│   │   ├── jq-linux-mipsel.asc
+│   │   ├── jq-linux-mipsr6.asc
+│   │   ├── jq-linux-mipsr6el.asc
+│   │   ├── jq-linux-powerpc.asc
+│   │   ├── jq-linux-ppc64el.asc
+│   │   ├── jq-linux-riscv64.asc
+│   │   ├── jq-linux-s390x.asc
+│   │   ├── jq-macos-amd64.asc
+│   │   ├── jq-macos-arm64.asc
+│   │   ├── jq-windows-amd64.exe.asc
+│   │   ├── jq-windows-i386.exe.asc
+│   │   └── sha256sum.txt
+│   ├── v1.7rc2/
+│   │   ├── jq-1.7rc2.tar.gz.asc
+│   │   ├── jq-1.7rc2.zip.asc
+│   │   ├── jq-linux-amd64.asc
+│   │   ├── jq-linux-arm64.asc
+│   │   ├── jq-linux-armel.asc
+│   │   ├── jq-linux-armhf.asc
+│   │   ├── jq-linux-i386.asc
+│   │   ├── jq-linux-mips.asc
+│   │   ├── jq-linux-mips64.asc
+│   │   ├── jq-linux-mips64el.asc
+│   │   ├── jq-linux-mips64r6.asc
+│   │   ├── jq-linux-mips64r6el.asc
+│   │   ├── jq-linux-mipsel.asc
+│   │   ├── jq-linux-mipsr6.asc
+│   │   ├── jq-linux-mipsr6el.asc
+│   │   ├── jq-linux-powerpc.asc
+│   │   ├── jq-linux-ppc64el.asc
+│   │   ├── jq-linux-riscv64.asc
+│   │   ├── jq-linux-s390x.asc
+│   │   ├── jq-macos-amd64.asc
+│   │   ├── jq-macos-arm64.asc
+│   │   ├── jq-windows-amd64.exe.asc
+│   │   ├── jq-windows-i386.exe.asc
+│   │   └── sha256sum.txt
+│   ├── v1.8.0/
+│   │   ├── jq-1.8.0.tar.gz.asc
+│   │   ├── jq-1.8.0.zip.asc
+│   │   ├── jq-linux-amd64.asc
+│   │   ├── jq-linux-arm64.asc
+│   │   ├── jq-linux-armel.asc
+│   │   ├── jq-linux-armhf.asc
+│   │   ├── jq-linux-i386.asc
+│   │   ├── jq-linux-mips.asc
+│   │   ├── jq-linux-mips64.asc
+│   │   ├── jq-linux-mips64el.asc
+│   │   ├── jq-linux-mips64r6.asc
+│   │   ├── jq-linux-mips64r6el.asc
+│   │   ├── jq-linux-mipsel.asc
+│   │   ├── jq-linux-mipsr6.asc
+│   │   ├── jq-linux-mipsr6el.asc
+│   │   ├── jq-linux-powerpc.asc
+│   │   ├── jq-linux-ppc64el.asc
+│   │   ├── jq-linux-riscv64.asc
+│   │   ├── jq-linux-s390x.asc
+│   │   ├── jq-linux64.asc
+│   │   ├── jq-macos-amd64.asc
+│   │   ├── jq-macos-arm64.asc
+│   │   ├── jq-osx-amd64.asc
+│   │   ├── jq-win64.exe.asc
+│   │   ├── jq-windows-amd64.exe.asc
+│   │   ├── jq-windows-i386.exe.asc
+│   │   └── sha256sum.txt
+│   └── v1.8.1/
+│       ├── jq-1.8.1.tar.gz.asc
+│       ├── jq-1.8.1.zip.asc
+│       ├── jq-linux-amd64.asc
+│       ├── jq-linux-arm64.asc
+│       ├── jq-linux-armel.asc
+│       ├── jq-linux-armhf.asc
+│       ├── jq-linux-i386.asc
+│       ├── jq-linux-mips.asc
+│       ├── jq-linux-mips64.asc
+│       ├── jq-linux-mips64el.asc
+│       ├── jq-linux-mips64r6.asc
+│       ├── jq-linux-mips64r6el.asc
+│       ├── jq-linux-mipsel.asc
+│       ├── jq-linux-mipsr6.asc
+│       ├── jq-linux-mipsr6el.asc
+│       ├── jq-linux-powerpc.asc
+│       ├── jq-linux-ppc64el.asc
+│       ├── jq-linux-riscv64.asc
+│       ├── jq-linux-s390x.asc
+│       ├── jq-linux64.asc
+│       ├── jq-macos-amd64.asc
+│       ├── jq-macos-arm64.asc
+│       ├── jq-osx-amd64.asc
+│       ├── jq-win64.exe.asc
+│       ├── jq-windows-amd64.exe.asc
+│       ├── jq-windows-i386.exe.asc
+│       └── sha256sum.txt
+├── src/
+│   ├── builtin.c
+│   ├── builtin.h
+│   ├── builtin.jq
+│   ├── bytecode.c
+│   ├── bytecode.h
+│   ├── compile.c
+│   ├── compile.h
+│   ├── exec_stack.h
+│   ├── execute.c
+│   ├── inject_errors.c
+│   ├── jq.h
+│   ├── jq_parser.h
+│   ├── jq_test.c
+│   ├── jv.c
+│   ├── jv.h
+│   ├── jv_alloc.c
+│   ├── jv_alloc.h
+│   ├── jv_aux.c
+│   ├── jv_dtoa.c
+│   ├── jv_dtoa.h
+│   ├── jv_dtoa_tsd.c
+│   ├── jv_dtoa_tsd.h
+│   ├── jv_file.c
+│   ├── jv_parse.c
+│   ├── jv_print.c
+│   ├── jv_private.h
+│   ├── jv_thread.h
+│   ├── jv_unicode.c
+│   ├── jv_unicode.h
+│   ├── jv_utf8_tables.h
+│   ├── lexer.c
+│   ├── lexer.h
+│   ├── lexer.l
+│   ├── libm.h
+│   ├── linker.c
+│   ├── linker.h
+│   ├── locfile.c
+│   ├── locfile.h
+│   ├── main.c
+│   ├── opcode_list.h
+│   ├── parser.c
+│   ├── parser.h
+│   ├── parser.y
+│   ├── util.c
+│   └── util.h
+├── tests/
+│   ├── base64.test
+│   ├── base64test
+│   ├── jq-f-test.sh
+│   ├── jq.test
+│   ├── jq_fuzz_compile.c
+│   ├── jq_fuzz_execute.cpp
+│   ├── jq_fuzz_fixed.cpp
+│   ├── jq_fuzz_load_file.c
+│   ├── jq_fuzz_parse.c
+│   ├── jq_fuzz_parse_extended.c
+│   ├── jq_fuzz_parse_stream.c
+│   ├── jqtest
+│   ├── local.supp
+│   ├── man.test
+│   ├── manonig.test
+│   ├── manonigtest
+│   ├── mantest
+│   ├── modules/
+│   │   ├── a.jq
+│   │   ├── b/
+│   │   ├── c/
+│   │   ├── data.json
+│   │   ├── home1/
+│   │   ├── home2/
+│   │   ├── lib/
+│   │   ├── shadow1.jq
+│   │   ├── shadow2.jq
+│   │   ├── syntaxerror/
+│   │   ├── test_bind_order.jq
+│   │   ├── test_bind_order0.jq
+│   │   ├── test_bind_order1.jq
+│   │   └── test_bind_order2.jq
+│   ├── no-main-program.jq
+│   ├── onig.supp
+│   ├── onig.test
+│   ├── onigtest
+│   ├── optional.test
+│   ├── optionaltest
+│   ├── setup
+│   ├── shtest
+│   ├── torture/
+│   │   └── input0.json
+│   ├── uri.test
+│   ├── uritest
+│   ├── utf8test
+│   └── yes-main-program.jq
+└── vendor/
+    ├── decNumber/
+    │   ├── ICU-license.html
+    │   ├── decBasic.c
+    │   ├── decCommon.c
+    │   ├── decContext.c
+    │   ├── decContext.h
+    │   ├── decDPD.h
+    │   ├── decDouble.c
+    │   ├── decDouble.h
+    │   ├── decNumber.c
+    │   ├── decNumber.h
+    │   ├── decNumberLocal.h
+    │   ├── decPacked.c
+    │   ├── decPacked.h
+    │   ├── decQuad.c
+    │   ├── decQuad.h
+    │   ├── decSingle.c
+    │   ├── decSingle.h
+    │   ├── decimal128.c
+    │   ├── decimal128.h
+    │   ├── decimal32.c
+    │   ├── decimal32.h
+    │   ├── decimal64.c
+    │   ├── decimal64.h
+    │   ├── decnumber.pdf
+    │   ├── example1.c
+    │   ├── example2.c
+    │   ├── example3.c
+    │   ├── example4.c
+    │   ├── example5.c
+    │   ├── example6.c
+    │   ├── example7.c
+    │   ├── example8.c
+    │   └── readme.txt
+    └── oniguruma
